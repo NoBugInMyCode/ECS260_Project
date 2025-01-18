@@ -41,25 +41,21 @@ def data_getter(file_name: str):
                 general_info = get_repo_info(url)
                 forks = general_info["forks"]
                 watchers = general_info["watchers"]
+                description = general_info["description"]
+                subscribers = general_info["subscribers_count"]
                 full_name = general_info["full_name"]
                 full_name = full_name.replace("/", "-")
                 stars = general_info["stargazers_count"]
-
+                creation_date = general_info["created_at"]
+                topics = general_info["topics"]
                 # Get what language it uses
                 languages = get_repo_info(url, "/languages")
 
                 # Get most recent 30 commits of this repo
-                commits = {}
+                commits = []
                 commits_info = get_repo_info(url, "/commits")
-                # Get repo details (addition and deletion)
                 for commit in commits_info:
-                    temp = {}
-                    total_additions, total_deletions = 0, 0
-                    commit_details = get_repo_info(url, "/commits/" + commit["sha"])
-                    for detail in commit_details["files"]:
-                        total_additions += int(detail["additions"])
-                        total_deletions += int(detail["deletions"])
-                    commits[commit["commit"]["author"]["date"]] = {"additions": total_additions, "deletions": total_deletions}
+                    commits.append(commit["commit"]["author"]["date"])
 
                 # Get contributors
                 contributors = get_repo_info(url, "/contributors")
@@ -71,7 +67,10 @@ def data_getter(file_name: str):
                             "stars": stars,
                             "languages": languages,
                             "commits": commits,
-                            "contributors": len(contributors)
+                            "creation_date": creation_date,
+                            "contributors": len(contributors),
+                            "topics": topics,
+                            "subscribers": subscribers
                         }
                     }, json_file, indent=4)
                     print(f"Finish Writing {full_name}.json")
@@ -84,6 +83,7 @@ def data_getter(file_name: str):
 def process_file_parallel(file_list):
     with multiprocessing.Pool(processes=multiprocessing.cpu_count()) as pool:
         pool.map(data_getter, file_list)
+    return
 
 
 
