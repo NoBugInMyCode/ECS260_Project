@@ -1,0 +1,2907 @@
+{
+    "https://api.github.com/repos/gravitational/teleport": {
+        "forks": 1788,
+        "watchers": 17910,
+        "stars": 17910,
+        "languages": {
+            "Go": 36387129,
+            "TypeScript": 8171440,
+            "C": 4713683,
+            "Shell": 347568,
+            "Rust": 307725,
+            "MDX": 242485,
+            "JavaScript": 212045,
+            "Makefile": 175124,
+            "HCL": 84900,
+            "Objective-C": 61018,
+            "Dockerfile": 34849,
+            "PowerShell": 34681,
+            "Smarty": 31927,
+            "PLpgSQL": 11193,
+            "Nix": 7238,
+            "CSS": 4319,
+            "NSIS": 1121,
+            "HTML": 1036
+        },
+        "commits": [
+            "2025-01-22T04:57:15Z",
+            "2025-01-22T03:01:15Z",
+            "2025-01-22T03:00:42Z",
+            "2025-01-22T03:00:06Z",
+            "2025-01-22T01:19:58Z",
+            "2025-01-21T23:59:46Z",
+            "2025-01-21T23:49:20Z",
+            "2025-01-21T23:19:57Z",
+            "2025-01-21T23:13:14Z",
+            "2025-01-21T22:29:55Z",
+            "2025-01-21T21:28:52Z",
+            "2025-01-21T21:21:16Z",
+            "2025-01-21T21:17:44Z",
+            "2025-01-21T21:15:33Z",
+            "2025-01-21T20:55:14Z",
+            "2025-01-21T20:13:38Z",
+            "2025-01-21T19:49:54Z",
+            "2025-01-21T18:39:08Z",
+            "2025-01-21T18:12:30Z",
+            "2025-01-21T18:10:26Z",
+            "2025-01-21T17:56:08Z",
+            "2025-01-21T17:04:04Z",
+            "2025-01-21T15:21:33Z",
+            "2025-01-21T14:59:10Z",
+            "2025-01-21T14:33:42Z",
+            "2025-01-21T14:25:24Z",
+            "2025-01-21T14:15:50Z",
+            "2025-01-21T14:07:42Z",
+            "2025-01-21T14:07:37Z",
+            "2025-01-21T14:06:37Z"
+        ],
+        "creation_date": "2015-03-02T19:36:00Z",
+        "contributors": 30,
+        "topics": [
+            "audit",
+            "bastion",
+            "certificate",
+            "cluster",
+            "database-access",
+            "firewall",
+            "firewalls",
+            "go",
+            "golang",
+            "jumpserver",
+            "kubernetes",
+            "kubernetes-access",
+            "pam",
+            "postgres",
+            "rbac",
+            "rdp",
+            "security",
+            "ssh",
+            "teleport",
+            "teleport-binaries"
+        ],
+        "subscribers": 243,
+        "readme": "Teleport provides connectivity, authentication, access controls and audit for infrastructure.\n\nHere is why you might use Teleport:\n\n* Set up SSO for all of your cloud infrastructure [1].\n* Protect access to cloud and on-prem services using mTLS endpoints and short-lived certificates.\n* Establish tunnels to access services behind NATs and firewalls.\n* Provide an audit log with session recording and replay for various protocols.\n* Unify Role-Based Access Control (RBAC) and enforce the principle of least privilege with  [access requests](https://goteleport.com/features/access-requests/).\n\n[1] The open source version supports only GitHub SSO.\n\nTeleport works with SSH, Kubernetes, databases, RDP, and web services.\n\n* Architecture: https://goteleport.com/docs/reference/architecture/\n* Getting Started: https://goteleport.com/docs/get-started/\n\n<div align=\"center\">\n   <a href=\"https://goteleport.com/download\">\n   <img src=\"./assets/img/hero-teleport-platform.png\" width=750/>\n   </a>\n   <div align=\"center\" style=\"padding: 25px\">\n      <a href=\"https://goteleport.com/download\">\n      <img src=\"https://img.shields.io/github/v/release/gravitational/teleport?sort=semver&label=Release&color=651FFF\" />\n      </a>\n      <a href=\"https://golang.org/\">\n      <img src=\"https://img.shields.io/github/go-mod/go-version/gravitational/teleport?color=7fd5ea\" />\n      </a>\n      <a href=\"https://github.com/gravitational/teleport/blob/master/CODE_OF_CONDUCT.md\">\n      <img src=\"https://img.shields.io/badge/Contribute-\ud83d\ude4c-green.svg\" />\n      </a>\n      <a href=\"https://www.gnu.org/licenses/agpl-3.0.en.html\">\n      <img src=\"https://img.shields.io/badge/AGPL-3.0-red.svg\" />\n      </a>\n   </div>\n</div>\n</br>\n\n## Table of Contents\n\n1. [Introduction](#introduction)\n1. [Installing and Running](#installing-and-running)\n1. [Docker](#docker)\n1. [Building Teleport](#building-teleport)\n1. [Why Did We Build Teleport?](#why-did-we-build-teleport)\n1. [More Information](#more-information)\n1. [Support and Contributing](#support-and-contributing)\n1. [Is Teleport Secure and Production Ready?](#is-teleport-secure-and-production-ready)\n1. [Who Built Teleport?](#who-built-teleport)\n1. [License](#license)\n\n## Introduction\n\nTeleport includes an identity-aware access proxy, a CA that issues short-lived certificates, a unified access control system and a tunneling system to access resources behind the firewall.\n\nWe have implemented Teleport as a single Go binary that integrates with multiple protocols and cloud services:\n\n* [SSH nodes](https://goteleport.com/docs/enroll-resources/server-access/introduction/).\n* [Kubernetes clusters](https://goteleport.com/docs/enroll-resources/kubernetes-access/introduction/)\n* [PostgreSQL, MongoDB, CockroachDB and MySQL databases](https://goteleport.com/docs/enroll-resources/database-access/database-access/).\n* [Internal Web apps](https://goteleport.com/docs/enroll-resources/application-access/introduction/).\n* [Windows Hosts](https://goteleport.com/docs/enroll-resources/desktop-access/introduction/).\n* [Networked servers](https://goteleport.com/docs/enroll-resources/server-access/introduction/).\n\nYou can set up Teleport as a [Linux daemon](https://goteleport.com/docs/admin-guides/deploy-a-cluster/linux-demo) or a [Kubernetes deployment](https://goteleport.com/docs/admin-guides/deploy-a-cluster/helm-deployments/).\n\nTeleport focuses on best practices for infrastructure security:\n\n- No need to manage shared secrets such as SSH keys or Kubernetes tokens: it uses certificate-based auth with certificate expiration for all protocols.\n- Two-factor authentication (2FA) for everything.\n- Collaboratively troubleshoot issues through session sharing.\n- Single sign-on (SSO) for everything via GitHub Auth, OpenID Connect, or SAML with endpoints like Okta or Microsoft Entra ID.\n- Infrastructure introspection: Use Teleport via the CLI or Web UI to view the status of every SSH node, database instance, Kubernetes cluster, or internal web app.\n\nTeleport uses [Go crypto](https://godoc.org/golang.org/x/crypto). It is _fully compatible with OpenSSH_, `sshd` servers, and `ssh` clients, Kubernetes clusters and more.\n\n|Project Links| Description\n|---|----\n| [Teleport Website](https://goteleport.com/) | The official website of the project. |\n| [Documentation](https://goteleport.com/docs/) | Admin guide, user manual and more. |\n| [Blog](https://goteleport.com/blog/) | Our blog where we publish Teleport news. |\n| [Forum](https://github.com/gravitational/teleport/discussions) | Ask us a setup question, post your tutorial, feedback, or idea on our forum. |\n| [Slack](https://goteleport.com/slack) | Need help with your setup? Ping us in our Slack channel. |\n| [Cloud-hosted](https://goteleport.com/pricing) | We offer Enterprise with a Cloud-hosted option. For teams that require easy and secure access to their computing environments. |\n\n\n## Installing and Running\n\nTo set up a single-instance Teleport cluster, follow our [getting started\nguide](https://goteleport.com/docs/admin-guides/deploy-a-cluster/linux-demo/). You can then register your\nservers, Kubernetes clusters, and other infrastructure with your Teleport\ncluster.\n\nYou can also get started with Teleport Enterprise Cloud, a managed Teleport\ndeployment that makes it easier to enable secure access to your infrastructure.\n\n[Sign up for a free trial](https://goteleport.com/signup) of Teleport Enterprise\nCloud.\n\nFollow our guide to [registering your first\nserver](https://goteleport.com/docs/get-started/)\nwith Teleport Enterprise Cloud.\n\n## Docker\n\n### Deploy Teleport\n\nIf you wish to deploy Teleport inside a Docker container see the\n[installation guide](https://goteleport.com/docs/installation/#running-teleport-on-docker).\n\n### For Local Testing and Development\n\nTo run a full test suite locally, see [the test dependencies list](BUILD_macos.md#local-tests-dependencies)\n\n## Building Teleport\n\nThe `teleport` repository contains the Teleport daemon binary (written in Go)\nand a web UI written in TypeScript.\n\nIf your intention is to build and deploy for use in a production infrastructure\na released tag should be used.  The default branch, `master`, is the current\ndevelopment branch for an upcoming major version.  Get the latest release tags\nlisted at https://goteleport.com/download/ and then use that tag in the `git clone`.\nFor example `git clone https://github.com/gravitational/teleport.git -b v16.0.0` gets release v16.0.0.\n\n### Dockerized Build\n\nIt is often easiest to build with Docker, which ensures that all required\ntooling is available for the build. To execute a dockerized build, ensure\nthat docker is installed and running, and execute:\n\n```\nmake -C build.assets build-binaries\n```\n\n### Local Build\n\n#### Dependencies\n\nEnsure you have installed correct versions of necessary dependencies:\n* `Go` version from\n  [go.mod](https://github.com/gravitational/teleport/blob/master/go.mod#L3)\n* If you wish to build the Rust-powered features like Desktop Access, see the\n  `Rust` and `Cargo` versions in\n  [build.assets/Makefile](https://github.com/gravitational/teleport/blob/master/build.assets/Makefile#L21)\n  (search for `RUST_VERSION`)\n* For `tsh` version > `10.x` with FIDO2 support, you will need `libfido2` and\n  `pkg-config` installed locally\n* To build the web UI:\n  * [`pnpm`](https://pnpm.io/installation#using-corepack). If you have Node.js installed, run `corepack enable pnpm` to make `pnpm` available.\n  * If you prefer not to install/use pnpm, but have docker available, you can run `make docker-ui` instead.\n  * The `Rust` and `Cargo` version in [build.assets/Makefile](https://github.com/gravitational/teleport/blob/master/build.assets/versions.mk#L11) (search for `RUST_VERSION`) are required.\n  * The [`wasm-pack`](https://github.com/rustwasm/wasm-pack) version in [build.assets/Makefile](https://github.com/gravitational/teleport/blob/master/build.assets/versions.mk#L12) (search for `WASM_PACK_VERSION`) is required.\n  * [`binaryen`](https://github.com/WebAssembly/binaryen) (which contains `wasm-opt`) is required to be installed manually\n    on linux aarch64 (64-bit ARM). You can check if it's already installed on your system by running `which wasm-opt`. If not you can install it like `apt-get install binaryen` (for Debian-based Linux). `wasm-pack` will install this automatically on other platforms.\n\nFor an example of Dev Environment setup on a Mac, see [these instructions](BUILD_macos.md).\n\n#### Perform a build\n\n>**Important**\n>\n>* The Go compiler is somewhat sensitive to the amount of memory: you will need\n   **at least** 1GB of virtual memory to compile Teleport. A 512MB instance\n   without swap will **not** work.\n>* This will build the latest version of Teleport, **regardless** of whether it\n   is stable. If you want to build the latest stable release, run `git checkout`\n   and `git submodule update --recursive` to the corresponding tag (for example,\n>* run `git checkout v8.0.0`) **before** performing a build.\n\nGet the source\n\n```shell\ngit clone https://github.com/gravitational/teleport.git\ncd teleport\n```\n\nTo perform a build\n\n```shell\nmake full\n```\n\n`tsh` dynamically links against libfido2 by default, to support development\nenvironments, as long as the library itself can be found:\n\n```shell\n$ brew install libfido2 pkg-config  # Replace with your package manager of choice\n\n$ make build/tsh\n> libfido2 found, setting FIDO2=dynamic\n> (...)\n```\n\nRelease binaries are linked statically against libfido2. You may switch the\nlinking mode using the FIDO2 variable:\n\n```shell\nmake build/tsh FIDO2=dynamic # dynamic linking\nmake build/tsh FIDO2=static  # static linking, for an easy setup use `make enter`\n                             # or `build.assets/macos/build-fido2-macos.sh`.\nmake build/tsh FIDO2=off     # doesn't link libfido2 in any way\n```\n\n`tsh` builds with Touch ID support require access to an Apple Developer account.\nIf you are a Teleport maintainer, ask the team for access.\n\n#### Build output and run locally\n\nIf the build succeeds, the installer will place the binaries in the `build` directory.\n\nBefore starting, create default data directories:\n\n```shell\nsudo mkdir -p -m0700 /var/lib/teleport\nsudo chown $USER /var/lib/teleport\n```\n\n#### Running Teleport in a hot reload mode\n\nTo speed up your development process, you can run Teleport using\n[`CompileDaemon`](https://github.com/githubnemo/CompileDaemon). This will build\nand run the Teleport binary, and then rebuild and restart it whenever any Go\nsource files change.\n\n1. Install CompileDaemon:\n\n    ```shell\n    go install github.com/githubnemo/CompileDaemon@latest\n    ```\n\n    Note that we use `go install` instead of the suggested `go get`, because we\n    don't want CompileDaemon to become a dependency of the project.\n\n1. Build and run the Teleport binary:\n\n    ```shell\n    make teleport-hot-reload\n    ```\n\n    By default, this runs a `teleport start` command. If you want to customize\n    the command, for example by providing a custom config file location, you can\n    use the `TELEPORT_ARGS` parameter:\n\n    ```shell\n    make teleport-hot-reload TELEPORT_ARGS='start --config=/path/to/config.yaml'\n    ```\n\nNote that you still need to run [`make grpc`](api/proto/README.md) if you modify\nany Protocol Buffers files to regenerate the generated Go sources; regenerating\nthese sources should in turn cause the CompileDaemon to rebuild and restart\nTeleport.\n\n### Web UI\n\nThe Teleport Web UI resides in the [web](web) directory.\n\n#### Rebuilding Web UI for development\n\nTo rebuild the Teleport UI package, run the following command:\n\n```bash\nmake docker-ui\n```\n\nThen you can replace Teleport Web UI files with the files from the newly-generated `/dist` folder.\n\nTo enable speedy iterations on the Web UI, you can run a [local web-dev server](web#web-ui).\n\nYou can also tell Teleport to load the Web UI assets from the source directory.\nTo enable this behavior, set the environment variable `DEBUG=1` and rebuild with the default target:\n\n```bash\n# Run Teleport as a single-node cluster in development mode:\nDEBUG=1 ./build/teleport start -d\n```\n\nKeep the server running in this mode, and make your UI changes in `/dist` directory.\nFor instructions about how to update the Web UI, read [the `web` README](web#readme).\n\n### Managing dependencies\n\nAll dependencies are managed using [Go modules](https://blog.golang.org/using-go-modules). Here are the instructions for some common tasks:\n\n#### Add a new dependency\n\nLatest version:\n\n```bash\ngo get github.com/new/dependency\n```\n\nand update the source to use this dependency.\n\n\nTo get a specific version, use `go get github.com/new/dependency@version` instead.\n\n#### Set dependency to a specific version\n\n```bash\ngo get github.com/new/dependency@version\n```\n\n#### Update dependency to the latest version\n\n```bash\ngo get -u github.com/new/dependency\n```\n\n#### Update all dependencies\n\n```bash\ngo get -u all\n```\n\n#### Debugging dependencies\n\nWhy is a specific package imported?\n\n`go mod why $pkgname`\n\nWhy is a specific module imported?\n\n`go mod why -m $modname`\n\nWhy is a specific version of a module imported?\n\n`go mod graph | grep $modname`\n\n### Devbox Build (experimental)\n\n**Note**: Devbox support is still experimental. It's very possible things may not work as intended.\n\nTeleport can be built using [devbox](https://www.jetpack.io/devbox). To use devbox, follow\nthe instructions to install devbox [here](https://www.jetpack.io/devbox/docs/quickstart/) and\nthen run:\n\n`devbox shell`\n\nThis will install Teleport's various build dependencies and drop you into a shell with these\ndependencies. From here, you can build Teleport normally.\n\n#### flake.nix\n\nA nix flake is located in `build.assets/flake` that allows for installation of Teleport's less\ncommon build tooling. If this flake is updated, run:\n\n`devbox install`\n\nin order to make sure the changes in the flake are reflected in the local devbox shell.\n\n## Why did We Build Teleport?\n\nThe Teleport creators used to work together at Rackspace. We noticed that most cloud computing users struggle with setting up and configuring infrastructure security because popular tools, while flexible, are complex to understand and expensive to maintain. Additionally, most organizations use multiple infrastructure form factors such as several cloud providers, multiple cloud accounts, servers in colocation, and even smart devices. Some of those devices run on untrusted networks, behind third-party firewalls. This only magnifies complexity and increases operational overhead.\n\nWe had a choice, either start a security consulting business or build a solution that's dead-easy to use and understand. A real-time representation of all of your servers in the same room as you, as if they were magically _teleported_. Thus, Teleport was born!\n\n## More Information\n\n* [Teleport Getting Started](https://goteleport.com/docs/get-started/)\n* [Teleport\n  Architecture](https://goteleport.com/teleport/docs/architecture/introduction)\n* [Reference](https://goteleport.com/docs/reference/)\n* [FAQ](https://goteleport.com/docs/faq)\n\n## Support and Contributing\n\nWe offer a few different options for support. First of all, we try to provide clear and comprehensive documentation. The docs are also in GitHub, so feel free to create a PR or file an issue if you have ideas for improvements. If you still have questions after reviewing our docs, you can also:\n\n* Join [Teleport Discussions](https://github.com/gravitational/teleport/discussions) to ask questions. Our engineers are available there to help you.\n* If you want to contribute to Teleport or file a bug report/issue, you can create an issue here in GitHub.\n* If you are interested in Teleport Enterprise or more responsive support during a POC, we can also create a dedicated Slack channel for you during your POC. You can [reach out to us through our website](https://goteleport.com/pricing/) to arrange for a POC.\n\n## Is Teleport Secure and Production-Ready?\n\nYes -- Teleport is production-ready and designed to protect and facilitate\naccess to the most precious and mission-critical applications.\n\nTeleport has completed several security audits from nationally and\ninternationally recognized technology security companies.\n\nWe publicize some of our audit results, security philosophy and related\ninformation on our [trust page](https://trust.goteleport.com/).\n\nYou can see the list of companies that use Teleport in production on the Teleport\n[product page](https://goteleport.com/case-study/).\n\n## Who Built Teleport?\n\nTeleport was created by [Gravitational, Inc.](https://goteleport.com). We have\nbuilt Teleport by borrowing from our previous experiences at Rackspace. [Learn more\nabout Teleport and our history](https://goteleport.com/about/).\n\n## License\n\nTeleport is distributed in multiple forms with different licensing implications.\n\nThe Teleport API module (all code in this repository under `/api`) is available\nunder the [Apache 2.0 license](./api/LICENSE).\n\nThe remainder of the source code in this repository is available under the\n[GNU Affero General Public License](./LICENSE). Users compiling Teleport\nfrom source must comply with the terms of this license.\n\nTeleport Community Edition builds distributed on http://goteleport.com/download\nare available under a [modified Apache 2.0 license](./build.assets/LICENSE-community).\n",
+        "releases": [
+            {
+                "name": "Teleport 17.2.0",
+                "date": "2025-01-22T04:37:31Z"
+            },
+            {
+                "name": "Teleport 16.4.14",
+                "date": "2025-01-21T20:48:03Z"
+            },
+            {
+                "name": "Teleport 15.4.26",
+                "date": "2025-01-21T22:56:13Z"
+            },
+            {
+                "name": "Teleport 17.1.6",
+                "date": "2025-01-14T02:14:46Z"
+            },
+            {
+                "name": "Teleport 17.1.5",
+                "date": "2025-01-10T21:41:25Z"
+            },
+            {
+                "name": "Teleport 16.4.13",
+                "date": "2025-01-11T00:00:39Z"
+            },
+            {
+                "name": "Teleport 15.4.25",
+                "date": "2025-01-11T01:31:25Z"
+            },
+            {
+                "name": "Teleport 17.1.4",
+                "date": "2025-01-07T08:45:04Z"
+            },
+            {
+                "name": "Teleport 17.1.3",
+                "date": "2025-01-02T22:05:24Z"
+            },
+            {
+                "name": "Teleport 17.1.2",
+                "date": "2024-12-30T21:30:54Z"
+            },
+            {
+                "name": "Teleport 17.1.1",
+                "date": "2024-12-20T18:14:34Z"
+            },
+            {
+                "name": "Teleport 17.1.0",
+                "date": "2024-12-20T18:19:22Z"
+            },
+            {
+                "name": "Teleport 16.4.12",
+                "date": "2024-12-19T02:43:51Z"
+            },
+            {
+                "name": "Teleport 17.0.5",
+                "date": "2024-12-11T22:16:40Z"
+            },
+            {
+                "name": "Teleport 16.4.11",
+                "date": "2024-12-11T23:39:59Z"
+            },
+            {
+                "name": "Teleport 15.4.24",
+                "date": "2024-12-12T00:05:40Z"
+            },
+            {
+                "name": "Teleport 17.0.4",
+                "date": "2024-12-06T02:54:22Z"
+            },
+            {
+                "name": "Teleport 15.4.23",
+                "date": "2024-12-06T03:35:52Z"
+            },
+            {
+                "name": "Teleport 16.4.10",
+                "date": "2024-12-06T01:15:43Z"
+            },
+            {
+                "name": "Teleport 17.0.3",
+                "date": "2024-12-04T01:11:35Z"
+            },
+            {
+                "name": "Teleport 16.4.9",
+                "date": "2024-12-03T20:54:17Z"
+            },
+            {
+                "name": "Teleport 14.3.34",
+                "date": "2024-12-02T18:36:47Z"
+            },
+            {
+                "name": "Teleport 17.0.2",
+                "date": "2024-11-25T21:06:53Z"
+            },
+            {
+                "name": "Teleport 16.4.8",
+                "date": "2024-11-20T16:53:22Z"
+            },
+            {
+                "name": "Teleport 17",
+                "date": "2024-11-16T16:11:07Z"
+            },
+            {
+                "name": "Teleport 17.0.0-rc.3",
+                "date": "2024-11-15T21:59:20Z"
+            },
+            {
+                "name": "Teleport 17.0.0-beta.2",
+                "date": "2024-11-13T23:35:20Z"
+            },
+            {
+                "name": "Teleport 16.4.7",
+                "date": "2024-11-12T03:36:02Z"
+            },
+            {
+                "name": "Teleport 15.4.22",
+                "date": "2024-11-13T02:02:41Z"
+            },
+            {
+                "name": "Teleport 17.0.0-beta.1",
+                "date": "2024-11-09T00:46:39Z"
+            },
+            {
+                "name": "Teleport 17.0.0-alpha.5",
+                "date": "2024-11-06T19:03:05Z"
+            },
+            {
+                "name": "Teleport 17.0.0-alpha.4",
+                "date": "2024-11-05T04:46:24Z"
+            },
+            {
+                "name": "Teleport 14.3.33",
+                "date": "2024-10-31T00:29:09Z"
+            },
+            {
+                "name": "Teleport 17.0.0-alpha.2",
+                "date": "2024-10-29T21:29:22Z"
+            },
+            {
+                "name": "Teleport 16.4.6",
+                "date": "2024-10-23T17:58:53Z"
+            },
+            {
+                "name": "Teleport 15.4.21",
+                "date": "2024-10-23T15:29:46Z"
+            },
+            {
+                "name": "Teleport 16.4.3",
+                "date": "2024-10-16T16:54:05Z"
+            },
+            {
+                "name": "Teleport 15.4.20",
+                "date": "2024-10-10T19:45:55Z"
+            },
+            {
+                "name": "Teleport 14.3.32",
+                "date": "2024-10-03T18:54:49Z"
+            },
+            {
+                "name": "Teleport 16.4.2",
+                "date": "2024-09-26T01:55:33Z"
+            },
+            {
+                "name": "Teleport 16.4.1",
+                "date": "2024-09-25T04:36:17Z"
+            },
+            {
+                "name": "Teleport 16.4.0",
+                "date": "2024-09-19T01:10:21Z"
+            },
+            {
+                "name": "Teleport 15.4.19",
+                "date": "2024-09-18T10:15:16Z"
+            },
+            {
+                "name": "Teleport 16.3.0",
+                "date": "2024-09-12T05:56:40Z"
+            },
+            {
+                "name": "Teleport 16.2.2",
+                "date": "2024-09-10T20:53:34Z"
+            },
+            {
+                "name": "Teleport 16.2.1",
+                "date": "2024-09-05T21:04:10Z"
+            },
+            {
+                "name": "Teleport 15.4.18",
+                "date": "2024-09-05T20:24:25Z"
+            },
+            {
+                "name": "Teleport 14.3.31",
+                "date": "2024-09-06T00:48:27Z"
+            },
+            {
+                "name": "Teleport 15.4.17",
+                "date": "2024-08-29T06:44:32Z"
+            },
+            {
+                "name": "Teleport 14.3.30",
+                "date": "2024-08-29T02:33:36Z"
+            },
+            {
+                "name": "Teleport 16.2.0",
+                "date": "2024-08-27T01:51:53Z"
+            },
+            {
+                "name": "Teleport 16.1.8",
+                "date": "2024-08-24T16:47:24Z"
+            },
+            {
+                "name": "Teleport 15.4.16",
+                "date": "2024-08-24T16:44:45Z"
+            },
+            {
+                "name": "Teleport 14.3.23",
+                "date": "2024-08-09T04:45:26Z"
+            },
+            {
+                "name": "Teleport 15.4.12",
+                "date": "2024-08-09T01:24:04Z"
+            },
+            {
+                "name": "Teleport 16.1.4",
+                "date": "2024-08-07T23:12:47Z"
+            },
+            {
+                "name": "Teleport 16.1.3",
+                "date": "2024-08-07T01:18:00Z"
+            },
+            {
+                "name": "Teleport 16.1.1",
+                "date": "2024-07-31T20:35:27Z"
+            },
+            {
+                "name": "Teleport 15.4.11",
+                "date": "2024-07-30T04:22:17Z"
+            },
+            {
+                "name": "Teleport 15.4.10",
+                "date": "2024-07-29T03:45:49Z"
+            },
+            {
+                "name": "Teleport 16.1.0",
+                "date": "2024-07-16T02:03:48Z"
+            },
+            {
+                "name": "Teleport 15.4.9",
+                "date": "2024-07-11T12:19:22Z"
+            },
+            {
+                "name": "Teleport 16.0.4",
+                "date": "2024-07-04T07:01:25Z"
+            },
+            {
+                "name": "Teleport 15.4.7",
+                "date": "2024-07-04T07:17:59Z"
+            },
+            {
+                "name": "Teleport 16.0.3",
+                "date": "2024-07-01T03:21:38Z"
+            },
+            {
+                "name": "Teleport 15.4.6",
+                "date": "2024-07-01T03:21:45Z"
+            },
+            {
+                "name": "Teleport 15.4.5",
+                "date": "2024-06-27T05:50:41Z"
+            },
+            {
+                "name": "Teleport 14.3.21",
+                "date": "2024-06-27T05:43:22Z"
+            },
+            {
+                "name": "Teleport 16.0.1",
+                "date": "2024-06-18T03:15:51Z"
+            },
+            {
+                "name": "Teleport 16.0.0",
+                "date": "2024-06-13T21:50:42Z"
+            },
+            {
+                "name": "Teleport 15.4.4",
+                "date": "2024-06-13T23:00:43Z"
+            },
+            {
+                "name": "Teleport 15.4.3",
+                "date": "2024-06-12T23:42:14Z"
+            },
+            {
+                "name": "Teleport 16.0.0-rc.1",
+                "date": "2024-06-11T21:44:07Z"
+            },
+            {
+                "name": "Teleport 15.4.2",
+                "date": "2024-06-11T11:07:38Z"
+            },
+            {
+                "name": "Teleport 15.4.0",
+                "date": "2024-05-31T19:42:43Z"
+            },
+            {
+                "name": "Teleport 16.0.0-alpha.3",
+                "date": "2024-05-30T19:27:58Z"
+            },
+            {
+                "name": "Teleport 13.4.26",
+                "date": "2024-05-24T12:51:00Z"
+            },
+            {
+                "name": "Teleport 15.3.7",
+                "date": "2024-05-24T02:13:41Z"
+            },
+            {
+                "name": "Teleport 15.3.6",
+                "date": "2024-05-23T15:42:44Z"
+            },
+            {
+                "name": "Teleport 14.3.20",
+                "date": "2024-05-23T21:21:35Z"
+            },
+            {
+                "name": "Teleport 15.3.1",
+                "date": "2024-05-08T00:42:07Z"
+            },
+            {
+                "name": "Teleport 14.3.18",
+                "date": "2024-05-08T00:44:48Z"
+            },
+            {
+                "name": "Teleport 13.4.24",
+                "date": "2024-05-08T00:47:11Z"
+            },
+            {
+                "name": "Teleport 15.3.0",
+                "date": "2024-05-01T03:55:07Z"
+            },
+            {
+                "name": "Teleport 14.3.17",
+                "date": "2024-05-01T05:20:20Z"
+            },
+            {
+                "name": "Teleport 15.2.5",
+                "date": "2024-04-27T00:39:49Z"
+            },
+            {
+                "name": "Teleport 13.4.23",
+                "date": "2024-04-26T05:29:36Z"
+            },
+            {
+                "name": "Teleport 15.2.4",
+                "date": "2024-04-24T20:51:55Z"
+            },
+            {
+                "name": "Teleport 14.3.16",
+                "date": "2024-04-25T02:47:41Z"
+            },
+            {
+                "name": "Teleport 15.2.2",
+                "date": "2024-04-11T22:53:54Z"
+            },
+            {
+                "name": "Teleport 15.2.1",
+                "date": "2024-04-05T23:54:19Z"
+            },
+            {
+                "name": "Teleport 15.2.0",
+                "date": "2024-03-30T00:23:04Z"
+            },
+            {
+                "name": "Teleport 13.4.21",
+                "date": "2024-03-28T06:01:34Z"
+            },
+            {
+                "name": "Teleport 15.1.10",
+                "date": "2024-03-27T06:23:14Z"
+            },
+            {
+                "name": "Teleport 14.3.14 ",
+                "date": "2024-03-28T05:59:25Z"
+            },
+            {
+                "name": "Teleport 14.3.13",
+                "date": "2024-03-20T06:14:55Z"
+            },
+            {
+                "name": "Teleport 15.1.9",
+                "date": "2024-03-20T00:19:11Z"
+            },
+            {
+                "name": "Teleport 15.1.8",
+                "date": "2024-03-18T13:13:59Z"
+            },
+            {
+                "name": "Teleport 14.3.11",
+                "date": "2024-03-18T19:47:31Z"
+            },
+            {
+                "name": "Teleport 14.3.10",
+                "date": "2024-03-17T16:43:27Z"
+            },
+            {
+                "name": "Teleport 13.4.20",
+                "date": "2024-03-17T16:42:33Z"
+            },
+            {
+                "name": "Teleport 15.1.7",
+                "date": "2024-03-17T16:44:17Z"
+            },
+            {
+                "name": "Teleport 15.1.6",
+                "date": "2024-03-16T06:33:38Z"
+            },
+            {
+                "name": "Teleport 14.3.9",
+                "date": "2024-03-16T23:18:12Z"
+            },
+            {
+                "name": "Teleport 14.3.8",
+                "date": "2024-03-16T07:25:56Z"
+            },
+            {
+                "name": "Teleport 13.4.19",
+                "date": "2024-03-16T08:08:51Z"
+            },
+            {
+                "name": "Teleport 15.1.5",
+                "date": "2024-03-16T03:33:58Z"
+            },
+            {
+                "name": "Teleport 13.4.18",
+                "date": "2024-03-13T22:37:45Z"
+            },
+            {
+                "name": "Teleport 15.1.4",
+                "date": "2024-03-13T01:37:47Z"
+            },
+            {
+                "name": "Teleport 14.3.7",
+                "date": "2024-03-12T02:17:53Z"
+            },
+            {
+                "name": "Teleport 15.1.3",
+                "date": "2024-03-08T23:37:18Z"
+            },
+            {
+                "name": "Teleport 15.1.1",
+                "date": "2024-03-02T02:30:08Z"
+            },
+            {
+                "name": "Teleport 15.1.0",
+                "date": "2024-03-01T03:11:40Z"
+            },
+            {
+                "name": "Teleport 13.4.17",
+                "date": "2024-03-01T00:32:39Z"
+            },
+            {
+                "name": "Teleport 14.3.6",
+                "date": "2024-02-17T04:28:11Z"
+            },
+            {
+                "name": "Teleport 15.0.2",
+                "date": "2024-02-16T22:51:09Z"
+            },
+            {
+                "name": "Teleport 12.4.34",
+                "date": "2024-02-07T01:48:54Z"
+            },
+            {
+                "name": "Teleport 15.0.1",
+                "date": "2024-02-06T05:35:50Z"
+            },
+            {
+                "name": "Teleport 13.4.16",
+                "date": "2024-02-07T04:21:42Z"
+            },
+            {
+                "name": "Teleport 14.3.4",
+                "date": "2024-02-02T16:20:20Z"
+            },
+            {
+                "name": "Teleport 15.0.0",
+                "date": "2024-02-01T05:31:25Z"
+            },
+            {
+                "name": "Teleport 15.0.0-rc.4",
+                "date": "2024-02-01T01:58:02Z"
+            },
+            {
+                "name": "Teleport 15.0.0-beta.1",
+                "date": "2024-01-25T16:22:45Z"
+            },
+            {
+                "name": "Teleport 14.3.3",
+                "date": "2024-01-12T19:07:53Z"
+            },
+            {
+                "name": "Teleport 14.3.2",
+                "date": "2024-01-12T04:35:35Z"
+            },
+            {
+                "name": "Teleport 14.3.1",
+                "date": "2024-01-11T05:30:33Z"
+            },
+            {
+                "name": "Teleport 13.4.15",
+                "date": "2024-01-11T04:14:48Z"
+            },
+            {
+                "name": "Teleport 12.4.33",
+                "date": "2024-01-10T06:22:55Z"
+            },
+            {
+                "name": "Teleport 14.3.0",
+                "date": "2023-12-30T02:39:08Z"
+            },
+            {
+                "name": "Teleport 13.4.14",
+                "date": "2023-12-30T02:08:04Z"
+            },
+            {
+                "name": "Teleport 12.4.32",
+                "date": "2023-12-30T02:56:08Z"
+            },
+            {
+                "name": "Teleport 14.2.3",
+                "date": "2023-12-15T01:37:02Z"
+            },
+            {
+                "name": "Teleport 13.4.11",
+                "date": "2023-12-15T00:11:04Z"
+            },
+            {
+                "name": "Teleport 12.4.30",
+                "date": "2023-12-14T07:57:56Z"
+            },
+            {
+                "name": "Teleport 14.2.2",
+                "date": "2023-12-08T19:02:22Z"
+            },
+            {
+                "name": "Teleport 14.2.1",
+                "date": "2023-12-01T06:06:21Z"
+            },
+            {
+                "name": "Teleport 13.4.10",
+                "date": "2023-11-22T21:21:01Z"
+            },
+            {
+                "name": "Teleport 12.4.28",
+                "date": "2023-11-21T04:09:27Z"
+            },
+            {
+                "name": "Teleport 14.2.0",
+                "date": "2023-11-21T00:17:26Z"
+            },
+            {
+                "name": "Teleport 14.1.5",
+                "date": "2023-11-17T05:42:24Z"
+            },
+            {
+                "name": "Teleport 13.4.9",
+                "date": "2023-11-17T05:21:37Z"
+            },
+            {
+                "name": "Teleport 13.4.7",
+                "date": "2023-11-16T00:27:03Z"
+            },
+            {
+                "name": "Teleport 14.1.3",
+                "date": "2023-11-16T00:20:24Z"
+            },
+            {
+                "name": "Teleport 13.4.5",
+                "date": "2023-10-24T23:03:51Z"
+            },
+            {
+                "name": "Teleport 14.1.1",
+                "date": "2023-10-23T22:37:32Z"
+            },
+            {
+                "name": "Teleport 14.1.0",
+                "date": "2023-10-19T05:03:20Z"
+            },
+            {
+                "name": "Teleport 12.4.23",
+                "date": "2023-10-19T08:59:59Z"
+            },
+            {
+                "name": "Teleport 13.4.4",
+                "date": "2023-10-19T05:01:15Z"
+            },
+            {
+                "name": "Teleport 11.3.27",
+                "date": "2023-10-12T11:09:27Z"
+            },
+            {
+                "name": "Teleport 14.0.3",
+                "date": "2023-10-12T11:15:30Z"
+            },
+            {
+                "name": "Teleport 13.4.3",
+                "date": "2023-10-12T11:12:49Z"
+            },
+            {
+                "name": "Teleport 12.4.22",
+                "date": "2023-10-12T11:08:59Z"
+            },
+            {
+                "name": "Teleport 14.0.1",
+                "date": "2023-09-27T04:08:20Z"
+            },
+            {
+                "name": "Teleport 13.4.1",
+                "date": "2023-09-26T21:35:27Z"
+            },
+            {
+                "name": "Teleport 12.4.20",
+                "date": "2023-09-26T18:52:55Z"
+            },
+            {
+                "name": "Teleport 14.0.0",
+                "date": "2023-09-21T01:15:26Z"
+            },
+            {
+                "name": "Teleport 13.4.0",
+                "date": "2023-09-21T01:15:20Z"
+            },
+            {
+                "name": "Teleport 12.4.18",
+                "date": "2023-09-21T01:15:15Z"
+            },
+            {
+                "name": "Teleport 11.3.25",
+                "date": "2023-09-21T01:15:07Z"
+            },
+            {
+                "name": "Teleport 14.0.0-rc.1",
+                "date": "2023-09-19T07:42:56Z"
+            },
+            {
+                "name": "",
+                "date": "2023-09-15T04:59:09Z"
+            },
+            {
+                "name": "Teleport 14.0.0-beta.1",
+                "date": "2023-09-08T23:55:30Z"
+            },
+            {
+                "name": "Teleport 12.4.16",
+                "date": "2023-09-06T23:08:36Z"
+            },
+            {
+                "name": "Teleport 11.3.23",
+                "date": "2023-09-07T01:51:26Z"
+            },
+            {
+                "name": "Teleport 13.3.8",
+                "date": "2023-09-05T21:02:06Z"
+            },
+            {
+                "name": "Teleport 14.0.0-alpha.2",
+                "date": "2023-08-31T02:59:32Z"
+            },
+            {
+                "name": "Teleport 13.3.7",
+                "date": "2023-08-29T23:39:02Z"
+            },
+            {
+                "name": "Release 13.3.5",
+                "date": "2023-08-23T05:10:26Z"
+            },
+            {
+                "name": "Release 12.4.15",
+                "date": "2023-08-23T05:08:06Z"
+            },
+            {
+                "name": "Release 11.3.22",
+                "date": "2023-08-23T21:55:58Z"
+            },
+            {
+                "name": "Teleport 13.3.4",
+                "date": "2023-08-18T18:15:07Z"
+            },
+            {
+                "name": "Teleport 13.3.2",
+                "date": "2023-08-09T00:23:01Z"
+            },
+            {
+                "name": "Teleport 13.3.1",
+                "date": "2023-08-04T05:02:43Z"
+            },
+            {
+                "name": "Teleport 11.3.20",
+                "date": "2023-08-04T18:12:24Z"
+            },
+            {
+                "name": "Teleport 12.4.14",
+                "date": "2023-08-04T00:59:08Z"
+            },
+            {
+                "name": "Teleport 13.3.0",
+                "date": "2023-08-01T21:10:36Z"
+            },
+            {
+                "name": "Teleport 13.2.5",
+                "date": "2023-07-27T07:07:54Z"
+            },
+            {
+                "name": "Teleport 11.3.19",
+                "date": "2023-07-27T07:07:18Z"
+            },
+            {
+                "name": "Teleport 12.4.12",
+                "date": "2023-07-26T08:39:45Z"
+            },
+            {
+                "name": "Teleport 13.2.3",
+                "date": "2023-07-20T07:52:54Z"
+            },
+            {
+                "name": "Teleport 13.2.2",
+                "date": "2023-07-17T14:47:09Z"
+            },
+            {
+                "name": "Teleport 11.3.17",
+                "date": "2023-07-13T18:52:40Z"
+            },
+            {
+                "name": "Teleport 13.2.1",
+                "date": "2023-07-13T01:08:47Z"
+            },
+            {
+                "name": "Teleport 12.4.11",
+                "date": "2023-07-13T01:13:51Z"
+            },
+            {
+                "name": "Teleport 13.2.0",
+                "date": "2023-07-06T01:49:07Z"
+            },
+            {
+                "name": "Teleport 13.1.5",
+                "date": "2023-06-27T19:38:40Z"
+            },
+            {
+                "name": "Teleport 12.4.10",
+                "date": "2023-06-24T02:20:13Z"
+            },
+            {
+                "name": "Teleport 12.4.9",
+                "date": "2023-06-23T20:27:02Z"
+            },
+            {
+                "name": "Teleport 13.1.2",
+                "date": "2023-06-22T03:41:10Z"
+            },
+            {
+                "name": "Teleport 12.4.8",
+                "date": "2023-06-22T02:02:23Z"
+            },
+            {
+                "name": "Teleport 11.3.16",
+                "date": "2023-06-21T21:34:38Z"
+            },
+            {
+                "name": "Teleport 13.1.1",
+                "date": "2023-06-14T20:45:16Z"
+            },
+            {
+                "name": "Teleport 12.4.7",
+                "date": "2023-06-14T17:59:17Z"
+            },
+            {
+                "name": "Teleport 11.3.15",
+                "date": "2023-06-13T04:57:03Z"
+            },
+            {
+                "name": "Teleport 13.1.0",
+                "date": "2023-06-06T03:07:54Z"
+            },
+            {
+                "name": "Teleport 12.4.6",
+                "date": "2023-06-03T02:33:53Z"
+            },
+            {
+                "name": "Teleport 13.0.4",
+                "date": "2023-06-01T16:02:29Z"
+            },
+            {
+                "name": "Teleport 11.3.12",
+                "date": "2023-05-30T04:06:28Z"
+            },
+            {
+                "name": "Teleport 12.4.5",
+                "date": "2023-05-26T00:47:42Z"
+            },
+            {
+                "name": "Teleport 13.0.3",
+                "date": "2023-05-25T00:33:45Z"
+            },
+            {
+                "name": "Teleport 12.4.4",
+                "date": "2023-05-24T21:52:55Z"
+            },
+            {
+                "name": "Teleport 12.4.3",
+                "date": "2023-05-19T00:29:07Z"
+            },
+            {
+                "name": "Teleport 13.0.2",
+                "date": "2023-05-17T21:29:29Z"
+            },
+            {
+                "name": "Teleport 12.4.2",
+                "date": "2023-05-17T02:10:39Z"
+            },
+            {
+                "name": "Teleport 12.3.3",
+                "date": "2023-05-09T03:16:21Z"
+            },
+            {
+                "name": "Teleport 13.0.0",
+                "date": "2023-05-09T03:04:18Z"
+            },
+            {
+                "name": "Teleport 13.0.0-rc.1",
+                "date": "2023-05-05T23:32:26Z"
+            },
+            {
+                "name": "Teleport 12.3.2",
+                "date": "2023-05-04T23:21:52Z"
+            },
+            {
+                "name": "Teleport 12.3.1",
+                "date": "2023-05-03T04:22:47Z"
+            },
+            {
+                "name": "Teleport 12.3.0",
+                "date": "2023-05-02T04:15:28Z"
+            },
+            {
+                "name": "Teleport 12.2.5",
+                "date": "2023-04-28T21:28:09Z"
+            },
+            {
+                "name": "Teleport 13.0.0-alpha.2",
+                "date": "2023-04-25T23:14:45Z"
+            },
+            {
+                "name": "Teleport 11.3.11",
+                "date": "2023-04-21T00:48:34Z"
+            },
+            {
+                "name": "Teleport 10.3.16",
+                "date": "2023-04-21T00:48:03Z"
+            },
+            {
+                "name": "Teleport 12.2.4",
+                "date": "2023-04-20T02:40:19Z"
+            },
+            {
+                "name": "Teleport 13.0.0-alpha.1",
+                "date": "2023-04-18T15:55:16Z"
+            },
+            {
+                "name": "Teleport 12.2.3",
+                "date": "2023-04-14T01:03:07Z"
+            },
+            {
+                "name": "Teleport 12.2.2",
+                "date": "2023-04-13T00:47:02Z"
+            },
+            {
+                "name": "Teleport 12.2.1",
+                "date": "2023-04-05T20:56:26Z"
+            },
+            {
+                "name": "Teleport 11.3.10",
+                "date": "2023-04-05T23:56:35Z"
+            },
+            {
+                "name": "Teleport 10.3.15",
+                "date": "2023-04-05T23:55:52Z"
+            },
+            {
+                "name": "Teleport 12.1.5",
+                "date": "2023-04-01T03:03:04Z"
+            },
+            {
+                "name": "Teleport Passwordless Windows Access Preview v12.1.1",
+                "date": "2023-03-24T19:40:16Z"
+            },
+            {
+                "name": "Teleport 11.3.8",
+                "date": "2023-03-15T18:58:31Z"
+            },
+            {
+                "name": "Teleport 12.1.1",
+                "date": "2023-03-14T02:04:16Z"
+            },
+            {
+                "name": "Teleport 11.3.7",
+                "date": "2023-03-10T03:08:33Z"
+            },
+            {
+                "name": "Teleport 12.1.0",
+                "date": "2023-03-07T05:40:59Z"
+            },
+            {
+                "name": "Teleport 11.3.6",
+                "date": "2023-03-08T01:32:32Z"
+            },
+            {
+                "name": "Teleport 12.0.5",
+                "date": "2023-03-03T23:07:48Z"
+            },
+            {
+                "name": "Teleport 12.0.4",
+                "date": "2023-02-27T19:16:43Z"
+            },
+            {
+                "name": "Teleport 11.3.5",
+                "date": "2023-02-28T00:08:56Z"
+            },
+            {
+                "name": "Teleport 10.3.13",
+                "date": "2023-02-21T21:27:37Z"
+            },
+            {
+                "name": "Teleport 11.3.4",
+                "date": "2023-02-16T02:06:16Z"
+            },
+            {
+                "name": "Teleport 12.0.2",
+                "date": "2023-02-13T15:40:34Z"
+            },
+            {
+                "name": "Teleport 11.3.3",
+                "date": "2023-02-09T15:49:59Z"
+            },
+            {
+                "name": "Teleport 12.0.1",
+                "date": "2023-02-07T04:31:03Z"
+            },
+            {
+                "name": "Teleport Passwordless Windows Access Preview 12.0.0",
+                "date": "2023-02-06T15:46:40Z"
+            },
+            {
+                "name": "Teleport 12.0.0-rc.1",
+                "date": "2023-02-03T23:59:46Z"
+            },
+            {
+                "name": "Teleport 11.3.2",
+                "date": "2023-02-02T00:38:29Z"
+            },
+            {
+                "name": "Teleport 11.3.1",
+                "date": "2023-01-30T15:55:27Z"
+            },
+            {
+                "name": "Teleport 12.0.0-alpha.2",
+                "date": "2023-01-26T16:05:32Z"
+            },
+            {
+                "name": "Teleport 11.2.3",
+                "date": "2023-01-24T16:14:13Z"
+            },
+            {
+                "name": "Teleport 11.2.2",
+                "date": "2023-01-19T03:23:31Z"
+            },
+            {
+                "name": "Teleport 12.0.0-alpha.1",
+                "date": "2023-01-18T02:45:58Z"
+            },
+            {
+                "name": "Teleport 10.3.12",
+                "date": "2023-01-18T02:37:26Z"
+            },
+            {
+                "name": "Teleport 9.3.26",
+                "date": "2023-01-14T00:07:05Z"
+            },
+            {
+                "name": "Teleport 11.2.1",
+                "date": "2023-01-11T23:34:27Z"
+            },
+            {
+                "name": "Teleport 11.2.0",
+                "date": "2023-01-07T02:45:30Z"
+            },
+            {
+                "name": "Teleport 11.1.4",
+                "date": "2022-12-23T21:57:47Z"
+            },
+            {
+                "name": "Teleport 10.3.11",
+                "date": "2022-12-23T22:50:35Z"
+            },
+            {
+                "name": "Teleport 9.3.25",
+                "date": "2022-12-23T23:20:43Z"
+            },
+            {
+                "name": "Teleport 11.1.2",
+                "date": "2022-12-06T22:38:48Z"
+            },
+            {
+                "name": "Teleport 9.3.23",
+                "date": "2022-12-06T01:07:11Z"
+            },
+            {
+                "name": "Teleport 10.3.9",
+                "date": "2022-12-02T21:14:16Z"
+            },
+            {
+                "name": "Teleport 11.1.1",
+                "date": "2022-12-01T02:17:19Z"
+            },
+            {
+                "name": "Teleport 11.1.0",
+                "date": "2022-11-29T03:30:27Z"
+            },
+            {
+                "name": "Teleport 10.3.8",
+                "date": "2022-11-17T04:14:53Z"
+            },
+            {
+                "name": "Teleport 11.0.3",
+                "date": "2022-11-15T04:07:51Z"
+            },
+            {
+                "name": "Teleport 10.3.7",
+                "date": "2022-11-11T01:30:58Z"
+            },
+            {
+                "name": "Teleport 8.3.21",
+                "date": "2022-11-03T22:51:09Z"
+            },
+            {
+                "name": "Teleport 10.3.6",
+                "date": "2022-11-03T04:35:08Z"
+            },
+            {
+                "name": "Teleport 10.3.5",
+                "date": "2022-10-27T21:28:53Z"
+            },
+            {
+                "name": "Teleport 9.3.22",
+                "date": "2022-10-27T21:29:58Z"
+            },
+            {
+                "name": "Teleport 8.3.20",
+                "date": "2022-10-27T21:30:31Z"
+            },
+            {
+                "name": "Teleport 7.3.26",
+                "date": "2022-10-27T23:26:08Z"
+            },
+            {
+                "name": "Teleport 11.0.1",
+                "date": "2022-10-27T15:23:20Z"
+            },
+            {
+                "name": "Teleport 10.3.4",
+                "date": "2022-10-27T14:36:30Z"
+            },
+            {
+                "name": "Teleport 11.0.0",
+                "date": "2022-10-24T22:07:29Z"
+            },
+            {
+                "name": "Teleport 11.0.0-rc.2",
+                "date": "2022-10-22T00:03:59Z"
+            },
+            {
+                "name": "Teleport 10.3.3",
+                "date": "2022-10-20T02:10:07Z"
+            },
+            {
+                "name": "Teleport 11.0.0-rc.1",
+                "date": "2022-10-18T14:49:38Z"
+            },
+            {
+                "name": "Teleport 11.0.0-beta.1",
+                "date": "2022-10-13T15:58:34Z"
+            },
+            {
+                "name": "Teleport 10.3.2",
+                "date": "2022-10-13T14:31:33Z"
+            },
+            {
+                "name": "Teleport 11.0.0-alpha.2",
+                "date": "2022-10-06T04:27:56Z"
+            },
+            {
+                "name": "Teleport 10.2.6-dev.1",
+                "date": "2022-10-01T16:32:23Z"
+            },
+            {
+                "name": "Teleport 10.3.1",
+                "date": "2022-10-01T00:38:56Z"
+            },
+            {
+                "name": "Teleport 8.3.19",
+                "date": "2022-09-29T23:46:32Z"
+            },
+            {
+                "name": "Teleport 9.3.21",
+                "date": "2022-09-28T21:30:42Z"
+            },
+            {
+                "name": "Teleport 10.2.6",
+                "date": "2022-09-27T20:25:24Z"
+            },
+            {
+                "name": "Teleport 10.2.4",
+                "date": "2022-09-26T17:07:52Z"
+            },
+            {
+                "name": "Teleport 10.2.2",
+                "date": "2022-09-17T02:08:11Z"
+            },
+            {
+                "name": "Teleport 9.3.20",
+                "date": "2022-09-16T23:45:59Z"
+            },
+            {
+                "name": "Teleport 10.2.1",
+                "date": "2022-09-09T22:01:00Z"
+            },
+            {
+                "name": "Teleport 8.3.18",
+                "date": "2022-09-09T01:01:40Z"
+            },
+            {
+                "name": "Teleport 10.2.0",
+                "date": "2022-09-07T03:11:40Z"
+            },
+            {
+                "name": "Teleport 7.3.25",
+                "date": "2022-09-07T21:51:55Z"
+            },
+            {
+                "name": "Teleport 10.1.9",
+                "date": "2022-08-31T02:00:29Z"
+            },
+            {
+                "name": "Teleport 9.3.18",
+                "date": "2022-08-23T21:48:26Z"
+            },
+            {
+                "name": "Teleport 8.3.17",
+                "date": "2022-08-22T15:20:03Z"
+            },
+            {
+                "name": "Teleport 10.1.4",
+                "date": "2022-08-15T19:52:04Z"
+            },
+            {
+                "name": "Teleport 10.1.2",
+                "date": "2022-08-02T03:17:02Z"
+            },
+            {
+                "name": "Teleport 9.3.14",
+                "date": "2022-08-02T15:12:28Z"
+            },
+            {
+                "name": "Teleport 9.3.13",
+                "date": "2022-07-27T21:31:30Z"
+            },
+            {
+                "name": "Teleport 8.3.16",
+                "date": "2022-07-27T19:02:43Z"
+            },
+            {
+                "name": "Teleport 9.3.12",
+                "date": "2022-07-20T20:28:52Z"
+            },
+            {
+                "name": "Teleport 10.0.2",
+                "date": "2022-07-19T17:16:21Z"
+            },
+            {
+                "name": "Teleport 9.3.10",
+                "date": "2022-07-15T21:03:51Z"
+            },
+            {
+                "name": "Teleport 10.0.1",
+                "date": "2022-07-15T17:04:38Z"
+            },
+            {
+                "name": "Teleport 10.0.0",
+                "date": "2022-07-08T18:33:45Z"
+            },
+            {
+                "name": "Teleport 10.0.0-rc.1",
+                "date": "2022-07-05T14:59:03Z"
+            },
+            {
+                "name": "Teleport 9.3.9",
+                "date": "2022-07-01T18:26:26Z"
+            },
+            {
+                "name": "Teleport 8.3.15",
+                "date": "2022-06-29T18:13:40Z"
+            },
+            {
+                "name": "Teleport 10.0.0-alpha.2",
+                "date": "2022-06-23T21:13:03Z"
+            },
+            {
+                "name": "Teleport 9.3.7",
+                "date": "2022-06-22T20:38:47Z"
+            },
+            {
+                "name": "Teleport 9.3.6",
+                "date": "2022-06-15T00:24:56Z"
+            },
+            {
+                "name": "Teleport 9.3.5",
+                "date": "2022-06-14T02:17:40Z"
+            },
+            {
+                "name": "Teleport 9.3.4",
+                "date": "2022-06-09T02:02:52Z"
+            },
+            {
+                "name": "Teleport 8.3.14",
+                "date": "2022-06-09T02:02:46Z"
+            },
+            {
+                "name": "Teleport 7.3.23",
+                "date": "2022-06-09T02:02:37Z"
+            },
+            {
+                "name": "Teleport 9.3.2",
+                "date": "2022-05-31T23:09:11Z"
+            },
+            {
+                "name": "Teleport 9.3.0",
+                "date": "2022-05-28T02:03:13Z"
+            },
+            {
+                "name": "Teleport Connect Preview v1.0.2",
+                "date": "2022-05-31T14:53:19Z"
+            },
+            {
+                "name": "Teleport 7.3.21",
+                "date": "2022-05-27T01:33:27Z"
+            },
+            {
+                "name": "Teleport 8.3.12",
+                "date": "2022-05-27T01:33:57Z"
+            },
+            {
+                "name": "Teleport 9.2.4",
+                "date": "2022-05-20T21:30:14Z"
+            },
+            {
+                "name": "Teleport 8.3.11",
+                "date": "2022-05-19T21:02:05Z"
+            },
+            {
+                "name": "Teleport 7.3.20",
+                "date": "2022-05-16T20:20:34Z"
+            },
+            {
+                "name": "Teleport 9.2.3",
+                "date": "2022-05-13T03:36:29Z"
+            },
+            {
+                "name": "Teleport 8.3.10",
+                "date": "2022-05-10T20:19:43Z"
+            },
+            {
+                "name": "Teleport 9.2.1",
+                "date": "2022-05-05T22:50:51Z"
+            },
+            {
+                "name": "Teleport Connect Preview v1.0.1",
+                "date": "2022-05-06T21:55:14Z"
+            },
+            {
+                "name": "Teleport 9.1.3",
+                "date": "2022-05-02T22:12:19Z"
+            },
+            {
+                "name": "Teleport Connect Preview v1.0.0",
+                "date": "2022-04-29T13:21:21Z"
+            },
+            {
+                "name": "Teleport 8.3.9",
+                "date": "2022-04-28T22:05:17Z"
+            },
+            {
+                "name": "Teleport 9.1.2",
+                "date": "2022-04-27T15:03:26Z"
+            },
+            {
+                "name": "Teleport 9.1.1",
+                "date": "2022-04-25T16:26:35Z"
+            },
+            {
+                "name": "Teleport 8.3.8",
+                "date": "2022-04-22T22:01:28Z"
+            },
+            {
+                "name": "Teleport 7.3.19",
+                "date": "2022-04-22T22:01:23Z"
+            },
+            {
+                "name": "Teleport 9.1.0",
+                "date": "2022-04-21T02:30:29Z"
+            },
+            {
+                "name": "Teleport 9.0.4",
+                "date": "2022-04-07T01:03:19Z"
+            },
+            {
+                "name": "Teleport 8.3.7",
+                "date": "2022-04-05T21:08:51Z"
+            },
+            {
+                "name": "Teleport 9.0.3",
+                "date": "2022-04-01T02:00:11Z"
+            },
+            {
+                "name": "Teleport 8.3.6",
+                "date": "2022-03-31T00:45:21Z"
+            },
+            {
+                "name": "Teleport 9.0.2",
+                "date": "2022-03-26T01:15:18Z"
+            },
+            {
+                "name": "Teleport 8.3.5",
+                "date": "2022-03-28T17:24:17Z"
+            },
+            {
+                "name": "Teleport 7.3.18",
+                "date": "2022-03-18T20:33:11Z"
+            },
+            {
+                "name": "Teleport 9.0.1",
+                "date": "2022-03-17T03:36:54Z"
+            },
+            {
+                "name": "Teleport 9.0.0",
+                "date": "2022-03-11T22:14:52Z"
+            },
+            {
+                "name": "Teleport 9.0.0-rc.2",
+                "date": "2022-03-11T02:39:48Z"
+            },
+            {
+                "name": "Teleport 9.0.0-rc.1",
+                "date": "2022-03-10T03:32:34Z"
+            },
+            {
+                "name": "Teleport 9.0.0-beta.2",
+                "date": "2022-03-09T02:42:47Z"
+            },
+            {
+                "name": "Teleport 8.3.4",
+                "date": "2022-03-04T23:44:00Z"
+            },
+            {
+                "name": "Teleport 8.3.3",
+                "date": "2022-03-03T01:43:07Z"
+            },
+            {
+                "name": "Teleport 7.3.17",
+                "date": "2022-03-03T01:42:48Z"
+            },
+            {
+                "name": "Teleport 6.2.31",
+                "date": "2022-03-03T01:42:25Z"
+            },
+            {
+                "name": "v8.3.1-dev.2",
+                "date": "2022-02-24T18:26:44Z"
+            },
+            {
+                "name": "v8.3.1-dev.1",
+                "date": "2022-02-24T18:07:42Z"
+            },
+            {
+                "name": "Teleport 4.4.12",
+                "date": "2022-03-03T01:40:05Z"
+            },
+            {
+                "name": "Teleport 9.0.0-beta.1",
+                "date": "2022-02-23T00:33:06Z"
+            },
+            {
+                "name": "Teleport 5.2.5",
+                "date": "2022-03-03T01:41:05Z"
+            },
+            {
+                "name": "Teleport 8.3.1",
+                "date": "2022-02-18T02:54:26Z"
+            },
+            {
+                "name": "v8.1.5-dev.2",
+                "date": "2022-02-17T14:12:33Z"
+            },
+            {
+                "name": "Teleport 8.3.0",
+                "date": "2022-02-16T04:30:20Z"
+            },
+            {
+                "name": "v8.1.5-dev.1",
+                "date": "2022-02-16T16:18:21Z"
+            },
+            {
+                "name": "Teleport 6.2.28",
+                "date": "2022-02-12T02:10:14Z"
+            },
+            {
+                "name": "Teleport 8.2.0",
+                "date": "2022-02-09T03:51:57Z"
+            },
+            {
+                "name": "Teleport 8.2.0-dev.1",
+                "date": "2022-02-09T18:21:22Z"
+            },
+            {
+                "name": "8.1.6-dev.1",
+                "date": "2022-02-08T04:51:05Z"
+            },
+            {
+                "name": "Teleport 8.1.5",
+                "date": "2022-02-08T02:13:08Z"
+            },
+            {
+                "name": "Teleport 7.3.13",
+                "date": "2022-02-04T22:13:37Z"
+            },
+            {
+                "name": "Teleport 7.3.12",
+                "date": "2022-01-28T16:16:36Z"
+            },
+            {
+                "name": "Teleport 8.1.1",
+                "date": "2022-01-25T02:58:24Z"
+            },
+            {
+                "name": "Teleport 6.2.26",
+                "date": "2022-01-12T02:01:11Z"
+            },
+            {
+                "name": "Teleport 8.1.0",
+                "date": "2022-01-11T02:47:44Z"
+            },
+            {
+                "name": "Teleport 7.3.10",
+                "date": "2022-01-11T02:47:18Z"
+            },
+            {
+                "name": "Teleport 6.2.25",
+                "date": "2022-01-11T02:46:43Z"
+            },
+            {
+                "name": "Teleport 7.3.9",
+                "date": "2021-12-23T02:10:33Z"
+            },
+            {
+                "name": "Teleport 6.2.24",
+                "date": "2021-12-23T01:29:37Z"
+            },
+            {
+                "name": "Teleport 8.0.7",
+                "date": "2021-12-21T01:04:30Z"
+            },
+            {
+                "name": "Teleport 8.0.6",
+                "date": "2021-12-15T00:00:42Z"
+            },
+            {
+                "name": "Teleport 8.0.5",
+                "date": "2021-12-14T01:20:55Z"
+            },
+            {
+                "name": "Teleport 8.0.4",
+                "date": "2021-12-14T01:20:47Z"
+            },
+            {
+                "name": "Teleport 7.3.8",
+                "date": "2021-12-14T01:20:38Z"
+            },
+            {
+                "name": "Teleport 6.2.23",
+                "date": "2021-12-14T01:20:26Z"
+            },
+            {
+                "name": "Teleport 6.2.22",
+                "date": "2021-12-14T01:20:15Z"
+            },
+            {
+                "name": "Teleport 8.0.0-dev.36",
+                "date": "2021-12-10T22:16:13Z"
+            },
+            {
+                "name": "Teleport 8.0.1",
+                "date": "2021-12-04T00:30:09Z"
+            },
+            {
+                "name": "Teleport 7.3.6",
+                "date": "2021-12-03T04:13:44Z"
+            },
+            {
+                "name": "Teleport 6.2.19",
+                "date": "2021-12-03T04:12:39Z"
+            },
+            {
+                "name": "Teleport 7.3.5",
+                "date": "2021-12-02T02:47:16Z"
+            },
+            {
+                "name": "Teleport 7.3.4",
+                "date": "2021-12-01T05:48:55Z"
+            },
+            {
+                "name": "Teleport 7.3.3-dev.1",
+                "date": "2021-11-30T15:41:25Z"
+            },
+            {
+                "name": "Teleport 6.2.8-dev.4",
+                "date": "2021-11-24T01:32:54Z"
+            },
+            {
+                "name": "Teleport 8.0.0",
+                "date": "2021-11-16T02:53:18Z"
+            },
+            {
+                "name": "Teleport 8.0.0-rc.3",
+                "date": "2021-11-16T00:03:46Z"
+            },
+            {
+                "name": "Teleport 8.0.0-rc.1",
+                "date": "2021-11-10T03:35:26Z"
+            },
+            {
+                "name": "Teleport 8.0.0-beta.3",
+                "date": "2021-11-05T18:32:11Z"
+            },
+            {
+                "name": "Teleport 7.3.3",
+                "date": "2021-11-02T19:19:00Z"
+            },
+            {
+                "name": "Teleport 6.2.18",
+                "date": "2021-11-01T23:14:04Z"
+            },
+            {
+                "name": "Teleport 8.0.0-beta.2",
+                "date": "2021-10-28T00:28:49Z"
+            },
+            {
+                "name": "Teleport 6.2.17",
+                "date": "2021-10-28T17:09:59Z"
+            },
+            {
+                "name": "Teleport 7.3.2",
+                "date": "2021-10-20T03:05:13Z"
+            },
+            {
+                "name": "Teleport 7.3.0",
+                "date": "2021-10-12T01:32:38Z"
+            },
+            {
+                "name": "Teleport 7.2.1",
+                "date": "2021-10-08T22:56:19Z"
+            },
+            {
+                "name": "Teleport 8.0.0-alpha.1",
+                "date": "2021-10-06T00:45:40Z"
+            },
+            {
+                "name": "Teleport 7.3.0-dev.2",
+                "date": "2021-10-01T20:14:08Z"
+            },
+            {
+                "name": "Teleport 6.2.15",
+                "date": "2021-09-30T22:57:07Z"
+            },
+            {
+                "name": "Teleport 7.2.0",
+                "date": "2021-09-29T01:38:29Z"
+            },
+            {
+                "name": "Teleport 7.1.3",
+                "date": "2021-09-20T21:29:23Z"
+            },
+            {
+                "name": "Teleport 6.2.14",
+                "date": "2021-09-20T21:29:20Z"
+            },
+            {
+                "name": "Teleport 7.3.0-dev.1",
+                "date": "2021-10-01T20:15:10Z"
+            },
+            {
+                "name": "Teleport 7.1.2",
+                "date": "2021-09-15T01:17:15Z"
+            },
+            {
+                "name": "Teleport 6.2.13",
+                "date": "2021-09-15T01:16:30Z"
+            },
+            {
+                "name": "Teleport 7.1.1",
+                "date": "2021-09-14T18:42:56Z"
+            },
+            {
+                "name": "Teleport 6.2.12",
+                "date": "2021-09-14T18:42:22Z"
+            },
+            {
+                "name": "Teleport 5.2.4",
+                "date": "2021-09-14T18:41:43Z"
+            },
+            {
+                "name": "Teleport 4.4.11",
+                "date": "2021-09-14T18:40:57Z"
+            },
+            {
+                "name": "Teleport 6.2.11",
+                "date": "2021-08-25T17:46:39Z"
+            },
+            {
+                "name": "Teleport 7.1.0",
+                "date": "2021-08-18T00:04:05Z"
+            },
+            {
+                "name": "Teleport 7.1.0-beta.2",
+                "date": "2021-08-24T18:01:18Z"
+            },
+            {
+                "name": "Teleport 7.1.0-beta.1",
+                "date": "2021-08-20T20:03:42Z"
+            },
+            {
+                "name": "Teleport 7.2.0-beta.1",
+                "date": "2021-08-19T23:54:07Z"
+            },
+            {
+                "name": "Teleport 6.2.10",
+                "date": "2021-08-16T19:39:41Z"
+            },
+            {
+                "name": "Teleport 6.2.9",
+                "date": "2021-08-13T23:01:38Z"
+            },
+            {
+                "name": "Teleport 7.0.2",
+                "date": "2021-08-12T04:01:01Z"
+            },
+            {
+                "name": "Teleport 7.0.0",
+                "date": "2021-08-10T21:36:32Z"
+            },
+            {
+                "name": "Teleport 7.0.0-rc.1",
+                "date": "2021-08-10T03:51:34Z"
+            },
+            {
+                "name": "Teleport 7.0.0-beta.5",
+                "date": "2021-07-30T23:01:18Z"
+            },
+            {
+                "name": "Teleport 7.0.0-beta.4",
+                "date": "2021-07-27T20:12:49Z"
+            },
+            {
+                "name": "Teleport 6.2.8",
+                "date": "2021-07-23T02:58:58Z"
+            },
+            {
+                "name": "Teleport 7.0.0-beta.3",
+                "date": "2021-07-22T01:13:26Z"
+            },
+            {
+                "name": "Teleport 7.0.0-beta.2",
+                "date": "2021-07-20T01:36:52Z"
+            },
+            {
+                "name": "Teleport 7.0.0-beta.1",
+                "date": "2021-07-08T23:25:45Z"
+            },
+            {
+                "name": "Teleport 6.2.7",
+                "date": "2021-07-03T00:11:35Z"
+            },
+            {
+                "name": "Teleport 6.2.6",
+                "date": "2021-06-30T03:07:16Z"
+            },
+            {
+                "name": "Teleport 6.2.5",
+                "date": "2021-06-17T19:54:50Z"
+            },
+            {
+                "name": "Teleport 4.4.10",
+                "date": "2021-06-16T15:53:56Z"
+            },
+            {
+                "name": "Teleport 6.2.3",
+                "date": "2021-06-05T00:43:37Z"
+            },
+            {
+                "name": "Teleport 6.2.1",
+                "date": "2021-05-28T01:14:04Z"
+            },
+            {
+                "name": "Teleport 6.2.0",
+                "date": "2021-05-25T01:20:11Z"
+            },
+            {
+                "name": "Teleport 6.2.0-rc.1",
+                "date": "2021-05-19T00:51:54Z"
+            },
+            {
+                "name": "Teleport 6.2.0-beta.1",
+                "date": "2021-05-14T22:45:32Z"
+            },
+            {
+                "name": "Teleport 6.2.0-alpha.1",
+                "date": "2021-05-11T20:44:35Z"
+            },
+            {
+                "name": "Teleport 6.1.5",
+                "date": "2021-05-05T23:39:00Z"
+            },
+            {
+                "name": "Teleport 6.1.3",
+                "date": "2021-04-30T20:01:37Z"
+            },
+            {
+                "name": "Teleport 6.1.2",
+                "date": "2021-04-22T17:27:49Z"
+            },
+            {
+                "name": "Teleport 6.1.1",
+                "date": "2021-04-12T22:17:12Z"
+            },
+            {
+                "name": "Teleport 6.1.0",
+                "date": "2021-04-09T22:01:25Z"
+            },
+            {
+                "name": "Teleport 6.1.0-rc.1",
+                "date": "2021-04-08T03:48:26Z"
+            },
+            {
+                "name": "Teleport 6.0.3",
+                "date": "2021-04-08T00:15:04Z"
+            },
+            {
+                "name": "Teleport 6.1.0-beta.1",
+                "date": "2021-03-31T03:26:22Z"
+            },
+            {
+                "name": "Teleport 4.4.9",
+                "date": "2021-03-17T20:41:58Z"
+            },
+            {
+                "name": "Teleport 6.0.2",
+                "date": "2021-03-17T01:10:51Z"
+            },
+            {
+                "name": "Teleport 6.0.1",
+                "date": "2021-03-06T01:25:55Z"
+            },
+            {
+                "name": "Teleport 6.0.0",
+                "date": "2021-03-03T22:30:16Z"
+            },
+            {
+                "name": "Teleport 6.0.0-rc.2",
+                "date": "2021-03-02T20:20:25Z"
+            },
+            {
+                "name": "Teleport 5.2.1",
+                "date": "2021-02-26T20:15:40Z"
+            },
+            {
+                "name": "Teleport 6.0.0-rc.1",
+                "date": "2021-02-24T18:39:13Z"
+            },
+            {
+                "name": "Teleport 4.4.8",
+                "date": "2021-02-26T20:15:30Z"
+            },
+            {
+                "name": "Teleport 4.3.10",
+                "date": "2021-02-26T20:15:23Z"
+            },
+            {
+                "name": "Teleport 5.1.2",
+                "date": "2021-01-27T22:50:58Z"
+            },
+            {
+                "name": "Teleport 6.0.0-alpha.2",
+                "date": "2021-01-22T21:26:29Z"
+            },
+            {
+                "name": "Teleport 4.4.7",
+                "date": "2021-01-18T18:33:25Z"
+            },
+            {
+                "name": "Teleport 6.0.0-alpha.1",
+                "date": "2021-01-15T21:03:18Z"
+            },
+            {
+                "name": "",
+                "date": "2021-01-01T03:21:27Z"
+            },
+            {
+                "name": "Teleport 4.3.9",
+                "date": "2020-12-15T02:45:49Z"
+            },
+            {
+                "name": "Teleport 5.0.2",
+                "date": "2020-12-15T01:40:01Z"
+            },
+            {
+                "name": "Teleport 4.4.6",
+                "date": "2020-12-14T23:56:42Z"
+            },
+            {
+                "name": "Teleport 5.0.1",
+                "date": "2020-12-10T21:22:31Z"
+            },
+            {
+                "name": "Teleport 5.0.0",
+                "date": "2020-11-24T20:27:35Z"
+            },
+            {
+                "name": "Teleport 5.0.0-rc.2",
+                "date": "2020-11-19T01:29:36Z"
+            },
+            {
+                "name": "Teleport 5.0.0-rc.1",
+                "date": "2020-11-16T21:46:09Z"
+            },
+            {
+                "name": "Teleport 4.4.5",
+                "date": "2020-11-13T23:51:33Z"
+            },
+            {
+                "name": "Teleport 5.0.0-beta.10",
+                "date": "2020-11-06T23:04:41Z"
+            },
+            {
+                "name": "Teleport 4.4.4",
+                "date": "2020-11-06T20:13:53Z"
+            },
+            {
+                "name": "Teleport 5.0.0-beta.9",
+                "date": "2020-10-30T01:16:44Z"
+            },
+            {
+                "name": "Teleport 4.4.2",
+                "date": "2020-10-30T21:40:09Z"
+            },
+            {
+                "name": "Teleport 5.0.0-beta.8",
+                "date": "2020-10-29T02:23:01Z"
+            },
+            {
+                "name": "Teleport 5.0.0-beta.6",
+                "date": "2020-10-28T18:43:39Z"
+            },
+            {
+                "name": "Teleport 5.0.0-beta.5",
+                "date": "2020-10-23T22:30:36Z"
+            },
+            {
+                "name": "Teleport 4.4.1",
+                "date": "2020-10-21T21:13:52Z"
+            },
+            {
+                "name": "Teleport 4.4.0",
+                "date": "2020-10-20T18:00:57Z"
+            },
+            {
+                "name": "Teleport 4.4.0-rc.5",
+                "date": "2020-10-17T00:46:37Z"
+            },
+            {
+                "name": "Teleport 5.0.0-beta.4",
+                "date": "2020-10-16T23:46:48Z"
+            },
+            {
+                "name": "Teleport 4.4.0-rc.4",
+                "date": "2020-10-16T00:31:44Z"
+            },
+            {
+                "name": "Teleport 5.0.0-beta.3",
+                "date": "2020-10-14T19:04:21Z"
+            },
+            {
+                "name": "Teleport 5.0.0-beta.2",
+                "date": "2020-10-13T22:06:57Z"
+            },
+            {
+                "name": "Teleport 4.4.0-rc.3",
+                "date": "2020-10-07T18:02:04Z"
+            },
+            {
+                "name": "Teleport 4.3.7",
+                "date": "2020-10-01T03:22:33Z"
+            },
+            {
+                "name": "Teleport 4.4.0-alpha.1",
+                "date": "2020-09-30T21:28:30Z"
+            },
+            {
+                "name": "Teleport 4.2.12",
+                "date": "2020-10-01T03:22:21Z"
+            },
+            {
+                "name": "Teleport 4.1.11",
+                "date": "2020-10-01T03:22:06Z"
+            },
+            {
+                "name": "Teleport 4.3.6",
+                "date": "2020-09-25T03:51:01Z"
+            },
+            {
+                "name": "Teleport 4.3.5",
+                "date": "2020-08-13T23:30:38Z"
+            },
+            {
+                "name": "Teleport 4.3.2",
+                "date": "2020-07-28T01:03:15Z"
+            },
+            {
+                "name": "Teleport 4.3.0",
+                "date": "2020-07-08T20:02:03Z"
+            },
+            {
+                "name": "Teleport 4.2.11",
+                "date": "2020-06-30T22:33:26Z"
+            },
+            {
+                "name": "Teleport 4.3.0-alpha.2",
+                "date": "2020-06-29T17:38:54Z"
+            },
+            {
+                "name": "Teleport 4.2.10",
+                "date": "2020-05-27T23:33:56Z"
+            },
+            {
+                "name": "Teleport 4.2.9",
+                "date": "2020-05-05T22:07:36Z"
+            },
+            {
+                "name": "Teleport 4.2.9-beta.2",
+                "date": "2020-04-29T21:28:44Z"
+            },
+            {
+                "name": "Teleport 4.2.9-beta.1",
+                "date": "2020-04-25T01:32:47Z"
+            },
+            {
+                "name": "Teleport 4.2.8",
+                "date": "2020-04-01T19:55:08Z"
+            },
+            {
+                "name": "Teleport 4.2.7",
+                "date": "2020-04-01T17:56:00Z"
+            },
+            {
+                "name": "Teleport 4.1.10",
+                "date": "2020-04-01T17:55:39Z"
+            },
+            {
+                "name": "Teleport 4.0.16",
+                "date": "2020-04-01T17:55:16Z"
+            },
+            {
+                "name": "Teleport 4.2.6",
+                "date": "2020-03-17T20:16:08Z"
+            },
+            {
+                "name": "Teleport 4.2.5-beta.2",
+                "date": "2020-03-14T01:52:21Z"
+            },
+            {
+                "name": "Teleport 4.2.5-beta.1",
+                "date": "2020-03-11T18:35:24Z"
+            },
+            {
+                "name": "Teleport 3.2.16",
+                "date": "2020-02-21T22:44:42Z"
+            },
+            {
+                "name": "Teleport 3.1.15",
+                "date": "2020-02-21T22:44:39Z"
+            },
+            {
+                "name": "Teleport 4.2.3",
+                "date": "2020-02-21T22:44:49Z"
+            },
+            {
+                "name": "Teleport 4.1.9",
+                "date": "2020-02-21T22:44:46Z"
+            },
+            {
+                "name": "Teleport 4.0.15",
+                "date": "2020-02-21T22:44:44Z"
+            },
+            {
+                "name": "Teleport 4.2.3-beta.1",
+                "date": "2020-02-06T22:40:57Z"
+            },
+            {
+                "name": "Teleport 4.2.2",
+                "date": "2020-01-20T23:57:40Z"
+            },
+            {
+                "name": "Teleport 4.1.8",
+                "date": "2020-01-16T02:32:06Z"
+            },
+            {
+                "name": "Teleport 4.0.14",
+                "date": "2020-01-16T01:39:06Z"
+            },
+            {
+                "name": "Teleport 3.2.15",
+                "date": "2020-01-16T01:39:04Z"
+            },
+            {
+                "name": "Teleport 4.2.1",
+                "date": "2020-01-06T19:38:23Z"
+            },
+            {
+                "name": "Teleport 4.2.1-rc.2",
+                "date": "2020-01-04T02:04:27Z"
+            },
+            {
+                "name": "Teleport 4.2.1-rc.1",
+                "date": "2019-12-20T17:20:33Z"
+            },
+            {
+                "name": "Teleport 4.2.0",
+                "date": "2019-12-19T18:46:03Z"
+            },
+            {
+                "name": "Teleport 4.1.7",
+                "date": "2019-12-13T23:29:34Z"
+            },
+            {
+                "name": "Teleport 4.0.13",
+                "date": "2019-12-13T23:29:32Z"
+            },
+            {
+                "name": "Teleport 4.2.0-rc.3",
+                "date": "2019-12-11T01:12:02Z"
+            },
+            {
+                "name": "Teleport 4.1.6",
+                "date": "2019-12-10T21:27:54Z"
+            },
+            {
+                "name": "Teleport 4.0.12",
+                "date": "2019-12-10T21:27:56Z"
+            },
+            {
+                "name": "Teleport 4.2.0-rc.2",
+                "date": "2019-12-09T21:05:08Z"
+            },
+            {
+                "name": "Teleport 4.2.0-rc.1",
+                "date": "2019-12-03T00:15:09Z"
+            },
+            {
+                "name": "Teleport 4.1.5",
+                "date": "2019-12-09T19:30:53Z"
+            },
+            {
+                "name": "Teleport 4.0.11",
+                "date": "2019-12-09T19:31:08Z"
+            },
+            {
+                "name": "Teleport 3.2.14",
+                "date": "2019-11-20T20:02:03Z"
+            },
+            {
+                "name": "Teleport 4.1.4",
+                "date": "2019-11-06T00:53:12Z"
+            },
+            {
+                "name": "Teleport 4.1.3",
+                "date": "2019-10-24T23:25:32Z"
+            },
+            {
+                "name": "Teleport 4.1.2",
+                "date": "2019-10-17T18:58:32Z"
+            },
+            {
+                "name": "Teleport 4.1.1",
+                "date": "2019-10-11T00:52:19Z"
+            },
+            {
+                "name": "Teleport 4.1.0",
+                "date": "2019-10-01T22:32:40Z"
+            },
+            {
+                "name": "Teleport 4.0.10",
+                "date": "2019-10-01T20:45:23Z"
+            },
+            {
+                "name": "Teleport 3.2.13",
+                "date": "2019-09-25T17:47:04Z"
+            },
+            {
+                "name": "Teleport 4.2.0-alpha.1",
+                "date": "2019-09-24T22:23:14Z"
+            },
+            {
+                "name": "Teleport 4.1.0-rc.2",
+                "date": "2019-09-24T23:16:24Z"
+            },
+            {
+                "name": "Teleport 4.1.0-rc.1",
+                "date": "2019-09-23T21:12:16Z"
+            },
+            {
+                "name": "Teleport 4.0.9",
+                "date": "2019-09-18T00:16:12Z"
+            },
+            {
+                "name": "Teleport 3.2.12",
+                "date": "2019-09-18T01:12:09Z"
+            },
+            {
+                "name": "Teleport 3.1.14",
+                "date": "2019-09-19T00:34:54Z"
+            },
+            {
+                "name": "Teleport 4.1.0-beta.3",
+                "date": "2019-09-16T20:03:14Z"
+            },
+            {
+                "name": "Teleport 4.0.8",
+                "date": "2019-09-11T18:31:03Z"
+            },
+            {
+                "name": "Teleport 3.2.11",
+                "date": "2019-09-11T20:08:31Z"
+            },
+            {
+                "name": "Teleport 3.1.13",
+                "date": "2019-09-11T20:08:43Z"
+            },
+            {
+                "name": "Teleport 4.1.0-beta.2",
+                "date": "2019-09-10T00:54:33Z"
+            },
+            {
+                "name": "Teleport 4.1.0-beta.1",
+                "date": "2019-09-07T01:59:15Z"
+            },
+            {
+                "name": "Teleport 4.0.6",
+                "date": "2019-09-06T19:57:23Z"
+            },
+            {
+                "name": "Teleport 3.2.9",
+                "date": "2019-09-06T19:57:06Z"
+            },
+            {
+                "name": "Teleport 3.1.11",
+                "date": "2019-09-06T19:56:35Z"
+            },
+            {
+                "name": "Teleport 4.0.5",
+                "date": "2019-09-03T20:04:02Z"
+            },
+            {
+                "name": "Teleport 3.2.8",
+                "date": "2019-09-03T20:03:29Z"
+            },
+            {
+                "name": "Teleport 3.1.10",
+                "date": "2019-09-03T20:02:48Z"
+            },
+            {
+                "name": "Teleport 4.0.4",
+                "date": "2019-08-02T18:05:27Z"
+            },
+            {
+                "name": "Teleport 4.0.3",
+                "date": "2019-07-26T21:27:39Z"
+            },
+            {
+                "name": "Teleport 4.0.2",
+                "date": "2019-06-29T00:07:44Z"
+            },
+            {
+                "name": "Teleport 4.0.1",
+                "date": "2019-06-24T22:06:21Z"
+            },
+            {
+                "name": "Teleport 4.0.0",
+                "date": "2019-06-18T13:11:54Z"
+            },
+            {
+                "name": "Teleport 4.0.0-rc.4",
+                "date": "2019-06-17T18:35:39Z"
+            },
+            {
+                "name": "Teleport 4.0.0-rc.3",
+                "date": "2019-06-13T19:04:55Z"
+            },
+            {
+                "name": "Teleport 3.2.6",
+                "date": "2019-06-03T18:30:07Z"
+            },
+            {
+                "name": "3.1.9",
+                "date": "2019-06-03T18:29:50Z"
+            },
+            {
+                "name": "Teleport 3.0.6",
+                "date": "2019-06-03T18:29:26Z"
+            },
+            {
+                "name": "Teleport 4.0.0-rc.2",
+                "date": "2019-05-22T17:58:22Z"
+            },
+            {
+                "name": "Teleport 4.0.0-beta.1",
+                "date": "2019-05-07T22:10:55Z"
+            },
+            {
+                "name": "3.2.4",
+                "date": "2019-04-26T00:30:45Z"
+            },
+            {
+                "name": "3.2.2",
+                "date": "2019-04-15T23:59:03Z"
+            },
+            {
+                "name": "3.2.1",
+                "date": "2019-04-11T22:07:08Z"
+            },
+            {
+                "name": "Teleport 3.2.0",
+                "date": "2019-04-01T21:21:31Z"
+            },
+            {
+                "name": "Teleport 3.2.0-rc.1",
+                "date": "2019-03-25T21:45:55Z"
+            },
+            {
+                "name": "Teleport 3.1.8",
+                "date": "2019-03-13T19:53:57Z"
+            },
+            {
+                "name": "Teleport 3.1.7",
+                "date": "2019-02-20T19:05:04Z"
+            },
+            {
+                "name": "Teleport 3.1.6",
+                "date": "2019-02-12T18:55:16Z"
+            },
+            {
+                "name": "Teleport 3.1.5",
+                "date": "2019-01-29T00:34:45Z"
+            },
+            {
+                "name": "Teleport 3.0.5",
+                "date": "2019-01-29T00:34:43Z"
+            },
+            {
+                "name": "Teleport 2.7.9",
+                "date": "2019-01-29T00:34:41Z"
+            },
+            {
+                "name": "Teleport 3.1.4",
+                "date": "2019-01-17T19:37:43Z"
+            },
+            {
+                "name": "Teleport 3.1.3",
+                "date": "2019-01-12T21:22:08Z"
+            },
+            {
+                "name": "Teleport 3.0.4",
+                "date": "2019-01-11T22:54:23Z"
+            },
+            {
+                "name": "Teleport 2.7.8",
+                "date": "2019-01-11T22:54:02Z"
+            },
+            {
+                "name": "Teleport 3.1.2",
+                "date": "2019-01-10T19:20:14Z"
+            },
+            {
+                "name": "Teleport 3.0.3",
+                "date": "2019-01-10T19:19:54Z"
+            },
+            {
+                "name": "Teleport 2.7.7",
+                "date": "2019-01-10T19:19:27Z"
+            },
+            {
+                "name": "Teleport 2.6.10",
+                "date": "2019-01-10T19:18:57Z"
+            },
+            {
+                "name": "Teleport 3.1.1",
+                "date": "2018-12-19T00:55:09Z"
+            },
+            {
+                "name": "Teleport 3.0.2",
+                "date": "2018-12-19T00:55:06Z"
+            },
+            {
+                "name": "Teleport 3.1.0",
+                "date": "2018-12-12T18:03:55Z"
+            },
+            {
+                "name": "Teleport 3.1.0-rc.1",
+                "date": "2018-11-29T23:47:39Z"
+            },
+            {
+                "name": "Teleport 3.0.1",
+                "date": "2018-10-16T01:22:34Z"
+            },
+            {
+                "name": "Teleport 2.7.6",
+                "date": "2018-10-16T01:22:31Z"
+            },
+            {
+                "name": "Teleport 3.0.0",
+                "date": "2018-10-02T17:28:21Z"
+            },
+            {
+                "name": "Teleport 3.0.0-rc.6",
+                "date": "2018-09-27T21:01:16Z"
+            },
+            {
+                "name": "Release candidate rc.4",
+                "date": "2018-09-26T03:43:49Z"
+            },
+            {
+                "name": "Teleport 2.7.5",
+                "date": "2018-09-25T19:24:29Z"
+            },
+            {
+                "name": "Release candidate rc.3",
+                "date": "2018-09-18T18:01:40Z"
+            },
+            {
+                "name": "Release candidate rc.1",
+                "date": "2018-09-14T01:59:56Z"
+            },
+            {
+                "name": "Pre-release: Fix role mapping and kubernetes config support",
+                "date": "2018-08-23T03:38:02Z"
+            },
+            {
+                "name": "Teleport 3.0.0-alpha.7",
+                "date": "2018-08-21T00:51:52Z"
+            },
+            {
+                "name": "Teleport 2.7.4",
+                "date": "2018-08-17T00:24:08Z"
+            },
+            {
+                "name": "Teleport 2.7.3",
+                "date": "2018-08-08T22:30:51Z"
+            },
+            {
+                "name": "Refactor kubernetes config section",
+                "date": "2018-08-08T16:10:26Z"
+            },
+            {
+                "name": "Teleport 2.7.2",
+                "date": "2018-08-07T15:49:52Z"
+            },
+            {
+                "name": "Teleport 2.6.9",
+                "date": "2018-08-07T15:49:47Z"
+            },
+            {
+                "name": "Teleport 3.0.0-alpha.4",
+                "date": "2018-08-04T02:32:09Z"
+            },
+            {
+                "name": "Teleport 2.7.1",
+                "date": "2018-08-03T00:46:10Z"
+            },
+            {
+                "name": "Teleport 2.6.8",
+                "date": "2018-08-03T00:45:25Z"
+            },
+            {
+                "name": "Teleport 2.7.0",
+                "date": "2018-07-27T18:51:29Z"
+            },
+            {
+                "name": "Teleport 2.7.0-rc.3",
+                "date": "2018-07-26T22:56:15Z"
+            },
+            {
+                "name": "Teleport 2.7.0-rc.1",
+                "date": "2018-07-19T17:43:51Z"
+            },
+            {
+                "name": "Teleport 2.7.0-alpha.8",
+                "date": "2018-07-13T21:29:57Z"
+            },
+            {
+                "name": "",
+                "date": "2018-07-13T23:51:57Z"
+            },
+            {
+                "name": "Teleport 2.7.0-alpha.6",
+                "date": "2018-07-05T23:57:53Z"
+            },
+            {
+                "name": "Teleport 2.6.6",
+                "date": "2018-06-22T22:09:46Z"
+            },
+            {
+                "name": "Teleport 2.6.5",
+                "date": "2018-06-22T20:08:28Z"
+            },
+            {
+                "name": "Teleport 2.6.2",
+                "date": "2018-06-14T19:23:10Z"
+            },
+            {
+                "name": "Teleport 2.6.1",
+                "date": "2018-06-02T01:11:30Z"
+            },
+            {
+                "name": "Teleport 2.6.0",
+                "date": "2018-05-31T18:13:23Z"
+            },
+            {
+                "name": "Teleport 2.6.0-rc.3",
+                "date": "2018-05-30T20:35:09Z"
+            },
+            {
+                "name": "Teleport 2.5.8",
+                "date": "2018-05-30T19:49:26Z"
+            },
+            {
+                "name": "Teleport 2.4.8",
+                "date": "2018-05-30T19:48:10Z"
+            },
+            {
+                "name": "Teleport 2.6.0-rc.2",
+                "date": "2018-05-25T22:17:59Z"
+            },
+            {
+                "name": "Teleport 2.6.0-rc.1",
+                "date": "2018-05-18T01:01:54Z"
+            },
+            {
+                "name": "Teleport 2.6.0-beta.3",
+                "date": "2018-05-08T22:35:22Z"
+            },
+            {
+                "name": "Teleport 2.5.7",
+                "date": "2018-05-08T21:42:16Z"
+            },
+            {
+                "name": "2.6.0 beta pre-release",
+                "date": "2018-05-05T18:52:21Z"
+            },
+            {
+                "name": "",
+                "date": "2018-04-06T00:26:02Z"
+            },
+            {
+                "name": "Pre-release 2.6.0-alpha.7",
+                "date": "2018-04-04T16:36:54Z"
+            },
+            {
+                "name": "Teleport 2.5.6",
+                "date": "2018-04-04T20:20:02Z"
+            },
+            {
+                "name": "Teleport 2.5.5",
+                "date": "2018-04-02T23:48:37Z"
+            },
+            {
+                "name": "Pre-release 2.6.0-alpha.5",
+                "date": "2018-03-29T23:06:49Z"
+            },
+            {
+                "name": "Teleport 2.6.0-alpha.4",
+                "date": "2018-03-27T18:18:53Z"
+            },
+            {
+                "name": "Teleport 2.6.0-alpha.3",
+                "date": "2018-03-27T01:32:52Z"
+            },
+            {
+                "name": "Teleport 2.5.4",
+                "date": "2018-03-27T01:38:18Z"
+            },
+            {
+                "name": "Pre-release 2.6.0-alpha.1",
+                "date": "2018-03-26T18:35:01Z"
+            },
+            {
+                "name": "Teleport 2.4.7",
+                "date": "2018-03-26T22:13:58Z"
+            },
+            {
+                "name": "Teleport 2.5.3",
+                "date": "2018-03-23T02:06:38Z"
+            },
+            {
+                "name": "Teleport 2.4.6",
+                "date": "2018-03-23T01:41:44Z"
+            },
+            {
+                "name": "Teleport 2.5.2",
+                "date": "2018-03-17T01:10:28Z"
+            },
+            {
+                "name": "Pre release 2.6.0-alpha.0",
+                "date": "2018-03-15T20:15:26Z"
+            },
+            {
+                "name": "Teleport 2.5.1",
+                "date": "2018-03-15T19:09:29Z"
+            },
+            {
+                "name": "Teleport 2.4.5",
+                "date": "2018-03-15T18:55:45Z"
+            },
+            {
+                "name": "Teleport 2.5.0",
+                "date": "2018-03-13T21:42:12Z"
+            },
+            {
+                "name": "Teleport 2.4.4",
+                "date": "2018-03-13T21:09:52Z"
+            },
+            {
+                "name": "Teleport 2.4.3",
+                "date": "2018-03-08T00:47:11Z"
+            },
+            {
+                "name": "",
+                "date": "2018-02-21T21:32:21Z"
+            },
+            {
+                "name": "Teleport 2.4.2",
+                "date": "2018-02-21T01:12:57Z"
+            },
+            {
+                "name": "Release candidate 2.5.0-rc.1",
+                "date": "2018-02-19T20:47:53Z"
+            },
+            {
+                "name": "Pre-release 2.5.0-beta.2",
+                "date": "2018-02-14T18:02:28Z"
+            },
+            {
+                "name": "Teleport 2.4.1",
+                "date": "2018-02-06T20:14:04Z"
+            },
+            {
+                "name": "Pre release 2.5.0-beta.1",
+                "date": "2018-02-05T20:08:25Z"
+            },
+            {
+                "name": "Pre release 2.5.0-alpha.6",
+                "date": "2018-01-25T19:56:57Z"
+            },
+            {
+                "name": "Pre release 2.5.0-alpha.5",
+                "date": "2018-01-23T00:00:07Z"
+            },
+            {
+                "name": "Pre release 2.5.0-alpha.4",
+                "date": "2018-01-18T22:29:40Z"
+            },
+            {
+                "name": "Pre-release 2.5.0-alpha.3",
+                "date": "2018-01-16T18:50:30Z"
+            },
+            {
+                "name": "Teleport 2.4.0",
+                "date": "2018-01-10T17:53:37Z"
+            },
+            {
+                "name": "Teleport 2.4.0-rc.4",
+                "date": "2018-01-04T23:16:30Z"
+            },
+            {
+                "name": "Teleport 2.3.7",
+                "date": "2018-01-04T22:59:37Z"
+            },
+            {
+                "name": "Teleport 2.2.8",
+                "date": "2018-01-04T22:58:09Z"
+            },
+            {
+                "name": "",
+                "date": "2018-01-03T19:05:36Z"
+            },
+            {
+                "name": "",
+                "date": "2017-12-29T03:20:30Z"
+            },
+            {
+                "name": "Teleport 2.4.0-rc.3",
+                "date": "2017-12-27T22:30:27Z"
+            },
+            {
+                "name": "Teleport 2.4.0-rc.2",
+                "date": "2017-12-21T20:50:37Z"
+            },
+            {
+                "name": "Teleport 2.4.0-rc.1",
+                "date": "2017-12-21T20:49:40Z"
+            },
+            {
+                "name": "Teleport 2.3.5",
+                "date": "2017-10-17T01:42:15Z"
+            },
+            {
+                "name": "Teleport 2.3.5 RC1",
+                "date": "2017-10-13T23:39:32Z"
+            },
+            {
+                "name": "Teleport 2.3.1",
+                "date": "2017-10-02T19:26:10Z"
+            },
+            {
+                "name": "Teleport 2.3.0",
+                "date": "2017-09-20T16:57:09Z"
+            },
+            {
+                "name": "Teleport 2.3.0-rc2",
+                "date": "2017-09-08T20:46:56Z"
+            },
+            {
+                "name": "Teleport 2.3.0-rc1",
+                "date": "2017-08-31T19:06:08Z"
+            },
+            {
+                "name": "Teleport 2.2.7",
+                "date": "2017-08-31T18:56:05Z"
+            },
+            {
+                "name": "Teleport 2.2.4",
+                "date": "2017-07-17T19:11:42Z"
+            },
+            {
+                "name": "Teleport 2.2.3",
+                "date": "2017-06-27T21:05:07Z"
+            },
+            {
+                "name": "Teleport 2.2.2",
+                "date": "2017-06-22T22:06:35Z"
+            },
+            {
+                "name": "Teleport 2.2.1",
+                "date": "2017-06-21T23:13:00Z"
+            },
+            {
+                "name": "Teleport 2.2.0",
+                "date": "2017-06-13T18:10:59Z"
+            },
+            {
+                "name": "Teleport 2.2.0 Beta 1",
+                "date": "2017-06-05T18:55:47Z"
+            },
+            {
+                "name": "Teleport 2.2.0 Alpha 8",
+                "date": "2017-05-25T01:06:25Z"
+            },
+            {
+                "name": "Teleport 2.1.0 Alpha 6",
+                "date": "2017-05-12T23:08:15Z"
+            },
+            {
+                "name": "Teleport 2.1.0 Alpha 5",
+                "date": "2017-05-10T17:56:21Z"
+            },
+            {
+                "name": "Teleport 2.0.6",
+                "date": "2017-05-04T00:12:05Z"
+            },
+            {
+                "name": "Teleport 2.1.0 Alpha 4",
+                "date": "2017-05-03T22:15:24Z"
+            },
+            {
+                "name": "Teleport 2.0.5",
+                "date": "2017-05-03T22:16:24Z"
+            },
+            {
+                "name": "Teleport 2.0.4",
+                "date": "2017-04-20T23:18:02Z"
+            },
+            {
+                "name": "Teleport 2.0.3",
+                "date": "2017-04-19T23:59:24Z"
+            },
+            {
+                "name": "Release Teleport 2.1.0 Alpha 3",
+                "date": "2017-04-17T19:28:45Z"
+            },
+            {
+                "name": "Teleport 2.0.2",
+                "date": "2017-04-17T19:26:21Z"
+            },
+            {
+                "name": "Teleport 2.1.0 Alpha 2",
+                "date": "2017-04-13T19:04:17Z"
+            },
+            {
+                "name": "Teleport 2.0.1",
+                "date": "2017-04-11T18:22:22Z"
+            },
+            {
+                "name": "Teleport 2.0 RC 2",
+                "date": "2017-03-21T23:57:36Z"
+            },
+            {
+                "name": "Teleport 2.0 RC 1",
+                "date": "2017-03-17T22:16:06Z"
+            },
+            {
+                "name": "Teleport 2.0 Beta 2",
+                "date": "2017-03-15T00:43:21Z"
+            },
+            {
+                "name": "Teleport 2.0 Beta 1",
+                "date": "2017-03-13T18:25:56Z"
+            },
+            {
+                "name": "Alpha pre-production release. Use at your own risk",
+                "date": "2017-02-28T01:21:21Z"
+            },
+            {
+                "name": "Teleport 1.3.2 Release",
+                "date": "2017-01-10T07:51:33Z"
+            },
+            {
+                "name": "Teleport 1.3.1 Release",
+                "date": "2016-12-21T01:25:59Z"
+            },
+            {
+                "name": "Teleport v1.3 Relase",
+                "date": "2016-12-19T06:29:57Z"
+            },
+            {
+                "name": "Teleport 1.2 Release",
+                "date": "2016-10-10T23:43:45Z"
+            },
+            {
+                "name": "Teleport 1.1.0 Release",
+                "date": "2016-09-16T00:05:23Z"
+            },
+            {
+                "name": "Teleport 1.0.5 Release",
+                "date": "2016-08-19T22:06:08Z"
+            },
+            {
+                "name": "Teleport 1.0.4 Release",
+                "date": "2016-08-05T22:52:35Z"
+            },
+            {
+                "name": "Teleport 1.0.3 Release",
+                "date": "2016-08-05T00:08:31Z"
+            },
+            {
+                "name": "Teleport 1.0 Release",
+                "date": "2016-06-17T19:44:24Z"
+            },
+            {
+                "name": "NetAddr YAML marshaling and session env vars",
+                "date": "2016-06-11T04:05:50Z"
+            },
+            {
+                "name": "Bring back AuthIdentityEvent",
+                "date": "2016-06-09T00:17:29Z"
+            },
+            {
+                "name": "Skip reading local agent keys if SkipLocalAuth=true",
+                "date": "2016-06-08T19:24:30Z"
+            },
+            {
+                "name": "Properly report an error on reverse tunnel startup",
+                "date": "2016-06-07T05:02:09Z"
+            },
+            {
+                "name": "Provisioning tokens, user lookup and reconnecting logic",
+                "date": "2016-05-18T16:13:28Z"
+            },
+            {
+                "name": "Audit Logs and OpenID Connect Authentication",
+                "date": "2016-05-11T00:10:58Z"
+            },
+            {
+                "name": "",
+                "date": "2016-05-09T20:18:14Z"
+            },
+            {
+                "name": "",
+                "date": "2016-03-24T19:39:34Z"
+            }
+        ]
+    }
+}

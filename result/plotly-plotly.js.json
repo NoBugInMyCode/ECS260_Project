@@ -1,0 +1,1100 @@
+{
+    "https://api.github.com/repos/plotly/plotly.js": {
+        "forks": 1880,
+        "watchers": 17238,
+        "stars": 17238,
+        "languages": {
+            "JavaScript": 11044406,
+            "Python": 12715,
+            "Shell": 7565,
+            "HTML": 7057,
+            "SCSS": 6965,
+            "CSS": 1184
+        },
+        "commits": [
+            "2025-01-17T21:27:18Z",
+            "2025-01-17T20:23:30Z",
+            "2024-12-16T19:02:19Z",
+            "2024-12-16T18:57:18Z",
+            "2024-12-16T18:52:48Z",
+            "2024-12-16T18:06:26Z",
+            "2024-12-16T17:59:17Z",
+            "2024-12-16T17:33:25Z",
+            "2024-12-16T17:31:37Z",
+            "2024-12-16T17:16:33Z",
+            "2024-12-16T17:04:05Z",
+            "2024-12-16T16:16:53Z",
+            "2024-12-14T01:13:20Z",
+            "2024-12-14T00:45:15Z",
+            "2024-12-14T00:16:36Z",
+            "2024-12-10T18:09:57Z",
+            "2024-12-07T14:37:18Z",
+            "2024-12-07T13:48:26Z",
+            "2024-12-06T20:02:19Z",
+            "2024-12-05T22:24:32Z",
+            "2024-11-27T17:14:37Z",
+            "2024-11-27T17:12:56Z",
+            "2024-11-27T16:38:29Z",
+            "2024-11-27T16:26:32Z",
+            "2024-11-27T16:24:32Z",
+            "2024-11-26T17:10:06Z",
+            "2024-11-25T23:05:37Z",
+            "2024-11-25T22:49:52Z",
+            "2024-11-25T21:29:29Z",
+            "2024-11-25T20:00:55Z"
+        ],
+        "creation_date": "2015-11-05T23:27:17Z",
+        "contributors": 30,
+        "topics": [
+            "charting-library",
+            "charts",
+            "d3",
+            "data-visualization",
+            "plotly",
+            "plotly-dash",
+            "regl",
+            "visualization",
+            "webgl"
+        ],
+        "subscribers": 283,
+        "readme": "<a href=\"https://plotly.com/javascript/\"><img src=\"https://images.plot.ly/logo/plotlyjs-logo@2x.png\" height=\"70\"></a>\n\n[![npm version](https://badge.fury.io/js/plotly.js.svg)](https://badge.fury.io/js/plotly.js)\n[![circle ci](https://circleci.com/gh/plotly/plotly.js.svg?style=shield)](https://circleci.com/gh/plotly/plotly.js)\n[![MIT License](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://github.com/plotly/plotly.js/blob/master/LICENSE)\n\n[Plotly.js](https://plotly.com/javascript) is a standalone Javascript data visualization library, and it also powers the Python and R modules named `plotly` in those respective ecosystems (referred to as [Plotly.py](https://plotly.com/python) and [Plotly.R](http://plotly.com/r)).\n\nPlotly.js can be used to produce dozens of chart types and visualizations, including statistical charts, 3D graphs, scientific charts, SVG and tile maps, financial charts and more.\n\n<p align=\"center\">\n    <a href=\"https://plotly.com/javascript/\" target=\"_blank\">\n        <img src=\"https://raw.githubusercontent.com/cldougl/plot_images/add_r_img/plotly_2017.png\">\n    </a>\n</p>\n\n[Contact us](https://plotly.com/products/consulting-and-oem/) for Plotly.js consulting, dashboard development, application integration, and feature additions.\n\n<div align=\"center\">\n  <a href=\"https://dash.plotly.com/project-maintenance\">\n    <img src=\"https://dash.plotly.com/assets/images/maintained-by-plotly.png\" width=\"400px\" alt=\"Maintained by Plotly\">\n  </a>\n</div>\n\n\n## Table of contents\n\n* [Load as a node module](#load-as-a-node-module)\n* [Load via script tag](#load-via-script-tag)\n* [Bundles](#bundles)\n* [Alternative ways to load and build plotly.js](#alternative-ways-to-load-and-build-plotlyjs)\n* [Documentation](#documentation)\n* [Bugs and feature requests](#bugs-and-feature-requests)\n* [Contributing](#contributing)\n* [Notable contributors](#notable-contributors)\n* [Copyright and license](#copyright-and-license)\n* [Community](#community)\n\n---\n## Load as a node module\nInstall [a ready-to-use distributed bundle](https://github.com/plotly/plotly.js/blob/master/dist/README.md)\n```sh\nnpm i --save plotly.js-dist-min\n```\n\nand use import or require in node.js\n```js\n// ES6 module\nimport Plotly from 'plotly.js-dist-min'\n\n// CommonJS\nvar Plotly = require('plotly.js-dist-min')\n```\n\nYou may also consider using [`plotly.js-dist`](https://www.npmjs.com/package/plotly.js-dist) if you prefer using an unminified package.\n\n---\n## Load via script tag\n\n### The script HTML element\n> In the examples below `Plotly` object is added to the window scope by `script`. The `newPlot` method is then used to draw an interactive figure as described by `data` and `layout` into the desired `div` here named `gd`. As demonstrated in the example above basic knowledge of `html` and [JSON](https://en.wikipedia.org/wiki/JSON) syntax is enough to get started i.e. with/without JavaScript! To learn and build more with plotly.js please visit [plotly.js documentation](https://plotly.com/javascript).\n\n```html\n<head>\n    <script src=\"https://cdn.plot.ly/plotly-3.0.0-rc.2.min.js\" charset=\"utf-8\"></script>\n</head>\n<body>\n    <div id=\"gd\"></div>\n\n    <script>\n        Plotly.newPlot(\"gd\", /* JSON object */ {\n            \"data\": [{ \"y\": [1, 2, 3] }],\n            \"layout\": { \"width\": 600, \"height\": 400}\n        })\n    </script>\n</body>\n```\n\nAlternatively you may consider using [native ES6 import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) in the script tag.\n```html\n<script type=\"module\">\n    import \"https://cdn.plot.ly/plotly-3.0.0-rc.2.min.js\"\n    Plotly.newPlot(\"gd\", [{ y: [1, 2, 3] }])\n</script>\n```\n\nFastly supports Plotly.js with free CDN service. Read more at <https://www.fastly.com/open-source>.\n\n### Un-minified versions are also available on CDN\nWhile non-minified source files may contain characters outside UTF-8, it is recommended that you specify the `charset` when loading those bundles.\n```html\n<script src=\"https://cdn.plot.ly/plotly-3.0.0-rc.2.js\" charset=\"utf-8\"></script>\n```\n\n> Please note that as of v2 the \"plotly-latest\" outputs (e.g. https://cdn.plot.ly/plotly-latest.min.js) will no longer be updated on the CDN, and will stay at the last v1 patch v1.58.5. Therefore, to use the CDN with plotly.js v2 and higher, you must specify an exact plotly.js version.\n\n### MathJax\nYou could load either version two or version three of MathJax files, for example:\n```html\n<script src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG.js\"></script>\n```\n\n```html\n<script src=\"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js\"></script>\n```\n\n> When using MathJax version 3, it is also possible to use `chtml` output on the other parts of the page in addition to `svg` output for the plotly graph.\nPlease refer to `devtools/test_dashboard/index-mathjax3chtml.html` to see an example.\n\n### Need to have several WebGL graphs on a page?\nYou may simply load [virtual-webgl](https://github.com/greggman/virtual-webgl) script for WebGL 1 (not WebGL 2) before loading other scripts.\n```html\n<script src=\"https://unpkg.com/virtual-webgl@1.0.6/src/virtual-webgl.js\"></script>\n```\n\n## Bundles\nThere are two kinds of plotly.js bundles:\n1. Complete and partial official bundles that are distributed to `npm` and the `CDN`, described in [the dist README](https://github.com/plotly/plotly.js/blob/master/dist/README.md).\n2. Custom bundles you can create yourself to optimize the size of bundle depending on your needs. Please visit [CUSTOM_BUNDLE](https://github.com/plotly/plotly.js/blob/master/CUSTOM_BUNDLE.md) for more information.\n\n---\n## Alternative ways to load and build plotly.js\nIf your library needs to bundle or directly load [plotly.js/lib/index.js](https://github.com/plotly/plotly.js/blob/master/lib/index.js) or parts of its modules similar to [index-basic](https://github.com/plotly/plotly.js/blob/master/lib/index-basic.js) in some other way than via an official or a custom bundle, or in case you want to tweak the default build configurations, then please visit [`BUILDING.md`](https://github.com/plotly/plotly.js/blob/master/BUILDING.md).\n\n---\n## Documentation\n\nOfficial plotly.js documentation is hosted at [https://plotly.com/javascript](https://plotly.com/javascript).\n\nThese pages are generated by the Plotly [graphing-library-docs repo](https://github.com/plotly/graphing-library-docs) built with [Jekyll](https://jekyllrb.com/) and publicly hosted on GitHub Pages.\nFor more info about contributing to Plotly documentation, please read through [contributing guidelines](https://github.com/plotly/graphing-library-docs/blob/master/README.md).\n\n---\n## Bugs and feature requests\n\nHave a bug or a feature request? Please [open a Github issue](https://github.com/plotly/plotly.js/issues/new) keeping in mind the [issue guidelines](https://github.com/plotly/plotly.js/blob/master/.github/ISSUE_TEMPLATE.md). You may also want to read about [how changes get made to Plotly.js](https://github.com/plotly/plotly.js/blob/master/CONTRIBUTING.md)\n\n---\n## Contributing\n\nPlease read through our [contributing guidelines](https://github.com/plotly/plotly.js/blob/master/CONTRIBUTING.md). Included are directions for opening issues, using plotly.js in your project and notes on development.\n\n---\n## Notable contributors\n\nPlotly.js is at the core of a large and dynamic ecosystem with many contributors who file issues, reproduce bugs, suggest improvements, write code in this repo (and other upstream or downstream ones) and help users in the Plotly community forum. The following people deserve special recognition for their outsized contributions to this ecosystem:\n\n|   | GitHub | Twitter | Status |\n|---|--------|---------|--------|\n|**Alex C. Johnson**| [@alexcjohnson](https://github.com/alexcjohnson) | | Active, Maintainer |\n|**Mojtaba Samimi** | [@archmoj](https://github.com/archmoj) | [@solarchvision](https://twitter.com/solarchvision) | Active, Maintainer |\n|**Emily Kellison-Linn** | [@emilykl](https://github.com/emilykl) | | Active, Maintainer |\n|**My-Tien Nguyen**| [@my-tien](https://github.com/my-tien) | | Active, Community Contributor |\n|**Birk Skyum**| [@birkskyum](https://github.com/birkskyum) | | Active, Community Contributor |\n|**\u00c9tienne T\u00e9treault-Pinard**| [@etpinard](https://github.com/etpinard) | [@etpinard](https://twitter.com/etpinard) | Hall of Fame |\n|**Antoine Roy-Gobeil** | [@antoinerg](https://github.com/antoinerg) | | Hall of Fame |\n|**Jack Parmer**| [@jackparmer](https://github.com/jackparmer) | | Hall of Fame |\n|**Nicolas Kruchten** | [@nicolaskruchten](https://github.com/nicolaskruchten) | [@nicolaskruchten](https://twitter.com/nicolaskruchten) | Hall of Fame |\n|**Mikola Lysenko**| [@mikolalysenko](https://github.com/mikolalysenko) | [@MikolaLysenko](https://twitter.com/MikolaLysenko) | Hall of Fame |\n|**Ricky Reusser**| [@rreusser](https://github.com/rreusser) | [@rickyreusser](https://twitter.com/rickyreusser) | Hall of Fame |\n|**Dmitry Yv.** | [@dy](https://github.com/dy) | [@DimaYv](https://twitter.com/dimayv)| Hall of Fame |\n|**Jon Mease** | [@jonmmease](https://github.com/jonmmease) | [@jonmmease](https://twitter.com/jonmmease) | Hall of Fame |\n|**Robert Monfera**| [@monfera](https://github.com/monfera) | [@monfera](https://twitter.com/monfera) | Hall of Fame |\n|**Robert M\u00f6stl** | [@rmoestl](https://github.com/rmoestl) | [@rmoestl](https://twitter.com/rmoestl) | Hall of Fame |\n|**Nicolas Riesco**| [@n-riesco](https://github.com/n-riesco) | | Hall of Fame |\n|**Mikl\u00f3s Tusz**| [@mdtusz](https://github.com/mdtusz) | [@mdtusz](https://twitter.com/mdtusz)| Hall of Fame |\n|**Chelsea Douglas**| [@cldougl](https://github.com/cldougl) | | Hall of Fame |\n|**Ben Postlethwaite**| [@bpostlethwaite](https://github.com/bpostlethwaite) | | Hall of Fame |\n|**Hannah Ker** | [@hannahker](https://github.com/hannahker) | [@hannahker11](https://twitter.com/hannahker11)| Hall of Fame |\n|**Chris Parmer**| [@chriddyp](https://github.com/chriddyp) | | Hall of Fame |\n|**Alex Vados**| [@alexander-daniel](https://github.com/alexander-daniel) | | Hall of Fame |\n\n---\n## Copyright and license\n\nCode and documentation copyright 2021 Plotly, Inc.\n\nCode released under the [MIT license](https://github.com/plotly/plotly.js/blob/master/LICENSE).\n\n### Versioning\n\nThis project is maintained under the [Semantic Versioning guidelines](https://semver.org/).\n\nSee the [Releases section](https://github.com/plotly/plotly.js/releases) of our GitHub project for changelogs for each release version of plotly.js.\n\n---\n## Community\n\n* Follow [@plotlygraphs](https://twitter.com/plotlygraphs) on Twitter for the latest Plotly news.\n* Implementation help may be found on community.plot.com (tagged [`plotly-js`](https://community.plotly.com/c/plotly-js)) or\n  on Stack Overflow (tagged [`plotly`](https://stackoverflow.com/questions/tagged/plotly)).\n* Developers should use the keyword `plotly` on packages which modify or add to the functionality of plotly.js when distributing through [npm](https://www.npmjs.com/browse/keyword/plotly).\n",
+        "releases": [
+            {
+                "name": "v3.0.0-rc.2",
+                "date": "2024-12-16T20:06:48Z"
+            },
+            {
+                "name": "v2.35.3",
+                "date": "2024-12-14T05:07:01Z"
+            },
+            {
+                "name": "3.0.0-rc.1",
+                "date": "2024-11-28T19:04:58Z"
+            },
+            {
+                "name": "v2.35.2",
+                "date": "2024-09-10T20:58:34Z"
+            },
+            {
+                "name": "v2.35.1",
+                "date": "2024-09-09T18:45:28Z"
+            },
+            {
+                "name": "v2.35.0",
+                "date": "2024-08-29T15:33:17Z"
+            },
+            {
+                "name": "v2.34.0",
+                "date": "2024-07-18T12:57:12Z"
+            },
+            {
+                "name": "v2.33.0",
+                "date": "2024-05-29T09:27:30Z"
+            },
+            {
+                "name": "v2.32.0",
+                "date": "2024-04-23T18:58:54Z"
+            },
+            {
+                "name": "v2.31.1",
+                "date": "2024-04-15T18:42:02Z"
+            },
+            {
+                "name": "v2.31.0",
+                "date": "2024-04-10T15:06:55Z"
+            },
+            {
+                "name": "v2.30.1",
+                "date": "2024-03-15T20:16:54Z"
+            },
+            {
+                "name": "v2.30.0",
+                "date": "2024-03-06T22:36:44Z"
+            },
+            {
+                "name": "v2.29.1",
+                "date": "2024-02-12T16:55:15Z"
+            },
+            {
+                "name": "v2.29.0",
+                "date": "2024-02-02T02:24:32Z"
+            },
+            {
+                "name": "2.28.0",
+                "date": "2024-01-05T21:09:24Z"
+            },
+            {
+                "name": "v2.27.1",
+                "date": "2023-11-08T19:18:44Z"
+            },
+            {
+                "name": "v2.27.0",
+                "date": "2023-10-20T14:12:51Z"
+            },
+            {
+                "name": "v2.26.2",
+                "date": "2023-10-04T19:13:50Z"
+            },
+            {
+                "name": "v2.26.1",
+                "date": "2023-09-22T20:17:24Z"
+            },
+            {
+                "name": "v2.26.0",
+                "date": "2023-08-24T17:04:44Z"
+            },
+            {
+                "name": "v2.25.2",
+                "date": "2023-08-11T16:10:44Z"
+            },
+            {
+                "name": "v2.25.1",
+                "date": "2023-08-02T14:23:44Z"
+            },
+            {
+                "name": "v2.25.0",
+                "date": "2023-07-25T16:51:08Z"
+            },
+            {
+                "name": "v2.24.3",
+                "date": "2023-07-18T19:33:05Z"
+            },
+            {
+                "name": "v2.24.2",
+                "date": "2023-06-09T22:06:12Z"
+            },
+            {
+                "name": "v2.24.1",
+                "date": "2023-06-07T19:16:29Z"
+            },
+            {
+                "name": "v2.24.0",
+                "date": "2023-06-06T15:08:34Z"
+            },
+            {
+                "name": "v2.23.2",
+                "date": "2023-05-19T22:26:46Z"
+            },
+            {
+                "name": "v2.23.1",
+                "date": "2023-05-17T01:24:18Z"
+            },
+            {
+                "name": "v2.23.0",
+                "date": "2023-05-12T19:52:32Z"
+            },
+            {
+                "name": "v2.22.0",
+                "date": "2023-04-27T14:51:55Z"
+            },
+            {
+                "name": "v2.21.0",
+                "date": "2023-04-17T21:33:20Z"
+            },
+            {
+                "name": "v2.20.0",
+                "date": "2023-03-15T17:55:22Z"
+            },
+            {
+                "name": "v2.19.1",
+                "date": "2023-03-14T15:58:06Z"
+            },
+            {
+                "name": "v2.19.0",
+                "date": "2023-03-13T14:35:52Z"
+            },
+            {
+                "name": "v2.18.2",
+                "date": "2023-02-15T23:33:06Z"
+            },
+            {
+                "name": "v2.18.1",
+                "date": "2023-02-02T20:21:26Z"
+            },
+            {
+                "name": "v2.18.0",
+                "date": "2023-01-19T17:09:21Z"
+            },
+            {
+                "name": "v2.17.1",
+                "date": "2023-01-09T18:41:33Z"
+            },
+            {
+                "name": "v2.17.0",
+                "date": "2022-12-23T01:16:13Z"
+            },
+            {
+                "name": "v2.16.5",
+                "date": "2022-12-13T15:29:24Z"
+            },
+            {
+                "name": "v2.16.4",
+                "date": "2022-12-07T22:34:43Z"
+            },
+            {
+                "name": "v2.16.3",
+                "date": "2022-11-16T15:56:54Z"
+            },
+            {
+                "name": "v2.16.2",
+                "date": "2022-11-12T00:34:56Z"
+            },
+            {
+                "name": "v2.16.1",
+                "date": "2022-10-21T16:28:16Z"
+            },
+            {
+                "name": "v2.16.0",
+                "date": "2022-10-14T21:34:00Z"
+            },
+            {
+                "name": "v2.15.1",
+                "date": "2022-10-11T13:46:11Z"
+            },
+            {
+                "name": "v2.15.0",
+                "date": "2022-10-07T16:26:56Z"
+            },
+            {
+                "name": "v2.14.0",
+                "date": "2022-08-10T15:30:47Z"
+            },
+            {
+                "name": "v2.13.3",
+                "date": "2022-07-25T20:38:08Z"
+            },
+            {
+                "name": "v2.13.2",
+                "date": "2022-07-21T14:09:34Z"
+            },
+            {
+                "name": "2.13.1",
+                "date": "2022-07-14T20:43:01Z"
+            },
+            {
+                "name": "v2.13.0",
+                "date": "2022-07-14T17:24:43Z"
+            },
+            {
+                "name": "v2.12.1",
+                "date": "2022-05-09T23:11:16Z"
+            },
+            {
+                "name": "v2.12.0",
+                "date": "2022-05-02T19:17:44Z"
+            },
+            {
+                "name": "v2.11.1",
+                "date": "2022-03-15T17:44:06Z"
+            },
+            {
+                "name": "v2.11.0",
+                "date": "2022-03-12T00:40:28Z"
+            },
+            {
+                "name": "v2.10.1",
+                "date": "2022-03-08T14:25:44Z"
+            },
+            {
+                "name": "v2.10.0",
+                "date": "2022-03-05T02:26:29Z"
+            },
+            {
+                "name": "v2.9.0",
+                "date": "2022-02-04T21:21:35Z"
+            },
+            {
+                "name": "v2.8.3",
+                "date": "2021-12-20T17:40:26Z"
+            },
+            {
+                "name": "v2.8.2",
+                "date": "2021-12-20T16:42:02Z"
+            },
+            {
+                "name": "v2.8.1",
+                "date": "2021-12-16T01:54:52Z"
+            },
+            {
+                "name": "v2.8.0",
+                "date": "2021-12-10T21:28:22Z"
+            },
+            {
+                "name": "v2.7.0",
+                "date": "2021-12-03T03:02:10Z"
+            },
+            {
+                "name": "v2.6.4",
+                "date": "2021-11-26T18:58:07Z"
+            },
+            {
+                "name": "v2.6.3",
+                "date": "2021-11-12T19:15:42Z"
+            },
+            {
+                "name": "v2.6.2",
+                "date": "2021-11-05T15:47:48Z"
+            },
+            {
+                "name": "v2.6.1",
+                "date": "2021-11-03T19:49:08Z"
+            },
+            {
+                "name": "v2.6.0",
+                "date": "2021-10-30T01:46:32Z"
+            },
+            {
+                "name": "v2.5.1",
+                "date": "2021-09-16T16:20:40Z"
+            },
+            {
+                "name": "v2.5.0",
+                "date": "2021-09-03T20:39:32Z"
+            },
+            {
+                "name": "v2.4.2",
+                "date": "2021-08-31T18:47:40Z"
+            },
+            {
+                "name": "v2.4.1",
+                "date": "2021-08-27T20:55:46Z"
+            },
+            {
+                "name": "v2.4.0",
+                "date": "2021-08-27T13:12:03Z"
+            },
+            {
+                "name": "v2.3.1",
+                "date": "2021-07-30T12:29:52Z"
+            },
+            {
+                "name": "v2.3.0",
+                "date": "2021-07-23T18:30:01Z"
+            },
+            {
+                "name": "v2.2.1",
+                "date": "2021-07-06T20:58:14Z"
+            },
+            {
+                "name": "v1.58.5",
+                "date": "2021-07-06T18:57:46Z"
+            },
+            {
+                "name": "v2.2.0",
+                "date": "2021-06-28T14:08:39Z"
+            },
+            {
+                "name": "v2.1.0",
+                "date": "2021-06-18T18:55:18Z"
+            },
+            {
+                "name": "v2.0.0",
+                "date": "2021-06-07T15:31:29Z"
+            },
+            {
+                "name": "v2.0.0-rc.3",
+                "date": "2021-06-03T22:07:05Z"
+            },
+            {
+                "name": "v2.0.0-rc.2",
+                "date": "2021-05-28T15:16:46Z"
+            },
+            {
+                "name": "v2.0.0-rc.1",
+                "date": "2021-04-22T16:55:18Z"
+            },
+            {
+                "name": "v2.0.0-rc.0",
+                "date": "2021-02-17T14:40:19Z"
+            },
+            {
+                "name": "v1.58.4",
+                "date": "2020-12-21T18:56:20Z"
+            },
+            {
+                "name": "v1.58.3",
+                "date": "2020-12-17T14:26:02Z"
+            },
+            {
+                "name": "v1.58.2",
+                "date": "2020-12-09T01:21:15Z"
+            },
+            {
+                "name": "v1.58.1",
+                "date": "2020-12-04T17:05:58Z"
+            },
+            {
+                "name": "v1.58.0",
+                "date": "2020-12-02T23:35:22Z"
+            },
+            {
+                "name": "v1.57.1",
+                "date": "2020-10-20T21:49:18Z"
+            },
+            {
+                "name": "v1.57.0",
+                "date": "2020-10-15T21:04:52Z"
+            },
+            {
+                "name": "v1.56.0",
+                "date": "2020-09-30T19:27:47Z"
+            },
+            {
+                "name": "v1.55.2",
+                "date": "2020-09-08T14:41:07Z"
+            },
+            {
+                "name": "v1.55.1",
+                "date": "2020-09-03T01:02:12Z"
+            },
+            {
+                "name": "v1.55.0",
+                "date": "2020-09-02T22:50:06Z"
+            },
+            {
+                "name": "v1.54.7",
+                "date": "2020-07-23T17:02:43Z"
+            },
+            {
+                "name": "v1.54.6",
+                "date": "2020-07-09T16:41:45Z"
+            },
+            {
+                "name": "v1.54.5",
+                "date": "2020-06-23T14:35:06Z"
+            },
+            {
+                "name": "v1.54.4",
+                "date": "2020-06-22T15:18:26Z"
+            },
+            {
+                "name": "v1.54.3",
+                "date": "2020-06-16T17:04:41Z"
+            },
+            {
+                "name": "v1.54.2",
+                "date": "2020-06-10T13:54:20Z"
+            },
+            {
+                "name": "v1.54.1",
+                "date": "2020-05-04T23:33:37Z"
+            },
+            {
+                "name": "v1.54.0",
+                "date": "2020-04-30T20:36:04Z"
+            },
+            {
+                "name": "v1.53.0",
+                "date": "2020-03-31T14:31:21Z"
+            },
+            {
+                "name": "v1.52.3",
+                "date": "2020-03-02T21:27:52Z"
+            },
+            {
+                "name": "v1.52.2",
+                "date": "2020-02-03T20:28:24Z"
+            },
+            {
+                "name": "v1.52.1",
+                "date": "2020-01-13T21:11:10Z"
+            },
+            {
+                "name": "v1.52.0",
+                "date": "2020-01-08T18:32:48Z"
+            },
+            {
+                "name": "v1.51.3",
+                "date": "2019-12-16T15:47:06Z"
+            },
+            {
+                "name": "v1.51.2",
+                "date": "2019-11-25T17:39:46Z"
+            },
+            {
+                "name": "v1.51.1",
+                "date": "2019-11-04T14:53:23Z"
+            },
+            {
+                "name": "v1.51.0",
+                "date": "2019-10-29T20:51:51Z"
+            },
+            {
+                "name": "v1.50.1",
+                "date": "2019-10-15T17:57:12Z"
+            },
+            {
+                "name": "v1.50.0",
+                "date": "2019-10-07T17:42:24Z"
+            },
+            {
+                "name": "v1.49.5",
+                "date": "2019-09-18T14:29:41Z"
+            },
+            {
+                "name": "v1.49.4",
+                "date": "2019-08-22T14:18:33Z"
+            },
+            {
+                "name": "v1.49.3",
+                "date": "2019-08-20T16:23:59Z"
+            },
+            {
+                "name": "v1.49.2",
+                "date": "2019-08-13T15:48:44Z"
+            },
+            {
+                "name": "v1.49.1",
+                "date": "2019-07-31T15:03:22Z"
+            },
+            {
+                "name": "v1.49.0",
+                "date": "2019-07-24T14:33:21Z"
+            },
+            {
+                "name": "v1.48.3",
+                "date": "2019-06-13T20:42:30Z"
+            },
+            {
+                "name": "v1.48.2",
+                "date": "2019-06-11T21:10:03Z"
+            },
+            {
+                "name": "v1.48.1",
+                "date": "2019-05-30T19:05:15Z"
+            },
+            {
+                "name": "v1.48.0",
+                "date": "2019-05-28T14:22:30Z"
+            },
+            {
+                "name": "v1.47.4",
+                "date": "2019-04-25T17:41:27Z"
+            },
+            {
+                "name": "v1.47.3",
+                "date": "2019-04-18T17:54:27Z"
+            },
+            {
+                "name": "v1.47.2",
+                "date": "2019-04-15T21:04:11Z"
+            },
+            {
+                "name": "v1.47.1",
+                "date": "2019-04-10T21:09:53Z"
+            },
+            {
+                "name": "v1.47.0",
+                "date": "2019-04-09T18:15:49Z"
+            },
+            {
+                "name": "v1.46.1",
+                "date": "2019-04-02T18:52:04Z"
+            },
+            {
+                "name": "v1.46.0",
+                "date": "2019-04-01T16:22:35Z"
+            },
+            {
+                "name": "v1.45.3",
+                "date": "2019-03-19T17:55:10Z"
+            },
+            {
+                "name": "v1.45.2",
+                "date": "2019-03-07T18:35:32Z"
+            },
+            {
+                "name": "v1.45.1",
+                "date": "2019-03-05T17:45:03Z"
+            },
+            {
+                "name": "v1.45.0",
+                "date": "2019-02-26T21:49:59Z"
+            },
+            {
+                "name": "v1.44.4",
+                "date": "2019-02-12T15:37:56Z"
+            },
+            {
+                "name": "v1.44.3",
+                "date": "2019-02-06T17:12:17Z"
+            },
+            {
+                "name": "v1.44.2",
+                "date": "2019-02-04T15:09:16Z"
+            },
+            {
+                "name": "v1.44.1",
+                "date": "2019-01-24T19:13:40Z"
+            },
+            {
+                "name": "v1.44.0",
+                "date": "2019-01-22T19:11:59Z"
+            },
+            {
+                "name": "v1.43.2",
+                "date": "2019-01-08T17:16:05Z"
+            },
+            {
+                "name": "v1.43.1",
+                "date": "2018-12-21T20:35:40Z"
+            },
+            {
+                "name": "v1.43.0",
+                "date": "2018-12-19T14:36:39Z"
+            },
+            {
+                "name": "v1.42.5",
+                "date": "2018-11-08T17:55:17Z"
+            },
+            {
+                "name": "v1.42.4",
+                "date": "2018-11-07T16:42:10Z"
+            },
+            {
+                "name": "v1.42.3",
+                "date": "2018-11-06T15:03:31Z"
+            },
+            {
+                "name": "v1.42.2",
+                "date": "2018-11-01T13:27:42Z"
+            },
+            {
+                "name": "v1.42.1",
+                "date": "2018-10-31T14:09:45Z"
+            },
+            {
+                "name": "v1.42.0",
+                "date": "2018-10-29T21:19:42Z"
+            },
+            {
+                "name": "v1.41.3",
+                "date": "2018-09-25T18:10:21Z"
+            },
+            {
+                "name": "v1.41.2",
+                "date": "2018-09-19T17:42:42Z"
+            },
+            {
+                "name": "v1.41.1",
+                "date": "2018-09-18T16:44:47Z"
+            },
+            {
+                "name": "v1.41.0",
+                "date": "2018-09-12T15:00:10Z"
+            },
+            {
+                "name": "v1.40.1",
+                "date": "2018-08-22T21:05:59Z"
+            },
+            {
+                "name": "v1.40.0",
+                "date": "2018-08-16T19:39:34Z"
+            },
+            {
+                "name": "v1.39.4",
+                "date": "2018-08-02T15:51:48Z"
+            },
+            {
+                "name": "v1.39.3",
+                "date": "2018-07-25T13:48:11Z"
+            },
+            {
+                "name": "v1.39.2",
+                "date": "2018-07-16T14:48:13Z"
+            },
+            {
+                "name": "v1.39.1",
+                "date": "2018-07-09T13:33:55Z"
+            },
+            {
+                "name": "v1.39.0",
+                "date": "2018-07-05T19:44:08Z"
+            },
+            {
+                "name": "v1.38.3",
+                "date": "2018-06-11T20:16:33Z"
+            },
+            {
+                "name": "v1.38.2",
+                "date": "2018-06-04T14:16:09Z"
+            },
+            {
+                "name": "v1.38.1",
+                "date": "2018-05-29T17:26:36Z"
+            },
+            {
+                "name": "v1.38.0",
+                "date": "2018-05-23T13:00:46Z"
+            },
+            {
+                "name": "v1.37.1",
+                "date": "2018-05-02T19:48:27Z"
+            },
+            {
+                "name": "v1.37.0",
+                "date": "2018-05-01T22:42:57Z"
+            },
+            {
+                "name": "v1.36.1",
+                "date": "2018-04-18T17:42:02Z"
+            },
+            {
+                "name": "v1.36.0",
+                "date": "2018-04-17T18:34:55Z"
+            },
+            {
+                "name": "v1.35.2",
+                "date": "2018-03-09T16:33:58Z"
+            },
+            {
+                "name": "v1.35.1",
+                "date": "2018-03-09T02:53:23Z"
+            },
+            {
+                "name": "v1.35.0",
+                "date": "2018-03-07T20:29:15Z"
+            },
+            {
+                "name": "v1.34.0",
+                "date": "2018-02-12T14:54:58Z"
+            },
+            {
+                "name": "v1.33.1",
+                "date": "2018-01-24T22:25:25Z"
+            },
+            {
+                "name": "v1.33.0",
+                "date": "2018-01-18T22:17:31Z"
+            },
+            {
+                "name": "v1.32.0",
+                "date": "2018-01-11T15:39:26Z"
+            },
+            {
+                "name": "v1.32.0-onprem",
+                "date": "2017-12-20T16:01:27Z"
+            },
+            {
+                "name": "v1.31.2",
+                "date": "2017-10-23T15:06:50Z"
+            },
+            {
+                "name": "v1.31.1",
+                "date": "2017-10-16T17:31:29Z"
+            },
+            {
+                "name": "v1.31.0",
+                "date": "2017-10-05T20:28:08Z"
+            },
+            {
+                "name": "v1.30.1",
+                "date": "2017-09-06T13:45:09Z"
+            },
+            {
+                "name": "v1.30.0",
+                "date": "2017-08-21T14:49:51Z"
+            },
+            {
+                "name": "v1.29.3",
+                "date": "2017-07-27T14:00:31Z"
+            },
+            {
+                "name": "v1.29.2",
+                "date": "2017-07-26T14:44:00Z"
+            },
+            {
+                "name": "v1.29.1",
+                "date": "2017-07-25T15:28:11Z"
+            },
+            {
+                "name": "v1.29.0",
+                "date": "2017-07-19T21:04:40Z"
+            },
+            {
+                "name": "v1.28.3",
+                "date": "2017-06-26T19:35:50Z"
+            },
+            {
+                "name": "v1.28.2",
+                "date": "2017-06-21T17:55:19Z"
+            },
+            {
+                "name": "v1.28.1",
+                "date": "2017-06-20T14:04:20Z"
+            },
+            {
+                "name": "v1.28.0",
+                "date": "2017-06-19T16:01:46Z"
+            },
+            {
+                "name": "v1.27.1",
+                "date": "2017-05-17T15:34:26Z"
+            },
+            {
+                "name": "v1.27.0",
+                "date": "2017-05-10T19:25:50Z"
+            },
+            {
+                "name": "v1.26.1",
+                "date": "2017-04-21T14:44:42Z"
+            },
+            {
+                "name": "v1.26.0",
+                "date": "2017-04-18T01:42:04Z"
+            },
+            {
+                "name": "v1.25.2",
+                "date": "2017-03-31T14:01:12Z"
+            },
+            {
+                "name": "v1.25.1",
+                "date": "2017-03-28T21:09:59Z"
+            },
+            {
+                "name": "v1.25.0",
+                "date": "2017-03-20T19:04:54Z"
+            },
+            {
+                "name": "v1.24.2",
+                "date": "2017-03-10T16:48:32Z"
+            },
+            {
+                "name": "v1.24.1",
+                "date": "2017-03-07T15:16:50Z"
+            },
+            {
+                "name": "v1.24.0",
+                "date": "2017-02-27T18:51:01Z"
+            },
+            {
+                "name": "v1.23.2",
+                "date": "2017-02-15T19:18:08Z"
+            },
+            {
+                "name": "v1.23.1",
+                "date": "2017-02-13T15:30:40Z"
+            },
+            {
+                "name": "v1.23.0",
+                "date": "2017-02-06T15:33:48Z"
+            },
+            {
+                "name": "v1.22.0",
+                "date": "2017-01-19T15:45:15Z"
+            },
+            {
+                "name": "v1.21.3",
+                "date": "2017-01-05T16:03:59Z"
+            },
+            {
+                "name": "v1.21.2",
+                "date": "2016-12-15T01:54:02Z"
+            },
+            {
+                "name": "v1.21.1",
+                "date": "2016-12-14T14:50:13Z"
+            },
+            {
+                "name": "v1.21.0",
+                "date": "2016-12-12T15:39:52Z"
+            },
+            {
+                "name": "v1.20.5",
+                "date": "2016-11-23T16:10:33Z"
+            },
+            {
+                "name": "v1.20.4",
+                "date": "2016-11-21T21:09:09Z"
+            },
+            {
+                "name": "v1.20.3",
+                "date": "2016-11-21T20:19:28Z"
+            },
+            {
+                "name": "v1.20.2",
+                "date": "2016-11-17T20:29:19Z"
+            },
+            {
+                "name": "v1.20.1",
+                "date": "2016-11-16T19:25:08Z"
+            },
+            {
+                "name": "v1.20.0",
+                "date": "2016-11-15T21:42:06Z"
+            },
+            {
+                "name": "v1.19.2",
+                "date": "2016-11-03T14:04:53Z"
+            },
+            {
+                "name": "v1.19.1",
+                "date": "2016-10-27T21:09:36Z"
+            },
+            {
+                "name": "v1.19.0",
+                "date": "2016-10-27T18:18:35Z"
+            },
+            {
+                "name": "v1.18.1",
+                "date": "2016-10-18T13:54:57Z"
+            },
+            {
+                "name": "v1.18.0",
+                "date": "2016-10-13T14:30:35Z"
+            },
+            {
+                "name": "v1.17.3",
+                "date": "2016-09-22T16:35:08Z"
+            },
+            {
+                "name": "v1.17.2",
+                "date": "2016-09-12T21:05:55Z"
+            },
+            {
+                "name": "v1.17.1",
+                "date": "2016-09-09T18:27:15Z"
+            },
+            {
+                "name": "v1.17.0",
+                "date": "2016-09-08T14:11:03Z"
+            },
+            {
+                "name": "v1.16.3",
+                "date": "2016-08-23T14:46:39Z"
+            },
+            {
+                "name": "v1.16.2",
+                "date": "2016-08-09T18:16:36Z"
+            },
+            {
+                "name": "v1.16.1",
+                "date": "2016-08-05T16:35:28Z"
+            },
+            {
+                "name": "v1.16.0",
+                "date": "2016-08-04T18:39:59Z"
+            },
+            {
+                "name": "v1.15.0",
+                "date": "2016-07-25T15:07:16Z"
+            },
+            {
+                "name": "v1.14.2",
+                "date": "2016-07-11T16:12:33Z"
+            },
+            {
+                "name": "v1.14.1",
+                "date": "2016-06-28T18:21:35Z"
+            },
+            {
+                "name": "v1.14.0",
+                "date": "2016-06-23T03:12:54Z"
+            },
+            {
+                "name": "v1.13.0",
+                "date": "2016-06-13T22:30:30Z"
+            },
+            {
+                "name": "v1.12.0",
+                "date": "2016-05-26T20:03:16Z"
+            },
+            {
+                "name": "v1.11.0",
+                "date": "2016-05-17T19:01:50Z"
+            },
+            {
+                "name": "v1.10.2",
+                "date": "2016-05-05T17:11:10Z"
+            },
+            {
+                "name": "v1.10.1",
+                "date": "2016-05-02T15:38:53Z"
+            },
+            {
+                "name": "v1.10.0",
+                "date": "2016-04-26T01:06:07Z"
+            },
+            {
+                "name": "v1.9.0",
+                "date": "2016-04-12T22:11:10Z"
+            },
+            {
+                "name": "v1.8.0",
+                "date": "2016-04-04T20:44:32Z"
+            },
+            {
+                "name": "v1.7.1",
+                "date": "2016-03-30T14:18:29Z"
+            },
+            {
+                "name": "v1.7.0",
+                "date": "2016-03-22T14:10:18Z"
+            },
+            {
+                "name": "v1.6.3",
+                "date": "2016-03-07T15:18:53Z"
+            },
+            {
+                "name": "v1.6.2",
+                "date": "2016-03-03T18:47:44Z"
+            },
+            {
+                "name": "v1.6.1",
+                "date": "2016-03-01T21:04:59Z"
+            },
+            {
+                "name": "v1.6.0",
+                "date": "2016-02-29T15:35:43Z"
+            },
+            {
+                "name": "v1.5.2",
+                "date": "2016-02-10T14:40:10Z"
+            },
+            {
+                "name": "v1.5.1",
+                "date": "2016-02-01T16:02:37Z"
+            },
+            {
+                "name": "v1.5.0",
+                "date": "2016-01-25T16:12:56Z"
+            },
+            {
+                "name": "v1.4.1",
+                "date": "2016-01-11T22:28:58Z"
+            },
+            {
+                "name": "v1.4.0",
+                "date": "2016-01-11T15:01:48Z"
+            },
+            {
+                "name": "v1.3.1",
+                "date": "2016-01-04T15:26:16Z"
+            },
+            {
+                "name": "v1.3.0",
+                "date": "2015-12-21T21:46:23Z"
+            },
+            {
+                "name": "v1.2.1",
+                "date": "2015-12-14T18:08:50Z"
+            },
+            {
+                "name": "v1.2.0",
+                "date": "2015-12-07T21:26:01Z"
+            },
+            {
+                "name": "v1.1.1",
+                "date": "2015-12-01T19:55:59Z"
+            },
+            {
+                "name": "v1.1.0",
+                "date": "2015-11-25T15:50:54Z"
+            },
+            {
+                "name": "v1.0.0 ",
+                "date": "2015-11-17T16:14:20Z"
+            }
+        ]
+    }
+}

@@ -1,0 +1,958 @@
+{
+    "https://api.github.com/repos/facebook/folly": {
+        "forks": 5634,
+        "watchers": 28899,
+        "stars": 28899,
+        "languages": {
+            "C++": 17921550,
+            "Starlark": 557779,
+            "Python": 465350,
+            "CMake": 222892,
+            "C": 193727,
+            "Cython": 54776,
+            "Shell": 17572,
+            "Assembly": 15656,
+            "Ruby": 2882,
+            "GDB": 2668,
+            "Batchfile": 989,
+            "Makefile": 804,
+            "CSS": 786,
+            "Verilog": 92
+        },
+        "commits": [
+            "2025-01-22T04:30:58Z",
+            "2025-01-22T02:57:34Z",
+            "2025-01-22T02:57:31Z",
+            "2025-01-21T23:39:05Z",
+            "2025-01-21T21:19:00Z",
+            "2025-01-21T20:08:09Z",
+            "2025-01-21T19:05:01Z",
+            "2025-01-21T14:59:14Z",
+            "2025-01-21T09:37:32Z",
+            "2025-01-20T20:50:54Z",
+            "2025-01-20T11:15:03Z",
+            "2025-01-17T20:12:38Z",
+            "2025-01-17T17:36:31Z",
+            "2025-01-17T05:30:37Z",
+            "2025-01-17T00:31:42Z",
+            "2025-01-16T11:40:58Z",
+            "2025-01-16T03:32:22Z",
+            "2025-01-16T03:32:22Z",
+            "2025-01-15T17:35:10Z",
+            "2025-01-15T08:53:27Z",
+            "2025-01-14T23:44:45Z",
+            "2025-01-14T19:14:28Z",
+            "2025-01-14T18:09:58Z",
+            "2025-01-14T09:30:15Z",
+            "2025-01-14T07:49:43Z",
+            "2025-01-13T17:35:05Z",
+            "2025-01-13T09:54:29Z",
+            "2025-01-10T19:19:54Z",
+            "2025-01-10T18:48:51Z",
+            "2025-01-10T17:33:58Z"
+        ],
+        "creation_date": "2012-06-01T20:49:04Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 1016,
+        "readme": "Folly: Facebook Open-source Library\n===================================\n\n<a href=\"https://opensource.facebook.com/support-ukraine\">\n  <img src=\"https://img.shields.io/badge/Support-Ukraine-FFD500?style=flat&labelColor=005BBB\" alt=\"Support Ukraine - Help Provide Humanitarian Aid to Ukraine.\" />\n</a>\n\n# What is `folly`?\n\n<img src=\"static/logo.svg\" alt=\"Logo Folly\" width=\"15%\" align=\"right\" />\n\nFolly (acronymed loosely after Facebook Open Source Library) is a\nlibrary of C++17 components designed with practicality and efficiency\nin mind. **Folly contains a variety of core library components used extensively\nat Facebook**. In particular, it's often a dependency of Facebook's other\nopen source C++ efforts and place where those projects can share code.\n\nIt complements (as opposed to competing against) offerings\nsuch as Boost and of course `std`. In fact, we embark on defining our\nown component only when something we need is either not available, or\ndoes not meet the needed performance profile. We endeavor to remove\nthings from folly if or when `std` or Boost obsoletes them.\n\nPerformance concerns permeate much of Folly, sometimes leading to\ndesigns that are more idiosyncratic than they would otherwise be (see\ne.g. `PackedSyncPtr.h`, `SmallLocks.h`). Good performance at large\nscale is a unifying theme in all of Folly.\n\n## Check it out in the intro video\n[![Explain Like I\u2019m 5: Folly](https://img.youtube.com/vi/Wr_IfOICYSs/0.jpg)](https://www.youtube.com/watch?v=Wr_IfOICYSs)\n\n# Logical Design\n\nFolly is a collection of relatively independent components, some as\nsimple as a few symbols. There is no restriction on internal\ndependencies, meaning that a given folly module may use any other\nfolly components.\n\nAll symbols are defined in the top-level namespace `folly`, except of\ncourse macros. Macro names are ALL_UPPERCASE and should be prefixed\nwith `FOLLY_`. Namespace `folly` defines other internal namespaces\nsuch as `internal` or `detail`. User code should not depend on symbols\nin those namespaces.\n\n# Physical Design\n\nAt the top level Folly uses the classic \"stuttering\" scheme\n`folly/folly` used by Boost and others. The first directory serves as\nan installation root of the library (with possible versioning a la\n`folly-1.0/`), and the second is to distinguish the library when\nincluding files, e.g. `#include <folly/FBString.h>`.\n\nThe directory structure is flat (mimicking the namespace structure),\ni.e. we don't have an elaborate directory hierarchy (it is possible\nthis will change in future versions). The subdirectory `experimental`\ncontains files that are used inside folly and possibly at Facebook but\nnot considered stable enough for client use. Your code should not use\nfiles in `folly/experimental` lest it may break when you update Folly.\n\nThe `folly/folly/test` subdirectory includes the unittests for all\ncomponents, usually named `ComponentXyzTest.cpp` for each\n`ComponentXyz.*`. The `folly/folly/docs` directory contains\ndocumentation.\n\n# What's in it?\n\nBecause of folly's fairly flat structure, the best way to see what's in it\nis to look at the headers in [top level `folly/` directory](https://github.com/facebook/folly/tree/main/folly). You can also\ncheck the [`docs` folder](folly/docs) for documentation, starting with the\n[overview](folly/docs/Overview.md).\n\nFolly is published on GitHub at https://github.com/facebook/folly.\n\n# Build Notes\n\nBecause folly does not provide any ABI compatibility guarantees from commit to\ncommit, we generally recommend building folly as a static library.\n\nfolly supports gcc (5.1+), clang, or MSVC. It should run on Linux (x86-32,\nx86-64, and ARM), iOS, macOS, and Windows (x86-64). The CMake build is only\ntested on some of these platforms; at a minimum, we aim to support macOS and\nLinux (on the latest Ubuntu LTS release or newer.)\n\n## `getdeps.py`\n\nThis script is used by many of Meta's OSS tools.  It will download and build all of the necessary dependencies first, and will then invoke cmake etc to build folly.  This will help ensure that you build with relevant versions of all of the dependent libraries, taking into account what versions are installed locally on your system.\n\nIt's written in python so you'll need python3.6 or later on your PATH.  It works on Linux, macOS and Windows.\n\nThe settings for folly's cmake build are held in its getdeps manifest `build/fbcode_builder/manifests/folly`, which you can edit locally if desired.\n\n### Dependencies\n\nIf on Linux or MacOS (with homebrew installed) you can install system dependencies to save building them:\n\n    # Clone the repo\n    git clone https://github.com/facebook/folly\n    # Install dependencies\n    cd folly\n    sudo ./build/fbcode_builder/getdeps.py install-system-deps --recursive\n\nIf you'd like to see the packages before installing them:\n\n    ./build/fbcode_builder/getdeps.py install-system-deps --dry-run --recursive\n\nOn other platforms or if on Linux and without system dependencies `getdeps.py` will mostly download and build them for you during the build step.\n\nSome of the dependencies `getdeps.py` uses and installs are:\n\n  * a version of boost compiled with C++14 support.\n  * googletest is required to build and run folly's tests.\n\n### Build\n\nThis script will download and build all of the necessary dependencies first,\nand will then invoke cmake etc to build folly.  This will help ensure that you build with relevant versions of all of the dependent libraries, taking into account what versions are installed locally on your system.\n\n`getdeps.py` currently requires python 3.6+ to be on your path.\n\n`getdeps.py` will invoke cmake etc.\n\n    # Clone the repo\n    git clone https://github.com/facebook/folly\n    cd folly\n    # Build, using system dependencies if available\n    python3 ./build/fbcode_builder/getdeps.py --allow-system-packages build\n\nIt puts output in its scratch area:\n\n  * `installed/folly/lib/libfolly.a`: Library\n\nYou can also specify a `--scratch-path` argument to control\nthe location of the scratch directory used for the build. You can find the default scratch install location from logs or with `python3 ./build/fbcode_builder/getdeps.py show-inst-dir`.\n\nThere are also\n`--install-dir` and `--install-prefix` arguments to provide some more\nfine-grained control of the installation directories. However, given that\nfolly provides no compatibility guarantees between commits we generally\nrecommend building and installing the libraries to a temporary location, and\nthen pointing your project's build at this temporary location, rather than\ninstalling folly in the traditional system installation directories. e.g., if you are building with CMake you can use the `CMAKE_PREFIX_PATH` variable to allow CMake to find folly in this temporary installation directory when\nbuilding your project.\n\nIf you want to invoke `cmake` again to iterate, there is a helpful `run_cmake.py` script output in the scratch build directory.  You can find the scratch build directory from logs or with `python3 ./build/fbcode_builder/getdeps.py show-build-dir`.\n\n### Run tests\n\nBy default `getdeps.py` will build the tests for folly. To run them:\n\n    cd folly\n    python3 ./build/fbcode_builder/getdeps.py --allow-system-packages test\n\n### `build.sh`/`build.bat` wrapper\n\n`build.sh` can be used on Linux and MacOS, on Windows use\nthe `build.bat` script instead. Its a wrapper around `getdeps.py`.\n\n## Build with cmake directly\n\nIf you don't want to let getdeps invoke cmake for you then by default, building the tests is disabled as part of the CMake `all` target.\nTo build the tests, specify `-DBUILD_TESTS=ON` to CMake at configure time.\n\nNB if you want to invoke `cmake` again to iterate on a `getdeps.py` build, there is a helpful `run_cmake.py` script output in the scratch-path build directory. You can find the scratch build directory from logs or with `python3 ./build/fbcode_builder/getdeps.py show-build-dir`.\n\nRunning tests with ctests also works if you cd to the build dir, e.g.\n`(cd $(python3 ./build/fbcode_builder/getdeps.py show-build-dir) && ctest)`\n\n### Finding dependencies in non-default locations\n\nIf you have boost, gtest, or other dependencies installed in a non-default\nlocation, you can use the `CMAKE_INCLUDE_PATH` and `CMAKE_LIBRARY_PATH`\nvariables to make CMAKE look also look for header files and libraries in\nnon-standard locations.  For example, to also search the directories\n`/alt/include/path1` and `/alt/include/path2` for header files and the\ndirectories `/alt/lib/path1` and `/alt/lib/path2` for libraries, you can invoke\n`cmake` as follows:\n\n```\ncmake \\\n  -DCMAKE_INCLUDE_PATH=/alt/include/path1:/alt/include/path2 \\\n  -DCMAKE_LIBRARY_PATH=/alt/lib/path1:/alt/lib/path2 ...\n```\n\n## Ubuntu LTS, CentOS Stream, Fedora\n\nUse the `getdeps.py` approach above. We test in CI on Ubuntu LTS, and occasionally on other distros.\n\nIf you find the set of system packages is not quite right for your chosen distro, you can specify distro version specific overrides in the dependency manifests (e.g. https://github.com/facebook/folly/blob/main/build/fbcode_builder/manifests/boost ). You could probably make it work on most recent Ubuntu/Debian or Fedora/Redhat derived distributions.\n\nAt time of writing (Dec 2021) there is a build break on GCC 11.x based systems in lang_badge_test.  If you don't need badge functionality you can work around by commenting it out from CMakeLists.txt (unfortunately fbthrift does need it)\n\n## Windows (Vcpkg)\n\nNote that many tests are disabled for folly Windows builds, you can see them in the log from the cmake configure step, or by looking for WINDOWS_DISABLED in `CMakeLists.txt`\n\nThat said, `getdeps.py` builds work on Windows and are tested in CI.\n\nIf you prefer, you can try Vcpkg. folly is available in [Vcpkg](https://github.com/Microsoft/vcpkg#vcpkg) and releases may be built via `vcpkg install folly:x64-windows`.\n\nYou may also use `vcpkg install folly:x64-windows --head` to build against `main`.\n\n## macOS\n\n`getdeps.py` builds work on macOS and are tested in CI, however if you prefer, you can try one of the macOS package managers\n\n### Homebrew\n\nfolly is available as a Formula and releases may be built via `brew install folly`.\n\nYou may also use `folly/build/bootstrap-osx-homebrew.sh` to build against `main`:\n\n```\n  ./folly/build/bootstrap-osx-homebrew.sh\n```\n\nThis will create a build directory `_build` in the top-level.\n\n### MacPorts\n\nInstall the required packages from MacPorts:\n\n```\n  sudo port install \\\n    boost \\\n    cmake \\\n    gflags \\\n    git \\\n    google-glog \\\n    libevent \\\n    libtool \\\n    lz4 \\\n    lzma \\\n    openssl \\\n    snappy \\\n    xz \\\n    zlib\n```\n\nDownload and install double-conversion:\n\n```\n  git clone https://github.com/google/double-conversion.git\n  cd double-conversion\n  cmake -DBUILD_SHARED_LIBS=ON .\n  make\n  sudo make install\n```\n\nDownload and install folly with the parameters listed below:\n\n```\n  git clone https://github.com/facebook/folly.git\n  cd folly\n  mkdir _build\n  cd _build\n  cmake ..\n  make\n  sudo make install\n```\n",
+        "releases": [
+            {
+                "name": "v2025.01.20.00",
+                "date": "2025-01-20T16:03:56Z"
+            },
+            {
+                "name": "v2025.01.13.00",
+                "date": "2025-01-13T16:03:11Z"
+            },
+            {
+                "name": "v2025.01.06.00",
+                "date": "2025-01-06T16:04:17Z"
+            },
+            {
+                "name": "v2024.12.30.00",
+                "date": "2024-12-30T16:04:32Z"
+            },
+            {
+                "name": "v2024.12.23.00",
+                "date": "2024-12-23T16:04:04Z"
+            },
+            {
+                "name": "v2024.12.16.00",
+                "date": "2024-12-16T16:03:40Z"
+            },
+            {
+                "name": "v2024.12.09.00",
+                "date": "2024-12-09T16:04:08Z"
+            },
+            {
+                "name": "v2024.12.02.00",
+                "date": "2024-12-02T16:03:27Z"
+            },
+            {
+                "name": "v2024.11.25.00",
+                "date": "2024-11-25T16:03:41Z"
+            },
+            {
+                "name": "v2024.11.18.00",
+                "date": "2024-11-18T16:04:11Z"
+            },
+            {
+                "name": "v2024.11.11.00",
+                "date": "2024-11-11T16:03:51Z"
+            },
+            {
+                "name": "v2024.11.04.00",
+                "date": "2024-11-04T16:04:03Z"
+            },
+            {
+                "name": "v2024.10.28.00",
+                "date": "2024-10-28T15:03:50Z"
+            },
+            {
+                "name": "v2024.10.21.00",
+                "date": "2024-10-21T15:03:56Z"
+            },
+            {
+                "name": "v2024.10.14.00",
+                "date": "2024-10-14T15:03:15Z"
+            },
+            {
+                "name": "v2024.10.07.00",
+                "date": "2024-10-07T15:04:13Z"
+            },
+            {
+                "name": "v2024.09.30.00",
+                "date": "2024-09-30T15:03:49Z"
+            },
+            {
+                "name": "v2024.09.23.00",
+                "date": "2024-09-23T15:03:29Z"
+            },
+            {
+                "name": "v2024.09.16.00",
+                "date": "2024-09-16T15:04:42Z"
+            },
+            {
+                "name": "v2024.09.09.00",
+                "date": "2024-09-09T15:03:38Z"
+            },
+            {
+                "name": "v2024.09.02.00",
+                "date": "2024-09-02T15:03:22Z"
+            },
+            {
+                "name": "v2024.08.26.00",
+                "date": "2024-08-26T15:04:08Z"
+            },
+            {
+                "name": "v2024.08.19.00",
+                "date": "2024-08-19T15:03:20Z"
+            },
+            {
+                "name": "v2024.08.12.00",
+                "date": "2024-08-12T15:03:35Z"
+            },
+            {
+                "name": "v2024.08.05.00",
+                "date": "2024-08-05T15:03:15Z"
+            },
+            {
+                "name": "v2024.07.29.00",
+                "date": "2024-07-29T15:03:47Z"
+            },
+            {
+                "name": "v2024.07.22.00",
+                "date": "2024-07-22T15:03:45Z"
+            },
+            {
+                "name": "v2024.07.15.00",
+                "date": "2024-07-15T15:03:21Z"
+            },
+            {
+                "name": "v2024.07.08.00",
+                "date": "2024-07-08T15:03:46Z"
+            },
+            {
+                "name": "v2024.07.01.00",
+                "date": "2024-07-01T15:03:36Z"
+            },
+            {
+                "name": "v2024.06.24.00",
+                "date": "2024-06-24T15:03:12Z"
+            },
+            {
+                "name": "v2024.06.17.00",
+                "date": "2024-06-17T15:03:56Z"
+            },
+            {
+                "name": "v2024.06.10.00",
+                "date": "2024-06-10T15:03:08Z"
+            },
+            {
+                "name": "v2024.06.03.00",
+                "date": "2024-06-03T15:03:10Z"
+            },
+            {
+                "name": "v2024.05.27.00",
+                "date": "2024-05-27T15:03:16Z"
+            },
+            {
+                "name": "v2024.05.20.00",
+                "date": "2024-05-20T15:03:04Z"
+            },
+            {
+                "name": "v2024.05.13.00",
+                "date": "2024-05-13T15:03:32Z"
+            },
+            {
+                "name": "v2024.05.06.00",
+                "date": "2024-05-06T15:03:05Z"
+            },
+            {
+                "name": "v2024.05.02.00",
+                "date": "2024-05-02T23:45:51Z"
+            },
+            {
+                "name": "v2024.04.29.00",
+                "date": "2024-04-29T15:03:56Z"
+            },
+            {
+                "name": "v2024.04.22.00",
+                "date": "2024-04-22T15:03:33Z"
+            },
+            {
+                "name": "v2024.04.15.00",
+                "date": "2024-04-15T15:03:52Z"
+            },
+            {
+                "name": "v2024.04.08.00",
+                "date": "2024-04-08T15:03:10Z"
+            },
+            {
+                "name": "v2024.04.01.00",
+                "date": "2024-04-01T15:03:19Z"
+            },
+            {
+                "name": "v2024.03.25.00",
+                "date": "2024-03-25T15:03:33Z"
+            },
+            {
+                "name": "v2024.03.18.00",
+                "date": "2024-03-18T15:03:14Z"
+            },
+            {
+                "name": "v2024.03.11.00",
+                "date": "2024-03-11T15:03:44Z"
+            },
+            {
+                "name": "v2024.03.04.00",
+                "date": "2024-03-04T16:04:13Z"
+            },
+            {
+                "name": "v2024.02.26.00",
+                "date": "2024-02-26T16:03:30Z"
+            },
+            {
+                "name": "v2024.02.19.00",
+                "date": "2024-02-19T16:03:04Z"
+            },
+            {
+                "name": "v2024.02.12.00",
+                "date": "2024-02-12T16:04:04Z"
+            },
+            {
+                "name": "v2024.02.05.00",
+                "date": "2024-02-05T16:03:02Z"
+            },
+            {
+                "name": "v2024.01.29.00",
+                "date": "2024-01-29T16:02:56Z"
+            },
+            {
+                "name": "v2024.01.22.00",
+                "date": "2024-01-22T16:03:23Z"
+            },
+            {
+                "name": "v2024.01.15.00",
+                "date": "2024-01-15T16:04:01Z"
+            },
+            {
+                "name": "v2024.01.08.00",
+                "date": "2024-01-08T16:03:26Z"
+            },
+            {
+                "name": "v2024.01.01.00",
+                "date": "2024-01-01T16:04:06Z"
+            },
+            {
+                "name": "v2023.12.25.00",
+                "date": "2023-12-25T16:03:34Z"
+            },
+            {
+                "name": "v2023.12.18.00",
+                "date": "2023-12-18T16:03:40Z"
+            },
+            {
+                "name": "v2023.12.11.00",
+                "date": "2023-12-11T16:02:54Z"
+            },
+            {
+                "name": "v2023.12.04.00",
+                "date": "2023-12-04T16:03:09Z"
+            },
+            {
+                "name": "v2023.11.27.00",
+                "date": "2023-11-27T16:02:47Z"
+            },
+            {
+                "name": "v2023.11.20.00",
+                "date": "2023-11-20T16:02:54Z"
+            },
+            {
+                "name": "v2023.11.13.00",
+                "date": "2023-11-13T16:03:52Z"
+            },
+            {
+                "name": "v2023.11.06.00",
+                "date": "2023-11-06T16:03:59Z"
+            },
+            {
+                "name": "v2023.10.30.00",
+                "date": "2023-10-30T15:02:47Z"
+            },
+            {
+                "name": "v2023.10.23.00",
+                "date": "2023-10-23T15:03:07Z"
+            },
+            {
+                "name": "v2023.10.16.00",
+                "date": "2023-10-17T13:04:04Z"
+            },
+            {
+                "name": "v2023.10.09.00",
+                "date": "2023-10-09T07:03:28Z"
+            },
+            {
+                "name": "v2023.10.02.00",
+                "date": "2023-10-02T07:03:03Z"
+            },
+            {
+                "name": "v2023.09.25.00",
+                "date": "2023-09-25T07:02:44Z"
+            },
+            {
+                "name": "v2023.09.18.00",
+                "date": "2023-09-18T07:03:01Z"
+            },
+            {
+                "name": "v2023.09.11.00",
+                "date": "2023-09-11T07:03:00Z"
+            },
+            {
+                "name": "v2023.09.04.00",
+                "date": "2023-09-04T07:02:54Z"
+            },
+            {
+                "name": "v2023.08.28.00",
+                "date": "2023-08-28T07:02:32Z"
+            },
+            {
+                "name": "v2023.08.14.00",
+                "date": "2023-08-14T07:02:26Z"
+            },
+            {
+                "name": "v2023.08.07.00",
+                "date": "2023-08-07T07:02:30Z"
+            },
+            {
+                "name": "v2023.07.24.00",
+                "date": "2023-07-24T07:02:42Z"
+            },
+            {
+                "name": "v2023.07.17.00",
+                "date": "2023-07-17T07:03:32Z"
+            },
+            {
+                "name": "v2023.07.10.00",
+                "date": "2023-07-10T07:02:27Z"
+            },
+            {
+                "name": "v2023.07.03.00",
+                "date": "2023-07-03T07:02:41Z"
+            },
+            {
+                "name": "v2023.06.26.00",
+                "date": "2023-06-26T07:02:32Z"
+            },
+            {
+                "name": "v2023.06.19.00",
+                "date": "2023-06-19T07:02:26Z"
+            },
+            {
+                "name": "v2023.06.12.00",
+                "date": "2023-06-12T07:02:03Z"
+            },
+            {
+                "name": "v2023.06.08.00",
+                "date": "2023-06-09T19:44:02Z"
+            },
+            {
+                "name": "v2023.05.22.00",
+                "date": "2023-05-22T07:02:43Z"
+            },
+            {
+                "name": "v2023.05.15.00",
+                "date": "2023-05-15T07:02:58Z"
+            },
+            {
+                "name": "v2023.05.08.00",
+                "date": "2023-05-08T07:02:32Z"
+            },
+            {
+                "name": "v2023.05.01.00",
+                "date": "2023-05-01T07:02:31Z"
+            },
+            {
+                "name": "v2023.04.24.00",
+                "date": "2023-04-24T07:02:42Z"
+            },
+            {
+                "name": "v2023.04.17.00",
+                "date": "2023-04-17T07:02:18Z"
+            },
+            {
+                "name": "v2023.04.10.00",
+                "date": "2023-04-10T07:02:31Z"
+            },
+            {
+                "name": "v2023.04.03.00",
+                "date": "2023-04-03T07:02:23Z"
+            },
+            {
+                "name": "v2023.03.27.00",
+                "date": "2023-03-27T07:02:38Z"
+            },
+            {
+                "name": "v2023.03.20.00",
+                "date": "2023-03-22T20:25:09Z"
+            },
+            {
+                "name": "v2023.03.13.00",
+                "date": "2023-03-13T16:58:25Z"
+            },
+            {
+                "name": "v2023.03.06.00",
+                "date": "2023-03-06T08:03:06Z"
+            },
+            {
+                "name": "v2023.02.27.00",
+                "date": "2023-02-27T08:02:25Z"
+            },
+            {
+                "name": "v2023.02.20.00",
+                "date": "2023-02-20T08:02:35Z"
+            },
+            {
+                "name": "v2023.02.13.00",
+                "date": "2023-02-13T08:02:15Z"
+            },
+            {
+                "name": "v2023.02.06.00",
+                "date": "2023-02-06T08:02:21Z"
+            },
+            {
+                "name": "v2023.01.30.00",
+                "date": "2023-01-30T08:02:23Z"
+            },
+            {
+                "name": "v2023.01.23.00",
+                "date": "2023-01-23T08:02:33Z"
+            },
+            {
+                "name": "v2023.01.16.00",
+                "date": "2023-01-16T08:02:07Z"
+            },
+            {
+                "name": "v2023.01.09.00",
+                "date": "2023-01-09T08:04:30Z"
+            },
+            {
+                "name": "v2023.01.02.00",
+                "date": "2023-01-02T08:02:44Z"
+            },
+            {
+                "name": "v2022.12.26.00",
+                "date": "2022-12-26T08:02:29Z"
+            },
+            {
+                "name": "v2022.12.19.00",
+                "date": "2022-12-19T08:02:49Z"
+            },
+            {
+                "name": "v2022.12.12.00",
+                "date": "2022-12-12T08:02:17Z"
+            },
+            {
+                "name": "v2022.12.05.00",
+                "date": "2022-12-05T08:02:41Z"
+            },
+            {
+                "name": "v2022.11.28.00",
+                "date": "2022-11-28T08:02:41Z"
+            },
+            {
+                "name": "v2022.11.14.00",
+                "date": "2022-11-14T21:21:03Z"
+            },
+            {
+                "name": "v2022.11.07.00",
+                "date": "2022-11-07T08:02:07Z"
+            },
+            {
+                "name": "v2022.10.31.00",
+                "date": "2022-10-31T07:02:06Z"
+            },
+            {
+                "name": "v2022.10.24.00",
+                "date": "2022-10-24T07:02:43Z"
+            },
+            {
+                "name": "v2022.10.17.00",
+                "date": "2022-10-17T07:02:26Z"
+            },
+            {
+                "name": "v2022.10.10.00",
+                "date": "2022-10-10T07:02:26Z"
+            },
+            {
+                "name": "v2022.10.03.00",
+                "date": "2022-10-03T07:02:09Z"
+            },
+            {
+                "name": "v2022.09.26.00",
+                "date": "2022-09-26T07:02:14Z"
+            },
+            {
+                "name": "v2022.09.19.00",
+                "date": "2022-09-19T07:02:10Z"
+            },
+            {
+                "name": "v2022.09.12.00",
+                "date": "2022-09-12T07:02:16Z"
+            },
+            {
+                "name": "v2022.09.05.00",
+                "date": "2022-09-05T07:02:13Z"
+            },
+            {
+                "name": "v2022.08.29.00",
+                "date": "2022-08-29T07:02:22Z"
+            },
+            {
+                "name": "v2022.08.22.00",
+                "date": "2022-08-22T07:02:36Z"
+            },
+            {
+                "name": "v2022.08.15.00",
+                "date": "2022-08-15T07:02:21Z"
+            },
+            {
+                "name": "v2022.08.08.00",
+                "date": "2022-08-08T07:02:04Z"
+            },
+            {
+                "name": "v2022.08.01.00",
+                "date": "2022-08-01T07:02:11Z"
+            },
+            {
+                "name": "v2022.07.25.00",
+                "date": "2022-07-25T07:02:04Z"
+            },
+            {
+                "name": "v2022.07.18.00",
+                "date": "2022-07-18T07:01:56Z"
+            },
+            {
+                "name": "v2022.07.11.00",
+                "date": "2022-07-11T07:01:55Z"
+            },
+            {
+                "name": "v2022.07.04.00",
+                "date": "2022-07-04T07:02:08Z"
+            },
+            {
+                "name": "v2022.06.27.00",
+                "date": "2022-06-27T07:02:03Z"
+            },
+            {
+                "name": "v2022.06.20.00",
+                "date": "2022-06-20T07:02:06Z"
+            },
+            {
+                "name": "v2022.06.13.00",
+                "date": "2022-06-13T07:02:06Z"
+            },
+            {
+                "name": "v2022.06.06.00",
+                "date": "2022-06-06T07:01:29Z"
+            },
+            {
+                "name": "v2022.05.30.00",
+                "date": "2022-05-30T07:02:09Z"
+            },
+            {
+                "name": "v2022.05.23.00",
+                "date": "2022-05-23T07:02:08Z"
+            },
+            {
+                "name": "v2022.05.16.00",
+                "date": "2022-05-16T07:02:04Z"
+            },
+            {
+                "name": "v2022.05.09.00",
+                "date": "2022-05-09T07:02:13Z"
+            },
+            {
+                "name": "v2022.05.02.00",
+                "date": "2022-05-02T07:01:37Z"
+            },
+            {
+                "name": "v2022.04.25.00",
+                "date": "2022-04-25T07:02:00Z"
+            },
+            {
+                "name": "v2022.04.18.00",
+                "date": "2022-04-18T07:02:06Z"
+            },
+            {
+                "name": "v2022.04.11.00",
+                "date": "2022-04-11T07:01:58Z"
+            },
+            {
+                "name": "v2022.04.04.00",
+                "date": "2022-04-04T07:01:48Z"
+            },
+            {
+                "name": "v2022.03.28.00",
+                "date": "2022-03-28T07:14:25Z"
+            },
+            {
+                "name": "v2022.03.21.00",
+                "date": "2022-03-21T07:01:35Z"
+            },
+            {
+                "name": "v2022.03.14.00",
+                "date": "2022-03-14T07:03:46Z"
+            },
+            {
+                "name": "v2022.03.07.00",
+                "date": "2022-03-07T08:02:02Z"
+            },
+            {
+                "name": "v2022.02.28.00",
+                "date": "2022-02-28T08:01:42Z"
+            },
+            {
+                "name": "v2022.02.21.00",
+                "date": "2022-02-21T08:02:02Z"
+            },
+            {
+                "name": "v2022.02.14.00",
+                "date": "2022-02-14T08:01:56Z"
+            },
+            {
+                "name": "v2022.02.07.00",
+                "date": "2022-02-07T08:03:36Z"
+            },
+            {
+                "name": "v2022.01.31.00",
+                "date": "2022-01-31T08:02:12Z"
+            },
+            {
+                "name": "v2022.01.24.00",
+                "date": "2022-01-24T08:02:06Z"
+            },
+            {
+                "name": "v2022.01.17.00",
+                "date": "2022-01-17T08:01:42Z"
+            },
+            {
+                "name": "v2022.01.10.00",
+                "date": "2022-01-10T08:01:47Z"
+            },
+            {
+                "name": "v2022.01.03.00",
+                "date": "2022-01-03T08:01:53Z"
+            },
+            {
+                "name": "v2021.12.27.00",
+                "date": "2021-12-27T08:06:02Z"
+            },
+            {
+                "name": "v2021.12.20.00",
+                "date": "2021-12-20T08:01:48Z"
+            },
+            {
+                "name": "v2021.12.13.00",
+                "date": "2021-12-13T08:01:42Z"
+            },
+            {
+                "name": "v2021.12.06.00",
+                "date": "2021-12-06T09:01:50Z"
+            },
+            {
+                "name": "v2021.11.29.00",
+                "date": "2021-11-29T09:01:55Z"
+            },
+            {
+                "name": "v2021.11.15.00",
+                "date": "2021-11-16T17:28:04Z"
+            },
+            {
+                "name": "v2021.11.08.00",
+                "date": "2021-11-11T21:02:56Z"
+            },
+            {
+                "name": "v2021.11.01.00",
+                "date": "2021-11-01T08:07:21Z"
+            },
+            {
+                "name": "v2021.10.25.00",
+                "date": "2021-10-25T08:16:49Z"
+            },
+            {
+                "name": "v2021.10.18.00",
+                "date": "2021-10-18T08:17:10Z"
+            },
+            {
+                "name": "v2021.10.11.00",
+                "date": "2021-10-11T08:01:48Z"
+            },
+            {
+                "name": "v2021.10.04.00",
+                "date": "2021-10-04T08:08:26Z"
+            },
+            {
+                "name": "v2021.09.27.00",
+                "date": "2021-09-27T08:02:08Z"
+            },
+            {
+                "name": "v2021.09.20.00",
+                "date": "2021-09-20T08:01:54Z"
+            },
+            {
+                "name": "v2021.09.13.00",
+                "date": "2021-09-13T08:02:43Z"
+            },
+            {
+                "name": "v2021.09.06.00",
+                "date": "2021-09-09T20:08:13Z"
+            },
+            {
+                "name": "v2021.08.30.00",
+                "date": "2021-08-30T08:02:01Z"
+            },
+            {
+                "name": "v2021.08.23.00",
+                "date": "2021-08-23T08:04:32Z"
+            },
+            {
+                "name": "v2021.08.02.00",
+                "date": "2021-08-02T08:02:00Z"
+            },
+            {
+                "name": "v2021.07.22.00",
+                "date": "2021-07-22T22:45:37Z"
+            },
+            {
+                "name": "v2021.07.20.01",
+                "date": "2021-07-22T22:42:59Z"
+            },
+            {
+                "name": "v2021.07.20.00",
+                "date": "2021-07-20T22:51:40Z"
+            },
+            {
+                "name": "v2021.06.28.00",
+                "date": "2021-07-01T17:41:26Z"
+            },
+            {
+                "name": "v2021.06.14.00",
+                "date": "2021-06-14T08:04:16Z"
+            },
+            {
+                "name": "v2021.06.07.00",
+                "date": "2021-06-07T08:03:12Z"
+            },
+            {
+                "name": "v2021.05.31.00",
+                "date": "2021-05-31T08:01:54Z"
+            },
+            {
+                "name": "v2021.05.24.00",
+                "date": "2021-05-24T08:02:47Z"
+            },
+            {
+                "name": "v2021.05.17.00",
+                "date": "2021-05-17T08:01:53Z"
+            },
+            {
+                "name": "v2021.05.10.00",
+                "date": "2021-05-10T08:01:45Z"
+            },
+            {
+                "name": "v2021.05.03.00",
+                "date": "2021-05-03T08:01:15Z"
+            },
+            {
+                "name": "v2021.04.26.00",
+                "date": "2021-04-26T08:01:21Z"
+            },
+            {
+                "name": "v2021.04.19.00",
+                "date": "2021-04-19T08:01:10Z"
+            },
+            {
+                "name": "v2021.04.12.00",
+                "date": "2021-04-12T08:01:11Z"
+            },
+            {
+                "name": "v2021.04.05.00",
+                "date": "2021-04-05T08:01:11Z"
+            },
+            {
+                "name": "v2021.03.29.00",
+                "date": "2021-03-29T08:01:13Z"
+            },
+            {
+                "name": "v2021.03.22.00",
+                "date": "2021-03-22T08:01:30Z"
+            },
+            {
+                "name": "v2021.03.15.00",
+                "date": "2021-03-15T08:01:14Z"
+            },
+            {
+                "name": "v2021.03.08.00",
+                "date": "2021-03-08T09:01:09Z"
+            },
+            {
+                "name": "v2021.03.01.00",
+                "date": "2021-03-01T09:01:21Z"
+            },
+            {
+                "name": "v2021.02.22.00",
+                "date": "2021-02-22T09:01:10Z"
+            },
+            {
+                "name": "v2021.02.15.00",
+                "date": "2021-02-15T09:01:35Z"
+            },
+            {
+                "name": "v2021.02.08.00",
+                "date": "2021-02-08T09:00:54Z"
+            },
+            {
+                "name": "v2021.02.01.00",
+                "date": "2021-02-01T09:01:21Z"
+            },
+            {
+                "name": "v2021.01.25.00",
+                "date": "2021-01-25T09:01:24Z"
+            },
+            {
+                "name": "v2021.01.18.01",
+                "date": "2021-01-22T03:20:23Z"
+            },
+            {
+                "name": "v2021.01.18.00",
+                "date": "2021-01-18T09:01:49Z"
+            },
+            {
+                "name": "v2021.01.11.00",
+                "date": "2021-01-11T09:01:17Z"
+            },
+            {
+                "name": "v2021.01.04.00",
+                "date": "2021-01-04T09:01:29Z"
+            },
+            {
+                "name": "v2020.12.28.00",
+                "date": "2020-12-28T09:01:51Z"
+            },
+            {
+                "name": "v2020.12.21.00",
+                "date": "2020-12-21T09:02:18Z"
+            },
+            {
+                "name": "v2020.12.14.00",
+                "date": "2020-12-14T09:01:34Z"
+            },
+            {
+                "name": "v2020.12.07.00",
+                "date": "2020-12-07T09:02:07Z"
+            },
+            {
+                "name": "v2020.11.30.00",
+                "date": "2020-11-30T09:02:49Z"
+            },
+            {
+                "name": "v2020.11.23.00",
+                "date": "2020-11-23T09:01:13Z"
+            },
+            {
+                "name": "v2020.11.16.00",
+                "date": "2020-11-16T09:02:16Z"
+            },
+            {
+                "name": "v2020.11.09.00",
+                "date": "2020-11-09T09:02:09Z"
+            },
+            {
+                "name": "v2020.11.02.00",
+                "date": "2020-11-02T09:02:34Z"
+            },
+            {
+                "name": "v2020.10.26.00",
+                "date": "2020-10-26T08:02:49Z"
+            },
+            {
+                "name": "v2020.10.19.00",
+                "date": "2020-10-19T08:05:11Z"
+            },
+            {
+                "name": "v2020.10.12.00",
+                "date": "2020-10-12T08:01:33Z"
+            },
+            {
+                "name": "v2020.10.05.00",
+                "date": "2020-10-05T08:01:33Z"
+            },
+            {
+                "name": "v2020.09.28.00",
+                "date": "2020-09-28T08:04:39Z"
+            },
+            {
+                "name": "v2020.09.21.00",
+                "date": "2020-09-21T08:03:07Z"
+            },
+            {
+                "name": "v2020.09.14.00",
+                "date": "2020-09-14T16:04:31Z"
+            },
+            {
+                "name": "v2020.09.07.00",
+                "date": "2020-09-07T08:04:12Z"
+            },
+            {
+                "name": "v2020.08.31.00",
+                "date": "2020-08-31T08:05:07Z"
+            },
+            {
+                "name": "v2020.08.24.00",
+                "date": "2020-08-24T08:03:32Z"
+            }
+        ]
+    }
+}

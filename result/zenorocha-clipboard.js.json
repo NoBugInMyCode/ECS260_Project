@@ -1,0 +1,222 @@
+{
+    "https://api.github.com/repos/zenorocha/clipboard.js": {
+        "forks": 3971,
+        "watchers": 34091,
+        "stars": 34091,
+        "languages": {
+            "JavaScript": 22381,
+            "TypeScript": 123,
+            "Shell": 71
+        },
+        "commits": [
+            "2022-12-10T15:13:04Z",
+            "2022-12-10T15:08:42Z",
+            "2022-12-10T15:08:29Z",
+            "2022-12-10T15:08:17Z",
+            "2022-12-10T15:07:47Z",
+            "2022-12-10T15:07:35Z",
+            "2022-08-29T10:33:13Z",
+            "2022-05-04T17:51:40Z",
+            "2022-05-04T17:47:44Z",
+            "2022-05-04T17:45:44Z",
+            "2022-05-04T08:32:02Z",
+            "2022-04-28T20:15:48Z",
+            "2022-04-22T08:40:26Z",
+            "2022-03-06T13:53:54Z",
+            "2022-02-18T16:08:43Z",
+            "2022-02-18T16:08:32Z",
+            "2022-02-18T16:08:20Z",
+            "2022-02-02T15:21:27Z",
+            "2022-02-02T15:13:00Z",
+            "2022-01-28T01:50:17Z",
+            "2022-01-27T09:32:59Z",
+            "2022-01-27T09:32:46Z",
+            "2022-01-27T09:32:32Z",
+            "2021-06-29T20:03:06Z",
+            "2021-06-29T20:02:45Z",
+            "2021-05-18T14:46:22Z",
+            "2021-05-17T12:36:22Z",
+            "2021-05-17T12:36:14Z",
+            "2021-05-17T12:36:06Z",
+            "2021-05-17T12:35:48Z"
+        ],
+        "creation_date": "2015-09-18T23:04:55Z",
+        "contributors": 30,
+        "topics": [
+            "clipboard",
+            "javascript"
+        ],
+        "subscribers": 419,
+        "readme": "# clipboard.js\n\n![Build Status](https://github.com/zenorocha/clipboard.js/workflows/build/badge.svg)\n![Killing Flash](https://img.shields.io/badge/killing-flash-brightgreen.svg?style=flat)\n\n> Modern copy to clipboard. No Flash. Just 3kb gzipped.\n\n<a href=\"https://clipboardjs.com/\"><img width=\"728\" src=\"https://cloud.githubusercontent.com/assets/398893/16165747/a0f6fc46-349a-11e6-8c9b-c5fd58d9099c.png\" alt=\"Demo\"></a>\n\n## Why\n\nCopying text to the clipboard shouldn't be hard. It shouldn't require dozens of steps to configure or hundreds of KBs to load. But most of all, it shouldn't depend on Flash or any bloated framework.\n\nThat's why clipboard.js exists.\n\n## Install\n\nYou can get it on npm.\n\n```\nnpm install clipboard --save\n```\n\nOr if you're not into package management, just [download a ZIP](https://github.com/zenorocha/clipboard.js/archive/master.zip) file.\n\n## Setup\n\nFirst, include the script located on the `dist` folder or load it from [a third-party CDN provider](https://github.com/zenorocha/clipboard.js/wiki/CDN-Providers).\n\n```html\n<script src=\"dist/clipboard.min.js\"></script>\n```\n\nNow, you need to instantiate it by [passing a DOM selector](https://github.com/zenorocha/clipboard.js/blob/master/demo/constructor-selector.html#L18), [HTML element](https://github.com/zenorocha/clipboard.js/blob/master/demo/constructor-node.html#L16-L17), or [list of HTML elements](https://github.com/zenorocha/clipboard.js/blob/master/demo/constructor-nodelist.html#L18-L19).\n\n```js\nnew ClipboardJS('.btn');\n```\n\nInternally, we need to fetch all elements that matches with your selector and attach event listeners for each one. But guess what? If you have hundreds of matches, this operation can consume a lot of memory.\n\nFor this reason we use [event delegation](https://stackoverflow.com/questions/1687296/what-is-dom-event-delegation) which replaces multiple event listeners with just a single listener. After all, [#perfmatters](https://twitter.com/hashtag/perfmatters).\n\n# Usage\n\nWe're living a _declarative renaissance_, that's why we decided to take advantage of [HTML5 data attributes](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Using_data_attributes) for better usability.\n\n### Copy text from another element\n\nA pretty common use case is to copy content from another element. You can do that by adding a `data-clipboard-target` attribute in your trigger element.\n\nThe value you include on this attribute needs to match another's element selector.\n\n<a href=\"https://clipboardjs.com/#example-target\"><img width=\"473\" alt=\"example-2\" src=\"https://cloud.githubusercontent.com/assets/398893/9983467/a4946aaa-5fb1-11e5-9780-f09fcd7ca6c8.png\"></a>\n\n```html\n<!-- Target -->\n<input id=\"foo\" value=\"https://github.com/zenorocha/clipboard.js.git\" />\n\n<!-- Trigger -->\n<button class=\"btn\" data-clipboard-target=\"#foo\">\n  <img src=\"assets/clippy.svg\" alt=\"Copy to clipboard\" />\n</button>\n```\n\n### Cut text from another element\n\nAdditionally, you can define a `data-clipboard-action` attribute to specify if you want to either `copy` or `cut` content.\n\nIf you omit this attribute, `copy` will be used by default.\n\n<a href=\"https://clipboardjs.com/#example-action\"><img width=\"473\" alt=\"example-3\" src=\"https://cloud.githubusercontent.com/assets/398893/10000358/7df57b9c-6050-11e5-9cd1-fbc51d2fd0a7.png\"></a>\n\n```html\n<!-- Target -->\n<textarea id=\"bar\">Mussum ipsum cacilds...</textarea>\n\n<!-- Trigger -->\n<button class=\"btn\" data-clipboard-action=\"cut\" data-clipboard-target=\"#bar\">\n  Cut to clipboard\n</button>\n```\n\nAs you may expect, the `cut` action only works on `<input>` or `<textarea>` elements.\n\n### Copy text from attribute\n\nTruth is, you don't even need another element to copy its content from. You can just include a `data-clipboard-text` attribute in your trigger element.\n\n<a href=\"https://clipboardjs.com/#example-text\"><img width=\"147\" alt=\"example-1\" src=\"https://cloud.githubusercontent.com/assets/398893/10000347/6e16cf8c-6050-11e5-9883-1c5681f9ec45.png\"></a>\n\n```html\n<!-- Trigger -->\n<button\n  class=\"btn\"\n  data-clipboard-text=\"Just because you can doesn't mean you should \u2014 clipboard.js\"\n>\n  Copy to clipboard\n</button>\n```\n\n## Events\n\nThere are cases where you'd like to show some user feedback or capture what has been selected after a copy/cut operation.\n\nThat's why we fire custom events such as `success` and `error` for you to listen and implement your custom logic.\n\n```js\nvar clipboard = new ClipboardJS('.btn');\n\nclipboard.on('success', function (e) {\n  console.info('Action:', e.action);\n  console.info('Text:', e.text);\n  console.info('Trigger:', e.trigger);\n\n  e.clearSelection();\n});\n\nclipboard.on('error', function (e) {\n  console.error('Action:', e.action);\n  console.error('Trigger:', e.trigger);\n});\n```\n\nFor a live demonstration, go to this [site](https://clipboardjs.com/) and open your console.\n\n## Tooltips\n\nEach application has different design needs, that's why clipboard.js does not include any CSS or built-in tooltip solution.\n\nThe tooltips you see on the [demo site](https://clipboardjs.com/) were built using [GitHub's Primer](https://primer.style/css/components/tooltips). You may want to check that out if you're looking for a similar look and feel.\n\n## Advanced Options\n\nIf you don't want to modify your HTML, there's a pretty handy imperative API for you to use. All you need to do is declare a function, do your thing, and return a value.\n\nFor instance, if you want to dynamically set a `target`, you'll need to return a Node.\n\n```js\nnew ClipboardJS('.btn', {\n  target: function (trigger) {\n    return trigger.nextElementSibling;\n  },\n});\n```\n\nIf you want to dynamically set a `text`, you'll return a String.\n\n```js\nnew ClipboardJS('.btn', {\n  text: function (trigger) {\n    return trigger.getAttribute('aria-label');\n  },\n});\n```\n\nFor use in Bootstrap Modals or with any other library that changes the focus you'll want to set the focused element as the `container` value.\n\n```js\nnew ClipboardJS('.btn', {\n  container: document.getElementById('modal'),\n});\n```\n\nAlso, if you are working with single page apps, you may want to manage the lifecycle of the DOM more precisely. Here's how you clean up the events and objects that we create.\n\n```js\nvar clipboard = new ClipboardJS('.btn');\nclipboard.destroy();\n```\n\n## Browser Support\n\nThis library relies on both [Selection](https://developer.mozilla.org/en-US/docs/Web/API/Selection) and [execCommand](https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand) APIs. The first one is [supported by all browsers](https://caniuse.com/#search=selection) while the second one is supported in the following browsers.\n\n| <img src=\"https://clipboardjs.com/assets/images/chrome.png\" width=\"48px\" height=\"48px\" alt=\"Chrome logo\"> | <img src=\"https://clipboardjs.com/assets/images/edge.png\" width=\"48px\" height=\"48px\" alt=\"Edge logo\"> | <img src=\"https://clipboardjs.com/assets/images/firefox.png\" width=\"48px\" height=\"48px\" alt=\"Firefox logo\"> | <img src=\"https://clipboardjs.com/assets/images/ie.png\" width=\"48px\" height=\"48px\" alt=\"Internet Explorer logo\"> | <img src=\"https://clipboardjs.com/assets/images/opera.png\" width=\"48px\" height=\"48px\" alt=\"Opera logo\"> | <img src=\"https://clipboardjs.com/assets/images/safari.png\" width=\"48px\" height=\"48px\" alt=\"Safari logo\"> |\n| :-------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------: |\n|                                                   42+ \u2714                                                   |                                                 12+ \u2714                                                 |                                                    41+ \u2714                                                    |                                                       9+ \u2714                                                       |                                                  29+ \u2714                                                  |                                                   10+ \u2714                                                   |\n\nThe good news is that clipboard.js gracefully degrades if you need to support older browsers. All you have to do is show a tooltip saying `Copied!` when `success` event is called and `Press Ctrl+C to copy` when `error` event is called because the text is already selected.\n\nYou can also check if clipboard.js is supported or not by running `ClipboardJS.isSupported()`, that way you can hide copy/cut buttons from the UI.\n\n## Bonus\n\nA browser extension that adds a \"copy to clipboard\" button to every code block on _GitHub, MDN, Gist, StackOverflow, StackExchange, npm, and even Medium._\n\nInstall for [Chrome](https://chrome.google.com/webstore/detail/codecopy/fkbfebkcoelajmhanocgppanfoojcdmg) and [Firefox](https://addons.mozilla.org/en-US/firefox/addon/codecopy/).\n\n## License\n\n[MIT License](https://zenorocha.mit-license.org/) \u00a9 Zeno Rocha\n",
+        "releases": [
+            {
+                "name": "Fixes & DX Enhancements",
+                "date": "2022-05-04T17:59:25Z"
+            },
+            {
+                "name": "Fixes and Docs Updates",
+                "date": "2022-02-02T15:28:44Z"
+            },
+            {
+                "name": "v2.0.9",
+                "date": "2022-01-28T02:03:08Z"
+            },
+            {
+                "name": "v2.0.8",
+                "date": "2021-03-10T20:51:05Z"
+            },
+            {
+                "name": "V2.0.7",
+                "date": "2021-03-06T13:27:13Z"
+            },
+            {
+                "name": "v2.0.6",
+                "date": "2020-03-05T06:27:53Z"
+            },
+            {
+                "name": "v2.0.5",
+                "date": "2020-03-04T02:23:12Z"
+            },
+            {
+                "name": "v2.0.4",
+                "date": "2018-11-13T04:42:51Z"
+            },
+            {
+                "name": "v2.0.3",
+                "date": "2018-11-12T02:58:17Z"
+            },
+            {
+                "name": "v2.0.2",
+                "date": "2018-11-11T17:15:18Z"
+            },
+            {
+                "name": "v2.0.1",
+                "date": "2018-04-29T23:42:30Z"
+            },
+            {
+                "name": "",
+                "date": "2018-03-01T06:08:36Z"
+            },
+            {
+                "name": "v1.7.1",
+                "date": "2017-05-30T00:01:39Z"
+            },
+            {
+                "name": "v1.7.0",
+                "date": "2017-05-29T21:45:08Z"
+            },
+            {
+                "name": "v1.6.1",
+                "date": "2017-02-28T17:59:30Z"
+            },
+            {
+                "name": "v1.6.0",
+                "date": "2017-02-08T08:08:22Z"
+            },
+            {
+                "name": "v1.5.16",
+                "date": "2016-12-12T13:58:26Z"
+            },
+            {
+                "name": "v1.5.15",
+                "date": "2016-10-23T02:45:37Z"
+            },
+            {
+                "name": "v1.5.14",
+                "date": "2016-10-23T02:17:23Z"
+            },
+            {
+                "name": "v1.5.13",
+                "date": "2016-10-17T05:45:16Z"
+            },
+            {
+                "name": "v1.5.12",
+                "date": "2016-06-09T15:00:50Z"
+            },
+            {
+                "name": "",
+                "date": "2016-06-09T04:51:02Z"
+            },
+            {
+                "name": "v1.5.10",
+                "date": "2016-04-04T05:41:42Z"
+            },
+            {
+                "name": "v1.5.9",
+                "date": "2016-02-26T18:29:52Z"
+            },
+            {
+                "name": "v1.5.8",
+                "date": "2016-02-04T19:33:23Z"
+            },
+            {
+                "name": "v1.5.7",
+                "date": "2016-02-03T16:32:56Z"
+            },
+            {
+                "name": "v1.5.6",
+                "date": "2016-02-02T21:49:00Z"
+            },
+            {
+                "name": "v1.5.5",
+                "date": "2015-11-13T09:23:16Z"
+            },
+            {
+                "name": "v1.5.4",
+                "date": "2015-11-13T08:33:27Z"
+            },
+            {
+                "name": "v1.5.3",
+                "date": "2015-10-28T20:09:28Z"
+            },
+            {
+                "name": "v1.5.2",
+                "date": "2015-10-28T20:09:12Z"
+            },
+            {
+                "name": "v1.5.1",
+                "date": "2015-10-27T16:36:10Z"
+            },
+            {
+                "name": "v1.5.0",
+                "date": "2015-10-27T06:06:40Z"
+            },
+            {
+                "name": "v1.4.3",
+                "date": "2015-10-24T18:47:05Z"
+            },
+            {
+                "name": "v1.4.2",
+                "date": "2015-10-13T18:13:50Z"
+            },
+            {
+                "name": "v1.4.1",
+                "date": "2015-10-09T07:08:53Z"
+            },
+            {
+                "name": "v1.4.0",
+                "date": "2015-10-04T02:24:52Z"
+            },
+            {
+                "name": "v1.3.1",
+                "date": "2015-09-30T05:35:39Z"
+            },
+            {
+                "name": "v1.3.0",
+                "date": "2015-09-29T17:18:36Z"
+            },
+            {
+                "name": "v1.2.0",
+                "date": "2015-09-29T06:58:59Z"
+            },
+            {
+                "name": "v1.1.0",
+                "date": "2015-09-28T17:39:42Z"
+            },
+            {
+                "name": "v1.0.0",
+                "date": "2015-09-28T17:40:27Z"
+            }
+        ]
+    }
+}

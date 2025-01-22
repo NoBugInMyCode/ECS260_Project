@@ -1,0 +1,872 @@
+{
+    "https://api.github.com/repos/jestjs/jest": {
+        "forks": 6484,
+        "watchers": 44424,
+        "stars": 44424,
+        "languages": {
+            "TypeScript": 3523958,
+            "JavaScript": 904462,
+            "CSS": 25056,
+            "Prolog": 3500,
+            "Shell": 404,
+            "Handlebars": 260
+        },
+        "commits": [
+            "2025-01-20T11:13:37Z",
+            "2025-01-20T10:35:27Z",
+            "2025-01-19T10:33:04Z",
+            "2025-01-17T08:23:18Z",
+            "2025-01-17T07:51:32Z",
+            "2025-01-17T06:52:13Z",
+            "2025-01-16T14:34:24Z",
+            "2025-01-16T12:53:45Z",
+            "2025-01-15T13:01:28Z",
+            "2025-01-15T12:51:10Z",
+            "2025-01-15T12:06:53Z",
+            "2025-01-15T11:35:21Z",
+            "2025-01-15T10:26:57Z",
+            "2025-01-15T10:24:14Z",
+            "2025-01-15T10:16:54Z",
+            "2025-01-15T09:51:07Z",
+            "2025-01-15T09:29:56Z",
+            "2025-01-15T07:59:10Z",
+            "2025-01-15T07:28:32Z",
+            "2025-01-15T06:52:39Z",
+            "2025-01-15T06:51:23Z",
+            "2025-01-15T06:48:22Z",
+            "2025-01-15T06:35:59Z",
+            "2025-01-15T06:32:32Z",
+            "2025-01-14T15:16:44Z",
+            "2025-01-14T14:36:45Z",
+            "2024-12-10T10:17:35Z",
+            "2024-12-04T09:34:27Z",
+            "2024-12-04T09:33:44Z",
+            "2024-10-23T17:34:48Z"
+        ],
+        "creation_date": "2013-12-10T00:18:04Z",
+        "contributors": 30,
+        "topics": [
+            "easy",
+            "expectation",
+            "facebook",
+            "immersive",
+            "javascript",
+            "painless",
+            "painless-javascript-testing",
+            "snapshot",
+            "testing"
+        ],
+        "subscribers": 561,
+        "readme": "<p align=\"center\">\n  <a href=\"https://www.npmjs.com/package/jest\"><img src=\"https://img.shields.io/npm/v/jest\" alt=\"npm version\"></a>\n  <a href=\"https://github.com/jestjs/jest/blob/main/LICENSE\"><img src=\"https://img.shields.io/badge/license-MIT-blue.svg\" alt=\"Jest is released under the MIT license.\"></a>\n  <a href=\"https://twitter.com/intent/follow?screen_name=jestjs_\"><img src=\"https://img.shields.io/twitter/follow/jestjs_.svg?style=social&label=Follow%20@jestjs_\" alt=\"Follow on Twitter\" /></a>\n</p>\n<p align=\"center\">\n  <a href=\"https://github.com/jestjs/jest/actions/workflows/nodejs.yml\"><img alt=\"GitHub CI Status\" src=\"https://img.shields.io/github/actions/workflow/status/jestjs/jest/nodejs.yml?label=CI&logo=GitHub\"></a>\n  <a href=\"https://codecov.io/github/jestjs/jest\"><img alt=\"Coverage Status\" src=\"https://img.shields.io/codecov/c/github/jestjs/jest/main.svg?maxAge=43200\"></a>\n</p>\n<p align=\"center\">\n  <a href=\"https://gitpod.io/#https://github.com/jestjs/jest\"><img alt=\"Gitpod ready-to-code\" src=\"https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod\"></a>\n</p>\n\n<!-- A spacer -->\n<p>&nbsp;</p>\n\n<p align=\"center\"><img src=\"website/static/img/jest-readme-headline.png\" width=\"80%\"/></p>\n\n<h2 align=\"center\">\ud83c\udccf Delightful JavaScript Testing</h2>\n\n**\ud83d\udc69\ud83c\udffb\u200d\ud83d\udcbb Developer Ready**: A comprehensive JavaScript testing solution. Works out of the box for most JavaScript projects.\n\n**\ud83c\udfc3\ud83c\udffd Instant Feedback**: Fast, interactive watch mode only runs test files related to changed files.\n\n**\ud83d\udcf8 Snapshot Testing**: Capture snapshots of large objects to simplify testing and to analyze how they change over time.\n\n<p align=\"right\"><em>See more on <a href=\"https://jestjs.io\">jestjs.io</a></em></p>\n\n## Table of Contents\n\n- [Getting Started](#getting-started)\n- [Running from command line](#running-from-command-line)\n- [Additional Configuration](#additional-configuration)\n  - [Generate a basic configuration file](#generate-a-basic-configuration-file)\n  - [Using Babel](#using-babel)\n  - [Using webpack](#using-webpack)\n  - [Using Vite](#using-vite)\n  - [Using Parcel](#using-parcel)\n  - [Using Typescript](#using-typescript)\n- [Documentation](#documentation)\n- [Badge](#badge)\n- [Contributing](#contributing)\n  - [Code of Conduct](#code-of-conduct)\n  - [Contributing Guide](#contributing-guide)\n  - [Good First Issues](#good-first-issues)\n- [Credits](#credits)\n  - [Backers](#backers)\n  - [Sponsors](#sponsors)\n- [License](#license)\n- [Copyright](#copyright)\n\n## Getting Started\n\n<!-- copied from Getting Started docs, links updated to point to Jest website -->\n\nInstall Jest using [`yarn`](https://yarnpkg.com/en/package/jest):\n\n```bash\nyarn add --dev jest\n```\n\nOr [`npm`](https://www.npmjs.com/package/jest):\n\n```bash\nnpm install --save-dev jest\n```\n\nNote: Jest documentation uses `yarn` commands, but `npm` will also work. You can compare `yarn` and `npm` commands in the [yarn docs, here](https://yarnpkg.com/en/docs/migrating-from-npm#toc-cli-commands-comparison).\n\nLet's get started by writing a test for a hypothetical function that adds two numbers. First, create a `sum.js` file:\n\n```javascript\nfunction sum(a, b) {\n  return a + b;\n}\nmodule.exports = sum;\n```\n\nThen, create a file named `sum.test.js`. This will contain our actual test:\n\n```javascript\nconst sum = require('./sum');\n\ntest('adds 1 + 2 to equal 3', () => {\n  expect(sum(1, 2)).toBe(3);\n});\n```\n\nAdd the following section to your `package.json`:\n\n```json\n{\n  \"scripts\": {\n    \"test\": \"jest\"\n  }\n}\n```\n\nFinally, run `yarn test` or `npm test` and Jest will print this message:\n\n```bash\nPASS  ./sum.test.js\n\u2713 adds 1 + 2 to equal 3 (5ms)\n```\n\n**You just successfully wrote your first test using Jest!**\n\nThis test used `expect` and `toBe` to test that two values were exactly identical. To learn about the other things that Jest can test, see [Using Matchers](https://jestjs.io/docs/using-matchers).\n\n## Running from command line\n\nYou can run Jest directly from the CLI (if it's globally available in your `PATH`, e.g. by `yarn global add jest` or `npm install jest --global`) with a variety of useful options.\n\nHere's how to run Jest on files matching `my-test`, using `config.json` as a configuration file and display a native OS notification after the run:\n\n```bash\njest my-test --notify --config=config.json\n```\n\nIf you'd like to learn more about running `jest` through the command line, take a look at the [Jest CLI Options](https://jestjs.io/docs/cli) page.\n\n## Additional Configuration\n\n### Generate a basic configuration file\n\nBased on your project, Jest will ask you a few questions and will create a basic configuration file with a short description for each option:\n\n```bash\nyarn create jest\n```\n\n### Using Babel\n\nTo use [Babel](https://babeljs.io/), install required dependencies via `yarn`:\n\n```bash\nyarn add --dev babel-jest @babel/core @babel/preset-env\n```\n\nConfigure Babel to target your current version of Node by creating a `babel.config.js` file in the root of your project:\n\n```javascript\n// babel.config.js\nmodule.exports = {\n  presets: [['@babel/preset-env', {targets: {node: 'current'}}]],\n};\n```\n\nThe ideal configuration for Babel will depend on your project. See [Babel's docs](https://babeljs.io/docs/en/) for more details.\n\n<details>\n  <summary markdown=\"span\"><strong>Making your Babel config jest-aware</strong></summary>\n\nJest will set `process.env.NODE_ENV` to `'test'` if it's not set to something else. You can use that in your configuration to conditionally setup only the compilation needed for Jest, e.g.\n\n```javascript\n// babel.config.js\nmodule.exports = api => {\n  const isTest = api.env('test');\n  // You can use isTest to determine what presets and plugins to use.\n\n  return {\n    // ...\n  };\n};\n```\n\n> Note: `babel-jest` is automatically installed when installing Jest and will automatically transform files if a babel configuration exists in your project. To avoid this behavior, you can explicitly reset the `transform` configuration option:\n\n```javascript\n// jest.config.js\nmodule.exports = {\n  transform: {},\n};\n```\n\n</details>\n\n<!-- Note that the Babel 6 section in the Getting Started was removed -->\n\n### Using webpack\n\nJest can be used in projects that use [webpack](https://webpack.js.org/) to manage assets, styles, and compilation. webpack does offer some unique challenges over other tools. Refer to the [webpack guide](https://jestjs.io/docs/webpack) to get started.\n\n### Using Vite\n\nJest can be used in projects that use [vite](https://vitejs.dev/) to serves source code over native ESM to provide some frontend tooling, vite is an opinionated tool and does offer some out-of-the box workflows. Jest is not fully supported by vite due to how the [plugin system](https://github.com/vitejs/vite/issues/1955#issuecomment-776009094) from vite works, but there is some working examples for first-class jest integration using the `vite-jest`, since this is not fully supported, you might as well read the [limitation of the `vite-jest`](https://github.com/sodatea/vite-jest/tree/main/packages/vite-jest#limitations-and-differences-with-commonjs-tests). Refer to the [vite guide](https://vitejs.dev/guide/) to get started.\n\n### Using Parcel\n\nJest can be used in projects that use [parcel-bundler](https://parceljs.org/) to manage assets, styles, and compilation similar to webpack. Parcel requires zero configuration. Refer to the official [docs](https://parceljs.org/docs/) to get started.\n\n### Using TypeScript\n\nJest supports TypeScript, via Babel. First, make sure you followed the instructions on [using Babel](#using-babel) above. Next, install the `@babel/preset-typescript` via `yarn`:\n\n```bash\nyarn add --dev @babel/preset-typescript\n```\n\nThen add `@babel/preset-typescript` to the list of presets in your `babel.config.js`.\n\n```diff\n// babel.config.js\nmodule.exports = {\n  presets: [\n    ['@babel/preset-env', {targets: {node: 'current'}}],\n+    '@babel/preset-typescript',\n  ],\n};\n```\n\nHowever, there are some [caveats](https://babeljs.io/docs/en/babel-plugin-transform-typescript#caveats) to using TypeScript with Babel. Because TypeScript support in Babel is purely transpilation, Jest will not type-check your tests as they are run. If you want that, you can use [ts-jest](https://github.com/kulshekhar/ts-jest) instead, or just run the TypeScript compiler [tsc](https://www.typescriptlang.org/docs/handbook/compiler-options.html) separately (or as part of your build process).\n\n<!-- end copied -->\n\n## Documentation\n\nLearn more about using [Jest on the official site!](https://jestjs.io)\n\n- [Getting Started](https://jestjs.io/docs/getting-started)\n- [Guides](https://jestjs.io/docs/snapshot-testing)\n- [API Reference](https://jestjs.io/docs/api)\n- [Configuring Jest](https://jestjs.io/docs/configuration)\n\n## Badge\n\nShow the world you're using _Jest_ `\u2192` [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/jestjs/jest) [![jest tested](https://img.shields.io/badge/Jest-tested-eee.svg?logo=jest&labelColor=99424f)](https://github.com/jestjs/jest) [![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/jestjs/jest)\n\n<!-- prettier-ignore -->\n```md\n[![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg?logo=jest)](https://github.com/jestjs/jest)\n[![jest tested](https://img.shields.io/badge/Jest-tested-eee.svg?logo=jest&labelColor=99424f)](https://github.com/jestjs/jest)\n[![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/jestjs/jest)\n```\n\n## Contributing\n\nDevelopment of Jest happens in the open on GitHub, and we are grateful to the community for contributing bugfixes and improvements. Read below to learn how you can take part in improving Jest.\n\n### [Code of Conduct](https://code.facebook.com/codeofconduct)\n\nFacebook has adopted a Code of Conduct that we expect project participants to adhere to. Please read [the full text](https://code.facebook.com/codeofconduct) so that you can understand what actions will and will not be tolerated.\n\n### [Contributing Guide](CONTRIBUTING.md)\n\nRead our [contributing guide](CONTRIBUTING.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to Jest.\n\n### [Good First Issues](https://github.com/jestjs/jest/labels/good%20first%20issue)\n\nTo help you get your feet wet and get you familiar with our contribution process, we have a list of [good first issues](https://github.com/jestjs/jest/labels/good%20first%20issue) that contain bugs which have a relatively limited scope. This is a great place to get started.\n\n## Credits\n\nThis project exists thanks to all the people who [contribute](CONTRIBUTING.md).\n\n<a href=\"https://github.com/jestjs/jest/graphs/contributors\"><img src=\"https://opencollective.com/jest/contributors.svg?width=890&button=false\" /></a>\n\n### [Backers](https://opencollective.com/jest#backer)\n\nThank you to all our backers! \ud83d\ude4f\n\n<a href=\"https://opencollective.com/jest#backers\" target=\"_blank\"><img src=\"https://opencollective.com/jest/backers.svg?width=890\"></a>\n\n### [Sponsors](https://opencollective.com/jest#sponsor)\n\nSupport this project by becoming a sponsor. Your logo will show up here with a link to your website.\n\n<a href=\"https://opencollective.com/jest/sponsor/0/website\" target=\"_blank\"><img src=\"https://opencollective.com/jest/sponsor/0/avatar.svg\"></a> <a href=\"https://opencollective.com/jest/sponsor/1/website\" target=\"_blank\"><img src=\"https://opencollective.com/jest/sponsor/1/avatar.svg\"></a> <a href=\"https://opencollective.com/jest/sponsor/2/website\" target=\"_blank\"><img src=\"https://opencollective.com/jest/sponsor/2/avatar.svg\"></a> <a href=\"https://opencollective.com/jest/sponsor/3/website\" target=\"_blank\"><img src=\"https://opencollective.com/jest/sponsor/3/avatar.svg\"></a> <a href=\"https://opencollective.com/jest/sponsor/4/website\" target=\"_blank\"><img src=\"https://opencollective.com/jest/sponsor/4/avatar.svg\"></a> <a href=\"https://opencollective.com/jest/sponsor/5/website\" target=\"_blank\"><img src=\"https://opencollective.com/jest/sponsor/5/avatar.svg\"></a> <a href=\"https://opencollective.com/jest/sponsor/6/website\" target=\"_blank\"><img src=\"https://opencollective.com/jest/sponsor/6/avatar.svg\"></a> <a href=\"https://opencollective.com/jest/sponsor/7/website\" target=\"_blank\"><img src=\"https://opencollective.com/jest/sponsor/7/avatar.svg\"></a> <a href=\"https://opencollective.com/jest/sponsor/8/website\" target=\"_blank\"><img src=\"https://opencollective.com/jest/sponsor/8/avatar.svg\"></a> <a href=\"https://opencollective.com/jest/sponsor/9/website\" target=\"_blank\"><img src=\"https://opencollective.com/jest/sponsor/9/avatar.svg\"></a>\n\n## License\n\nJest is [MIT licensed](./LICENSE).\n\n## Copyright\n\nCopyright Contributors to the Jest project.\n",
+        "releases": [
+            {
+                "name": "v30.0.0-alpha.6",
+                "date": "2024-08-08T07:46:22Z"
+            },
+            {
+                "name": "v30.0.0-alpha.5",
+                "date": "2024-05-30T12:47:54Z"
+            },
+            {
+                "name": "v30.0.0-alpha.4",
+                "date": "2024-05-12T21:48:31Z"
+            },
+            {
+                "name": "v30.0.0-alpha.3",
+                "date": "2024-02-20T11:20:28Z"
+            },
+            {
+                "name": "v30.0.0-alpha.2",
+                "date": "2023-11-16T09:33:06Z"
+            },
+            {
+                "name": "v30.0.0-alpha.1",
+                "date": "2023-10-30T13:35:12Z"
+            },
+            {
+                "name": "v29.7.0",
+                "date": "2023-09-12T06:46:30Z"
+            },
+            {
+                "name": "v29.6.4",
+                "date": "2023-08-24T11:12:14Z"
+            },
+            {
+                "name": "v29.6.3",
+                "date": "2023-08-21T12:42:09Z"
+            },
+            {
+                "name": "v29.6.2",
+                "date": "2023-07-27T09:22:36Z"
+            },
+            {
+                "name": "v29.6.1",
+                "date": "2023-07-06T14:18:54Z"
+            },
+            {
+                "name": "v29.6.0",
+                "date": "2023-07-04T15:27:00Z"
+            },
+            {
+                "name": "v29.5.0",
+                "date": "2023-03-06T13:34:31Z"
+            },
+            {
+                "name": "v29.4.3",
+                "date": "2023-02-15T11:58:24Z"
+            },
+            {
+                "name": "v29.4.2",
+                "date": "2023-02-07T13:46:46Z"
+            },
+            {
+                "name": "v29.4.1",
+                "date": "2023-01-26T15:09:55Z"
+            },
+            {
+                "name": "v29.4.0",
+                "date": "2023-01-24T10:57:14Z"
+            },
+            {
+                "name": "v29.3.1",
+                "date": "2022-11-08T22:57:37Z"
+            },
+            {
+                "name": "v29.3.0",
+                "date": "2022-11-07T17:58:31Z"
+            },
+            {
+                "name": "v29.2.2",
+                "date": "2022-10-24T20:27:10Z"
+            },
+            {
+                "name": "v29.2.1",
+                "date": "2022-10-18T16:01:28Z"
+            },
+            {
+                "name": "v29.2.0",
+                "date": "2022-10-14T09:15:09Z"
+            },
+            {
+                "name": "v29.1.2",
+                "date": "2022-09-30T07:25:18Z"
+            },
+            {
+                "name": "v29.1.1",
+                "date": "2022-09-28T08:06:21Z"
+            },
+            {
+                "name": "v29.1.0",
+                "date": "2022-09-28T07:38:40Z"
+            },
+            {
+                "name": "v29.0.3",
+                "date": "2022-09-10T14:43:59Z"
+            },
+            {
+                "name": "v29.0.2",
+                "date": "2022-09-03T10:49:41Z"
+            },
+            {
+                "name": "v29.0.1",
+                "date": "2022-08-26T13:36:12Z"
+            },
+            {
+                "name": "v29.0.0",
+                "date": "2022-08-25T12:35:13Z"
+            },
+            {
+                "name": "v29.0.0-alpha.6",
+                "date": "2022-08-19T14:00:00Z"
+            },
+            {
+                "name": "v29.0.0-alpha.5",
+                "date": "2022-08-11T13:41:48Z"
+            },
+            {
+                "name": "v29.0.0-alpha.4",
+                "date": "2022-08-08T13:06:54Z"
+            },
+            {
+                "name": "v29.0.0-alpha.3",
+                "date": "2022-08-07T13:43:39Z"
+            },
+            {
+                "name": "v29.0.0-alpha.1",
+                "date": "2022-08-04T08:26:26Z"
+            },
+            {
+                "name": "v29.0.0-alpha.0",
+                "date": "2022-07-17T22:14:20Z"
+            },
+            {
+                "name": "v28.1.3",
+                "date": "2022-07-13T14:13:55Z"
+            },
+            {
+                "name": "v28.1.2",
+                "date": "2022-06-29T10:35:08Z"
+            },
+            {
+                "name": "v28.1.1",
+                "date": "2022-06-07T06:10:53Z"
+            },
+            {
+                "name": "v28.1.0",
+                "date": "2022-05-06T10:50:35Z"
+            },
+            {
+                "name": "v28.0.3",
+                "date": "2022-04-29T10:45:31Z"
+            },
+            {
+                "name": "v28.0.2",
+                "date": "2022-04-27T07:47:37Z"
+            },
+            {
+                "name": "v28.0.1",
+                "date": "2022-04-26T10:04:02Z"
+            },
+            {
+                "name": "v28.0.0",
+                "date": "2022-04-25T12:09:47Z"
+            },
+            {
+                "name": "v28.0.0-alpha.11",
+                "date": "2022-04-20T13:33:23Z"
+            },
+            {
+                "name": "v28.0.0-alpha.10",
+                "date": "2022-04-20T07:41:58Z"
+            },
+            {
+                "name": "v28.0.0-alpha.9",
+                "date": "2022-04-19T11:05:48Z"
+            },
+            {
+                "name": "v28.0.0-alpha.8",
+                "date": "2022-04-05T15:06:31Z"
+            },
+            {
+                "name": "v28.0.0-alpha.7",
+                "date": "2022-03-06T10:05:57Z"
+            },
+            {
+                "name": "v28.0.0-alpha.6",
+                "date": "2022-03-01T08:36:38Z"
+            },
+            {
+                "name": "v28.0.0-alpha.5",
+                "date": "2022-02-24T21:01:45Z"
+            },
+            {
+                "name": "v28.0.0-alpha.4",
+                "date": "2022-02-22T12:17:57Z"
+            },
+            {
+                "name": "v28.0.0-alpha.3",
+                "date": "2022-02-17T15:45:50Z"
+            },
+            {
+                "name": "v28.0.0-alpha.2",
+                "date": "2022-02-16T18:16:41Z"
+            },
+            {
+                "name": "v28.0.0-alpha.1",
+                "date": "2022-02-15T21:32:04Z"
+            },
+            {
+                "name": "v28.0.0-alpha.0",
+                "date": "2022-02-10T18:20:05Z"
+            },
+            {
+                "name": "v27.5.1",
+                "date": "2022-02-08T10:53:44Z"
+            },
+            {
+                "name": "v27.5.0",
+                "date": "2022-02-05T10:00:57Z"
+            },
+            {
+                "name": "v27.4.7",
+                "date": "2022-01-05T13:06:35Z"
+            },
+            {
+                "name": "v27.4.6",
+                "date": "2022-01-04T23:05:38Z"
+            },
+            {
+                "name": "v27.4.5",
+                "date": "2021-12-13T19:38:44Z"
+            },
+            {
+                "name": "v27.4.4",
+                "date": "2021-12-10T04:44:39Z"
+            },
+            {
+                "name": "v27.4.3",
+                "date": "2021-12-01T14:01:19Z"
+            },
+            {
+                "name": "v27.4.2",
+                "date": "2021-11-30T11:55:41Z"
+            },
+            {
+                "name": "v27.4.1",
+                "date": "2021-11-30T08:38:28Z"
+            },
+            {
+                "name": "v27.4.0",
+                "date": "2021-11-29T13:39:48Z"
+            },
+            {
+                "name": "v27.3.1",
+                "date": "2021-10-19T06:58:50Z"
+            },
+            {
+                "name": "27.3.0",
+                "date": "2021-10-17T18:36:17Z"
+            },
+            {
+                "name": "27.2.5",
+                "date": "2021-10-08T13:41:28Z"
+            },
+            {
+                "name": "27.2.4",
+                "date": "2021-09-29T14:06:09Z"
+            },
+            {
+                "name": "27.2.3",
+                "date": "2021-09-28T10:12:23Z"
+            },
+            {
+                "name": "27.2.2",
+                "date": "2021-09-25T13:36:46Z"
+            },
+            {
+                "name": "27.2.1",
+                "date": "2021-09-20T13:28:48Z"
+            },
+            {
+                "name": "27.2.0",
+                "date": "2021-09-13T08:08:14Z"
+            },
+            {
+                "name": "27.1.1",
+                "date": "2021-09-08T10:13:54Z"
+            },
+            {
+                "name": "27.1.0",
+                "date": "2021-08-27T10:00:59Z"
+            },
+            {
+                "name": "27.0.6",
+                "date": "2021-06-28T17:08:31Z"
+            },
+            {
+                "name": "27.0.5",
+                "date": "2021-06-22T11:12:08Z"
+            },
+            {
+                "name": "27.0.4",
+                "date": "2021-06-03T08:30:47Z"
+            },
+            {
+                "name": "27.0.3",
+                "date": "2021-05-29T17:49:03Z"
+            },
+            {
+                "name": "27.0.2",
+                "date": "2021-05-29T12:10:41Z"
+            },
+            {
+                "name": "27.0.1",
+                "date": "2021-05-25T10:08:35Z"
+            },
+            {
+                "name": "27.0.0",
+                "date": "2021-05-25T08:18:21Z"
+            },
+            {
+                "name": "26.6.3",
+                "date": "2020-11-04T06:21:08Z"
+            },
+            {
+                "name": "26.6.2",
+                "date": "2020-11-02T12:53:17Z"
+            },
+            {
+                "name": "26.6.1",
+                "date": "2020-10-23T09:08:40Z"
+            },
+            {
+                "name": "26.6.0",
+                "date": "2020-10-19T12:00:46Z"
+            },
+            {
+                "name": "26.5.3",
+                "date": "2020-10-11T17:51:06Z"
+            },
+            {
+                "name": "26.5.2",
+                "date": "2020-10-06T10:54:39Z"
+            },
+            {
+                "name": "26.5.1",
+                "date": "2020-10-05T10:27:32Z"
+            },
+            {
+                "name": "26.5.0",
+                "date": "2020-10-05T09:31:37Z"
+            },
+            {
+                "name": "26.4.2",
+                "date": "2020-08-22T12:11:44Z"
+            },
+            {
+                "name": "26.4.1",
+                "date": "2020-08-20T08:33:28Z"
+            },
+            {
+                "name": "26.4.0",
+                "date": "2020-08-12T21:02:30Z"
+            },
+            {
+                "name": "26.3.0",
+                "date": "2020-08-10T11:37:47Z"
+            },
+            {
+                "name": "26.2.2",
+                "date": "2020-07-31T10:55:24Z"
+            },
+            {
+                "name": "26.2.1",
+                "date": "2020-07-30T11:37:47Z"
+            },
+            {
+                "name": "26.2.0",
+                "date": "2020-07-30T10:13:59Z"
+            },
+            {
+                "name": "26.1.0",
+                "date": "2020-06-23T15:16:57Z"
+            },
+            {
+                "name": "26.0.1",
+                "date": "2020-05-05T10:43:01Z"
+            },
+            {
+                "name": "26.0.0",
+                "date": "2020-05-04T17:58:21Z"
+            },
+            {
+                "name": "25.5.4",
+                "date": "2020-05-02T08:17:49Z"
+            },
+            {
+                "name": "25.5.3",
+                "date": "2020-04-30T22:14:42Z"
+            },
+            {
+                "name": "25.5.2",
+                "date": "2020-04-29T21:51:28Z"
+            },
+            {
+                "name": "25.5.1",
+                "date": "2020-04-29T10:56:42Z"
+            },
+            {
+                "name": "25.5.0",
+                "date": "2020-04-28T19:48:19Z"
+            },
+            {
+                "name": "25.4.0",
+                "date": "2020-04-19T21:52:04Z"
+            },
+            {
+                "name": "25.3.0",
+                "date": "2020-04-08T13:23:12Z"
+            },
+            {
+                "name": "25.2.7",
+                "date": "2020-04-03T07:52:40Z"
+            },
+            {
+                "name": "25.2.6",
+                "date": "2020-04-02T10:31:06Z"
+            },
+            {
+                "name": "25.2.5",
+                "date": "2020-04-02T10:31:05Z"
+            },
+            {
+                "name": "25.2.4",
+                "date": "2020-03-29T19:45:11Z"
+            },
+            {
+                "name": "25.2.3",
+                "date": "2020-03-26T20:27:08Z"
+            },
+            {
+                "name": "25.2.2",
+                "date": "2020-03-26T16:01:13Z"
+            },
+            {
+                "name": "25.2.1",
+                "date": "2020-03-26T09:02:59Z"
+            },
+            {
+                "name": "25.2.0",
+                "date": "2020-03-25T18:00:53Z"
+            },
+            {
+                "name": "25.1.0",
+                "date": "2020-01-22T08:14:16Z"
+            },
+            {
+                "name": "24.9.0",
+                "date": "2019-08-16T10:39:11Z"
+            },
+            {
+                "name": "24.8.0",
+                "date": "2019-08-16T10:39:09Z"
+            },
+            {
+                "name": "24.7.1",
+                "date": "2019-08-16T10:39:08Z"
+            },
+            {
+                "name": "24.7.0",
+                "date": "2019-08-16T10:39:07Z"
+            },
+            {
+                "name": "24.6.0",
+                "date": "2019-08-16T10:39:06Z"
+            },
+            {
+                "name": "24.5.0",
+                "date": "2019-08-16T10:39:04Z"
+            },
+            {
+                "name": "24.4.0",
+                "date": "2019-08-16T10:39:03Z"
+            },
+            {
+                "name": "24.3.0",
+                "date": "2019-08-16T10:39:01Z"
+            },
+            {
+                "name": "24.1.0",
+                "date": "2019-08-16T10:39:00Z"
+            },
+            {
+                "name": "24.0.0",
+                "date": "2019-08-16T10:38:59Z"
+            },
+            {
+                "name": "23.6.0",
+                "date": "2019-08-16T10:38:57Z"
+            },
+            {
+                "name": "23.5.0",
+                "date": "2019-08-16T10:38:56Z"
+            },
+            {
+                "name": "23.4.2",
+                "date": "2019-08-16T10:38:55Z"
+            },
+            {
+                "name": "23.4.1",
+                "date": "2019-08-16T10:38:53Z"
+            },
+            {
+                "name": "23.4.0",
+                "date": "2019-08-16T10:38:52Z"
+            },
+            {
+                "name": "23.3.0",
+                "date": "2019-08-16T10:38:51Z"
+            },
+            {
+                "name": "23.2.0",
+                "date": "2019-08-16T10:38:50Z"
+            },
+            {
+                "name": "23.1.0",
+                "date": "2019-08-16T10:38:49Z"
+            },
+            {
+                "name": "23.0.1",
+                "date": "2019-08-16T10:38:47Z"
+            },
+            {
+                "name": "23.0.0",
+                "date": "2019-08-16T10:38:46Z"
+            },
+            {
+                "name": "22.4.2",
+                "date": "2019-08-16T10:38:45Z"
+            },
+            {
+                "name": "22.4.1",
+                "date": "2019-08-16T10:38:43Z"
+            },
+            {
+                "name": "22.4.0",
+                "date": "2019-08-16T10:38:42Z"
+            },
+            {
+                "name": "22.3.0",
+                "date": "2019-08-16T10:38:41Z"
+            },
+            {
+                "name": "22.2.2",
+                "date": "2019-08-16T10:38:39Z"
+            },
+            {
+                "name": "22.2.1",
+                "date": "2019-08-16T10:38:38Z"
+            },
+            {
+                "name": "22.2.0",
+                "date": "2019-08-16T10:38:37Z"
+            },
+            {
+                "name": "22.1.4",
+                "date": "2019-08-16T10:38:36Z"
+            },
+            {
+                "name": "22.1.3",
+                "date": "2019-08-16T10:38:34Z"
+            },
+            {
+                "name": "22.1.2",
+                "date": "2019-08-16T10:38:33Z"
+            },
+            {
+                "name": "22.1.1",
+                "date": "2019-08-16T10:38:32Z"
+            },
+            {
+                "name": "22.1.0",
+                "date": "2019-08-16T10:38:30Z"
+            },
+            {
+                "name": "22.0.5",
+                "date": "2019-08-16T10:38:29Z"
+            },
+            {
+                "name": "22.0.4",
+                "date": "2019-08-16T10:38:28Z"
+            },
+            {
+                "name": "22.0.2",
+                "date": "2019-08-16T10:38:27Z"
+            },
+            {
+                "name": "22.0.1",
+                "date": "2019-08-16T10:38:25Z"
+            },
+            {
+                "name": "22.0.0",
+                "date": "2019-08-16T10:38:24Z"
+            },
+            {
+                "name": "21.2.1",
+                "date": "2019-08-16T10:38:23Z"
+            },
+            {
+                "name": "21.2.0",
+                "date": "2019-08-16T10:38:21Z"
+            },
+            {
+                "name": "21.1.0",
+                "date": "2019-08-16T10:38:20Z"
+            },
+            {
+                "name": "21.0.2",
+                "date": "2019-08-16T10:38:19Z"
+            },
+            {
+                "name": "21.0.1",
+                "date": "2019-08-16T10:38:17Z"
+            },
+            {
+                "name": "21.0.0",
+                "date": "2019-08-16T10:38:16Z"
+            },
+            {
+                "name": "20.0.4",
+                "date": "2019-08-16T10:38:14Z"
+            },
+            {
+                "name": "20.0.3",
+                "date": "2019-08-16T10:38:13Z"
+            },
+            {
+                "name": "20.0.1",
+                "date": "2019-08-16T10:38:11Z"
+            },
+            {
+                "name": "20.0.0",
+                "date": "2019-08-16T10:38:10Z"
+            },
+            {
+                "name": "19.0.1",
+                "date": "2019-08-16T10:38:09Z"
+            },
+            {
+                "name": "19.0.0",
+                "date": "2019-08-16T10:38:07Z"
+            },
+            {
+                "name": "18.1.0",
+                "date": "2019-08-16T10:38:06Z"
+            },
+            {
+                "name": "18.0.0",
+                "date": "2019-08-16T10:38:05Z"
+            },
+            {
+                "name": "17.0.3",
+                "date": "2019-08-16T10:38:03Z"
+            },
+            {
+                "name": "17.0.2",
+                "date": "2019-08-16T10:38:02Z"
+            },
+            {
+                "name": "17.0.1",
+                "date": "2019-08-16T10:38:01Z"
+            },
+            {
+                "name": "17.0.0",
+                "date": "2019-08-16T10:37:59Z"
+            },
+            {
+                "name": "16.0.2",
+                "date": "2019-08-16T10:37:58Z"
+            },
+            {
+                "name": "16.0.1",
+                "date": "2019-08-16T10:37:57Z"
+            },
+            {
+                "name": "16.0.0",
+                "date": "2019-08-16T10:37:56Z"
+            },
+            {
+                "name": "15.1.1",
+                "date": "2019-08-16T10:37:54Z"
+            },
+            {
+                "name": "15.1.0",
+                "date": "2019-08-16T10:37:53Z"
+            },
+            {
+                "name": "15.0.2",
+                "date": "2019-08-16T10:37:52Z"
+            },
+            {
+                "name": "15.0.1",
+                "date": "2019-08-16T10:37:50Z"
+            },
+            {
+                "name": "15.0.0",
+                "date": "2019-08-16T10:37:49Z"
+            },
+            {
+                "name": "14.1.0",
+                "date": "2019-08-16T10:37:48Z"
+            },
+            {
+                "name": "14.0.2",
+                "date": "2019-08-16T10:37:46Z"
+            },
+            {
+                "name": "14.0.1",
+                "date": "2019-08-16T10:37:44Z"
+            },
+            {
+                "name": "14.0.0",
+                "date": "2019-08-16T10:37:43Z"
+            },
+            {
+                "name": "13.2.0",
+                "date": "2019-08-16T10:37:42Z"
+            },
+            {
+                "name": "13.1.0",
+                "date": "2019-08-16T10:37:40Z"
+            },
+            {
+                "name": "13.0.0",
+                "date": "2019-08-16T10:37:39Z"
+            },
+            {
+                "name": "12.1.1",
+                "date": "2019-08-16T10:37:38Z"
+            },
+            {
+                "name": "12.1.0",
+                "date": "2019-08-16T10:37:36Z"
+            },
+            {
+                "name": "12.0.2",
+                "date": "2019-08-16T10:37:35Z"
+            },
+            {
+                "name": "12.0.1",
+                "date": "2019-08-16T10:37:34Z"
+            },
+            {
+                "name": "0.8.2",
+                "date": "2019-08-16T10:37:32Z"
+            },
+            {
+                "name": "0.8.1",
+                "date": "2019-08-16T10:37:29Z"
+            },
+            {
+                "name": "0.8.0",
+                "date": "2019-08-16T10:37:28Z"
+            },
+            {
+                "name": "0.7.1",
+                "date": "2019-08-16T10:37:27Z"
+            },
+            {
+                "name": "0.7.0",
+                "date": "2019-08-16T10:37:25Z"
+            },
+            {
+                "name": "0.6.1",
+                "date": "2019-08-16T10:37:24Z"
+            },
+            {
+                "name": "0.6.0",
+                "date": "2019-08-16T10:37:23Z"
+            },
+            {
+                "name": "0.5.6",
+                "date": "2019-08-16T10:37:21Z"
+            },
+            {
+                "name": "0.5.5",
+                "date": "2019-08-16T10:37:20Z"
+            },
+            {
+                "name": "0.5.2",
+                "date": "2019-08-16T10:37:19Z"
+            },
+            {
+                "name": "0.5.1",
+                "date": "2019-08-16T10:37:17Z"
+            },
+            {
+                "name": "0.5.0",
+                "date": "2019-08-16T10:37:16Z"
+            }
+        ]
+    }
+}

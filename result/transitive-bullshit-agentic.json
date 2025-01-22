@@ -1,0 +1,576 @@
+{
+    "https://api.github.com/repos/transitive-bullshit/chatgpt-api": {
+        "forks": 2179,
+        "watchers": 16807,
+        "stars": 16807,
+        "languages": null,
+        "commits": [
+            "2024-11-21T08:49:45Z",
+            "2024-11-21T07:12:03Z",
+            "2024-11-21T07:11:14Z",
+            "2024-11-21T07:06:37Z",
+            "2024-11-07T19:32:15Z",
+            "2024-11-07T19:30:10Z",
+            "2024-11-07T19:20:36Z",
+            "2024-11-07T19:12:50Z",
+            "2024-10-30T01:59:44Z",
+            "2024-10-29T18:38:20Z",
+            "2024-10-22T05:23:56Z",
+            "2024-10-22T05:23:36Z",
+            "2024-10-22T05:19:56Z",
+            "2024-10-21T23:49:39Z",
+            "2024-10-21T23:48:39Z",
+            "2024-10-21T23:31:45Z",
+            "2024-10-21T23:15:11Z",
+            "2024-10-21T23:11:14Z",
+            "2024-10-21T23:10:07Z",
+            "2024-09-20T11:59:58Z",
+            "2024-09-19T15:03:16Z",
+            "2024-08-26T20:55:32Z",
+            "2024-08-26T20:48:16Z",
+            "2024-08-26T20:46:29Z",
+            "2024-08-26T16:11:19Z",
+            "2024-08-26T15:38:11Z",
+            "2024-08-26T15:29:55Z",
+            "2024-08-26T15:25:58Z",
+            "2024-08-17T18:40:20Z",
+            "2024-08-17T15:50:04Z"
+        ],
+        "creation_date": "2022-12-03T00:05:09Z",
+        "contributors": 30,
+        "topics": [
+            "agents",
+            "ai",
+            "llms",
+            "openai"
+        ],
+        "subscribers": 142,
+        "readme": "<p align=\"center\">\n  <a href=\"https://agentic.so\">\n    <img alt=\"Agentic\" src=\"/docs/media/agentic-header.jpg\" width=\"308\">\n  </a>\n</p>\n\n<p align=\"center\">\n  <em>AI agent stdlib that works with any LLM and TypeScript AI SDK.</em>\n</p>\n\n<p align=\"center\">\n  <a href=\"https://github.com/transitive-bullshit/agentic/actions/workflows/main.yml\"><img alt=\"Build Status\" src=\"https://github.com/transitive-bullshit/agentic/actions/workflows/main.yml/badge.svg\" /></a>\n  <a href=\"https://www.npmjs.com/package/@agentic/stdlib\"><img alt=\"NPM\" src=\"https://img.shields.io/npm/v/@agentic/stdlib.svg\" /></a>\n  <a href=\"https://github.com/transitive-bullshit/agentic/blob/main/license\"><img alt=\"MIT License\" src=\"https://img.shields.io/badge/license-MIT-blue\" /></a>\n  <a href=\"https://prettier.io\"><img alt=\"Prettier Code Formatting\" src=\"https://img.shields.io/badge/code_style-prettier-brightgreen.svg\" /></a>\n</p>\n\n# Agentic <!-- omit from toc -->\n\n- [Intro](#intro)\n- [Docs](#docs)\n- [AI SDKs](#ai-sdks)\n  - [Vercel AI SDK](#vercel-ai-sdk)\n  - [LangChain](#langchain)\n  - [LlamaIndex](#llamaindex)\n  - [Firebase Genkit](#firebase-genkit)\n  - [Dexa Dexter](#dexa-dexter)\n  - [OpenAI](#openai)\n- [Tools](#tools)\n- [Contributors](#contributors)\n- [License](#license)\n\n## Intro\n\nAgentic is a **standard library of AI functions / tools** which are **optimized for both normal TS-usage as well as LLM-based usage**. Agentic works with all of the major TS AI SDKs (LangChain, LlamaIndex, Vercel AI SDK, OpenAI SDK, etc).\n\nAgentic clients like `WeatherClient` can be used as normal TS classes:\n\n```ts\nimport { WeatherClient } from '@agentic/stdlib'\n\n// Requires `process.env.WEATHER_API_KEY` (free from weatherapi.com)\nconst weather = new WeatherClient()\n\nconst result = await weather.getCurrentWeather({\n  q: 'San Francisco'\n})\nconsole.log(result)\n```\n\nOr you can use these clients as **LLM-based tools** where the LLM decides when and how to invoke the underlying functions for you.\n\nThis works across all of the major AI SDKs via adapters. Here's an example using [Vercel's AI SDK](https://github.com/vercel/ai):\n\n```ts\n// sdk-specific imports\nimport { openai } from '@ai-sdk/openai'\nimport { generateText } from 'ai'\nimport { createAISDKTools } from '@agentic/ai-sdk'\n\n// sdk-agnostic imports\nimport { WeatherClient } from '@agentic/stdlib'\n\nconst weather = new WeatherClient()\n\nconst result = await generateText({\n  model: openai('gpt-4o-mini'),\n  // this is the key line which uses the `@agentic/ai-sdk` adapter\n  tools: createAISDKTools(weather),\n  toolChoice: 'required',\n  prompt: 'What is the weather in San Francisco?'\n})\n\nconsole.log(result.toolResults[0])\n```\n\nYou can use our standard library of thoroughly tested AI functions with your favorite AI SDK \u2013\u00a0without having to write any glue code!\n\nHere's a slightly more complex example which uses multiple clients and selects a subset of their functions using the `AIFunctionSet.pick` method:\n\n```ts\n// sdk-specific imports\nimport { ChatModel, createAIRunner } from '@dexaai/dexter'\nimport { createDexterFunctions } from '@agentic/dexter'\n\n// sdk-agnostic imports\nimport { PerigonClient, SerperClient } from '@agentic/stdlib'\n\nasync function main() {\n  // Perigon is a news API and Serper is a Google search API\n  const perigon = new PerigonClient()\n  const serper = new SerperClient()\n\n  const runner = createAIRunner({\n    chatModel: new ChatModel({\n      params: { model: 'gpt-4o-mini', temperature: 0 }\n    }),\n    functions: createDexterFunctions(\n      perigon.functions.pick('search_news_stories'),\n      serper\n    ),\n    systemMessage: 'You are a helpful assistant. Be as concise as possible.'\n  })\n\n  const result = await runner(\n    'Summarize the latest news stories about the upcoming US election.'\n  )\n  console.log(result)\n}\n```\n\n## Docs\n\nFull docs are available at [agentic.so](https://agentic.so).\n\n## AI SDKs\n\n### Vercel AI SDK\n\n[Agentic adapter docs for the Vercel AI SDK](https://agentic.so/sdks/ai-sdk)\n\n### LangChain\n\n[Agentic adapter docs for LangChain](https://agentic.so/sdks/langchain)\n\n### LlamaIndex\n\n[Agentic adapter docs for LlamaIndex](https://agentic.so/sdks/llamaindex)\n\n### Firebase Genkit\n\n[Agentic adapter docs for Genkit](https://agentic.so/sdks/genkit)\n\n### Dexa Dexter\n\n[Agentic adapter docs for Dexter](https://agentic.so/sdks/dexter)\n\n### OpenAI\n\n[Agentic adapter docs for OpenAI](https://agentic.so/sdks/openai)\n\n### GenAIScript\n\n[Agentic support in GenAIScript](https://agentic.so/sdks/genaiscript)\n\n## Tools\n\n| Service / Tool                                                           | Package                     | Docs                                              | Description                                                                                                                                                                                                                                                    |\n| ------------------------------------------------------------------------ | --------------------------- | ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| [Bing](https://www.microsoft.com/en-us/bing/apis/bing-web-search-api)    | `@agentic/bing`             | [docs](https://agentic.so/tools/bing)             | Bing web search.                                                                                                                                                                                                                                               |\n| [Calculator](https://github.com/josdejong/mathjs)                        | `@agentic/calculator`       | [docs](https://agentic.so/tools/calculator)       | Basic calculator for simple mathematical expressions.                                                                                                                                                                                                          |\n| [Clearbit](https://dashboard.clearbit.com/docs)                          | `@agentic/clearbit`         | [docs](https://agentic.so/tools/clearbit)         | Resolving and enriching people and company data.                                                                                                                                                                                                               |\n| [Dexa](https://dexa.ai)                                                  | `@agentic/dexa`             | [docs](https://agentic.so/tools/dexa)             | Answers questions from the world's best podcasters.                                                                                                                                                                                                            |\n| [Diffbot](https://docs.diffbot.com)                                      | `@agentic/diffbot`          | [docs](https://agentic.so/tools/diffbot)          | Web page classification and scraping; person and company data enrichment.                                                                                                                                                                                      |\n| [E2B](https://e2b.dev)                                                   | `@agentic/e2b`              | [docs](https://agentic.so/tools/e2b)              | Hosted Python code interpreter sandbox which is really useful for data analysis, flexible code execution, and advanced reasoning on-the-fly.                                                                                                                   |\n| [Exa](https://docs.exa.ai)                                               | `@agentic/exa`              | [docs](https://agentic.so/tools/exa)              | Web search tailored for LLMs.                                                                                                                                                                                                                                  |\n| [Firecrawl](https://www.firecrawl.dev)                                   | `@agentic/firecrawl`        | [docs](https://agentic.so/tools/firecrawl)        | Website scraping and structured data extraction.                                                                                                                                                                                                               |\n| [HackerNews](https://github.com/HackerNews/API)                          | `@agentic/hacker-news`      | [docs](https://agentic.so/tools/hacker-news)      | Official HackerNews API.                                                                                                                                                                                                                                       |\n| [Hunter](https://hunter.io)                                              | `@agentic/hunter`           | [docs](https://agentic.so/tools/hunter)           | Email finder, verifier, and enrichment.                                                                                                                                                                                                                        |\n| [Jina](https://jina.ai/reader)                                           | `@agentic/jina`             | [docs](https://agentic.so/tools/jina)             | URL scraper and web search.                                                                                                                                                                                                                                    |\n| [Midjourney](https://www.imagineapi.dev)                                 | `@agentic/midjourney`       | [docs](https://agentic.so/tools/midjourney)       | Unofficial Midjourney client for generative images.                                                                                                                                                                                                            |\n| [Novu](https://novu.co)                                                  | `@agentic/novu`             | [docs](https://agentic.so/tools/novu)             | Sending notifications (email, SMS, in-app, push, etc).                                                                                                                                                                                                         |\n| [People Data Labs](https://www.peopledatalabs.com)                       | `@agentic/people-data-labs` | [docs](https://agentic.so/tools/people-data-labs) | People & company data (WIP).                                                                                                                                                                                                                                   |\n| [Perigon](https://www.goperigon.com/products/news-api)                   | `@agentic/perigon`          | [docs](https://agentic.so/tools/perigon)          | Real-time news API and web content data from 140,000+ sources. Structured and enriched by AI, primed for LLMs.                                                                                                                                                 |\n| [Polygon](https://polygon.io)                                            | `@agentic/polygon`          | [docs](https://agentic.so/tools/polygon)          | Stock market and company financial data.                                                                                                                                                                                                                       |\n| [PredictLeads](https://predictleads.com)                                 | `@agentic/predict-leads`    | [docs](https://agentic.so/tools/predict-leads)    | In-depth company data including signals like fundraising events, hiring news, product launches, technologies used, etc.                                                                                                                                        |\n| [Proxycurl](https://nubela.co/proxycurl)                                 | `@agentic/proxycurl`        | [docs](https://agentic.so/tools/proxycurl)        | People and company data from LinkedIn & Crunchbase.                                                                                                                                                                                                            |\n| [Searxng](https://docs.searxng.org)                                      | `@agentic/searxng`          | [docs](https://agentic.so/tools/searxng)          | OSS meta search engine capable of searching across many providers like Reddit, Google, Brave, Arxiv, Genius, IMDB, Rotten Tomatoes, Wikidata, Wolfram Alpha, YouTube, GitHub, [etc](https://docs.searxng.org/user/configured_engines.html#configured-engines). |\n| [SerpAPI](https://serpapi.com/search-api)                                | `@agentic/serpapi`          | [docs](https://agentic.so/tools/serpapi)          | Lightweight wrapper around SerpAPI for Google search.                                                                                                                                                                                                          |\n| [Serper](https://serper.dev)                                             | `@agentic/serper`           | [docs](https://agentic.so/tools/serper)           | Lightweight wrapper around Serper for Google search.                                                                                                                                                                                                           |\n| [Slack](https://api.slack.com/docs)                                      | `@agentic/slack`            | [docs](https://agentic.so/tools/slack)            | Send and receive Slack messages.                                                                                                                                                                                                                               |\n| [SocialData](https://socialdata.tools)                                   | `@agentic/social-data`      | [docs](https://agentic.so/tools/social-data)      | Unofficial Twitter / X client (readonly) which is much cheaper than the official Twitter API.                                                                                                                                                                  |\n| [Tavily](https://tavily.com)                                             | `@agentic/tavily`           | [docs](https://agentic.so/tools/tavily)           | Web search API tailored for LLMs.                                                                                                                                                                                                                              |\n| [Twilio](https://www.twilio.com/docs/conversations/api)                  | `@agentic/twilio`           | [docs](https://agentic.so/tools/twilio)           | Twilio conversation API to send and receive SMS messages.                                                                                                                                                                                                      |\n| [Twitter](https://developer.x.com/en/docs/twitter-api)                   | `@agentic/twitter`          | [docs](https://agentic.so/tools/twitter)          | Basic Twitter API methods for fetching users, tweets, and searching recent tweets. Includes support for plan-aware rate-limiting. Uses [Nango](https://www.nango.dev) for OAuth support.                                                                       |\n| [Weather](https://www.weatherapi.com)                                    | `@agentic/weather`          | [docs](https://agentic.so/tools/weather)          | Basic access to current weather data based on location.                                                                                                                                                                                                        |\n| [Wikidata](https://www.wikidata.org/wiki/Wikidata:Data_access)           | `@agentic/wikidata`         | [docs](https://agentic.so/tools/wikidata)         | Basic Wikidata client.                                                                                                                                                                                                                                         |\n| [Wikipedia](https://www.mediawiki.org/wiki/API)                          | `@agentic/wikipedia`        | [docs](https://agentic.so/tools/wikipedia)        | Wikipedia page search and summaries.                                                                                                                                                                                                                           |\n| [Wolfram Alpha](https://products.wolframalpha.com/llm-api/documentation) | `@agentic/wolfram-alpha`    | [docs](https://agentic.so/tools/wolfram-alpha)    | Wolfram Alpha LLM API client for answering computational, mathematical, and scientific questions.                                                                                                                                                              |\n\nFor more details, see the [docs](https://agentic.so).\n\n## Contributors\n\n- [Travis Fischer](https://x.com/transitive_bs)\n- [David Zhang](https://x.com/dzhng)\n- [Philipp Burckhardt](https://x.com/burckhap)\n- And all of the [amazing OSS contributors](https://github.com/transitive-bullshit/agentic/graphs/contributors)!\n\n## License\n\nMIT \u00a9 [Travis Fischer](https://x.com/transitive_bs)\n\nTo stay up to date or learn more, follow [@transitive_bs](https://x.com/transitive_bs) on Twitter.\n",
+        "releases": [
+            {
+                "name": "7.2.0",
+                "date": "2024-11-07T19:35:50Z"
+            },
+            {
+                "name": "MAJOR move to monorepo and multiple packages",
+                "date": "2024-08-04T11:55:37Z"
+            },
+            {
+                "name": "Fix import bug",
+                "date": "2024-08-03T23:34:41Z"
+            },
+            {
+                "name": "Add WikidataClient and pruneEmptyDeep",
+                "date": "2024-08-01T10:42:25Z"
+            },
+            {
+                "name": "Add extractObject, createAIChain, and JinaClient",
+                "date": "2024-07-31T16:13:54Z"
+            },
+            {
+                "name": "Add GitHubClient; minor fixes",
+                "date": "2024-07-24T10:08:39Z"
+            },
+            {
+                "name": "Minor client fixes; add new HackerNewsClient and JinaClient",
+                "date": "2024-07-22T04:37:45Z"
+            },
+            {
+                "name": "Bug fix for AIFunctionSet",
+                "date": "2024-06-29T21:59:49Z"
+            },
+            {
+                "name": "Improvements to clearbit, diffbot, proxycurl, scraper clients",
+                "date": "2024-06-19T18:10:25Z"
+            },
+            {
+                "name": "Fix normalizeUrl; improve firecrawl, perigon, scraper clients",
+                "date": "2024-06-18T07:39:18Z"
+            },
+            {
+                "name": "Minor client type improvements",
+                "date": "2024-06-18T05:29:08Z"
+            },
+            {
+                "name": "Update calculator tool to use mathjs",
+                "date": "2024-06-14T22:25:27Z"
+            },
+            {
+                "name": "Minor bug fixes",
+                "date": "2024-06-10T22:40:38Z"
+            },
+            {
+                "name": "Improve diffbot types; fix proxycurl default timeout",
+                "date": "2024-06-10T07:35:23Z"
+            },
+            {
+                "name": "Minor improvements to clearbit, diffbot, perigon, and proxycurl",
+                "date": "2024-06-10T06:31:48Z"
+            },
+            {
+                "name": "Small fixes for diffbot, predictleads, and proxycurl",
+                "date": "2024-06-10T00:19:14Z"
+            },
+            {
+                "name": "Add missing url-utils exports",
+                "date": "2024-06-09T21:01:57Z"
+            },
+            {
+                "name": "Add SocialData client",
+                "date": "2024-06-09T07:42:10Z"
+            },
+            {
+                "name": "Move nango to optional peer dep",
+                "date": "2024-06-09T00:03:45Z"
+            },
+            {
+                "name": "Publishing @agentic/stdlib publicly to npm",
+                "date": "2024-06-07T07:34:58Z"
+            },
+            {
+                "name": "Transition project to Agentic",
+                "date": "2024-06-07T07:22:04Z"
+            },
+            {
+                "name": "replace tokenizer with more compatible js-tiktoken",
+                "date": "2023-05-31T02:42:55Z"
+            },
+            {
+                "name": "fix: unofficial api json parsing error",
+                "date": "2023-05-02T02:55:20Z"
+            },
+            {
+                "name": "Minor update deps and docs",
+                "date": "2023-05-02T02:43:17Z"
+            },
+            {
+                "name": "fix apiOrg should be optional",
+                "date": "2023-04-02T19:37:45Z"
+            },
+            {
+                "name": "update deps",
+                "date": "2023-04-02T17:20:05Z"
+            },
+            {
+                "name": "Bug fixes, support for multiple OpenAI orgs, estimated tokens for streaming",
+                "date": "2023-04-02T17:17:59Z"
+            },
+            {
+                "name": "add cli support for model & gpt-4",
+                "date": "2023-04-01T19:40:20Z"
+            },
+            {
+                "name": "Chore: update docs and deps",
+                "date": "2023-03-28T03:14:12Z"
+            },
+            {
+                "name": "Update tokenizer to fix some build issues",
+                "date": "2023-03-18T13:55:40Z"
+            },
+            {
+                "name": "Add support for completionParams to sendMessage",
+                "date": "2023-03-15T23:02:05Z"
+            },
+            {
+                "name": "Update ChatGPTUnofficialProxyAPI's default proxy",
+                "date": "2023-03-11T11:08:54Z"
+            },
+            {
+                "name": "Bug fixes for ChatGPTAPI messages and prompt logic",
+                "date": "2023-03-09T18:43:06Z"
+            },
+            {
+                "name": "Decrease maxModelTokens from 4096 to 4000 to be conservative",
+                "date": "2023-03-07T07:47:41Z"
+            },
+            {
+                "name": "Fix apiKey cli param",
+                "date": "2023-03-06T07:19:16Z"
+            },
+            {
+                "name": "Fix typo in system message",
+                "date": "2023-03-03T23:26:49Z"
+            },
+            {
+                "name": "Export ChatGPTAPIOptions",
+                "date": "2023-03-02T23:26:31Z"
+            },
+            {
+                "name": "Update npm description",
+                "date": "2023-03-02T05:45:19Z"
+            },
+            {
+                "name": "Fix openai types",
+                "date": "2023-03-02T05:33:06Z"
+            },
+            {
+                "name": "Update default model to use non-date version",
+                "date": "2023-03-02T05:25:39Z"
+            },
+            {
+                "name": "Fix CLI streaming bug",
+                "date": "2023-03-02T03:50:53Z"
+            },
+            {
+                "name": "Switch to official chat completions API \ud83d\udd25",
+                "date": "2023-03-02T02:59:09Z"
+            },
+            {
+                "name": "Fix ChatGPTAPI tokenizer bug",
+                "date": "2023-03-01T02:46:25Z"
+            },
+            {
+                "name": "Update tiktoken dep",
+                "date": "2023-02-28T23:01:22Z"
+            },
+            {
+                "name": "Add conversationId / parentMessageId validity checking",
+                "date": "2023-02-28T10:23:39Z"
+            },
+            {
+                "name": "Switch tokenizers; Add Node.js access token generation; Minor fixes",
+                "date": "2023-02-28T10:08:08Z"
+            },
+            {
+                "name": "Fix ChatGPTUnofficialProxyAPI enable custom fetch",
+                "date": "2023-02-21T01:45:38Z"
+            },
+            {
+                "name": "Bug fix for CLI",
+                "date": "2023-02-19T23:00:52Z"
+            },
+            {
+                "name": "Add chatgpt CLI \ud83d\udd25",
+                "date": "2023-02-19T12:31:20Z"
+            },
+            {
+                "name": "Replace gpt-3-encoder with gpt3-tokenizer",
+                "date": "2023-02-19T09:49:43Z"
+            },
+            {
+                "name": "Update auto-gen docs",
+                "date": "2023-02-19T08:52:18Z"
+            },
+            {
+                "name": "Add ChatGPTUnofficialProxyAPI to use the real ChatGPT again \ud83d\udcaa",
+                "date": "2023-02-19T08:18:08Z"
+            },
+            {
+                "name": "Remove extra console messages",
+                "date": "2023-02-15T23:01:36Z"
+            },
+            {
+                "name": "Add ability to override global fetch",
+                "date": "2023-02-14T06:30:38Z"
+            },
+            {
+                "name": "Remove reverse proxy URL from demo",
+                "date": "2023-02-14T06:19:00Z"
+            },
+            {
+                "name": "Improve apiReverseProxyUrl error message detail",
+                "date": "2023-02-13T06:42:47Z"
+            },
+            {
+                "name": "Add support for apiReverseProxyUrl",
+                "date": "2023-02-13T06:21:43Z"
+            },
+            {
+                "name": "Switch back to text-davinci-003 after OpenAI disabled the previous model",
+                "date": "2023-02-07T22:04:46Z"
+            },
+            {
+                "name": "Add fix for fetchSSE promise rejection",
+                "date": "2023-02-07T09:47:45Z"
+            },
+            {
+                "name": "Minor fixes and doc updates",
+                "date": "2023-02-07T01:16:08Z"
+            },
+            {
+                "name": "Update to official chatgpt model from 2022",
+                "date": "2023-02-03T05:35:15Z"
+            },
+            {
+                "name": "Replace chat model with text-davinci-003 for now",
+                "date": "2023-02-02T20:14:34Z"
+            },
+            {
+                "name": "Fix for completionParams to override model",
+                "date": "2023-02-02T20:07:56Z"
+            },
+            {
+                "name": "Fix latest npm release",
+                "date": "2023-02-02T07:49:42Z"
+            },
+            {
+                "name": "Improve docs and explain some customization options",
+                "date": "2023-02-02T00:13:23Z"
+            },
+            {
+                "name": "v3 update for browser-based version: use updated model",
+                "date": "2023-02-02T05:43:19Z"
+            },
+            {
+                "name": "Fix for conversationId undefined",
+                "date": "2023-02-01T18:35:31Z"
+            },
+            {
+                "name": "update readme to clarify new version",
+                "date": "2023-02-01T13:09:32Z"
+            },
+            {
+                "name": "MAJOR BREAKING CHANGE: browser \u21d2 official API \ud83d\udd25",
+                "date": "2023-02-01T11:08:30Z"
+            },
+            {
+                "name": "Add support for premium / pro / paid accounts",
+                "date": "2023-01-22T07:53:55Z"
+            },
+            {
+                "name": "Add support for userDataDir",
+                "date": "2023-01-21T00:45:30Z"
+            },
+            {
+                "name": "Improve proxy auth",
+                "date": "2023-01-15T09:54:07Z"
+            },
+            {
+                "name": "Update docs",
+                "date": "2023-01-12T10:05:14Z"
+            },
+            {
+                "name": "Add onProgress to ChatGPTAPIBrowser",
+                "date": "2023-01-12T09:55:51Z"
+            },
+            {
+                "name": "Bypass new update modal and add google auth demo",
+                "date": "2023-01-11T09:42:59Z"
+            },
+            {
+                "name": "Fix JSON parse error",
+                "date": "2023-01-10T09:09:02Z"
+            },
+            {
+                "name": "Slight login password fix",
+                "date": "2023-01-06T22:06:10Z"
+            },
+            {
+                "name": "Minor doc and demo updates",
+                "date": "2023-01-02T23:36:15Z"
+            },
+            {
+                "name": "Robustness fixes \u26a1\ufe0f",
+                "date": "2022-12-31T21:22:32Z"
+            },
+            {
+                "name": "Fix for post-captcha getting stuck",
+                "date": "2022-12-29T07:18:47Z"
+            },
+            {
+                "name": "Minor fixes to captcha bypass",
+                "date": "2022-12-28T22:34:00Z"
+            },
+            {
+                "name": "Puppeteer & nopecha improvements",
+                "date": "2022-12-28T08:24:16Z"
+            },
+            {
+                "name": "Fix for google login",
+                "date": "2022-12-27T18:07:34Z"
+            },
+            {
+                "name": "403/401/429 robustness improvements",
+                "date": "2022-12-27T06:53:16Z"
+            },
+            {
+                "name": "Nopecha fixes",
+                "date": "2022-12-24T07:48:09Z"
+            },
+            {
+                "name": "Add support for proxy auth",
+                "date": "2022-12-22T07:07:03Z"
+            },
+            {
+                "name": "Attempt to fix 403 handling during sendMessage",
+                "date": "2022-12-19T04:07:46Z"
+            },
+            {
+                "name": "Add support for Proxies and Microsoft login \ud83e\udd16",
+                "date": "2022-12-19T00:21:14Z"
+            },
+            {
+                "name": "Respect PUPPETEER_EXECUTABLE_PATH to override default path",
+                "date": "2022-12-18T10:08:06Z"
+            },
+            {
+                "name": "Fix for google login robustness",
+                "date": "2022-12-18T07:05:27Z"
+            },
+            {
+                "name": "Add captcha docs to readme",
+                "date": "2022-12-18T06:18:43Z"
+            },
+            {
+                "name": "Fix last release; updating build to npm",
+                "date": "2022-12-18T05:32:03Z"
+            },
+            {
+                "name": "Fix 2captcha support; improve chrome memory usage",
+                "date": "2022-12-18T05:31:29Z"
+            },
+            {
+                "name": "Retry if at capacity; solve simple Cloudflare captchas in addition to Recaptchas",
+                "date": "2022-12-17T22:50:14Z"
+            },
+            {
+                "name": "Make nopecha extension ID dynamic; fix bug for heroku",
+                "date": "2022-12-17T22:10:22Z"
+            },
+            {
+                "name": "MAJOR: changes to sendMessage and initSession APIs; added CAPTCHA automation \ud83d\udd25",
+                "date": "2022-12-17T10:04:38Z"
+            },
+            {
+                "name": "Attempt to re-authenticate browser if auth expires; rename browserPath=>executablePath",
+                "date": "2022-12-16T23:24:11Z"
+            },
+            {
+                "name": "Improve executablePath support for customizing browser location",
+                "date": "2022-12-16T23:13:44Z"
+            },
+            {
+                "name": "Add conversation support to browser version ChatGPTAPIBrowser",
+                "date": "2022-12-16T07:37:20Z"
+            },
+            {
+                "name": "Fix for browser timeouts",
+                "date": "2022-12-16T01:00:38Z"
+            },
+            {
+                "name": "Add a browser-based conversation demo",
+                "date": "2022-12-15T23:26:35Z"
+            },
+            {
+                "name": "Add `ChatGPTAPIBrowser`, a fully automated browser solution",
+                "date": "2022-12-15T23:19:34Z"
+            },
+            {
+                "name": "Fix capacity error",
+                "date": "2022-12-15T03:24:50Z"
+            },
+            {
+                "name": "Fix the default chrome path of windows",
+                "date": "2022-12-14T11:15:29Z"
+            },
+            {
+                "name": "Add support for google login; fix chrome path cross-platform; recognize at capacity screen",
+                "date": "2022-12-14T02:17:59Z"
+            },
+            {
+                "name": "Add getOpenAIAuth to package (with puppeteer as peer dep); remove support for node.js 16 and 17 for now",
+                "date": "2022-12-12T18:46:52Z"
+            },
+            {
+                "name": "Add puppeteer demo of automated CF workaround",
+                "date": "2022-12-12T11:46:33Z"
+            },
+            {
+                "name": "Update readme with latest Cloudflare workaround instructions",
+                "date": "2022-12-12T01:54:05Z"
+            },
+            {
+                "name": "Add support for passing Cloudflare clearanceToken",
+                "date": "2022-12-11T23:19:29Z"
+            },
+            {
+                "name": "Add additional chatgpt headers; add user accessor for authenticated user",
+                "date": "2022-12-11T11:44:26Z"
+            },
+            {
+                "name": "Add ChatGPTError with more info on HTTP errors; doc updates",
+                "date": "2022-12-10T22:20:17Z"
+            },
+            {
+                "name": "Minor doc updates",
+                "date": "2022-12-08T09:08:53Z"
+            },
+            {
+                "name": "Add error message on node.js if undici isn't supported",
+                "date": "2022-12-08T03:29:15Z"
+            },
+            {
+                "name": "Bugfix for Vercel's fetch polyfill using node-fetch",
+                "date": "2022-12-07T21:04:19Z"
+            },
+            {
+                "name": "Fix for environments that use node-fetch as a polyfill (like Vercel)",
+                "date": "2022-12-07T20:45:34Z"
+            },
+            {
+                "name": "Bugfix for commonjs",
+                "date": "2022-12-07T06:08:29Z"
+            },
+            {
+                "name": "Major: update fetch, add conversation support, add timeout support \ud83d\udd25",
+                "date": "2022-12-07T04:45:41Z"
+            },
+            {
+                "name": "Latest ESM-only release",
+                "date": "2022-12-06T09:01:38Z"
+            },
+            {
+                "name": "Add CommonJS Support",
+                "date": "2022-12-06T09:00:08Z"
+            },
+            {
+                "name": "Bugfix for package.exports",
+                "date": "2022-12-06T08:41:07Z"
+            },
+            {
+                "name": "Bug fixes",
+                "date": "2022-12-06T05:58:12Z"
+            },
+            {
+                "name": "Improve error handling and add unit tests",
+                "date": "2022-12-05T23:29:32Z"
+            },
+            {
+                "name": "Remove commonjs support for now because it is broken",
+                "date": "2022-12-05T10:01:03Z"
+            },
+            {
+                "name": "Re-add CJS support",
+                "date": "2022-12-05T09:46:24Z"
+            },
+            {
+                "name": "Downgrade node-fetch to v2",
+                "date": "2022-12-05T09:40:04Z"
+            },
+            {
+                "name": "Remove CJS build => ESM only",
+                "date": "2022-12-05T09:18:19Z"
+            },
+            {
+                "name": "Switch from headless browser to unofficial REST API \ud83d\udd25",
+                "date": "2022-12-05T07:41:56Z"
+            },
+            {
+                "name": "Doc updates, add extra TS typings, GC chromium browser on close",
+                "date": "2022-12-04T10:34:27Z"
+            },
+            {
+                "name": "Add demo videos",
+                "date": "2022-12-03T09:01:19Z"
+            },
+            {
+                "name": "Bugfix for initial auth flow",
+                "date": "2022-12-03T08:47:28Z"
+            },
+            {
+                "name": "Improve docs",
+                "date": "2022-12-03T00:54:02Z"
+            }
+        ]
+    }
+}

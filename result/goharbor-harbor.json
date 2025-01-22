@@ -1,0 +1,1327 @@
+{
+    "https://api.github.com/repos/goharbor/harbor": {
+        "forks": 4796,
+        "watchers": 24677,
+        "stars": 24677,
+        "languages": {
+            "Go": 5834769,
+            "TypeScript": 2180974,
+            "HTML": 881556,
+            "Python": 620314,
+            "RobotFramework": 587105,
+            "Jinja": 350205,
+            "SCSS": 120177,
+            "Shell": 72904,
+            "Makefile": 35591,
+            "Dockerfile": 12520,
+            "PLpgSQL": 11799,
+            "JavaScript": 7469,
+            "CSS": 2078,
+            "Smarty": 1931
+        },
+        "commits": [
+            "2025-01-21T16:45:09Z",
+            "2025-01-16T14:26:24Z",
+            "2025-01-16T09:23:25Z",
+            "2025-01-16T08:02:32Z",
+            "2025-01-16T05:51:07Z",
+            "2025-01-16T02:58:36Z",
+            "2025-01-16T02:19:57Z",
+            "2025-01-15T09:00:36Z",
+            "2025-01-15T08:14:17Z",
+            "2025-01-15T06:52:06Z",
+            "2025-01-15T06:08:21Z",
+            "2025-01-15T03:41:15Z",
+            "2025-01-14T09:49:50Z",
+            "2025-01-14T09:12:56Z",
+            "2025-01-14T06:48:50Z",
+            "2025-01-14T03:54:26Z",
+            "2025-01-10T09:02:57Z",
+            "2025-01-10T05:36:28Z",
+            "2025-01-10T02:56:43Z",
+            "2025-01-08T09:15:37Z",
+            "2025-01-06T14:07:20Z",
+            "2025-01-06T08:21:52Z",
+            "2025-01-06T06:17:42Z",
+            "2025-01-03T06:11:09Z",
+            "2025-01-03T02:58:24Z",
+            "2024-12-27T05:52:51Z",
+            "2024-12-26T06:08:05Z",
+            "2024-12-24T02:40:30Z",
+            "2024-12-18T02:30:36Z",
+            "2024-12-17T06:52:21Z"
+        ],
+        "creation_date": "2016-01-28T21:10:28Z",
+        "contributors": 30,
+        "topics": [
+            "cloud-native",
+            "cncf",
+            "cncf-project",
+            "container",
+            "container-management",
+            "container-registry",
+            "containers",
+            "docker",
+            "hacktoberfest",
+            "helm",
+            "kubernetes",
+            "registry"
+        ],
+        "subscribers": 540,
+        "readme": "# Harbor\n\n[![CI](https://github.com/goharbor/harbor/workflows/CI/badge.svg?branch=main&event=push)](https://github.com/goharbor/harbor/actions?query=event%3Apush+branch%3Amain+workflow%3ACI+)\n[![Coverage Status](https://codecov.io/gh/goharbor/harbor/branch/main/graph/badge.svg)](https://codecov.io/gh/goharbor/harbor)\n[![Go Report Card](https://goreportcard.com/badge/github.com/goharbor/harbor)](https://goreportcard.com/report/github.com/goharbor/harbor)\n[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/2095/badge)](https://bestpractices.coreinfrastructure.org/projects/2095)\n[![Codacy Badge](https://app.codacy.com/project/badge/Grade/792fe1755edc4d6e91f4c3469f553389)](https://www.codacy.com/gh/goharbor/harbor/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=goharbor/harbor&amp;utm_campaign=Badge_Grade)\n![Code scanning - action](https://github.com/goharbor/harbor/workflows/Code%20scanning%20-%20action/badge.svg)\n[![Nightly Status](https://us-central1-eminent-nation-87317.cloudfunctions.net/harbor-nightly-result)](https://www.googleapis.com/storage/v1/b/harbor-nightly/o)\n![CONFORMANCE_TEST](https://github.com/goharbor/harbor/workflows/CONFORMANCE_TEST/badge.svg)\n[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fgoharbor%2Fharbor.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fgoharbor%2Fharbor?ref=badge_shield)\n</br>\n\n|![notification](https://raw.githubusercontent.com/goharbor/website/master/docs/img/readme/bell-outline-badged.svg)Community Meeting|\n|------------------|\n|The Harbor Project holds bi-weekly community calls in two different timezones. To join the community calls or to watch previous meeting notes and recordings, please visit the [meeting schedule](https://github.com/goharbor/community/blob/master/MEETING_SCHEDULE.md).|\n\n</br> </br>\n\n**Note**: The `main` branch may be in an *unstable or even broken state* during development.\nPlease use [releases](https://github.com/vmware/harbor/releases) instead of the `main` branch in order to get a stable set of binaries.\n\n<img alt=\"Harbor\" src=\"https://raw.githubusercontent.com/goharbor/website/master/docs/img/readme/harbor_logo.png\">\n\nHarbor is an open source trusted cloud native registry project that stores, signs, and scans content. Harbor extends the open source Docker Distribution by adding the functionalities usually required by users such as security, identity and management. Having a registry closer to the build and run environment can improve the image transfer efficiency. Harbor supports replication of images between registries, and also offers advanced security features such as user management, access control and activity auditing.\n\nHarbor is hosted by the [Cloud Native Computing Foundation](https://cncf.io) (CNCF). If you are an organization that wants to help shape the evolution of cloud native technologies, consider joining the CNCF. For details about whose involved and how Harbor plays a role, read the CNCF\n[announcement](https://www.cncf.io/blog/2018/07/31/cncf-to-host-harbor-in-the-sandbox/).\n\n## Features\n\n* **Cloud native registry**: With support for both container images and [Helm](https://helm.sh) charts, Harbor serves as registry for cloud native environments like container runtimes and orchestration platforms.\n* **Role based access control**: Users access different repositories through 'projects' and a user can have different permission for images or Helm charts under a project.\n* **Policy based replication**: Images and charts can be replicated (synchronized) between multiple registry instances based on policies with using filters (repository, tag and label). Harbor automatically retries a replication if it encounters any errors. This can be used to assist loadbalancing, achieve high availability, and facilitate multi-datacenter deployments in hybrid and multi-cloud scenarios.\n* **Vulnerability Scanning**: Harbor scans images regularly for vulnerabilities and has policy checks to prevent vulnerable images from being deployed.\n* **LDAP/AD support**: Harbor integrates with existing enterprise LDAP/AD for user authentication and management, and supports importing LDAP groups into Harbor that can then be given permissions to specific projects.\n* **OIDC support**: Harbor leverages OpenID Connect (OIDC) to verify the identity of users authenticated by an external authorization server or identity provider. Single sign-on can be enabled to log into the Harbor portal.\n* **Image deletion & garbage collection**: System admin can run garbage collection jobs so that images(dangling manifests and unreferenced blobs) can be deleted and their space can be freed up periodically.\n* **Notary**: Support signing container images using Docker Content Trust (leveraging Notary) for guaranteeing authenticity and provenance.  In addition, policies that prevent unsigned images from being deployed can also be activated.\n* **Graphical user portal**: User can easily browse, search repositories and manage projects.\n* **Auditing**: All the operations to the repositories are tracked through logs.\n* **RESTful API**: RESTful APIs are provided to facilitate administrative operations, and are easy to use for integration with external systems. An embedded Swagger UI is available for exploring and testing the API.\n* **Easy deployment**: Harbor can be deployed via Docker compose as well Helm Chart, and a Harbor Operator was added recently as well.\n\n## Architecture\n\nFor learning the architecture design of Harbor, check the document [Architecture Overview of Harbor](https://github.com/goharbor/harbor/wiki/Architecture-Overview-of-Harbor).\n\n## API\n\n* Harbor RESTful API: The APIs for most administrative operations of Harbor and can be used to perform integrations with Harbor programmatically.\n  * Part 1: [New or changed APIs](https://editor.swagger.io/?url=https://raw.githubusercontent.com/goharbor/harbor/main/api/v2.0/swagger.yaml)\n\n## Install & Run\n\n**System requirements:**\n\n**On a Linux host:** docker 20.10.10-ce+ and docker-compose 1.18.0+ .\n\nDownload binaries of **[Harbor release ](https://github.com/vmware/harbor/releases)** and follow **[Installation & Configuration Guide](https://goharbor.io/docs/latest/install-config/)** to install Harbor.\n\nIf you want to deploy Harbor on Kubernetes, please use the **[Harbor chart](https://github.com/goharbor/harbor-helm)**.\n\nRefer to the **[documentation](https://goharbor.io/docs/)** for more details on how to use Harbor.\n\n## OCI Distribution Conformance Tests\n\nCheck the OCI distribution conformance tests [report](https://storage.googleapis.com/harbor-conformance-test/report.html) of Harbor.\n\n## Compatibility\n\nThe [compatibility list](https://goharbor.io/docs/edge/install-config/harbor-compatibility-list/) document provides compatibility information for the Harbor components.\n\n* [Replication adapters](https://goharbor.io/docs/edge/install-config/harbor-compatibility-list/#replication-adapters)\n* [OIDC adapters](https://goharbor.io/docs/edge/install-config/harbor-compatibility-list/#oidc-adapters)\n* [Scanner adapters](https://goharbor.io/docs/edge/install-config/harbor-compatibility-list/#scanner-adapters)\n\n## Community\n\n* **Twitter:** [@project_harbor](https://twitter.com/project_harbor)\n* **User Group:** Join Harbor user email group: [harbor-users@lists.cncf.io](https://lists.cncf.io/g/harbor-users) to get update of Harbor's news, features, releases, or to provide suggestion and feedback.\n* **Developer Group:** Join Harbor developer group: [harbor-dev@lists.cncf.io](https://lists.cncf.io/g/harbor-dev) for discussion on Harbor development and contribution.\n* **Slack:** Join Harbor's community for discussion and ask questions: [Cloud Native Computing Foundation](https://slack.cncf.io/), channel: [#harbor](https://cloud-native.slack.com/messages/harbor/) and [#harbor-dev](https://cloud-native.slack.com/messages/harbor-dev/)\n\n## Demos\n\n* **[Live Demo](https://demo.goharbor.io)** - A demo environment with the latest Harbor stable build installed. For additional information please refer to [this page](https://goharbor.io/docs/latest/install-config/demo-server/).\n* **[Video Demos](https://github.com/goharbor/harbor/wiki/Video-demos-for-Harbor)** - Demos for Harbor features and continuously updated.\n\n## Partners and Users\n\nFor a list of users, please refer to [ADOPTERS.md](ADOPTERS.md).\n\n## Security\n\n### Security Audit\n\nA third party security audit was performed by Cure53 in October 2019. You can see the full report [here](https://goharbor.io/docs/2.0.0/security/Harbor_Security_Audit_Oct2019.pdf).\n\n### Reporting security vulnerabilities\n\nIf you've found a security related issue, a vulnerability, or a potential vulnerability in Harbor please let the [Harbor Security Team](mailto:cncf-harbor-security@lists.cncf.io) know with the details of the vulnerability. We'll send a confirmation\nemail to acknowledge your report, and we'll send an additional email when we've identified the issue\npositively or negatively.\n\nFor further details please see our complete [security release process](SECURITY.md).\n\n## License\n\nHarbor is available under the [Apache 2 license](LICENSE).\n\nThis project uses open source components which have additional licensing terms.  The official docker images and licensing terms for these open source components can be found at the following locations:\n\n* Photon OS 1.0: [docker image](https://hub.docker.com/_/photon/), [license](https://github.com/vmware/photon/blob/master/COPYING)\n\n\n## Fossa Status\n\n[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fgoharbor%2Fharbor.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fgoharbor%2Fharbor?ref=badge_large)\n",
+        "releases": [
+            {
+                "name": "v2.12.2",
+                "date": "2025-01-16T17:02:19Z"
+            },
+            {
+                "name": "v2.12.2-rc2",
+                "date": "2025-01-16T16:12:59Z"
+            },
+            {
+                "name": "v2.12.2-rc1",
+                "date": "2025-01-15T08:33:21Z"
+            },
+            {
+                "name": "v2.12.1",
+                "date": "2024-12-24T07:00:49Z"
+            },
+            {
+                "name": "v2.12.1-rc3",
+                "date": "2024-12-23T11:25:42Z"
+            },
+            {
+                "name": "v2.12.1-rc2",
+                "date": "2024-12-16T09:37:40Z"
+            },
+            {
+                "name": "v2.12.1-rc1",
+                "date": "2024-12-11T06:15:04Z"
+            },
+            {
+                "name": "v2.11.2",
+                "date": "2024-11-19T21:30:40Z"
+            },
+            {
+                "name": "v2.11.2-rc1",
+                "date": "2024-11-15T08:55:00Z"
+            },
+            {
+                "name": "v2.12.0",
+                "date": "2024-11-08T09:40:55Z"
+            },
+            {
+                "name": "v2.12.0-rc2",
+                "date": "2024-11-07T09:11:58Z"
+            },
+            {
+                "name": "v2.12.0-rc1",
+                "date": "2024-10-27T17:15:15Z"
+            },
+            {
+                "name": "v1.10.19",
+                "date": "2024-09-20T03:11:49Z"
+            },
+            {
+                "name": "v1.10.19-rc1",
+                "date": "2024-09-11T04:00:38Z"
+            },
+            {
+                "name": "v2.11.1",
+                "date": "2024-08-21T02:24:20Z"
+            },
+            {
+                "name": "v2.11.1-rc2",
+                "date": "2024-08-19T08:13:07Z"
+            },
+            {
+                "name": "v2.11.1-rc1",
+                "date": "2024-08-13T07:08:37Z"
+            },
+            {
+                "name": "v2.10.3",
+                "date": "2024-07-04T05:58:13Z"
+            },
+            {
+                "name": "v2.10.3-rc1",
+                "date": "2024-07-03T07:31:41Z"
+            },
+            {
+                "name": "v2.9.5",
+                "date": "2024-07-01T07:05:51Z"
+            },
+            {
+                "name": "v2.9.5-rc1",
+                "date": "2024-06-28T09:12:27Z"
+            },
+            {
+                "name": "v2.11.0",
+                "date": "2024-06-06T09:35:27Z"
+            },
+            {
+                "name": "v2.11.0-rc3",
+                "date": "2024-06-06T03:36:22Z"
+            },
+            {
+                "name": "v2.11.0-rc2",
+                "date": "2024-06-04T05:17:05Z"
+            },
+            {
+                "name": "v2.11.0-rc1",
+                "date": "2024-05-17T04:59:16Z"
+            },
+            {
+                "name": "v2.9.4",
+                "date": "2024-04-18T03:24:27Z"
+            },
+            {
+                "name": "v2.9.4-rc1",
+                "date": "2024-04-16T05:09:43Z"
+            },
+            {
+                "name": "v2.8.6",
+                "date": "2024-04-22T06:30:50Z"
+            },
+            {
+                "name": "v2.8.6-rc1",
+                "date": "2024-04-18T11:42:02Z"
+            },
+            {
+                "name": "v2.10.2",
+                "date": "2024-04-10T10:41:53Z"
+            },
+            {
+                "name": "v2.10.2-rc1",
+                "date": "2024-04-08T10:11:47Z"
+            },
+            {
+                "name": "v2.10.1",
+                "date": "2024-03-15T06:49:31Z"
+            },
+            {
+                "name": "v2.10.1-rc1",
+                "date": "2024-03-14T07:55:12Z"
+            },
+            {
+                "name": "v2.9.3",
+                "date": "2024-03-08T05:38:28Z"
+            },
+            {
+                "name": "v2.9.3-rc2",
+                "date": "2024-03-06T05:35:13Z"
+            },
+            {
+                "name": "v2.8.5",
+                "date": "2024-03-07T06:02:57Z"
+            },
+            {
+                "name": "v2.8.5-rc1",
+                "date": "2024-03-05T07:42:29Z"
+            },
+            {
+                "name": "v2.9.3-rc1",
+                "date": "2024-02-28T12:23:39Z"
+            },
+            {
+                "name": "v2.9.2",
+                "date": "2024-01-29T03:18:01Z"
+            },
+            {
+                "name": "v2.9.2-rc1",
+                "date": "2024-01-25T10:32:57Z"
+            },
+            {
+                "name": "v2.10.0",
+                "date": "2023-12-19T07:47:12Z"
+            },
+            {
+                "name": "v2.10.0-rc2",
+                "date": "2023-12-15T10:43:48Z"
+            },
+            {
+                "name": "v2.10.0-rc1",
+                "date": "2023-12-11T10:26:17Z"
+            },
+            {
+                "name": "v2.7.4",
+                "date": "2023-11-30T03:15:43Z"
+            },
+            {
+                "name": "v2.7.4-rc1",
+                "date": "2023-11-29T07:34:01Z"
+            },
+            {
+                "name": "v2.9.1",
+                "date": "2023-11-02T01:22:36Z"
+            },
+            {
+                "name": "v2.9.1-rc1",
+                "date": "2023-11-01T10:19:44Z"
+            },
+            {
+                "name": "v2.7.3",
+                "date": "2023-09-11T06:31:13Z"
+            },
+            {
+                "name": "v2.7.3-rc1",
+                "date": "2023-09-08T07:21:38Z"
+            },
+            {
+                "name": "v2.9.0",
+                "date": "2023-09-01T04:36:02Z"
+            },
+            {
+                "name": "v2.9.0-rc3",
+                "date": "2023-09-01T04:28:10Z"
+            },
+            {
+                "name": "v2.9.0-rc2",
+                "date": "2023-08-28T13:25:48Z"
+            },
+            {
+                "name": "v2.8.4",
+                "date": "2023-08-16T06:39:27Z"
+            },
+            {
+                "name": "v2.8.4-rc1",
+                "date": "2023-08-16T06:22:38Z"
+            },
+            {
+                "name": "v2.9.0-rc1",
+                "date": "2023-08-08T02:35:38Z"
+            },
+            {
+                "name": "v2.8.3",
+                "date": "2023-07-28T03:33:54Z"
+            },
+            {
+                "name": "v2.8.3-rc1",
+                "date": "2023-07-27T11:24:03Z"
+            },
+            {
+                "name": "v2.8.2",
+                "date": "2023-06-05T01:45:08Z"
+            },
+            {
+                "name": "v2.8.2-rc1",
+                "date": "2023-06-03T01:16:26Z"
+            },
+            {
+                "name": "v1.10.18",
+                "date": "2023-06-05T03:26:55Z"
+            },
+            {
+                "name": "v2.8.1",
+                "date": "2023-05-12T03:26:25Z"
+            },
+            {
+                "name": "v2.8.1-rc1",
+                "date": "2023-05-11T06:48:08Z"
+            },
+            {
+                "name": "v1.10.18-rc2",
+                "date": "2023-05-09T03:27:39Z"
+            },
+            {
+                "name": "v2.7.2",
+                "date": "2023-04-25T03:32:43Z"
+            },
+            {
+                "name": "v2.7.2-rc1",
+                "date": "2023-04-24T07:18:19Z"
+            },
+            {
+                "name": "v1.10.18-rc1",
+                "date": "2023-04-23T06:08:33Z"
+            },
+            {
+                "name": "v2.8.0",
+                "date": "2023-04-17T03:30:13Z"
+            },
+            {
+                "name": "v2.8.0-rc2",
+                "date": "2023-04-14T03:12:39Z"
+            },
+            {
+                "name": "v2.8.0-rc1",
+                "date": "2023-04-05T11:47:26Z"
+            },
+            {
+                "name": "v1.10.17",
+                "date": "2023-03-02T06:13:26Z"
+            },
+            {
+                "name": "v1.10.17-rc1",
+                "date": "2023-02-28T11:01:24Z"
+            },
+            {
+                "name": "v2.5.6",
+                "date": "2023-02-23T07:55:38Z"
+            },
+            {
+                "name": "v2.5.6-rc1",
+                "date": "2023-02-22T06:32:41Z"
+            },
+            {
+                "name": "v2.7.1",
+                "date": "2023-02-21T07:30:49Z"
+            },
+            {
+                "name": "v2.7.1-rc1",
+                "date": "2023-02-20T12:40:21Z"
+            },
+            {
+                "name": "v2.6.4",
+                "date": "2023-02-22T06:31:01Z"
+            },
+            {
+                "name": "v2.6.4-rc1",
+                "date": "2023-02-21T10:02:45Z"
+            },
+            {
+                "name": "v1.10.16",
+                "date": "2023-02-06T03:34:03Z"
+            },
+            {
+                "name": "v1.10.16-rc1",
+                "date": "2023-02-02T03:38:44Z"
+            },
+            {
+                "name": "v2.5.5",
+                "date": "2023-01-16T03:32:23Z"
+            },
+            {
+                "name": "v2.5.5-rc1",
+                "date": "2023-01-13T07:18:29Z"
+            },
+            {
+                "name": "v2.6.3",
+                "date": "2023-01-05T03:28:13Z"
+            },
+            {
+                "name": "v2.6.3-rc1",
+                "date": "2023-01-04T11:27:12Z"
+            },
+            {
+                "name": "v2.7.0",
+                "date": "2022-12-19T02:39:12Z"
+            },
+            {
+                "name": "v2.7.0-rc2",
+                "date": "2022-12-15T09:51:16Z"
+            },
+            {
+                "name": "v2.7.0-rc1",
+                "date": "2022-12-05T12:59:29Z"
+            },
+            {
+                "name": "v1.10.15",
+                "date": "2022-11-22T03:16:42Z"
+            },
+            {
+                "name": "v1.10.15-rc1",
+                "date": "2022-11-21T10:49:59Z"
+            },
+            {
+                "name": "v2.6.2",
+                "date": "2022-11-10T03:19:25Z"
+            },
+            {
+                "name": "v2.6.2-rc2",
+                "date": "2022-11-09T13:18:54Z"
+            },
+            {
+                "name": "v2.6.2-rc1",
+                "date": "2022-11-08T09:46:39Z"
+            },
+            {
+                "name": "v2.6.1",
+                "date": "2022-10-11T02:03:27Z"
+            },
+            {
+                "name": "v2.6.1-rc1",
+                "date": "2022-10-10T09:02:06Z"
+            },
+            {
+                "name": "v1.10.14",
+                "date": "2022-09-30T02:12:15Z"
+            },
+            {
+                "name": "v1.10.14-rc2",
+                "date": "2022-09-26T09:04:53Z"
+            },
+            {
+                "name": "v1.10.14-rc1",
+                "date": "2022-09-19T06:41:06Z"
+            },
+            {
+                "name": "v2.6.0",
+                "date": "2022-08-29T08:40:43Z"
+            },
+            {
+                "name": "v2.6.0-rc3",
+                "date": "2022-08-28T07:37:00Z"
+            },
+            {
+                "name": "v2.5.4",
+                "date": "2022-08-29T10:28:44Z"
+            },
+            {
+                "name": "v2.5.4-rc1",
+                "date": "2022-08-28T10:52:46Z"
+            },
+            {
+                "name": "v1.10.13",
+                "date": "2022-08-26T06:26:25Z"
+            },
+            {
+                "name": "v1.10.13-rc1",
+                "date": "2022-08-23T06:42:01Z"
+            },
+            {
+                "name": "v2.6.0-rc2",
+                "date": "2022-08-13T05:47:57Z"
+            },
+            {
+                "name": "v2.4.3",
+                "date": "2022-08-03T06:04:35Z"
+            },
+            {
+                "name": "v2.4.3-rc1",
+                "date": "2022-08-01T07:11:11Z"
+            },
+            {
+                "name": "v1.10.12",
+                "date": "2022-08-04T06:12:25Z"
+            },
+            {
+                "name": "v1.10.12-rc1",
+                "date": "2022-08-02T05:33:02Z"
+            },
+            {
+                "name": "v2.6.0-rc1",
+                "date": "2022-07-31T02:18:16Z"
+            },
+            {
+                "name": "v2.5.3",
+                "date": "2022-07-08T07:58:46Z"
+            },
+            {
+                "name": "v2.5.3-rc1",
+                "date": "2022-07-07T14:15:14Z"
+            },
+            {
+                "name": "v2.5.2",
+                "date": "2022-06-30T08:21:00Z"
+            },
+            {
+                "name": "v2.5.2-rc1",
+                "date": "2022-06-29T10:18:56Z"
+            },
+            {
+                "name": "v2.5.1",
+                "date": "2022-05-30T03:14:11Z"
+            },
+            {
+                "name": "v2.5.1-rc1",
+                "date": "2022-05-27T07:45:10Z"
+            },
+            {
+                "name": "v1.10.11",
+                "date": "2022-05-10T03:20:03Z"
+            },
+            {
+                "name": "v1.10.11-rc1",
+                "date": "2022-05-05T06:40:37Z"
+            },
+            {
+                "name": "v2.5.0",
+                "date": "2022-04-11T03:18:22Z"
+            },
+            {
+                "name": "v2.5.0-rc4",
+                "date": "2022-04-08T02:20:25Z"
+            },
+            {
+                "name": "v2.5.0-rc3",
+                "date": "2022-04-06T06:19:17Z"
+            },
+            {
+                "name": "v2.5.0-rc2",
+                "date": "2022-03-28T11:57:30Z"
+            },
+            {
+                "name": "v2.4.2",
+                "date": "2022-03-17T03:27:39Z"
+            },
+            {
+                "name": "v2.4.2-rc1",
+                "date": "2022-03-16T07:36:20Z"
+            },
+            {
+                "name": " v2.5.0-rc1",
+                "date": "2022-03-04T08:46:55Z"
+            },
+            {
+                "name": "v1.10.10",
+                "date": "2022-01-12T08:47:08Z"
+            },
+            {
+                "name": "v1.10.10-rc1",
+                "date": "2022-01-12T08:31:56Z"
+            },
+            {
+                "name": "v2.4.1",
+                "date": "2021-12-17T01:32:11Z"
+            },
+            {
+                "name": "v2.4.1-rc2",
+                "date": "2021-12-16T07:38:10Z"
+            },
+            {
+                "name": "v2.4.1-rc1",
+                "date": "2021-12-15T14:24:30Z"
+            },
+            {
+                "name": "v2.3.5",
+                "date": "2021-12-15T02:12:34Z"
+            },
+            {
+                "name": "v2.3.5-rc1",
+                "date": "2021-12-14T02:05:26Z"
+            },
+            {
+                "name": "v2.3.4",
+                "date": "2021-11-11T03:14:49Z"
+            },
+            {
+                "name": "v2.3.4-rc1",
+                "date": "2021-11-10T06:00:45Z"
+            },
+            {
+                "name": "v1.10.9",
+                "date": "2021-10-28T16:09:13Z"
+            },
+            {
+                "name": "v2.4.0",
+                "date": "2021-10-28T06:58:13Z"
+            },
+            {
+                "name": "v2.4.0-rc2",
+                "date": "2021-10-25T09:45:11Z"
+            },
+            {
+                "name": "v2.2.4",
+                "date": "2021-10-25T03:22:03Z"
+            },
+            {
+                "name": "v2.2.4-rc1",
+                "date": "2021-10-22T03:30:21Z"
+            },
+            {
+                "name": "v2.4.0-rc1",
+                "date": "2021-10-18T23:54:32Z"
+            },
+            {
+                "name": "v2.3.3",
+                "date": "2021-09-28T06:05:09Z"
+            },
+            {
+                "name": "v2.3.3-rc1",
+                "date": "2021-09-24T10:00:32Z"
+            },
+            {
+                "name": "v2.3.2",
+                "date": "2021-08-23T07:29:37Z"
+            },
+            {
+                "name": "v2.3.2-rc1",
+                "date": "2021-08-19T03:26:09Z"
+            },
+            {
+                "name": "v2.3.1",
+                "date": "2021-07-23T07:03:28Z"
+            },
+            {
+                "name": "v2.3.1-rc1",
+                "date": "2021-07-22T01:48:30Z"
+            },
+            {
+                "name": "v2.2.3",
+                "date": "2021-07-07T03:35:29Z"
+            },
+            {
+                "name": "v2.2.3-rc1",
+                "date": "2021-07-06T07:19:13Z"
+            },
+            {
+                "name": "v2.1.6",
+                "date": "2021-07-09T03:07:07Z"
+            },
+            {
+                "name": "v2.1.6-rc1",
+                "date": "2021-07-07T08:02:10Z"
+            },
+            {
+                "name": "v1.10.8",
+                "date": "2021-06-30T03:12:01Z"
+            },
+            {
+                "name": "v1.10.8-rc1",
+                "date": "2021-06-28T03:49:15Z"
+            },
+            {
+                "name": "v2.3.0",
+                "date": "2021-06-21T10:02:10Z"
+            },
+            {
+                "name": "v2.3.0-rc3",
+                "date": "2021-06-17T17:07:06Z"
+            },
+            {
+                "name": "v2.3.0-rc2",
+                "date": "2021-06-16T04:38:13Z"
+            },
+            {
+                "name": "v2.3.0-rc1",
+                "date": "2021-06-06T15:09:56Z"
+            },
+            {
+                "name": "v2.2.2",
+                "date": "2021-05-20T03:15:17Z"
+            },
+            {
+                "name": "v2.2.2-rc1",
+                "date": "2021-05-17T02:35:41Z"
+            },
+            {
+                "name": "v1.10.7",
+                "date": "2021-05-28T06:03:54Z"
+            },
+            {
+                "name": "v1.10.7-rc1",
+                "date": "2021-04-26T15:19:39Z"
+            },
+            {
+                "name": "v2.1.5",
+                "date": "2021-04-28T06:09:57Z"
+            },
+            {
+                "name": "v2.1.5-rc3",
+                "date": "2021-04-25T03:29:14Z"
+            },
+            {
+                "name": "v2.1.5-rc2",
+                "date": "2021-04-22T02:04:57Z"
+            },
+            {
+                "name": "v2.1.5-rc1",
+                "date": "2021-04-16T02:01:41Z"
+            },
+            {
+                "name": "v2.2.1",
+                "date": "2021-03-30T07:28:38Z"
+            },
+            {
+                "name": "v2.2.1-rc2",
+                "date": "2021-03-26T09:29:47Z"
+            },
+            {
+                "name": "v2.2.1-rc1",
+                "date": "2021-03-19T17:59:07Z"
+            },
+            {
+                "name": "v2.1.4",
+                "date": "2021-03-16T11:20:53Z"
+            },
+            {
+                "name": "v2.1.4-rc2",
+                "date": "2021-03-15T15:43:48Z"
+            },
+            {
+                "name": "v2.1.4-rc1",
+                "date": "2021-03-09T16:34:32Z"
+            },
+            {
+                "name": "v2.2.0",
+                "date": "2021-02-24T07:44:35Z"
+            },
+            {
+                "name": "v2.2.0-rc4",
+                "date": "2021-02-23T15:42:21Z"
+            },
+            {
+                "name": "v2.2.0-rc3",
+                "date": "2021-02-19T13:21:15Z"
+            },
+            {
+                "name": "v2.2.0-rc2",
+                "date": "2021-02-11T02:13:12Z"
+            },
+            {
+                "name": "v2.0.6",
+                "date": "2021-02-05T08:35:30Z"
+            },
+            {
+                "name": "v2.2.0-rc1",
+                "date": "2021-02-02T04:32:34Z"
+            },
+            {
+                "name": "v2.0.6-rc1",
+                "date": "2021-02-01T08:17:34Z"
+            },
+            {
+                "name": "v2.1.3",
+                "date": "2021-01-11T03:32:40Z"
+            },
+            {
+                "name": "v2.1.3-rc2",
+                "date": "2021-01-09T17:23:14Z"
+            },
+            {
+                "name": "v2.1.3-rc1",
+                "date": "2021-01-07T01:33:58Z"
+            },
+            {
+                "name": "v2.1.2",
+                "date": "2020-12-14T03:44:38Z"
+            },
+            {
+                "name": "v2.1.2-rc1",
+                "date": "2020-12-09T17:09:11Z"
+            },
+            {
+                "name": "v2.0.5",
+                "date": "2020-12-10T16:44:30Z"
+            },
+            {
+                "name": "v2.0.5-rc1",
+                "date": "2020-12-08T16:47:32Z"
+            },
+            {
+                "name": "v1.7.8",
+                "date": "2021-03-03T09:19:21Z"
+            },
+            {
+                "name": "v1.7.8-rc2",
+                "date": "2021-03-03T04:04:37Z"
+            },
+            {
+                "name": "v1.7.8-rc1",
+                "date": "2020-12-08T02:31:23Z"
+            },
+            {
+                "name": "v1.10.6",
+                "date": "2020-11-19T06:23:06Z"
+            },
+            {
+                "name": "v1.10.6-rc1",
+                "date": "2020-11-17T14:34:44Z"
+            },
+            {
+                "name": "v2.0.4",
+                "date": "2020-11-23T07:19:53Z"
+            },
+            {
+                "name": "v2.0.4-rc2",
+                "date": "2020-11-16T13:49:27Z"
+            },
+            {
+                "name": "v2.0.4-rc1",
+                "date": "2020-11-06T17:15:23Z"
+            },
+            {
+                "name": "v2.1.1",
+                "date": "2020-10-28T06:58:39Z"
+            },
+            {
+                "name": "v2.1.1-rc1",
+                "date": "2020-10-23T17:32:18Z"
+            },
+            {
+                "name": "v2.1.0",
+                "date": "2020-09-18T06:50:57Z"
+            },
+            {
+                "name": "v2.1.0-rc3",
+                "date": "2020-09-17T03:00:11Z"
+            },
+            {
+                "name": "v2.0.3",
+                "date": "2020-09-22T04:17:26Z"
+            },
+            {
+                "name": "v2.0.3-rc1",
+                "date": "2020-09-16T08:50:19Z"
+            },
+            {
+                "name": "v1.10.5",
+                "date": "2020-09-15T07:55:39Z"
+            },
+            {
+                "name": "v2.1.0-rc2",
+                "date": "2020-09-10T03:37:51Z"
+            },
+            {
+                "name": "v1.10.5-rc1",
+                "date": "2020-09-10T09:30:40Z"
+            },
+            {
+                "name": "v2.1.0-rc1",
+                "date": "2020-08-28T17:30:00Z"
+            },
+            {
+                "name": "v2.1.0-tech-preview",
+                "date": "2020-08-17T03:36:47Z"
+            },
+            {
+                "name": "v1.7.7",
+                "date": "2020-09-16T04:07:49Z"
+            },
+            {
+                "name": "v1.7.7-rc1",
+                "date": "2020-08-07T16:17:19Z"
+            },
+            {
+                "name": "v2.0.2",
+                "date": "2020-08-04T07:51:03Z"
+            },
+            {
+                "name": "v2.0.2-rc1",
+                "date": "2020-07-28T18:12:40Z"
+            },
+            {
+                "name": "v1.10.4",
+                "date": "2020-07-15T03:40:48Z"
+            },
+            {
+                "name": "v1.10.4-rc1",
+                "date": "2020-07-09T15:54:38Z"
+            },
+            {
+                "name": "v2.0.1",
+                "date": "2020-06-30T09:33:20Z"
+            },
+            {
+                "name": "v2.0.1-rc1",
+                "date": "2020-06-17T06:10:51Z"
+            },
+            {
+                "name": "v1.10.3",
+                "date": "2020-06-11T07:11:10Z"
+            },
+            {
+                "name": "v1.10.3-rc2",
+                "date": "2020-06-01T15:26:32Z"
+            },
+            {
+                "name": "v1.10.3-rc1",
+                "date": "2020-05-28T04:10:25Z"
+            },
+            {
+                "name": "v2.0.0",
+                "date": "2020-05-13T10:48:12Z"
+            },
+            {
+                "name": "v2.0.0-rc3",
+                "date": "2020-05-11T19:55:03Z"
+            },
+            {
+                "name": "v2.0.0-rc2",
+                "date": "2020-04-29T15:42:04Z"
+            },
+            {
+                "name": "v2.0.0-rc1",
+                "date": "2020-04-21T12:20:32Z"
+            },
+            {
+                "name": "v1.10.2",
+                "date": "2020-04-09T16:43:25Z"
+            },
+            {
+                "name": "v1.10.2-rc1",
+                "date": "2020-04-05T13:10:27Z"
+            },
+            {
+                "name": "v1.10.1",
+                "date": "2020-02-14T04:52:46Z"
+            },
+            {
+                "name": "v1.10.1-rc1",
+                "date": "2020-02-11T06:02:38Z"
+            },
+            {
+                "name": "v1.9.4",
+                "date": "2019-12-31T13:54:05Z"
+            },
+            {
+                "name": "v1.9.4-rc2",
+                "date": "2019-12-31T01:29:26Z"
+            },
+            {
+                "name": "v1.9.4-rc1",
+                "date": "2019-12-18T10:40:28Z"
+            },
+            {
+                "name": "v1.10.0",
+                "date": "2019-12-13T04:58:29Z"
+            },
+            {
+                "name": "v1.10.0-rc2",
+                "date": "2019-12-06T08:58:05Z"
+            },
+            {
+                "name": "v1.10.0-rc1",
+                "date": "2019-11-22T07:18:18Z"
+            },
+            {
+                "name": "v1.9.3",
+                "date": "2019-11-18T08:17:20Z"
+            },
+            {
+                "name": "v1.8.6",
+                "date": "2019-11-18T05:21:12Z"
+            },
+            {
+                "name": "v1.8.6-rc1",
+                "date": "2019-11-15T09:26:41Z"
+            },
+            {
+                "name": "v1.9.3-rc1",
+                "date": "2019-11-14T16:13:23Z"
+            },
+            {
+                "name": "v1.9.2",
+                "date": "2019-11-05T07:43:03Z"
+            },
+            {
+                "name": "v1.9.2-rc1",
+                "date": "2019-11-03T13:49:24Z"
+            },
+            {
+                "name": "v1.8.5",
+                "date": "2019-11-05T07:21:01Z"
+            },
+            {
+                "name": "v1.8.5-rc1",
+                "date": "2019-11-03T13:42:55Z"
+            },
+            {
+                "name": "v1.9.1",
+                "date": "2019-10-15T09:37:16Z"
+            },
+            {
+                "name": "v1.9.1-rc1",
+                "date": "2019-09-27T10:34:26Z"
+            },
+            {
+                "name": "v1.8.4",
+                "date": "2019-10-15T08:00:04Z"
+            },
+            {
+                "name": "v1.8.4-rc1",
+                "date": "2019-09-27T15:09:56Z"
+            },
+            {
+                "name": "v1.9.0",
+                "date": "2019-09-19T07:52:12Z"
+            },
+            {
+                "name": "v1.8.3",
+                "date": "2019-09-18T06:20:09Z"
+            },
+            {
+                "name": "v1.8.3-rc1",
+                "date": "2019-09-17T02:47:44Z"
+            },
+            {
+                "name": "v1.7.6",
+                "date": "2019-09-18T05:42:02Z"
+            },
+            {
+                "name": "v1.7.6-rc1",
+                "date": "2019-09-12T04:56:07Z"
+            },
+            {
+                "name": "v1.9.0-rc2",
+                "date": "2019-09-11T16:47:28Z"
+            },
+            {
+                "name": "v1.9.0-rc1",
+                "date": "2019-09-04T05:32:42Z"
+            },
+            {
+                "name": "v1.8.2",
+                "date": "2019-08-14T06:56:08Z"
+            },
+            {
+                "name": "v1.8.2-rc2",
+                "date": "2019-08-10T16:22:07Z"
+            },
+            {
+                "name": "v1.8.2-rc1",
+                "date": "2019-07-22T03:08:21Z"
+            },
+            {
+                "name": "v1.8.1",
+                "date": "2019-06-17T11:39:00Z"
+            },
+            {
+                "name": "v1.8.0",
+                "date": "2019-05-21T07:56:35Z"
+            },
+            {
+                "name": "v1.8.0-rc2",
+                "date": "2019-05-16T12:42:23Z"
+            },
+            {
+                "name": "v1.8.0-rc1",
+                "date": "2019-05-13T07:54:05Z"
+            },
+            {
+                "name": "v1.7.5",
+                "date": "2019-04-02T09:40:43Z"
+            },
+            {
+                "name": "v1.7.4",
+                "date": "2019-03-04T10:37:12Z"
+            },
+            {
+                "name": "v1.7.3",
+                "date": "2019-02-13T15:28:32Z"
+            },
+            {
+                "name": "v1.7.2",
+                "date": "2019-01-25T08:16:01Z"
+            },
+            {
+                "name": "v1.7.1",
+                "date": "2019-01-07T05:48:39Z"
+            },
+            {
+                "name": "v1.7.0",
+                "date": "2018-12-19T06:46:59Z"
+            },
+            {
+                "name": "v1.7.0-rc2",
+                "date": "2018-12-12T09:00:59Z"
+            },
+            {
+                "name": "v1.6.3",
+                "date": "2018-12-11T06:11:56Z"
+            },
+            {
+                "name": "v1.7.0-rc1",
+                "date": "2018-12-06T11:02:47Z"
+            },
+            {
+                "name": "v1.6.2",
+                "date": "2018-11-20T02:19:11Z"
+            },
+            {
+                "name": "v1.5.4",
+                "date": "2018-10-26T10:24:21Z"
+            },
+            {
+                "name": "v1.6.1",
+                "date": "2018-10-16T06:21:16Z"
+            },
+            {
+                "name": "v1.5.3",
+                "date": "2018-09-12T06:41:13Z"
+            },
+            {
+                "name": "v1.6.0",
+                "date": "2018-09-11T09:57:12Z"
+            },
+            {
+                "name": "v1.6.0-rc3",
+                "date": "2018-09-04T09:03:18Z"
+            },
+            {
+                "name": "v1.6.0-rc2",
+                "date": "2018-08-23T10:45:53Z"
+            },
+            {
+                "name": "v1.6.0-rc1",
+                "date": "2018-08-15T08:57:02Z"
+            },
+            {
+                "name": "v1.5.2",
+                "date": "2018-07-30T01:17:53Z"
+            },
+            {
+                "name": "v1.5.2-RC1",
+                "date": "2018-07-18T11:33:51Z"
+            },
+            {
+                "name": "v1.5.1",
+                "date": "2018-05-31T05:28:50Z"
+            },
+            {
+                "name": "v1.4.1",
+                "date": "2018-05-11T05:27:35Z"
+            },
+            {
+                "name": "v1.5.0",
+                "date": "2018-05-07T00:47:02Z"
+            },
+            {
+                "name": "v1.5.0-rc5",
+                "date": "2018-05-03T03:29:53Z"
+            },
+            {
+                "name": "v1.5.0-rc4",
+                "date": "2018-05-01T03:54:28Z"
+            },
+            {
+                "name": "v1.5.0-rc3",
+                "date": "2018-04-25T08:47:52Z"
+            },
+            {
+                "name": "v1.5.0-rc2",
+                "date": "2018-04-20T18:34:01Z"
+            },
+            {
+                "name": "v1.5.0-rc1",
+                "date": "2018-04-17T15:34:31Z"
+            },
+            {
+                "name": "v1.4.0",
+                "date": "2018-02-07T10:27:12Z"
+            },
+            {
+                "name": "v1.4.0-rc2",
+                "date": "2018-02-02T10:58:49Z"
+            },
+            {
+                "name": "v1.4.0-rc1",
+                "date": "2018-01-23T14:37:02Z"
+            },
+            {
+                "name": "v1.3.0",
+                "date": "2018-01-04T10:25:01Z"
+            },
+            {
+                "name": "v1.3.0-rc4",
+                "date": "2017-12-13T05:05:46Z"
+            },
+            {
+                "name": "v1.3.0-rc3",
+                "date": "2017-12-08T15:35:06Z"
+            },
+            {
+                "name": "v1.3.0-rc2",
+                "date": "2017-11-29T12:02:07Z"
+            },
+            {
+                "name": "v1.3.0-rc1",
+                "date": "2017-11-21T15:55:52Z"
+            },
+            {
+                "name": "1.2.2",
+                "date": "2017-10-20T08:25:59Z"
+            },
+            {
+                "name": "v1.2.0-rc5",
+                "date": "2017-09-07T14:54:31Z"
+            },
+            {
+                "name": "1.2.0",
+                "date": "2017-09-15T06:59:25Z"
+            },
+            {
+                "name": "v1.2.0-rc4",
+                "date": "2017-09-01T11:40:58Z"
+            },
+            {
+                "name": "v1.2.0-rc3",
+                "date": "2017-08-30T10:08:19Z"
+            },
+            {
+                "name": "v1.2.0-rc2",
+                "date": "2017-08-23T07:52:06Z"
+            },
+            {
+                "name": "v1.2.0-rc1",
+                "date": "2017-08-10T09:50:24Z"
+            },
+            {
+                "name": "1.1.2",
+                "date": "2017-06-09T09:35:06Z"
+            },
+            {
+                "name": "1.1.1",
+                "date": "2017-05-12T10:13:42Z"
+            },
+            {
+                "name": "1.1.1-rc4",
+                "date": "2017-05-05T11:10:03Z"
+            },
+            {
+                "name": "1.1.1-rc3",
+                "date": "2017-05-03T11:19:39Z"
+            },
+            {
+                "name": "1.1.1-rc2",
+                "date": "2017-04-28T10:46:53Z"
+            },
+            {
+                "name": "1.1.1-rc1",
+                "date": "2017-04-27T03:52:06Z"
+            },
+            {
+                "name": "version 1.1.0",
+                "date": "2017-04-16T02:24:12Z"
+            },
+            {
+                "name": "0.5.0",
+                "date": "2016-12-06T11:17:23Z"
+            },
+            {
+                "name": "0.5.0-rc2",
+                "date": "2016-11-29T09:35:05Z"
+            },
+            {
+                "name": "0.5.0-rc1",
+                "date": "2016-11-21T09:07:15Z"
+            },
+            {
+                "name": "0.4.5",
+                "date": "2016-10-31T09:26:34Z"
+            },
+            {
+                "name": "0.4.1",
+                "date": "2016-09-30T07:00:43Z"
+            },
+            {
+                "name": "0.4.0",
+                "date": "2016-09-23T02:10:50Z"
+            },
+            {
+                "name": "0.4.0-rc",
+                "date": "2016-09-20T09:20:48Z"
+            },
+            {
+                "name": "0.3.5",
+                "date": "2016-08-25T08:37:26Z"
+            },
+            {
+                "name": "0.3.5-rc",
+                "date": "2016-08-18T07:16:02Z"
+            },
+            {
+                "name": "Harbor 0.3.0",
+                "date": "2016-07-15T09:30:02Z"
+            },
+            {
+                "name": "Harbor 0.1.1",
+                "date": "2016-04-08T10:25:49Z"
+            },
+            {
+                "name": "Harbor 0.1.0",
+                "date": "2016-03-11T09:33:59Z"
+            }
+        ]
+    }
+}

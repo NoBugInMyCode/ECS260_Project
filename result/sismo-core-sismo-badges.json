@@ -1,0 +1,174 @@
+{
+    "https://api.github.com/repos/sismo-core/sismo-badges": {
+        "forks": 533,
+        "watchers": 16071,
+        "stars": 16071,
+        "languages": {
+            "TypeScript": 663536,
+            "Solidity": 218247,
+            "Dockerfile": 296,
+            "Shell": 232
+        },
+        "commits": [
+            "2023-01-18T10:57:01Z",
+            "2023-01-16T19:29:56Z",
+            "2023-01-16T14:53:36Z",
+            "2023-01-16T14:34:56Z",
+            "2023-01-16T13:33:20Z",
+            "2023-01-16T13:25:55Z",
+            "2023-01-16T13:12:36Z",
+            "2023-01-16T12:57:25Z",
+            "2023-01-16T12:46:50Z",
+            "2023-01-13T18:29:49Z",
+            "2023-01-13T17:11:40Z",
+            "2023-01-13T16:03:52Z",
+            "2023-01-13T15:19:27Z",
+            "2023-01-13T15:07:36Z",
+            "2023-01-13T13:50:18Z",
+            "2023-01-13T13:28:52Z",
+            "2023-01-13T13:25:50Z",
+            "2023-01-13T13:01:17Z",
+            "2023-01-13T12:48:19Z",
+            "2023-01-13T12:01:28Z",
+            "2023-01-13T10:39:13Z",
+            "2023-01-13T10:28:39Z",
+            "2023-01-13T09:43:07Z",
+            "2023-01-13T09:25:19Z",
+            "2023-01-13T09:14:18Z",
+            "2023-01-12T19:41:41Z",
+            "2023-01-12T19:27:10Z",
+            "2023-01-12T18:43:29Z",
+            "2023-01-12T17:41:36Z",
+            "2023-01-12T17:10:26Z"
+        ],
+        "creation_date": "2022-06-16T15:46:44Z",
+        "contributors": 5,
+        "topics": [
+            "attestations",
+            "did",
+            "ethereum",
+            "smart-contracts",
+            "zkp"
+        ],
+        "subscribers": 192,
+        "readme": "<br />\n<div align=\"center\">\n  <img src=\"docs/top.png\" alt=\"Logo\" width=\"100\" height=\"100\" style=\"borderRadius: 20px\">\n\n  <h3 align=\"center\">\n    Sismo Protocol Contracts\n  </h3>\n\n  <p align=\"center\">\n    Made by <a href=\"https://www.sismo.io/\" target=\"_blank\">Sismo</a>\n  </p>\n  \n  <p align=\"center\">\n    <a href=\"https://discord.gg/sismo\" target=\"_blank\">\n        <img src=\"https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white\"/>\n    </a>\n    <a href=\"https://twitter.com/sismo_eth\" target=\"_blank\">\n        <img src=\"https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white\"/>\n    </a>\n  </p>\n  <a href=\"https://www.sismo.io/\" target=\"_blank\">\n    \n  </a>\n</div>\n<br/>\nThis repository contains the smart contracts of the Sismo Protocol.\n\nThere are three core contracts:\n\n - `core/AttestationsRegistry.sol`: The registry stores all attestations. It is owned by the governance that authorizes/unauthorize issuers to record in it\n - `core/Attester.sol` The standard abstract contract must be inherited by attesters. Attesters are issuers of attestations. They verify user requests and build attestations that will be recorded in the registry\n - `core/Badges.sol` Reads the registry. Stateless Non Transferable Token view of attestations (ERC1155)\n\nIt also contains implementations of attester in `attesters/`:\n- `HydraS1SimpleAttester.sol`: ZK Attester using the [Hydra S1 Proving Scheme](https://hydra-s1.docs.sismo.io) and the notion of nullifiers. Users must provide a ZK Proof along with their request to generate attestations\n- `HydraS1AccountboundAttester.sol`: Accountbound version of the Simple Hydra S1 Simple Attester. (Users can update at will where the attestation is stored)\n\n<br/><br/>\n\n\n## Sismo protocol\n\nA complete overview of the protocol is available in our [documentation](https://protocol.docs.sismo.io)\n\n\n## Deployed contracts\n\nDeployed contracts can be found [here](https://docs.sismo.io/sismo-docs/deployed-contract-addresses)\n\n\n## Usage\n### Installation\n```\nyarn\n```\n\n### Compile contracts\nCompile contracts using hardhat\n```\nyarn compile\n```\n\n### Test\nLaunch all tests\n\n```\nyarn test\n```\n\n### Print storage layout \n```\nyarn storage-layout\n```\n\n### Deploy on local chain\n\nTerminal tab 1\n```\nyarn chain\n```\n\nTerminal tab 2\n```\nyarn deploy:local\n```\n\n\n## Create a new Attester\n\nTo develop a new attester, you must inherit the `core/Attester.sol` abstract contract and implement the following functions: \n\n-  `_verifyRequest(request, proofData)`: You must implement the user request verification against the proof provided by the user\n-  `buildAttestations(request, proofData)`: You must build the attestations that will be recorded from a verified user request\n\nOther optional hook functions that can be implemented:\n\n- `_beforeRecordAttestations(request, proofData)`\n- `_afterRecordAttestations(request, proofData)`\n\nThe `/attesters/hydra-s1/HydraS1SimpleAttester.sol` is a good example of an attester implementing those functions.\n\nA [guide](https://attesters.docs.sismo.io) is offered in our documentation.\n\nFeel free open a PR with your new attester in `/attester`!\n\n## License\n\nDistributed under the MIT License.\n\n## Contribute\n\nPlease, feel free to open issues, PRs or simply provide feedback!\n\n## Contact\n\nPrefer [Discord](https://discord.gg/sismo) or [Twitter](https://twitter.com/sismo_eth)\n\n<br/>\n<img src=\"https://static.sismo.io/readme/bottom-main.png\" alt=\"bottom\" width=\"100%\" >\n\n",
+        "releases": [
+            {
+                "name": "Upgrade AddressesProvider on Goerli Testnets",
+                "date": "2023-01-13T13:53:27Z"
+            },
+            {
+                "name": "Upgrade Testnet Goerli/Mumbai HydraS1AccountboundAttester and Pythia1SimpleAttester",
+                "date": "2023-01-13T15:29:39Z"
+            },
+            {
+                "name": "Deploy core protocol on Mainnet Jan 11 2023",
+                "date": "2023-01-11T22:57:32Z"
+            },
+            {
+                "name": "Deploy Staging Goerli ZKBadgeboundERC721 with right tokenId",
+                "date": "2023-01-02T09:17:43Z"
+            },
+            {
+                "name": "Deploy Staging Goerli AddressesProvider, ZKBadgeboundERC721 and upgrade HydraS1AccountboundAttester and Pythia1SimpleAttester",
+                "date": "2022-12-22T19:31:09Z"
+            },
+            {
+                "name": "Deploy Frontend Lib on Polygon Dec 20",
+                "date": "2022-12-20T11:34:31Z"
+            },
+            {
+                "name": "Deploy core protocol on Gnosis Dec 19 ",
+                "date": "2022-12-19T15:38:31Z"
+            },
+            {
+                "name": "Deploy Testnets Core HydraS1 Pythia1 Mumbai And Goerli Dec 16",
+                "date": "2022-12-16T18:31:38Z"
+            },
+            {
+                "name": "Polygon upgrade proxies add attributes on attestations registry and upgrade hydraS1Simple by hydraS1Accountbound",
+                "date": "2022-12-12T17:47:56Z"
+            },
+            {
+                "name": "Goerli and Mumbai Deploy Frontend Lib",
+                "date": "2022-12-12T16:00:13Z"
+            },
+            {
+                "name": "Polygon playground upgrade proxies add attributes on attestations registry and upgrade hydraS1Simple by hydraS1Accountbound",
+                "date": "2022-12-09T17:33:24Z"
+            },
+            {
+                "name": "Mumbai upgrade proxies add attributes on attestations registry and upgrade hydraS1Simple by hydraS1Accountbound",
+                "date": "2022-12-07T18:43:15Z"
+            },
+            {
+                "name": "Goerli upgrade HydraS1Accountbound encode extradata bug fix",
+                "date": "2022-12-07T18:09:05Z"
+            },
+            {
+                "name": "Goerli Upgrade Pythia1SimpleAttester, AvailableRootsRegistry and CommitmentMapperRegistry implementations",
+                "date": "2022-12-05T17:12:41Z"
+            },
+            {
+                "name": "Goerli Upgrade AttestationsRegistry add attributes and Badges",
+                "date": "2022-12-05T16:59:08Z"
+            },
+            {
+                "name": "Goerli New HydraS1Verifier and upgrade HydraS1Simple into HydraS1Accountbound proxy ",
+                "date": "2022-12-05T16:58:24Z"
+            },
+            {
+                "name": "Alpha Upgrade Proxies Polygon November 07 2022",
+                "date": "2022-11-07T18:57:00Z"
+            },
+            {
+                "name": "Alpha Upgrade Proxies Polygon playground October 25 2022",
+                "date": "2022-10-25T18:53:04Z"
+            },
+            {
+                "name": "Alpha Testnets Upgrade Proxies Mumbai October 25 2022",
+                "date": "2022-10-25T18:19:37Z"
+            },
+            {
+                "name": "Alpha Testnets Upgrade Proxies fix comments Goerli October 25 2022",
+                "date": "2022-10-25T13:48:14Z"
+            },
+            {
+                "name": "Alpha Testnets Upgrade Proxies Goerli October 24 2022",
+                "date": "2022-10-24T18:09:59Z"
+            },
+            {
+                "name": "Alpha Testnets Mumbai October 13 2022",
+                "date": "2022-10-13T17:00:28Z"
+            },
+            {
+                "name": "Alpha Testnets Goerli October 4 2022",
+                "date": "2022-10-04T16:29:40Z"
+            },
+            {
+                "name": "Alpha Polygon deploy-1.ts Pythia Sep 12 2022",
+                "date": "2022-09-12T12:41:18Z"
+            },
+            {
+                "name": "Alpha Playground Polygon August 31 2022",
+                "date": "2022-08-31T09:45:14Z"
+            },
+            {
+                "name": "Alpha Sandbox Polygon deploy-1.ts Pythia Aug 31 2022",
+                "date": "2022-08-31T18:30:07Z"
+            },
+            {
+                "name": "Alpha Rinkeby Staging deploy-1.ts Pythia Aug 31 2022",
+                "date": "2022-08-31T13:56:02Z"
+            },
+            {
+                "name": "Alpha Staging Rinkeby July 8 2022",
+                "date": "2022-07-08T09:28:05Z"
+            },
+            {
+                "name": "Alpha Prod Polygon July 8 2022",
+                "date": "2022-07-08T14:30:23Z"
+            }
+        ]
+    }
+}

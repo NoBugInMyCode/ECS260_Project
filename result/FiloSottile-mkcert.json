@@ -1,0 +1,118 @@
+{
+    "https://api.github.com/repos/FiloSottile/mkcert": {
+        "forks": 2733,
+        "watchers": 51748,
+        "stars": 51748,
+        "languages": {
+            "Go": 41331
+        },
+        "commits": [
+            "2024-04-18T08:53:27Z",
+            "2022-04-26T17:37:25Z",
+            "2022-04-26T17:26:59Z",
+            "2022-04-26T16:11:49Z",
+            "2022-04-26T15:51:39Z",
+            "2022-04-25T18:05:46Z",
+            "2022-04-25T17:55:19Z",
+            "2022-04-25T16:58:55Z",
+            "2022-04-25T16:15:20Z",
+            "2022-04-25T15:52:22Z",
+            "2022-04-25T15:37:56Z",
+            "2022-04-25T15:36:40Z",
+            "2022-04-25T15:24:51Z",
+            "2021-02-13T02:34:52Z",
+            "2020-11-25T13:03:47Z",
+            "2020-11-20T19:48:10Z",
+            "2020-10-27T11:54:36Z",
+            "2020-10-27T11:51:28Z",
+            "2020-10-27T11:25:23Z",
+            "2020-10-27T11:34:17Z",
+            "2020-10-25T23:55:09Z",
+            "2020-10-25T23:45:44Z",
+            "2020-10-25T23:15:16Z",
+            "2020-10-25T17:33:54Z",
+            "2020-10-25T17:27:41Z",
+            "2020-10-25T16:59:00Z",
+            "2020-10-25T23:24:53Z",
+            "2020-10-25T23:23:20Z",
+            "2020-03-22T02:12:54Z",
+            "2020-03-22T02:10:16Z"
+        ],
+        "creation_date": "2018-06-25T05:33:03Z",
+        "contributors": 30,
+        "topics": [
+            "certificates",
+            "chrome",
+            "firefox",
+            "https",
+            "ios",
+            "linux",
+            "local-development",
+            "localhost",
+            "macos",
+            "root-ca",
+            "tls",
+            "windows"
+        ],
+        "subscribers": 481,
+        "readme": "# mkcert\n\nmkcert is a simple tool for making locally-trusted development certificates. It requires no configuration.\n\n```\n$ mkcert -install\nCreated a new local CA \ud83d\udca5\nThe local CA is now installed in the system trust store! \u26a1\ufe0f\nThe local CA is now installed in the Firefox trust store (requires browser restart)! \ud83e\udd8a\n\n$ mkcert example.com \"*.example.com\" example.test localhost 127.0.0.1 ::1\n\nCreated a new certificate valid for the following names \ud83d\udcdc\n - \"example.com\"\n - \"*.example.com\"\n - \"example.test\"\n - \"localhost\"\n - \"127.0.0.1\"\n - \"::1\"\n\nThe certificate is at \"./example.com+5.pem\" and the key at \"./example.com+5-key.pem\" \u2705\n```\n\n<p align=\"center\"><img width=\"498\" alt=\"Chrome and Firefox screenshot\" src=\"https://user-images.githubusercontent.com/1225294/51066373-96d4aa80-15be-11e9-91e2-f4e44a3a4458.png\"></p>\n\nUsing certificates from real certificate authorities (CAs) for development can be dangerous or impossible (for hosts like `example.test`, `localhost` or `127.0.0.1`), but self-signed certificates cause trust errors. Managing your own CA is the best solution, but usually involves arcane commands, specialized knowledge and manual steps.\n\nmkcert automatically creates and installs a local CA in the system root store, and generates locally-trusted certificates. mkcert does not automatically configure servers to use the certificates, though, that's up to you.\n\n## Installation\n\n> **Warning**: the `rootCA-key.pem` file that mkcert automatically generates gives complete power to intercept secure requests from your machine. Do not share it.\n\n### macOS\n\nOn macOS, use [Homebrew](https://brew.sh/)\n\n```\nbrew install mkcert\nbrew install nss # if you use Firefox\n```\n\nor [MacPorts](https://www.macports.org/).\n\n```\nsudo port selfupdate\nsudo port install mkcert\nsudo port install nss # if you use Firefox\n```\n\n### Linux\n\nOn Linux, first install `certutil`.\n\n```\nsudo apt install libnss3-tools\n    -or-\nsudo yum install nss-tools\n    -or-\nsudo pacman -S nss\n    -or-\nsudo zypper install mozilla-nss-tools\n```\n\nThen you can install using [Homebrew on Linux](https://docs.brew.sh/Homebrew-on-Linux)\n\n```\nbrew install mkcert\n```\n\nor build from source (requires Go 1.13+)\n\n```\ngit clone https://github.com/FiloSottile/mkcert && cd mkcert\ngo build -ldflags \"-X main.Version=$(git describe --tags)\"\n```\n\nor use [the pre-built binaries](https://github.com/FiloSottile/mkcert/releases).\n\n```\ncurl -JLO \"https://dl.filippo.io/mkcert/latest?for=linux/amd64\"\nchmod +x mkcert-v*-linux-amd64\nsudo cp mkcert-v*-linux-amd64 /usr/local/bin/mkcert\n```\n\nFor Arch Linux users, [`mkcert`](https://archlinux.org/packages/extra/x86_64/mkcert/) is available on the official Arch Linux repository.\n\n```\nsudo pacman -Syu mkcert\n```\n\n### Windows\n\nOn Windows, use [Chocolatey](https://chocolatey.org)\n\n```\nchoco install mkcert\n```\n\nor use Scoop\n\n```\nscoop bucket add extras\nscoop install mkcert\n```\n\nor build from source (requires Go 1.10+), or use [the pre-built binaries](https://github.com/FiloSottile/mkcert/releases).\n\nIf you're running into permission problems try running `mkcert` as an Administrator.\n\n## Supported root stores\n\nmkcert supports the following root stores:\n\n* macOS system store\n* Windows system store\n* Linux variants that provide either\n    * `update-ca-trust` (Fedora, RHEL, CentOS) or\n    * `update-ca-certificates` (Ubuntu, Debian, OpenSUSE, SLES) or\n    * `trust` (Arch)\n* Firefox (macOS and Linux only)\n* Chrome and Chromium\n* Java (when `JAVA_HOME` is set)\n\nTo only install the local root CA into a subset of them, you can set the `TRUST_STORES` environment variable to a comma-separated list. Options are: \"system\", \"java\" and \"nss\" (includes Firefox).\n\n## Advanced topics\n\n### Advanced options\n\n```\n\t-cert-file FILE, -key-file FILE, -p12-file FILE\n\t    Customize the output paths.\n\n\t-client\n\t    Generate a certificate for client authentication.\n\n\t-ecdsa\n\t    Generate a certificate with an ECDSA key.\n\n\t-pkcs12\n\t    Generate a \".p12\" PKCS #12 file, also know as a \".pfx\" file,\n\t    containing certificate and key for legacy applications.\n\n\t-csr CSR\n\t    Generate a certificate based on the supplied CSR. Conflicts with\n\t    all other flags and arguments except -install and -cert-file.\n```\n\n> **Note:** You _must_ place these options before the domain names list.\n\n#### Example\n\n```\nmkcert -key-file key.pem -cert-file cert.pem example.com *.example.com\n```\n\n### S/MIME\n\nmkcert automatically generates an S/MIME certificate if one of the supplied names is an email address.\n\n```\nmkcert filippo@example.com\n```\n\n### Mobile devices\n\nFor the certificates to be trusted on mobile devices, you will have to install the root CA. It's the `rootCA.pem` file in the folder printed by `mkcert -CAROOT`.\n\nOn iOS, you can either use AirDrop, email the CA to yourself, or serve it from an HTTP server. After opening it, you need to [install the profile in Settings > Profile Downloaded](https://github.com/FiloSottile/mkcert/issues/233#issuecomment-690110809) and then [enable full trust in it](https://support.apple.com/en-nz/HT204477).\n\nFor Android, you will have to install the CA and then enable user roots in the development build of your app. See [this StackOverflow answer](https://stackoverflow.com/a/22040887/749014).\n\n### Using the root with Node.js\n\nNode does not use the system root store, so it won't accept mkcert certificates automatically. Instead, you will have to set the [`NODE_EXTRA_CA_CERTS`](https://nodejs.org/api/cli.html#cli_node_extra_ca_certs_file) environment variable.\n\n```\nexport NODE_EXTRA_CA_CERTS=\"$(mkcert -CAROOT)/rootCA.pem\"\n```\n\n### Changing the location of the CA files\n\nThe CA certificate and its key are stored in an application data folder in the user home. You usually don't have to worry about it, as installation is automated, but the location is printed by `mkcert -CAROOT`.\n\nIf you want to manage separate CAs, you can use the environment variable `$CAROOT` to set the folder where mkcert will place and look for the local CA files.\n\n### Installing the CA on other systems\n\nInstalling in the trust store does not require the CA key, so you can export the CA certificate and use mkcert to install it in other machines.\n\n* Look for the `rootCA.pem` file in `mkcert -CAROOT`\n* copy it to a different machine\n* set `$CAROOT` to its directory\n* run `mkcert -install`\n\nRemember that mkcert is meant for development purposes, not production, so it should not be used on end users' machines, and that you should *not* export or share `rootCA-key.pem`.\n",
+        "releases": [
+            {
+                "name": "Firefox Snap support for Ubuntu 22.04",
+                "date": "2022-04-26T17:51:05Z"
+            },
+            {
+                "name": "Cleaned up EKUs",
+                "date": "2020-11-25T13:16:22Z"
+            },
+            {
+                "name": "It's been a while",
+                "date": "2020-10-26T00:04:33Z"
+            },
+            {
+                "name": "The little things",
+                "date": "2019-11-09T23:29:25Z"
+            },
+            {
+                "name": "macOS Catalina compatibility, URL and email SANs, and more",
+                "date": "2019-08-16T21:29:35Z"
+            },
+            {
+                "name": "Miscellaneous advanced features",
+                "date": "2019-02-03T00:02:26Z"
+            },
+            {
+                "name": "-cert-file, -key-file and -p12-file",
+                "date": "2019-01-07T00:14:12Z"
+            },
+            {
+                "name": "Support certutil as installed by MacPorts",
+                "date": "2018-08-25T22:29:28Z"
+            },
+            {
+                "name": "Four new minor supported targets",
+                "date": "2018-08-19T23:12:03Z"
+            },
+            {
+                "name": "Windows, Java and PKCS#12",
+                "date": "2018-08-13T04:39:36Z"
+            },
+            {
+                "name": "\ud83e\udd2c workaround an iOS UI bug",
+                "date": "2018-07-30T02:03:47Z"
+            },
+            {
+                "name": "v1.0.0 \ud83c\udf87",
+                "date": "2018-07-07T03:56:59Z"
+            },
+            {
+                "name": "Almost there, one bug fix",
+                "date": "2018-07-04T17:06:05Z"
+            },
+            {
+                "name": "A v1 release candidate",
+                "date": "2018-07-04T04:34:48Z"
+            }
+        ]
+    }
+}

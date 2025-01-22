@@ -1,0 +1,529 @@
+{
+    "https://api.github.com/repos/vercel/swr": {
+        "forks": 1244,
+        "watchers": 30903,
+        "stars": 30903,
+        "languages": {
+            "TypeScript": 484775,
+            "JavaScript": 3739,
+            "Shell": 90
+        },
+        "commits": [
+            "2025-01-10T10:56:21Z",
+            "2024-12-24T01:21:13Z",
+            "2024-12-23T15:18:23Z",
+            "2024-12-10T09:50:34Z",
+            "2024-12-09T23:10:47Z",
+            "2024-12-09T23:09:16Z",
+            "2024-12-09T21:13:04Z",
+            "2024-12-09T14:00:55Z",
+            "2024-12-09T13:57:43Z",
+            "2024-12-09T13:50:34Z",
+            "2024-12-07T17:20:44Z",
+            "2024-12-06T23:31:48Z",
+            "2024-12-05T09:43:35Z",
+            "2024-11-25T10:51:35Z",
+            "2024-11-24T00:33:43Z",
+            "2024-05-31T23:58:45Z",
+            "2024-05-31T23:56:39Z",
+            "2024-05-24T22:11:27Z",
+            "2024-05-11T13:51:01Z",
+            "2024-05-11T11:46:18Z",
+            "2024-05-08T17:16:14Z",
+            "2024-05-02T04:19:36Z",
+            "2024-05-02T04:11:53Z",
+            "2024-05-02T04:07:38Z",
+            "2024-05-02T04:03:28Z",
+            "2024-04-06T16:20:41Z",
+            "2024-04-06T16:18:56Z",
+            "2024-04-02T16:33:05Z",
+            "2024-03-31T10:59:56Z",
+            "2024-03-31T10:50:33Z"
+        ],
+        "creation_date": "2019-10-28T18:16:01Z",
+        "contributors": 30,
+        "topics": [
+            "cache",
+            "data",
+            "data-fetching",
+            "fetch",
+            "hook",
+            "hooks",
+            "nextjs",
+            "react",
+            "react-native",
+            "stale-while-revalidate",
+            "suspense",
+            "swr",
+            "vercel"
+        ],
+        "subscribers": 210,
+        "readme": "[![SWR](https://assets.vercel.com/image/upload/v1572289618/swr/banner.png)](https://swr.vercel.app)\n\n<p align=\"center\">\n  <a aria-label=\"Vercel logo\" href=\"https://vercel.com\">\n    <img src=\"https://badgen.net/badge/icon/Made%20by%20Vercel?icon=zeit&label&color=black&labelColor=black\">\n  </a>\n  <br/>\n  <a aria-label=\"NPM version\" href=\"https://www.npmjs.com/package/swr\">\n    <img alt=\"\" src=\"https://badgen.net/npm/v/swr\">\n  </a>\n  <a aria-label=\"Package size\" href=\"https://bundlephobia.com/result?p=swr\">\n    <img alt=\"\" src=\"https://badgen.net/bundlephobia/minzip/swr\">\n  </a>\n  <a aria-label=\"License\" href=\"https://github.com/vercel/swr/blob/main/LICENSE\">\n    <img alt=\"\" src=\"https://badgen.net/npm/license/swr\">\n  </a>\n</p>\n\n## Introduction\n\nSWR is a React Hooks library for data fetching.\n\nThe name \u201c**SWR**\u201d is derived from `stale-while-revalidate`, a cache invalidation strategy popularized by [HTTP RFC 5861](https://tools.ietf.org/html/rfc5861).\n**SWR** first returns the data from cache (stale), then sends the request (revalidate), and finally comes with the up-to-date data again.\n\nWith just one hook, you can significantly simplify the data fetching logic in your project. And it also covered in all aspects of speed, correctness, and stability to help you build better experiences:\n\n- **Fast**, **lightweight** and **reusable** data fetching\n- Transport and protocol agnostic\n- Built-in **cache** and request deduplication\n- **Real-time** experience\n- Revalidation on focus\n- Revalidation on network recovery\n- Polling\n- Pagination and scroll position recovery\n- SSR and SSG\n- Local mutation (Optimistic UI)\n- Built-in smart error retry\n- TypeScript\n- React Suspense\n- React Native\n\n...and a lot more.\n\nWith SWR, components will get **a stream of data updates constantly and automatically**. Thus, the UI will be always **fast** and **reactive**.\n\n---\n\n**View full documentation and examples on [swr.vercel.app](https://swr.vercel.app).**\n\n<br/>\n\n## Quick Start\n\n```js\nimport useSWR from 'swr'\n\nfunction Profile() {\n  const { data, error, isLoading } = useSWR('/api/user', fetcher)\n\n  if (error) return <div>failed to load</div>\n  if (isLoading) return <div>loading...</div>\n  return <div>hello {data.name}!</div>\n}\n```\n\nIn this example, the React Hook `useSWR` accepts a `key` and a `fetcher` function.\nThe `key` is a unique identifier of the request, normally the URL of the API. And the `fetcher` accepts\n`key` as its parameter and returns the data asynchronously.\n\n`useSWR` also returns 3 values: `data`, `isLoading` and `error`. When the request (fetcher) is not yet finished,\n`data` will be `undefined` and `isLoading` will be `true`. When we get a response, it sets `data` and `error` based on the result\nof `fetcher`, `isLoading` to false and rerenders the component.\n\nNote that `fetcher` can be any asynchronous function, you can use your favourite data-fetching\nlibrary to handle that part.\n\n---\n\n**View full documentation and examples on [swr.vercel.app](https://swr.vercel.app).**\n\n<br/>\n\n## Authors\n\nThis library is created by the team behind [Next.js](https://nextjs.org), with contributions from our community:\n\n- Shu Ding ([@shuding\\_](https://twitter.com/shuding_)) - [Vercel](https://vercel.com)\n- Guillermo Rauch ([@rauchg](https://twitter.com/rauchg)) - [Vercel](https://vercel.com)\n- Joe Haddad ([@timer150](https://twitter.com/timer150)) - [Vercel](https://vercel.com)\n- Paco Coursey ([@pacocoursey](https://twitter.com/pacocoursey)) - [Vercel](https://vercel.com)\n\n[Contributors](https://github.com/vercel/swr/graphs/contributors)\n\nThanks to Ryan Chen for providing the awesome `swr` npm package name!\n\n<br/>\n\n## License\n\nThe MIT License.\n",
+        "releases": [
+            {
+                "name": "v2.3.0",
+                "date": "2024-12-23T15:27:46Z"
+            },
+            {
+                "name": "v2.2.6-beta.4",
+                "date": "2024-06-01T00:01:58Z"
+            },
+            {
+                "name": "v2.2.6-beta.3",
+                "date": "2024-05-24T22:15:51Z"
+            },
+            {
+                "name": "v2.2.6-beta.2",
+                "date": "2024-04-06T16:22:12Z"
+            },
+            {
+                "name": "v2.2.6-beta.1",
+                "date": "2024-03-31T11:07:53Z"
+            },
+            {
+                "name": "v2.2.5",
+                "date": "2024-02-15T23:32:26Z"
+            },
+            {
+                "name": "v2.2.4",
+                "date": "2023-09-25T12:36:37Z"
+            },
+            {
+                "name": "v2.2.3",
+                "date": "2023-09-25T09:39:31Z"
+            },
+            {
+                "name": "v2.2.2",
+                "date": "2023-08-27T12:34:05Z"
+            },
+            {
+                "name": "v2.2.1",
+                "date": "2023-08-27T12:33:40Z"
+            },
+            {
+                "name": "v2.2.1-beta.1",
+                "date": "2023-07-26T14:57:23Z"
+            },
+            {
+                "name": "v2.2.0",
+                "date": "2023-06-22T21:32:34Z"
+            },
+            {
+                "name": "v2.2.0-beta.5",
+                "date": "2023-06-20T20:10:26Z"
+            },
+            {
+                "name": "v2.2.0-beta.4",
+                "date": "2023-06-20T19:50:04Z"
+            },
+            {
+                "name": "v2.2.0-beta.3",
+                "date": "2023-06-18T23:26:25Z"
+            },
+            {
+                "name": "v2.2.0-beta.2",
+                "date": "2023-06-16T12:26:15Z"
+            },
+            {
+                "name": "v2.2.0-beta.1",
+                "date": "2023-06-16T10:48:31Z"
+            },
+            {
+                "name": "v2.2.0-beta.0",
+                "date": "2023-05-23T15:45:49Z"
+            },
+            {
+                "name": "v2.1.5",
+                "date": "2023-04-25T10:01:11Z"
+            },
+            {
+                "name": "v2.1.4",
+                "date": "2023-04-23T18:28:20Z"
+            },
+            {
+                "name": "v2.1.3",
+                "date": "2023-04-10T15:28:32Z"
+            },
+            {
+                "name": "v2.1.2",
+                "date": "2023-04-02T09:24:57Z"
+            },
+            {
+                "name": "v2.1.1",
+                "date": "2023-03-22T14:54:13Z"
+            },
+            {
+                "name": "v2.1.0",
+                "date": "2023-03-06T16:50:56Z"
+            },
+            {
+                "name": "v2.0.4",
+                "date": "2023-02-24T16:28:03Z"
+            },
+            {
+                "name": "v2.0.3",
+                "date": "2023-01-28T12:55:29Z"
+            },
+            {
+                "name": "v2.0.2",
+                "date": "2023-01-26T13:06:31Z"
+            },
+            {
+                "name": "v2.0.1",
+                "date": "2023-01-18T17:36:10Z"
+            },
+            {
+                "name": "2.0.0",
+                "date": "2022-12-09T21:28:10Z"
+            },
+            {
+                "name": "2.0.0-rc.3",
+                "date": "2022-11-28T15:41:28Z"
+            },
+            {
+                "name": "2.0.0-rc.1",
+                "date": "2022-11-25T16:30:12Z"
+            },
+            {
+                "name": "2.0.0-rc.0",
+                "date": "2022-10-05T21:13:45Z"
+            },
+            {
+                "name": "2.0.0-beta.7",
+                "date": "2022-09-12T17:38:40Z"
+            },
+            {
+                "name": "2.0.0-beta.6",
+                "date": "2022-07-04T22:31:49Z"
+            },
+            {
+                "name": "2.0.0-beta.5",
+                "date": "2022-06-26T22:25:08Z"
+            },
+            {
+                "name": "2.0.0-beta.4",
+                "date": "2022-06-18T13:39:43Z"
+            },
+            {
+                "name": "2.0.0-beta.3",
+                "date": "2022-05-15T18:12:39Z"
+            },
+            {
+                "name": "2.0.0-beta.1",
+                "date": "2022-04-17T01:03:36Z"
+            },
+            {
+                "name": "2.0.0-beta.0",
+                "date": "2022-04-11T23:55:03Z"
+            },
+            {
+                "name": "1.3.0",
+                "date": "2022-04-10T23:49:14Z"
+            },
+            {
+                "name": "1.2.2",
+                "date": "2022-02-18T19:11:56Z"
+            },
+            {
+                "name": "1.2.1",
+                "date": "2022-02-02T18:45:53Z"
+            },
+            {
+                "name": "1.2.0",
+                "date": "2022-01-26T17:26:22Z"
+            },
+            {
+                "name": "1.2.0-beta.1",
+                "date": "2022-01-12T17:12:08Z"
+            },
+            {
+                "name": "1.2.0-beta.0",
+                "date": "2021-12-28T22:52:53Z"
+            },
+            {
+                "name": "1.1.2",
+                "date": "2021-12-26T20:32:11Z"
+            },
+            {
+                "name": "1.1.2-beta.1",
+                "date": "2021-12-23T19:33:17Z"
+            },
+            {
+                "name": "1.1.2-beta.0",
+                "date": "2021-12-15T15:44:09Z"
+            },
+            {
+                "name": "1.1.1",
+                "date": "2021-12-10T16:06:49Z"
+            },
+            {
+                "name": "1.1.0",
+                "date": "2021-11-30T16:05:38Z"
+            },
+            {
+                "name": "",
+                "date": "2021-11-26T15:14:08Z"
+            },
+            {
+                "name": "",
+                "date": "2021-11-24T15:11:00Z"
+            },
+            {
+                "name": "",
+                "date": "2021-11-23T15:12:05Z"
+            },
+            {
+                "name": "",
+                "date": "2021-11-11T10:37:32Z"
+            },
+            {
+                "name": "",
+                "date": "2021-11-01T18:04:26Z"
+            },
+            {
+                "name": "",
+                "date": "2021-11-01T13:00:32Z"
+            },
+            {
+                "name": "",
+                "date": "2021-10-24T04:25:30Z"
+            },
+            {
+                "name": "",
+                "date": "2021-10-09T22:02:48Z"
+            },
+            {
+                "name": "",
+                "date": "2021-10-03T06:31:59Z"
+            },
+            {
+                "name": "",
+                "date": "2021-10-01T08:40:56Z"
+            },
+            {
+                "name": "",
+                "date": "2021-09-26T20:44:32Z"
+            },
+            {
+                "name": "",
+                "date": "2021-09-22T14:39:23Z"
+            },
+            {
+                "name": "",
+                "date": "2021-09-15T23:08:15Z"
+            },
+            {
+                "name": "",
+                "date": "2021-09-12T21:37:50Z"
+            },
+            {
+                "name": "",
+                "date": "2021-09-09T21:05:00Z"
+            },
+            {
+                "name": "",
+                "date": "2021-09-01T10:24:09Z"
+            },
+            {
+                "name": "",
+                "date": "2021-08-27T16:21:02Z"
+            },
+            {
+                "name": "",
+                "date": "2021-08-26T21:06:25Z"
+            },
+            {
+                "name": "",
+                "date": "2021-08-25T17:27:15Z"
+            },
+            {
+                "name": "",
+                "date": "2021-08-24T12:08:08Z"
+            },
+            {
+                "name": "",
+                "date": "2021-08-20T21:32:22Z"
+            },
+            {
+                "name": "",
+                "date": "2021-08-19T12:52:18Z"
+            },
+            {
+                "name": "",
+                "date": "2021-08-13T16:21:08Z"
+            },
+            {
+                "name": "",
+                "date": "2021-07-27T12:34:40Z"
+            },
+            {
+                "name": "",
+                "date": "2021-07-06T09:09:08Z"
+            },
+            {
+                "name": "",
+                "date": "2021-06-22T21:56:27Z"
+            },
+            {
+                "name": "",
+                "date": "2021-05-03T16:56:50Z"
+            },
+            {
+                "name": "",
+                "date": "2021-03-19T19:19:14Z"
+            },
+            {
+                "name": "",
+                "date": "2021-03-13T16:01:45Z"
+            },
+            {
+                "name": "",
+                "date": "2021-03-10T15:49:23Z"
+            },
+            {
+                "name": "",
+                "date": "2021-03-09T10:31:49Z"
+            },
+            {
+                "name": "",
+                "date": "2021-02-08T13:55:40Z"
+            },
+            {
+                "name": "",
+                "date": "2021-01-28T19:50:05Z"
+            },
+            {
+                "name": "",
+                "date": "2021-01-07T16:46:31Z"
+            },
+            {
+                "name": "",
+                "date": "2020-12-20T17:58:53Z"
+            },
+            {
+                "name": "",
+                "date": "2020-12-19T13:19:26Z"
+            },
+            {
+                "name": "",
+                "date": "2020-11-17T08:58:45Z"
+            },
+            {
+                "name": "",
+                "date": "2020-11-01T10:35:40Z"
+            },
+            {
+                "name": "",
+                "date": "2020-10-29T14:23:14Z"
+            },
+            {
+                "name": "",
+                "date": "2020-10-19T13:33:35Z"
+            },
+            {
+                "name": "",
+                "date": "2020-09-25T18:04:25Z"
+            },
+            {
+                "name": "",
+                "date": "2020-09-23T16:52:15Z"
+            },
+            {
+                "name": "",
+                "date": "2020-09-20T15:40:46Z"
+            },
+            {
+                "name": "",
+                "date": "2020-09-01T12:28:16Z"
+            },
+            {
+                "name": "",
+                "date": "2020-08-20T10:37:37Z"
+            },
+            {
+                "name": "",
+                "date": "2020-07-30T14:21:19Z"
+            },
+            {
+                "name": "",
+                "date": "2020-06-12T23:48:26Z"
+            },
+            {
+                "name": "",
+                "date": "2020-05-22T14:46:40Z"
+            },
+            {
+                "name": "",
+                "date": "2020-05-20T15:25:11Z"
+            },
+            {
+                "name": "",
+                "date": "2020-03-30T23:49:12Z"
+            },
+            {
+                "name": "",
+                "date": "2020-02-24T20:36:16Z"
+            },
+            {
+                "name": "",
+                "date": "2020-02-24T20:21:00Z"
+            },
+            {
+                "name": "",
+                "date": "2020-02-14T20:37:14Z"
+            },
+            {
+                "name": "",
+                "date": "2019-12-28T02:25:00Z"
+            },
+            {
+                "name": "",
+                "date": "2019-12-18T20:10:17Z"
+            },
+            {
+                "name": "",
+                "date": "2019-12-17T18:29:53Z"
+            },
+            {
+                "name": "",
+                "date": "2019-12-05T17:04:34Z"
+            },
+            {
+                "name": "",
+                "date": "2019-11-21T04:09:22Z"
+            },
+            {
+                "name": "",
+                "date": "2019-11-15T02:15:13Z"
+            },
+            {
+                "name": "",
+                "date": "2019-11-09T04:04:00Z"
+            },
+            {
+                "name": "",
+                "date": "2019-11-06T20:18:13Z"
+            },
+            {
+                "name": "",
+                "date": "2019-11-06T02:07:56Z"
+            },
+            {
+                "name": "",
+                "date": "2019-11-04T22:13:23Z"
+            },
+            {
+                "name": "",
+                "date": "2019-10-31T16:06:35Z"
+            },
+            {
+                "name": "",
+                "date": "2019-10-31T15:59:44Z"
+            },
+            {
+                "name": "",
+                "date": "2019-10-29T18:59:22Z"
+            }
+        ]
+    }
+}

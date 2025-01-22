@@ -1,0 +1,478 @@
+{
+    "https://api.github.com/repos/avajs/ava": {
+        "forks": 1403,
+        "watchers": 20749,
+        "stars": 20749,
+        "languages": {
+            "JavaScript": 563776,
+            "TypeScript": 58857,
+            "Shell": 731
+        },
+        "commits": [
+            "2024-10-27T13:36:01Z",
+            "2024-10-27T13:30:25Z",
+            "2024-10-27T13:25:01Z",
+            "2024-08-20T13:55:43Z",
+            "2024-08-20T13:40:08Z",
+            "2024-05-05T20:34:07Z",
+            "2024-05-05T20:32:41Z",
+            "2024-04-17T19:20:18Z",
+            "2024-03-31T18:49:15Z",
+            "2024-02-28T20:54:32Z",
+            "2024-02-28T20:51:55Z",
+            "2024-02-27T21:24:21Z",
+            "2024-01-29T21:06:25Z",
+            "2024-01-29T21:01:59Z",
+            "2024-01-28T20:05:36Z",
+            "2024-01-28T19:59:33Z",
+            "2024-01-28T19:46:46Z",
+            "2024-01-21T20:03:08Z",
+            "2024-01-21T19:54:42Z",
+            "2023-12-30T21:09:34Z",
+            "2024-01-02T21:26:44Z",
+            "2024-01-11T20:59:28Z",
+            "2023-12-30T20:26:49Z",
+            "2024-01-11T20:44:57Z",
+            "2023-12-30T20:24:39Z",
+            "2023-12-30T20:21:43Z",
+            "2023-12-30T19:58:44Z",
+            "2023-12-20T16:49:42Z",
+            "2023-12-06T21:19:04Z",
+            "2023-12-06T21:18:23Z"
+        ],
+        "creation_date": "2014-11-18T17:20:26Z",
+        "contributors": 30,
+        "topics": [
+            "assert",
+            "async",
+            "async-functions",
+            "ava",
+            "cli",
+            "cli-app",
+            "concurrency",
+            "javascript",
+            "node",
+            "nodejs",
+            "performance",
+            "tap",
+            "tdd",
+            "test-framework",
+            "test-runner",
+            "testing",
+            "unicorns",
+            "unit-testing"
+        ],
+        "subscribers": 225,
+        "readme": "*[Please support our friend Vadim Demedes and the people in Ukraine.](https://stand-with-ukraine.pp.ua/)*\n\n---\n\n# <img src=\"media/header.png\" title=\"AVA\" alt=\"AVA logo\" width=\"530\">\n\nAVA is a test runner for Node.js with a concise API, detailed error output, embrace of new language features and thread isolation that lets you develop with confidence \ud83d\ude80\n\nWatch this repository and follow the [Discussions](https://github.com/avajs/ava/discussions) for updates.\n\nRead our [contributing guide](.github/CONTRIBUTING.md) if you're looking to contribute (issues / PRs / etc).\n\n![](media/verbose-reporter.png)\n\n\nTranslations: [Espa\u00f1ol](https://github.com/avajs/ava-docs/blob/main/es_ES/readme.md), [Fran\u00e7ais](https://github.com/avajs/ava-docs/blob/main/fr_FR/readme.md), [Italiano](https://github.com/avajs/ava-docs/blob/main/it_IT/readme.md), [\u65e5\u672c\u8a9e](https://github.com/avajs/ava-docs/blob/main/ja_JP/readme.md), [\ud55c\uad6d\uc5b4](https://github.com/avajs/ava-docs/blob/main/ko_KR/readme.md), [Portugu\u00eas](https://github.com/avajs/ava-docs/blob/main/pt_BR/readme.md), [\u0420\u0443\u0441\u0441\u043a\u0438\u0439](https://github.com/avajs/ava-docs/blob/main/ru_RU/readme.md), [\u7b80\u4f53\u4e2d\u6587](https://github.com/avajs/ava-docs/blob/main/zh_CN/readme.md)\n\n\n## Why AVA?\n\n- Minimal and fast\n- Simple test syntax\n- Runs tests concurrently\n- Enforces writing atomic tests\n- No implicit globals\n- Includes TypeScript definitions\n- [Magic assert](#magic-assert)\n- [Isolated environment for each test file](./docs/01-writing-tests.md#test-isolation)\n- [Promise support](./docs/01-writing-tests.md#promise-support)\n- [Async function support](./docs/01-writing-tests.md#async-function-support)\n- [Observable support](./docs/01-writing-tests.md#observable-support)\n- [Enhanced assertion messages](./docs/03-assertions.md#enhanced-assertion-messages)\n- [Automatic parallel test runs in CI](#parallel-runs-in-ci)\n- [TAP reporter](./docs/05-command-line.md#tap-reporter)\n\n\n## Usage\n\nTo install and set up AVA, run:\n\n```console\nnpm init ava\n```\n\nYour `package.json` will then look like this (exact version notwithstanding):\n\n```json\n{\n\t\"name\": \"awesome-package\",\n\t\"type\": \"module\",\n\t\"scripts\": {\n\t\t\"test\": \"ava\"\n\t},\n\t\"devDependencies\": {\n\t\t\"ava\": \"^5.0.0\"\n\t}\n}\n```\n\nOr if you prefer using Yarn:\n\n```console\nyarn add ava --dev\n```\n\nAlternatively you can install `ava` manually:\n\n```console\nnpm install --save-dev ava\n```\n\n*Make sure to install AVA locally. AVA cannot be run globally.*\n\nDon't forget to configure the `test` script in your `package.json` as per above.\n\n### Create your test file\n\nCreate a file named `test.js` in the project root directory.\n\n_Note that AVA's documentation assumes you're using ES modules._\n\n```js\nimport test from 'ava';\n\ntest('foo', t => {\n\tt.pass();\n});\n\ntest('bar', async t => {\n\tconst bar = Promise.resolve('bar');\n\tt.is(await bar, 'bar');\n});\n```\n\n### Running your tests\n\n```console\nnpm test\n```\n\nOr with `npx`:\n\n```console\nnpx ava\n```\n\nRun with the `--watch` flag to enable AVA's [watch mode](docs/recipes/watch-mode.md):\n\n```console\nnpx ava --watch\n```\n\n## Supported Node.js versions\n\nAVA supports the latest release of any major version that [is supported by Node.js itself](https://github.com/nodejs/Release#release-schedule). Read more in our [support statement](docs/support-statement.md).\n\n## Highlights\n\n### Magic assert\n\nAVA adds code excerpts and clean diffs for actual and expected values. If values in the assertion are objects or arrays, only a diff is displayed, to remove the noise and focus on the problem. The diff is syntax-highlighted too! If you are comparing strings, both single and multi line, AVA displays a different kind of output, highlighting the added or missing characters.\n\n![](media/magic-assert-combined.png)\n\n### Clean stack traces\n\nAVA automatically removes unrelated lines in stack traces, allowing you to find the source of an error much faster, as seen above.\n\n### Parallel runs in CI\n\nAVA automatically detects whether your CI environment supports parallel builds. Each build will run a subset of all test files, while still making sure all tests get executed. See the [`ci-parallel-vars`](https://www.npmjs.com/package/ci-parallel-vars) package for a list of supported CI environments.\n\n## Documentation\n\nPlease see the [files in the `docs` directory](./docs):\n\n* [Writing tests](./docs/01-writing-tests.md)\n* [Execution context](./docs/02-execution-context.md)\n* [Assertions](./docs/03-assertions.md)\n* [Snapshot testing](./docs/04-snapshot-testing.md)\n* [Command line (CLI)](./docs/05-command-line.md)\n* [Configuration](./docs/06-configuration.md)\n* [Test timeouts](./docs/07-test-timeouts.md)\n\n### Common pitfalls\n\nWe have a growing list of [common pitfalls](docs/08-common-pitfalls.md) you may experience while using AVA. If you encounter any issues you think are common, comment in [this issue](https://github.com/avajs/ava/issues/404).\n\n### Recipes\n\n- [Test setup](docs/recipes/test-setup.md)\n- [TypeScript](docs/recipes/typescript.md)\n- [Shared workers](docs/recipes/shared-workers.md)\n- [Watch mode](docs/recipes/watch-mode.md)\n- [When to use `t.plan()`](docs/recipes/when-to-use-plan.md)\n- [Passing arguments to your test files](docs/recipes/passing-arguments-to-your-test-files.md)\n- [Splitting tests in CI](docs/recipes/splitting-tests-ci.md)\n- [Code coverage](docs/recipes/code-coverage.md)\n- [Endpoint testing](docs/recipes/endpoint-testing.md)\n- [Browser testing](docs/recipes/browser-testing.md)\n- [Testing Vue.js components](docs/recipes/vue.md)\n- [Debugging tests with Chrome DevTools](docs/recipes/debugging-with-chrome-devtools.md)\n- [Debugging tests with VSCode](docs/recipes/debugging-with-vscode.md)\n- [Debugging tests with WebStorm](docs/recipes/debugging-with-webstorm.md)\n- [Isolated MongoDB integration tests](docs/recipes/isolated-mongodb-integration-tests.md)\n- [Testing web apps using Puppeteer](docs/recipes/puppeteer.md)\n- [Testing web apps using Selenium WebDriverJS](docs/recipes/testing-with-selenium-webdriverjs.md)\n\n## FAQ\n\n### How is the name written and pronounced?\n\nAVA, not Ava or ava. Pronounced [`/\u02c8e\u026av\u0259/`](media/pronunciation.m4a?raw=true): Ay (f**a**ce, m**a**de) V (**v**ie, ha**v**e) A (comm**a**, **a**go)\n\n### What is the header background?\n\nIt's the [Andromeda galaxy](https://simple.wikipedia.org/wiki/Andromeda_galaxy).\n\n### What is the difference between concurrency and parallelism?\n\n[Concurrency is not parallelism. It enables parallelism.](https://stackoverflow.com/q/1050222)\n\n## Support\n\n- [GitHub Discussions](https://github.com/avajs/ava/discussions)\n\n## Related\n\n- [eslint-plugin-ava](https://github.com/avajs/eslint-plugin-ava) \u2014 Lint rules for AVA tests\n- [@ava/typescript](https://github.com/avajs/typescript) \u2014 Test TypeScript projects\n- [@ava/cooperate](https://github.com/avajs/cooperate) \u2014\u00a0Low-level primitives to enable cooperation between test files\n- [@ava/get-port](https://github.com/avajs/get-port) \u2014 Reserve a port while testing\n\n## Links\n\n- [AVA stickers, t-shirts, etc](https://www.redbubble.com/people/sindresorhus/works/30330590-ava-logo)\n- [Awesome list](https://github.com/avajs/awesome-ava)\n- [Do you like AVA? Donate here!](https://opencollective.com/ava)\n- [More\u2026](https://github.com/avajs/awesome-ava)\n\n## Team\n\n[![Mark Wubben](https://github.com/novemberborn.png?size=100)](https://github.com/novemberborn) | [![Sindre Sorhus](https://github.com/sindresorhus.png?size=100)](https://github.com/sindresorhus)\n---|---\n[Mark Wubben](https://novemberborn.net) | [Sindre Sorhus](https://sindresorhus.com)\n\n###### Former\n\n- [Kevin M\u00e5rtensson](https://github.com/kevva)\n- [James Talmage](https://github.com/jamestalmage)\n- [Juan Soto](https://github.com/sotojuan)\n- [Jeroen Engels](https://github.com/jfmengels)\n- [Vadim Demedes](https://github.com/vadimdemedes)\n\n\n<div align=\"center\">\n\t<br>\n\t<br>\n\t<br>\n\t<a href=\"https://avajs.dev\">\n\t\t<img src=\"media/logo.svg\" width=\"200\" alt=\"AVA\">\n\t</a>\n\t<br>\n\t<br>\n</div>\n",
+        "releases": [
+            {
+                "name": "v6.2.0",
+                "date": "2024-10-27T13:37:56Z"
+            },
+            {
+                "name": "v6.1.3",
+                "date": "2024-05-05T20:35:31Z"
+            },
+            {
+                "name": "v6.1.2",
+                "date": "2024-02-28T20:56:11Z"
+            },
+            {
+                "name": "v6.1.1",
+                "date": "2024-01-29T21:07:27Z"
+            },
+            {
+                "name": "v6.1.0",
+                "date": "2024-01-21T20:11:50Z"
+            },
+            {
+                "name": "v6.0.1",
+                "date": "2023-12-06T21:21:11Z"
+            },
+            {
+                "name": "v6.0.0",
+                "date": "2023-12-04T21:38:58Z"
+            },
+            {
+                "name": "v5.3.1",
+                "date": "2023-06-16T16:42:28Z"
+            },
+            {
+                "name": "v5.3.0",
+                "date": "2023-05-25T07:02:42Z"
+            },
+            {
+                "name": "v5.2.0",
+                "date": "2023-02-06T20:42:17Z"
+            },
+            {
+                "name": "v5.1.1",
+                "date": "2023-01-15T21:02:14Z"
+            },
+            {
+                "name": "v5.1.0",
+                "date": "2022-11-14T14:10:49Z"
+            },
+            {
+                "name": "v5.0.1",
+                "date": "2022-09-25T15:11:09Z"
+            },
+            {
+                "name": "v5.0.0",
+                "date": "2022-09-04T15:04:43Z"
+            },
+            {
+                "name": "v4.3.3",
+                "date": "2022-08-25T14:18:19Z"
+            },
+            {
+                "name": "v4.3.1",
+                "date": "2022-07-10T16:27:27Z"
+            },
+            {
+                "name": "v4.3.0",
+                "date": "2022-06-02T14:43:03Z"
+            },
+            {
+                "name": "v4.2.0",
+                "date": "2022-04-10T16:56:45Z"
+            },
+            {
+                "name": "v4.1.0",
+                "date": "2022-03-06T16:03:47Z"
+            },
+            {
+                "name": "v4.0.1",
+                "date": "2022-01-08T14:14:51Z"
+            },
+            {
+                "name": "AVA 4",
+                "date": "2022-01-03T17:50:43Z"
+            },
+            {
+                "name": "AVA 4 Release Candidate 1",
+                "date": "2021-11-01T16:58:35Z"
+            },
+            {
+                "name": "4.0.0 Alpha 2",
+                "date": "2021-04-06T16:21:28Z"
+            },
+            {
+                "name": "4.0.0 Alpha 1",
+                "date": "2021-03-21T17:15:39Z"
+            },
+            {
+                "name": "3.15.0",
+                "date": "2021-01-01T16:15:05Z"
+            },
+            {
+                "name": "3.14.0",
+                "date": "2020-12-07T09:09:11Z"
+            },
+            {
+                "name": "3.13.0",
+                "date": "2020-09-27T15:35:42Z"
+            },
+            {
+                "name": "3.12.1",
+                "date": "2020-08-23T19:39:28Z"
+            },
+            {
+                "name": "3.11.1",
+                "date": "2020-08-03T06:51:08Z"
+            },
+            {
+                "name": "3.11.0",
+                "date": "2020-07-27T08:01:20Z"
+            },
+            {
+                "name": "3.10.1",
+                "date": "2020-07-05T16:02:45Z"
+            },
+            {
+                "name": "3.9.0",
+                "date": "2020-06-14T14:40:23Z"
+            },
+            {
+                "name": "3.8.2",
+                "date": "2020-05-08T12:15:06Z"
+            },
+            {
+                "name": "3.8.1",
+                "date": "2020-04-26T15:23:01Z"
+            },
+            {
+                "name": "3.7.1",
+                "date": "2020-04-19T15:53:21Z"
+            },
+            {
+                "name": "3.7.0",
+                "date": "2020-04-13T13:28:06Z"
+            },
+            {
+                "name": "3.6.0",
+                "date": "2020-04-05T14:15:41Z"
+            },
+            {
+                "name": "3.5.0",
+                "date": "2020-03-01T17:16:11Z"
+            },
+            {
+                "name": "3.4.0",
+                "date": "2020-02-23T15:51:40Z"
+            },
+            {
+                "name": "3.3.0",
+                "date": "2020-02-09T15:55:01Z"
+            },
+            {
+                "name": "3.2.0",
+                "date": "2020-02-02T16:44:45Z"
+            },
+            {
+                "name": "3.1.0",
+                "date": "2020-01-26T15:05:41Z"
+            },
+            {
+                "name": "3.0.0",
+                "date": "2020-01-19T14:49:45Z"
+            },
+            {
+                "name": "3.0.0 Beta 2",
+                "date": "2020-01-13T16:08:34Z"
+            },
+            {
+                "name": "3.0.0 Beta 1",
+                "date": "2020-01-12T12:41:59Z"
+            },
+            {
+                "name": "2.4.0",
+                "date": "2019-09-16T07:11:34Z"
+            },
+            {
+                "name": "2.3.0",
+                "date": "2019-08-18T12:14:11Z"
+            },
+            {
+                "name": "2.2.0",
+                "date": "2019-07-08T19:49:49Z"
+            },
+            {
+                "name": "2.1.0",
+                "date": "2019-06-10T15:29:29Z"
+            },
+            {
+                "name": "2.0.0",
+                "date": "2019-06-01T11:57:20Z"
+            },
+            {
+                "name": "2.0.0 Release Candidate 1",
+                "date": "2019-05-28T07:01:10Z"
+            },
+            {
+                "name": "2.0.0 Beta 2",
+                "date": "2019-05-19T14:41:05Z"
+            },
+            {
+                "name": "2.0.0 Beta 1",
+                "date": "2019-04-29T13:19:12Z"
+            },
+            {
+                "name": "1.4.1",
+                "date": "2019-03-24T16:40:09Z"
+            },
+            {
+                "name": "1.3.1",
+                "date": "2019-03-05T16:17:38Z"
+            },
+            {
+                "name": "1.2.1",
+                "date": "2019-02-05T08:56:46Z"
+            },
+            {
+                "name": "1.2.0",
+                "date": "2019-01-27T16:54:27Z"
+            },
+            {
+                "name": "1.1.0",
+                "date": "2019-01-13T16:52:41Z"
+            },
+            {
+                "name": "1.0",
+                "date": "2018-12-15T12:58:41Z"
+            },
+            {
+                "name": "1.0.0-rc.2",
+                "date": "2018-11-11T16:42:41Z"
+            },
+            {
+                "name": "1.0.0-rc.1",
+                "date": "2018-10-14T15:18:50Z"
+            },
+            {
+                "name": "1.0.0-beta.8",
+                "date": "2018-08-28T21:28:25Z"
+            },
+            {
+                "name": "1.0.0-beta.7",
+                "date": "2018-08-12T15:43:01Z"
+            },
+            {
+                "name": "1.0.0-beta.6",
+                "date": "2018-06-14T12:16:19Z"
+            },
+            {
+                "name": "1.0.0-beta.5.1",
+                "date": "2018-06-01T07:29:26Z"
+            },
+            {
+                "name": "1.0.0-beta.5",
+                "date": "2018-05-31T17:48:59Z"
+            },
+            {
+                "name": "1.0.0-beta.4",
+                "date": "2018-04-14T15:38:11Z"
+            },
+            {
+                "name": "1.0.0-beta.3",
+                "date": "2018-02-15T16:42:13Z"
+            },
+            {
+                "name": "1.0.0-beta.2",
+                "date": "2018-02-14T16:24:21Z"
+            },
+            {
+                "name": "1.0.0-beta.1",
+                "date": "2018-01-31T18:03:41Z"
+            },
+            {
+                "name": "0.25.0",
+                "date": "2018-01-26T14:27:25Z"
+            },
+            {
+                "name": "0.24.0",
+                "date": "2017-11-27T17:45:22Z"
+            },
+            {
+                "name": "0.23.0",
+                "date": "2017-10-24T16:07:29Z"
+            },
+            {
+                "name": "0.22.0",
+                "date": "2017-08-15T07:40:33Z"
+            },
+            {
+                "name": "0.21.0",
+                "date": "2017-07-13T14:26:10Z"
+            },
+            {
+                "name": "0.20.0",
+                "date": "2017-06-28T14:05:04Z"
+            },
+            {
+                "name": "0.19.1",
+                "date": "2017-04-10T08:34:41Z"
+            },
+            {
+                "name": "0.19.0",
+                "date": "2017-04-05T16:37:40Z"
+            },
+            {
+                "name": "0.18.2",
+                "date": "2017-02-18T17:16:31Z"
+            },
+            {
+                "name": "0.18.1",
+                "date": "2017-02-03T22:57:12Z"
+            },
+            {
+                "name": "0.18.0",
+                "date": "2017-02-02T16:33:51Z"
+            },
+            {
+                "name": "0.17.0",
+                "date": "2016-11-17T08:59:25Z"
+            },
+            {
+                "name": "0.16.0",
+                "date": "2016-08-06T15:14:40Z"
+            },
+            {
+                "name": "0.15.2",
+                "date": "2016-06-05T03:20:49Z"
+            },
+            {
+                "name": "0.15.1",
+                "date": "2016-05-26T00:50:34Z"
+            },
+            {
+                "name": "0.15.0",
+                "date": "2016-05-25T03:49:35Z"
+            },
+            {
+                "name": "0.14.0",
+                "date": "2016-04-07T01:59:30Z"
+            },
+            {
+                "name": "0.13.0",
+                "date": "2016-03-10T15:39:27Z"
+            },
+            {
+                "name": "0.12.0",
+                "date": "2016-02-18T10:39:39Z"
+            },
+            {
+                "name": "0.11.0",
+                "date": "2016-01-23T12:38:24Z"
+            },
+            {
+                "name": "0.10.0",
+                "date": "2016-01-15T06:19:38Z"
+            },
+            {
+                "name": "0.9.2",
+                "date": "2016-01-14T22:00:15Z"
+            },
+            {
+                "name": "0.9.1",
+                "date": "2015-12-29T13:38:23Z"
+            },
+            {
+                "name": "0.9.0",
+                "date": "2015-12-29T12:08:24Z"
+            },
+            {
+                "name": "0.8.0",
+                "date": "2015-12-14T21:37:39Z"
+            },
+            {
+                "name": "0.7.0",
+                "date": "2015-11-30T06:44:18Z"
+            },
+            {
+                "name": "0.6.1",
+                "date": "2015-11-24T22:46:59Z"
+            },
+            {
+                "name": "0.6.0",
+                "date": "2015-11-24T09:43:37Z"
+            },
+            {
+                "name": "0.5.0",
+                "date": "2015-11-16T13:09:37Z"
+            },
+            {
+                "name": "0.4.2",
+                "date": "2015-11-08T14:48:37Z"
+            },
+            {
+                "name": "0.4.1",
+                "date": "2015-11-08T06:22:56Z"
+            },
+            {
+                "name": "0.4.0",
+                "date": "2015-11-07T13:15:00Z"
+            }
+        ]
+    }
+}

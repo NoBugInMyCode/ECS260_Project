@@ -1,0 +1,331 @@
+{
+    "https://api.github.com/repos/facebook/zstd": {
+        "forks": 2167,
+        "watchers": 24172,
+        "stars": 24172,
+        "languages": {
+            "C": 4548619,
+            "C++": 829407,
+            "Shell": 178576,
+            "Python": 150999,
+            "Makefile": 116661,
+            "CMake": 44064,
+            "Roff": 37135,
+            "Meson": 28354,
+            "Assembly": 15150,
+            "Starlark": 10295,
+            "Batchfile": 4988,
+            "Lua": 1647,
+            "Swift": 1264,
+            "HTML": 982,
+            "Dockerfile": 661
+        },
+        "commits": [
+            "2025-01-20T07:18:33Z",
+            "2025-01-20T07:16:18Z",
+            "2025-01-20T07:14:59Z",
+            "2025-01-20T05:47:03Z",
+            "2025-01-20T05:46:57Z",
+            "2025-01-20T02:35:36Z",
+            "2025-01-20T02:30:29Z",
+            "2025-01-19T17:32:01Z",
+            "2025-01-19T15:39:17Z",
+            "2025-01-19T15:37:57Z",
+            "2025-01-19T08:08:57Z",
+            "2025-01-19T07:54:51Z",
+            "2025-01-19T06:58:03Z",
+            "2025-01-19T06:48:49Z",
+            "2025-01-19T06:40:18Z",
+            "2025-01-19T04:43:30Z",
+            "2025-01-19T04:38:48Z",
+            "2025-01-19T04:19:55Z",
+            "2025-01-19T06:48:24Z",
+            "2025-01-19T04:03:16Z",
+            "2025-01-19T02:56:46Z",
+            "2025-01-19T00:37:35Z",
+            "2025-01-19T00:36:00Z",
+            "2025-01-19T00:34:23Z",
+            "2025-01-18T21:37:50Z",
+            "2025-01-18T21:27:19Z",
+            "2025-01-18T21:08:04Z",
+            "2025-01-18T21:06:07Z",
+            "2025-01-18T20:22:52Z",
+            "2025-01-18T19:32:30Z"
+        ],
+        "creation_date": "2015-01-24T00:22:38Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 414,
+        "readme": "<p align=\"center\"><img src=\"https://raw.githubusercontent.com/facebook/zstd/dev/doc/images/zstd_logo86.png\" alt=\"Zstandard\"></p>\n\n__Zstandard__, or `zstd` as short version, is a fast lossless compression algorithm,\ntargeting real-time compression scenarios at zlib-level and better compression ratios.\nIt's backed by a very fast entropy stage, provided by [Huff0 and FSE library](https://github.com/Cyan4973/FiniteStateEntropy).\n\nZstandard's format is stable and documented in [RFC8878](https://datatracker.ietf.org/doc/html/rfc8878). Multiple independent implementations are already available.\nThis repository represents the reference implementation, provided as an open-source dual [BSD](LICENSE) OR [GPLv2](COPYING) licensed **C** library,\nand a command line utility producing and decoding `.zst`, `.gz`, `.xz` and `.lz4` files.\nShould your project require another programming language,\na list of known ports and bindings is provided on [Zstandard homepage](https://facebook.github.io/zstd/#other-languages).\n\n**Development branch status:**\n\n[![Build Status][travisDevBadge]][travisLink]\n[![Build status][CircleDevBadge]][CircleLink]\n[![Build status][CirrusDevBadge]][CirrusLink]\n[![Fuzzing Status][OSSFuzzBadge]][OSSFuzzLink]\n\n[travisDevBadge]: https://api.travis-ci.com/facebook/zstd.svg?branch=dev \"Continuous Integration test suite\"\n[travisLink]: https://travis-ci.com/facebook/zstd\n[CircleDevBadge]: https://circleci.com/gh/facebook/zstd/tree/dev.svg?style=shield \"Short test suite\"\n[CircleLink]: https://circleci.com/gh/facebook/zstd\n[CirrusDevBadge]: https://api.cirrus-ci.com/github/facebook/zstd.svg?branch=dev\n[CirrusLink]: https://cirrus-ci.com/github/facebook/zstd\n[OSSFuzzBadge]: https://oss-fuzz-build-logs.storage.googleapis.com/badges/zstd.svg\n[OSSFuzzLink]: https://bugs.chromium.org/p/oss-fuzz/issues/list?sort=-opened&can=1&q=proj:zstd\n\n## Benchmarks\n\nFor reference, several fast compression algorithms were tested and compared\non a desktop featuring a Core i7-9700K CPU @ 4.9GHz\nand running Ubuntu 20.04 (`Linux ubu20 5.15.0-101-generic`),\nusing [lzbench], an open-source in-memory benchmark by @inikep\ncompiled with [gcc] 9.4.0,\non the [Silesia compression corpus].\n\n[lzbench]: https://github.com/inikep/lzbench\n[Silesia compression corpus]: https://sun.aei.polsl.pl//~sdeor/index.php?page=silesia\n[gcc]: https://gcc.gnu.org/\n\n| Compressor name         | Ratio | Compression| Decompress.|\n| ---------------         | ------| -----------| ---------- |\n| **zstd 1.5.6 -1**       | 2.887 |   510 MB/s |  1580 MB/s |\n| [zlib] 1.2.11 -1        | 2.743 |    95 MB/s |   400 MB/s |\n| brotli 1.0.9 -0         | 2.702 |   395 MB/s |   430 MB/s |\n| **zstd 1.5.6 --fast=1** | 2.437 |   545 MB/s |  1890 MB/s |\n| **zstd 1.5.6 --fast=3** | 2.239 |   650 MB/s |  2000 MB/s |\n| quicklz 1.5.0 -1        | 2.238 |   525 MB/s |   750 MB/s |\n| lzo1x 2.10 -1           | 2.106 |   650 MB/s |   825 MB/s |\n| [lz4] 1.9.4             | 2.101 |   700 MB/s |  4000 MB/s |\n| lzf 3.6 -1              | 2.077 |   420 MB/s |   830 MB/s |\n| snappy 1.1.9            | 2.073 |   530 MB/s |  1660 MB/s |\n\n[zlib]: https://www.zlib.net/\n[lz4]: https://lz4.github.io/lz4/\n\nThe negative compression levels, specified with `--fast=#`,\noffer faster compression and decompression speed\nat the cost of compression ratio.\n\nZstd can also offer stronger compression ratios at the cost of compression speed.\nSpeed vs Compression trade-off is configurable by small increments.\nDecompression speed is preserved and remains roughly the same at all settings,\na property shared by most LZ compression algorithms, such as [zlib] or lzma.\n\nThe following tests were run\non a server running Linux Debian (`Linux version 4.14.0-3-amd64`)\nwith a Core i7-6700K CPU @ 4.0GHz,\nusing [lzbench], an open-source in-memory benchmark by @inikep\ncompiled with [gcc] 7.3.0,\non the [Silesia compression corpus].\n\nCompression Speed vs Ratio | Decompression Speed\n---------------------------|--------------------\n![Compression Speed vs Ratio](doc/images/CSpeed2.png \"Compression Speed vs Ratio\") | ![Decompression Speed](doc/images/DSpeed3.png \"Decompression Speed\")\n\nA few other algorithms can produce higher compression ratios at slower speeds, falling outside of the graph.\nFor a larger picture including slow modes, [click on this link](doc/images/DCspeed5.png).\n\n\n## The case for Small Data compression\n\nPrevious charts provide results applicable to typical file and stream scenarios (several MB). Small data comes with different perspectives.\n\nThe smaller the amount of data to compress, the more difficult it is to compress. This problem is common to all compression algorithms, and reason is, compression algorithms learn from past data how to compress future data. But at the beginning of a new data set, there is no \"past\" to build upon.\n\nTo solve this situation, Zstd offers a __training mode__, which can be used to tune the algorithm for a selected type of data.\nTraining Zstandard is achieved by providing it with a few samples (one file per sample). The result of this training is stored in a file called \"dictionary\", which must be loaded before compression and decompression.\nUsing this dictionary, the compression ratio achievable on small data improves dramatically.\n\nThe following example uses the `github-users` [sample set](https://github.com/facebook/zstd/releases/tag/v1.1.3), created from [github public API](https://developer.github.com/v3/users/#get-all-users).\nIt consists of roughly 10K records weighing about 1KB each.\n\nCompression Ratio | Compression Speed | Decompression Speed\n------------------|-------------------|--------------------\n![Compression Ratio](doc/images/dict-cr.png \"Compression Ratio\") | ![Compression Speed](doc/images/dict-cs.png \"Compression Speed\") | ![Decompression Speed](doc/images/dict-ds.png \"Decompression Speed\")\n\n\nThese compression gains are achieved while simultaneously providing _faster_ compression and decompression speeds.\n\nTraining works if there is some correlation in a family of small data samples. The more data-specific a dictionary is, the more efficient it is (there is no _universal dictionary_).\nHence, deploying one dictionary per type of data will provide the greatest benefits.\nDictionary gains are mostly effective in the first few KB. Then, the compression algorithm will gradually use previously decoded content to better compress the rest of the file.\n\n### Dictionary compression How To:\n\n1. Create the dictionary\n\n   `zstd --train FullPathToTrainingSet/* -o dictionaryName`\n\n2. Compress with dictionary\n\n   `zstd -D dictionaryName FILE`\n\n3. Decompress with dictionary\n\n   `zstd -D dictionaryName --decompress FILE.zst`\n\n\n## Build instructions\n\n`make` is the officially maintained build system of this project.\nAll other build systems are \"compatible\" and 3rd-party maintained,\nthey may feature small differences in advanced options.\nWhen your system allows it, prefer using `make` to build `zstd` and `libzstd`.\n\n### Makefile\n\nIf your system is compatible with standard `make` (or `gmake`),\ninvoking `make` in root directory will generate `zstd` cli in root directory.\nIt will also create `libzstd` into `lib/`.\n\nOther available options include:\n- `make install` : create and install zstd cli, library and man pages\n- `make check` : create and run `zstd`, test its behavior on local platform\n\nThe `Makefile` follows the [GNU Standard Makefile conventions](https://www.gnu.org/prep/standards/html_node/Makefile-Conventions.html),\nallowing staged install, standard flags, directory variables and command variables.\n\nFor advanced use cases, specialized compilation flags which control binary generation\nare documented in [`lib/README.md`](lib/README.md#modular-build) for the `libzstd` library\nand in [`programs/README.md`](programs/README.md#compilation-variables) for the `zstd` CLI.\n\n### cmake\n\nA `cmake` project generator is provided within `build/cmake`.\nIt can generate Makefiles or other build scripts\nto create `zstd` binary, and `libzstd` dynamic and static libraries.\n\nBy default, `CMAKE_BUILD_TYPE` is set to `Release`.\n\n#### Support for Fat (Universal2) Output\n\n`zstd` can be built and installed with support for both Apple Silicon (M1/M2) as well as Intel by using CMake's Universal2 support.\nTo perform a Fat/Universal2 build and install use the following commands:\n\n```bash\ncmake -B build-cmake-debug -S build/cmake -G Ninja -DCMAKE_OSX_ARCHITECTURES=\"x86_64;x86_64h;arm64\"\ncd build-cmake-debug\nninja\nsudo ninja install\n```\n\n### Meson\n\nA Meson project is provided within [`build/meson`](build/meson). Follow\nbuild instructions in that directory.\n\nYou can also take a look at [`.travis.yml`](.travis.yml) file for an\nexample about how Meson is used to build this project.\n\nNote that default build type is **release**.\n\n### VCPKG\nYou can build and install zstd [vcpkg](https://github.com/Microsoft/vcpkg/) dependency manager:\n\n    git clone https://github.com/Microsoft/vcpkg.git\n    cd vcpkg\n    ./bootstrap-vcpkg.sh\n    ./vcpkg integrate install\n    ./vcpkg install zstd\n\nThe zstd port in vcpkg is kept up to date by Microsoft team members and community contributors.\nIf the version is out of date, please [create an issue or pull request](https://github.com/Microsoft/vcpkg) on the vcpkg repository.\n\n### Conan\n\nYou can install pre-built binaries for zstd or build it from source using [Conan](https://conan.io/). Use the following command:\n\n```bash\nconan install --requires=\"zstd/[*]\" --build=missing\n```\n\nThe zstd Conan recipe is kept up to date by Conan maintainers and community contributors.\nIf the version is out of date, please [create an issue or pull request](https://github.com/conan-io/conan-center-index) on the ConanCenterIndex repository.\n\n### Visual Studio (Windows)\n\nGoing into `build` directory, you will find additional possibilities:\n- Projects for Visual Studio 2005, 2008 and 2010.\n  + VS2010 project is compatible with VS2012, VS2013, VS2015 and VS2017.\n- Automated build scripts for Visual compiler by [@KrzysFR](https://github.com/KrzysFR), in `build/VS_scripts`,\n  which will build `zstd` cli and `libzstd` library without any need to open Visual Studio solution.\n\n### Buck\n\nYou can build the zstd binary via buck by executing: `buck build programs:zstd` from the root of the repo.\nThe output binary will be in `buck-out/gen/programs/`.\n\n### Bazel\n\nYou easily can integrate zstd into your Bazel project by using the module hosted on the [Bazel Central Repository](https://registry.bazel.build/modules/zstd).\n\n## Testing\n\nYou can run quick local smoke tests by running `make check`.\nIf you can't use `make`, execute the `playTest.sh` script from the `src/tests` directory.\nTwo env variables `$ZSTD_BIN` and `$DATAGEN_BIN` are needed for the test script to locate the `zstd` and `datagen` binary.\nFor information on CI testing, please refer to `TESTING.md`.\n\n## Status\n\nZstandard is currently deployed within Facebook and many other large cloud infrastructures.\nIt is run continuously to compress large amounts of data in multiple formats and use cases.\nZstandard is considered safe for production environments.\n\n## License\n\nZstandard is dual-licensed under [BSD](LICENSE) OR [GPLv2](COPYING).\n\n## Contributing\n\nThe `dev` branch is the one where all contributions are merged before reaching `release`.\nIf you plan to propose a patch, please commit into the `dev` branch, or its own feature branch.\nDirect commit to `release` are not permitted.\nFor more information, please read [CONTRIBUTING](CONTRIBUTING.md).\n",
+        "releases": [
+            {
+                "name": "Zstandard v1.5.6 - Chrome Edition",
+                "date": "2024-03-30T18:57:28Z"
+            },
+            {
+                "name": "Zstandard v1.5.5",
+                "date": "2023-04-04T22:20:32Z"
+            },
+            {
+                "name": "Zstandard v1.5.4",
+                "date": "2023-02-10T00:55:48Z"
+            },
+            {
+                "name": "Zstandard v1.5.2",
+                "date": "2022-01-20T21:54:37Z"
+            },
+            {
+                "name": "Zstandard v1.5.1",
+                "date": "2021-12-21T00:42:34Z"
+            },
+            {
+                "name": "Zstandard v1.5.0",
+                "date": "2021-05-14T16:01:54Z"
+            },
+            {
+                "name": "Zstandard v1.4.9",
+                "date": "2021-03-03T20:38:04Z"
+            },
+            {
+                "name": "Zstandard v1.4.8 - hotfix",
+                "date": "2020-12-19T00:51:41Z"
+            },
+            {
+                "name": "Zstandard v1.4.7",
+                "date": "2020-12-17T03:32:24Z"
+            },
+            {
+                "name": "Zstandard v1.4.5",
+                "date": "2020-05-22T07:08:41Z"
+            },
+            {
+                "name": "Zstandard v1.4.4",
+                "date": "2019-11-05T18:36:09Z"
+            },
+            {
+                "name": "Zstandard v1.4.3",
+                "date": "2019-08-19T20:55:18Z"
+            },
+            {
+                "name": "Zstandard v1.4.2",
+                "date": "2019-07-25T17:48:57Z"
+            },
+            {
+                "name": "Zstandard v1.4.1",
+                "date": "2019-07-19T19:03:30Z"
+            },
+            {
+                "name": "Zstandard v1.4.0",
+                "date": "2019-04-16T22:53:28Z"
+            },
+            {
+                "name": "Zstandard v1.3.8",
+                "date": "2018-12-27T18:39:10Z"
+            },
+            {
+                "name": "Zstandard v1.3.7",
+                "date": "2018-10-19T21:34:33Z"
+            },
+            {
+                "name": "Zstandard regression testing data",
+                "date": "2018-11-29T18:53:21Z"
+            },
+            {
+                "name": "Zstandard v1.3.6 \"Database Edition\"",
+                "date": "2018-10-05T16:48:23Z"
+            },
+            {
+                "name": "Zstandard v1.3.5 \"Dictionary Edition\"",
+                "date": "2018-06-28T16:57:59Z"
+            },
+            {
+                "name": "Zstandard v1.3.4 - faster everything",
+                "date": "2018-03-26T22:24:27Z"
+            },
+            {
+                "name": "Zstandard v1.3.3",
+                "date": "2017-12-21T09:25:55Z"
+            },
+            {
+                "name": "Zstandard v1.3.2 - Long Range Mode",
+                "date": "2017-10-09T23:31:00Z"
+            },
+            {
+                "name": "Zstandard Fuzz Corpora",
+                "date": "2017-09-22T23:16:48Z"
+            },
+            {
+                "name": "Zstandard v1.3.1",
+                "date": "2017-08-20T19:37:00Z"
+            },
+            {
+                "name": "Zstandard v1.3.0",
+                "date": "2017-07-05T18:05:54Z"
+            },
+            {
+                "name": "Zstandard v1.2.0",
+                "date": "2017-05-04T18:23:23Z"
+            },
+            {
+                "name": "Zstandard v1.1.4",
+                "date": "2017-03-17T21:33:25Z"
+            },
+            {
+                "name": "Zstandard v1.1.3",
+                "date": "2017-02-06T17:19:09Z"
+            },
+            {
+                "name": "Zstandard v1.1.2",
+                "date": "2016-12-15T08:00:35Z"
+            },
+            {
+                "name": "Zstandard v1.1.1",
+                "date": "2016-11-02T04:06:40Z"
+            },
+            {
+                "name": "Zstandard v1.1.0",
+                "date": "2016-09-28T03:18:33Z"
+            },
+            {
+                "name": "Zstandard v1.0",
+                "date": "2016-08-31T16:10:23Z"
+            },
+            {
+                "name": "Zstandard v0.8.1",
+                "date": "2016-08-18T15:08:01Z"
+            },
+            {
+                "name": "Zstandard v0.6.2 \"transition\"",
+                "date": "2016-08-02T12:04:14Z"
+            },
+            {
+                "name": "Zstandard v0.8.0",
+                "date": "2016-08-02T13:57:17Z"
+            },
+            {
+                "name": "Zstandard v0.7.5 \"transition\"",
+                "date": "2016-08-01T12:28:38Z"
+            },
+            {
+                "name": "Zstandard v0.7.4",
+                "date": "2016-07-16T18:19:10Z"
+            },
+            {
+                "name": "Zstandard v0.7.3",
+                "date": "2016-07-08T19:33:59Z"
+            },
+            {
+                "name": "Zstandard v0.7.2",
+                "date": "2016-07-03T19:10:49Z"
+            },
+            {
+                "name": "Zstandard v0.7.1",
+                "date": "2016-06-23T08:16:44Z"
+            },
+            {
+                "name": "Zstandard v0.6.1",
+                "date": "2016-05-13T12:04:56Z"
+            },
+            {
+                "name": "Zstandard v0.6.0",
+                "date": "2016-04-12T23:31:58Z"
+            },
+            {
+                "name": "Zstandard v0.5.1",
+                "date": "2016-02-18T11:08:04Z"
+            },
+            {
+                "name": "Zstandard v0.5.0",
+                "date": "2016-02-05T15:35:04Z"
+            },
+            {
+                "name": "Zstandard v0.4.7",
+                "date": "2016-01-22T12:15:48Z"
+            },
+            {
+                "name": "Zstandard v0.4.6",
+                "date": "2016-01-12T23:48:50Z"
+            },
+            {
+                "name": "Zstandard v0.4.5",
+                "date": "2015-12-18T03:00:18Z"
+            },
+            {
+                "name": "Zstandard v0.4.4",
+                "date": "2015-12-14T12:49:10Z"
+            },
+            {
+                "name": "Zstandard v0.4.3",
+                "date": "2015-12-07T10:13:04Z"
+            },
+            {
+                "name": "Zstandard v0.4.2",
+                "date": "2015-12-02T14:33:40Z"
+            },
+            {
+                "name": "Zstandard v0.4.1",
+                "date": "2015-12-01T14:27:49Z"
+            },
+            {
+                "name": "Zstandard v0.4",
+                "date": "2015-11-29T12:32:33Z"
+            },
+            {
+                "name": "Zstandard v0.3.6",
+                "date": "2015-11-10T10:19:49Z"
+            },
+            {
+                "name": "Zstandard v0.3.5",
+                "date": "2015-11-09T11:51:11Z"
+            },
+            {
+                "name": "Zstandard v0.3.4",
+                "date": "2015-11-06T13:33:26Z"
+            },
+            {
+                "name": "Zstandard v0.3.3",
+                "date": "2015-11-05T01:43:19Z"
+            },
+            {
+                "name": "Zstandard v0.3.2",
+                "date": "2015-11-02T12:08:16Z"
+            },
+            {
+                "name": "Zstandard v0.3.1",
+                "date": "2015-11-02T02:22:05Z"
+            },
+            {
+                "name": "Zstandard v0.3",
+                "date": "2015-10-30T15:53:54Z"
+            },
+            {
+                "name": "Zstandard v0.2.2",
+                "date": "2015-10-28T11:28:47Z"
+            },
+            {
+                "name": "Zstandard v0.2.1",
+                "date": "2015-10-24T13:07:11Z"
+            },
+            {
+                "name": "Zstandard v0.2",
+                "date": "2015-10-22T07:32:55Z"
+            },
+            {
+                "name": "Zstandard v0.1.3",
+                "date": "2015-10-15T11:47:32Z"
+            },
+            {
+                "name": "Zstandard v0.1.2",
+                "date": "2015-09-11T09:33:57Z"
+            },
+            {
+                "name": "Zstandard v0.1.1",
+                "date": "2015-08-26T23:00:37Z"
+            },
+            {
+                "name": "First Zstd release",
+                "date": "2015-08-25T00:47:37Z"
+            }
+        ]
+    }
+}

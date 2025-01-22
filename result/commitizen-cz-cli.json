@@ -1,0 +1,362 @@
+{
+    "https://api.github.com/repos/commitizen/cz-cli": {
+        "forks": 553,
+        "watchers": 16996,
+        "stars": 16996,
+        "languages": {
+            "JavaScript": 80243,
+            "Shell": 1806,
+            "Batchfile": 34
+        },
+        "commits": [
+            "2024-09-27T14:49:52Z",
+            "2024-09-27T04:18:15Z",
+            "2023-12-17T17:40:53Z",
+            "2023-02-01T03:26:55Z",
+            "2023-01-19T20:45:31Z",
+            "2022-12-06T11:45:12Z",
+            "2022-12-06T11:43:30Z",
+            "2022-07-17T14:00:43Z",
+            "2022-05-19T20:07:55Z",
+            "2022-04-25T11:18:06Z",
+            "2022-04-12T20:26:51Z",
+            "2022-04-06T18:55:10Z",
+            "2022-03-24T22:51:46Z",
+            "2022-03-18T21:44:32Z",
+            "2022-03-14T19:37:24Z",
+            "2022-03-11T19:09:21Z",
+            "2022-02-28T10:41:56Z",
+            "2022-02-28T08:56:13Z",
+            "2022-02-22T21:49:47Z",
+            "2022-02-22T21:30:33Z",
+            "2022-02-22T00:31:44Z",
+            "2022-02-08T16:39:29Z",
+            "2022-02-09T12:05:54Z",
+            "2022-02-02T23:08:44Z",
+            "2022-01-26T15:12:29Z",
+            "2022-01-24T11:32:37Z",
+            "2022-01-21T13:18:00Z",
+            "2022-01-18T14:26:21Z",
+            "2022-01-14T20:53:32Z",
+            "2021-12-31T01:53:53Z"
+        ],
+        "creation_date": "2015-04-20T01:11:39Z",
+        "contributors": 30,
+        "topics": [
+            "command-line",
+            "commit-hooks",
+            "commitizen",
+            "commitizen-adapter",
+            "git",
+            "javascript",
+            "node",
+            "semantic-release",
+            "semantic-versioning",
+            "utilities"
+        ],
+        "subscribers": 82,
+        "readme": "## Commitizen for contributors\n\nWhen you commit with Commitizen, you'll be prompted to fill out any required commit fields at commit time. No more waiting until later for a git commit hook to run and reject your commit (though [that](https://github.com/kentcdodds/validate-commit-msg) can still be helpful). No more digging through [CONTRIBUTING.md](CONTRIBUTING.md) to find what the preferred format is. Get instant feedback on your commit message formatting and be prompted for required fields.\n\n[![Backers on Open Collective](https://opencollective.com/commitizen/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/commitizen/sponsors/badge.svg)](#sponsors) [![travis.ci](https://img.shields.io/travis/commitizen/cz-cli.svg?branch=master)](https://travis-ci.org/commitizen/cz-cli) [![Azure Build Status](https://dev.azure.com/commitizen/cz-cli/_apis/build/status/commitizen.cz-cli?branchName=master)](https://dev.azure.com/commitizen/cz-cli/_build/latest?definitionId=2)\n[![codecov.io](https://img.shields.io/codecov/c/github/commitizen/cz-cli.svg)](https://codecov.io/github/commitizen/cz-cli?branch=master) [![npm monthly downloads](https://img.shields.io/npm/dm/commitizen.svg)](https://www.npmjs.com/package/commitizen) [![current version](https://img.shields.io/npm/v/commitizen.svg)](https://www.npmjs.com/package/commitizen) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release) [![commitizen on stackoverflow](https://img.shields.io/badge/stackoverflow-community-orange.svg?longCache=true&logo=stackoverflow)](https://stackoverflow.com/tags/commitizen)\n\n## Installing the command line tool\n\nCommitizen is currently tested against Node.js 12, 14, & 16, although it may work in\nolder versions of Node.js. You should also have npm 6 or greater.\n\nInstallation is as simple as running the following command (if you see `EACCES` error, reading [fixing npm permissions](https://docs.npmjs.com/getting-started/fixing-npm-permissions) may help):\n\n```sh\nnpm install -g commitizen\n```\n\n## Using the command line tool\n\n### If your repo is [Commitizen friendly](#making-your-repo-commitizen-friendly):\n\nSimply use `git cz` or just `cz` instead of `git commit` when committing. You can also use `git-cz`, which is an alias for `cz`.\n\n_Alternatively_, if you are using **npm 5.2+** you can [use `npx`](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) instead of installing globally:\n\n```sh\nnpx cz\n```\n\nor as an npm script:\n\n```json\n  ...\n  \"scripts\": {\n    \"commit\": \"cz\"\n  }\n```\n\nWhen you're working in a Commitizen-friendly repository, you'll be prompted to fill in any required fields, and your commit messages will be formatted according to the standards defined by project maintainers.\n\n[![Add and commit with Commitizen](https://github.com/commitizen/cz-cli/raw/master/meta/screenshots/add-commit.png)](https://github.com/commitizen/cz-cli/raw/master/meta/screenshots/add-commit.png)\n\n### If your repo is NOT Commitizen friendly:\n\nIf you're **not** working in a Commitizen-friendly repository, then `git cz` will work just the same as `git commit`, but `npx cz` will use the [streamich/git-cz](https://github.com/streamich/git-cz) adapter. To fix this, you need to first [make your repo Commitizen friendly](#making-your-repo-commitizen-friendly)\n\n## Making your repo Commitizen friendly\n\nFor this example, we'll be setting up our repo to use [AngularJS's commit message convention](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines), also known as [conventional-changelog](https://github.com/ajoslin/conventional-changelog).\n\nFirst, install the Commitizen CLI tools:\n\n```sh\nnpm install commitizen -g\n```\n\nNext, initialize your project to use the cz-conventional-changelog adapter by typing:\n\n```sh\n# npm\ncommitizen init cz-conventional-changelog --save-dev --save-exact\n\n# yarn\ncommitizen init cz-conventional-changelog --yarn --dev --exact\n\n# pnpm\ncommitizen init cz-conventional-changelog --pnpm --save-dev --save-exact\n```\n\nNote that if you want to force install over the top of an old adapter, you can apply the `--force` argument. For more information on this, just run `commitizen help`.\n\nThe above command does three things for you:\n\n1. Installs the cz-conventional-changelog adapter npm module\n2. Saves it to `package.json`'s `dependencies` or `devDependencies`\n3. Adds the `config.commitizen` key to the root of your `package.json` file as shown here:\n\n```json\n...\n  \"config\": {\n    \"commitizen\": {\n      \"path\": \"cz-conventional-changelog\"\n    }\n  }\n```\n\nAlternatively, Commitizen configs may be added to a `.czrc` file:\n\n```json\n{\n  \"path\": \"cz-conventional-changelog\"\n}\n```\n\nThis just tells Commitizen which adapter we actually want our contributors to use when they try to commit to this repo.\n\n`commitizen.path` is resolved via [require.resolve](https://nodejs.org/api/globals.html#globals_require_resolve) and supports:\n\n- npm modules\n- directories relative to `process.cwd()` containing an `index.js` file\n- file base names relative to `process.cwd()` with `.js` extension\n- full relative file names\n- absolute paths\n\nPlease note that in the previous version of Commitizen we used czConfig. **czConfig has been deprecated**, and you should migrate to the new format before Commitizen 3.0.0.\n\n### Optional: Install and run Commitizen locally\n\nInstalling and running Commitizen locally allows you to make sure that developers are running the exact same version of Commitizen on every machine.\n\nInstall Commitizen with `npm install --save-dev commitizen`.\n\nOn **npm 5.2+** you can [use `npx`](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) to initialize the conventional changelog adapter:\n\n```\nnpx commitizen init cz-conventional-changelog --save-dev --save-exact\n```\n\nFor **previous versions of npm (< 5.2)** you can execute `./node_modules/.bin/commitizen` or `./node_modules/.bin/cz` in order to actually use the commands.\n\nYou can then initialize the conventional changelog adapter using: `./node_modules/.bin/commitizen init cz-conventional-changelog --save-dev --save-exact`\n\nAnd you can then add some nice npm scripts in your `package.json` file pointing to the local version of Commitizen:\n\n```json\n  ...\n  \"scripts\": {\n    \"commit\": \"cz\"\n  }\n```\n\nThis will be more convenient for your users because then if they want to do a commit, all they need to do is run `npm run commit` and they will get the prompts needed to start a commit!\n\n> **NOTE:** If you are using `precommit` hooks thanks to something like [`husky`](https://www.npmjs.com/package/husky), you will need to name your script something other than `\"commit\"`\n> (e.g. `\"cm\": \"cz\"`). The reason is because npm scripts has a \"feature\" where it automatically runs scripts with the name _prexxx_ where _xxx_ is the name of another script. In essence,\n> npm and husky will run `\"precommit\"` scripts twice if you name the script `\"commit\"`, and the workaround is to prevent the npm-triggered _precommit_ script.\n\n#### Optional: Running Commitizen on `git commit`\n\nThis example shows how to incorporate Commitizen into the existing `git commit` workflow by using git hooks and the `--hook` command-line option. This is useful for project maintainers\nwho wish to ensure the proper commit format is enforced on contributions from those unfamiliar with Commitizen.\n\nOnce either of these methods is implemented, users running `git commit` will be presented with an interactive Commitizen session that helps them write useful commit messages.\n\n> **NOTE:** This example assumes that the project has been set up to [use Commitizen locally](https://github.com/commitizen/cz-cli#optional-install-and-run-commitizen-locally).\n\n##### Traditional git hooks\n\nUpdate `.git/hooks/prepare-commit-msg` with the following code:\n\n```sh\n#!/bin/bash\nexec < /dev/tty && node_modules/.bin/cz --hook || true\n```\n\n##### Husky\n\nFor `husky` users, add the following configuration to the project's `package.json` file:\n\n```json\n\"husky\": {\n  \"hooks\": {\n    \"prepare-commit-msg\": \"exec < /dev/tty && npx cz --hook || true\"\n  }\n}\n```\n\n> **Why `exec < /dev/tty`?** By default, git hooks are not interactive. This command allows the user to use their terminal to interact with Commitizen during the hook.\n\n#### Congratulations! Your repo is Commitizen friendly. Time to flaunt it!\n\nAdd the \"Commitizen friendly\" badge to your README using the following markdown:\n\n```\n[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)\n```\n\nYour badge will look like this:\n\n[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)\n\nIt may also make sense to change your `README.md` or `CONTRIBUTING.md` files to include or link to the Commitizen project so that your new contributors may learn more about installing and using Commitizen.\n\n## Conventional commit messages as a global utility\n\nInstall `commitizen` globally, if you have not already.\n\n```sh\nnpm install -g commitizen\n```\n\nInstall your preferred `commitizen` adapter globally (for example [`cz-conventional-changelog`](https://www.npmjs.com/package/cz-conventional-changelog)).\n\n```sh\nnpm install -g cz-conventional-changelog\n```\n\nCreate a `.czrc` file in your `home` directory, with `path` referring to the preferred, globally-installed, `commitizen` adapter\n\n```sh\necho '{ \"path\": \"cz-conventional-changelog\" }' > ~/.czrc\n```\n\nYou are all set! Now `cd` into any `git` repository and use `git cz` instead of `git commit`, and you will find the `commitizen` prompt.\n\nPro tip: You can use all the `git commit` `options` with `git cz`. For example: `git cz -a`.\n\n> If your repository is a [Node.js](https://nodejs.org/en/) project, making it [Commitizen friendly](#making-your-repo-commitizen-friendly) is super easy.\n\nIf your repository is already [Commitizen friendly](#making-your-repo-commitizen-friendly), the local `commitizen` adapter will be used, instead of globally installed one.\n\n## Commitizen for multi-repo projects\n\nAs a project maintainer of many projects, you may want to standardize on a single commit message format for all of them. You can create your own node module which acts as a front-end for Commitizen.\n\n### 1. Create your own entry point script\n\n```js\n// my-cli.js\n\n#!/usr/bin/env node\n\"use strict\";\n\nconst path = require('path');\nconst bootstrap = require('commitizen/dist/cli/git-cz').bootstrap;\n\nbootstrap({\n  cliPath: path.join(__dirname, '../../node_modules/commitizen'),\n  // this is new\n  config: {\n    \"path\": \"cz-conventional-changelog\"\n  }\n});\n```\n\n### 2. Add the script to your `package.json` file\n\n```json\n// package.json\n\n{\n  \"name\": \"company-commit\",\n  \"bin\": \"./my-cli.js\",\n  \"dependencies\": {\n    \"commitizen\": \"^2.7.6\",\n    \"cz-conventional-changelog\": \"^1.1.5\"\n  }\n}\n```\n\n### 3. Publish it to npm and use it!\n\n```sh\nnpm install --save-dev company-commit\n\n./node_modules/.bin/company-commit\n```\n\n## Adapters\n\nWe know that every project and build process has different requirements, so we've tried to keep Commitizen open for extension. You can do this by choosing from any of the pre-built adapters or even by building your own. Here are some of the great adapters available to you:\n\n- [cz-conventional-changelog](https://www.npmjs.com/package/cz-conventional-changelog)\n- [cz-conventional-changelog-for-jira](https://www.npmjs.com/package/@digitalroute/cz-conventional-changelog-for-jira)\n- [cz-conventional-changelog-with-jiraid-detection](https://www.npmjs.com/package/cz-conventional-changelog-with-jiraid-detection)\n- [cz-jira-smart-commit](https://www.npmjs.com/package/cz-jira-smart-commit)\n- [@endemolshinegroup/cz-jira-smart-commit](https://github.com/EndemolShineGroup/cz-jira-smart-commit)\n- [@endemolshinegroup/cz-github](https://github.com/EndemolShineGroup/cz-github)\n- [rb-conventional-changelog](https://www.npmjs.com/package/rb-conventional-changelog)\n- [@mapbox/cz-mapbox-changelog](https://www.npmjs.com/package/@mapbox/cz-mapbox-changelog)\n- [cz-customizable](https://github.com/leonardoanalista/cz-customizable)\n- [cz-commitlint](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/cz-commitlint)\n- [commitlint](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/prompt)\n- [vscode-commitizen](https://github.com/KnisterPeter/vscode-commitizen)\n- [cz-emoji](https://github.com/ngryman/cz-emoji)\n- [cz-adapter-eslint](https://www.npmjs.com/package/cz-adapter-eslint)\n- [commitiquette](https://github.com/martinmcwhorter/commitiquette)\n- [cz-format-extension](https://github.com/tyankatsu0105/cz-format-extension)\n- [cz-emoji-conventional](https://www.npmjs.com/package/cz-emoji-conventional)\n- [cz-git](https://github.com/Zhengqbbb/cz-git)\n- [cz-vinyl](https://github.com/Exlint/cz-vinyl)\n\nTo create an adapter, just fork one of these great adapters and modify it to suit your needs. We pass you an instance of [Inquirer.js](https://github.com/SBoudrias/Inquirer.js/), but you can capture input using whatever means necessary. Just call the `commit` callback with a string and we'll be happy. Publish it to npm, and you'll be all set!\n\n## Retrying failed commits\n\nAs of version 2.7.1, you may attempt to retry the last commit using the `git cz --retry` command. This can be helpful when you have tests set up to run via a git precommit hook. In this scenario, you may have attempted a Commitizen commit, painstakingly filled out all of the commitizen fields, but your tests fail. In previous Commitizen versions, after fixing your tests, you would be forced to fill out all of the fields again. Enter the retry command. Commitizen will retry the last commit that you attempted in this repo without you needing to fill out the fields again.\n\nPlease note that the retry cache may be cleared when upgrading Commitizen versions, upgrading adapters, or if you delete the `commitizen.json` file in your home or temp directory. Additionally, the commit cache uses the filesystem path of the repo, so if you move a repo or change its path, you will not be able to retry a commit. This is an edge case but might be confusing if you have scenarios where you are moving folders that contain repos.\n\nIt is important to note that if you are running `cz` from an npm script (let's say it is called `commit`) you will need to do one of the following:\n\n- Pass `-- --retry` as an argument for your script. i.e: `npm run commit -- --retry`\n- Use [npx](https://www.npmjs.com/package/npx) to find and call the `cz` executable directly. i.e: `npx cz --retry`\n\nNote that the last two options **do not** require you to pass `--` before the args but the first **does**.\n\n## Commitizen for project maintainers\n\nAs a project maintainer, making your repo Commitizen friendly allows you to select pre-existing commit message conventions or to create your own custom commit message convention. When a contributor to your repo uses Commitizen, they will be prompted for the correct fields at commit time.\n\n## Go further\n\nCommitizen is great on its own, but it shines when you use it with some other amazing open source tools. Kent C. Dodds shows you how to accomplish this in his Egghead.io series, [How to Write an Open Source JavaScript Library](https://app.egghead.io/playlists/how-to-write-an-open-source-javascript-library). Many of the concepts can be applied to non-JavaScript projects as well.\n\n## Philosophy\n\n### About Commitizen\n\nCommitizen is an open source project that helps contributors be good open source citizens. It accomplishes this by prompting them to follow commit message conventions at commit time. It also empowers project maintainers to create or use predefined commit message conventions in their repos to better communicate their expectations to potential contributors.\n\n### Commitizen or Commit Hooks\n\nBoth! Commitizen is not meant to be a replacement for git commit hooks. Rather, it is meant to work side-by-side with them to ensure a consistent and positive experience for your contributors. Commitizen treats the commit command as a declarative action. The contributor is declaring that they wish to contribute to your project. It is up to you as the maintainer to define what rules they should be following.\n\nWe accomplish this by letting you define which adapter you'd like to use in your project. Adapters just allow multiple projects to share the same commit message conventions. A good example of an adapter is the cz-conventional-changelog adapter.\n\n## Related projects\n\n- [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog) \u2013 Generate a changelog from conventional commit history\n- [commitlint](https://github.com/conventional-changelog/commitlint) - Lint commit messages\n\n## Authors and Contributors\n\n@JimTheDev (Jim Cummins, author)\n@kentcdodds\n@accraze\n@kytwb\n@Den-dp\n\nSpecial thanks to @stevelacy, whose [gulp-git](https://www.npmjs.com/package/gulp-git) project makes commitizen possible.\n\n## Contributors\n\nThis project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].\n<a href=\"https://opencollective.com/commitizen#section-contributors\"><img src=\"https://opencollective.com/commitizen/contributors.svg?width=890&button=false\" /></a>\n\n## Backers\n\nThank you to all our backers! \ud83d\ude4f [[Become a backer](https://opencollective.com/commitizen#backer)]\n\n<a href=\"https://opencollective.com/commitizen#category-BUDGET\" target=\"_blank\"><img src=\"https://opencollective.com/commitizen/backers.svg?width=890\"></a>\n\n## Sponsors\n\nSupport this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/commitizen#sponsor)]\n\n<a href=\"https://opencollective.com/commitizen/sponsor/0/website\" target=\"_blank\"><img src=\"https://opencollective.com/commitizen/sponsor/0/avatar.svg\"></a>\n<a href=\"https://opencollective.com/commitizen/sponsor/1/website\" target=\"_blank\"><img src=\"https://opencollective.com/commitizen/sponsor/1/avatar.svg\"></a>\n<a href=\"https://opencollective.com/commitizen/sponsor/2/website\" target=\"_blank\"><img src=\"https://opencollective.com/commitizen/sponsor/2/avatar.svg\"></a>\n<a href=\"https://opencollective.com/commitizen/sponsor/3/website\" target=\"_blank\"><img src=\"https://opencollective.com/commitizen/sponsor/3/avatar.svg\"></a>\n<a href=\"https://opencollective.com/commitizen/sponsor/4/website\" target=\"_blank\"><img src=\"https://opencollective.com/commitizen/sponsor/4/avatar.svg\"></a>\n<a href=\"https://opencollective.com/commitizen/sponsor/5/website\" target=\"_blank\"><img src=\"https://opencollective.com/commitizen/sponsor/5/avatar.svg\"></a>\n<a href=\"https://opencollective.com/commitizen/sponsor/6/website\" target=\"_blank\"><img src=\"https://opencollective.com/commitizen/sponsor/6/avatar.svg\"></a>\n<a href=\"https://opencollective.com/commitizen/sponsor/7/website\" target=\"_blank\"><img src=\"https://opencollective.com/commitizen/sponsor/7/avatar.svg\"></a>\n<a href=\"https://opencollective.com/commitizen/sponsor/8/website\" target=\"_blank\"><img src=\"https://opencollective.com/commitizen/sponsor/8/avatar.svg\"></a>\n<a href=\"https://opencollective.com/commitizen/sponsor/9/website\" target=\"_blank\"><img src=\"https://opencollective.com/commitizen/sponsor/9/avatar.svg\"></a>\n\n[commitizen-friendly]: #making-your-repo-commitizen-friendly\n",
+        "releases": [
+            {
+                "name": "v4.3.1",
+                "date": "2024-09-27T04:18:49Z"
+            },
+            {
+                "name": "v4.3.0",
+                "date": "2023-01-19T20:46:17Z"
+            },
+            {
+                "name": "v4.2.6",
+                "date": "2022-12-06T11:44:07Z"
+            },
+            {
+                "name": "v4.2.5",
+                "date": "2022-07-17T14:01:34Z"
+            },
+            {
+                "name": "v4.2.4",
+                "date": "2021-05-07T15:57:01Z"
+            },
+            {
+                "name": "v4.2.3",
+                "date": "2021-01-15T22:21:59Z"
+            },
+            {
+                "name": "v4.2.2",
+                "date": "2020-10-20T18:57:45Z"
+            },
+            {
+                "name": "v4.2.1",
+                "date": "2020-08-25T19:50:38Z"
+            },
+            {
+                "name": "v4.2.0",
+                "date": "2020-08-24T15:45:23Z"
+            },
+            {
+                "name": "v4.1.5",
+                "date": "2020-08-21T23:30:14Z"
+            },
+            {
+                "name": "v4.1.4",
+                "date": "2020-08-21T23:23:37Z"
+            },
+            {
+                "name": "v4.1.3",
+                "date": "2020-08-21T18:21:38Z"
+            },
+            {
+                "name": "v4.1.2",
+                "date": "2020-05-05T12:17:10Z"
+            },
+            {
+                "name": "v4.1.1",
+                "date": "2020-05-05T09:37:41Z"
+            },
+            {
+                "name": "v4.1.0",
+                "date": "2020-05-04T22:32:26Z"
+            },
+            {
+                "name": "v4.0.5",
+                "date": "2020-04-30T18:24:04Z"
+            },
+            {
+                "name": "v4.0.4",
+                "date": "2020-04-07T20:09:26Z"
+            },
+            {
+                "name": "v4.0.3",
+                "date": "2019-07-20T06:10:49Z"
+            },
+            {
+                "name": "v4.0.2",
+                "date": "2019-07-19T17:27:18Z"
+            },
+            {
+                "name": "v4.0.1",
+                "date": "2019-07-19T02:08:09Z"
+            },
+            {
+                "name": "v4.0.0",
+                "date": "2019-07-18T19:54:10Z"
+            },
+            {
+                "name": "v3.1.2",
+                "date": "2019-07-17T22:18:55Z"
+            },
+            {
+                "name": "v3.1.1",
+                "date": "2019-04-19T15:17:17Z"
+            },
+            {
+                "name": "v3.1.0",
+                "date": "2019-04-18T14:32:23Z"
+            },
+            {
+                "name": "v3.0.7",
+                "date": "2019-02-21T18:42:48Z"
+            },
+            {
+                "name": "v3.0.6",
+                "date": "2019-02-21T16:17:37Z"
+            },
+            {
+                "name": "v3.0.5",
+                "date": "2018-11-27T13:40:08Z"
+            },
+            {
+                "name": "v3.0.4",
+                "date": "2018-10-20T05:06:45Z"
+            },
+            {
+                "name": "v3.0.3",
+                "date": "2018-10-19T10:44:42Z"
+            },
+            {
+                "name": "v3.0.2",
+                "date": "2018-10-03T11:29:33Z"
+            },
+            {
+                "name": "v3.0.1",
+                "date": "2018-10-01T15:21:29Z"
+            },
+            {
+                "name": "v3.0.0",
+                "date": "2018-10-01T14:36:17Z"
+            },
+            {
+                "name": "v2.10.1",
+                "date": "2018-05-24T18:22:51Z"
+            },
+            {
+                "name": "v2.10.0",
+                "date": "2018-05-24T15:22:54Z"
+            },
+            {
+                "name": "v2.9.6",
+                "date": "2017-02-16T14:22:41Z"
+            },
+            {
+                "name": "v2.9.5",
+                "date": "2017-01-08T17:01:58Z"
+            },
+            {
+                "name": "v2.9.4",
+                "date": "2017-01-06T18:38:54Z"
+            },
+            {
+                "name": "v2.9.3",
+                "date": "2016-12-29T13:22:53Z"
+            },
+            {
+                "name": "v2.9.2",
+                "date": "2016-12-19T08:02:26Z"
+            },
+            {
+                "name": "v2.9.1",
+                "date": "2016-12-18T23:27:23Z"
+            },
+            {
+                "name": "v2.9.0",
+                "date": "2016-12-15T11:53:38Z"
+            },
+            {
+                "name": "v2.8.7",
+                "date": "2016-12-14T23:34:04Z"
+            },
+            {
+                "name": "v2.8.6",
+                "date": "2016-08-16T06:32:41Z"
+            },
+            {
+                "name": "v2.8.5",
+                "date": "2016-08-06T10:26:29Z"
+            },
+            {
+                "name": "v2.8.4",
+                "date": "2016-08-03T19:39:41Z"
+            },
+            {
+                "name": "v2.8.3",
+                "date": "2016-08-03T08:54:06Z"
+            },
+            {
+                "name": "v2.8.2",
+                "date": "2016-06-02T17:31:40Z"
+            },
+            {
+                "name": "v2.8.1",
+                "date": "2016-04-25T01:51:46Z"
+            },
+            {
+                "name": "v2.8.0",
+                "date": "2016-04-20T12:39:37Z"
+            },
+            {
+                "name": "v2.7.6",
+                "date": "2016-03-30T20:38:19Z"
+            },
+            {
+                "name": "v2.7.5",
+                "date": "2016-03-30T18:49:37Z"
+            },
+            {
+                "name": "v2.7.4",
+                "date": "2016-03-30T13:58:07Z"
+            },
+            {
+                "name": "v2.7.3",
+                "date": "2016-03-18T16:33:36Z"
+            },
+            {
+                "name": "v2.7.2",
+                "date": "2016-03-10T21:19:33Z"
+            },
+            {
+                "name": "v2.7.1",
+                "date": "2016-03-10T18:15:25Z"
+            },
+            {
+                "name": "v2.7.0",
+                "date": "2016-03-10T17:00:33Z"
+            },
+            {
+                "name": "v2.6.3",
+                "date": "2016-03-09T14:25:53Z"
+            },
+            {
+                "name": "v2.6.2",
+                "date": "2016-03-08T17:27:01Z"
+            },
+            {
+                "name": "v2.6.1",
+                "date": "2016-03-04T04:45:48Z"
+            },
+            {
+                "name": "v2.6.0",
+                "date": "2016-03-03T19:59:50Z"
+            },
+            {
+                "name": "v2.5.1",
+                "date": "2016-03-03T18:20:21Z"
+            },
+            {
+                "name": "v2.5.0",
+                "date": "2016-01-10T14:05:35Z"
+            },
+            {
+                "name": "v2.4.6",
+                "date": "2015-11-17T20:24:31Z"
+            },
+            {
+                "name": "v2.4.5",
+                "date": "2015-11-16T20:06:05Z"
+            },
+            {
+                "name": "v2.4.4",
+                "date": "2015-11-09T12:36:52Z"
+            },
+            {
+                "name": "v2.4.3",
+                "date": "2015-11-09T02:30:20Z"
+            },
+            {
+                "name": "v2.4.2",
+                "date": "2015-11-09T01:53:09Z"
+            },
+            {
+                "name": "v2.4.1",
+                "date": "2015-11-03T02:58:27Z"
+            },
+            {
+                "name": "v2.4.0",
+                "date": "2015-11-01T06:06:39Z"
+            },
+            {
+                "name": "v2.3.0",
+                "date": "2015-10-22T22:35:55Z"
+            },
+            {
+                "name": "v2.2.1",
+                "date": "2015-10-22T12:14:50Z"
+            },
+            {
+                "name": "v2.2.0",
+                "date": "2015-10-21T18:51:45Z"
+            },
+            {
+                "name": "v2.1.0",
+                "date": "2015-10-16T21:04:30Z"
+            },
+            {
+                "name": "2.0.2",
+                "date": "2015-10-16T16:00:21Z"
+            },
+            {
+                "name": "",
+                "date": "2015-05-07T16:27:01Z"
+            }
+        ]
+    }
+}

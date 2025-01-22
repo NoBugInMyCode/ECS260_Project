@@ -1,0 +1,812 @@
+{
+    "https://api.github.com/repos/infernojs/inferno": {
+        "forks": 633,
+        "watchers": 16110,
+        "stars": 16110,
+        "languages": {
+            "JavaScript": 2354940,
+            "HTML": 10807,
+            "CSS": 955
+        },
+        "commits": [
+            "2024-12-26T11:52:57Z",
+            "2024-11-26T20:59:36Z",
+            "2024-11-26T20:58:25Z",
+            "2024-11-26T20:38:43Z",
+            "2024-11-26T20:36:37Z",
+            "2024-11-26T20:35:26Z",
+            "2024-11-26T20:24:01Z",
+            "2024-11-26T19:47:48Z",
+            "2024-11-24T16:57:13Z",
+            "2024-10-20T17:16:24Z",
+            "2024-10-20T14:18:23Z",
+            "2024-10-19T14:17:14Z",
+            "2024-10-08T18:14:51Z",
+            "2024-10-08T16:17:48Z",
+            "2024-08-31T16:01:21Z",
+            "2024-07-15T09:30:46Z",
+            "2024-07-15T05:57:26Z",
+            "2024-04-13T11:12:38Z",
+            "2024-04-13T11:11:49Z",
+            "2024-04-13T10:53:40Z",
+            "2024-04-13T10:49:23Z",
+            "2024-04-13T10:16:58Z",
+            "2024-03-16T10:22:04Z",
+            "2024-03-16T10:03:19Z",
+            "2024-03-16T10:02:55Z",
+            "2024-03-16T10:01:32Z",
+            "2024-03-02T15:49:58Z",
+            "2024-03-02T15:32:02Z",
+            "2024-02-04T19:51:31Z",
+            "2024-01-20T05:38:14Z"
+        ],
+        "creation_date": "2015-02-01T22:07:38Z",
+        "contributors": 30,
+        "topics": [
+            "inferno",
+            "inferno-component",
+            "inferno-js",
+            "javascript-library",
+            "jsx",
+            "performance",
+            "react",
+            "vdom"
+        ],
+        "subscribers": 266,
+        "readme": "<p align=\"center\"><a href=\"https://infernojs.org/\" target=\"_blank\"><img width=\"150\" alt=\"Inferno\" title=\"Inferno\" src=\"https://user-images.githubusercontent.com/2021355/36063342-626d7ea8-0e84-11e8-84e1-f22bb3b8c4d5.png\"/></a></p>\n\n[![Build Status](https://app.travis-ci.com/infernojs/inferno.svg?branch=master)](https://app.travis-ci.com/github/infernojs/inferno)\n[![Coverage Status](https://img.shields.io/coveralls/infernojs/inferno/master.svg?style=flat-square)](https://coveralls.io/github/infernojs/inferno?branch=master)\n[![MIT](https://img.shields.io/npm/l/inferno.svg?style=flat-square)](https://github.com/infernojs/inferno/blob/master/LICENSE.md)\n[![NPM](https://img.shields.io/npm/v/inferno.svg?style=flat-square)](https://www.npmjs.com/package/inferno)\n[![npm downloads](https://img.shields.io/npm/dm/inferno.svg?style=flat-square)](https://www.npmjs.org/package/inferno)\n[![Discord](https://img.shields.io/discord/825669396823015496.svg?style=flat-square&label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/SUKuhgaBpF)\n[![gzip size](http://img.badgesize.io/https://unpkg.com/inferno/dist/inferno.min.js?compression=gzip)](https://unpkg.com/inferno/dist/inferno.min.js)\n[![Backers on Open Collective](https://opencollective.com/inferno/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/inferno/sponsors/badge.svg)](#sponsors)\n\nInferno is an insanely fast, React-like library for building high-performance user interfaces on both the client and server.\n\n## Description\n\nThe main objective of the InfernoJS project is to provide the fastest possible **runtime** performance for web applications. Inferno excels at rendering real time data views or large DOM trees.\n\nThe performance is achieved through multiple optimizations, for example:\n\n- Inferno's own JSX compilers creates monomorphic `createVNode` calls, instead of `createElement` calls.\nOptimizing runtime performance of the application. \n  - [SWC plugin inferno](https://github.com/infernojs/swc-plugin-inferno) is a plugin for [SWC](https://swc.rs/). It can compile TSX and JSX\n  - [Babel plugin inferno](https://github.com/infernojs/babel-plugin-inferno) is a plugin for [BabelJs](https://babeljs.io/). It can compile JSX.\n  - [TS plugin inferno](https://github.com/infernojs/ts-plugin-inferno) is a plugin for [TSC](https://www.typescriptlang.org/). It can compile TSX.\n- Inferno's diff process uses bitwise flags to memoize the shape of objects\n- Child nodes are normalized only when needed\n- Special JSX flags can be used during compile time to optimize runtime performance at application level\n- Many micro optimizations\n\n## Features\n\n- Component driven + one-way data flow architecture\n- React-like API, concepts and component lifecycle events\n- Partial synthetic event system, normalizing events for better cross browser support\n- Inferno's [`linkEvent`](https://github.com/infernojs/inferno/blob/master/README.md#linkevent-package-inferno) feature removes the need to use arrow functions or binding event callbacks\n- Isomorphic rendering on both client and server with `inferno-server`\n- Unlike React and Preact, Inferno has lifecycle events on functional components\n- Unlike Preact and other React-like libraries, Inferno has controlled components for input/select/textarea elements\n- Components can be rendered outside their current html hierarchy using `createPortal` - API\n- Support for [older browsers](https://github.com/infernojs/inferno#browser-support) without any polyfills\n- defaultHooks for Functional components, this way re-defining lifecycle events per usage can be avoided\n- Inferno supports setting styles using string `<div style=\"background-color: red\"></div>` or using object literal syntax `<div style={{\"background-color\": \"red\"}}></div>`. For camelCase syntax support see [`inferno-compat`](https://github.com/infernojs/inferno/tree/master/packages/inferno-compat).\n- Fragments (v6)\n- createRef and forwardRef APIs (v6)\n- componentDidAppear, componentWillDisappear and componentWillMove (v8) - class and function component callbacks to ease animation work, see [inferno-animation](https://github.com/infernojs/inferno/tree/master/packages/inferno-animation) package\n\n## Runtime requirements\nInferno v9 requires following features to be present in the executing runtime:\n\n- `Promise`\n- `String.prototype.includes()`\n- `String.prototype.startsWith()`\n- `Array.prototype.includes()`\n- `Object.spread()`\n- `for ... of`\n\n## Browser support\nSince version 4 we have started running our test suite **without** any polyfills.\nInferno is now part of [Saucelabs](https://saucelabs.com/) open source program and we use their service for executing the tests.\n\nInfernoJS is actively tested with browsers listed below, however it may run well on older browsers as well.\nThis is due to limited support of browser versions in recent testing frameworks. https://github.com/jasmine/jasmine/blob/main/release_notes/5.0.0.md\n\n[![Browser Test Status](https://app.saucelabs.com/browser-matrix/Havunen.svg)](https://app.saucelabs.com/open_sauce/user/Havunen/tests/vdc)\n\n## Migration guides\n\n- [Inferno v4](https://github.com/infernojs/inferno/blob/master/documentation/v4-migration.md)\n- [Inferno v6](https://github.com/infernojs/inferno/blob/master/documentation/v6-migration.md)\n\n## Benchmarks\n\nLive examples at [https://infernojs.github.io/inferno](https://infernojs.github.io/inferno)\n\n- [UI Bench](https://localvoid.github.io/uibench/)\n- [dbmonster](https://infernojs.github.io/inferno/dbmonster/)\n- [JS Web Frameworks Benchmark (current)](https://krausest.github.io/js-framework-benchmark/current.html)\n- [Isomorphic-UI-Benchmark](https://github.com/marko-js/isomorphic-ui-benchmarks)\n- [1k Components](https://infernojs.github.io/inferno/1kcomponents/)\n\n## Code Example\n\nLet's start with some code. As you can see, Inferno intentionally keeps the same design ideas as React regarding components: one-way data flow and separation of concerns.\n\nIn these examples, JSX is used via the [Inferno JSX Babel Plugin](https://github.com/infernojs/babel-plugin-inferno) to provide a simple way to express Inferno virtual DOM. You do not need to use JSX, it's completely **optional**, you can use [hyperscript](https://github.com/infernojs/inferno/tree/master/packages/inferno-hyperscript) or [createElement](https://github.com/infernojs/inferno/tree/master/packages/inferno-create-element) (like React does).\nKeep in mind that compile time optimizations are available only for JSX.\n\n```jsx\nimport { render } from 'inferno';\n\nconst message = \"Hello world\";\n\nrender(\n  <MyComponent message={ message } />,\n  document.getElementById(\"app\")\n);\n```\nFurthermore, Inferno also uses ES6 components like React:\n\n```jsx\nimport { render, Component } from 'inferno';\n\nclass MyComponent extends Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      counter: 0\n    };\n  }\n  render() {\n    return (\n      <div>\n        <h1>Header!</h1>\n        <span>Counter is at: { this.state.counter }</span>\n      </div>\n    );\n  }\n}\n\nrender(\n  <MyComponent />,\n  document.getElementById(\"app\")\n);\n```\n\nBecause performance is an important aspect of this library, we want to show you how to optimize your application even further.\nIn the example below we optimize diffing process by using JSX **$HasVNodeChildren** and **$HasTextChildren** to predefine children shape compile time.\nIn the MyComponent render method there is a div that contains JSX expression `node` as its content. Due to dynamic nature of Javascript\nthat variable `node` could be anything and Inferno needs to go through the normalization process to make sure there are no nested arrays or other invalid data.\nInferno offers a feature called ChildFlags for application developers to pre-define the shape of vNode's child node. In this example case\nit is using `$HasVNodeChildren` to tell the JSX compiler, that this vNode contains only single element or component vNode.\nNow inferno will not go into the normalization process runtime, but trusts the developer decision about the shape of the object and correctness of data.\nIf this contract is not kept and `node` variable contains invalid value for the pre-defined shape (fe. `null`), then application would crash runtime.\nThere is also span-element in the same render method, which content is set dynamically through `_getText()` method. There `$HasTextChildren` child-flag\nfits nicely, because the content of that given \"span\" is never anything else than text.\nAll the available child flags are documented [here](https://infernojs.org/docs/guides/optimizations).\n\n```jsx\nimport { createTextVNode, render, Component } from 'inferno';\n\nclass MyComponent extends Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      counter: 0\n    };\n  }\n\n  _getText() {\n     return 'Hello!';\n  }\n  \n  render() {\n    const node = this.state.counter > 0 ? <div>0</div> : <span $HasTextChildren>{this._getText()}</span>;\n      \n    return (\n      <div>\n        <h1>Header!</h1>\n        <div $HasVNodeChildren>{node}</div>\n      </div>\n    );\n  }\n}\n\nrender(\n  <MyComponent />,\n  document.getElementById(\"app\")\n);\n```\n\n### Tear down\n\nTo tear down inferno application you need to render null on root element. \nRendering `null` will trigger unmount lifecycle hooks for whole vDOM tree and remove global event listeners.\nIt is important to unmount unused vNode trees to free browser memory. \n\n```jsx\nimport { createTextVNode, render, Component } from 'inferno';\n\nconst rootElement = document.getElementById(\"app\");\n\n// Start the application\nrender(\n  <ExampleComponent/>,\n  rootElement\n);\n\n// Tear down\nrender(\n  null,\n  rootElement\n);\n\n```\n\n\n### More Examples\n\nIf you have built something using Inferno you can add them here:\n\n- [**Simple Clock** (@JSFiddle)](https://jsfiddle.net/4bha7kcg/)\n- [**Simple JS Counter** (@github/scorsi)](https://github.com/scorsi/simple-counter-inferno-cerebral-fusebox): SSR Inferno (view) + Cerebral (state manager) + FuseBox (build system/bundler)\n- [**Online interface to TMDb movie database** (@codesandbox.io)](https://codesandbox.io/s/9zjo5yx8po): Inferno + [Inferno hyperscript](https://github.com/infernojs/inferno) (view) + [Superagent](https://github.com/visionmedia/superagent) (network requests) + Web component ([custom elements v1](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements)) + [state-transducer](https://github.com/brucou/state-transducer) \n(state machine library) \n- [**Lemmy - a self-hostable reddit alternative** (front end in Inferno)](https://github.com/dessalines/lemmy)\n\n## Getting Started\n\nThe easiest way to get started with Inferno is by using [Create Inferno App](https://github.com/infernojs/create-inferno-app).\n\nAlternatively, you can try any of the following:\n* the [Inferno Boilerplate](https://github.com/infernojs/inferno-boilerplate) for a very simple setup.\n* for a more advanced example demonstrating how Inferno might be used, we recommend trying out [Inferno Starter Project](https://github.com/nightwolfz/inferno-starter) by [nightwolfz](https://github.com/nightwolfz/).\n* for using Inferno to build a mobile app, try [Inferno Mobile Starter Project](https://github.com/Rudy-Zidan/inferno-mobile) by [Rudy-Zidan](https://github.com/Rudy-Zidan).\n* for [TypeScript](https://www.typescriptlang.org/) support and bundling, check out [ts-plugin-inferno](https://github.com/infernojs/ts-plugin-inferno), or [inferno-typescript-example](https://github.com/infernojs/inferno-typescript-example).\n* for an example of how to use Inferno in [codesandbox](https://codesandbox.io/): https://codesandbox.io/s/znmyj24w4p\n* for using [parcel and typescript](https://github.com/jayy-lmao/inferno-parcel-ts)\n\nCore package:\n\n```sh\nnpm install --save inferno\n```\n\nAddons:\n\n```sh\n# server-side rendering\nnpm install --save inferno-server\n# routing\nnpm install --save inferno-router\n```\n\nPre-bundled files for browser consumption can be found on [our cdnjs](https://cdnjs.com/libraries/inferno):\n\nOr on jsDelivr:\n\n```\nhttps://cdn.jsdelivr.net/npm/inferno@latest/dist/inferno.min.js\n```\n\nOr on unpkg.com:\n\n```\nhttps://unpkg.com/inferno@latest/dist/inferno.min.js\n```\n\n### Creating Virtual DOM\n\n#### JSX:\n```sh\nnpm install --save-dev babel-plugin-inferno\n```\n\n#### Hyperscript:\n```sh\nnpm install --save inferno-hyperscript\n```\n\n#### createElement:\n```sh\nnpm install --save inferno-create-element\n```\n\n### Compatibility with existing React apps\n```sh\nnpm install --save-dev inferno-compat\n```\n\nNote: Make sure you read more about [`inferno-compat`](https://github.com/infernojs/inferno/tree/master/packages/inferno-compat) before using it.\n\n## Third-party state libraries\n\nInferno now has bindings available for some of the major state management libraries out there:\n\n- Redux via [`inferno-redux`](https://github.com/infernojs/inferno/tree/dev/packages/inferno-redux)\n- MobX via [`inferno-mobx`](https://github.com/infernojs/inferno/tree/dev/packages/inferno-mobx)\n- Cerebral via [`@cerebral/inferno`](https://github.com/cerebral/cerebral/tree/master/packages/node_modules/@cerebral/inferno)\n\n## JSX\n\nInferno has its own [JSX Babel plugin](https://github.com/trueadm/babel-plugin-inferno).\n\n## Differences from React\n\n- Inferno doesn't have a fully synthetic event system like React does. Inferno has a partially synthetic event system, instead opting to only delegate certain events (such as `onClick`).\n- Inferno doesn't support React Native. Inferno was only designed for the browser/server with the DOM in mind.\n- Inferno doesn't support legacy string refs, use `createRef` or callback `ref` API\n- Inferno provides lifecycle events on functional components. This is a major win for people who prefer lightweight components rather than ES2015 classes.\n\n## Differences from Preact\n\n- Inferno has a partial synthetic event system, resulting in better performance via delegation of certain events.\n- Inferno is *much* faster than Preact in rendering, updating and removing elements from the DOM. Inferno diffs against virtual DOM, rather than the real DOM (except when loading from server-side rendered content), which means it can make drastic improvements. Unfortunately, diffing against the real DOM has a 30-40% overhead cost in operations.\n- Inferno fully supports controlled components for `input`/`select`/`textarea` elements. This prevents lots of edgecases where the virtual DOM is not the source of truth (it should always be). Preact pushes the source of truth to the DOM itself.\n- Inferno provides lifecycle events on functional components. This is a major win for people who prefer lightweight components rather than ES2015 classes.\n\n## Event System\n\nLike React, Inferno also uses a light-weight synthetic event system in certain places (although both event systems differ massively). Inferno's event system provides highly efficient delegation and an event helper called [`linkEvent`](https://github.com/infernojs/inferno/blob/master/README.md#linkevent-package-inferno).\n\nOne major difference between Inferno and React is that Inferno does not rename events or change how they work by default. Inferno only specifies that events should be camel cased, rather than lower case. Lower case events will bypass\nInferno's event system in favour of using the native event system supplied by the browser. For example, when detecting changes on an `<input>` element, in React you'd use `onChange`, with Inferno you'd use `onInput` instead (the\nnative DOM event is `oninput`).\n\nAvailable synthetic events are:\n- `onClick`\n- `onDblClick`\n- `onFocusIn`\n- `onFocusOut`\n- `onKeyDown`\n- `onKeyPress`\n- `onKeyUp`\n- `onMouseDown`\n- `onMouseMove`\n- `onMouseUp`\n- `onTouchEnd`\n- `onTouchMove`\n- `onTouchStart`\n\n### `linkEvent` (package: `inferno`)\n\n`linkEvent()` is a helper function that allows attachment of `props`/`state`/`context` or other data to events without needing to `bind()` them or use arrow functions/closures. This is extremely useful when dealing with events in functional components. Below is an example:\n\n```jsx\nimport { linkEvent } from 'inferno';\n\nfunction handleClick(props, event) {\n  props.validateValue(event.target.value);\n}\n\nfunction MyComponent(props) {\n  return <div><input type=\"text\" onClick={ linkEvent(props, handleClick) } /><div>;\n}\n```\n\nThis is an example of using it with ES2015 classes:\n\n\n```jsx\nimport { linkEvent, Component } from 'inferno';\n\nfunction handleClick(instance, event) {\n  instance.setState({ data: event.target.value });\n}\n\nclass MyComponent extends Component {\n  render () {\n    return <div><input type=\"text\" onClick={ linkEvent(this, handleClick) } /><div>;\n  }\n}\n```\n\n`linkEvent()` offers better performance than binding an event in a class constructor and using arrow functions, so use it where possible.\n\n\n## Controlled Components\n\nIn HTML, form elements such as `<input>`, `<textarea>`, and `<select>` typically maintain their own state and update it based on user input.\nIn Inferno, mutable state is typically kept in the state property of components, and only updated with `setState()`.\n\nWe can combine the two by making the Inferno state be the \"single source of truth\". Then the Inferno component that renders a form also\ncontrols what happens in that form on subsequent user input. An input form element whose value is controlled by\nInferno in this way is called a \"controlled component\".\n\n## Inferno Top-Level API\n\n### `render` (package: `inferno`)\n\n```javascript\nimport { render } from 'inferno';\n\nrender(<div />, document.getElementById(\"app\"));\n```\n\nRender a virtual node into the DOM in the supplied container given the supplied virtual DOM. If the virtual node was previously rendered\ninto the container, this will perform an update on it and only mutate the DOM as necessary, to reflect the latest Inferno virtual node.\n\nWarning: If the container element is not empty before rendering, the content of the container will be overwritten on the initial render.\n\n### `createRenderer` (package: `inferno`)\n\n`createRenderer` creates an alternative render function with a signature matching that of the first argument passed to a reduce/scan function. This allows for easier integration with reactive programming libraries, like [RxJS](https://github.com/ReactiveX/rxjs) and [Most](https://github.com/cujojs/most).\n\n```javascript\nimport { createRenderer } from 'inferno';\nimport { scan, map } from 'most';\n\nconst renderer = createRenderer();\n\n\n// NOTE: vNodes$ represents a stream of virtual DOM node updates\nscan(renderer, document.getElementById(\"app\"), vNodes$);\n```\n\nSee [inferno-most-fp-demo](https://github.com/joshburgess/inferno-most-fp-demo) for an example of how to build an app architecture around this.\n\n### `createElement` (package: `inferno-create-element`)\n\nCreates an Inferno VNode using a similar API to that found with React's `createElement()`\n\n```javascript\nimport { Component, render } from 'inferno';\nimport { createElement } from 'inferno-create-element';\n\nclass BasicComponent extends Component {\n  render() {\n    return createElement('div', {\n        className: 'basic'\n      },\n      createElement('span', {\n        className: this.props.name\n      }, 'The title is ', this.props.title)\n    )\n  }\n}\n\nrender(\n  createElement(BasicComponent, { title: 'abc' }),\n  document.getElementById(\"app\")\n);\n```\n\n### `Component` (package: `inferno`)\n\n**Class component:**\n\n```javascript\nimport { Component } from 'inferno';\n\nclass MyComponent extends Component {\n  render() {\n      return <div>My Component</div>\n  }\n}\n```\n\nThis is the base class for Inferno Components when they're defined using ES6 classes.\n\n**Functional component:**\n\n```javascript\nconst MyComponent = ({ name, age }) => (\n  <span>My name is: { name } and my age is: {age}</span>\n);\n```\n\nAnother way of using defaultHooks.\n```javascript\nexport function Static() {\n    return <div>1</div>;\n}\n\nStatic.defaultHooks = {\n    onComponentShouldUpdate() {\n        return false;\n    }\n};\n```\n\nDefault props\n```jsx\nexport function MyFunctionalComponent({value}) {\n    return <div>{value}</div>;\n}\n\nMyFunctionalComponent.defaultProps = {\n    value: 10\n};\n\n```\n\nFunctional components are first-class functions where their first argument is the `props` passed through from their parent.\n\n### `createVNode` (package: `inferno`)\n```js\nimport { createVNode } from 'inferno';\n\ncreateVNode(\n  flags,\n  type,\n  [className],\n  [...children],\n  [childFlags],\n  [props],\n  [key],\n  [ref]\n)\n```\n\ncreateVNode is used to create html element's virtual node object. Typically `createElement()` (package: `inferno-create-element`), `h()` (package: `inferno-hyperscript`) or JSX are used to create\n`VNode`s for Inferno, but under the hood they all use `createVNode()`. Below is an example of `createVNode` usage:\n\n```javascript\nimport { VNodeFlags, ChildFlags } from 'inferno-vnode-flags';\nimport { createVNode, createTextVNode, render } from 'inferno';\n\nconst vNode = createVNode(VNodeFlags.HtmlElement, 'div', 'example', createTextVNode('Hello world!'), ChildFlags.HasVNodeChildren);\n\n// <div class=\"example\">Hello world!</div>\n\nrender(vNode, container);\n```\n\n`createVNode` arguments explained:\n\n`flags`: (number) is a value from [`VNodeFlags`](https://github.com/infernojs/inferno/tree/master/packages/inferno-vnode-flags), this is a numerical value that tells Inferno what the VNode describes on the page.\n\n`type`: (string) is tagName for element for example 'div'\n\n`className`: (string) is the class attribute ( it is separated from props because it is the most commonly used property )\n\n`children`: (vNode[]|vNode) is one or array of vNodes to be added as children for this vNode\n\n`childFlags`: (number) is a value from [`ChildFlags`](https://github.com/infernojs/inferno/tree/master/packages/inferno-vnode-flags), this tells inferno shape of the children so normalization process can be skipped.\n\n`props`: (Object) is object containing all other properties. fe: `{onClick: method, 'data-attribute': 'Hello Community!}`\n\n`key`: (string|number) unique key within this vNodes siblings to identify it during keyed algorithm.\n\n`ref`: (function) callback which is called when DOM node is added/removed from DOM.\n\n\n### `createComponentVNode` (package: 'inferno')\n```js\nimport { createComponentVNode } from 'inferno';\n\ncreateComponentVNode(\n  flags,\n  type,\n  [props],\n  [key],\n  [ref]\n)\n```\n\ncreateComponentVNode is used for creating vNode for Class/Functional Component.\n\nExample:\n```javascript\nimport { VNodeFlags, ChildFlags } from 'inferno-vnode-flags';\nimport { createVNode, createTextVNode, createComponentVNode, render } from 'inferno';\n\nfunction MyComponent(props, context) {\n  return createVNode(VNodeFlags.HtmlElement, 'div', 'example', createTextVNode(props.greeting), ChildFlags.HasVNodeChildren);\n}\n\nconst vNode = createComponentVNode(VNodeFlags.ComponentFunction, MyComponent, {\n  greeting: 'Hello Community!'\n}, null, {\n  onComponentDidMount() {\n    console.log(\"example of did mount hook!\")\n  }\n})\n\n// <div class=\"example\">Hello Community!</div>\n\nrender(vNode, container);\n```\n\n\n`createComponentVNode` arguments explained:\n\n`flags`: (number) is a value from [`VNodeFlags`](https://github.com/infernojs/inferno/tree/master/packages/inferno-vnode-flags), this is a numerical value that tells Inferno what the VNode describes on the page.\n\n`type`: (Function/Class) is the class or function prototype for Component\n\n`props`: (Object) properties passed to Component, can be anything\n\n`key`: (string|number) unique key within this vNodes siblings to identify it during keyed algorithm.\n\n`ref`: (Function|Object) this property is object for Functional Components defining all its lifecycle methods. For class Components this is function callback for ref.\n\n\n\n### `createTextVNode` (package: 'inferno')\n\ncreateTextVNode is used for creating vNode for text nodes.\n\n`createTextVNode` arguments explained:\ntext: (string) is a value for text node to be created.\nkey: (string|number) unique key within this vNodes siblings to identify it during keyed algorithm.\n\n```js\nimport { createTextVNode } from 'inferno';\n\ncreateTextVNode(\n  text,\n  key\n)\n```\n\n\n### `cloneVNode` (package: `inferno-clone-vnode`)\n\nThis package has same API as React.cloneElement\n\n```javascript\nimport { cloneVNode } from 'inferno-clone-vnode';\n\ncloneVNode(\n  vNode,\n  [props],\n  [...children]\n)\n```\n\nClone and return a new Inferno `VNode` using a `VNode` as the starting point. The resulting `VNode` will have the original `VNode`'s props with the new props merged in shallowly. New children will replace existing children. key and ref from the original `VNode` will be preserved.\n\n`cloneVNode()` is almost equivalent to:\n```jsx\n<VNode.type {...VNode.props} {...props}>{children}</VNode.type>\n```\n\nAn example of using `cloneVNode`:\n\n```javascript\nimport { createVNode, render } from 'inferno';\nimport { cloneVNode } from 'inferno-clone-vnode';\nimport { VNodeFlags } from 'inferno-vnode-flags';\n\nconst vNode = createVNode(VNodeFlags.HtmlElement, 'div', 'example', 'Hello world!');\nconst newVNode = cloneVNode(vNode, { id: 'new' }); // we are adding an id prop to the VNode\n\nrender(newVNode, container);\n```\n\nIf you're using JSX:\n\n```jsx\nimport { render } from 'inferno';\nimport { cloneVNode } from 'inferno-clone-vnode';\n\nconst vNode = <div className=\"example\">Hello world</div>;\nconst newVNode = cloneVNode(vNode, { id: 'new' }); // we are adding an id prop to the VNode\n\nrender(newVNode, container);\n```\n\n### `createPortal` (package: 'inferno')\n\nHTML:\n```html\n<div id=\"root\"></div>\n<div id=\"outside\"></div>\n```\n\nJavascript:\n```jsx\nconst { render, Component, version, createPortal } from 'inferno';\n\nfunction Outsider(props) {\n\treturn <div>{`Hello ${props.name}!`}</div>;\n}\n\nconst outsideDiv = document.getElementById('outside');\nconst rootDiv = document.getElementById('root');\n\nfunction App() {\n\treturn (\n  \t    <div>\n    \t    Main view\n            ...\n            {createPortal(<Outsider name=\"Inferno\" />, outsideDiv)}\n        </div>\n    );\n}\n\n\n// render an instance of Clock into <body>:\nrender(<App />, rootDiv);\n```\n\nResults into:\n```html\n<div id=\"root\">\n    <div>Main view ...</div>\n</div>\n<div id=\"outside\">\n    <div>Hello Inferno!</div>\n</div>\n```\nCool, huh? Updates (props/context) will flow into \"Outsider\" component from the App component the same way as any other Component.\nFor inspiration on how to use it click [here](https://hackernoon.com/using-a-react-16-portal-to-do-something-cool-2a2d627b0202)!\n\n### `createRef` (package: `inferno`)\n\ncreateRef API provides shorter syntax than callback ref when timing of element is not needed.\n\n```jsx\nimport { Component, render, createRef } from 'inferno';\n\nclass Foobar extends Component {\n  constructor(props) {\n    super(props);\n\n    // Store reference somewhere\n    this.element = createRef(); // Returns object {current: null}\n  }\n\n  render() {\n    return (\n      <div>\n        <span id=\"span\" ref={this.element}>\n          Ok\n        </span>\n      </div>\n    );\n  }\n}\n\nrender(<Foobar />, container);\n```\n\n\n### `createFragment` (package: `inferno`)\n\ncreateFragment is the native way to createFragment vNode. `createFragment(children: any, childFlags: ChildFlags, key?: string | number | null)`\n\n`createFragment` arguments explained:\n\n`children`: (Array) Content of fragment vNode, typically array of VNodes\n\n`childFlags`: (number) is a value from [`ChildFlags`](https://github.com/infernojs/inferno/tree/master/packages/inferno-vnode-flags), this tells inferno shape of the children so normalization process can be skipped.\n\n`key`: (string|number) unique key within this vNodes siblings to identify it during keyed algorithm.\n\n\nAlternative ways to create fragment vNode are:\n\n- Using JSX `<> ... </>`, `<Fragment> .... </Fragment>` or `<Inferno.Fragment> ... </Inferno.Fragment>`\n- Using createElement API `createElement(Inferno.Fragment, {key: 'test'}, ...children)`\n- Using hyperscript API `h(Inferno.Fragment, {key: 'test'}, children)`\n\n\nIn the below example both fragments are identical except they have different key\n```jsx\nimport { Fragment, render, createFragment } from 'inferno';\nimport { ChildFlags } from 'inferno-vnode-flags';\n\nfunction Foobar()\u00a0{\n    return (\n      <div $HasKeyedChildren>\n        {createFragment(\n            [<div>Ok</div>, <span>1</span>],\n            ChildFlags.HasNonKeyedChildren,\n            'key1'\n        )}\n        <Fragment key=\"key2\">\n          <div>Ok</div>\n          <span>1</span>\n        </Fragment>\n      </div>\n    );\n}\n\nrender(<Foobar />, container);\n```\n\n\n### `forwardRef` (package: `inferno`)\n\nforwardRef is a new mechanism to \"forward\" ref inside a functional Component.\nIt can be useful if you have simple functional Components and you want to create reference to a specific element inside it.\n\n```jsx\nimport { forwardRef, Component, render } from 'inferno';\n\nconst FancyButton = forwardRef((props, ref) => (\n  <button ref={ref} className=\"FancyButton\">\n    {props.children}\n  </button>\n));\n\nclass Hello extends Component {\n  render() {\n    return (\n      <FancyButton\n        ref={btn => {\n          if (btn) {\n            // btn variable is the button rendered from FancyButton\n          }\n        }}\n      >\n        Click me!\n      </FancyButton>\n    );\n  }\n}\n\nrender(<Hello />, container);\n```\n\n### `hydrate` (package: `inferno-hydrate`)\n\n```javascript\nimport { hydrate } from 'inferno-hydrate';\n\nhydrate(<div />, document.getElementById(\"app\"));\n```\n\nSame as `render()`, but is used to hydrate a container whose HTML contents were rendered by `inferno-server`. Inferno will attempt to attach event listeners to the existing markup.\n\n### `findDOMNode` (package: `inferno-extras`)\nThis feature has been moved from inferno to inferno-compat in v6. No options are needed anymore.\n\nNote: we recommend using a `ref` callback on a component to find its instance, rather than using `findDOMNode()`. `findDOMNode()` cannot be used on functional components.\n\nIf a component has been mounted into the DOM, this returns the corresponding native browser DOM element. This method is useful for reading values out of the DOM, such as form field values and performing DOM measurements.\nIn most cases, you can attach a ref to the DOM node and avoid using `findDOMNode()` at all. When render returns null or false, `findDOMNode()` returns null.\nIf Component has rendered fragment it returns the first element.\n\n### Inferno Flags (package: inferno-vnode-flags)\n\n**VNodeFlags:**\n- `VNodeFlags.HtmlElement`\n- `VNodeFlags.ComponentUnknown`\n- `VNodeFlags.ComponentClass`\n- `VNodeFlags.ComponentFunction`\n- `VNodeFlags.Text`\n- `VNodeFlags.SvgElement`\n- `VNodeFlags.InputElement`\n- `VNodeFlags.TextareaElement`\n- `VNodeFlags.SelectElement`\n- `VNodeFlags.Portal`\n- `VNodeFlags.ReCreate` (JSX **$ReCreate**) always re-creates the vNode\n- `VNodeFlags.ContentEditable`\n- `VNodeFlags.Fragment`\n- `VNodeFlags.InUse`\n- `VnodeFlags.ForwardRef`\n- `VNodeFlags.Normalized`\n\n**VNodeFlags Masks:**\n- `VNodeFlags.ForwardRefComponent` Functional component wrapped in forward ref\n- `VNodeFlags.FormElement` - Is form element\n- `VNodeFlags.Element` - Is vNode element\n- `VNodeFlags.Component` - Is vNode Component\n- `VNodeFlags.DOMRef` - Bit set when vNode holds DOM reference\n- `VNodeFlags.InUseOrNormalized` - VNode is used somewhere else or came from normalization process\n- `VNodeFlags.ClearInUseNormalized` - Opposite mask of InUse or Normalized\n\n\n**ChildFlags**\n- `ChildFlags.UnknownChildren` needs Normalization\n- `ChildFlags.HasInvalidChildren` is invalid (null, undefined, false, true)\n- `ChildFlags.HasVNodeChildren` (JSX **$HasVNodeChildren**) is single vNode (Element/Component)\n- `ChildFlags.HasNonKeyedChildren` (JSX **$HasNonKeyedChildren**) is Array of vNodes non keyed (no nesting, no holes)\n- `ChildFlags.HasKeyedChildren` (JSX **$HasKeyedChildren**) is Array of vNodes keyed (no nesting, no holes)\n- `ChildFlags.HasTextChildren` (JSX **$HasTextChildren**) vNode contains only text\n\n**ChildFlags Masks**\n- `ChildFlags.MultipleChildren` Is Array\n\n\n### `renderToString` (package: `inferno-server`)\n\n```javascript\nimport { renderToString } from 'inferno-server';\n\nconst string = renderToString(<div />);\n```\n\nRender a virtual node into an HTML string, given the supplied virtual DOM.\n\n## Functional component lifecycle events\n\n| Name                        | Triggered when                                                  | Arguments to callback           |\n| -----------                 | --------------                                                  | -----------------------         |\n| `onComponentWillMount`      | a functional component is about to mount                        |                                 |\n| `onComponentDidMount`       | a functional component has mounted successfully                 | `domNode`                       |\n| `onComponentShouldUpdate`   | a functional component has been triggered to update             | `lastProps, nextProps`          |\n| `onComponentWillUpdate`     | a functional component is about to perform an update            | `lastProps, nextProps`          |\n| `onComponentDidUpdate`      | a functional component has performed an update                  | `lastProps, nextProps`          |\n| `onComponentWillUnmount`    | a functional component is about to be unmounted                 | `domNode`                       |\n| `onComponentDidAppear`      | a functional component has mounted and is ready for animations  | `domNode, props`                |\n| `onComponentWillDisappear`  | a functional component is unmounted before DOM node is removed  | `domNode, props, callback`      |\n\nonComponentWillDisappear has special type of argument \"callback\" which needs to be called when component is ready to be removed from the DOM. fe. after animations are finished.\n\n## Class component lifecycle events\n\nAll these Component lifecycle methods ( including `render` and `setState - callback`) are called with Component instance context. You don't need to \"bind\" these methods.\n\n| Name                              | Triggered when                                                                        | Arguments to callback           |\n| -----------                       | --------------                                                                        | -----------------------         |\n| `componentDidMount`               | component has been mounted successfully                                                |                                 |\n| `componentWillMount`              | component is about to mount                                                           |                                 |\n| `componentWillReceiveProps`       | before render when component updates                                                  | `nextProps, context`            |\n| `shouldComponentUpdate`           | component has been triggered to update                                                | `nextProps, nextState`          |\n| `componentWillUpdate`             | component is about to perform an update                                               | `nextProps, nextState, context` |\n| `componentDidUpdate`              | component has performed an update                                                     | `lastProps, lastState, snapshot`|\n| `componentWillUnmount`            | component is about to be unmounted                                                    |                                 |\n| `getChildContext`                 | before render method, return value object is combined to sub tree context             |                                 |\n| `getSnapshotBeforeUpdate`         | before component updates, return value is sent to componentDidUpdate as 3rd parameter | `lastProps, lastState`          |\n| `static getDerivedStateFromProps` | before render method                                                                  | `nextProps, state`              |\n| `componentDidAppear`              | component has mounted and is ready for animations                                     | `domNode`                       |\n| `componentWillDisappear`          | component is unmounted before DOM node is removed                                     | `domNode, callback`             |\n\ncomponentWillDisappear has special type of argument \"callback\" which needs to be called when component is ready to be removed from the DOM. fe. after animations are finished.\n\n### Using functional lifecycle events\n\nFunctional lifecycle events must be explicitly assigned via props onto a functional component like shown below:\n\n```javascript\nimport { render } from 'inferno';\n\nfunction mounted(domNode) {\n  // [domNode] will be available for DOM nodes and components (if the component has mounted to the DOM)\n}\n\nfunction FunctionalComponent({ props }) {\n  return <div>Hello world</div>;\n}\n\nrender(\n  <FunctionalComponent onComponentDidMount={ mounted } />,\n  document.getElementById(\"app\")\n);\n```\n\nPlease note: class components (ES2015 classes) from `inferno` **do not** support the same lifecycle events (they have their own lifecycle events that work as methods on the class itself).\n\n## Development vs Production modes\n\nBy default, Inferno will run in development mode. Development mode provides extra checks and better error messages at the cost of slower performance and larger code to parse.\nWhen using Inferno in a production environment, it is highly recommended that you turn off development mode.\n\n### Running Inferno on Node JS\n\nEnsure the environment variable `process.env.NODE_ENV` is set to `production`.\n\n## Application bundling\n\nWhen building your application bundle, ensure `process.env.NODE_ENV` is replaced with string`\"development\"` or `\"production\"` based on the workflow.\nIt is recommended to use [ts-plugin-inferno](https://github.com/infernojs/ts-plugin-inferno) for typescript TSX compilation and [babel-plugin-infeno](https://github.com/infernojs/babel-plugin-inferno) for javascript JSX compilation.\n\nWhen building for development, you may want to use `inferno.dev.mjs` for v9 or newer and `inferno.dev.esm.js` for older than v9. That bundle file contains ES6 exports for better tree-shaking support, improved error messages and added validation to help fixing possible issues during development.\nThe file is found from `package.json` - `dev:module` entry point and the files are physically located in `node_modules/inferno/dist/` folder.\nRemember that it is not recommended to use that file in production due to slower performance. For production usage use `node_modules/inferno/dist/inferno.mjs` -file for v9 or newer and `node_modules/inferno/dist/inferno.esm.js` -file for older than v9.\n\nExample of **Webpack** configuration:\n\n```js\nconst path = require('path');\nconst infernoTsx = require('ts-plugin-inferno').default;\n\n... webpack config ...\n\n    module: {\n        rules: [\n            {\n                test: /\\.js$/, // Add \"jsx\" if your application uses `jsx` file extensions\n                exclude: /node_modules/,\n                use: [{\n                    loader: 'babel-loader',\n                    options: {\n                        plugins: [\n                            // Compile javascript JSX syntax using inferno's own plugin\n                            ['babel-plugin-inferno', {imports: true}]\n                        ]\n                    }\n                }]\n            },\n            {\n                test: /\\.ts+(|x)$/, // Compile ts and tsx extensions\n                exclude: /node_modules/,\n                use: [{\n                    loader: 'ts-loader',\n                    options: {\n                        getCustomTransformers: () => ({\n                            // inferno custom TSX plugin\n                            after: [infernoTsx()]\n                        }),\n                        compilerOptions: {\n                            /* typescript compiler options */\n                        }\n                    }\n                }]\n            }\n        ]\n    },\n    resolve: {\n        extensions: ['.js', '.ts', '.tsx'],\n        alias: {\n            // This maps import \"inferno\" to es6 module entry based on workflow\n            inferno: path.resolve(__dirname, 'node_modules/inferno/dist', isProduction ? 'index.dev.mjs' : 'index.mjs')\n        }\n    },\n    plugins: [\n        new webpack.DefinePlugin({\n            'process.env': {\n                'NODE_ENV':  JSON.stringify(isProduction ? 'production' : 'development')\n            }\n        })\n    ]\n```\n\nExample of **Rollup** configuration:\n\n```js\nconst path = require('path');\nconst alias = require('@rollup/plugin-alias');\nconst {babel} = require('@rollup/plugin-babel');\nconst replace = require('@rollup/plugin-replace');\nconst typescript = require('rollup-plugin-typescript2');\nconst transformInferno = require('ts-plugin-inferno').default;\n\n... Rollup config ...\n{\n    input: /* entry file */,\n    plugins: [\n            alias({\n                resolve: ['.js'],\n                entries: [\n                    // This maps import \"inferno\" to es6 module entry based on workflow\n                    {find: 'inferno', replacement: path.resolve(__dirname, 'node_modules/inferno/dist', isProduction ? 'index.dev.mjs' : 'index.mjs')}\n                ]\n            }),\n            typescript({\n                include: ['*.ts+(|x)', '**/*.ts+(|x)'],\n                transformers: [\n                    () => ({\n                        after: [transformInferno()]\n                    })\n                ],\n                tsconfig: 'tsconfig.json',\n                tsconfigOverride: {\n                    /* typescript compiler options */\n                }\n            }),\n            babel({\n                babelrc: false,\n                sourceMaps: isDeploy,\n                plugins: [\n                    // Compile javascript JSX syntax using inferno's own plugin\n                    ['babel-plugin-inferno', {imports: true}]\n                ],\n                babelHelpers: 'bundled'\n            })\n    ]\n}\n```\n\n### Custom namespaces\n\nInferno always wants to deliver great performance. In order to do so, it has to make intelligent assumptions about the state of the DOM and the elements available to mutate. Custom namespaces conflict with this idea and change the schema of how different elements and attributes might work, so Inferno makes no attempt to support namespaces. Instead, SVG namespaces are automatically applied to elements and attributes based on their `tag name`.\n\n## Development\nIf you want to contribute code, fork this project and submit a PR from your fork. To run browser tests you need to build the repos. A complete rebuild of the repos can take >5 mins.\n\n```sh\n$ git clone git@github.com:infernojs/inferno.git\n$ cd inferno && npm i\n$ npm run test:node\n$ npm run build\n$ npm run test:browser\n```\n\nIf you only want to run the browser tests when coding, use the following to reduce turnaround by 50-80%:\n\n```sh\n$ npm run quick-test:browser # Compiles all packages and runs browser tests\n$ npm run quick-test:browser-inferno # Only compiles the inferno package and runs browser tests\n$ npm run quick-test:browser-debug # Compiles all packages and runs browser tests with \"debug\"\n```\n\n## Community\n\nThere is an InfernoJS Discord. You can join via [https://discord.gg/SUKuhgaBpF](https://discord.gg/SUKuhgaBpF).\n\n\n### Contributors\n\nThis project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].\n<a href=\"https://github.com/infernojs/inferno/graphs/contributors\"><img src=\"https://opencollective.com/inferno/contributors.svg?width=890\" /></a>\n\n\n### Backers\n\nThank you to all our backers! \ud83d\ude4f [[Become a backer](https://opencollective.com/inferno#backer)]\n\n<a href=\"https://opencollective.com/inferno#backers\" target=\"_blank\"><img src=\"https://opencollective.com/inferno/backers.svg?width=890\"></a>\n\n\n### Sponsors\n\nSupport this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/inferno#sponsor)]\n\n<a href=\"https://opencollective.com/inferno/sponsor/0/website\" target=\"_blank\"><img src=\"https://opencollective.com/inferno/sponsor/0/avatar.svg\"></a>\n<a href=\"https://opencollective.com/inferno/sponsor/1/website\" target=\"_blank\"><img src=\"https://opencollective.com/inferno/sponsor/1/avatar.svg\"></a>\n<a href=\"https://opencollective.com/inferno/sponsor/2/website\" target=\"_blank\"><img src=\"https://opencollective.com/inferno/sponsor/2/avatar.svg\"></a>\n<a href=\"https://opencollective.com/inferno/sponsor/3/website\" target=\"_blank\"><img src=\"https://opencollective.com/inferno/sponsor/3/avatar.svg\"></a>\n<a href=\"https://opencollective.com/inferno/sponsor/4/website\" target=\"_blank\"><img src=\"https://opencollective.com/inferno/sponsor/4/avatar.svg\"></a>\n<a href=\"https://opencollective.com/inferno/sponsor/5/website\" target=\"_blank\"><img src=\"https://opencollective.com/inferno/sponsor/5/avatar.svg\"></a>\n<a href=\"https://opencollective.com/inferno/sponsor/6/website\" target=\"_blank\"><img src=\"https://opencollective.com/inferno/sponsor/6/avatar.svg\"></a>\n<a href=\"https://opencollective.com/inferno/sponsor/7/website\" target=\"_blank\"><img src=\"https://opencollective.com/inferno/sponsor/7/avatar.svg\"></a>\n<a href=\"https://opencollective.com/inferno/sponsor/8/website\" target=\"_blank\"><img src=\"https://opencollective.com/inferno/sponsor/8/avatar.svg\"></a>\n<a href=\"https://opencollective.com/inferno/sponsor/9/website\" target=\"_blank\"><img src=\"https://opencollective.com/inferno/sponsor/9/avatar.svg\"></a>\n\n",
+        "releases": [
+            {
+                "name": "v9.0.0-alpha.1",
+                "date": "2024-11-26T20:42:47Z"
+            },
+            {
+                "name": "v5.6.3",
+                "date": "2024-07-20T18:44:31Z"
+            },
+            {
+                "name": "v8.2.3",
+                "date": "2023-12-10T19:30:36Z"
+            },
+            {
+                "name": "v8.2.2",
+                "date": "2023-06-30T09:36:46Z"
+            },
+            {
+                "name": "v8.2.1",
+                "date": "2023-05-28T08:50:46Z"
+            },
+            {
+                "name": "v8.2.0",
+                "date": "2023-05-25T13:58:07Z"
+            },
+            {
+                "name": "v8.1.1",
+                "date": "2023-04-19T19:32:17Z"
+            },
+            {
+                "name": "Inferno v8.1.0",
+                "date": "2023-03-26T08:41:50Z"
+            },
+            {
+                "name": "Inferno v8.0.6",
+                "date": "2023-02-08T18:10:25Z"
+            },
+            {
+                "name": "Inferno v8.0.5",
+                "date": "2022-11-27T14:55:37Z"
+            },
+            {
+                "name": "v8.0.4",
+                "date": "2022-10-16T12:15:24Z"
+            },
+            {
+                "name": "Inferno v8.0.3",
+                "date": "2022-08-18T16:21:04Z"
+            },
+            {
+                "name": "Inferno v8.0.2",
+                "date": "2022-08-02T16:51:24Z"
+            },
+            {
+                "name": "Inferno v8.0.1",
+                "date": "2022-06-19T06:36:48Z"
+            },
+            {
+                "name": "Inferno v8.0.0",
+                "date": "2022-06-17T12:28:39Z"
+            },
+            {
+                "name": "Inferno v8.0.0-alpha.6",
+                "date": "2022-05-24T21:16:14Z"
+            },
+            {
+                "name": "Inferno v8.0.0-alpha.3",
+                "date": "2021-11-24T18:54:17Z"
+            },
+            {
+                "name": "Inferno v8.0.0-alpha.2",
+                "date": "2021-11-03T20:39:55Z"
+            },
+            {
+                "name": "Inferno v7.4.11",
+                "date": "2021-11-03T21:24:47Z"
+            },
+            {
+                "name": "Inferno v8.0.0-alpha.1",
+                "date": "2021-10-25T08:36:02Z"
+            },
+            {
+                "name": "Inferno v8.0.0-alpha.0",
+                "date": "2021-09-22T12:16:08Z"
+            },
+            {
+                "name": "Inferno v7.4.10",
+                "date": "2021-09-11T06:44:48Z"
+            },
+            {
+                "name": "Inferno v7.4.9",
+                "date": "2021-08-21T19:29:38Z"
+            },
+            {
+                "name": "Inferno v7.4.8",
+                "date": "2021-02-14T15:22:15Z"
+            },
+            {
+                "name": "Inferno v7.4.7",
+                "date": "2021-01-13T12:47:11Z"
+            },
+            {
+                "name": "Inferno v5.6.2",
+                "date": "2021-01-13T12:44:27Z"
+            },
+            {
+                "name": "Inferno v7.4.6",
+                "date": "2020-10-22T12:29:34Z"
+            },
+            {
+                "name": "Inferno v7.4.5",
+                "date": "2020-09-19T08:56:06Z"
+            },
+            {
+                "name": "Inferno v7.4.4",
+                "date": "2020-09-19T06:37:33Z"
+            },
+            {
+                "name": "Inferno v7.4.3",
+                "date": "2020-08-21T06:05:43Z"
+            },
+            {
+                "name": "Inferno v7.4.2",
+                "date": "2020-03-02T08:40:55Z"
+            },
+            {
+                "name": "Inferno v7.4.1",
+                "date": "2020-02-25T21:24:26Z"
+            },
+            {
+                "name": "Inferno v7.4.0",
+                "date": "2020-01-28T19:05:35Z"
+            },
+            {
+                "name": "Inferno v7.3.3",
+                "date": "2019-11-19T18:42:27Z"
+            },
+            {
+                "name": "Inferno v7.3.2",
+                "date": "2019-10-08T19:02:01Z"
+            },
+            {
+                "name": "Inferno v7.3.1",
+                "date": "2019-08-22T15:05:12Z"
+            },
+            {
+                "name": "Inferno v7.3.0",
+                "date": "2019-08-13T19:43:48Z"
+            },
+            {
+                "name": "Inferno v7.2.1",
+                "date": "2019-07-25T19:48:32Z"
+            },
+            {
+                "name": "Inferno v7.2.0",
+                "date": "2019-07-24T14:29:00Z"
+            },
+            {
+                "name": "Inferno v7.1.13",
+                "date": "2019-05-30T19:01:47Z"
+            },
+            {
+                "name": "Inferno 7.1.12",
+                "date": "2019-04-24T21:07:42Z"
+            },
+            {
+                "name": "Inferno v7.1.11",
+                "date": "2019-03-24T08:32:05Z"
+            },
+            {
+                "name": "Inferno v7.1.10",
+                "date": "2019-03-11T16:33:42Z"
+            },
+            {
+                "name": "Inferno v7.1.9",
+                "date": "2019-02-20T17:44:56Z"
+            },
+            {
+                "name": "Inferno v7.1.8",
+                "date": "2019-02-19T20:40:25Z"
+            },
+            {
+                "name": "Inferno v7.1.7",
+                "date": "2019-02-11T11:32:22Z"
+            },
+            {
+                "name": "Inferno v7.1.2",
+                "date": "2019-02-06T20:16:52Z"
+            },
+            {
+                "name": "Inferno v7.1.1",
+                "date": "2019-01-27T23:05:56Z"
+            },
+            {
+                "name": "Inferno v7.1.0",
+                "date": "2019-01-21T20:02:56Z"
+            },
+            {
+                "name": "Inferno v7.0.5",
+                "date": "2018-12-27T10:03:42Z"
+            },
+            {
+                "name": "Inferno v7.0.4",
+                "date": "2018-12-13T18:35:32Z"
+            },
+            {
+                "name": "skip",
+                "date": "2018-12-13T18:33:46Z"
+            },
+            {
+                "name": "Inferno v7.0.2",
+                "date": "2018-12-05T14:32:46Z"
+            },
+            {
+                "name": "Inferno v7.0.1",
+                "date": "2018-12-03T19:55:04Z"
+            },
+            {
+                "name": "Inferno v7.0.0",
+                "date": "2018-11-29T23:18:04Z"
+            },
+            {
+                "name": "Inferno v6.3.1",
+                "date": "2018-11-25T11:07:23Z"
+            },
+            {
+                "name": "Inferno v6.3.0",
+                "date": "2018-11-24T18:11:24Z"
+            },
+            {
+                "name": "Inferno v6.2.1",
+                "date": "2018-11-11T12:58:55Z"
+            },
+            {
+                "name": "Inferno v6.2.0",
+                "date": "2018-11-11T12:37:18Z"
+            },
+            {
+                "name": "Inferno v6.1.5",
+                "date": "2018-11-07T13:52:48Z"
+            },
+            {
+                "name": "Inferno v6.1.4",
+                "date": "2018-11-03T18:22:52Z"
+            },
+            {
+                "name": "Inferno v6.1.3",
+                "date": "2018-11-01T22:43:11Z"
+            },
+            {
+                "name": "Inferno v6.1.2",
+                "date": "2018-11-01T20:20:34Z"
+            },
+            {
+                "name": "Inferno v6.1.1",
+                "date": "2018-10-29T17:56:15Z"
+            },
+            {
+                "name": "Inferno v6.1.0",
+                "date": "2018-10-28T17:21:00Z"
+            },
+            {
+                "name": "Inferno v6.0.3",
+                "date": "2018-10-17T21:17:59Z"
+            },
+            {
+                "name": "Inferno v6.0.2",
+                "date": "2018-10-16T20:30:18Z"
+            },
+            {
+                "name": "Inferno v6.0.1",
+                "date": "2018-10-14T10:04:54Z"
+            },
+            {
+                "name": "Inferno v6.0.0",
+                "date": "2018-10-13T21:15:44Z"
+            },
+            {
+                "name": "Inferno v6.0.0-rc.5",
+                "date": "2018-10-08T22:08:38Z"
+            },
+            {
+                "name": "Inferno v6.0.0-rc.3",
+                "date": "2018-10-07T19:28:35Z"
+            },
+            {
+                "name": "Inferno v6.0.0-rc.1",
+                "date": "2018-09-30T08:04:15Z"
+            },
+            {
+                "name": "Inferno v6.0.0-rc.0",
+                "date": "2018-09-29T12:49:06Z"
+            },
+            {
+                "name": "Inferno v5.6.1",
+                "date": "2018-09-10T19:56:16Z"
+            },
+            {
+                "name": "Inferno v5.6.0",
+                "date": "2018-09-09T10:06:50Z"
+            },
+            {
+                "name": "Inferno v6.0.0-alpha.0",
+                "date": "2018-09-04T19:31:03Z"
+            },
+            {
+                "name": "Inferno v5.5.0",
+                "date": "2018-09-01T16:58:09Z"
+            },
+            {
+                "name": "Inferno v5.4.2",
+                "date": "2018-08-21T17:53:07Z"
+            },
+            {
+                "name": "Inferno v5.4.1",
+                "date": "2018-08-21T06:01:08Z"
+            },
+            {
+                "name": "Inferno v5.4.0",
+                "date": "2018-08-08T19:57:36Z"
+            },
+            {
+                "name": "Inferno v5.3.0",
+                "date": "2018-07-02T18:43:10Z"
+            },
+            {
+                "name": "Inferno v5.2.0",
+                "date": "2018-06-26T17:44:55Z"
+            },
+            {
+                "name": "Inferno v5.1.1",
+                "date": "2018-06-12T20:51:46Z"
+            },
+            {
+                "name": "Inferno v5.1.0",
+                "date": "2018-06-10T19:56:18Z"
+            },
+            {
+                "name": "Inferno v5.0.6",
+                "date": "2018-05-16T19:32:45Z"
+            },
+            {
+                "name": "Inferno v5.0.5",
+                "date": "2018-05-12T10:03:50Z"
+            },
+            {
+                "name": "Inferno v5.0.4",
+                "date": "2018-04-15T21:12:42Z"
+            },
+            {
+                "name": "Inferno v5.0.3",
+                "date": "2018-04-09T15:14:58Z"
+            },
+            {
+                "name": "Inferno v5.0.2",
+                "date": "2018-04-04T14:33:30Z"
+            },
+            {
+                "name": "Inferno v5.0.1",
+                "date": "2018-03-19T07:00:43Z"
+            },
+            {
+                "name": "Inferno v5.0.0",
+                "date": "2018-03-17T16:48:21Z"
+            },
+            {
+                "name": "Inferno v4.0.8",
+                "date": "2018-03-05T17:31:42Z"
+            },
+            {
+                "name": "Inferno v4.0.7",
+                "date": "2018-03-01T20:03:43Z"
+            },
+            {
+                "name": "Inferno v4.0.6",
+                "date": "2018-02-27T20:53:40Z"
+            },
+            {
+                "name": "Inferno v4.0.4",
+                "date": "2018-02-19T18:21:44Z"
+            },
+            {
+                "name": "Inferno v4.0.3",
+                "date": "2018-02-13T20:58:08Z"
+            },
+            {
+                "name": "Inferno v4",
+                "date": "2018-02-11T19:40:48Z"
+            },
+            {
+                "name": "Inferno 3.10.1",
+                "date": "2017-10-13T10:16:51Z"
+            },
+            {
+                "name": "Inferno 3.10.0",
+                "date": "2017-10-12T11:14:15Z"
+            },
+            {
+                "name": "Inferno 3.9.0",
+                "date": "2017-09-06T19:53:25Z"
+            },
+            {
+                "name": "Inferno 3.8.2",
+                "date": "2017-08-30T17:38:19Z"
+            },
+            {
+                "name": "Inferno 3.8.1",
+                "date": "2017-08-29T10:45:34Z"
+            },
+            {
+                "name": "Inferno 3.8.0",
+                "date": "2017-08-23T13:37:33Z"
+            },
+            {
+                "name": "Inferno 3.7.1",
+                "date": "2017-08-01T20:18:41Z"
+            },
+            {
+                "name": "Inferno 3.7.0",
+                "date": "2017-07-21T06:09:28Z"
+            },
+            {
+                "name": "Inferno 3.6.4",
+                "date": "2017-07-01T09:02:21Z"
+            },
+            {
+                "name": "Inferno 3.6.3",
+                "date": "2017-06-28T16:07:41Z"
+            },
+            {
+                "name": "Inferno 3.6.0",
+                "date": "2017-06-21T18:46:46Z"
+            },
+            {
+                "name": "Inferno 3.5.4",
+                "date": "2017-06-20T21:09:19Z"
+            },
+            {
+                "name": "Inferno 3.5.2",
+                "date": "2017-06-15T16:37:30Z"
+            },
+            {
+                "name": "Inferno Redux Update",
+                "date": "2017-06-14T21:43:14Z"
+            },
+            {
+                "name": "Inferno 3.4.4",
+                "date": "2017-06-13T16:44:33Z"
+            },
+            {
+                "name": "Inferno 3.4.3",
+                "date": "2017-06-10T11:32:06Z"
+            },
+            {
+                "name": "Inferno 3.4.2",
+                "date": "2017-06-10T11:03:33Z"
+            },
+            {
+                "name": "",
+                "date": "2017-06-10T11:03:57Z"
+            },
+            {
+                "name": "Inferno 3.3.1",
+                "date": "2017-05-25T14:31:07Z"
+            },
+            {
+                "name": "Inferno 3.3.0",
+                "date": "2017-05-25T11:43:51Z"
+            },
+            {
+                "name": "Inferno 3.2.2",
+                "date": "2017-05-22T08:45:24Z"
+            },
+            {
+                "name": "Inferno 3.2.1",
+                "date": "2017-05-21T19:53:57Z"
+            },
+            {
+                "name": "Inferno 3.2.0",
+                "date": "2017-05-20T09:25:32Z"
+            },
+            {
+                "name": "Inferno 3.1.2",
+                "date": "2017-05-11T12:41:27Z"
+            },
+            {
+                "name": "Inferno 3.1.1",
+                "date": "2017-05-05T17:34:12Z"
+            },
+            {
+                "name": "Inferno 3.1.0",
+                "date": "2017-04-30T12:31:10Z"
+            },
+            {
+                "name": "Inferno 3.0.6",
+                "date": "2017-04-26T16:10:51Z"
+            },
+            {
+                "name": "Inferno 3.0.5",
+                "date": "2017-04-19T05:38:10Z"
+            },
+            {
+                "name": "Inferno 3.0.4",
+                "date": "2017-04-13T14:33:43Z"
+            },
+            {
+                "name": "Inferno 3.0.3",
+                "date": "2017-04-11T05:41:50Z"
+            },
+            {
+                "name": "Inferno 3.0.2",
+                "date": "2017-04-10T22:45:47Z"
+            },
+            {
+                "name": "Inferno 3.0.1",
+                "date": "2017-04-10T21:58:58Z"
+            },
+            {
+                "name": "Inferno 3.0.0",
+                "date": "2017-04-10T21:41:46Z"
+            },
+            {
+                "name": "Inferno 1.6.2",
+                "date": "2017-04-05T20:49:16Z"
+            },
+            {
+                "name": "Inferno 1.6.1",
+                "date": "2017-04-04T21:39:53Z"
+            },
+            {
+                "name": "Inferno 1.6.0",
+                "date": "2017-04-03T18:20:52Z"
+            },
+            {
+                "name": "Inferno 1.5.6",
+                "date": "2017-03-30T20:01:07Z"
+            },
+            {
+                "name": "Inferno 1.5.5",
+                "date": "2017-03-29T17:22:04Z"
+            },
+            {
+                "name": "Inferno 1.5.4",
+                "date": "2017-03-28T18:58:50Z"
+            },
+            {
+                "name": "Inferno 1.5",
+                "date": "2017-04-01T17:34:09Z"
+            },
+            {
+                "name": "Inferno 1.4.0",
+                "date": "2017-03-12T19:31:08Z"
+            },
+            {
+                "name": "Inferno 1.3.0",
+                "date": "2017-03-09T18:26:04Z"
+            },
+            {
+                "name": "Inferno 1.2.2",
+                "date": "2017-01-21T22:56:13Z"
+            },
+            {
+                "name": "Inferno 1.2.1",
+                "date": "2017-01-18T20:53:41Z"
+            },
+            {
+                "name": "Inferno 1.2.0",
+                "date": "2017-01-14T13:01:34Z"
+            },
+            {
+                "name": "Inferno 1.1.2",
+                "date": "2017-01-10T17:21:27Z"
+            },
+            {
+                "name": "Inferno 1.1.1",
+                "date": "2017-01-08T13:49:27Z"
+            },
+            {
+                "name": "Inferno 1.1.0",
+                "date": "2017-01-07T21:24:27Z"
+            },
+            {
+                "name": "Inferno 1.0.7",
+                "date": "2017-01-04T23:03:27Z"
+            },
+            {
+                "name": "Inferno 1.0.6",
+                "date": "2017-01-04T11:56:53Z"
+            },
+            {
+                "name": "Inferno 1.0.5",
+                "date": "2017-01-03T13:35:01Z"
+            },
+            {
+                "name": "Inferno 1.0.4",
+                "date": "2017-01-02T18:52:12Z"
+            },
+            {
+                "name": "1.0.0-beta45",
+                "date": "2016-12-30T08:25:37Z"
+            },
+            {
+                "name": "",
+                "date": "2016-12-06T00:36:18Z"
+            },
+            {
+                "name": "",
+                "date": "2016-12-06T00:36:28Z"
+            },
+            {
+                "name": "",
+                "date": "2016-12-01T23:28:11Z"
+            },
+            {
+                "name": "Inferno 0.7.27",
+                "date": "2016-09-08T12:11:11Z"
+            },
+            {
+                "name": "Inferno 0.7.26",
+                "date": "2016-08-09T20:08:52Z"
+            },
+            {
+                "name": "Inferno 0.7.25",
+                "date": "2016-08-04T22:20:09Z"
+            },
+            {
+                "name": "Inferno 0.7.24",
+                "date": "2016-07-28T08:14:48Z"
+            },
+            {
+                "name": "Inferno 0.7.23",
+                "date": "2016-07-23T22:11:35Z"
+            },
+            {
+                "name": "Inferno 0.7.22",
+                "date": "2016-07-18T20:45:57Z"
+            },
+            {
+                "name": "Inferno 0.7.21",
+                "date": "2016-07-12T11:33:14Z"
+            },
+            {
+                "name": "Inferno 0.7.20",
+                "date": "2016-07-11T23:31:11Z"
+            },
+            {
+                "name": "Inferno 0.7.17",
+                "date": "2016-07-09T20:26:54Z"
+            },
+            {
+                "name": "Inferno 0.7.16",
+                "date": "2016-07-08T10:20:37Z"
+            },
+            {
+                "name": "Inferno 0.7.15",
+                "date": "2016-07-07T22:00:04Z"
+            },
+            {
+                "name": "Inferno 0.7.14",
+                "date": "2016-07-06T20:03:12Z"
+            },
+            {
+                "name": "Inferno 0.7.13",
+                "date": "2016-06-30T22:51:19Z"
+            },
+            {
+                "name": "Inferno 0.7.12",
+                "date": "2016-06-29T22:53:19Z"
+            },
+            {
+                "name": "Inferno 0.7.11",
+                "date": "2016-06-27T09:59:55Z"
+            },
+            {
+                "name": "Inferno 0.7.10",
+                "date": "2016-06-25T21:22:20Z"
+            },
+            {
+                "name": "Inferno 0.7.9",
+                "date": "2016-06-05T13:03:11Z"
+            },
+            {
+                "name": "Inferno 0.7.8",
+                "date": "2016-05-28T16:03:12Z"
+            },
+            {
+                "name": "Inferno 0.7.7",
+                "date": "2016-05-07T20:48:11Z"
+            },
+            {
+                "name": "Inferno 0.7.5",
+                "date": "2016-04-30T20:35:07Z"
+            },
+            {
+                "name": "Inferno 0.7.3",
+                "date": "2016-04-23T20:07:46Z"
+            },
+            {
+                "name": "Inferno 0.7.0",
+                "date": "2016-04-21T20:29:42Z"
+            },
+            {
+                "name": "Inferno 0.6.4",
+                "date": "2016-03-26T23:34:02Z"
+            },
+            {
+                "name": "Inferno 0.6.1",
+                "date": "2016-03-26T22:17:32Z"
+            },
+            {
+                "name": "Inferno 0.6.0",
+                "date": "2016-03-26T16:49:36Z"
+            },
+            {
+                "name": "Inferno 0.5.22",
+                "date": "2016-01-25T00:18:23Z"
+            },
+            {
+                "name": "Inferno 0.5.21",
+                "date": "2016-01-22T23:03:09Z"
+            },
+            {
+                "name": "Inferno 0.5.20",
+                "date": "2016-01-22T11:23:39Z"
+            },
+            {
+                "name": "Inferno 0.5.17",
+                "date": "2016-01-19T13:22:59Z"
+            },
+            {
+                "name": "Inferno 0.5.13",
+                "date": "2016-01-11T02:32:14Z"
+            },
+            {
+                "name": "Inferno 0.5.5",
+                "date": "2016-01-10T23:05:06Z"
+            },
+            {
+                "name": "Inferno 0.4.4",
+                "date": "2015-12-27T15:23:35Z"
+            },
+            {
+                "name": "Inferno 0.4.2",
+                "date": "2015-12-27T02:01:13Z"
+            },
+            {
+                "name": "Inferno 0.4.1",
+                "date": "2015-12-27T00:10:18Z"
+            },
+            {
+                "name": "Inferno 0.4.0",
+                "date": "2015-12-20T00:46:30Z"
+            }
+        ]
+    }
+}

@@ -1,0 +1,212 @@
+{
+    "https://api.github.com/repos/uber-go/zap": {
+        "forks": 1453,
+        "watchers": 22444,
+        "stars": 22444,
+        "languages": {
+            "Go": 743854,
+            "Makefile": 1792,
+            "Shell": 294
+        },
+        "commits": [
+            "2025-01-13T13:28:47Z",
+            "2025-01-07T19:25:22Z",
+            "2024-12-10T21:51:29Z",
+            "2024-12-10T18:29:22Z",
+            "2024-12-07T20:35:28Z",
+            "2024-10-22T15:46:07Z",
+            "2024-09-13T02:27:58Z",
+            "2024-09-03T15:24:09Z",
+            "2024-08-27T18:04:55Z",
+            "2024-08-18T09:25:15Z",
+            "2024-07-30T16:45:06Z",
+            "2024-07-25T15:36:09Z",
+            "2024-07-22T20:30:47Z",
+            "2024-07-19T22:50:37Z",
+            "2024-06-12T21:20:44Z",
+            "2024-06-12T20:47:39Z",
+            "2024-06-11T18:27:14Z",
+            "2024-06-10T16:43:47Z",
+            "2024-06-06T16:53:58Z",
+            "2024-06-06T16:53:43Z",
+            "2024-06-06T06:49:58Z",
+            "2024-05-30T13:54:03Z",
+            "2024-05-30T13:53:45Z",
+            "2024-05-14T19:46:05Z",
+            "2024-04-29T17:01:38Z",
+            "2024-04-29T15:46:22Z",
+            "2024-04-23T18:12:04Z",
+            "2024-04-13T02:59:00Z",
+            "2024-04-02T19:52:10Z",
+            "2024-03-07T17:18:46Z"
+        ],
+        "creation_date": "2016-02-18T19:52:56Z",
+        "contributors": 30,
+        "topics": [
+            "golang",
+            "logging",
+            "structured-logging",
+            "zap"
+        ],
+        "subscribers": 248,
+        "readme": "# :zap: zap\n\n\n<div align=\"center\">\n\nBlazing fast, structured, leveled logging in Go.\n\n![Zap logo](assets/logo.png)\n\n[![GoDoc][doc-img]][doc] [![Build Status][ci-img]][ci] [![Coverage Status][cov-img]][cov]\n\n</div>\n\n## Installation\n\n`go get -u go.uber.org/zap`\n\nNote that zap only supports the two most recent minor versions of Go.\n\n## Quick Start\n\nIn contexts where performance is nice, but not critical, use the\n`SugaredLogger`. It's 4-10x faster than other structured logging\npackages and includes both structured and `printf`-style APIs.\n\n```go\nlogger, _ := zap.NewProduction()\ndefer logger.Sync() // flushes buffer, if any\nsugar := logger.Sugar()\nsugar.Infow(\"failed to fetch URL\",\n  // Structured context as loosely typed key-value pairs.\n  \"url\", url,\n  \"attempt\", 3,\n  \"backoff\", time.Second,\n)\nsugar.Infof(\"Failed to fetch URL: %s\", url)\n```\n\nWhen performance and type safety are critical, use the `Logger`. It's even\nfaster than the `SugaredLogger` and allocates far less, but it only supports\nstructured logging.\n\n```go\nlogger, _ := zap.NewProduction()\ndefer logger.Sync()\nlogger.Info(\"failed to fetch URL\",\n  // Structured context as strongly typed Field values.\n  zap.String(\"url\", url),\n  zap.Int(\"attempt\", 3),\n  zap.Duration(\"backoff\", time.Second),\n)\n```\n\nSee the [documentation][doc] and [FAQ](FAQ.md) for more details.\n\n## Performance\n\nFor applications that log in the hot path, reflection-based serialization and\nstring formatting are prohibitively expensive &mdash; they're CPU-intensive\nand make many small allocations. Put differently, using `encoding/json` and\n`fmt.Fprintf` to log tons of `interface{}`s makes your application slow.\n\nZap takes a different approach. It includes a reflection-free, zero-allocation\nJSON encoder, and the base `Logger` strives to avoid serialization overhead\nand allocations wherever possible. By building the high-level `SugaredLogger`\non that foundation, zap lets users *choose* when they need to count every\nallocation and when they'd prefer a more familiar, loosely typed API.\n\nAs measured by its own [benchmarking suite][], not only is zap more performant\nthan comparable structured logging packages &mdash; it's also faster than the\nstandard library. Like all benchmarks, take these with a grain of salt.<sup\nid=\"anchor-versions\">[1](#footnote-versions)</sup>\n\nLog a message and 10 fields:\n\n| Package | Time | Time % to zap | Objects Allocated |\n| :------ | :--: | :-----------: | :---------------: |\n| :zap: zap | 656 ns/op | +0% | 5 allocs/op\n| :zap: zap (sugared) | 935 ns/op | +43% | 10 allocs/op\n| zerolog | 380 ns/op | -42% | 1 allocs/op\n| go-kit | 2249 ns/op | +243% | 57 allocs/op\n| slog (LogAttrs) | 2479 ns/op | +278% | 40 allocs/op\n| slog | 2481 ns/op | +278% | 42 allocs/op\n| apex/log | 9591 ns/op | +1362% | 63 allocs/op\n| log15 | 11393 ns/op | +1637% | 75 allocs/op\n| logrus | 11654 ns/op | +1677% | 79 allocs/op\n\nLog a message with a logger that already has 10 fields of context:\n\n| Package | Time | Time % to zap | Objects Allocated |\n| :------ | :--: | :-----------: | :---------------: |\n| :zap: zap | 67 ns/op | +0% | 0 allocs/op\n| :zap: zap (sugared) | 84 ns/op | +25% | 1 allocs/op\n| zerolog | 35 ns/op | -48% | 0 allocs/op\n| slog | 193 ns/op | +188% | 0 allocs/op\n| slog (LogAttrs) | 200 ns/op | +199% | 0 allocs/op\n| go-kit | 2460 ns/op | +3572% | 56 allocs/op\n| log15 | 9038 ns/op | +13390% | 70 allocs/op\n| apex/log | 9068 ns/op | +13434% | 53 allocs/op\n| logrus | 10521 ns/op | +15603% | 68 allocs/op\n\nLog a static string, without any context or `printf`-style templating:\n\n| Package | Time | Time % to zap | Objects Allocated |\n| :------ | :--: | :-----------: | :---------------: |\n| :zap: zap | 63 ns/op | +0% | 0 allocs/op\n| :zap: zap (sugared) | 81 ns/op | +29% | 1 allocs/op\n| zerolog | 32 ns/op | -49% | 0 allocs/op\n| standard library | 124 ns/op | +97% | 1 allocs/op\n| slog | 196 ns/op | +211% | 0 allocs/op\n| slog (LogAttrs) | 200 ns/op | +217% | 0 allocs/op\n| go-kit | 213 ns/op | +238% | 9 allocs/op\n| apex/log | 771 ns/op | +1124% | 5 allocs/op\n| logrus | 1439 ns/op | +2184% | 23 allocs/op\n| log15 | 2069 ns/op | +3184% | 20 allocs/op\n\n## Development Status: Stable\n\nAll APIs are finalized, and no breaking changes will be made in the 1.x series\nof releases. Users of semver-aware dependency management systems should pin\nzap to `^1`.\n\n## Contributing\n\nWe encourage and support an active, healthy community of contributors &mdash;\nincluding you! Details are in the [contribution guide](CONTRIBUTING.md) and\nthe [code of conduct](CODE_OF_CONDUCT.md). The zap maintainers keep an eye on\nissues and pull requests, but you can also report any negative conduct to\noss-conduct@uber.com. That email list is a private, safe space; even the zap\nmaintainers don't have access, so don't hesitate to hold us to a high\nstandard.\n\n<hr>\n\nReleased under the [MIT License](LICENSE).\n\n<sup id=\"footnote-versions\">1</sup> In particular, keep in mind that we may be\nbenchmarking against slightly older versions of other packages. Versions are\npinned in the [benchmarks/go.mod][] file. [\u21a9](#anchor-versions)\n\n[doc-img]: https://pkg.go.dev/badge/go.uber.org/zap\n[doc]: https://pkg.go.dev/go.uber.org/zap\n[ci-img]: https://github.com/uber-go/zap/actions/workflows/go.yml/badge.svg\n[ci]: https://github.com/uber-go/zap/actions/workflows/go.yml\n[cov-img]: https://codecov.io/gh/uber-go/zap/branch/master/graph/badge.svg\n[cov]: https://codecov.io/gh/uber-go/zap\n[benchmarking suite]: https://github.com/uber-go/zap/tree/master/benchmarks\n[benchmarks/go.mod]: https://github.com/uber-go/zap/blob/master/benchmarks/go.mod\n\n",
+        "releases": [
+            {
+                "name": "exp/v0.3.0",
+                "date": "2024-10-22T16:07:29Z"
+            },
+            {
+                "name": "",
+                "date": "2024-02-20T20:57:47Z"
+            },
+            {
+                "name": "v1.26.0",
+                "date": "2023-09-14T20:36:11Z"
+            },
+            {
+                "name": "v1.25.0",
+                "date": "2023-08-02T05:52:44Z"
+            },
+            {
+                "name": "v1.24.0",
+                "date": "2022-11-30T18:33:24Z"
+            },
+            {
+                "name": "v1.23.0",
+                "date": "2022-08-24T15:40:51Z"
+            },
+            {
+                "name": "v1.22.0",
+                "date": "2022-08-08T19:17:18Z"
+            },
+            {
+                "name": "v1.21.0",
+                "date": "2022-02-07T16:55:11Z"
+            },
+            {
+                "name": "v1.20.0",
+                "date": "2022-01-04T19:16:19Z"
+            },
+            {
+                "name": "v1.19.1",
+                "date": "2021-09-08T23:48:24Z"
+            },
+            {
+                "name": "v1.19.0",
+                "date": "2021-08-09T16:36:27Z"
+            },
+            {
+                "name": "v1.18.1",
+                "date": "2021-06-28T19:13:37Z"
+            },
+            {
+                "name": "v1.18.0",
+                "date": "2021-06-28T17:59:27Z"
+            },
+            {
+                "name": "v1.17.0",
+                "date": "2021-05-25T21:56:47Z"
+            },
+            {
+                "name": "v1.16.0",
+                "date": "2020-09-01T21:21:39Z"
+            },
+            {
+                "name": "v1.15.0",
+                "date": "2020-04-24T16:49:43Z"
+            },
+            {
+                "name": "v1.14.1",
+                "date": "2020-03-15T15:47:33Z"
+            },
+            {
+                "name": "v1.14.0",
+                "date": "2020-02-20T16:58:30Z"
+            },
+            {
+                "name": "v1.13.0",
+                "date": "2019-11-13T22:26:12Z"
+            },
+            {
+                "name": "v1.12.0",
+                "date": "2019-10-30T01:34:45Z"
+            },
+            {
+                "name": "v1.11.0",
+                "date": "2019-10-21T20:37:46Z"
+            },
+            {
+                "name": "v1.10.0",
+                "date": "2019-04-30T01:51:23Z"
+            },
+            {
+                "name": "v1.9.1",
+                "date": "2018-08-06T18:07:06Z"
+            },
+            {
+                "name": "v1.9.0",
+                "date": "2018-07-19T21:46:24Z"
+            },
+            {
+                "name": "v1.8.0",
+                "date": "2018-04-13T23:09:09Z"
+            },
+            {
+                "name": "v1.7.1",
+                "date": "2017-09-25T19:56:53Z"
+            },
+            {
+                "name": "v1.7.0",
+                "date": "2017-09-21T19:10:55Z"
+            },
+            {
+                "name": "v1.6.0",
+                "date": "2017-08-31T06:47:04Z"
+            },
+            {
+                "name": "v1.5.0",
+                "date": "2017-07-23T00:17:36Z"
+            },
+            {
+                "name": "v1.4.1",
+                "date": "2017-06-08T15:37:20Z"
+            },
+            {
+                "name": "v1.4.0",
+                "date": "2017-05-12T21:14:54Z"
+            },
+            {
+                "name": "v1.3.0",
+                "date": "2017-04-25T15:40:52Z"
+            },
+            {
+                "name": "v1.2.0",
+                "date": "2017-04-14T05:14:01Z"
+            },
+            {
+                "name": "v1.1.0",
+                "date": "2017-03-31T23:06:07Z"
+            },
+            {
+                "name": "v1.0.0",
+                "date": "2017-03-15T00:05:27Z"
+            },
+            {
+                "name": "v1.0.0-rc.3",
+                "date": "2017-03-07T21:49:32Z"
+            },
+            {
+                "name": "v1.0.0-rc.2",
+                "date": "2017-02-23T22:53:52Z"
+            },
+            {
+                "name": "v1.0.0-rc.1",
+                "date": "2017-02-15T02:09:43Z"
+            },
+            {
+                "name": "v0.1.0-beta.1",
+                "date": "2017-02-14T04:49:12Z"
+            }
+        ]
+    }
+}

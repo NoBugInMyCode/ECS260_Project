@@ -1,0 +1,290 @@
+{
+    "https://api.github.com/repos/knex/knex": {
+        "forks": 2148,
+        "watchers": 19536,
+        "stars": 19536,
+        "languages": {
+            "JavaScript": 2732319,
+            "TypeScript": 132945,
+            "Shell": 3519
+        },
+        "commits": [
+            "2025-01-05T17:29:24Z",
+            "2025-01-05T17:28:37Z",
+            "2025-01-05T17:17:05Z",
+            "2025-01-05T17:14:20Z",
+            "2025-01-05T17:11:17Z",
+            "2025-01-05T17:04:07Z",
+            "2024-05-14T13:12:31Z",
+            "2024-04-07T14:33:41Z",
+            "2024-03-10T19:14:14Z",
+            "2024-03-10T18:36:16Z",
+            "2024-03-10T17:51:53Z",
+            "2024-03-04T20:47:36Z",
+            "2024-03-02T20:16:47Z",
+            "2024-01-13T19:16:28Z",
+            "2023-12-07T23:15:53Z",
+            "2023-12-07T23:09:44Z",
+            "2023-12-02T15:39:20Z",
+            "2023-12-02T15:38:49Z",
+            "2023-12-02T14:53:21Z",
+            "2023-12-02T14:52:57Z",
+            "2023-12-02T14:52:07Z",
+            "2023-12-02T14:51:16Z",
+            "2023-11-29T19:54:36Z",
+            "2023-11-29T19:53:14Z",
+            "2023-11-29T19:51:44Z",
+            "2023-11-29T00:10:12Z",
+            "2023-11-28T15:19:19Z",
+            "2023-11-28T15:17:27Z",
+            "2023-11-28T00:19:51Z",
+            "2023-11-28T00:16:50Z"
+        ],
+        "creation_date": "2012-12-29T05:18:25Z",
+        "contributors": 30,
+        "topics": [
+            "javascript",
+            "knex",
+            "mysql",
+            "postgresql",
+            "sql",
+            "sqlite3"
+        ],
+        "subscribers": 206,
+        "readme": "# [knex.js](https://knex.github.io/documentation/)\n\n[![npm version](http://img.shields.io/npm/v/knex.svg)](https://npmjs.org/package/knex)\n[![npm downloads](https://img.shields.io/npm/dm/knex.svg)](https://npmjs.org/package/knex)\n![](https://github.com/knex/knex/workflows/CI/badge.svg)\n[![Coverage Status](https://coveralls.io/repos/knex/knex/badge.svg?branch=master)](https://coveralls.io/r/knex/knex?branch=master)\n[![Dependencies Status](https://img.shields.io/librariesio/github/knex/knex)](https://libraries.io/npm/knex)\n[![Gitter chat](https://badges.gitter.im/tgriesser/knex.svg)](https://gitter.im/tgriesser/knex)\n\n> **A SQL query builder that is _flexible_, _portable_, and _fun_ to use!**\n\nA batteries-included, multi-dialect (PostgreSQL, MySQL, CockroachDB, MSSQL, SQLite3, Oracle (including Oracle Wallet Authentication)) query builder for\nNode.js, featuring:\n\n- [transactions](https://knex.github.io/documentation/#Transactions)\n- [connection pooling](https://knex.github.io/documentation/#Installation-pooling)\n- [streaming queries](https://knex.github.io/documentation/#Interfaces-Streams)\n- both a [promise](https://knex.github.io/documentation/#Interfaces-Promises) and [callback](https://knex.github.io/documentation/#Interfaces-Callbacks) API\n- a [thorough test suite](https://github.com/knex/knex/actions)\n\nNode.js versions 12+ are supported.\n\n- Take a look at the [full documentation](https://knex.github.io/documentation) to get started!\n- Browse the [list of plugins and tools](https://github.com/knex/knex/blob/master/ECOSYSTEM.md) built for knex\n- Check out our [recipes wiki](https://github.com/knex/knex/wiki/Recipes) to search for solutions to some specific problems\n- In case of upgrading from an older version, see [migration guide](https://github.com/knex/knex/blob/master/UPGRADING.md)\n\nYou can report bugs and discuss features on the [GitHub issues page](https://github.com/knex/knex/issues) or send tweets to [@kibertoad](http://twitter.com/kibertoad).\n\nFor support and questions, join our [Gitter channel](https://gitter.im/tgriesser/knex).\n\nFor knex-based Object Relational Mapper, see:\n\n- https://github.com/Vincit/objection.js\n- https://github.com/mikro-orm/mikro-orm\n- https://bookshelfjs.org\n\nTo see the SQL that Knex will generate for a given query, you can use [Knex Query Lab](https://michaelavila.com/knex-querylab/)\n\n## Examples\n\nWe have several examples [on the website](http://knexjs.org). Here is the first one to get you started:\n\n```js\nconst knex = require('knex')({\n  client: 'sqlite3',\n  connection: {\n    filename: './data.db',\n  },\n});\n\ntry {\n  // Create a table\n  await knex.schema\n    .createTable('users', (table) => {\n      table.increments('id');\n      table.string('user_name');\n    })\n    // ...and another\n    .createTable('accounts', (table) => {\n      table.increments('id');\n      table.string('account_name');\n      table.integer('user_id').unsigned().references('users.id');\n    });\n\n  // Then query the table...\n  const insertedRows = await knex('users').insert({ user_name: 'Tim' });\n\n  // ...and using the insert id, insert into the other table.\n  await knex('accounts').insert({\n    account_name: 'knex',\n    user_id: insertedRows[0],\n  });\n\n  // Query both of the rows.\n  const selectedRows = await knex('users')\n    .join('accounts', 'users.id', 'accounts.user_id')\n    .select('users.user_name as user', 'accounts.account_name as account');\n\n  // map over the results\n  const enrichedRows = selectedRows.map((row) => ({ ...row, active: true }));\n\n  // Finally, add a catch statement\n} catch (e) {\n  console.error(e);\n}\n```\n\n## TypeScript example\n\n```ts\nimport { Knex, knex } from 'knex';\n\ninterface User {\n  id: number;\n  age: number;\n  name: string;\n  active: boolean;\n  departmentId: number;\n}\n\nconst config: Knex.Config = {\n  client: 'sqlite3',\n  connection: {\n    filename: './data.db',\n  },\n};\n\nconst knexInstance = knex(config);\n\ntry {\n  const users = await knex<User>('users').select('id', 'age');\n} catch (err) {\n  // error handling\n}\n```\n\n## Usage as ESM module\n\nIf you are launching your Node application with `--experimental-modules`, `knex.mjs` should be picked up automatically and named ESM import should work out-of-the-box.\nOtherwise, if you want to use named imports, you'll have to import knex like this:\n\n```js\nimport { knex } from 'knex/knex.mjs';\n```\n\nYou can also just do the default import:\n\n```js\nimport knex from 'knex';\n```\n\nIf you are not using TypeScript and would like the IntelliSense of your IDE to work correctly, it is recommended to set the type explicitly:\n\n```js\n/**\n * @type {Knex}\n */\nconst database = knex({\n  client: 'mysql',\n  connection: {\n    host: '127.0.0.1',\n    user: 'your_database_user',\n    password: 'your_database_password',\n    database: 'myapp_test',\n  },\n});\ndatabase.migrate.latest();\n```\n",
+        "releases": [
+            {
+                "name": "3.1.0",
+                "date": "2023-12-07T23:17:57Z"
+            },
+            {
+                "name": "3.0.1",
+                "date": "2023-10-06T12:23:40Z"
+            },
+            {
+                "name": "3.0.0",
+                "date": "2023-10-06T06:56:38Z"
+            },
+            {
+                "name": "2.5.1",
+                "date": "2023-07-12T21:26:26Z"
+            },
+            {
+                "name": "2.5.0",
+                "date": "2023-07-08T21:04:46Z"
+            },
+            {
+                "name": "2.4.2",
+                "date": "2023-03-29T11:15:20Z"
+            },
+            {
+                "name": "2.4.1",
+                "date": "2023-03-29T11:11:39Z"
+            },
+            {
+                "name": "2.4.0",
+                "date": "2023-01-06T15:45:16Z"
+            },
+            {
+                "name": "2.3.0",
+                "date": "2022-09-01T21:17:24Z"
+            },
+            {
+                "name": "2.2.0",
+                "date": "2022-07-18T21:26:26Z"
+            },
+            {
+                "name": "2.1.0",
+                "date": "2022-05-26T09:04:03Z"
+            },
+            {
+                "name": "2.0.0",
+                "date": "2022-04-21T20:29:27Z"
+            },
+            {
+                "name": "1.0.7",
+                "date": "2022-04-13T11:09:33Z"
+            },
+            {
+                "name": "1.0.5",
+                "date": "2022-04-04T20:58:09Z"
+            },
+            {
+                "name": "1.0.4",
+                "date": "2022-03-13T14:05:38Z"
+            },
+            {
+                "name": "1.0.3",
+                "date": "2022-02-10T22:36:08Z"
+            },
+            {
+                "name": "1.0.1",
+                "date": "2022-01-16T00:55:00Z"
+            },
+            {
+                "name": "1.0.0",
+                "date": "2022-01-16T00:47:52Z"
+            },
+            {
+                "name": "0.95.14",
+                "date": "2021-11-14T20:36:25Z"
+            },
+            {
+                "name": "0.95.12",
+                "date": "2021-10-27T21:39:11Z"
+            },
+            {
+                "name": "0.95.11",
+                "date": "2021-09-03T19:50:08Z"
+            },
+            {
+                "name": "0.95.10",
+                "date": "2021-08-23T12:33:37Z"
+            },
+            {
+                "name": "0.95.8",
+                "date": "2021-07-25T17:37:45Z"
+            },
+            {
+                "name": "0.95.5",
+                "date": "2021-05-11T20:40:00Z"
+            },
+            {
+                "name": "0.95.3",
+                "date": "2021-03-25T09:42:34Z"
+            },
+            {
+                "name": "0.95.2",
+                "date": "2021-03-11T18:07:13Z"
+            },
+            {
+                "name": "0.95.0",
+                "date": "2021-03-03T19:53:25Z"
+            },
+            {
+                "name": "0.21.17",
+                "date": "2021-02-15T12:43:10Z"
+            },
+            {
+                "name": "0.21.15",
+                "date": "2020-12-26T17:25:28Z"
+            },
+            {
+                "name": "0.21.14",
+                "date": "2020-12-18T00:09:13Z"
+            },
+            {
+                "name": "0.21.13",
+                "date": "2020-12-11T23:27:41Z"
+            },
+            {
+                "name": "0.21.10",
+                "date": "2020-10-31T22:00:09Z"
+            },
+            {
+                "name": "0.21.9",
+                "date": "2020-10-29T21:46:47Z"
+            },
+            {
+                "name": "0.21.5",
+                "date": "2020-08-17T18:16:59Z"
+            },
+            {
+                "name": "0.21.3",
+                "date": "2020-08-08T18:01:26Z"
+            },
+            {
+                "name": "0.21.2",
+                "date": "2020-07-09T22:09:56Z"
+            },
+            {
+                "name": "0.21.1",
+                "date": "2020-04-28T23:46:03Z"
+            },
+            {
+                "name": "0.21.0",
+                "date": "2020-04-19T13:57:22Z"
+            },
+            {
+                "name": "0.20.15",
+                "date": "2020-04-16T08:25:13Z"
+            },
+            {
+                "name": "0.20.14",
+                "date": "2020-04-14T02:29:53Z"
+            },
+            {
+                "name": "0.20.13",
+                "date": "2020-04-06T10:47:26Z"
+            },
+            {
+                "name": "0.20.12",
+                "date": "2020-03-19T14:34:23Z"
+            },
+            {
+                "name": "0.20.11",
+                "date": "2020-03-05T20:47:05Z"
+            },
+            {
+                "name": "0.20.6",
+                "date": "2019-12-29T19:30:28Z"
+            },
+            {
+                "name": "0.20.4",
+                "date": "2019-12-07T23:05:57Z"
+            },
+            {
+                "name": "0.20.2",
+                "date": "2019-11-14T20:20:48Z"
+            },
+            {
+                "name": "0.20.1",
+                "date": "2019-10-29T22:46:01Z"
+            },
+            {
+                "name": "0.20.0",
+                "date": "2019-10-25T18:20:30Z"
+            },
+            {
+                "name": "0.19.5",
+                "date": "2019-10-09T12:39:20Z"
+            },
+            {
+                "name": "0.19.3",
+                "date": "2019-08-28T22:19:40Z"
+            },
+            {
+                "name": "0.19.0",
+                "date": "2019-07-11T13:14:06Z"
+            },
+            {
+                "name": "0.18.4",
+                "date": "2019-07-10T20:50:03Z"
+            },
+            {
+                "name": "0.17.2",
+                "date": "2019-06-02T22:58:55Z"
+            },
+            {
+                "name": "0.17.0",
+                "date": "2019-05-28T21:34:23Z"
+            },
+            {
+                "name": "0.16.7",
+                "date": "2019-05-12T15:23:16Z"
+            },
+            {
+                "name": "0.16.6",
+                "date": "2019-05-11T22:46:52Z"
+            },
+            {
+                "name": "0.16.5",
+                "date": "2019-04-14T11:53:15Z"
+            },
+            {
+                "name": "0.16.4",
+                "date": "2019-04-11T20:23:28Z"
+            }
+        ]
+    }
+}

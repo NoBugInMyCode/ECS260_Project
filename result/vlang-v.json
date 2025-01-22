@@ -1,0 +1,1035 @@
+{
+    "https://api.github.com/repos/vlang/v": {
+        "forks": 2172,
+        "watchers": 35994,
+        "stars": 35994,
+        "languages": {
+            "V": 14504319,
+            "CSS": 19262,
+            "JavaScript": 15503,
+            "C": 11594,
+            "Batchfile": 9492,
+            "HTML": 7549,
+            "Makefile": 6934,
+            "C#": 6132,
+            "Objective-C": 4976,
+            "Go": 4475,
+            "Gnuplot": 3909,
+            "Dockerfile": 3656,
+            "Python": 2146,
+            "Shell": 921,
+            "C++": 257,
+            "templ": 219,
+            "Tcl": 206,
+            "Smarty": 10
+        },
+        "commits": [
+            "2025-01-21T17:13:21Z",
+            "2025-01-21T12:47:34Z",
+            "2025-01-21T11:46:16Z",
+            "2025-01-21T04:58:47Z",
+            "2025-01-21T04:50:42Z",
+            "2025-01-21T04:34:30Z",
+            "2025-01-20T19:34:03Z",
+            "2025-01-20T19:31:06Z",
+            "2025-01-20T19:27:27Z",
+            "2025-01-20T15:37:32Z",
+            "2025-01-20T15:28:19Z",
+            "2025-01-20T15:09:08Z",
+            "2025-01-20T11:36:43Z",
+            "2025-01-20T10:00:55Z",
+            "2025-01-20T08:36:09Z",
+            "2025-01-20T08:33:35Z",
+            "2025-01-20T04:13:18Z",
+            "2025-01-19T20:12:44Z",
+            "2025-01-19T14:51:21Z",
+            "2025-01-19T14:47:32Z",
+            "2025-01-19T14:36:38Z",
+            "2025-01-19T14:33:57Z",
+            "2025-01-19T11:17:07Z",
+            "2025-01-19T11:15:06Z",
+            "2025-01-19T11:01:06Z",
+            "2025-01-19T10:58:06Z",
+            "2025-01-19T04:18:27Z",
+            "2025-01-19T02:42:52Z",
+            "2025-01-18T21:59:44Z",
+            "2025-01-18T18:07:19Z"
+        ],
+        "creation_date": "2019-02-08T02:57:06Z",
+        "contributors": 30,
+        "topics": [
+            "compiler",
+            "language",
+            "programming-language",
+            "v"
+        ],
+        "subscribers": 475,
+        "readme": "<div align=\"center\" style=\"display:grid;place-items:center;\">\n<p>\n    <a href=\"https://vlang.io/\" target=\"_blank\"><img width=\"80\" src=\"https://raw.githubusercontent.com/vlang/v-logo/master/dist/v-logo.svg?sanitize=true\" alt=\"V logo\"></a>\n</p>\n<h1>The V Programming Language</h1>\n\n[vlang.io](https://vlang.io)\n| [Docs](https://github.com/vlang/v/blob/master/doc/docs.md)\n| [Changelog](https://github.com/vlang/v/blob/master/CHANGELOG.md)\n| [Speed](https://fast.vlang.io/)\n| [Contributing & compiler design](https://github.com/vlang/v/blob/master/CONTRIBUTING.md)\n\n</div>\n<div align=\"center\" style=\"display:grid;place-items:center;\">\n<!--\n[![Build Status][WorkflowBadge]][WorkflowUrl]\n-->\n\n[![Sponsor][SponsorBadge]][SponsorUrl]\n[![Patreon][PatreonBadge]][PatreonUrl]\n[![Discord][DiscordBadge]][DiscordUrl]\n[![X][XBadge]][XUrl]\n[![Modules][ModulesBadge]][ModulesUrl]\n\n</div>\n\n## Key Features of V\n\n- Simplicity: the language can be learned over the course of a weekend\n- Fast compilation: \u2248110k loc/s with a Clang backend,\n  \u2248500k loc/s with native and tcc backends *(Intel i5-7500, SSD, no\n  optimization)* ([demo video](https://www.youtube.com/watch?v=pvP6wmcl_Sc))\n- Easy to develop: V compiles itself in less than a second\n- Performance: as fast as C (V's main backend compiles to human-readable C)\n- Safety: no null, no globals, no undefined behavior (wip), immutability by default\n- C to V translation ([Translating DOOM demo video](https://www.youtube.com/watch?v=6oXrz3oRoEg))\n- Hot code reloading\n- [Flexible memory management](https://vlang.io/#memory). GC by default, manual via `v -gc none`,\n  arena allocation via `v -prealloc`, autofree via `v -autofree`\n  ([autofree demo video](https://www.youtube.com/watch?v=gmB8ea8uLsM)).\n- [Cross-platform UI library](https://github.com/vlang/ui)\n- Built-in graphics library\n- Easy cross-compilation\n- REPL\n- [Built-in ORM](https://github.com/vlang/v/blob/master/doc/docs.md#orm)\n- [Built-in web framework](https://github.com/vlang/v/blob/master/vlib/veb/README.md)\n- C and JavaScript backends\n- Great for writing low-level software ([Vinix OS](https://github.com/vlang/vinix))\n\n## Stability, future changes, post 1.0 freeze\n\nDespite being at an early development stage, the V language is relatively stable, and doesn't\nchange often. But there will be changes before 1.0.\nMost changes in the syntax are handled via vfmt automatically.\n\nThe V core APIs (primarily the `os` module) will also have minor changes until\nthey are stabilized in V 1.0. Of course, the APIs will grow after that, but without breaking\nexisting code.\n\nAfter the 1.0 release V is going to be in the \"feature freeze\" mode. That means no breaking changes\nin the language, only bug fixes and performance improvements. Similar to Go.\n\nWill there be V 2.0? Not within a decade after 1.0, perhaps not ever.\n\nTo sum it up, unlike many other languages, V is not going to be always changing, with new features\nintroduced and old features modified. It is always going to be a small and simple\nlanguage, very similar to the way it is right now.\n\n## Installing V from source\n\n--> **_(this is the preferred method)_**\n\n### Linux, macOS, Windows, \\*BSD, Solaris, WSL, etc.\n\nUsually, installing V is quite simple if you have an environment that already has a\nfunctional `git` installation.\n\nNote: On Windows, run `make.bat` instead of `make` in CMD, or `./make.bat` in PowerShell.\nNote: On Ubuntu/Debian, you may need to run `sudo apt install git build-essential make` first.\n\nTo get started, execute the following in your terminal/shell:\n```bash\ngit clone --depth=1 https://github.com/vlang/v\ncd v\nmake\n```\n\nThat should be it, and you should find your V executable at `[path to V repo]/v`.\n`[path to V repo]` can be anywhere.\n\n(Like the note above says, on Windows, use `make.bat`, instead of `make`.)\n\nNow try running `./v run examples/hello_world.v` (or `v run examples/hello_world.v` in cmd shell).\n\n- *Trouble? Please see the notes above, and link to\n  [Installation Issues](https://github.com/vlang/v/discussions/categories/installation-issues)\n  for help.*\n\nNote: V is being constantly updated. To update V to its latest version, simply run:\n\n```bash\nv up\n```\n\n> [!NOTE]\n> If you run into any trouble, or you have a different operating\n> system or Linux distribution that doesn't install or work immediately, please see\n> [Installation Issues](https://github.com/vlang/v/discussions/categories/installation-issues)\n> and search for your OS and problem.\n>\n> If you can't find your problem, please add it to an existing discussion if one exists for\n> your OS, or create a new one if a main discussion doesn't yet exist for your OS.\n\n### C compiler\n\nThe [Tiny C Compiler (tcc)](https://repo.or.cz/w/tinycc.git) is downloaded for you by `make` if\nthere is a compatible version for your system, and installed under the V `thirdparty` directory.\n\nThis compiler is very fast, but does almost no optimizations. It is best for development builds.\n\nFor production builds (using the `-prod` option to V), it's recommended to use clang, gcc, or\nMicrosoft Visual C++. If you are doing development, you most likely already have one of those\ninstalled.\n\nOtherwise, follow these instructions:\n\n- [Installing a C compiler on Linux and macOS](https://github.com/vlang/v/wiki/Installing-a-C-compiler-on-Linux-and-macOS)\n\n- [Installing a C compiler on Windows](https://github.com/vlang/v/wiki/Installing-a-C-compiler-on-Windows)\n\n### Symlinking\n\n> [!NOTE]\n> It is *highly recommended*, that you put V on your PATH. That saves\n> you the effort to type in the full path to your v executable every time.\n> V provides a convenience `v symlink` command to do that more easily.\n\nOn Unix systems, it creates a `/usr/local/bin/v` symlink to your\nexecutable. To do that, run:\n\n```bash\nsudo ./v symlink\n```\n\nOn Windows, start a new shell with administrative privileges, for example by pressing the\n<kbd>Windows Key</kbd>, then type `cmd.exe`, right-click on its menu entry, and choose `Run as\nadministrator`. In the new administrative shell, cd to the path where you have compiled V, then\ntype:\n\n```bat\nv symlink\n```\n\n(or `./v symlink` in PowerShell)\n\nThat will make V available everywhere, by adding it to your PATH. Please restart your\nshell/editor after that, so that it can pick up the new PATH variable.\n\n> [!NOTE]\n> There is no need to run `v symlink` more than once - v will still be available, even after\n> `v up`, restarts, and so on. You only need to run it again if you decide to move the V repo\n> folder somewhere else.\n\n### Void Linux\n\n<details><summary>Expand Void Linux instructions</summary>\n\n```bash\n# xbps-install -Su base-devel\n# xbps-install libatomic-devel\n$ git clone --depth=1 https://github.com/vlang/v\n$ cd v\n$ make\n```\n\n</details>\n\n### Docker\n\n\n```bash\ngit clone --depth=1 https://github.com/vlang/v\ncd v\ndocker build -t vlang .\ndocker run --rm -it vlang:latest\n```\n\n### Docker with Alpine/musl\n\n```bash\ngit clone --depth=1 https://github.com/vlang/v\ncd v\ndocker build -t vlang_alpine - < Dockerfile.alpine\nalias with_alpine='docker run -u 1000:1000 --rm -it -v .:/src -w /src vlang_alpine:latest'\n```\n\nCompiling *static* executables, ready to be copied to a server, that is running\nanother linux distro, without dependencies:\n```bash\nwith_alpine v -skip-unused -prod -cc gcc -cflags -static -compress examples/http_server.v\nwith_alpine v -skip-unused -prod -cc gcc -cflags -static -compress -gc none examples/hello_world.v\nls -la examples/http_server examples/hello_world\nfile   examples/http_server examples/hello_world\nexamples/http_server: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, no section header\nexamples/hello_world: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, no section header\n```\n\nYou should see something like this:\n```\n-rwxr-xr-x 1 root root  16612 May 27 17:07 examples/hello_world\n-rwxr-xr-x 1 root root 335308 May 27 17:07 examples/http_server\n```\n\n### Termux/Android\n\nOn Termux, V needs some packages preinstalled - a working C compiler, also `libexecinfo`,\n`libgc` and `libgc-static`. After installing them, you can use the same script, like on\nLinux/macos:\n\n```bash\npkg install clang libexecinfo libgc libgc-static make git\ngit clone --depth=1 https://github.com/vlang/v\ncd v\nmake\n```\n\n## Editor/IDE Plugins\n\nTo bring IDE functions for the V programming languages to your editor, check out\n[v-analyzer](https://github.com/vlang/v-analyzer). It provides a\n[VS Code extension](https://marketplace.visualstudio.com/items?itemName=VOSCA.vscode-v-analyzer)\nand language server capabilities for other editors.\n\nThe plugin for JetBrains IDEs (IntelliJ, CLion, GoLand, etc.) also offers a great development\nexperience with V. You can find all features in [its documentation](https://plugins.jetbrains.com/plugin/20287-vlang/docs/syntax-highlighting.html).\n\nOther Plugins:\n\n- [Vim plugins](https://github.com/vlang/awesome-v#vim)\n- [Emacs plugins](https://github.com/vlang/awesome-v#emacs)\n- [Sublime Text 3 plugins](https://github.com/vlang/awesome-v#sublime-text-3)\n- [Atom plugins](https://github.com/vlang/awesome-v#atom)\n\n## Testing and running the examples\n\nMake sure V can compile itself:\n\n```bash\n$ v self\n$ v\nV 0.3.x\nUse Ctrl-C or `exit` to exit\n\n>>> println('hello world')\nhello world\n>>>\n```\n\n```bash\ncd examples\nv hello_world.v && ./hello_world    # or simply\nv run hello_world.v                 # this builds the program and runs it right away\n\nv run word_counter/word_counter.v word_counter/cinderella.txt\nv run news_fetcher.v\nv run tetris/tetris.v\n```\n\n\n<img src='https://raw.githubusercontent.com/vlang/v/master/examples/tetris/screenshot.png' width=300 alt='tetris screenshot'>\n\n## Sokol and GG GUI apps/games:\n\nIn order to build Tetris or 2048 (or anything else using the `sokol` or `gg` graphics modules),\nyou will need to install additional development libraries for your system.\n\n| System              | Installation method                                                                                |\n|---------------------|----------------------------------------------------------------------------------------------------|\n| Debian/Ubuntu based | Run `sudo apt install libxi-dev libxcursor-dev libgl-dev libxrandr-dev libasound2-dev`             |\n| Fedora/RH/CentOS    | Run `sudo dnf install libXi-devel libXcursor-devel libX11-devel libXrandr-devel libglvnd-devel`    |\n|                     |                                                                                                    |\n| NixOS               | Add `xorg.libX11.dev xorg.libXcursor.dev xorg.libXi.dev xorg.libXrandr.dev libGL.dev` to           |\n|                     | to `environment.systemPackages`                                                                    |\n\n## V net.http, net.websocket, `v install`\n\nThe net.http module, the net.websocket module, and the `v install` command may all use SSL.\nV comes with a version of mbedtls, which should work on all systems. If you find a need to\nuse OpenSSL instead, you will need to make sure that it is installed on your system, then\nuse the `-d use_openssl` switch when you compile.\n\nNote: Mbed-TLS is smaller and easier to install on windows too (V comes with it), but if you \nwrite programs, that do lots of http requests to HTTPS/SSL servers, in most cases, it is *best*\nto compile with `-d use_openssl`, and do so on a system, where you do have OpenSSL installed\n(see below). Mbed-TLS is slower, and can have more issues, especially when you are doing parallel\nhttp requests to multiple hosts (for example in web scrapers, REST API clients, RSS readers, etc).\nOn windows, it is better to run such programs in WSL2.\n\nTo install OpenSSL on non-Windows systems:\n\n| System              | Installation command             |\n|---------------------|----------------------------------|\n| macOS               | `brew install openssl`           |\n| Debian/Ubuntu based | `sudo apt install libssl-dev`    |\n| Arch/Manjaro        | openssl is installed by default  |\n| Fedora/CentOS/RH    | `sudo dnf install openssl-devel` |\n\nOn Windows, OpenSSL is simply hard to get working correctly. The instructions\n[here](https://tecadmin.net/install-openssl-on-windows/) may (or may not) help.\n\n## V sync\n\nV's `sync` module and channel implementation uses libatomic.\nIt is most likely already installed on your system, but if not,\nyou can install it, by doing the following:\n\n| System              | Installation command                |\n|---------------------|-------------------------------------|\n| macOS               | already installed                   |\n| Debian/Ubuntu based | `sudo apt install libatomic1`       |\n| Fedora/CentOS/RH    | `sudo dnf install libatomic-static` |\n\n## V UI\n\n<a href=\"https://github.com/vlang/ui\">\n<img src='https://raw.githubusercontent.com/vlang/ui/master/examples/screenshot.png' width=712 alt='V UI example screenshot'>\n</a>\n\nhttps://github.com/vlang/ui\n\n<!---\n## JavaScript backend\n\n[examples/js_hello_world.v](examples/js_hello_world.v):\n\n```v\nfn main() {\n\tfor i in 0 .. 3 {\n\t\tprintln('Hello from V.js')\n\t}\n}\n```\n\n```bash\nv -o hi.js examples/js_hello_world.v && node hi.js\nHello from V.js\nHello from V.js\nHello from V.js\n```\n-->\n\n## Android graphical apps\n\nWith V's `vab` tool, building V UI and graphical apps for Android can become as easy as:\n\n```\n./vab /path/to/v/examples/2048\n```\n\n[https://github.com/vlang/vab](https://github.com/vlang/vab).\n<img src=\"https://user-images.githubusercontent.com/768942/107622846-c13f3900-6c58-11eb-8a66-55db12979b73.png\" alt=\"vab examples screenshot\">\n\n## Developing web applications\n\nCheck out the\n[Building a simple web blog](https://github.com/vlang/v/blob/master/tutorials/building_a_simple_web_blog_with_vweb/README.md)\ntutorial and Gitly, a light and fast alternative to GitHub/GitLab:\n\nhttps://github.com/vlang/gitly\n\n<img src=\"https://user-images.githubusercontent.com/687996/85933714-b195fe80-b8da-11ea-9ddd-09cadc2103e4.png\" alt=\"gitly screenshot\">\n\n## Vinix, an OS/kernel written in V\n\nV is great for writing low-level software like drivers and kernels.\nVinix is an OS/kernel that already runs bash, GCC, V, and nano.\n\nhttps://github.com/vlang/vinix\n\n<img src=\"https://github.com/vlang/vinix/blob/main/screenshot0.png?raw=true\" alt=\"vinix screenshot 1\">\n<img src=\"https://github.com/vlang/vinix/blob/main/screenshot1.png?raw=true\" alt=\"vinix screenshot 2\">\n\n## Acknowledgement\n\nV thanks Fabrice Bellard for his original work on the\n[TCC - Tiny C Compiler](https://bellard.org/tcc/).\nNote the TCC website is old; the current TCC repository can be found\n[here](https://repo.or.cz/w/tinycc.git).\nV utilizes pre-built TCC binaries located at\n[https://github.com/vlang/tccbin/](https://github.com/vlang/tccbin/).\n\n## Troubleshooting\n\nPlease see the\n[Troubleshooting](https://github.com/vlang/v/wiki/Troubleshooting)\nsection on our\n[wiki page](https://github.com/vlang/v/wiki).\n\n[WorkflowBadge]: https://github.com/vlang/v/workflows/CI/badge.svg\n[DiscordBadge]: https://img.shields.io/discord/592103645835821068?label=Discord&logo=discord&logoColor=white\n[PatreonBadge]: https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Dvlang%26type%3Dpatrons&style=flat\n[SponsorBadge]: https://img.shields.io/github/sponsors/medvednikov?style=flat&logo=github&logoColor=white\n[XBadge]: https://img.shields.io/badge/follow-%40v__language-1DA1F2?logo=x&style=flat&logoColor=white\n[ModulesBadge]: https://img.shields.io/badge/modules-reference-027d9c?logo=v&logoColor=white&logoWidth=10\n\n[WorkflowUrl]: https://github.com/vlang/v/commits/master\n[DiscordUrl]: https://discord.gg/vlang\n[PatreonUrl]: https://patreon.com/vlang\n[SponsorUrl]: https://github.com/sponsors/medvednikov\n[XUrl]: https://x.com/v_language\n[ModulesUrl]: https://modules.vlang.io\n",
+        "releases": [
+            {
+                "name": "weekly.2025.03",
+                "date": "2025-01-19T15:34:42Z"
+            },
+            {
+                "name": "weekly.2025.1",
+                "date": "2025-01-06T10:31:10Z"
+            },
+            {
+                "name": "weekly.2024.53",
+                "date": "2024-12-31T09:50:30Z"
+            },
+            {
+                "name": "weekly.2024.52",
+                "date": "2024-12-26T08:23:15Z"
+            },
+            {
+                "name": "0.4.9",
+                "date": "2024-12-22T01:52:46Z"
+            },
+            {
+                "name": "weekly.2024.51",
+                "date": "2024-12-17T09:45:58Z"
+            },
+            {
+                "name": "weekly.2024.50",
+                "date": "2024-12-09T21:52:27Z"
+            },
+            {
+                "name": "weekly.2024.49",
+                "date": "2024-12-02T13:45:32Z"
+            },
+            {
+                "name": "weekly.2024.48",
+                "date": "2024-11-25T22:38:27Z"
+            },
+            {
+                "name": "weekly.2024.47",
+                "date": "2024-11-20T08:42:53Z"
+            },
+            {
+                "name": "weekly.2024.46",
+                "date": "2024-11-11T13:51:47Z"
+            },
+            {
+                "name": "weekly.2024.45",
+                "date": "2024-11-04T09:11:31Z"
+            },
+            {
+                "name": "weekly.2024.44",
+                "date": "2024-10-29T17:41:37Z"
+            },
+            {
+                "name": "weekly.2024.43",
+                "date": "2024-10-22T05:22:57Z"
+            },
+            {
+                "name": "weekly.2024.42",
+                "date": "2024-10-16T06:39:41Z"
+            },
+            {
+                "name": "weekly.2024.41",
+                "date": "2024-10-10T11:57:04Z"
+            },
+            {
+                "name": "0.4.8",
+                "date": "2024-09-28T23:40:43Z"
+            },
+            {
+                "name": "weekly.2024.39",
+                "date": "2024-09-23T07:31:32Z"
+            },
+            {
+                "name": "weekly.2024.37",
+                "date": "2024-09-15T16:29:20Z"
+            },
+            {
+                "name": "weekly.2024.36",
+                "date": "2024-09-02T19:00:28Z"
+            },
+            {
+                "name": "weekly.2024.35",
+                "date": "2024-08-31T06:00:36Z"
+            },
+            {
+                "name": "weekly.2024.34",
+                "date": "2024-08-19T10:27:27Z"
+            },
+            {
+                "name": "weekly.2024.33",
+                "date": "2024-08-12T11:48:31Z"
+            },
+            {
+                "name": "weekly.2024.32",
+                "date": "2024-08-06T08:28:37Z"
+            },
+            {
+                "name": "weekly.2024.31",
+                "date": "2024-07-29T11:00:48Z"
+            },
+            {
+                "name": "0.4.7",
+                "date": "2024-07-26T05:20:05Z"
+            },
+            {
+                "name": "weekly.2024.30",
+                "date": "2024-07-22T07:45:08Z"
+            },
+            {
+                "name": "weekly.2024.29",
+                "date": "2024-07-15T20:11:36Z"
+            },
+            {
+                "name": "weekly.2024.28",
+                "date": "2024-07-10T10:28:53Z"
+            },
+            {
+                "name": "weekly.2024.27",
+                "date": "2024-07-02T05:58:19Z"
+            },
+            {
+                "name": "weekly.2024.26",
+                "date": "2024-06-25T21:43:20Z"
+            },
+            {
+                "name": "weekly.2024.25",
+                "date": "2024-06-19T16:27:23Z"
+            },
+            {
+                "name": "weekly.2024.24",
+                "date": "2024-06-10T20:11:29Z"
+            },
+            {
+                "name": "weekly.2024.23",
+                "date": "2024-06-06T19:56:50Z"
+            },
+            {
+                "name": "weekly.2024.22",
+                "date": "2024-05-27T08:50:04Z"
+            },
+            {
+                "name": "0.4.6",
+                "date": "2024-05-20T21:22:40Z"
+            },
+            {
+                "name": "weekly.2024.20",
+                "date": "2024-05-13T18:58:29Z"
+            },
+            {
+                "name": "weekly.2024.19",
+                "date": "2024-05-06T21:44:27Z"
+            },
+            {
+                "name": "weekly.2024.18.2",
+                "date": "2024-05-02T14:32:28Z"
+            },
+            {
+                "name": "weekly.2024.18",
+                "date": "2024-04-29T09:36:49Z"
+            },
+            {
+                "name": "weekly.2024.17",
+                "date": "2024-04-22T19:21:04Z"
+            },
+            {
+                "name": "weekly.2024.16.1",
+                "date": "2024-04-17T14:31:18Z"
+            },
+            {
+                "name": "weekly.2024.16",
+                "date": "2024-04-16T00:06:38Z"
+            },
+            {
+                "name": "weekly.2024.15",
+                "date": "2024-04-08T12:11:28Z"
+            },
+            {
+                "name": "weekly.2024.14",
+                "date": "2024-04-02T02:22:28Z"
+            },
+            {
+                "name": "weekly.2024.13",
+                "date": "2024-03-25T09:16:18Z"
+            },
+            {
+                "name": "0.4.5",
+                "date": "2024-03-20T04:23:57Z"
+            },
+            {
+                "name": "weekly.2024.12",
+                "date": "2024-03-18T09:24:43Z"
+            },
+            {
+                "name": "weekly.2024.11",
+                "date": "2024-03-11T05:08:31Z"
+            },
+            {
+                "name": "weekly.2024.10",
+                "date": "2024-03-04T21:49:08Z"
+            },
+            {
+                "name": "weekly.2024.09",
+                "date": "2024-02-27T09:27:06Z"
+            },
+            {
+                "name": "weekly.2024.08",
+                "date": "2024-02-19T11:03:38Z"
+            },
+            {
+                "name": "weekly.2024.07",
+                "date": "2024-02-12T17:57:44Z"
+            },
+            {
+                "name": "weekly.2024.06",
+                "date": "2024-02-05T16:57:40Z"
+            },
+            {
+                "name": "weekly.2024.05",
+                "date": "2024-01-29T12:01:36Z"
+            },
+            {
+                "name": "weekly.2024.04",
+                "date": "2024-01-24T09:12:54Z"
+            },
+            {
+                "name": "weekly.2024.03",
+                "date": "2024-01-16T09:35:28Z"
+            },
+            {
+                "name": "0.4.4",
+                "date": "2024-01-09T13:59:37Z"
+            },
+            {
+                "name": "weekly.2024.01.test2",
+                "date": "2024-01-04T12:20:49Z"
+            },
+            {
+                "name": "weekly.2023.52",
+                "date": "2023-12-26T08:47:11Z"
+            },
+            {
+                "name": "weekly.2023.51",
+                "date": "2023-12-19T17:19:39Z"
+            },
+            {
+                "name": "weekly.2023.50",
+                "date": "2023-12-11T06:24:47Z"
+            },
+            {
+                "name": "weekly.2023.48",
+                "date": "2023-11-27T18:32:44Z"
+            },
+            {
+                "name": "0.4.3",
+                "date": "2023-11-11T13:47:38Z"
+            },
+            {
+                "name": "weekly.2023.45",
+                "date": "2023-11-11T13:27:12Z"
+            },
+            {
+                "name": "weekly.2023.44",
+                "date": "2023-10-31T05:47:53Z"
+            },
+            {
+                "name": "weekly.2023.43",
+                "date": "2023-10-24T07:58:21Z"
+            },
+            {
+                "name": "weekly.2023.42",
+                "date": "2023-10-16T19:51:48Z"
+            },
+            {
+                "name": "weekly.2023.41",
+                "date": "2023-10-11T09:50:33Z"
+            },
+            {
+                "name": "weekly.2023.40",
+                "date": "2023-10-05T08:44:18Z"
+            },
+            {
+                "name": "0.4.2",
+                "date": "2023-09-30T13:47:53Z"
+            },
+            {
+                "name": "weekly.2023.39",
+                "date": "2023-09-27T12:57:10Z"
+            },
+            {
+                "name": "weekly.2023.38",
+                "date": "2023-09-18T06:38:21Z"
+            },
+            {
+                "name": "weekly.2023.37",
+                "date": "2023-09-13T08:49:34Z"
+            },
+            {
+                "name": "0.4.1",
+                "date": "2023-09-03T19:54:55Z"
+            },
+            {
+                "name": "weekly.2023.35",
+                "date": "2023-08-28T09:21:54Z"
+            },
+            {
+                "name": "weekly.2023.33",
+                "date": "2023-08-15T20:38:50Z"
+            },
+            {
+                "name": "weekly.2023.32.2",
+                "date": "2023-08-13T13:39:42Z"
+            },
+            {
+                "name": "weekly.2023.32",
+                "date": "2023-08-08T05:13:32Z"
+            },
+            {
+                "name": "weekly.2023.31",
+                "date": "2023-08-04T08:56:39Z"
+            },
+            {
+                "name": "weekly.2023.30",
+                "date": "2023-07-25T04:34:01Z"
+            },
+            {
+                "name": "weekly.2023.28",
+                "date": "2023-07-10T17:43:03Z"
+            },
+            {
+                "name": "weekly.2023.27",
+                "date": "2023-07-03T12:20:27Z"
+            },
+            {
+                "name": "0.4",
+                "date": "2023-07-01T12:26:46Z"
+            },
+            {
+                "name": "0.3.5",
+                "date": "2023-06-29T21:02:48Z"
+            },
+            {
+                "name": "weekly.2023.26",
+                "date": "2023-06-26T09:49:24Z"
+            },
+            {
+                "name": "weekly.2023.25",
+                "date": "2023-06-19T19:47:54Z"
+            },
+            {
+                "name": "weekly.2023.24",
+                "date": "2023-06-14T11:08:30Z"
+            },
+            {
+                "name": "weekly.2023.23",
+                "date": "2023-06-06T09:00:36Z"
+            },
+            {
+                "name": "weekly.2023.22",
+                "date": "2023-05-31T08:58:00Z"
+            },
+            {
+                "name": "weekly.2023.21",
+                "date": "2023-05-23T10:13:22Z"
+            },
+            {
+                "name": "weekly.2023.19",
+                "date": "2023-05-09T08:58:35Z"
+            },
+            {
+                "name": "0.3.4",
+                "date": "2023-04-30T22:02:53Z"
+            },
+            {
+                "name": "weekly.2023.17",
+                "date": "2023-04-27T14:44:49Z"
+            },
+            {
+                "name": "weekly.2023.15",
+                "date": "2023-04-11T05:29:41Z"
+            },
+            {
+                "name": "weekly.2023.14",
+                "date": "2023-04-03T10:44:09Z"
+            },
+            {
+                "name": "weekly.2023.13",
+                "date": "2023-03-27T07:20:59Z"
+            },
+            {
+                "name": "weekly.2023.12",
+                "date": "2023-03-20T09:21:41Z"
+            },
+            {
+                "name": "weekly.2023.11",
+                "date": "2023-03-14T09:16:06Z"
+            },
+            {
+                "name": "weekly.2023.10",
+                "date": "2023-03-06T16:37:27Z"
+            },
+            {
+                "name": "weekly.2023.09",
+                "date": "2023-02-27T09:40:10Z"
+            },
+            {
+                "name": "weekly.2023.08",
+                "date": "2023-02-20T07:40:28Z"
+            },
+            {
+                "name": "weekly.2023.07",
+                "date": "2023-02-13T20:16:52Z"
+            },
+            {
+                "name": "weekly.2023.06",
+                "date": "2023-02-08T07:46:26Z"
+            },
+            {
+                "name": "weekly.2023.05",
+                "date": "2023-02-03T06:57:13Z"
+            },
+            {
+                "name": "0.3.3",
+                "date": "2023-01-30T17:55:14Z"
+            },
+            {
+                "name": "weekly.2023.04",
+                "date": "2023-01-24T15:03:42Z"
+            },
+            {
+                "name": "weekly.2023.03",
+                "date": "2023-01-16T18:57:33Z"
+            },
+            {
+                "name": "weekly.2023.02",
+                "date": "2023-01-10T21:45:11Z"
+            },
+            {
+                "name": "weekly.2023.01",
+                "date": "2023-01-02T15:08:26Z"
+            },
+            {
+                "name": "weekly.2022.52",
+                "date": "2022-12-27T00:20:09Z"
+            },
+            {
+                "name": "weekly.2022.51",
+                "date": "2022-12-24T06:34:03Z"
+            },
+            {
+                "name": "weekly.2022.50",
+                "date": "2022-12-13T07:45:09Z"
+            },
+            {
+                "name": "weekly.2022.49",
+                "date": "2022-12-08T10:48:10Z"
+            },
+            {
+                "name": "weekly.2022.48",
+                "date": "2022-11-28T11:57:23Z"
+            },
+            {
+                "name": "weekly.2022.47",
+                "date": "2022-11-23T10:07:33Z"
+            },
+            {
+                "name": "weekly.2022.46",
+                "date": "2022-11-15T08:21:42Z"
+            },
+            {
+                "name": "weekly.2022.45",
+                "date": "2022-11-08T05:52:48Z"
+            },
+            {
+                "name": "0.3.2",
+                "date": "2022-11-01T02:46:27Z"
+            },
+            {
+                "name": "weekly.2022.44",
+                "date": "2022-10-31T22:14:40Z"
+            },
+            {
+                "name": "weekly.2022.43",
+                "date": "2022-10-25T07:56:27Z"
+            },
+            {
+                "name": "weekly.2022.42",
+                "date": "2022-10-19T08:29:05Z"
+            },
+            {
+                "name": "weekly.2022.41",
+                "date": "2022-10-15T06:07:38Z"
+            },
+            {
+                "name": "weekly.2022.40",
+                "date": "2022-10-04T05:48:28Z"
+            },
+            {
+                "name": "weekly.2022.39",
+                "date": "2022-09-26T15:59:21Z"
+            },
+            {
+                "name": "weekly.2022.38",
+                "date": "2022-09-20T08:58:16Z"
+            },
+            {
+                "name": "weekly.2022.37",
+                "date": "2022-09-13T03:35:25Z"
+            },
+            {
+                "name": "weekly.2022.36",
+                "date": "2022-09-06T17:38:28Z"
+            },
+            {
+                "name": "0.3.1",
+                "date": "2022-08-31T16:42:56Z"
+            },
+            {
+                "name": "weekly.2022.35",
+                "date": "2022-08-30T15:05:37Z"
+            },
+            {
+                "name": "weekly.2022.34",
+                "date": "2022-08-22T17:03:39Z"
+            },
+            {
+                "name": "weekly.2022.33",
+                "date": "2022-08-16T08:42:16Z"
+            },
+            {
+                "name": "weekly.2022.32",
+                "date": "2022-08-08T12:41:30Z"
+            },
+            {
+                "name": "weekly.2022.31",
+                "date": "2022-08-01T12:32:01Z"
+            },
+            {
+                "name": "weekly.2022.30",
+                "date": "2022-07-25T08:21:58Z"
+            },
+            {
+                "name": "weekly.2022.29",
+                "date": "2022-07-18T17:35:11Z"
+            },
+            {
+                "name": "weekly.2022.28",
+                "date": "2022-07-13T06:44:16Z"
+            },
+            {
+                "name": "0.3",
+                "date": "2022-06-30T07:48:06Z"
+            },
+            {
+                "name": "weekly.2022.26",
+                "date": "2022-06-28T15:42:31Z"
+            },
+            {
+                "name": "weekly.2022.24",
+                "date": "2022-06-12T03:56:57Z"
+            },
+            {
+                "name": "weekly.2022.22",
+                "date": "2022-05-31T03:21:22Z"
+            },
+            {
+                "name": "weekly.2022.21",
+                "date": "2022-05-23T06:25:21Z"
+            },
+            {
+                "name": "weekly.2022.20",
+                "date": "2022-05-17T07:23:34Z"
+            },
+            {
+                "name": "weekly.2022.19",
+                "date": "2022-05-09T09:58:41Z"
+            },
+            {
+                "name": "weekly.2022.18",
+                "date": "2022-05-03T17:47:55Z"
+            },
+            {
+                "name": "weekly.2022.16",
+                "date": "2022-04-18T11:35:38Z"
+            },
+            {
+                "name": "weekly.2022.15",
+                "date": "2022-04-12T16:51:26Z"
+            },
+            {
+                "name": "weekly.2022.13",
+                "date": "2022-03-28T18:22:14Z"
+            },
+            {
+                "name": "weekly.2022.12",
+                "date": "2022-03-21T12:27:09Z"
+            },
+            {
+                "name": "weekly.2022.11",
+                "date": "2022-03-15T04:54:22Z"
+            },
+            {
+                "name": "weekly.2022.10",
+                "date": "2022-03-08T12:59:18Z"
+            },
+            {
+                "name": "weekly.2022.09",
+                "date": "2022-02-28T13:05:03Z"
+            },
+            {
+                "name": "weekly.2022.07",
+                "date": "2022-02-14T15:52:20Z"
+            },
+            {
+                "name": "weekly.2022.06",
+                "date": "2022-02-07T13:40:12Z"
+            },
+            {
+                "name": "weekly.2022.05",
+                "date": "2022-01-31T13:21:15Z"
+            },
+            {
+                "name": "weekly.2022.04",
+                "date": "2022-01-24T09:58:32Z"
+            },
+            {
+                "name": "weekly.2022.03",
+                "date": "2022-01-17T17:22:35Z"
+            },
+            {
+                "name": "weekly.2022.02",
+                "date": "2022-01-10T11:08:33Z"
+            },
+            {
+                "name": "weekly.2022.01",
+                "date": "2022-01-07T20:43:41Z"
+            },
+            {
+                "name": "weekly.2021.52.1",
+                "date": "2021-12-28T07:42:06Z"
+            },
+            {
+                "name": "weekly.2021.52",
+                "date": "2021-12-27T09:44:24Z"
+            },
+            {
+                "name": "weekly.2021.51",
+                "date": "2021-12-21T00:53:03Z"
+            },
+            {
+                "name": "weekly.2021.50.3",
+                "date": "2021-12-14T10:58:00Z"
+            },
+            {
+                "name": "weekly.2021.48",
+                "date": "2021-12-02T13:33:18Z"
+            },
+            {
+                "name": "weekly.2021.47",
+                "date": "2021-11-23T13:59:08Z"
+            },
+            {
+                "name": "weekly.2021.46",
+                "date": "2021-11-15T16:05:10Z"
+            },
+            {
+                "name": "weekly.2021.45",
+                "date": "2021-11-08T17:08:06Z"
+            },
+            {
+                "name": "weekly.2021.44",
+                "date": "2021-11-02T10:58:39Z"
+            },
+            {
+                "name": "weekly.2021.43",
+                "date": "2021-10-25T09:18:42Z"
+            },
+            {
+                "name": "weekly.2021.42.1",
+                "date": "2021-10-20T14:16:10Z"
+            },
+            {
+                "name": "weekly.2021.42",
+                "date": "2021-10-18T08:00:39Z"
+            },
+            {
+                "name": "weekly.2021.41",
+                "date": "2021-10-11T13:57:32Z"
+            },
+            {
+                "name": "weekly.2021.39.1",
+                "date": "2021-09-29T06:37:16Z"
+            },
+            {
+                "name": "weekly.2021.39",
+                "date": "2021-09-26T23:44:16Z"
+            },
+            {
+                "name": "weekly.2021.38",
+                "date": "2021-09-21T07:51:17Z"
+            },
+            {
+                "name": "weekly.2021.37",
+                "date": "2021-09-14T16:16:08Z"
+            },
+            {
+                "name": "weekly.2021.36",
+                "date": "2021-09-07T12:38:19Z"
+            },
+            {
+                "name": "0.2.4",
+                "date": "2021-08-30T20:04:55Z"
+            },
+            {
+                "name": "weekly.2021.33.2",
+                "date": "2021-08-16T09:39:06Z"
+            },
+            {
+                "name": "weekly.2021.31",
+                "date": "2021-08-02T07:59:12Z"
+            },
+            {
+                "name": "weekly.2021.30",
+                "date": "2021-07-27T06:11:15Z"
+            },
+            {
+                "name": "weekly.2021.29",
+                "date": "2021-07-19T18:42:27Z"
+            },
+            {
+                "name": "weekly.2021.28",
+                "date": "2021-07-12T08:57:06Z"
+            },
+            {
+                "name": "weekly.2021.27",
+                "date": "2021-07-05T18:54:41Z"
+            },
+            {
+                "name": "weekly.2021.26",
+                "date": "2021-06-28T12:35:41Z"
+            },
+            {
+                "name": "weekly.2021.25",
+                "date": "2021-06-21T12:07:33Z"
+            },
+            {
+                "name": "weekly.2021.23",
+                "date": "2021-06-07T09:38:33Z"
+            },
+            {
+                "name": "weekly.2021.22",
+                "date": "2021-05-31T17:30:51Z"
+            },
+            {
+                "name": "weekly.2021.21",
+                "date": "2021-05-24T07:20:55Z"
+            },
+            {
+                "name": "weekly.2021.20",
+                "date": "2021-05-17T07:49:22Z"
+            },
+            {
+                "name": "weekly.2021.19",
+                "date": "2021-05-10T11:48:42Z"
+            },
+            {
+                "name": "weekly.2021.18",
+                "date": "2021-05-05T19:52:17Z"
+            },
+            {
+                "name": "weekly.2021.17",
+                "date": "2021-04-27T05:59:24Z"
+            },
+            {
+                "name": "weekly.2021.16",
+                "date": "2021-04-20T05:33:15Z"
+            },
+            {
+                "name": "weekly.2021.15",
+                "date": "2021-04-12T10:12:49Z"
+            },
+            {
+                "name": "weekly.2021.14",
+                "date": "2021-04-08T06:38:38Z"
+            },
+            {
+                "name": "weekly.2021.13",
+                "date": "2021-03-30T10:38:08Z"
+            },
+            {
+                "name": "weekly.2021.12.2",
+                "date": "2021-03-24T22:11:51Z"
+            },
+            {
+                "name": "weekly.2021.12.1",
+                "date": "2021-03-24T14:14:58Z"
+            },
+            {
+                "name": "weekly.2021.11",
+                "date": "2021-03-15T05:04:19Z"
+            },
+            {
+                "name": "weekly.2021.10",
+                "date": "2021-03-08T19:28:38Z"
+            },
+            {
+                "name": "weekly.2021.8",
+                "date": "2021-02-22T09:10:52Z"
+            },
+            {
+                "name": "weekly.2021.7",
+                "date": "2021-02-15T18:02:36Z"
+            },
+            {
+                "name": "weekly.2021.6",
+                "date": "2021-02-08T18:39:06Z"
+            },
+            {
+                "name": "weekly.2021.5",
+                "date": "2021-02-01T10:53:14Z"
+            },
+            {
+                "name": "0.2.2",
+                "date": "2021-01-22T09:44:44Z"
+            },
+            {
+                "name": "0.2.1",
+                "date": "2020-12-29T20:28:30Z"
+            },
+            {
+                "name": "0.2",
+                "date": "2020-12-22T19:52:46Z"
+            },
+            {
+                "name": "weekly.2020.51.2",
+                "date": "2020-12-16T14:47:32Z"
+            },
+            {
+                "name": "weekly.2020.51",
+                "date": "2020-12-14T13:19:26Z"
+            },
+            {
+                "name": "weekly.2020.49.5",
+                "date": "2020-12-04T12:14:10Z"
+            },
+            {
+                "name": "weekly.2020.49.4",
+                "date": "2020-12-03T21:03:09Z"
+            },
+            {
+                "name": "weekly.2020.49.2",
+                "date": "2020-12-03T15:04:35Z"
+            },
+            {
+                "name": "weekly.2020.49",
+                "date": "2020-12-03T14:19:05Z"
+            },
+            {
+                "name": "",
+                "date": "2020-12-03T20:49:07Z"
+            },
+            {
+                "name": "0.1.30",
+                "date": "2020-11-29T21:16:13Z"
+            },
+            {
+                "name": "0.1.29",
+                "date": "2020-08-06T17:38:11Z"
+            },
+            {
+                "name": "0.1.28.1",
+                "date": "2020-06-27T22:03:47Z"
+            },
+            {
+                "name": "0.1.28",
+                "date": "2020-06-18T13:59:58Z"
+            },
+            {
+                "name": "0.1.27",
+                "date": "2020-05-11T17:35:22Z"
+            },
+            {
+                "name": "0.1.24",
+                "date": "2020-01-08T13:24:12Z"
+            },
+            {
+                "name": "0.1.23.1",
+                "date": "2019-12-03T22:51:06Z"
+            },
+            {
+                "name": "0.1.23",
+                "date": "2019-12-03T18:24:51Z"
+            },
+            {
+                "name": "0.1.21",
+                "date": "2019-09-30T13:42:46Z"
+            },
+            {
+                "name": "0.1.20",
+                "date": "2019-09-17T10:58:51Z"
+            },
+            {
+                "name": "0.1.19",
+                "date": "2019-09-13T11:21:26Z"
+            },
+            {
+                "name": "0.1.18",
+                "date": "2019-08-16T21:48:52Z"
+            },
+            {
+                "name": "0.1.17",
+                "date": "2019-07-29T16:32:20Z"
+            },
+            {
+                "name": "0.1.16",
+                "date": "2019-07-23T22:45:56Z"
+            },
+            {
+                "name": "0.1.15",
+                "date": "2019-07-16T21:40:59Z"
+            },
+            {
+                "name": "v0.1.13",
+                "date": "2019-07-10T00:07:32Z"
+            },
+            {
+                "name": "v0.1.12",
+                "date": "2019-07-04T00:22:08Z"
+            },
+            {
+                "name": "v0.1.11",
+                "date": "2019-07-01T15:01:32Z"
+            },
+            {
+                "name": "v0.1.10",
+                "date": "2019-06-29T19:51:55Z"
+            },
+            {
+                "name": "v0.1.9",
+                "date": "2019-06-29T13:25:56Z"
+            },
+            {
+                "name": "v0.1.8",
+                "date": "2019-06-28T11:50:03Z"
+            },
+            {
+                "name": "v0.1.7",
+                "date": "2019-06-27T21:14:47Z"
+            },
+            {
+                "name": "v0.1.6",
+                "date": "2019-06-27T16:53:20Z"
+            },
+            {
+                "name": "v0.1.5",
+                "date": "2019-06-27T10:54:06Z"
+            },
+            {
+                "name": "v0.1.4",
+                "date": "2019-06-26T15:02:41Z"
+            },
+            {
+                "name": "v0.1.3",
+                "date": "2019-06-25T17:08:38Z"
+            }
+        ]
+    }
+}

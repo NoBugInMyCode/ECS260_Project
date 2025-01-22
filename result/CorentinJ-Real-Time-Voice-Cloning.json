@@ -1,0 +1,55 @@
+{
+    "https://api.github.com/repos/CorentinJ/Real-Time-Voice-Cloning": {
+        "forks": 8867,
+        "watchers": 53289,
+        "stars": 53289,
+        "languages": {
+            "Python": 252952
+        },
+        "commits": [
+            "2024-05-29T12:04:38Z",
+            "2023-03-22T10:55:52Z",
+            "2022-09-08T13:49:58Z",
+            "2022-03-01T11:39:59Z",
+            "2022-01-19T11:02:57Z",
+            "2022-01-11T05:13:37Z",
+            "2022-01-10T20:20:04Z",
+            "2022-01-10T07:01:34Z",
+            "2021-12-29T14:12:50Z",
+            "2021-12-28T20:04:36Z",
+            "2021-12-28T15:38:25Z",
+            "2021-12-28T12:18:40Z",
+            "2021-11-30T10:34:03Z",
+            "2021-11-21T20:21:10Z",
+            "2021-09-25T16:57:12Z",
+            "2021-02-23T14:11:03Z",
+            "2021-02-18T07:29:21Z",
+            "2021-02-14T20:55:35Z",
+            "2021-02-14T17:47:42Z",
+            "2021-02-14T16:00:02Z",
+            "2020-11-18T15:55:14Z",
+            "2020-11-02T23:10:05Z",
+            "2020-10-26T07:29:13Z",
+            "2020-10-26T00:34:42Z",
+            "2020-10-16T15:32:45Z",
+            "2020-10-16T15:32:06Z",
+            "2020-10-06T19:14:50Z",
+            "2020-09-30T09:12:16Z",
+            "2020-09-03T22:31:51Z",
+            "2020-08-07T07:09:03Z"
+        ],
+        "creation_date": "2019-05-26T08:56:15Z",
+        "contributors": 15,
+        "topics": [
+            "deep-learning",
+            "python",
+            "pytorch",
+            "tensorflow",
+            "tts",
+            "voice-cloning"
+        ],
+        "subscribers": 942,
+        "readme": "# Real-Time Voice Cloning\nThis repository is an implementation of [Transfer Learning from Speaker Verification to\nMultispeaker Text-To-Speech Synthesis](https://arxiv.org/pdf/1806.04558.pdf) (SV2TTS) with a vocoder that works in real-time. This was my [master's thesis](https://matheo.uliege.be/handle/2268.2/6801).\n\nSV2TTS is a deep learning framework in three stages. In the first stage, one creates a digital representation of a voice from a few seconds of audio. In the second and third stages, this representation is used as reference to generate speech given arbitrary text.\n\n**Video demonstration** (click the picture):\n\n[![Toolbox demo](https://i.imgur.com/8lFUlgz.png)](https://www.youtube.com/watch?v=-O_hYhToKoA)\n\n\n\n### Papers implemented  \n| URL | Designation | Title | Implementation source |\n| --- | ----------- | ----- | --------------------- |\n|[**1806.04558**](https://arxiv.org/pdf/1806.04558.pdf) | **SV2TTS** | **Transfer Learning from Speaker Verification to Multispeaker Text-To-Speech Synthesis** | This repo |\n|[1802.08435](https://arxiv.org/pdf/1802.08435.pdf) | WaveRNN (vocoder) | Efficient Neural Audio Synthesis | [fatchord/WaveRNN](https://github.com/fatchord/WaveRNN) |\n|[1703.10135](https://arxiv.org/pdf/1703.10135.pdf) | Tacotron (synthesizer) | Tacotron: Towards End-to-End Speech Synthesis | [fatchord/WaveRNN](https://github.com/fatchord/WaveRNN)\n|[1710.10467](https://arxiv.org/pdf/1710.10467.pdf) | GE2E (encoder)| Generalized End-To-End Loss for Speaker Verification | This repo |\n\n## Heads up\nLike everything else in Deep Learning, this repo has quickly gotten old. Many SaaS apps (often paying) will give you a better audio quality than this repository will. If you wish for an open-source solution with a high voice quality:\n- Check out [paperswithcode](https://paperswithcode.com/task/speech-synthesis/) for other repositories and recent research in the field of speech synthesis.\n- Check out [CoquiTTS](https://github.com/coqui-ai/tts) for a repository with a better voice cloning quality and more functionalities.\n- Check out [MetaVoice-1B](https://github.com/metavoiceio/metavoice-src) for a large voice model with high voice quality\n\n## Setup\n\n### 1. Install Requirements\n1. Both Windows and Linux are supported. A GPU is recommended for training and for inference speed, but is not mandatory.\n2. Python 3.7 is recommended. Python 3.5 or greater should work, but you'll probably have to tweak the dependencies' versions. I recommend setting up a virtual environment using `venv`, but this is optional.\n3. Install [ffmpeg](https://ffmpeg.org/download.html#get-packages). This is necessary for reading audio files.\n4. Install [PyTorch](https://pytorch.org/get-started/locally/). Pick the latest stable version, your operating system, your package manager (pip by default) and finally pick any of the proposed CUDA versions if you have a GPU, otherwise pick CPU. Run the given command.\n5. Install the remaining requirements with `pip install -r requirements.txt`\n\n### 2. (Optional) Download Pretrained Models\nPretrained models are now downloaded automatically. If this doesn't work for you, you can manually download them [here](https://github.com/CorentinJ/Real-Time-Voice-Cloning/wiki/Pretrained-models).\n\n### 3. (Optional) Test Configuration\nBefore you download any dataset, you can begin by testing your configuration with:\n\n`python demo_cli.py`\n\nIf all tests pass, you're good to go.\n\n### 4. (Optional) Download Datasets\nFor playing with the toolbox alone, I only recommend downloading [`LibriSpeech/train-clean-100`](https://www.openslr.org/resources/12/train-clean-100.tar.gz). Extract the contents as `<datasets_root>/LibriSpeech/train-clean-100` where `<datasets_root>` is a directory of your choosing. Other datasets are supported in the toolbox, see [here](https://github.com/CorentinJ/Real-Time-Voice-Cloning/wiki/Training#datasets). You're free not to download any dataset, but then you will need your own data as audio files or you will have to record it with the toolbox.\n\n### 5. Launch the Toolbox\nYou can then try the toolbox:\n\n`python demo_toolbox.py -d <datasets_root>`  \nor  \n`python demo_toolbox.py`  \n\ndepending on whether you downloaded any datasets. If you are running an X-server or if you have the error `Aborted (core dumped)`, see [this issue](https://github.com/CorentinJ/Real-Time-Voice-Cloning/issues/11#issuecomment-504733590).\n",
+        "releases": []
+    }
+}

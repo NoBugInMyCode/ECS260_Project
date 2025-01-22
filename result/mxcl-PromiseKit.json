@@ -1,0 +1,388 @@
+{
+    "https://api.github.com/repos/mxcl/PromiseKit": {
+        "forks": 1459,
+        "watchers": 14247,
+        "stars": 14247,
+        "languages": {
+            "Swift": 275286,
+            "Objective-C": 83722,
+            "Ruby": 10714,
+            "JavaScript": 1572
+        },
+        "commits": [
+            "2025-01-16T21:11:29Z",
+            "2025-01-16T15:52:29Z",
+            "2025-01-15T23:47:44Z",
+            "2025-01-15T23:43:03Z",
+            "2024-11-08T08:00:26Z",
+            "2024-11-08T07:51:48Z",
+            "2024-11-03T19:20:46Z",
+            "2024-06-03T09:35:21Z",
+            "2024-06-03T08:26:27Z",
+            "2024-06-03T04:22:05Z",
+            "2024-05-31T14:31:32Z",
+            "2024-05-11T07:57:14Z",
+            "2024-04-06T11:02:45Z",
+            "2024-02-22T10:59:35Z",
+            "2024-02-22T10:57:53Z",
+            "2023-08-27T15:10:40Z",
+            "2023-08-27T14:44:12Z",
+            "2023-08-16T07:52:43Z",
+            "2023-07-21T17:50:17Z",
+            "2023-07-21T11:55:41Z",
+            "2023-07-21T11:31:20Z",
+            "2023-07-15T10:44:38Z",
+            "2023-07-15T10:04:25Z",
+            "2023-06-20T12:57:25Z",
+            "2023-06-19T15:01:49Z",
+            "2023-06-19T14:54:50Z",
+            "2023-06-05T22:26:30Z",
+            "2023-06-05T22:02:58Z",
+            "2023-06-05T21:52:00Z",
+            "2023-04-01T14:01:18Z"
+        ],
+        "creation_date": "2014-04-04T13:54:37Z",
+        "contributors": 30,
+        "topics": [
+            "objc",
+            "promises",
+            "swift"
+        ],
+        "subscribers": 254,
+        "readme": "![PromiseKit](../gh-pages/public/img/logo-tight.png)\n\n[![badge-pod][]][cocoapods] ![badge-languages][] ![badge-pms][] ![badge-platforms][] [![codecov](https://codecov.io/gh/mxcl/PromiseKit/branch/master/graph/badge.svg?token=wHSAz7N8WA)](https://codecov.io/gh/mxcl/PromiseKit)\n\n---\n\nPromises simplify asynchronous programming, freeing you up to focus on the more\nimportant things. They are easy to learn, easy to master and result in clearer,\nmore readable code. Your co-workers will thank you.\n\n```swift\nUIApplication.shared.isNetworkActivityIndicatorVisible = true\n\nlet fetchImage = URLSession.shared.dataTask(.promise, with: url).compactMap{ UIImage(data: $0.data) }\nlet fetchLocation = CLLocationManager.requestLocation().lastValue\n\nfirstly {\n    when(fulfilled: fetchImage, fetchLocation)\n}.done { image, location in\n    self.imageView.image = image\n    self.label.text = \"\\(location)\"\n}.ensure {\n    UIApplication.shared.isNetworkActivityIndicatorVisible = false\n}.catch { error in\n    self.show(UIAlertController(for: error), sender: self)\n}\n```\n\nPromiseKit is a thoughtful and complete implementation of promises for any\nplatform that has a `swiftc`. It has *excellent* Objective-C bridging and\n*delightful* specializations for iOS, macOS, tvOS and watchOS. It is a top-100\npod used in many of the most popular apps in the world.\n\n[![codecov](https://codecov.io/gh/mxcl/PromiseKit/branch/master/graph/badge.svg)](https://codecov.io/gh/mxcl/PromiseKit)\n\n# Quick Start\n\nIn your [Podfile]:\n\n```ruby\nuse_frameworks!\n\ntarget \"Change Me!\" do\n  pod \"PromiseKit\", \"~> 8\"\nend\n```\n\nPromiseKit 8 supports recent Xcodes (13+). Some Podspecs were\n[dropped as a result](https://github.com/mxcl/PromiseKit/pull/1318).\nPull requests are welcome.\n\nPromiseKit 6, 5 and 4 support Xcode 8.3, 9.x and 10.0; Swift 3.1,\n3.2, 3.3, 3.4, 4.0, 4.1, 4.2, 4.3 and 5.0 (development snapshots); iOS, macOS,\ntvOS, watchOS, Linux and Android; CocoaPods, Carthage and SwiftPM;\n([CI Matrix](https://travis-ci.org/mxcl/PromiseKit)).\n\nFor Carthage, SwiftPM, Accio, etc., or for instructions when using older Swifts or Xcodes, see our [Installation Guide]. We recommend\n[Carthage](https://github.com/Carthage/Carthage) or\n[Accio](https://github.com/JamitLabs/Accio).\n\n# PromiseKit and Swift 5.5+ Async/Await\n\nAs of Swift 5.5, the Swift language now offers support for [built-in concurrency with async / await](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html).  See [Async+](https://github.com/async-plus/async-plus) for a port of PromiseKit's most useful patterns to this new paradigm.\n\n# Professionally Supported PromiseKit is Now Available\n\nTideLift gives software development teams a single source for purchasing\nand maintaining their software, with professional grade assurances from\nthe experts who know it best, while seamlessly integrating with existing\ntools.\n\n[Get Professional Support for PromiseKit with TideLift](https://tidelift.com/subscription/pkg/cocoapods-promisekit?utm_source=cocoapods-promisekit&utm_medium=referral&utm_campaign=readme).\n\n\n# Documentation\n\n* Handbook\n  * [Getting Started](Documentation/GettingStarted.md)\n  * [Promises: Common Patterns](Documentation/CommonPatterns.md)\n  * [Frequently Asked Questions](Documentation/FAQ.md)\n* Manual\n  * [Installation Guide](Documentation/Installation.md)\n  * [Objective-C Guide](Documentation/ObjectiveC.md)\n  * [Troubleshooting](Documentation/Troubleshooting.md) (e.g., solutions to common compile errors)\n  * [Appendix](Documentation/Appendix.md)\n* [API Reference](https://mxcl.dev/PromiseKit/reference/v6/Classes/Promise.html)\n\n# Extensions\n\nPromises are only as useful as the asynchronous tasks they represent. Thus, we\nhave converted (almost) all of Apple\u2019s APIs to promises. The default CocoaPod\nprovides Promises and the extensions for Foundation and UIKit. The other\nextensions are available by specifying additional subspecs in your `Podfile`,\ne.g.:\n\n```ruby\npod \"PromiseKit/MapKit\"          # MKDirections().calculate().then { /*\u2026*/ }\npod \"PromiseKit/CoreLocation\"    # CLLocationManager.requestLocation().then { /*\u2026*/ }\n```\n\nAll our extensions are separate repositories at the [PromiseKit organization].\n\n## I don't want the extensions!\n\nThen don\u2019t have them:\n\n```ruby\npod \"PromiseKit/CorePromise\", \"~> 8\"\n```\n\n> *Note:* Carthage installations come with no extensions by default.\n\n## Networking\n\nPromise chains commonly start with a network operation. Thus, we offer\nextensions for `URLSession`:\n\n```swift\n// pod 'PromiseKit/Foundation'  # https://github.com/PromiseKit/Foundation\n\nfirstly {\n    URLSession.shared.dataTask(.promise, with: try makeUrlRequest()).validate()\n    // ^^ we provide `.validate()` so that eg. 404s get converted to errors\n}.map {\n    try JSONDecoder().decode(Foo.self, with: $0.data)\n}.done { foo in\n    //\u2026\n}.catch { error in\n    //\u2026\n}\n\nfunc makeUrlRequest() throws -> URLRequest {\n    var rq = URLRequest(url: url)\n    rq.httpMethod = \"POST\"\n    rq.addValue(\"application/json\", forHTTPHeaderField: \"Content-Type\")\n    rq.addValue(\"application/json\", forHTTPHeaderField: \"Accept\")\n    rq.httpBody = try JSONEncoder().encode(obj)\n    return rq\n}\n```\n\nSupport for Alamofire is welcome, please submit a PR.\n\n\n# Support\n\nPlease check our [Troubleshooting Guide](Documentation/Troubleshooting.md), and\nif after that you still have a question, ask at our [Gitter chat channel] or on [our bug tracker].\n\n## Security & Vulnerability Reporting or Disclosure\n\nhttps://tidelift.com/security\n\n\n[badge-pod]: https://img.shields.io/cocoapods/v/PromiseKit.svg?label=version\n[badge-pms]: https://img.shields.io/badge/supports-CocoaPods%20%7C%20Carthage%20%7C%20Accio%20%7C%20SwiftPM-green.svg\n[badge-languages]: https://img.shields.io/badge/languages-Swift%20%7C%20ObjC-orange.svg\n[badge-platforms]: https://img.shields.io/badge/platforms-macOS%20%7C%20iOS%20%7C%20watchOS%20%7C%20tvOS%20%7C%20Linux-lightgrey.svg\n[badge-mit]: https://img.shields.io/badge/license-MIT-blue.svg\n[OMGHTTPURLRQ]: https://github.com/PromiseKit/OMGHTTPURLRQ\n[Alamofire]: http://github.com/PromiseKit/Alamofire-\n[PromiseKit organization]: https://github.com/PromiseKit\n[Gitter chat channel]: https://gitter.im/mxcl/PromiseKit\n[our bug tracker]: https://github.com/mxcl/PromiseKit/issues/new\n[Podfile]: https://guides.cocoapods.org/syntax/podfile.html\n[PMK6]: http://mxcl.dev/PromiseKit/news/2018/02/PromiseKit-6.0-Released/\n[Installation Guide]: Documentation/Installation.md\n[badge-travis]: https://travis-ci.org/mxcl/PromiseKit.svg?branch=master\n[travis]: https://travis-ci.org/mxcl/PromiseKit\n[cocoapods]: https://cocoapods.org/pods/PromiseKit\n",
+        "releases": [
+            {
+                "name": "8.2.0",
+                "date": "2025-01-16T21:11:58Z"
+            },
+            {
+                "name": "8.1.2",
+                "date": "2024-06-03T09:35:22Z"
+            },
+            {
+                "name": "8.1.1",
+                "date": "2023-08-27T15:10:41Z"
+            },
+            {
+                "name": "8.1.0",
+                "date": "2023-07-21T11:55:43Z"
+            },
+            {
+                "name": "8.0.0",
+                "date": "2023-06-20T12:57:27Z"
+            },
+            {
+                "name": "6.22.1",
+                "date": "2023-04-01T14:01:19Z"
+            },
+            {
+                "name": "6.22.0",
+                "date": "2023-03-10T13:45:53Z"
+            },
+            {
+                "name": "6.21.0",
+                "date": "2023-02-05T22:38:27Z"
+            },
+            {
+                "name": "6.20.0",
+                "date": "2023-01-24T15:08:48Z"
+            },
+            {
+                "name": "6.19.0",
+                "date": "2023-01-19T23:06:33Z"
+            },
+            {
+                "name": "6.18.1",
+                "date": "2022-08-19T14:19:53Z"
+            },
+            {
+                "name": "6.18.0",
+                "date": "2022-07-25T20:02:35Z"
+            },
+            {
+                "name": "6.17.1",
+                "date": "2022-05-11T17:14:00Z"
+            },
+            {
+                "name": "6.17.0",
+                "date": "2022-02-28T03:16:44Z"
+            },
+            {
+                "name": "6.16.3",
+                "date": "2022-01-29T17:04:19Z"
+            },
+            {
+                "name": "6.16.2",
+                "date": "2021-11-19T12:10:13Z"
+            },
+            {
+                "name": "6.16.1",
+                "date": "2021-10-25T14:23:21Z"
+            },
+            {
+                "name": "6.16.0",
+                "date": "2021-09-24T17:57:27Z"
+            },
+            {
+                "name": "7.0.0-rc2",
+                "date": "2021-06-25T15:21:25Z"
+            },
+            {
+                "name": "7.0.0-rc1",
+                "date": "2021-06-02T13:04:57Z"
+            },
+            {
+                "name": "6.15.3",
+                "date": "2021-05-27T21:03:30Z"
+            },
+            {
+                "name": "6.15.2",
+                "date": "2021-05-26T16:44:13Z"
+            },
+            {
+                "name": "6.15.1",
+                "date": "2021-05-25T18:37:36Z"
+            },
+            {
+                "name": "6.15.0",
+                "date": "2021-05-24T21:29:28Z"
+            },
+            {
+                "name": "6.14.0",
+                "date": "2021-05-23T20:18:32Z"
+            },
+            {
+                "name": "6.13.2",
+                "date": "2020-06-24T14:23:38Z"
+            },
+            {
+                "name": "6.13.0",
+                "date": "2020-01-15T22:02:57Z"
+            },
+            {
+                "name": "6.10.0",
+                "date": "2019-06-28T14:23:51Z"
+            },
+            {
+                "name": "6.9.0",
+                "date": "2019-06-18T11:58:00Z"
+            },
+            {
+                "name": "6.8.5",
+                "date": "2019-06-28T14:24:03Z"
+            },
+            {
+                "name": "7.0.0-alpha3",
+                "date": "2019-04-12T02:17:42Z"
+            },
+            {
+                "name": "7.0.0-alpha2",
+                "date": "2019-03-24T13:57:20Z"
+            },
+            {
+                "name": "6.8.4",
+                "date": "2019-03-26T02:46:02Z"
+            },
+            {
+                "name": "7.0.0-alpha1",
+                "date": "2019-03-19T02:11:18Z"
+            },
+            {
+                "name": "6.8.3",
+                "date": "2019-02-01T21:59:39Z"
+            },
+            {
+                "name": "6.8.2",
+                "date": "2019-02-01T19:57:35Z"
+            },
+            {
+                "name": "",
+                "date": "2019-02-01T19:57:47Z"
+            },
+            {
+                "name": "6.8.0",
+                "date": "2019-01-23T23:05:52Z"
+            },
+            {
+                "name": "",
+                "date": "2019-02-01T19:57:57Z"
+            },
+            {
+                "name": "",
+                "date": "2018-12-04T23:54:39Z"
+            },
+            {
+                "name": "",
+                "date": "2018-10-10T22:04:57Z"
+            },
+            {
+                "name": "HealthKit extension added",
+                "date": "2018-10-03T22:46:52Z"
+            },
+            {
+                "name": "",
+                "date": "2018-09-23T09:34:29Z"
+            },
+            {
+                "name": "",
+                "date": "2018-08-22T15:49:37Z"
+            },
+            {
+                "name": "",
+                "date": "2018-06-05T01:53:09Z"
+            },
+            {
+                "name": "",
+                "date": "2018-05-24T19:09:57Z"
+            },
+            {
+                "name": "",
+                "date": "2018-05-24T19:10:13Z"
+            },
+            {
+                "name": "",
+                "date": "2018-05-15T21:05:19Z"
+            },
+            {
+                "name": "6.2.3: Added omitted `PMKRace` to `.podspec`",
+                "date": "2018-03-28T15:54:02Z"
+            },
+            {
+                "name": "",
+                "date": "2018-03-28T15:54:13Z"
+            },
+            {
+                "name": "",
+                "date": "2018-03-04T18:20:53Z"
+            },
+            {
+                "name": "6.2.0",
+                "date": "2018-02-28T19:42:03Z"
+            },
+            {
+                "name": "1.7.6",
+                "date": "2018-02-22T16:31:14Z"
+            },
+            {
+                "name": "6.1.0; functional functions renamed",
+                "date": "2018-02-19T21:46:57Z"
+            },
+            {
+                "name": "6.0.3",
+                "date": "2018-02-18T16:53:06Z"
+            },
+            {
+                "name": "",
+                "date": "2018-02-17T18:45:05Z"
+            },
+            {
+                "name": "",
+                "date": "2018-02-13T21:54:29Z"
+            },
+            {
+                "name": "",
+                "date": "2018-02-12T02:17:17Z"
+            },
+            {
+                "name": "",
+                "date": "2018-02-13T21:54:53Z"
+            },
+            {
+                "name": "",
+                "date": "2017-12-09T18:36:15Z"
+            },
+            {
+                "name": "",
+                "date": "2017-11-05T22:32:27Z"
+            },
+            {
+                "name": "4.3.2",
+                "date": "2017-08-17T18:31:12Z"
+            },
+            {
+                "name": "",
+                "date": "2017-05-11T15:01:34Z"
+            },
+            {
+                "name": "PromiseKit 2.2.2",
+                "date": "2015-08-26T04:20:35Z"
+            },
+            {
+                "name": "PromiseKit 2.2.1",
+                "date": "2015-08-09T17:58:10Z"
+            },
+            {
+                "name": "PromiseKit 2.2.0",
+                "date": "2015-08-07T19:38:03Z"
+            },
+            {
+                "name": "PromiseKit 2.1.3",
+                "date": "2015-08-03T19:39:29Z"
+            },
+            {
+                "name": "PromiseKit 2.1.2",
+                "date": "2015-08-01T00:58:23Z"
+            },
+            {
+                "name": "PromiseKit 2.1.1",
+                "date": "2015-07-25T08:03:28Z"
+            },
+            {
+                "name": "PromiseKit 2.1.0",
+                "date": "2015-07-06T21:47:47Z"
+            },
+            {
+                "name": "PromiseKit 2.0.6",
+                "date": "2015-06-27T21:58:01Z"
+            },
+            {
+                "name": "PromiseKit 2.0.5",
+                "date": "2015-06-23T01:57:38Z"
+            },
+            {
+                "name": "PromiseKit 2.0.3",
+                "date": "2015-06-11T20:56:59Z"
+            },
+            {
+                "name": "PromiseKit 2.0.2",
+                "date": "2015-06-08T22:32:16Z"
+            },
+            {
+                "name": "PromiseKit 2.0.1",
+                "date": "2015-05-24T18:47:54Z"
+            },
+            {
+                "name": "PromiseKit 2.0",
+                "date": "2015-05-14T15:49:17Z"
+            },
+            {
+                "name": "",
+                "date": "2014-10-15T18:41:57Z"
+            },
+            {
+                "name": "",
+                "date": "2014-08-10T05:25:03Z"
+            },
+            {
+                "name": "",
+                "date": "2014-07-21T14:32:29Z"
+            },
+            {
+                "name": "v0.9.11.1",
+                "date": "2014-07-07T17:14:34Z"
+            },
+            {
+                "name": "v0.9.11",
+                "date": "2014-07-05T17:22:57Z"
+            },
+            {
+                "name": "v0.9.7",
+                "date": "2014-05-23T16:36:15Z"
+            },
+            {
+                "name": "v0.9.6",
+                "date": "2014-05-15T21:10:07Z"
+            }
+        ]
+    }
+}

@@ -1,0 +1,421 @@
+{
+    "https://api.github.com/repos/microsoft/winget-cli": {
+        "forks": 1497,
+        "watchers": 23647,
+        "stars": 23647,
+        "languages": {
+            "C++": 11696720,
+            "C": 2397954,
+            "PowerShell": 2239912,
+            "C#": 2159959,
+            "CMake": 106861,
+            "Ada": 89080,
+            "HTML": 46141,
+            "Shell": 46132,
+            "Pascal": 42411,
+            "Makefile": 40433,
+            "JavaScript": 33396,
+            "DIGITAL Command Language": 27305,
+            "Assembly": 16413,
+            "Roff": 7799,
+            "M4": 3078,
+            "CSS": 2830,
+            "Python": 2176,
+            "Dockerfile": 1983,
+            "SAS": 1847,
+            "Module Management System": 1545
+        },
+        "commits": [
+            "2025-01-22T00:20:59Z",
+            "2025-01-21T23:31:25Z",
+            "2025-01-21T22:55:23Z",
+            "2025-01-21T17:04:57Z",
+            "2025-01-17T22:04:42Z",
+            "2025-01-17T18:43:16Z",
+            "2025-01-17T00:41:41Z",
+            "2025-01-16T16:48:43Z",
+            "2025-01-16T00:11:31Z",
+            "2025-01-15T21:00:12Z",
+            "2025-01-13T21:51:56Z",
+            "2025-01-10T21:15:27Z",
+            "2025-01-08T00:18:57Z",
+            "2025-01-07T22:40:52Z",
+            "2025-01-07T00:54:56Z",
+            "2024-12-23T22:31:08Z",
+            "2024-12-19T15:48:59Z",
+            "2024-12-18T21:52:10Z",
+            "2024-12-16T18:51:14Z",
+            "2024-12-12T00:14:08Z",
+            "2024-12-11T01:03:39Z",
+            "2024-12-10T22:05:57Z",
+            "2024-12-10T19:42:44Z",
+            "2024-12-10T17:22:36Z",
+            "2024-12-10T11:38:58Z",
+            "2024-12-10T11:15:15Z",
+            "2024-12-10T11:15:15Z",
+            "2024-12-10T03:23:23Z",
+            "2024-12-09T22:33:19Z",
+            "2024-12-04T00:58:12Z"
+        ],
+        "creation_date": "2019-07-16T22:16:49Z",
+        "contributors": 30,
+        "topics": [
+            "command-line",
+            "package-manager",
+            "windows",
+            "winget"
+        ],
+        "subscribers": 325,
+        "readme": "# ![WinGet Icon](.github/images/WindowsPackageManager_Assets/ICO/PNG/_40.png) Windows Package Manager\r\n\r\n## WinGet Client\r\n\r\n![winget install wingetcreate](.github/images/WingetInstall.gif)\r\n\r\nIf you are new to the Windows Package Manager, you might want to [Explore the Windows Package Manager tool](https://docs.microsoft.com/learn/modules/explore-windows-package-manager-tool/?WT.mc_id=AZ-MVP-5004737). The client has access to packages from two default sources. The first is \"msstore\" the Microsoft Store (free Apps rated \"e\" for everyone). The second is \"winget\" the [WinGet community repository](https://github.com/microsoft/winget-pkgs).\r\n\r\n> [!NOTE]\r\n> Group policy may be configured and modify configured sources. Run `winget --info` to see any configured policies.\r\n\r\n## Installing The Client\r\n\r\n> [!NOTE]\r\n> The client requires Windows 10 1809 (build 17763) or later at this time. Windows Server 2019 is not supported as the Microsoft Store is not available nor are updated dependencies. It may be possible to install on Windows Server 2022, this should be considered experimental (not supported) and requires dependencies to be manually installed as well.\r\n\r\n### Microsoft Store [Recommended]\r\n\r\nThe client is distributed within the [App Installer](https://apps.microsoft.com/detail/9nblggh4nns1) package.\r\n\r\n### Development Releases\r\n\r\nThere are two methods to get development releases:\r\n\r\n* Install a [Windows 10 or Windows 11 Insider](https://insider.windows.com/) build.\r\n* Join the Windows Package Manager Insider program by [signing up](http://aka.ms/winget-InsiderProgram).\r\n\r\n> [!NOTE]\r\n> It may take a few days to get the updated App Installer after you receive e-mail confirmation from joining the Windows Package Manager Insider program. If you decide to install the latest release from GitHub, and you have successfully joined the insider program, you will receive updates when the next development release has been published in the Microsoft Store.\r\n\r\nOnce you have received the updated App Installer from the Microsoft Store you should be able to execute `winget features` to see experimental features. Some users have reported [issues](https://github.com/microsoft/winget-cli/issues/210) with the client not being on their PATH.\r\n\r\n### Manually Update\r\n\r\nThe same Microsoft Store package will be made available via our [Releases](https://github.com/microsoft/winget-cli/releases). Note that installing this package will give you the WinGet client, but it will not enable automatic updates from the Microsoft Store if you have not joined the Windows Package Manager Insider program.\r\n\r\n> [!NOTE]\r\n> You may need to install the [VC++ v14 Desktop Framework Package](https://docs.microsoft.com/troubleshoot/cpp/c-runtime-packages-desktop-bridge#how-to-install-and-update-desktop-framework-packages).\r\n> This should only be necessary on older builds of Windows 10 and only if you get an error about missing framework packages.\r\n\r\n### Troubleshooting\r\n\r\nPlease read our [troubleshooting guide](/doc/troubleshooting/README.md).\r\n\r\n## Administrator Considerations\r\n\r\nInstaller behavior can be different depending on whether you are running **WinGet** with administrator privileges.\r\n\r\n* When running **WinGet** without administrator privileges, some applications may [require elevation](https://docs.microsoft.com/windows/security/identity-protection/user-account-control/how-user-account-control-works) to install. When the installer runs, Windows will prompt you to [elevate](https://docs.microsoft.com/windows/security/identity-protection/user-account-control/how-user-account-control-works#the-uac-user-experience). If you choose not to elevate, the application will fail to install.\r\n\r\n* When running **WinGet** in an Administrator Command Prompt, you will not see [elevation prompts](https://docs.microsoft.com/windows/security/identity-protection/user-account-control/how-user-account-control-works#the-uac-user-experience) if the application requires it. Always use caution when running your command prompt as an administrator, and only install applications you trust.\r\n\r\n### Build your own\r\n\r\nYou can also [build the client yourself](#building-the-client). While the client should be perfectly functional, we are not ready to provide full support for clients running outside of the official distribution mechanisms yet. Feel free to file an [Issue](https://github.com/microsoft/winget-cli/issues/new/choose), but know that it may get lower prioritization.\r\n\r\n## Build Status\r\n\r\n[![Build Status](https://dev.azure.com/shine-oss/winget-cli/_apis/build/status/winget-cli%20Build_Test?branchName=master&label=Main%20Branch%20(Including%20PRs))](https://dev.azure.com/shine-oss/winget-cli/_build/latest?definitionId=10&branchName=master)\r\n\r\n## Windows Package Manager Release Roadmap\r\n\r\nThe plan for delivering the next Windows Package Manager release is described and included in our [discussions](https://github.com/microsoft/winget-cli/discussions/2063), and will be updated as the project proceeds.\r\n\r\n## Overview of the  Windows Package Manager\r\n\r\nThe **Windows Package Manager** is a tool designed to help you quickly and easily discover and install those packages that make your PC environment special.  By using the **Windows Package Manager**, from one command, you can install your favorite packages:\r\n\r\n`winget install <package>`\r\n\r\n## Overview\r\n\r\n### Client Repository\r\n\r\nThis winget-cli repository includes the source code designed to build the client.  You are encouraged to participate in the development of this client. We have plenty of backlog features in our [Issues](https://github.com/microsoft/winget-cli/issues?q=is%3Aopen+is%3Aissue+milestone%3ABacklog-Client). You can upvote the ones you want, add more, or even [get started on one.](https://github.com/orgs/microsoft/projects/137)\r\n\r\n### Sources\r\n\r\nThe client is built around the concept of sources; a set of packages effectively. Sources provide the ability to discover and retrieve the metadata about the packages so that the client can act on it.\r\n\r\n* The default \"winget\" source includes packages in the [Windows Package Manager Community Repository](https://github.com/microsoft/winget-pkgs).\r\n* The default \"msstore\" source includes packages in the Microsoft Store.\r\n* It is also possible to host your own private [REST-based](https://github.com/microsoft/winget-cli-restsource) source.\r\n\r\n## Building the client\r\n\r\n1. Clone the repository\r\n2. Configure your system, please use the [configuration file](.configurations/configuration.dsc.yaml). This can be applied by either:\r\n   * [Dev Home](https://github.com/microsoft/devhome)'s machine configuration tool\r\n   * WinGet configuration. Run `winget configure .configurations/configuration.dsc.yaml` from the project root so relative paths resolve correctly.\r\n3. Run `vcpkg integrate install` from the Developer Command Prompt for VS 2022. This is a one-time setup step until the configuration file in step 2 is updated to work with vcpkg setup.\r\n\r\n### Prerequisites\r\n\r\n* Windows 10 1809 (17763) or later\r\n* [Developer Mode enabled](https://docs.microsoft.com/windows/uwp/get-started/enable-your-device-for-development)\r\n* [Visual Studio 2022](https://visualstudio.microsoft.com/downloads/)\r\n  * Or use WinGet to install it ;) (although you may need to adjust the workloads via Tools->Get Tools and Features...)\r\n* The following workloads:\r\n  * .NET Desktop Development\r\n  * Desktop Development with C++\r\n  * Universal Windows Platform Development\r\n  * Check [.vsconfig file](.vsconfig) for full components list\r\n* [Windows SDK for Windows 11 (10.0.22000.194)](https://developer.microsoft.com/en-us/windows/downloads/sdk-archive/)\r\n> [!NOTE]\r\n> You can also get it through `winget install Microsoft.WindowsSDK --version 10.0.22000.832` (use --force if you have a newer version installed) or via Visual Studio > Get Tools and Features > Individual Components > Windows 10 SDK (10.0.22000.0)\r\n* The following extensions:\r\n  * [Microsoft Visual Studio Installer Projects](https://marketplace.visualstudio.com/items?itemName=VisualStudioClient.MicrosoftVisualStudio2022InstallerProjects)\r\n\r\n### Building\r\n\r\nOpen `winget-cli\\src\\AppInstallerCLI.sln` in Visual Studio and build. We currently only build using the solution; command-line methods of building a VS solution should work as well. After the build finishes, deploy the solution from Build > Deploy Solution. You can then run the client from the command line using `wingetdev`.\r\n\r\n## Credit\r\n\r\nWe would like to thank [Keivan Beigi (@kayone)](https://github.com/kayone) for his work on AppGet which helped us with the initial project direction for Windows Package Manager.\r\n\r\n## Contributing\r\n\r\nThis project welcomes contributions and suggestions.  Most contributions require you to agree to a\r\nContributor License Agreement (CLA) declaring that you have the right to, and do, actually grant us the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com. More\r\ninformation is available in our [CONTRIBUTING.md](/CONTRIBUTING.md) file.\r\n\r\nWhen you submit a pull request, a CLA bot will automatically determine whether you need to provide\r\na CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions\r\nprovided by the bot. You will only need to do this once across all repos using our CLA.\r\n\r\nThis project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).\r\nFor more information, please refer to the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or\r\ncontact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.\r\n\r\n## Data/Telemetry\r\n\r\nThe winget.exe client is instrumented to collect usage and diagnostic (error) data and sends it to Microsoft to help improve the product.\r\n\r\nIf you build the client yourself the instrumentation will not be enabled and no data will be sent to Microsoft.\r\n\r\nThe winget.exe client respects machine-wide privacy settings and users can opt out on their device, as documented in the [Microsoft Windows privacy statement](https://support.microsoft.com/help/4468236/diagnostics-feedback-and-privacy-in-windows-10-microsoft-privacy). In addition, you may also explicitly block telemetry using [settings](https://docs.microsoft.com/windows/package-manager/winget/settings)\r\n\r\nIn short, to opt out, do one of the following:\r\n\r\n**Windows 11**: Go to `Start`, then select `Settings` > `Privacy & Security` > `Diagnostics & feedback` > `Diagnostic data` and unselect `Send optional diagnostic data`.\r\n\r\n**Windows 10**: Go to `Start`, then select `Settings` > `Privacy` > `Diagnostics & feedback`, and select `Required diagnostic data`.\r\n\r\nSee the [privacy statement](PRIVACY.md) for more details.\r\n",
+        "releases": [
+            {
+                "name": "Windows Package Manager v1.10.40-preview",
+                "date": "2024-11-12T22:53:53Z"
+            },
+            {
+                "name": "Windows Package Manager 1.10.30-preview",
+                "date": "2024-11-05T19:46:34Z"
+            },
+            {
+                "name": "Windows Package Manager 1.9.25200",
+                "date": "2024-11-12T22:51:42Z"
+            },
+            {
+                "name": "Windows Package Manager 1.9.25180",
+                "date": "2024-10-28T17:41:17Z"
+            },
+            {
+                "name": "Windows Package Manager 1.9.25170",
+                "date": "2024-10-22T22:34:40Z"
+            },
+            {
+                "name": "Windows Package Manager 1.9.2507",
+                "date": "2024-10-10T03:38:54Z"
+            },
+            {
+                "name": "Windows Package Manager 1.9.2411-preview",
+                "date": "2024-08-28T22:06:36Z"
+            },
+            {
+                "name": "Windows Package Manager 1.9.2151-preview",
+                "date": "2024-08-07T16:33:04Z"
+            },
+            {
+                "name": "Windows Package Manager 1.8.1911",
+                "date": "2024-07-10T16:06:21Z"
+            },
+            {
+                "name": "Windows Package Manager 1.9.1981-preview",
+                "date": "2024-07-22T21:58:05Z"
+            },
+            {
+                "name": "Windows Package Manager 1.9.1792-preview",
+                "date": "2024-06-28T20:17:04Z"
+            },
+            {
+                "name": "Windows Package Manager 1.8.1791",
+                "date": "2024-06-28T19:13:42Z"
+            },
+            {
+                "name": "Windows Package Manager 1.8.1762",
+                "date": "2024-06-25T20:02:49Z"
+            },
+            {
+                "name": "Windows Package Manager 1.9.1763-preview",
+                "date": "2024-06-25T20:05:41Z"
+            },
+            {
+                "name": "Windows Package Manager 1.9.1551-preview",
+                "date": "2024-06-04T16:13:14Z"
+            },
+            {
+                "name": "Windows Package Manager 1.8.1522",
+                "date": "2024-06-03T17:48:38Z"
+            },
+            {
+                "name": "Windows Package Manager 1.7.11261",
+                "date": "2024-05-07T17:51:46Z"
+            },
+            {
+                "name": "Windows Package Manager 1.7.11132",
+                "date": "2024-04-23T21:10:18Z"
+            },
+            {
+                "name": "Windows Package Manager 1.8.1133-preview",
+                "date": "2024-04-23T22:14:01Z"
+            },
+            {
+                "name": "Windows Package Manager 1.8.924-preview",
+                "date": "2024-04-02T18:06:43Z"
+            },
+            {
+                "name": "Windows Package Manager 1.7.10861",
+                "date": "2024-03-28T17:50:05Z"
+            },
+            {
+                "name": "Windows Package Manager 1.7.10661",
+                "date": "2024-03-09T01:02:01Z"
+            },
+            {
+                "name": "Windows Package Manager 1.7.10582",
+                "date": "2024-02-28T00:17:53Z"
+            },
+            {
+                "name": "Windows Package Manager 1.8.532-preview",
+                "date": "2024-02-23T18:48:14Z"
+            },
+            {
+                "name": "Windows Package Manager 1.7.10514",
+                "date": "2024-02-21T17:56:40Z"
+            },
+            {
+                "name": "Windows Package Manager 1.6.3482",
+                "date": "2023-12-18T22:15:44Z"
+            },
+            {
+                "name": "Windows Package Manager 1.7.3481-preview",
+                "date": "2023-12-18T22:37:45Z"
+            },
+            {
+                "name": "Windows Package Manager 1.7.3452-preview",
+                "date": "2023-12-13T19:54:22Z"
+            },
+            {
+                "name": "Windows Package Manager 1.7.3172-preview",
+                "date": "2023-11-14T08:08:23Z"
+            },
+            {
+                "name": "Windows Package Manager 1.6.3421",
+                "date": "2023-12-12T16:48:00Z"
+            },
+            {
+                "name": "Windows Package Manager 1.6.3133",
+                "date": "2023-11-11T00:35:20Z"
+            },
+            {
+                "name": "Windows Package Manager 1.7.2782-preview",
+                "date": "2023-10-06T15:03:03Z"
+            },
+            {
+                "name": "Windows Package Manager 1.6.2771",
+                "date": "2023-10-05T22:13:42Z"
+            },
+            {
+                "name": "Windows Package Manager 1.7.2722-preview",
+                "date": "2023-09-30T07:11:49Z"
+            },
+            {
+                "name": "Windows Package Manager 1.6.2721",
+                "date": "2023-09-30T01:00:19Z"
+            },
+            {
+                "name": "Windows Package Manager 1.7.2711-preview",
+                "date": "2023-09-29T16:21:20Z"
+            },
+            {
+                "name": "Windows Package Manager 1.6.2701",
+                "date": "2023-09-27T21:35:12Z"
+            },
+            {
+                "name": "Windows Package Manager 1.6.2631",
+                "date": "2023-09-21T17:01:08Z"
+            },
+            {
+                "name": "Windows Package Manager 1.6.2561",
+                "date": "2023-09-14T14:09:10Z"
+            },
+            {
+                "name": "Windows Package Manager 1.7.2491-preview",
+                "date": "2023-09-07T18:22:45Z"
+            },
+            {
+                "name": "Windows Package Manager 1.6.2482",
+                "date": "2023-09-06T18:09:50Z"
+            },
+            {
+                "name": "Windows Package Manager 1.6.2291-preview",
+                "date": "2023-08-18T15:54:12Z"
+            },
+            {
+                "name": "Windows Package Manager 1.5.2201",
+                "date": "2023-08-09T20:21:52Z"
+            },
+            {
+                "name": "Windows Package Manager 1.5.1881",
+                "date": "2023-07-10T18:44:22Z"
+            },
+            {
+                "name": "Windows Package Manager 1.6.1573-preview",
+                "date": "2023-06-07T16:14:51Z"
+            },
+            {
+                "name": "Windows Package Manager 1.5.1572",
+                "date": "2023-06-07T16:16:56Z"
+            },
+            {
+                "name": "Windows Package Manager 1.4.11071",
+                "date": "2023-05-31T17:10:19Z"
+            },
+            {
+                "name": "Windows Package Manager 1.5.1361-preview",
+                "date": "2023-05-23T15:15:01Z"
+            },
+            {
+                "name": "Windows Package Manager 1.5.1081-preview",
+                "date": "2023-04-24T22:53:24Z"
+            },
+            {
+                "name": "Windows Package Manager 1.5.441-preview",
+                "date": "2023-02-14T18:58:29Z"
+            },
+            {
+                "name": "Windows Package Manager 1.4.10173",
+                "date": "2023-01-18T17:55:00Z"
+            },
+            {
+                "name": "Windows Package Manager 1.5.101-preview",
+                "date": "2023-01-11T19:09:12Z"
+            },
+            {
+                "name": "Windows Package Manager 1.4.10052",
+                "date": "2023-01-06T18:32:25Z"
+            },
+            {
+                "name": "Windows Package Manager 1.4.3531",
+                "date": "2022-12-21T17:38:35Z"
+            },
+            {
+                "name": "Windows Package Manager 1.4.3132-preview",
+                "date": "2022-11-15T18:22:21Z"
+            },
+            {
+                "name": "Windows Package Manager 1.4.2161-preview",
+                "date": "2022-08-05T18:21:20Z"
+            },
+            {
+                "name": "Windows Package Manager 1.3.2691",
+                "date": "2022-10-04T23:41:33Z"
+            },
+            {
+                "name": "Windows Package Manager 1.3.2091",
+                "date": "2022-07-28T23:21:19Z"
+            },
+            {
+                "name": "Windows Package Manager 1.4.2011-preview",
+                "date": "2022-07-21T21:51:00Z"
+            },
+            {
+                "name": "Windows Package Manager 1.3.1872",
+                "date": "2022-07-07T23:19:32Z"
+            },
+            {
+                "name": "Windows Package Manager 1.3.1741",
+                "date": "2022-06-28T21:05:30Z"
+            },
+            {
+                "name": "Windows Package Manager 1.3.1681",
+                "date": "2022-06-20T16:07:59Z"
+            },
+            {
+                "name": "Windows Package Manager 1.3.1661-preview",
+                "date": "2022-06-17T21:21:07Z"
+            },
+            {
+                "name": "Windows Package Manager 1.3.1611-preview",
+                "date": "2022-06-11T01:38:58Z"
+            },
+            {
+                "name": "Windows Package Manager 1.3.1391-preview",
+                "date": "2022-05-19T21:14:14Z"
+            },
+            {
+                "name": "Windows Package Manager 1.3.1251-preview",
+                "date": "2022-05-09T22:17:10Z"
+            },
+            {
+                "name": "Windows Package Manager 1.3.431-preview",
+                "date": "2022-02-15T00:05:21Z"
+            },
+            {
+                "name": "Windows Package Manager 1.2.10271",
+                "date": "2022-02-02T21:47:28Z"
+            },
+            {
+                "name": "Windows Package Manager 1.2.3411-preview",
+                "date": "2022-01-06T23:40:55Z"
+            },
+            {
+                "name": "Windows Package Manager v1.1.12701",
+                "date": "2021-09-28T14:30:01Z"
+            },
+            {
+                "name": "Windows Package Manager v1.1.12653",
+                "date": "2021-09-27T22:08:01Z"
+            },
+            {
+                "name": "Windows Package Manager v1.0.12576",
+                "date": "2021-09-17T00:24:54Z"
+            },
+            {
+                "name": "Windows Package Manager v1.0.11692",
+                "date": "2021-06-24T20:32:44Z"
+            },
+            {
+                "name": "Windows Package Manager v1.0.11451",
+                "date": "2021-05-26T15:50:24Z"
+            },
+            {
+                "name": "Windows Package Manager v0.4.11391 Preview",
+                "date": "2021-05-20T20:05:13Z"
+            },
+            {
+                "name": "Windows Package Manager v0.3.11201 Preview",
+                "date": "2021-05-11T22:30:42Z"
+            },
+            {
+                "name": "Windows Package Manager v0.3.11102 Preview",
+                "date": "2021-04-22T14:17:15Z"
+            },
+            {
+                "name": "Windows Package Manager v0.2.10971 Preview",
+                "date": "2021-04-15T00:47:26Z"
+            },
+            {
+                "name": "Windows Package Manager v0.2.10771 Preview",
+                "date": "2021-03-25T17:26:36Z"
+            },
+            {
+                "name": "Windows Package Manager v0.2.10191 Preview",
+                "date": "2021-01-28T19:36:48Z"
+            },
+            {
+                "name": "Windows Package Manager v0.2.3162 Preview",
+                "date": "2020-12-02T00:02:00Z"
+            },
+            {
+                "name": "Windows Package Manager v0.2.2941 Preview",
+                "date": "2020-10-29T21:06:51Z"
+            },
+            {
+                "name": "Windows Package Manager v0.2.2521 Preview",
+                "date": "2020-09-14T20:57:21Z"
+            },
+            {
+                "name": "Windows Package Manager v0.1.42241 Preview",
+                "date": "2020-08-20T23:04:53Z"
+            },
+            {
+                "name": "Windows Package Manager v0.1.42101 Preview",
+                "date": "2020-07-29T17:27:42Z"
+            },
+            {
+                "name": "Windows Package Manager v0.1.41821 Preview",
+                "date": "2020-07-10T01:11:03Z"
+            },
+            {
+                "name": "Windows Package Manager v0.1.41331 Preview",
+                "date": "2020-05-13T20:39:12Z"
+            }
+        ]
+    }
+}

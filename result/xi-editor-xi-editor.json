@@ -1,0 +1,52 @@
+{
+    "https://api.github.com/repos/xi-editor/xi-editor": {
+        "forks": 701,
+        "watchers": 19814,
+        "stars": 19814,
+        "languages": {
+            "Rust": 1457118,
+            "Python": 51033,
+            "C++": 3953,
+            "Makefile": 3573,
+            "Shell": 1415
+        },
+        "commits": [
+            "2023-08-08T20:25:48Z",
+            "2023-06-06T02:15:37Z",
+            "2023-04-12T06:18:59Z",
+            "2023-04-12T05:35:58Z",
+            "2023-04-03T20:08:57Z",
+            "2023-01-31T15:06:06Z",
+            "2023-01-31T03:57:03Z",
+            "2023-01-25T04:32:33Z",
+            "2022-12-09T15:39:54Z",
+            "2022-12-09T15:30:05Z",
+            "2022-09-22T02:14:20Z",
+            "2022-07-22T01:19:12Z",
+            "2022-06-10T14:34:51Z",
+            "2022-05-19T03:42:50Z",
+            "2022-06-08T20:58:57Z",
+            "2022-06-06T19:04:29Z",
+            "2022-04-13T18:52:03Z",
+            "2022-04-13T18:47:33Z",
+            "2022-04-13T22:13:51Z",
+            "2022-04-13T19:52:32Z",
+            "2022-04-13T19:46:59Z",
+            "2022-04-13T19:44:09Z",
+            "2022-04-13T19:34:14Z",
+            "2022-04-13T19:23:15Z",
+            "2022-04-13T16:06:24Z",
+            "2022-04-12T10:16:28Z",
+            "2022-03-03T16:26:17Z",
+            "2022-02-26T03:41:47Z",
+            "2021-09-28T16:09:11Z",
+            "2021-08-31T03:15:06Z"
+        ],
+        "creation_date": "2016-04-26T23:03:23Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 400,
+        "readme": "# Xi editor\n\n***Maintenance status:*** *The xi-editor project is currently discontinued. Although we will happily accept bug fixes, no new features are currently planned. You may be interested in [the Lapce editor](https://github.com/lapce/lapce), which can be considered a spiritual successor to the xi-editor.\n\u2014 The Editors\n\n***Note:*** *This repo contains only the editor core, which is not usable on its own. For editors based on it, check out the list in [Frontends](#frontends).*\n\nThe xi-editor project is an attempt to build a high quality text editor,\nusing modern software engineering techniques. It is initially built for\nmacOS, using Cocoa for the user interface. There are also frontends for\nother operating systems available from third-party developers.\n\nGoals include:\n\n* ***Incredibly high performance***. All editing operations should commit and paint\n  in under 16ms. The editor should never make you wait for anything.\n\n* ***Beauty***. The editor should fit well on a modern desktop, and not look like a\n  throwback from the \u201980s or \u201990s. Text drawing should be done with the best\n  technology available (Core Text on Mac, DirectWrite on Windows, etc.), and\n  support Unicode fully.\n\n* ***Reliability***. Crashing, hanging, or losing work should never happen.\n\n* ***Developer friendliness***. It should be easy to customize xi editor, whether\n  by adding plug-ins or hacking on the core.\n\n**Learn more** with the creator of Xi, Raph Levien, in this [Recurse Center Localhost talk](https://www.recurse.com/events/localhost-raph-levien\n).\n\nScreenshot:\n\n![xi-mac screenshot](/docs/docs/img/xi-mac-screenshot.png?raw=true)\n\n\n## Getting started\n\nThis repository is the core only. You'll also need a front-end, from the list\nbelow.\n\n\n### Building the core\n\nXi-editor targets 'recent stable Rust'. We recommend installing via [rustup](https://www.rustup.rs).\nThe current minimum supported version is 1.40.\n\nTo build the xi-editor core from the root directory of this repo:\n\n```\n> cd rust\n> cargo build\n```\n\n\n## Frontends\n\nHere are some front-ends in various stages of development:\n\n* [xi-mac](https://github.com/xi-editor/xi-mac), the official macOS front-end.\n\n* [xi-gtk](https://github.com/eyelash/xi-gtk), a GTK+ front-end.\n\n* [xi-term](https://github.com/xi-frontend/xi-term), a text UI.\n\n* [xi-electron](https://github.com/acheronfail/xi-electron), a cross-platform front-end based on web-technologies.\n\n* [Tau](https://gitlab.gnome.org/World/Tau), a GTK+ front-end written in Rust. Forked from https://github.com/bvinc/gxi, which was abandoned.\n\n* [xi-win](https://github.com/xi-editor/xi-win), an experimental Windows front-end written in Rust.\n\n* [kod](https://github.com/linde12/kod), a terminal frontend written in Golang.\n\n* [xi-qt](https://github.com/sw5cc/xi-qt), a Qt front-end.\n\n* [vixi](https://github.com/Peltoche/vixi), a Vim like front-end in Rust.\n\nThe following are currently inactive, based on earlier versions of the front-end\nprotocol, but perhaps could be revitalized:\n\n* [xi_glium](https://github.com/potocpav/xi_glium), an\nexperimental GL-based front-end in Rust.\n\n* [XiEditorVS2015](https://github.com/Sineaggi/XiEditorVS2015), C#.\n\n* [xi-android](https://github.com/adrientetar/xi-android), an Android frontend.\n\nThere are notes (I wouldn\u2019t call it\ndocumentation at this point) on the protocol at\n[frontend.md](https://xi-editor.github.io/xi-editor/docs/frontend-protocol.html). If you're working on a front-end, feel free to\nsend a PR to add it to the above list.\n\n\n## Design decisions\n\nHere are some of the design decisions, and motivation why they should\ncontribute to the above goals:\n\n* ***Separation into front-end and back-end modules***. The front-end is responsible for presenting the user interface and\n  drawing a screen full of text. The back-end (also known as \u201ccore\u201d) holds the file buffers and is\n  responsible for all potentially expensive editing operations.\n\n* ***Native UI***. Cross-platform UI toolkits never look and feel quite right. The\n  best technology for building a UI is the native framework of the platform.\n  On Mac, that\u2019s Cocoa.\n\n* ***Rust***. The back-end needs to be extremely performant. In particular, it\n  should use little more memory than the buffers being edited. That level of\n  performance is possible in C++, but Rust offers a much more reliable, and\n  in many ways, higher level programming platform.\n\n* ***A persistent rope data structure***. Persistent ropes are efficient even for\n  very large files. In addition, they present a simple interface to their\n  clients - conceptually, they're a sequence of characters just like a string,\n  and the client need not be aware of any internal structure.\n\n* ***Asynchronous operations***. The editor should never, ever block and prevent the\n  user from getting their work done. For example, autosave will spawn a\n  thread with a snapshot of the current editor buffer (the persistent rope\n  data structure is copy-on-write so this operation is nearly free), which can\n  then proceed to write out to disk at its leisure, while the buffer is still\n  fully editable.\n\n* ***Plug-ins over scripting***. Most text editors have an associated scripting\n  language for extending functionality. However, these languages are usually\n  both more arcane and less powerful than \u201creal\u201d languages. The xi editor will\n  communicate with plugins through pipes, letting them be written in any\n  language, and making it easier to integrate with other systems such as\n  version control, deeper static analyzers of code, etc.\n\n* ***JSON***. The protocol for front-end / back-end communication, as well as\n  between the back-end and plug-ins, is based on simple JSON messages. I\n  considered binary formats, but the actual improvement in performance would\n  be completely in the noise. Using JSON considerably lowers friction for\n  developing plug-ins, as it\u2019s available out of the box for most modern\n  languages, and there are plenty of the libraries available for the other\n  ones.\n\n\n## Current status\n\nThis is still a project in its early stages. The Mac build has basic editing\nfunctionality (it was used to write this README), but looks very spare and\nis still missing essentials such as auto-indent. At the moment, it\u2019s expected\nthat its main community will be developers interested in hacking on a text\neditor.\n\n\n## Authors\n\nThe xi-editor project was started by Raph Levien but has since received\ncontributions from a number of other people. See the [AUTHORS](AUTHORS)\nfile for details.\n\n\n## License\n\nThis project is licensed under the Apache 2 [license](LICENSE).\n\n\n## Contributions\n\nWe gladly accept contributions via GitHub pull requests. Please see\n[CONTRIBUTING.md](.github/CONTRIBUTING.md) for more details.\n\nIf you are interested in contributing but not sure where to start, there is an\nactive Zulip channel at #xi-editor on https://xi.zulipchat.com. There is also\na #xi channel on irc.mozilla.org. Finally, there is a subreddit at\n[/r/xi_editor](https://www.reddit.com/r/xi_editor/).\n",
+        "releases": []
+    }
+}

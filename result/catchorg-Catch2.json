@@ -1,0 +1,465 @@
+{
+    "https://api.github.com/repos/catchorg/Catch2": {
+        "forks": 3070,
+        "watchers": 18939,
+        "stars": 18939,
+        "languages": {
+            "C++": 2495406,
+            "CMake": 152154,
+            "Python": 89241,
+            "Meson": 18123,
+            "Starlark": 8201,
+            "Batchfile": 2497,
+            "Shell": 2215,
+            "PowerShell": 1020
+        },
+        "commits": [
+            "2025-01-05T23:41:45Z",
+            "2025-01-05T22:19:26Z",
+            "2024-11-30T19:17:02Z",
+            "2025-01-03T09:30:47Z",
+            "2025-01-05T00:27:43Z",
+            "2025-01-05T13:38:51Z",
+            "2024-11-19T14:47:26Z",
+            "2024-11-12T21:13:04Z",
+            "2024-11-11T05:49:11Z",
+            "2024-10-29T10:21:29Z",
+            "2024-10-29T20:06:54Z",
+            "2024-10-27T22:07:51Z",
+            "2024-10-27T16:08:47Z",
+            "2024-10-17T19:08:52Z",
+            "2024-10-18T21:18:19Z",
+            "2024-05-23T14:49:57Z",
+            "2024-10-12T15:18:59Z",
+            "2024-10-13T08:10:03Z",
+            "2024-10-12T15:18:59Z",
+            "2024-09-17T08:45:43Z",
+            "2024-09-16T20:18:49Z",
+            "2024-09-15T20:17:36Z",
+            "2024-09-13T19:33:41Z",
+            "2024-09-13T09:16:20Z",
+            "2024-09-13T12:43:23Z",
+            "2024-09-13T11:52:17Z",
+            "2024-09-13T11:42:03Z",
+            "2024-09-13T12:25:15Z",
+            "2024-09-13T09:15:54Z",
+            "2024-09-05T21:06:32Z"
+        ],
+        "creation_date": "2010-11-08T18:22:56Z",
+        "contributors": 30,
+        "topics": [
+            "bdd",
+            "cpp",
+            "cpp14",
+            "framework",
+            "no-dependencies",
+            "tdd",
+            "test-framework",
+            "testing"
+        ],
+        "subscribers": 442,
+        "readme": "<a id=\"top\"></a>\n![Catch2 logo](data/artwork/catch2-logo-small-with-background.png)\n\n[![Github Releases](https://img.shields.io/github/release/catchorg/catch2.svg)](https://github.com/catchorg/catch2/releases)\n[![Linux build status](https://github.com/catchorg/Catch2/actions/workflows/linux-simple-builds.yml/badge.svg)](https://github.com/catchorg/Catch2/actions/workflows/linux-simple-builds.yml)\n[![Linux build status](https://github.com/catchorg/Catch2/actions/workflows/linux-other-builds.yml/badge.svg)](https://github.com/catchorg/Catch2/actions/workflows/linux-other-builds.yml)\n[![MacOS build status](https://github.com/catchorg/Catch2/actions/workflows/mac-builds.yml/badge.svg)](https://github.com/catchorg/Catch2/actions/workflows/mac-builds.yml)\n[![Build Status](https://ci.appveyor.com/api/projects/status/github/catchorg/Catch2?svg=true&branch=devel)](https://ci.appveyor.com/project/catchorg/catch2)\n[![Code Coverage](https://codecov.io/gh/catchorg/Catch2/branch/devel/graph/badge.svg)](https://codecov.io/gh/catchorg/Catch2)\n[![Try online](https://img.shields.io/badge/try-online-blue.svg)](https://godbolt.org/z/EdoY15q9G)\n[![Join the chat in Discord: https://discord.gg/4CWS9zD](https://img.shields.io/badge/Discord-Chat!-brightgreen.svg)](https://discord.gg/4CWS9zD)\n\n\n## What is Catch2?\n\nCatch2 is mainly a unit testing framework for C++, but it also\nprovides basic micro-benchmarking features, and simple BDD macros.\n\nCatch2's main advantage is that using it is both simple and natural.\nTest names do not have to be valid identifiers, assertions look like\nnormal C++ boolean expressions, and sections provide a nice and local way\nto share set-up and tear-down code in tests.\n\n**Example unit test**\n```cpp\n#include <catch2/catch_test_macros.hpp>\n\n#include <cstdint>\n\nuint32_t factorial( uint32_t number ) {\n    return number <= 1 ? number : factorial(number-1) * number;\n}\n\nTEST_CASE( \"Factorials are computed\", \"[factorial]\" ) {\n    REQUIRE( factorial( 1) == 1 );\n    REQUIRE( factorial( 2) == 2 );\n    REQUIRE( factorial( 3) == 6 );\n    REQUIRE( factorial(10) == 3'628'800 );\n}\n```\n\n**Example microbenchmark**\n```cpp\n#include <catch2/catch_test_macros.hpp>\n#include <catch2/benchmark/catch_benchmark.hpp>\n\n#include <cstdint>\n\nuint64_t fibonacci(uint64_t number) {\n    return number < 2 ? number : fibonacci(number - 1) + fibonacci(number - 2);\n}\n\nTEST_CASE(\"Benchmark Fibonacci\", \"[!benchmark]\") {\n    REQUIRE(fibonacci(5) == 5);\n\n    REQUIRE(fibonacci(20) == 6'765);\n    BENCHMARK(\"fibonacci 20\") {\n        return fibonacci(20);\n    };\n\n    REQUIRE(fibonacci(25) == 75'025);\n    BENCHMARK(\"fibonacci 25\") {\n        return fibonacci(25);\n    };\n}\n```\n\n_Note that benchmarks are not run by default, so you need to run it explicitly\nwith the `[!benchmark]` tag._\n\n\n## Catch2 v3 has been released!\n\nYou are on the `devel` branch, where the v3 version is being developed.\nv3 brings a bunch of significant changes, the big one being that Catch2\nis no longer a single-header library. Catch2 now behaves as a normal\nlibrary, with multiple headers and separately compiled implementation.\n\nThe documentation is slowly being updated to take these changes into\naccount, but this work is currently still ongoing.\n\nFor migrating from the v2 releases to v3, you should look at [our\ndocumentation](docs/migrate-v2-to-v3.md#top). It provides a simple\nguidelines on getting started, and collects most common migration\nproblems.\n\nFor the previous major version of Catch2 [look into the `v2.x` branch\nhere on GitHub](https://github.com/catchorg/Catch2/tree/v2.x).\n\n\n## How to use it\nThis documentation comprises these three parts:\n\n* [Why do we need yet another C++ Test Framework?](docs/why-catch.md#top)\n* [Tutorial](docs/tutorial.md#top) - getting started\n* [Reference section](docs/Readme.md#top) - all the details\n\n\n## More\n* Issues and bugs can be raised on the [Issue tracker on GitHub](https://github.com/catchorg/Catch2/issues)\n* For discussion or questions please use [our Discord](https://discord.gg/4CWS9zD)\n* See who else is using Catch2 in [Open Source Software](docs/opensource-users.md#top)\nor [commercially](docs/commercial-users.md#top).\n",
+        "releases": [
+            {
+                "name": "v3.8.0",
+                "date": "2025-01-05T23:43:43Z"
+            },
+            {
+                "name": "v3.7.1",
+                "date": "2024-09-17T08:50:49Z"
+            },
+            {
+                "name": "v3.7.0",
+                "date": "2024-08-14T10:11:07Z"
+            },
+            {
+                "name": "v3.6.0",
+                "date": "2024-05-05T19:10:48Z"
+            },
+            {
+                "name": "v3.5.4",
+                "date": "2024-04-10T10:23:02Z"
+            },
+            {
+                "name": "v3.5.3",
+                "date": "2024-03-01T21:16:20Z"
+            },
+            {
+                "name": "v3.5.2",
+                "date": "2024-01-15T13:15:36Z"
+            },
+            {
+                "name": "v3.5.1",
+                "date": "2023-12-31T14:18:00Z"
+            },
+            {
+                "name": "v3.5.0",
+                "date": "2023-12-10T23:57:56Z"
+            },
+            {
+                "name": "v3.4.0",
+                "date": "2023-07-13T11:58:57Z"
+            },
+            {
+                "name": "v3.3.2",
+                "date": "2023-02-27T14:18:52Z"
+            },
+            {
+                "name": "v3.3.1",
+                "date": "2023-01-29T22:24:09Z"
+            },
+            {
+                "name": "v3.3.0",
+                "date": "2023-01-22T19:57:25Z"
+            },
+            {
+                "name": "v3.2.1",
+                "date": "2022-12-09T22:18:43Z"
+            },
+            {
+                "name": "v3.2.0",
+                "date": "2022-11-16T19:24:52Z"
+            },
+            {
+                "name": "v3.1.1",
+                "date": "2022-10-19T19:23:06Z"
+            },
+            {
+                "name": "v2.13.10",
+                "date": "2022-10-16T09:07:58Z"
+            },
+            {
+                "name": "v3.1.0",
+                "date": "2022-07-17T19:24:05Z"
+            },
+            {
+                "name": "v3.0.1",
+                "date": "2022-05-17T21:35:31Z"
+            },
+            {
+                "name": "v3.0.0-preview5",
+                "date": "2022-04-20T21:59:20Z"
+            },
+            {
+                "name": "v2.13.9",
+                "date": "2022-04-12T20:40:05Z"
+            },
+            {
+                "name": "v3.0.0-preview4",
+                "date": "2022-01-03T22:26:34Z"
+            },
+            {
+                "name": "v2.13.8",
+                "date": "2022-01-03T20:32:43Z"
+            },
+            {
+                "name": "v2.13.7",
+                "date": "2021-07-28T18:51:33Z"
+            },
+            {
+                "name": "v2.13.6",
+                "date": "2021-04-16T18:19:45Z"
+            },
+            {
+                "name": "v2.13.5",
+                "date": "2021-04-10T21:55:53Z"
+            },
+            {
+                "name": "v2.13.4",
+                "date": "2020-12-29T14:07:56Z"
+            },
+            {
+                "name": "v2.13.3",
+                "date": "2020-10-31T17:26:55Z"
+            },
+            {
+                "name": "v3.0.0-preview3",
+                "date": "2020-10-08T13:31:37Z"
+            },
+            {
+                "name": "v2.13.2",
+                "date": "2020-10-07T10:17:29Z"
+            },
+            {
+                "name": "v2.13.1",
+                "date": "2020-09-07T10:57:16Z"
+            },
+            {
+                "name": "v2.13.0",
+                "date": "2020-07-12T18:33:51Z"
+            },
+            {
+                "name": "v2.12.4",
+                "date": "2020-07-05T09:54:24Z"
+            },
+            {
+                "name": "v2.12.3",
+                "date": "2020-06-29T19:00:21Z"
+            },
+            {
+                "name": "v2.12.2",
+                "date": "2020-05-25T13:15:29Z"
+            },
+            {
+                "name": "v3.0.0-preview2",
+                "date": "2020-05-14T14:25:43Z"
+            },
+            {
+                "name": "v2.12.1",
+                "date": "2020-04-21T17:34:22Z"
+            },
+            {
+                "name": "v2.12.0",
+                "date": "2020-04-21T14:37:51Z"
+            },
+            {
+                "name": "v2.11.3",
+                "date": "2020-03-19T13:49:49Z"
+            },
+            {
+                "name": "v2.11.2",
+                "date": "2020-03-19T11:42:40Z"
+            },
+            {
+                "name": "v2.11.1",
+                "date": "2019-12-28T20:33:42Z"
+            },
+            {
+                "name": "v3.0.0-preview1",
+                "date": "2019-12-28T20:02:17Z"
+            },
+            {
+                "name": "v2.11.0",
+                "date": "2019-11-15T14:09:38Z"
+            },
+            {
+                "name": "v2.10.2",
+                "date": "2019-10-24T17:25:43Z"
+            },
+            {
+                "name": "v2.10.1",
+                "date": "2019-10-20T19:13:06Z"
+            },
+            {
+                "name": "v2.10.0",
+                "date": "2019-10-13T21:51:24Z"
+            },
+            {
+                "name": "v2.9.2",
+                "date": "2019-08-08T12:10:27Z"
+            },
+            {
+                "name": "v2.9.1",
+                "date": "2019-06-17T10:06:43Z"
+            },
+            {
+                "name": "v2.9.0",
+                "date": "2019-06-16T08:46:33Z"
+            },
+            {
+                "name": "v2.8.0",
+                "date": "2019-05-27T07:09:40Z"
+            },
+            {
+                "name": "v2.7.2",
+                "date": "2019-04-22T21:20:15Z"
+            },
+            {
+                "name": "v2.7.1",
+                "date": "2019-04-08T11:44:44Z"
+            },
+            {
+                "name": "v2.7.0",
+                "date": "2019-03-08T13:04:57Z"
+            },
+            {
+                "name": "v2.6.1",
+                "date": "2019-02-12T19:02:00Z"
+            },
+            {
+                "name": "v2.6.0",
+                "date": "2019-01-31T21:53:08Z"
+            },
+            {
+                "name": "v2.5.0",
+                "date": "2018-11-26T20:00:22Z"
+            },
+            {
+                "name": "v2.4.2",
+                "date": "2018-10-26T19:16:48Z"
+            },
+            {
+                "name": "v2.4.1",
+                "date": "2018-09-28T13:54:03Z"
+            },
+            {
+                "name": "v2.4.0",
+                "date": "2018-09-04T10:06:07Z"
+            },
+            {
+                "name": "v2.3.0",
+                "date": "2018-07-23T08:18:25Z"
+            },
+            {
+                "name": "v2.2.3",
+                "date": "2018-06-06T21:20:02Z"
+            },
+            {
+                "name": "v1.12.2",
+                "date": "2018-05-14T13:23:03Z"
+            },
+            {
+                "name": "v2.2.2",
+                "date": "2018-04-06T10:12:51Z"
+            },
+            {
+                "name": "v2.2.1",
+                "date": "2018-03-11T11:05:23Z"
+            },
+            {
+                "name": "v2.2.0",
+                "date": "2018-03-07T10:09:18Z"
+            },
+            {
+                "name": "v1.12.1",
+                "date": "2018-03-02T21:23:31Z"
+            },
+            {
+                "name": "v2.1.2",
+                "date": "2018-02-09T16:11:35Z"
+            },
+            {
+                "name": "v2.1.1",
+                "date": "2018-01-26T15:09:09Z"
+            },
+            {
+                "name": "v1.12.0",
+                "date": "2018-01-12T08:59:57Z"
+            },
+            {
+                "name": "v2.1.0",
+                "date": "2018-01-10T12:58:20Z"
+            },
+            {
+                "name": "v2.0.1",
+                "date": "2017-11-05T09:27:57Z"
+            },
+            {
+                "name": "v1.11.0",
+                "date": "2017-10-31T13:00:27Z"
+            },
+            {
+                "name": "V2.0.0-develop.6",
+                "date": "2017-10-31T14:19:00Z"
+            },
+            {
+                "name": "V2.0.0-develop.5",
+                "date": "2017-10-12T12:08:37Z"
+            },
+            {
+                "name": "",
+                "date": "2017-09-19T16:44:03Z"
+            },
+            {
+                "name": "v2.0.0-develop.3",
+                "date": "2017-08-30T10:27:57Z"
+            },
+            {
+                "name": "v1.10.0",
+                "date": "2017-08-26T13:35:22Z"
+            },
+            {
+                "name": "v2.0.0-develop.2",
+                "date": "2017-08-18T15:04:28Z"
+            },
+            {
+                "name": "v2.0.0-develop.1",
+                "date": "2017-08-17T08:15:13Z"
+            },
+            {
+                "name": "v1.9.7",
+                "date": "2017-08-10T22:01:57Z"
+            },
+            {
+                "name": "v1.9.6",
+                "date": "2017-06-27T10:27:39Z"
+            },
+            {
+                "name": "v1.9.5",
+                "date": "2017-06-15T11:08:51Z"
+            },
+            {
+                "name": "v1.9.4",
+                "date": "2017-05-16T12:01:01Z"
+            },
+            {
+                "name": "v1.9.3",
+                "date": "2017-04-25T14:35:18Z"
+            },
+            {
+                "name": "v1.9.2",
+                "date": "2017-04-25T09:08:58Z"
+            },
+            {
+                "name": "v1.9.1",
+                "date": "2017-04-09T19:26:34Z"
+            },
+            {
+                "name": "v1.9.0",
+                "date": "2017-04-07T20:57:00Z"
+            },
+            {
+                "name": "v1.8.2",
+                "date": "2017-03-13T20:30:45Z"
+            },
+            {
+                "name": "v1.8.1",
+                "date": "2017-03-01T16:08:17Z"
+            },
+            {
+                "name": "v1.8.0",
+                "date": "2017-02-28T14:20:50Z"
+            },
+            {
+                "name": "v1.7.2",
+                "date": "2017-02-13T16:24:52Z"
+            },
+            {
+                "name": "v1.7.1",
+                "date": "2017-02-07T09:07:21Z"
+            },
+            {
+                "name": "v1.7.0",
+                "date": "2017-02-01T20:49:09Z"
+            },
+            {
+                "name": "v1.6.1",
+                "date": "2017-01-20T11:51:36Z"
+            },
+            {
+                "name": "v1.6.0",
+                "date": "2017-01-11T16:48:52Z"
+            },
+            {
+                "name": "",
+                "date": "2016-04-25T18:10:16Z"
+            },
+            {
+                "name": "",
+                "date": "2016-04-25T18:03:39Z"
+            },
+            {
+                "name": "",
+                "date": "2015-12-15T18:36:32Z"
+            },
+            {
+                "name": "v1.2.1",
+                "date": "2015-06-30T17:33:17Z"
+            },
+            {
+                "name": "First tagged, semantically versioned, release",
+                "date": "2015-06-30T17:44:32Z"
+            }
+        ]
+    }
+}

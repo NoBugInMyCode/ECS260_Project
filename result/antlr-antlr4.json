@@ -1,0 +1,210 @@
+{
+    "https://api.github.com/repos/antlr/antlr4": {
+        "forks": 3323,
+        "watchers": 17496,
+        "stars": 17496,
+        "languages": {
+            "Java": 2428240,
+            "C#": 1043128,
+            "C++": 1028139,
+            "Python": 951378,
+            "Swift": 873956,
+            "Dart": 587430,
+            "JavaScript": 500603,
+            "Go": 457229,
+            "ANTLR": 112525,
+            "GAP": 109926,
+            "Assembly": 92577,
+            "CMake": 35747,
+            "Objective-C++": 28237,
+            "C": 17187,
+            "Shell": 8062,
+            "Batchfile": 6675,
+            "Smalltalk": 2453,
+            "TypeScript": 804,
+            "Makefile": 688,
+            "Dockerfile": 684,
+            "Objective-C": 408
+        },
+        "commits": [
+            "2024-11-22T00:39:04Z",
+            "2024-11-22T00:38:40Z",
+            "2024-11-22T00:38:03Z",
+            "2024-11-09T17:55:57Z",
+            "2024-10-11T17:00:52Z",
+            "2024-10-06T16:58:43Z",
+            "2024-09-17T16:41:01Z",
+            "2024-09-16T18:24:26Z",
+            "2024-09-14T16:05:52Z",
+            "2024-08-03T19:05:22Z",
+            "2024-08-03T19:01:11Z",
+            "2024-08-03T18:42:56Z",
+            "2024-08-03T18:42:53Z",
+            "2024-08-03T18:13:17Z",
+            "2024-08-03T17:54:27Z",
+            "2024-07-28T21:37:16Z",
+            "2023-06-29T14:41:23Z",
+            "2024-06-21T14:41:59Z",
+            "2024-04-14T12:44:53Z",
+            "2024-07-22T20:09:49Z",
+            "2024-07-06T15:20:50Z",
+            "2024-05-15T20:31:41Z",
+            "2024-04-10T17:20:50Z",
+            "2024-05-15T15:45:31Z",
+            "2024-05-15T15:37:14Z",
+            "2024-05-15T14:56:14Z",
+            "2024-04-18T21:21:21Z",
+            "2024-04-10T18:23:57Z",
+            "2024-04-10T17:08:56Z",
+            "2024-04-09T08:35:51Z"
+        ],
+        "creation_date": "2010-02-04T01:36:28Z",
+        "contributors": 30,
+        "topics": [
+            "antlr",
+            "antlr4",
+            "cpp",
+            "csharp",
+            "dart",
+            "golang",
+            "grammar",
+            "java",
+            "javascript",
+            "language-recognition",
+            "parse",
+            "parser-generator",
+            "parsing",
+            "php",
+            "python",
+            "swift"
+        ],
+        "subscribers": 371,
+        "readme": "# ANTLR v4\n\n[![Java 11+](https://img.shields.io/badge/java-11+-4c7e9f.svg)](http://java.oracle.com)\n[![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://raw.githubusercontent.com/antlr/antlr4/master/LICENSE.txt)\n\n**ANTLR** (ANother Tool for Language Recognition) is a powerful parser generator for reading, processing, executing, or translating structured text or binary files. It's widely used to build languages, tools, and frameworks. From a grammar, ANTLR generates a parser that can build parse trees and also generates a listener interface (or visitor) that makes it easy to respond to the recognition of phrases of interest.\n\n**Dev branch build status**\n\n[![MacOSX, Windows, Linux](https://github.com/antlr/antlr4/actions/workflows/hosted.yml/badge.svg)](https://github.com/antlr/antlr4/actions/workflows/hosted.yml) (github actions)\n\n<!--\n* [![Windows](https://github.com/antlr/antlr4/actions/workflows/windows.yml/badge.svg?branch=dev)](https://github.com/antlr/antlr4/actions/workflows/windows.yml) (github actions)\n\n* [![Circle CI Build Status (Linux)](https://img.shields.io/circleci/build/gh/antlr/antlr4/master?label=Linux)](https://app.circleci.com/pipelines/github/antlr/antlr4) (CircleCI)\n\n[![AppVeyor CI Build Status (Windows)](https://img.shields.io/appveyor/build/parrt/antlr4?label=Windows)](https://ci.appveyor.com/project/parrt/antlr4) \n[![Travis-CI Build Status (Swift-Linux)](https://img.shields.io/travis/antlr/antlr4.svg?label=Linux-Swift&branch=master)](https://travis-ci.com/github/antlr/antlr4)\n-->\n\n\n## Versioning\n\nANTLR 4 supports 10 target languages\n(Cpp, CSharp, Dart, Java, JavaScript, PHP, Python3, Swift, TypeScript, Go),\nand ensuring consistency across these targets is a unique and highly valuable feature.\nTo ensure proper support of this feature, each release of ANTLR is a complete release of the tool and the 10 runtimes, all with the same version.\nAs such, ANTLR versioning does not strictly follow semver semantics:\n\n* a component may be released with the latest version number even though nothing has changed within that component since the previous release\n* major version is bumped only when ANTLR is rewritten for a totally new \"generation\", such as ANTLR3 -> ANTLR4 (LL(\\*) -> ALL(\\*) parsing)\n* minor version updates may include minor breaking changes, the policy is to regenerate parsers with every release (4.11 -> 4.12)\n* backwards compatibility is only guaranteed for patch version bumps (4.11.1 -> 4.11.2)\n\nIf you use a semver verifier in your CI, you probably want to apply special rules for ANTLR, such as treating minor change as a major change.\n\n## Repo branch structure\n\nThe default branch for this repo is [`master`](https://github.com/antlr/antlr4/tree/master), which is the latest stable release and has tags for the various releases; e.g., see release tag [4.9.3](https://github.com/antlr/antlr4/tree/4.9.3).  Branch [`dev`](https://github.com/antlr/antlr4/tree/dev) is where development occurs between releases and all pull requests should be derived from that branch. The `dev` branch is merged back into `master` to cut a release and the release state is tagged (e.g., with `4.10-rc1` or `4.10`.) Visually our process looks roughly like this:\n\n<img src=\"doc/images/new-antlr-branches.png\" width=\"500\">\n\nThe Go target now has its own dedicated repo:\n\n```bash\n$ go get github.com/antlr4-go/antlr\n```\n**Note**\nThe dedicated Go repo is for `go get` and `import` only. Go runtime development is still performed in the main `antlr/antlr4` repo. \n\n## Authors and major contributors\n\n* [Terence Parr](http://www.cs.usfca.edu/~parrt/), parrt@cs.usfca.edu\nANTLR project lead and supreme dictator for life\n[University of San Francisco](http://www.usfca.edu/)\n* [Sam Harwell](http://tunnelvisionlabs.com/) (Tool co-author, Java and original C# target)\n* [Eric Vergnaud](https://github.com/ericvergnaud) (Javascript, TypeScript, Python2, Python3 targets and maintenance of C# target)\n* [Peter Boyer](https://github.com/pboyer) (Go target)\n* [Mike Lischke](http://www.soft-gems.net/) (C++ completed target)\n* Dan McLaughlin (C++ initial target)\n* David Sisson (C++ initial target and test)\n* [Janyou](https://github.com/janyou) (Swift target)\n* [Ewan Mellor](https://github.com/ewanmellor), [Hanzhou Shi](https://github.com/hanjoes) (Swift target merging)\n* [Ben Hamilton](https://github.com/bhamiltoncx) (Full Unicode support in serialized ATN and all languages' runtimes for code points > U+FFFF)\n* [Marcos Passos](https://github.com/marcospassos) (PHP target)\n* [Lingyu Li](https://github.com/lingyv-li) (Dart target)\n* [Ivan Kochurkin](https://github.com/KvanTTT) has made major contributions to overall quality, error handling, and Target performance.\n* [Justin King](https://github.com/jcking) has done a huge amount of work across multiple targets, but especially for C++.\n* [Ken Domino](https://github.com/kaby76) has a knack for finding bugs/issues and analysis; also a major contributor on the [grammars-v4 repo](https://github.com/antlr/grammars-v4).\n* [Jim Idle](https://github.com/jimidle) has contributed to previous versions of ANTLR and recently jumped back in to solve a major problem with the Go target.\n\n\n## Useful information\n\n* [Release notes](https://github.com/antlr/antlr4/releases)\n* [Getting started with v4](https://github.com/antlr/antlr4/blob/master/doc/getting-started.md)\n* [Official site](http://www.antlr.org/)\n* [Documentation](https://github.com/antlr/antlr4/blob/master/doc/index.md)\n* [FAQ](https://github.com/antlr/antlr4/blob/master/doc/faq/index.md)\n* [ANTLR code generation targets](https://github.com/antlr/antlr4/blob/master/doc/targets.md)<br>(Currently: Java, C#, Python3, JavaScript, TypeScript, Go, C++, Swift, Dart, PHP)\n* _Note: As of version 4.14, we are dropping support for Python 2. We love the Python\ncommunity, but Python 2 support was officially halted in Jan 2020. More recently,\nGiHub also dropped support for Python 2, which has made it impossible for us to\nmaintain a consistent level of quality across targets (we use GitHub for our CI).\nLong live Python 3!_\n* [Java API](http://www.antlr.org/api/Java/index.html)\n* [ANTLR v3](http://www.antlr3.org/)\n* [v3 to v4 Migration, differences](https://github.com/antlr/antlr4/blob/master/doc/faq/general.md)\n\nYou might also find the following pages useful, particularly if you want to mess around with the various target languages.\n \n* [How to build ANTLR itself](https://github.com/antlr/antlr4/blob/master/doc/building-antlr.md)\n* [How we create and deploy an ANTLR release](https://github.com/antlr/antlr4/blob/master/doc/releasing-antlr.md)\n\n## The Definitive ANTLR 4 Reference\n\nProgrammers run into parsing problems all the time. Whether it\u2019s a data format like JSON, a network protocol like SMTP, a server configuration file for Apache, a PostScript/PDF file, or a simple spreadsheet macro language\u2014ANTLR v4 and this book will demystify the process. ANTLR v4 has been rewritten from scratch to make it easier than ever to build parsers and the language applications built on top. This completely rewritten new edition of the bestselling Definitive ANTLR Reference shows you how to take advantage of these new features.\n\nYou can buy the book [The Definitive ANTLR 4 Reference](http://amzn.com/dp/1934356999) at amazon or an [electronic version at the publisher's site](https://pragprog.com/book/tpantlr2/the-definitive-antlr-4-reference).\n\nYou will find the [Book source code](http://pragprog.com/titles/tpantlr2/source_code) useful.\n\n## Additional grammars\n[This repository](https://github.com/antlr/grammars-v4) is a collection of grammars without actions where the\nroot directory name is the all-lowercase name of the language parsed\nby the grammar. For example, java, cpp, csharp, c, etc...\n",
+        "releases": [
+            {
+                "name": "4.13.2",
+                "date": "2024-08-03T19:28:03Z"
+            },
+            {
+                "name": "4.13.1",
+                "date": "2023-09-04T22:24:43Z"
+            },
+            {
+                "name": "4.13.0",
+                "date": "2023-05-21T17:50:06Z"
+            },
+            {
+                "name": "4.12.0",
+                "date": "2023-02-20T01:41:15Z"
+            },
+            {
+                "name": "4.11.1 (just fixes 4.11.0 release issue)",
+                "date": "2022-09-04T21:59:55Z"
+            },
+            {
+                "name": "4.11.0",
+                "date": "2022-09-04T20:43:02Z"
+            },
+            {
+                "name": "4.10.1",
+                "date": "2022-04-15T22:02:02Z"
+            },
+            {
+                "name": "4.10 Major feature, code clean up, and bug fix release",
+                "date": "2022-04-11T18:43:28Z"
+            },
+            {
+                "name": "4.9.3 bug fix release",
+                "date": "2021-11-06T18:49:49Z"
+            },
+            {
+                "name": "4.9.2 bug fix release",
+                "date": "2021-03-11T22:24:06Z"
+            },
+            {
+                "name": "4.9.1 bug fix release",
+                "date": "2021-01-05T19:38:04Z"
+            },
+            {
+                "name": "4.9 New dart target, bug fixes, small enhancements",
+                "date": "2020-11-24T21:01:32Z"
+            },
+            {
+                "name": "4.8 new PHP target, bug fix release",
+                "date": "2020-01-20T21:04:29Z"
+            },
+            {
+                "name": "ANTLR 4.7.2",
+                "date": "2018-12-18T19:46:46Z"
+            },
+            {
+                "name": "4.7.1",
+                "date": "2017-12-09T20:19:57Z"
+            },
+            {
+                "name": "4.7",
+                "date": "2017-03-30T21:41:20Z"
+            },
+            {
+                "name": "4.6",
+                "date": "2016-12-15T22:40:04Z"
+            },
+            {
+                "name": "4.5.3",
+                "date": "2016-03-31T00:00:05Z"
+            },
+            {
+                "name": "4.5.2",
+                "date": "2016-03-28T17:56:28Z"
+            },
+            {
+                "name": "4.5.1",
+                "date": "2015-07-15T23:30:40Z"
+            },
+            {
+                "name": "ANTLR 4.5.1 beta 1",
+                "date": "2015-06-30T22:19:14Z"
+            },
+            {
+                "name": "4.5",
+                "date": "2015-01-23T03:11:39Z"
+            },
+            {
+                "name": "ANTLR 4.5 release candidate 2",
+                "date": "2015-01-14T18:49:49Z"
+            },
+            {
+                "name": "ANTLR 4.5 release candidate 1",
+                "date": "2015-01-10T18:31:03Z"
+            },
+            {
+                "name": "4.4",
+                "date": "2014-07-16T21:18:36Z"
+            },
+            {
+                "name": "4.3",
+                "date": "2014-06-19T02:58:43Z"
+            },
+            {
+                "name": "4.2.2",
+                "date": "2014-04-07T02:03:44Z"
+            },
+            {
+                "name": "4.2.1",
+                "date": "2014-03-25T16:41:37Z"
+            },
+            {
+                "name": "4.2",
+                "date": "2014-02-04T05:00:15Z"
+            },
+            {
+                "name": "4.2-SNAPSHOT",
+                "date": "2014-01-23T19:36:45Z"
+            },
+            {
+                "name": "4.1",
+                "date": "2013-07-23T00:46:49Z"
+            }
+        ]
+    }
+}

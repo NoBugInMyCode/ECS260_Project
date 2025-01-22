@@ -1,0 +1,744 @@
+{
+    "https://api.github.com/repos/elastic/elasticsearch": {
+        "forks": 24993,
+        "watchers": 71364,
+        "stars": 71364,
+        "languages": {
+            "Java": 177499855,
+            "Groovy": 394223,
+            "StringTemplate": 221198,
+            "Shell": 91352,
+            "ANTLR": 63570,
+            "Python": 21726,
+            "Dockerfile": 18176,
+            "Batchfile": 12469,
+            "TypeScript": 11051,
+            "C": 10147,
+            "PowerShell": 7780,
+            "C++": 6986,
+            "CSS": 5424,
+            "MDX": 3362,
+            "Emacs Lisp": 3341,
+            "AMPL": 3121,
+            "HTML": 2186,
+            "JavaScript": 1268,
+            "Mustache": 58,
+            "FreeMarker": 45
+        },
+        "commits": [
+            "2025-01-22T05:57:30Z",
+            "2025-01-22T05:57:18Z",
+            "2025-01-22T05:57:07Z",
+            "2025-01-22T05:56:50Z",
+            "2025-01-22T05:36:44Z",
+            "2025-01-21T22:16:31Z",
+            "2025-01-21T21:50:20Z",
+            "2025-01-21T21:01:11Z",
+            "2025-01-21T20:44:53Z",
+            "2025-01-21T19:21:56Z",
+            "2025-01-21T17:32:45Z",
+            "2025-01-21T17:22:14Z",
+            "2025-01-21T17:07:40Z",
+            "2025-01-21T16:47:55Z",
+            "2025-01-21T16:31:51Z",
+            "2025-01-21T16:24:02Z",
+            "2025-01-21T16:15:15Z",
+            "2025-01-21T16:13:54Z",
+            "2025-01-21T15:25:58Z",
+            "2025-01-21T15:22:47Z",
+            "2025-01-21T14:07:14Z",
+            "2025-01-21T13:22:19Z",
+            "2025-01-21T12:42:22Z",
+            "2025-01-21T12:30:57Z",
+            "2025-01-21T12:25:24Z",
+            "2025-01-21T11:30:08Z",
+            "2025-01-21T11:04:45Z",
+            "2025-01-21T10:20:19Z",
+            "2025-01-21T10:19:44Z",
+            "2025-01-21T10:18:45Z"
+        ],
+        "creation_date": "2010-02-08T13:20:56Z",
+        "contributors": 30,
+        "topics": [
+            "elasticsearch",
+            "java",
+            "search-engine"
+        ],
+        "subscribers": 2683,
+        "readme": "= Elasticsearch\n\nElasticsearch is a distributed search and analytics engine, scalable data store and vector database optimized for speed and relevance on production-scale workloads. Elasticsearch is the foundation of Elastic's open Stack platform. Search in near real-time over massive datasets, perform vector searches, integrate with generative AI applications, and much more.\n\nUse cases enabled by Elasticsearch include:\n\n* https://www.elastic.co/search-labs/blog/articles/retrieval-augmented-generation-rag[Retrieval Augmented Generation (RAG)]\n* https://www.elastic.co/search-labs/blog/categories/vector-search[Vector search]\n* Full-text search\n* Logs\n* Metrics\n* Application performance monitoring (APM)\n* Security logs\n\n\\... and more!\n\nTo learn more about Elasticsearch's features and capabilities, see our\nhttps://www.elastic.co/products/elasticsearch[product page].\n\nTo access information on https://www.elastic.co/search-labs/blog/categories/ml-research[machine learning innovations] and the latest https://www.elastic.co/search-labs/blog/categories/lucene[Lucene contributions from Elastic], more information can be found in https://www.elastic.co/search-labs[Search Labs].\n\n[[get-started]]\n== Get started\n\nThe simplest way to set up Elasticsearch is to create a managed deployment with\nhttps://www.elastic.co/cloud/as-a-service[Elasticsearch Service on Elastic\nCloud].\n\nIf you prefer to install and manage Elasticsearch yourself, you can download\nthe latest version from\nhttps://www.elastic.co/downloads/elasticsearch[elastic.co/downloads/elasticsearch].\n\n=== Run Elasticsearch locally\n\n////\nIMPORTANT: This content is replicated in the Elasticsearch repo. See `run-elasticsearch-locally.asciidoc`.\nEnsure both files are in sync.\n\nhttps://github.com/elastic/start-local is the source of truth.\n////\n\n[WARNING]\n====\nDO NOT USE THESE INSTRUCTIONS FOR PRODUCTION DEPLOYMENTS.\n\nThis setup is intended for local development and testing only.\n====\n\nQuickly set up Elasticsearch and Kibana in Docker for local development or testing, using the https://github.com/elastic/start-local?tab=readme-ov-file#-try-elasticsearch-and-kibana-locally[`start-local` script].\n\n\u2139\ufe0f For more detailed information about the `start-local` setup, refer to the https://github.com/elastic/start-local[README on GitHub].\n\n==== Prerequisites\n\n- If you don't have Docker installed, https://www.docker.com/products/docker-desktop[download and install Docker Desktop] for your operating system.\n- If you're using Microsoft Windows, then install https://learn.microsoft.com/en-us/windows/wsl/install[Windows Subsystem for Linux (WSL)].\n\n==== Trial license\nThis setup comes with a one-month trial license that includes all Elastic features.\n\nAfter the trial period, the license reverts to *Free and open - Basic*.\nRefer to https://www.elastic.co/subscriptions[Elastic subscriptions] for more information.\n\n==== Run `start-local`\n\nTo set up Elasticsearch and Kibana locally, run the `start-local` script:\n\n[source,sh]\n----\ncurl -fsSL https://elastic.co/start-local | sh\n----\n// NOTCONSOLE\n\nThis script creates an `elastic-start-local` folder containing configuration files and starts both Elasticsearch and Kibana using Docker.\n\nAfter running the script, you can access Elastic services at the following endpoints:\n\n* *Elasticsearch*: http://localhost:9200\n* *Kibana*: http://localhost:5601\n\nThe script generates a random password for the `elastic` user, which is displayed at the end of the installation and stored in the `.env` file.\n\n[CAUTION]\n====\nThis setup is for local testing only. HTTPS is disabled, and Basic authentication is used for Elasticsearch. For security, Elasticsearch and Kibana are accessible only through `localhost`.\n====\n\n==== API access\n\nAn API key for Elasticsearch is generated and stored in the `.env` file as `ES_LOCAL_API_KEY`.\nUse this key to connect to Elasticsearch with a https://www.elastic.co/guide/en/elasticsearch/client/index.html[programming language client] or the https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html[REST API].\n\nFrom the `elastic-start-local` folder, check the connection to Elasticsearch using `curl`:\n\n[source,sh]\n----\nsource .env\ncurl $ES_LOCAL_URL -H \"Authorization: ApiKey ${ES_LOCAL_API_KEY}\"\n----\n// NOTCONSOLE\n\n=== Send requests to Elasticsearch\n\nYou send data and other requests to Elasticsearch through REST APIs.\nYou can interact with Elasticsearch using any client that sends HTTP requests,\nsuch as the https://www.elastic.co/guide/en/elasticsearch/client/index.html[Elasticsearch\nlanguage clients] and https://curl.se[curl].\n\n==== Using curl\n\nHere's an example curl command to create a new Elasticsearch index, using basic auth:\n\n[source,sh]\n----\ncurl -u elastic:$ELASTIC_PASSWORD \\\n  -X PUT \\\n  http://localhost:9200/my-new-index \\\n  -H 'Content-Type: application/json'\n----\n// NOTCONSOLE\n\n==== Using a language client\n\nTo connect to your local dev Elasticsearch cluster with a language client, you can use basic authentication with the `elastic` username and the password you set in the environment variable.\n\nYou'll use the following connection details:\n\n* **Elasticsearch endpoint**: `http://localhost:9200`\n* **Username**: `elastic`\n* **Password**: `$ELASTIC_PASSWORD` (Value you set in the environment variable)\n\nFor example, to connect with the Python `elasticsearch` client:\n\n[source,python]\n----\nimport os\nfrom elasticsearch import Elasticsearch\n\nusername = 'elastic'\npassword = os.getenv('ELASTIC_PASSWORD') # Value you set in the environment variable\n\nclient = Elasticsearch(\n    \"http://localhost:9200\",\n    basic_auth=(username, password)\n)\n\nprint(client.info())\n----\n\n==== Using the Dev Tools Console\n\nKibana's developer console provides an easy way to experiment and test requests.\nTo access the console, open Kibana, then go to **Management** > **Dev Tools**.\n\n**Add data**\n\nYou index data into Elasticsearch by sending JSON objects (documents) through the REST APIs.\nWhether you have structured or unstructured text, numerical data, or geospatial data,\nElasticsearch efficiently stores and indexes it in a way that supports fast searches.\n\nFor timestamped data such as logs and metrics, you typically add documents to a\ndata stream made up of multiple auto-generated backing indices.\n\nTo add a single document to an index, submit an HTTP post request that targets the index.\n\n----\nPOST /customer/_doc/1\n{\n  \"firstname\": \"Jennifer\",\n  \"lastname\": \"Walters\"\n}\n----\n\nThis request automatically creates the `customer` index if it doesn't exist,\nadds a new document that has an ID of 1, and\nstores and indexes the `firstname` and `lastname` fields.\n\nThe new document is available immediately from any node in the cluster.\nYou can retrieve it with a GET request that specifies its document ID:\n\n----\nGET /customer/_doc/1\n----\n\nTo add multiple documents in one request, use the `_bulk` API.\nBulk data must be newline-delimited JSON (NDJSON).\nEach line must end in a newline character (`\\n`), including the last line.\n\n----\nPUT customer/_bulk\n{ \"create\": { } }\n{ \"firstname\": \"Monica\",\"lastname\":\"Rambeau\"}\n{ \"create\": { } }\n{ \"firstname\": \"Carol\",\"lastname\":\"Danvers\"}\n{ \"create\": { } }\n{ \"firstname\": \"Wanda\",\"lastname\":\"Maximoff\"}\n{ \"create\": { } }\n{ \"firstname\": \"Jennifer\",\"lastname\":\"Takeda\"}\n----\n\n**Search**\n\nIndexed documents are available for search in near real-time.\nThe following search matches all customers with a first name of _Jennifer_\nin the `customer` index.\n\n----\nGET customer/_search\n{\n  \"query\" : {\n    \"match\" : { \"firstname\": \"Jennifer\" }\n  }\n}\n----\n\n**Explore**\n\nYou can use Discover in Kibana to interactively search and filter your data.\nFrom there, you can start creating visualizations and building and sharing dashboards.\n\nTo get started, create a _data view_ that connects to one or more Elasticsearch indices,\ndata streams, or index aliases.\n\n. Go to **Management > Stack Management > Kibana > Data Views**.\n. Select **Create data view**.\n. Enter a name for the data view and a pattern that matches one or more indices,\nsuch as _customer_.\n. Select **Save data view to Kibana**.\n\nTo start exploring, go to **Analytics > Discover**.\n\n[[upgrade]]\n== Upgrade\n\nTo upgrade from an earlier version of Elasticsearch, see the\nhttps://www.elastic.co/guide/en/elasticsearch/reference/current/setup-upgrade.html[Elasticsearch upgrade\ndocumentation].\n\n[[build-source]]\n== Build from source\n\nElasticsearch uses https://gradle.org[Gradle] for its build system.\n\nTo build a distribution for your local OS and print its output location upon\ncompletion, run:\n----\n./gradlew localDistro\n----\n\nTo build a distribution for another platform, run the related command:\n----\n./gradlew :distribution:archives:linux-tar:assemble\n./gradlew :distribution:archives:darwin-tar:assemble\n./gradlew :distribution:archives:windows-zip:assemble\n----\n\nDistributions are output to `distribution/archives`.\n\nTo run the test suite, see xref:TESTING.asciidoc[TESTING].\n\n[[docs]]\n== Documentation\n\nFor the complete Elasticsearch documentation visit\nhttps://www.elastic.co/guide/en/elasticsearch/reference/current/index.html[elastic.co].\n\nFor information about our documentation processes, see the\nxref:docs/README.asciidoc[docs README].\n\n[[examples]]\n== Examples and guides\n\nThe https://github.com/elastic/elasticsearch-labs[`elasticsearch-labs`] repo contains executable Python notebooks, sample apps, and resources to test out Elasticsearch for vector search, hybrid search and generative AI use cases.\n\n\n[[contribute]]\n== Contribute\n\nFor contribution guidelines, see xref:CONTRIBUTING.md[CONTRIBUTING].\n\n[[questions]]\n== Questions? Problems? Suggestions?\n\n* To report a bug or request a feature, create a\nhttps://github.com/elastic/elasticsearch/issues/new/choose[GitHub Issue]. Please\nensure someone else hasn't created an issue for the same topic.\n\n* Need help using Elasticsearch? Reach out on the\nhttps://discuss.elastic.co[Elastic Forum] or https://ela.st/slack[Slack]. A\nfellow community member or Elastic engineer will be happy to help you out.\n",
+        "releases": [
+            {
+                "name": "Elasticsearch 8.17.1",
+                "date": "2025-01-21T15:50:34Z"
+            },
+            {
+                "name": "Elasticsearch 8.16.3",
+                "date": "2025-01-21T15:47:35Z"
+            },
+            {
+                "name": "Elasticsearch 7.17.27",
+                "date": "2025-01-14T19:29:35Z"
+            },
+            {
+                "name": "Elasticsearch 8.17.0",
+                "date": "2024-12-12T16:40:15Z"
+            },
+            {
+                "name": "Elasticsearch 8.16.2",
+                "date": "2024-12-17T11:40:02Z"
+            },
+            {
+                "name": "Elasticsearch 7.17.26",
+                "date": "2024-12-03T13:50:38Z"
+            },
+            {
+                "name": "Elasticsearch 8.15.5",
+                "date": "2024-11-26T12:59:13Z"
+            },
+            {
+                "name": "Elasticsearch 8.16.1",
+                "date": "2024-11-22T10:29:02Z"
+            },
+            {
+                "name": "Elasticsearch 8.16.0",
+                "date": "2024-11-12T16:23:55Z"
+            },
+            {
+                "name": "Elasticsearch 8.15.4",
+                "date": "2024-11-12T10:44:13Z"
+            },
+            {
+                "name": "Elasticsearch 7.17.25",
+                "date": "2024-10-22T12:31:00Z"
+            },
+            {
+                "name": "Elasticsearch 8.15.3",
+                "date": "2024-10-17T14:10:32Z"
+            },
+            {
+                "name": "Elasticsearch 8.15.2",
+                "date": "2024-09-26T16:21:36Z"
+            },
+            {
+                "name": "Elasticsearch 7.17.24",
+                "date": "2024-09-10T10:03:24Z"
+            },
+            {
+                "name": "Elasticsearch 8.15.1",
+                "date": "2024-09-05T17:41:31Z"
+            },
+            {
+                "name": "Elasticsearch 8.15.0",
+                "date": "2024-08-08T16:04:36Z"
+            },
+            {
+                "name": "Elasticsearch 7.17.23",
+                "date": "2024-07-30T17:26:59Z"
+            },
+            {
+                "name": "Elasticsearch 8.14.3",
+                "date": "2024-07-11T13:47:45Z"
+            },
+            {
+                "name": "Elasticsearch v8.14.2",
+                "date": "2024-07-04T07:59:21Z"
+            },
+            {
+                "name": "Elasticsearch 7.17.22",
+                "date": "2024-06-13T14:40:56Z"
+            },
+            {
+                "name": "Elasticsearch 8.14.1",
+                "date": "2024-06-12T14:37:46Z"
+            },
+            {
+                "name": "Elasticsearch 8.14.0",
+                "date": "2024-06-05T13:41:33Z"
+            },
+            {
+                "name": "Elasticsearch 8.13.4",
+                "date": "2024-05-14T09:46:49Z"
+            },
+            {
+                "name": "Elasticsearch 8.13.3",
+                "date": "2024-05-03T10:43:13Z"
+            },
+            {
+                "name": "Elasticsearch 7.17.21",
+                "date": "2024-05-03T10:30:10Z"
+            },
+            {
+                "name": "Elasticsearch 7.17.20",
+                "date": "2024-04-10T13:55:50Z"
+            },
+            {
+                "name": "Elasticsearch 8.13.2",
+                "date": "2024-04-08T20:14:50Z"
+            },
+            {
+                "name": "Elasticsearch 8.13.1",
+                "date": "2024-04-02T09:54:41Z"
+            },
+            {
+                "name": "Elasticsearch 8.13.0",
+                "date": "2024-03-26T16:13:02Z"
+            },
+            {
+                "name": "Elasticsearch 7.17.19",
+                "date": "2024-03-26T12:50:54Z"
+            },
+            {
+                "name": "Elasticsearch 8.12.2",
+                "date": "2024-02-22T15:35:08Z"
+            },
+            {
+                "name": "Elasticsearch 8.12.1",
+                "date": "2024-02-06T12:46:25Z"
+            },
+            {
+                "name": "Elasticsearch 7.17.18",
+                "date": "2024-02-06T12:46:09Z"
+            },
+            {
+                "name": "Elasticsearch 7.17.17",
+                "date": "2024-01-23T15:20:12Z"
+            },
+            {
+                "name": "Elasticsearch 8.12.0",
+                "date": "2024-01-17T15:39:27Z"
+            },
+            {
+                "name": "Elasticsearch 8.11.4",
+                "date": "2024-01-11T12:26:48Z"
+            },
+            {
+                "name": "Elasticsearch 8.11.3",
+                "date": "2023-12-12T13:32:49Z"
+            },
+            {
+                "name": "Elasticsearch 7.17.16",
+                "date": "2023-12-12T13:21:22Z"
+            },
+            {
+                "name": "Elasticsearch 8.11.2",
+                "date": "2023-12-07T12:56:01Z"
+            },
+            {
+                "name": "Elasticsearch 8.11.1",
+                "date": "2023-11-13T15:46:16Z"
+            },
+            {
+                "name": "Elasticsearch 7.17.15",
+                "date": "2023-11-13T18:36:36Z"
+            },
+            {
+                "name": "Elasticsearch 8.11.0",
+                "date": "2023-11-07T16:09:10Z"
+            },
+            {
+                "name": "Elasticsearch 8.10.4",
+                "date": "2023-10-17T11:49:01Z"
+            },
+            {
+                "name": "Elasticsearch 8.10.3",
+                "date": "2023-10-10T13:07:53Z"
+            },
+            {
+                "name": "Elasticsearch 7.17.14",
+                "date": "2023-10-10T13:07:49Z"
+            },
+            {
+                "name": "Elasticsearch 8.10.2",
+                "date": "2023-09-21T10:49:36Z"
+            },
+            {
+                "name": "Elasticsearch 8.10.1",
+                "date": "2023-09-18T15:34:41Z"
+            },
+            {
+                "name": "Elasticsearch 8.10.0",
+                "date": "2023-09-12T15:40:47Z"
+            },
+            {
+                "name": "Elasticsearch 8.9.2",
+                "date": "2023-09-06T21:11:01Z"
+            },
+            {
+                "name": "Elasticsearch 7.17.13",
+                "date": "2023-09-06T21:11:05Z"
+            },
+            {
+                "name": "Elasticsearch 8.9.1",
+                "date": "2023-08-17T14:16:27Z"
+            },
+            {
+                "name": "Elasticsearch 8.9.0",
+                "date": "2023-07-25T19:32:46Z"
+            },
+            {
+                "name": "Elasticsearch 7.17.12",
+                "date": "2023-07-25T19:31:40Z"
+            },
+            {
+                "name": "Elasticsearch 8.8.2",
+                "date": "2023-06-29T09:57:57Z"
+            },
+            {
+                "name": "Elasticsearch 7.17.11",
+                "date": "2023-06-29T09:57:41Z"
+            },
+            {
+                "name": "Elasticsearch 8.8.1",
+                "date": "2023-06-08T10:15:37Z"
+            },
+            {
+                "name": "Elasticsearch 8.8.0",
+                "date": "2023-05-25T09:24:20Z"
+            },
+            {
+                "name": "Elasticsearch 8.7.1",
+                "date": "2023-05-02T13:17:15Z"
+            },
+            {
+                "name": "Elasticsearch 7.17.10",
+                "date": "2023-05-02T14:43:00Z"
+            },
+            {
+                "name": "Elasticsearch 8.7.0",
+                "date": "2023-03-30T14:13:51Z"
+            },
+            {
+                "name": "Elasticsearch 8.6.2",
+                "date": "2023-02-16T16:07:16Z"
+            },
+            {
+                "name": "Elasticsearch 7.17.9",
+                "date": "2023-02-02T15:04:46Z"
+            },
+            {
+                "name": "Elasticsearch 8.6.1",
+                "date": "2023-01-26T17:05:55Z"
+            },
+            {
+                "name": "Elasticsearch 8.6.0",
+                "date": "2023-01-10T15:37:09Z"
+            },
+            {
+                "name": "Elasticsearch 8.5.3",
+                "date": "2022-12-08T18:04:49Z"
+            },
+            {
+                "name": "Elasticsearch 7.17.8",
+                "date": "2022-12-08T16:01:07Z"
+            },
+            {
+                "name": "Elasticsearch 8.5.2",
+                "date": "2022-11-22T18:17:05Z"
+            },
+            {
+                "name": "Elasticsearch 8.5.1",
+                "date": "2022-11-15T16:07:00Z"
+            },
+            {
+                "name": "Elasticsearch 8.5.0",
+                "date": "2022-11-01T14:54:54Z"
+            },
+            {
+                "name": "Elasticsearch 7.17.7",
+                "date": "2022-10-25T15:03:24Z"
+            },
+            {
+                "name": "Elasticsearch 8.4.3",
+                "date": "2022-10-05T16:02:21Z"
+            },
+            {
+                "name": "Elasticsearch 8.4.2",
+                "date": "2022-09-20T14:27:52Z"
+            },
+            {
+                "name": "Elasticsearch 8.4.1",
+                "date": "2022-08-30T15:30:51Z"
+            },
+            {
+                "name": "Elasticsearch 8.4.0",
+                "date": "2022-08-24T15:00:34Z"
+            },
+            {
+                "name": "Elasticsearch 7.17.6",
+                "date": "2022-08-24T14:57:18Z"
+            },
+            {
+                "name": "Elasticsearch 8.3.3",
+                "date": "2022-07-28T14:47:14Z"
+            },
+            {
+                "name": "Elasticsearch 8.3.2",
+                "date": "2022-07-07T14:33:03Z"
+            },
+            {
+                "name": "Elasticsearch 8.3.1",
+                "date": "2022-06-30T14:46:16Z"
+            },
+            {
+                "name": "Elasticsearch 8.3.0",
+                "date": "2022-06-28T16:02:05Z"
+            },
+            {
+                "name": "Elasticsearch 7.17.5",
+                "date": "2022-06-28T16:23:48Z"
+            },
+            {
+                "name": "Elasticsearch 8.2.3",
+                "date": "2022-06-14T17:51:17Z"
+            },
+            {
+                "name": "Elasticsearch 8.2.2",
+                "date": "2022-05-26T15:58:23Z"
+            },
+            {
+                "name": "Elasticsearch 8.2.1",
+                "date": "2022-05-24T14:59:00Z"
+            },
+            {
+                "name": "Elasticsearch 7.17.4",
+                "date": "2022-05-24T14:10:53Z"
+            },
+            {
+                "name": "Elasticsearch 8.2.0",
+                "date": "2022-05-03T14:51:28Z"
+            },
+            {
+                "name": "Elasticsearch 8.1.3",
+                "date": "2022-04-20T14:39:14Z"
+            },
+            {
+                "name": "Elasticsearch 7.17.3",
+                "date": "2022-04-20T14:25:35Z"
+            },
+            {
+                "name": "Elasticsearch 8.1.2",
+                "date": "2022-03-31T17:02:06Z"
+            },
+            {
+                "name": "Elasticsearch 7.17.2",
+                "date": "2022-03-31T14:50:52Z"
+            },
+            {
+                "name": "Elasticsearch 8.1.1",
+                "date": "2022-03-22T18:12:06Z"
+            },
+            {
+                "name": "Elasticsearch 8.1.0",
+                "date": "2022-03-08T19:03:50Z"
+            },
+            {
+                "name": "Elasticsearch 8.0.1",
+                "date": "2022-03-01T16:46:07Z"
+            },
+            {
+                "name": "Elasticsearch 7.17.1",
+                "date": "2022-02-28T15:31:57Z"
+            },
+            {
+                "name": "Elasticsearch 8.0.0",
+                "date": "2022-02-10T15:38:57Z"
+            },
+            {
+                "name": "Elasticsearch 8.0.0-rc2",
+                "date": "2022-02-03T15:38:16Z"
+            },
+            {
+                "name": "Elasticsearch 7.17.0",
+                "date": "2022-02-01T15:50:40Z"
+            },
+            {
+                "name": "Elasticsearch 7.16.3",
+                "date": "2022-01-13T17:00:49Z"
+            },
+            {
+                "name": "Elasticsearch 6.8.23",
+                "date": "2022-01-13T16:54:45Z"
+            },
+            {
+                "name": "Elasticsearch 8.0.0-rc1",
+                "date": "2022-01-12T16:55:01Z"
+            },
+            {
+                "name": "Elasticsearch 7.16.2",
+                "date": "2021-12-19T12:47:27Z"
+            },
+            {
+                "name": "Elasticsearch 6.8.22",
+                "date": "2021-12-19T12:45:19Z"
+            },
+            {
+                "name": "Elasticsearch 7.16.1",
+                "date": "2021-12-13T12:00:01Z"
+            },
+            {
+                "name": "Elasticsearch 6.8.21",
+                "date": "2021-12-13T13:33:15Z"
+            },
+            {
+                "name": "Elasticsearch 7.16.0",
+                "date": "2021-12-07T16:06:05Z"
+            },
+            {
+                "name": "Elasticsearch 7.15.2",
+                "date": "2021-11-10T16:18:25Z"
+            },
+            {
+                "name": "Elasticsearch 8.0.0-beta1",
+                "date": "2021-11-09T14:38:06Z"
+            },
+            {
+                "name": "Elasticsearch 7.15.1",
+                "date": "2021-10-14T15:35:17Z"
+            },
+            {
+                "name": "Elasticsearch 6.8.20",
+                "date": "2021-10-14T15:29:57Z"
+            },
+            {
+                "name": "Elasticsearch 7.15.0",
+                "date": "2021-09-22T15:52:11Z"
+            },
+            {
+                "name": "Elasticsearch 7.14.2",
+                "date": "2021-09-21T15:40:50Z"
+            },
+            {
+                "name": "Elasticsearch 6.8.19",
+                "date": "2021-09-21T14:23:03Z"
+            },
+            {
+                "name": "Elasticsearch 8.0.0-alpha2",
+                "date": "2021-09-16T14:58:10Z"
+            },
+            {
+                "name": "Elasticsearch 7.14.1",
+                "date": "2021-09-01T16:31:08Z"
+            },
+            {
+                "name": "Elasticsearch 8.0.0-alpha1",
+                "date": "2021-08-10T20:07:53Z"
+            },
+            {
+                "name": "Elasticsearch 7.14.0",
+                "date": "2021-08-03T13:35:31Z"
+            },
+            {
+                "name": "Elasticsearch 6.8.18",
+                "date": "2021-08-03T13:36:23Z"
+            },
+            {
+                "name": "Elasticsearch 7.13.4",
+                "date": "2021-07-20T14:26:15Z"
+            },
+            {
+                "name": "Elasticsearch 7.13.3",
+                "date": "2021-07-07T17:21:49Z"
+            },
+            {
+                "name": "Elasticsearch 6.8.17",
+                "date": "2021-07-07T17:39:48Z"
+            },
+            {
+                "name": "Elasticsearch 7.13.2",
+                "date": "2021-06-14T19:25:33Z"
+            },
+            {
+                "name": "Elasticsearch 7.13.1",
+                "date": "2021-06-02T15:11:35Z"
+            },
+            {
+                "name": "Elasticsearch 7.13.0",
+                "date": "2021-05-25T12:48:41Z"
+            },
+            {
+                "name": "Elasticsearch 6.8.16",
+                "date": "2021-05-25T12:43:20Z"
+            },
+            {
+                "name": "Elasticsearch 7.12.1",
+                "date": "2021-04-27T16:56:17Z"
+            },
+            {
+                "name": "Elasticsearch 7.12.0",
+                "date": "2021-03-23T15:20:38Z"
+            },
+            {
+                "name": "Elasticsearch 6.8.15",
+                "date": "2021-03-23T15:14:57Z"
+            },
+            {
+                "name": "Elasticsearch 7.11.2",
+                "date": "2021-03-10T15:05:37Z"
+            },
+            {
+                "name": "Elasticsearch 7.11.1",
+                "date": "2021-02-17T16:24:59Z"
+            },
+            {
+                "name": "Elasticsearch 7.11.0",
+                "date": "2021-02-10T15:33:00Z"
+            },
+            {
+                "name": "Elasticsearch 6.8.14",
+                "date": "2021-02-10T15:27:25Z"
+            },
+            {
+                "name": "Elasticsearch 7.10.2",
+                "date": "2021-01-14T17:20:25Z"
+            },
+            {
+                "name": "Elasticsearch 7.10.1",
+                "date": "2020-12-09T14:58:18Z"
+            },
+            {
+                "name": "Elasticsearch 7.10.0",
+                "date": "2020-11-11T15:38:21Z"
+            },
+            {
+                "name": "Elasticsearch 7.9.3",
+                "date": "2020-10-22T13:44:35Z"
+            },
+            {
+                "name": "Elasticsearch 6.8.13",
+                "date": "2020-10-22T13:19:05Z"
+            },
+            {
+                "name": "Elasticsearch 7.9.2",
+                "date": "2020-09-24T14:18:25Z"
+            },
+            {
+                "name": "Elasticsearch 7.9.1",
+                "date": "2020-09-03T15:17:32Z"
+            },
+            {
+                "name": "Elasticsearch 7.9.0",
+                "date": "2020-08-18T14:37:59Z"
+            },
+            {
+                "name": "Elasticsearch 6.8.12",
+                "date": "2020-08-18T14:25:19Z"
+            },
+            {
+                "name": "Elasticsearch 7.8.1",
+                "date": "2020-07-27T14:43:39Z"
+            },
+            {
+                "name": "Elasticsearch 6.8.11",
+                "date": "2020-07-27T14:42:47Z"
+            },
+            {
+                "name": "Elasticsearch 7.8.0",
+                "date": "2020-06-18T13:28:31Z"
+            },
+            {
+                "name": "Elasticsearch 7.7.1",
+                "date": "2020-06-03T14:08:06Z"
+            },
+            {
+                "name": "Elasticsearch 6.8.10",
+                "date": "2020-06-03T14:02:15Z"
+            },
+            {
+                "name": "Elasticsearch 7.7.0",
+                "date": "2020-05-13T14:15:11Z"
+            },
+            {
+                "name": "Elasticsearch 6.8.9",
+                "date": "2020-05-13T14:55:16Z"
+            },
+            {
+                "name": "Elasticsearch 7.6.2",
+                "date": "2020-03-31T16:42:20Z"
+            },
+            {
+                "name": "Elasticsearch 6.8.8",
+                "date": "2020-03-31T16:36:04Z"
+            },
+            {
+                "name": "Elasticsearch 7.6.1",
+                "date": "2020-03-04T17:46:44Z"
+            },
+            {
+                "name": "Elasticsearch 6.8.7",
+                "date": "2020-03-04T17:38:49Z"
+            },
+            {
+                "name": "Elasticsearch 7.6.0",
+                "date": "2020-02-11T16:35:30Z"
+            },
+            {
+                "name": "Elasticsearch 7.5.2",
+                "date": "2020-01-21T19:17:21Z"
+            },
+            {
+                "name": "Elasticsearch 7.5.1",
+                "date": "2019-12-18T18:46:38Z"
+            },
+            {
+                "name": "Elasticsearch 6.8.6",
+                "date": "2019-12-18T17:35:50Z"
+            },
+            {
+                "name": "Elasticsearch 7.5.0",
+                "date": "2019-12-02T16:09:14Z"
+            },
+            {
+                "name": "Elasticsearch 6.8.5",
+                "date": "2019-11-20T16:57:19Z"
+            },
+            {
+                "name": "Elasticsearch 7.4.2",
+                "date": "2019-10-31T16:33:41Z"
+            },
+            {
+                "name": "Elasticsearch 7.4.1",
+                "date": "2019-10-23T14:23:54Z"
+            },
+            {
+                "name": "Elasticsearch 6.8.4",
+                "date": "2019-10-23T14:22:28Z"
+            },
+            {
+                "name": "Elasticsearch 7.4.0",
+                "date": "2019-10-01T14:30:25Z"
+            },
+            {
+                "name": "Elasticsearch 7.3.2",
+                "date": "2019-09-12T17:02:18Z"
+            },
+            {
+                "name": "Elasticsearch 6.8.3",
+                "date": "2019-09-05T17:33:37Z"
+            },
+            {
+                "name": "Elasticsearch 7.3.1",
+                "date": "2019-08-22T15:54:00Z"
+            },
+            {
+                "name": "Elasticsearch 7.3.0",
+                "date": "2019-07-31T14:50:27Z"
+            },
+            {
+                "name": "Elasticsearch 7.2.1",
+                "date": "2019-07-30T16:29:40Z"
+            },
+            {
+                "name": "Elasticsearch 6.8.2",
+                "date": "2019-07-30T16:25:50Z"
+            },
+            {
+                "name": "Elasticsearch 7.2.0",
+                "date": "2019-06-25T15:51:48Z"
+            },
+            {
+                "name": "Elasticsearch 6.8.1",
+                "date": "2019-06-20T14:45:33Z"
+            }
+        ]
+    }
+}

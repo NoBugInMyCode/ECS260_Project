@@ -1,0 +1,62 @@
+{
+    "https://api.github.com/repos/HarisIqbal88/PlotNeuralNet": {
+        "forks": 2905,
+        "watchers": 22608,
+        "stars": 22608,
+        "languages": {
+            "TeX": 12494,
+            "Python": 12463,
+            "Shell": 164
+        },
+        "commits": [
+            "2020-11-06T09:41:36Z",
+            "2020-10-31T02:16:58Z",
+            "2020-08-14T09:02:59Z",
+            "2020-08-14T09:01:39Z",
+            "2020-06-13T18:11:55Z",
+            "2020-04-22T17:19:10Z",
+            "2020-04-22T17:18:15Z",
+            "2020-02-24T02:49:47Z",
+            "2020-01-17T15:31:36Z",
+            "2019-07-30T09:20:25Z",
+            "2019-07-30T09:19:11Z",
+            "2019-07-30T09:18:07Z",
+            "2019-07-30T09:17:32Z",
+            "2019-06-19T08:45:45Z",
+            "2019-06-19T03:19:34Z",
+            "2019-04-14T09:08:03Z",
+            "2019-04-13T14:33:17Z",
+            "2019-04-01T04:33:33Z",
+            "2019-03-28T20:40:01Z",
+            "2019-03-20T13:29:28Z",
+            "2019-03-20T13:26:18Z",
+            "2019-03-14T20:26:49Z",
+            "2019-03-11T09:15:52Z",
+            "2019-02-28T12:24:52Z",
+            "2019-02-21T10:34:10Z",
+            "2019-02-21T10:31:54Z",
+            "2019-02-21T07:49:57Z",
+            "2019-02-11T09:05:57Z",
+            "2019-02-01T17:51:15Z",
+            "2019-02-01T17:50:48Z"
+        ],
+        "creation_date": "2018-07-24T16:51:34Z",
+        "contributors": 10,
+        "topics": [
+            "deep-neural-networks",
+            "latex"
+        ],
+        "subscribers": 227,
+        "readme": "# PlotNeuralNet\n[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2526396.svg)](https://doi.org/10.5281/zenodo.2526396)\n\nLatex code for drawing neural networks for reports and presentation. Have a look into examples to see how they are made. Additionally, lets consolidate any improvements that you make and fix any bugs to help more people with this code.\n\n## Examples\n\nFollowing are some network representations:\n\n<p align=\"center\"><img  src=\"https://user-images.githubusercontent.com/17570785/50308846-c2231880-049c-11e9-8763-3daa1024de78.png\" width=\"85%\" height=\"85%\"></p>\n<h6 align=\"center\">FCN-8 (<a href=\"https://www.overleaf.com/read/kkqntfxnvbsk\">view on Overleaf</a>)</h6>\n\n\n<p align=\"center\"><img  src=\"https://user-images.githubusercontent.com/17570785/50308873-e2eb6e00-049c-11e9-9587-9da6bdec011b.png\" width=\"85%\" height=\"85%\"></p>\n<h6 align=\"center\">FCN-32 (<a href=\"https://www.overleaf.com/read/wsxpmkqvjnbs\">view on Overleaf</a>)</h6>\n\n\n<p align=\"center\"><img  src=\"https://user-images.githubusercontent.com/17570785/50308911-03b3c380-049d-11e9-92d9-ce15669017ad.png\" width=\"85%\" height=\"85%\"></p>\n<h6 align=\"center\">Holistically-Nested Edge Detection (<a href=\"https://www.overleaf.com/read/jxhnkcnwhfxp\">view on Overleaf</a>)</h6>\n\n## Getting Started\n1. Install the following packages on Ubuntu.\n    * Ubuntu 16.04\n        ```\n        sudo apt-get install texlive-latex-extra\n        ```\n\n    * Ubuntu 18.04.2\nBase on this [website](https://gist.github.com/rain1024/98dd5e2c6c8c28f9ea9d), please install the following packages.\n        ```\n        sudo apt-get install texlive-latex-base\n        sudo apt-get install texlive-fonts-recommended\n        sudo apt-get install texlive-fonts-extra\n        sudo apt-get install texlive-latex-extra\n        ```\n\n    * Windows\n    1. Download and install [MikTeX](https://miktex.org/download).\n    2. Download and install bash runner on Windows, recommends [Git bash](https://git-scm.com/download/win) or Cygwin(https://www.cygwin.com/)\n\n2. Execute the example as followed.\n    ```\n    cd pyexamples/\n    bash ../tikzmake.sh test_simple\n    ```\n\n## TODO\n\n- [X] Python interface\n- [ ] Add easy legend functionality\n- [ ] Add more layer shapes like TruncatedPyramid, 2DSheet etc\n- [ ] Add examples for RNN and likes.\n\n## Latex usage\n\nSee [`examples`](examples) directory for usage.\n\n## Python usage\n\nFirst, create a new directory and a new Python file:\n\n    $ mkdir my_project\n    $ cd my_project\n    vim my_arch.py\n\nAdd the following code to your new file:\n\n```python\nimport sys\nsys.path.append('../')\nfrom pycore.tikzeng import *\n\n# defined your arch\narch = [\n    to_head( '..' ),\n    to_cor(),\n    to_begin(),\n    to_Conv(\"conv1\", 512, 64, offset=\"(0,0,0)\", to=\"(0,0,0)\", height=64, depth=64, width=2 ),\n    to_Pool(\"pool1\", offset=\"(0,0,0)\", to=\"(conv1-east)\"),\n    to_Conv(\"conv2\", 128, 64, offset=\"(1,0,0)\", to=\"(pool1-east)\", height=32, depth=32, width=2 ),\n    to_connection( \"pool1\", \"conv2\"),\n    to_Pool(\"pool2\", offset=\"(0,0,0)\", to=\"(conv2-east)\", height=28, depth=28, width=1),\n    to_SoftMax(\"soft1\", 10 ,\"(3,0,0)\", \"(pool1-east)\", caption=\"SOFT\"  ),\n    to_connection(\"pool2\", \"soft1\"),\n    to_end()\n    ]\n\ndef main():\n    namefile = str(sys.argv[0]).split('.')[0]\n    to_generate(arch, namefile + '.tex' )\n\nif __name__ == '__main__':\n    main()\n```\n\nNow, run the program as follows:\n\n    bash ../tikzmake.sh my_arch\n\n\n\n",
+        "releases": [
+            {
+                "name": "",
+                "date": "2018-12-25T20:56:33Z"
+            },
+            {
+                "name": "",
+                "date": "2018-12-25T20:23:20Z"
+            }
+        ]
+    }
+}

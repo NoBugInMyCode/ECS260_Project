@@ -1,0 +1,519 @@
+{
+    "https://api.github.com/repos/Polymer/polymer": {
+        "forks": 2013,
+        "watchers": 22037,
+        "stars": 22037,
+        "languages": {
+            "HTML": 1223528,
+            "JavaScript": 710198,
+            "Shell": 1781,
+            "CSS": 564
+        },
+        "commits": [
+            "2024-10-07T23:00:43Z",
+            "2024-10-07T21:33:37Z",
+            "2024-10-07T21:30:56Z",
+            "2024-10-07T21:23:50Z",
+            "2024-10-07T21:11:14Z",
+            "2024-10-07T21:10:29Z",
+            "2024-09-16T22:16:12Z",
+            "2024-09-16T22:13:03Z",
+            "2022-06-03T21:55:57Z",
+            "2022-06-03T21:55:30Z",
+            "2022-06-03T21:51:13Z",
+            "2022-06-02T20:26:48Z",
+            "2022-06-01T22:30:41Z",
+            "2022-06-01T21:52:14Z",
+            "2022-05-18T19:02:08Z",
+            "2022-05-18T19:01:49Z",
+            "2022-05-18T19:01:31Z",
+            "2022-05-18T19:00:09Z",
+            "2022-05-17T21:06:43Z",
+            "2022-04-27T22:37:02Z",
+            "2022-04-27T22:32:51Z",
+            "2022-04-27T22:30:54Z",
+            "2022-04-27T22:20:48Z",
+            "2022-04-27T22:18:29Z",
+            "2022-04-27T22:14:14Z",
+            "2022-04-27T22:06:46Z",
+            "2022-04-27T22:04:27Z",
+            "2022-04-27T22:00:26Z",
+            "2022-04-27T21:59:07Z",
+            "2022-02-09T16:38:38Z"
+        ],
+        "creation_date": "2012-08-23T20:56:30Z",
+        "contributors": 30,
+        "topics": [
+            "polymer",
+            "web-components"
+        ],
+        "subscribers": 837,
+        "readme": "# Polymer\n\n[![Build Status](https://travis-ci.org/Polymer/polymer.svg?branch=master)](https://travis-ci.org/Polymer/polymer)\n[![Published on npm](https://img.shields.io/npm/v/@polymer/polymer.svg)](https://www.npmjs.com/package/@polymer/polymer)\n[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/@polymer/polymer)\n\n> \u2139\ufe0f Note: This is the current stable version of the Polymer library.  At Google I/O 2018 we announced a new Web Component base class, [`LitElement`](https://github.com/lit/lit), as a successor to the `PolymerElement` base class in this library.\n>\n> If you're starting a new project, we recommend that you consider using LitElement instead.\n>\n> If you have a project you've built with an earlier version of the Polymer library, we recommend that you [migrate](#about-polymer-30) to 3.0 for best compatibility with the JavaScript ecosystem. Thanks to the interoperability of Web Components, elements built with Polymer 3.0 and LitElement can be mixed and matched in the same app, so once you have updated your project to Polymer 3.0, you can migrate to LitElement incrementally, one element at a time.  See our blog post on the [Polymer Project roadmap](https://www.polymer-project.org/blog/2018-05-02-roadmap-update.html) for more information.\n\nPolymer lets you build encapsulated, reusable [Web Components](https://www.webcomponents.org/introduction) that work just like standard HTML elements, to use in building web applications.  Using a Web Component built with Polymer is as simple as importing its definition then using it like any other HTML element:\n\n```html\n<!-- Import a component -->\n<script src=\"https://unpkg.com/@polymer/paper-checkbox@next/paper-checkbox.js?module\" type=\"module\" ></script>\n\n<!-- Use it like any other HTML element -->\n<paper-checkbox>Web Components!</paper-checkbox>\n```\n\nWeb Components are now implemented natively on Safari and Chrome (~70% of installed browsers), and run well on Firefox, Edge, and IE11 using [polyfills](https://github.com/webcomponents/webcomponentsjs).  Read more [below](#overview).\n\n## Getting started\n\n * The easiest way to try out Polymer is to use one of these online tools:\n\n    * Runs in all [supported](#supported-browsers) browsers: [StackBlitz](https://stackblitz.com/edit/polymer-element-example?file=index.js), [Glitch](https://glitch.com/edit/#!/polymer-element-example?path=index.html)\n\n    * Runs in browsers with [JavaScript Modules](https://caniuse.com/#search=modules): [JSBin](https://jsbin.com/wuxejiz/edit?html,output),\n [CodePen](https://codepen.io/kevinpschaaf/pen/BxdErp?editors=1000).\n\n * You can also save [this HTML file](https://gist.githubusercontent.com/kevinpschaaf/8a5acbea7b25d2bb5e82eeea2b105669/raw/c3a86872f07603e2d0ddae736687e52a5c8c499f/index.html) to a local file and run it in any browser that supports [JavaScript Modules]((https://caniuse.com/#search=modules)).\n\n * When you're ready to use Polymer in a project, install it via [npm](https://www.npmjs.com/). To run the project in the browser,\n a module-compatible toolchain is required. We recommend installing the [Polymer CLI](https://github.com/Polymer/tools/tree/master/packages/cli) to and using its development server as follows.\n\n    1. Add Polymer to your project:\n\n        ```npm i @polymer/polymer```\n\n    1. Create an element by extending PolymerElement and calling `customElements.define` with your class (see the examples below).\n\n    1. Install the Polymer CLI:\n\n        ```npm i -g polymer-cli```\n\n    1. Run the development server and open a browser pointing to its URL:\n\n        ```polymer serve --npm```\n\n    > Polymer 3.0 is published on [npm](https://www.npmjs.com/package/@polymer/polymer) using JavaScript Modules.\n    This means it can take advantage of the standard native JavaScript module loader available in all current major browsers.\n    >\n    > However, since Polymer uses npm conventions to reference dependencies by name, a light transform to rewrite specifiers to URLs is required to run in the browser. The polymer-cli's development server `polymer serve`, as well as `polymer build` (for building an optimized app for deployment)  automatically handles this transform.\n\n    Tools like [webpack](https://webpack.js.org/) and [Rollup](https://rollupjs.org/) can also be used to serve and/or bundle Polymer elements.\n\n\n## Minimal Example\n\n  1. Create a class that extends `PolymerElement`.\n  1. Implement a static `properties` getter that describes the element's public property/attribute API\n  (these automatically become observed attributes).\n  1. Then implement a `template` getter that returns an `HTMLTemplateElement` describing the element's rendering, including encapsulated styling and any property bindings.\n\n```html\n  <script src=\"node_modules/@webcomponents/webcomponents-loader.js\"></script>\n  <script type=\"module\">\n    import {PolymerElement, html} from '@polymer/polymer';\n\n    class MyElement extends PolymerElement {\n      static get properties() { return { mood: String }}\n      static get template() {\n        return html`\n          <style> .mood { color: green; } </style>\n          Web Components are <span class=\"mood\">[[mood]]</span>!\n        `;\n      }\n    }\n\n    customElements.define('my-element', MyElement);\n  </script>\n\n  <my-element mood=\"happy\"></my-element>\n```\n\n## Overview\n\nWeb components are an incredibly powerful new set of primitives baked into the web platform, and open up a whole new world of possibility when it comes to componentizing front-end code and easily creating powerful, immersive, app-like experiences on the web.\n\nPolymer is a lightweight library built on top of the web standards-based [Web Components](http://webcomponents.org/introduction) APIs, and makes it easier to build your very own custom HTML elements. Creating reusable custom elements - and using elements built by others - can make building complex web applications easier and more efficient.\n\nBy being based on the Web Components APIs built in the browser (or [polyfilled](https://github.com/webcomponents/webcomponentsjs) where needed), elements built with Polymer are:\n\n* Built from the platform up\n* Self-contained\n* Re-usable\n* Interoperable across frameworks\n\nAmong many ways to leverage custom elements, they can be particularly useful for building reusable UI components. Instead of continually re-building a specific navigation bar or button in different frameworks and for different projects, you can define this element once using Polymer, and then reuse it throughout your project or in any future project.\n\nPolymer provides a declarative syntax to easily create your own custom elements, using all standard web technologies - define the structure of the element with HTML, style it with CSS, and add interactions to the element with JavaScript.\n\nPolymer also provides optional two-way data-binding, meaning:\n\n1. When properties in the model for an element get updated, the element can update itself in response.\n2. When the element is updated internally, the changes can be propagated back to the model.\n\nPolymer is designed to be flexible, lightweight, and close to the web platform - the library doesn't invent complex new abstractions and magic, but uses the best features of the web platform in straightforward ways to simply sugar the creation of custom elements.\n\n## About Polymer 3.0\n\nPolymer 3.0 is now released to stable, and introduces a major change to how Polymer is distributed: from HTML Imports on Bower, to JS modules on npm.  Otherwise, the API is almost entirely backward compatible with Polymer 2.0 (the only changes are removing APIs related to HTML Imports like `importHref`, and converting Polymer's API to be module-based rather than globals-based).\n\nMigrating to Polymer 3.0 by hand is mostly mechanical:\n* Components should be defined in JS modules instead of in HTML\n* Templates should be encoded in JS modules using a `static get template()` getter on PolymerElement subclasses using the `html` tagged template literal function (which parses `HTMLTemplateElement`s out of strings in JS) rather than using `<template>` elements in a `<dom-module>`\n* All dependencies should be imported JS module imports rather than HTML Imports.\n\nHowever, the [`polymer-modulizer`](https://github.com/Polymer/polymer-modulizer) tool automates the vast majority of this migration work.  Please see details on that repo for automated conversion of Polymer 2.0 apps and elements to Polymer 3.0.\n\n\ud83d\udc40 **Looking for Polymer v2.x?** Please see [the v2 branch](https://github.com/Polymer/polymer/tree/2.x).\n\n\ud83d\udc40 **Looking for Polymer v1.x?** Please see [the v1 branch](https://github.com/Polymer/polymer/tree/1.x).\n\n## Contributing\n\nThe Polymer team loves contributions from the community! Take a look at our [contributing guide](CONTRIBUTING.md) for more information on how to contribute.  Please file issues on the Polymer issue tracker following the issue template and contributing guide [issues](https://github.com/Polymer/polymer/issues/new).\n\n## Communicating with the Polymer team\n\nBeyond GitHub, we try to have a variety of different lines of communication available:\n\n* [Blog](https://blog.polymer-project.org/)\n* [Twitter](https://twitter.com/polymer)\n* [Mailing list](https://groups.google.com/forum/#!forum/polymer-dev)\n* [Slack channel](https://bit.ly/polymerslack)\n\n# License\n\nThe Polymer library uses a BSD-like license that is available [here](./LICENSE.txt)\n",
+        "releases": [
+            {
+                "name": "",
+                "date": "2024-10-07T21:34:20Z"
+            },
+            {
+                "name": "v3.4.1",
+                "date": "2020-04-30T18:21:09Z"
+            },
+            {
+                "name": "v3.4.0",
+                "date": "2020-04-27T20:54:12Z"
+            },
+            {
+                "name": "",
+                "date": "2019-11-08T21:20:26Z"
+            },
+            {
+                "name": "",
+                "date": "2019-06-24T19:17:23Z"
+            },
+            {
+                "name": "",
+                "date": "2019-06-24T18:54:10Z"
+            },
+            {
+                "name": "Stable Release v1.12.0",
+                "date": "2019-05-20T22:16:48Z"
+            },
+            {
+                "name": "",
+                "date": "2019-04-16T21:44:05Z"
+            },
+            {
+                "name": "Stable release v3.2.0",
+                "date": "2019-03-22T01:27:08Z"
+            },
+            {
+                "name": "2.7.1",
+                "date": "2019-03-22T01:32:42Z"
+            },
+            {
+                "name": "",
+                "date": "2018-12-03T20:06:06Z"
+            },
+            {
+                "name": "Stable release v3.1.0",
+                "date": "2018-10-26T18:16:32Z"
+            },
+            {
+                "name": "Stable Release v2.6.1",
+                "date": "2018-08-23T19:22:32Z"
+            },
+            {
+                "name": "Stable Release v3.0.5",
+                "date": "2018-07-30T23:06:55Z"
+            },
+            {
+                "name": "Stable Release v3.0.4",
+                "date": "2018-07-30T18:52:31Z"
+            },
+            {
+                "name": "Stable Release v3.0.3",
+                "date": "2018-07-30T18:31:06Z"
+            },
+            {
+                "name": "Stable Release 3.0.2",
+                "date": "2018-05-09T18:56:43Z"
+            },
+            {
+                "name": "Stable Release 3.0.1",
+                "date": "2018-05-09T18:53:58Z"
+            },
+            {
+                "name": "Stable Release 3.0",
+                "date": "2018-05-09T18:49:50Z"
+            },
+            {
+                "name": "",
+                "date": "2018-03-22T19:22:39Z"
+            },
+            {
+                "name": "",
+                "date": "2018-02-13T00:05:24Z"
+            },
+            {
+                "name": "",
+                "date": "2018-02-02T23:48:20Z"
+            },
+            {
+                "name": "",
+                "date": "2017-12-20T22:28:37Z"
+            },
+            {
+                "name": "Stable Release v1.11.2",
+                "date": "2017-12-15T01:23:38Z"
+            },
+            {
+                "name": "Stable Release v2.3.1",
+                "date": "2017-12-07T17:16:25Z"
+            },
+            {
+                "name": "Stable Release: v2.3.0",
+                "date": "2017-12-05T23:22:22Z"
+            },
+            {
+                "name": "Stable Release v1.11.1",
+                "date": "2017-12-05T22:35:11Z"
+            },
+            {
+                "name": "Stable Release: v2.2.0",
+                "date": "2017-10-18T19:05:24Z"
+            },
+            {
+                "name": "Stable Release v1.11.0",
+                "date": "2017-10-18T19:51:27Z"
+            },
+            {
+                "name": "Stable Release v2.1.1",
+                "date": "2017-09-28T22:13:31Z"
+            },
+            {
+                "name": "Stable Release v1.10.1",
+                "date": "2017-09-28T22:29:07Z"
+            },
+            {
+                "name": "Stable Release v2.1.0",
+                "date": "2017-09-19T18:15:27Z"
+            },
+            {
+                "name": "Stable Release v1.10.0",
+                "date": "2017-09-19T17:48:46Z"
+            },
+            {
+                "name": "Stable Release v1.9.3",
+                "date": "2017-07-20T17:49:42Z"
+            },
+            {
+                "name": "Stable Release v2.0.2",
+                "date": "2017-07-15T00:13:34Z"
+            },
+            {
+                "name": "Stable Release v1.9.2",
+                "date": "2017-06-15T21:18:05Z"
+            },
+            {
+                "name": "Stable Release v2.0.1",
+                "date": "2017-05-25T21:13:14Z"
+            },
+            {
+                "name": "Stable Release 2.0.0",
+                "date": "2017-05-15T18:31:55Z"
+            },
+            {
+                "name": "Preview Release v2.0.0-rc.9",
+                "date": "2017-05-13T04:18:39Z"
+            },
+            {
+                "name": "Preview Release v2.0.0-rc.8",
+                "date": "2017-05-12T18:45:29Z"
+            },
+            {
+                "name": "Preview Release v2.0.0-rc.7",
+                "date": "2017-05-12T18:44:49Z"
+            },
+            {
+                "name": "Preview Release v2.0.0-rc.6",
+                "date": "2017-05-12T18:44:07Z"
+            },
+            {
+                "name": "Stable Release v1.9.1",
+                "date": "2017-04-17T23:58:35Z"
+            },
+            {
+                "name": "",
+                "date": "2017-04-17T23:53:49Z"
+            },
+            {
+                "name": "Stable Release v1.9.0",
+                "date": "2017-04-14T00:40:50Z"
+            },
+            {
+                "name": "",
+                "date": "2017-04-14T00:25:15Z"
+            },
+            {
+                "name": "Preview Release v2.0.0-rc.3",
+                "date": "2017-03-15T04:25:10Z"
+            },
+            {
+                "name": "Preview Release v2.0.0-rc.2",
+                "date": "2017-03-07T22:19:13Z"
+            },
+            {
+                "name": "Preview Release v2.0.0-rc.1",
+                "date": "2017-03-04T01:56:47Z"
+            },
+            {
+                "name": "Stable Release v1.8.1",
+                "date": "2017-02-27T22:22:05Z"
+            },
+            {
+                "name": "Stable Release v1.8.0",
+                "date": "2017-02-07T00:42:37Z"
+            },
+            {
+                "name": "Stable Release v1.7.1",
+                "date": "2016-12-14T19:20:04Z"
+            },
+            {
+                "name": "Stable Release v1.7.0",
+                "date": "2016-09-28T21:40:01Z"
+            },
+            {
+                "name": "",
+                "date": "2016-08-01T19:02:23Z"
+            },
+            {
+                "name": "v1.6.0",
+                "date": "2016-06-29T22:51:15Z"
+            },
+            {
+                "name": "v1.5.0",
+                "date": "2016-05-31T17:11:18Z"
+            },
+            {
+                "name": "Stable Release v1.4.0",
+                "date": "2016-03-18T17:57:08Z"
+            },
+            {
+                "name": "Stable Release v1.3.1",
+                "date": "2016-03-02T18:12:34Z"
+            },
+            {
+                "name": "Stable Release v1.3.0",
+                "date": "2016-02-22T19:39:42Z"
+            },
+            {
+                "name": "Stable Release v1.2.4",
+                "date": "2016-01-27T22:18:35Z"
+            },
+            {
+                "name": "Stable Release v1.2.3",
+                "date": "2015-11-17T01:31:37Z"
+            },
+            {
+                "name": "Stable Release v1.2.2",
+                "date": "2015-11-17T01:31:14Z"
+            },
+            {
+                "name": "Release v1.2.1",
+                "date": "2015-10-29T22:35:41Z"
+            },
+            {
+                "name": "Stable Release v1.2.0",
+                "date": "2015-10-23T00:49:12Z"
+            },
+            {
+                "name": "",
+                "date": "2015-10-08T21:18:00Z"
+            },
+            {
+                "name": "v1.1.4",
+                "date": "2015-10-08T21:17:45Z"
+            },
+            {
+                "name": "v1.1.3",
+                "date": "2015-10-08T21:17:19Z"
+            },
+            {
+                "name": "",
+                "date": "2015-08-28T23:45:46Z"
+            },
+            {
+                "name": "",
+                "date": "2015-08-20T22:36:26Z"
+            },
+            {
+                "name": "",
+                "date": "2015-08-17T16:16:01Z"
+            },
+            {
+                "name": "",
+                "date": "2015-08-20T22:37:34Z"
+            },
+            {
+                "name": "",
+                "date": "2015-08-20T22:37:54Z"
+            },
+            {
+                "name": "",
+                "date": "2015-08-20T22:38:14Z"
+            },
+            {
+                "name": "Stable Release v1.0.6",
+                "date": "2015-07-09T22:19:49Z"
+            },
+            {
+                "name": "",
+                "date": "2015-06-26T01:57:37Z"
+            },
+            {
+                "name": "",
+                "date": "2015-06-02T19:12:00Z"
+            },
+            {
+                "name": "",
+                "date": "2015-06-02T19:11:47Z"
+            },
+            {
+                "name": "One Point Oh!",
+                "date": "2015-06-02T19:10:55Z"
+            },
+            {
+                "name": "",
+                "date": "2015-05-17T00:29:16Z"
+            },
+            {
+                "name": "Stable Release 0.5.5",
+                "date": "2015-02-23T19:54:26Z"
+            },
+            {
+                "name": "Stable Release 0.5.4: Hotfix for Safari",
+                "date": "2015-01-24T00:19:42Z"
+            },
+            {
+                "name": "Stable Release 0.5.3: ",
+                "date": "2015-01-21T22:39:52Z"
+            },
+            {
+                "name": "Stable Release 0.5.2: Happy Holidays",
+                "date": "2014-12-15T19:48:24Z"
+            },
+            {
+                "name": "Stable Release 0.5.1: A few hotfixes",
+                "date": "2014-11-12T22:54:10Z"
+            },
+            {
+                "name": "Stable release 0.5.0: Hi Ho, Hi Ho, Breaking Changes, Yo!",
+                "date": "2014-11-11T19:45:31Z"
+            },
+            {
+                "name": "Stable release 0.4.2: ",
+                "date": "2014-10-07T19:11:32Z"
+            },
+            {
+                "name": "Stable release 0.4.1: Tuneups and Testing",
+                "date": "2014-09-19T16:48:50Z"
+            },
+            {
+                "name": "Stable release 0.4.0: Half the calories, same great taste!",
+                "date": "2014-08-28T22:54:31Z"
+            },
+            {
+                "name": "Stable release 0.3.5: ",
+                "date": "2014-08-08T00:48:37Z"
+            },
+            {
+                "name": "Stable release 0.3.4: Can paper be shiny? We think so!",
+                "date": "2014-07-11T19:43:18Z"
+            },
+            {
+                "name": "Stable release 0.3.3: Designer updates",
+                "date": "2014-06-20T00:41:35Z"
+            },
+            {
+                "name": "Stable release 0.3.2: A bevy of bugfixes",
+                "date": "2014-06-09T19:50:45Z"
+            },
+            {
+                "name": "Stable release 0.3.1: Went too fast, broke a thing (ShadowDOM)",
+                "date": "2014-05-30T20:02:10Z"
+            },
+            {
+                "name": "Stable release 0.3.0: New Icons, new configs, new deprecations!",
+                "date": "2014-05-28T18:27:12Z"
+            },
+            {
+                "name": "Stable release 0.2.4: Mostly bugfixes",
+                "date": "2014-05-12T21:52:22Z"
+            },
+            {
+                "name": "Stable release 0.2.3: Faster Databinding and Gestures.",
+                "date": "2014-04-18T23:01:29Z"
+            },
+            {
+                "name": "Stable release 0.2.2: Did I mention we're still in alpha?",
+                "date": "2014-04-01T18:03:20Z"
+            },
+            {
+                "name": "Stable release 0.2.1",
+                "date": "2014-03-07T20:48:47Z"
+            },
+            {
+                "name": "0.2.0: Arbitrary version bump, Reasonable Improvements",
+                "date": "2014-02-15T02:01:46Z"
+            },
+            {
+                "name": "Stable release 0.1.4: Aged like a fine(er) wine",
+                "date": "2014-01-27T20:14:07Z"
+            },
+            {
+                "name": "Stable Release 0.1.3",
+                "date": "2014-01-17T01:18:50Z"
+            },
+            {
+                "name": "Stable Release 0.1.2: A new year, a new release!",
+                "date": "2014-01-10T17:56:10Z"
+            },
+            {
+                "name": "Stable release 0.1.1: A new release, with all the tags!",
+                "date": "2013-12-12T01:28:03Z"
+            },
+            {
+                "name": "0.1.0: A Thanksgiving Odyssey",
+                "date": "2013-11-27T18:31:14Z"
+            },
+            {
+                "name": "Stable release 2013-11-07",
+                "date": "2013-11-07T22:12:11Z"
+            },
+            {
+                "name": "Stable release 2013-10-25",
+                "date": "2013-10-25T20:25:46Z"
+            },
+            {
+                "name": "Stable release 2013-10-10",
+                "date": "2013-10-10T23:33:22Z"
+            },
+            {
+                "name": "Stable release 2013-10-03",
+                "date": "2013-10-04T00:02:26Z"
+            },
+            {
+                "name": "Stable release 2013-09-12",
+                "date": "2013-09-13T00:25:02Z"
+            },
+            {
+                "name": "Stable release 2013-09-05",
+                "date": "2013-09-05T22:03:55Z"
+            },
+            {
+                "name": "Stable release 2013-08-29",
+                "date": "2013-08-30T00:04:00Z"
+            },
+            {
+                "name": "Stable release 2013-08-16",
+                "date": "2013-08-22T22:13:47Z"
+            },
+            {
+                "name": "Stable release 2013-08-15",
+                "date": "2013-08-15T22:53:45Z"
+            },
+            {
+                "name": "Stable release 2013-08-08",
+                "date": "2013-08-08T22:30:48Z"
+            },
+            {
+                "name": "Stable release 2013-08-01",
+                "date": "2013-08-01T21:22:53Z"
+            },
+            {
+                "name": "Stable release 2013-07-11",
+                "date": "2013-07-11T21:04:51Z"
+            }
+        ]
+    }
+}

@@ -1,0 +1,127 @@
+{
+    "https://api.github.com/repos/openai/gym": {
+        "forks": 8623,
+        "watchers": 35181,
+        "stars": 35181,
+        "languages": {
+            "Python": 1113386,
+            "Dockerfile": 1016,
+            "Shell": 484
+        },
+        "commits": [
+            "2023-01-30T18:15:21Z",
+            "2023-01-23T00:55:23Z",
+            "2022-10-25T17:01:14Z",
+            "2022-10-04T16:38:12Z",
+            "2022-10-04T16:12:36Z",
+            "2022-10-04T16:12:29Z",
+            "2022-10-04T16:12:18Z",
+            "2022-10-04T16:12:08Z",
+            "2022-10-03T19:45:50Z",
+            "2022-09-27T13:43:37Z",
+            "2022-09-16T20:40:07Z",
+            "2022-09-14T12:32:27Z",
+            "2022-09-13T19:29:19Z",
+            "2022-09-12T12:19:22Z",
+            "2022-09-11T14:32:10Z",
+            "2022-09-11T14:31:19Z",
+            "2022-09-08T19:42:46Z",
+            "2022-09-08T13:59:15Z",
+            "2022-09-06T18:22:40Z",
+            "2022-09-06T16:03:51Z",
+            "2022-09-06T15:20:04Z",
+            "2022-09-05T19:56:36Z",
+            "2022-09-05T14:36:04Z",
+            "2022-09-05T14:35:56Z",
+            "2022-09-04T13:42:10Z",
+            "2022-09-03T22:39:23Z",
+            "2022-09-03T21:56:29Z",
+            "2022-09-03T18:54:28Z",
+            "2022-09-01T18:07:06Z",
+            "2022-09-01T15:02:31Z"
+        ],
+        "creation_date": "2016-04-27T14:59:16Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 1058,
+        "readme": "[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://pre-commit.com/) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)\n\n## Important Notice\n\n### The team that has been maintaining Gym since 2021 has moved all future development to [Gymnasium](https://github.com/Farama-Foundation/Gymnasium), a drop in replacement for Gym (import gymnasium as gym), and Gym will not be receiving any future updates. Please switch over to Gymnasium as soon as you're able to do so. If you'd like to read more about the story behind this switch, please check out [this blog post](https://farama.org/Announcing-The-Farama-Foundation).\n\n## Gym\n\nGym is an open source Python library for developing and comparing reinforcement learning algorithms by providing a standard API to communicate between learning algorithms and environments, as well as a standard set of environments compliant with that API. Since its release, Gym's API has become the field standard for doing this.\n\nGym documentation website is at [https://www.gymlibrary.dev/](https://www.gymlibrary.dev/), and you can propose fixes and changes to it [here](https://github.com/Farama-Foundation/gym-docs).\n\nGym also has a discord server for development purposes that you can join here: https://discord.gg/nHg2JRN489\n\n## Installation\n\nTo install the base Gym library, use `pip install gym`.\n\nThis does not include dependencies for all families of environments (there's a massive number, and some can be problematic to install on certain systems). You can install these dependencies for one family like `pip install gym[atari]` or use `pip install gym[all]` to install all dependencies.\n\nWe support Python 3.7, 3.8, 3.9 and 3.10 on Linux and macOS. We will accept PRs related to Windows, but do not officially support it.\n\n## API\n\nThe Gym API's API models environments as simple Python `env` classes. Creating environment instances and interacting with them is very simple- here's an example using the \"CartPole-v1\" environment:\n\n```python\nimport gym\nenv = gym.make(\"CartPole-v1\")\nobservation, info = env.reset(seed=42)\n\nfor _ in range(1000):\n    action = env.action_space.sample()\n    observation, reward, terminated, truncated, info = env.step(action)\n\n    if terminated or truncated:\n        observation, info = env.reset()\nenv.close()\n```\n\n## Notable Related Libraries\n\nPlease note that this is an incomplete list, and just includes libraries that the maintainers most commonly point newcommers to when asked for recommendations.\n\n* [CleanRL](https://github.com/vwxyzjn/cleanrl) is a learning library based on the Gym API. It is designed to cater to newer people in the field and provides very good reference implementations.\n* [Tianshou](https://github.com/thu-ml/tianshou) is a learning library that's geared towards very experienced users and is design to allow for ease in complex algorithm modifications.\n* [RLlib](https://docs.ray.io/en/latest/rllib/index.html) is a learning library that allows for distributed training and inferencing and supports an extraordinarily large number of features throughout the reinforcement learning space.\n* [PettingZoo](https://github.com/Farama-Foundation/PettingZoo) is like Gym, but for environments with multiple agents.\n\n## Environment Versioning\n\nGym keeps strict versioning for reproducibility reasons. All environments end in a suffix like \"\\_v0\".  When changes are made to environments that might impact learning results, the number is increased by one to prevent potential confusion.\n\n## MuJoCo Environments\n\nThe latest \"\\_v4\" and future versions of the MuJoCo environments will no longer depend on `mujoco-py`. Instead `mujoco` will be the required dependency for future gym MuJoCo environment versions. Old gym MuJoCo environment versions that depend on `mujoco-py` will still be kept but unmaintained.\nTo install the dependencies for the latest gym MuJoCo environments use `pip install gym[mujoco]`. Dependencies for old MuJoCo environments can still be installed by `pip install gym[mujoco_py]`. \n\n## Citation\n\nA whitepaper from when Gym just came out is available https://arxiv.org/pdf/1606.01540, and can be cited with the following bibtex entry:\n\n```\n@misc{1606.01540,\n  Author = {Greg Brockman and Vicki Cheung and Ludwig Pettersson and Jonas Schneider and John Schulman and Jie Tang and Wojciech Zaremba},\n  Title = {OpenAI Gym},\n  Year = {2016},\n  Eprint = {arXiv:1606.01540},\n}\n```\n\n## Release Notes\n\nThere used to be release notes for all the new Gym versions here. New release notes are being moved to [releases page](https://github.com/openai/gym/releases) on GitHub, like most other libraries do. Old notes can be viewed [here](https://github.com/openai/gym/blob/31be35ecd460f670f0c4b653a14c9996b7facc6c/README.rst).\n",
+        "releases": [
+            {
+                "name": "0.26.2",
+                "date": "2022-10-04T16:39:12Z"
+            },
+            {
+                "name": "0.26.1",
+                "date": "2022-09-16T20:40:27Z"
+            },
+            {
+                "name": "0.26.0",
+                "date": "2022-09-06T18:23:48Z"
+            },
+            {
+                "name": "0.25.2",
+                "date": "2022-08-18T17:41:14Z"
+            },
+            {
+                "name": "0.25.1",
+                "date": "2022-07-26T22:30:34Z"
+            },
+            {
+                "name": "0.25.0",
+                "date": "2022-07-13T20:01:47Z"
+            },
+            {
+                "name": "0.24.1",
+                "date": "2022-06-07T13:51:45Z"
+            },
+            {
+                "name": "0.24.0",
+                "date": "2022-05-25T16:44:14Z"
+            },
+            {
+                "name": "0.23.1",
+                "date": "2022-03-11T17:25:29Z"
+            },
+            {
+                "name": "0.23.0",
+                "date": "2022-03-04T20:51:37Z"
+            },
+            {
+                "name": "0.22.0",
+                "date": "2022-02-17T18:59:59Z"
+            },
+            {
+                "name": "v0.21.0",
+                "date": "2021-10-02T00:37:17Z"
+            },
+            {
+                "name": "v0.20.0",
+                "date": "2021-09-14T13:19:07Z"
+            },
+            {
+                "name": "0.19.0",
+                "date": "2021-08-13T04:23:03Z"
+            },
+            {
+                "name": "0.12.5",
+                "date": "2019-05-29T00:54:38Z"
+            },
+            {
+                "name": "v0.9.6",
+                "date": "2018-02-01T19:05:03Z"
+            },
+            {
+                "name": "v0.9.5",
+                "date": "2018-01-26T21:18:22Z"
+            },
+            {
+                "name": "v0.7.4",
+                "date": "2017-03-05T21:57:57Z"
+            },
+            {
+                "name": "",
+                "date": "2017-02-01T03:43:30Z"
+            }
+        ]
+    }
+}

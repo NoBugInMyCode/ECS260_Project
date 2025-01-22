@@ -1,0 +1,573 @@
+{
+    "https://api.github.com/repos/doczjs/docz": {
+        "forks": 1456,
+        "watchers": 23691,
+        "stars": 23691,
+        "languages": {
+            "TypeScript": 135421,
+            "JavaScript": 83377,
+            "AppleScript": 2043,
+            "HTML": 394,
+            "CSS": 166
+        },
+        "commits": [
+            "2022-09-16T05:36:38Z",
+            "2022-09-15T08:16:54Z",
+            "2022-09-15T07:56:17Z",
+            "2022-09-15T07:39:48Z",
+            "2022-04-11T19:10:31Z",
+            "2022-02-11T14:08:31Z",
+            "2022-02-07T05:10:44Z",
+            "2022-02-07T05:10:31Z",
+            "2022-02-03T01:55:20Z",
+            "2022-02-03T01:51:31Z",
+            "2021-11-09T19:42:48Z",
+            "2021-10-07T04:09:36Z",
+            "2021-10-05T18:08:29Z",
+            "2021-09-10T12:10:53Z",
+            "2021-08-31T17:37:52Z",
+            "2021-08-31T17:14:09Z",
+            "2021-08-31T16:53:04Z",
+            "2021-08-18T23:01:00Z",
+            "2021-08-18T22:44:54Z",
+            "2021-08-02T20:06:40Z",
+            "2021-06-03T19:42:39Z",
+            "2021-06-03T18:39:18Z",
+            "2021-06-03T18:25:52Z",
+            "2021-06-03T18:25:10Z",
+            "2021-06-03T18:24:48Z",
+            "2021-06-03T18:24:23Z",
+            "2021-06-03T18:23:29Z",
+            "2021-06-03T18:22:52Z",
+            "2020-11-19T15:31:27Z",
+            "2020-11-19T15:27:56Z"
+        ],
+        "creation_date": "2018-03-17T04:24:10Z",
+        "contributors": 30,
+        "topics": [
+            "design-system",
+            "docs",
+            "documentation",
+            "docz",
+            "gatsby",
+            "js",
+            "mdx",
+            "react",
+            "theme",
+            "ui",
+            "zero-configuration"
+        ],
+        "subscribers": 170,
+        "readme": "<p align=\"left\">\n  <a href=\"https://www.npmjs.com/package/docz\" target=\"_blank\">\n    <img src=\"https://badgen.net/npm/v/docz\" alt=\"\">\n  </a>\n  <a href=\"LICENSE.md\" target=\"_blank\">\n    <img src=\"https://badgen.net/badge/license/MIT/blue\" alt=\"\">\n  </a>\n  <a href=\"https://www.npmjs.com/package/docz\" target=\"_blank\">\n    <img src=\"https://badgen.net/npm/dt/docz\" alt=\"\">\n  </a>\n</p>\n\n> \u26a0\ufe0f WARNING\n\n> This is an **OUTDATED** version of Docz, if you are going to use it, be aware that you may possibly find bugs due to the outdated dependencies. Mainly because of all this time without updates, became almost impossible to follow with the decision of keep the same stack and update things.\n\n> So, we're working in a [new version](https://github.com/doczjs/docz/tree/new) that will include an entire core refactoring/rewritting by adding [Astro](https://astro.build) behind the scenes as bundler and another cools feature.\n\n> Since we really want to don't have so much breakings changes - and try to bring back the spot and quality Docz deserves - this can take a while to be done, please be patient and if you want to help, just send me a message [on my Twitter](https://twitter.com/pedronauck)!\n\n> Issues related to this old version, also won't be answered, ok? \ud83d\ude05\n\n> Thank you \ud83d\ude4f\n\n# Docz\n\nDocz makes it easy to write and publish beautiful interactive documentation for your code.\nCreate MDX files showcasing your code and Docz turns them into a live-reloading, production-ready site.\n\n## Why?\n\nDocumenting code is one of the most important and time-consuming tasks when developing software.\n\nA lot of time is spent on building and maintaining custom documentation sites.\n\nDocz enables you to quickly create a live-reloading, SEO-friendly, production-ready documentation site with MDX and customize the look, feel and behavior when required by leveraging [GatsbyJS](https://www.gatsbyjs.org) and [Gatsby theme shadowing](https://www.gatsbyjs.org/docs/themes/shadowing/).\n\n## Getting started\n\nStart by adding `docz` as a dependency to your project with Yarn or npm:\n\n```bash\n$ yarn add docz # react react-dom\n\n# or\n\n$ npm install docz # react react-dom\n```\n\n> **Note**: `react` and `react-dom` will not be installed automatically. You'll have to install them yourself.\n\nThen, create `.mdx` files anywhere in your project:\n\n```mdx\n---\nname: Button\nroute: /\n---\n\nimport { Playground, Props } from 'docz'\nimport Button from './Button'\n\n# Button\n\n<Props of={Button} />\n\n## Basic usage\n\n<Playground>\n  <Button type=\"submit\">Click me</Button>\n  <Button>No, click me</Button>\n</Playground>\n```\n\nAnd a Button component `Button.jsx`:\n\n```typescript\nimport React from 'react'\nimport t from 'prop-types'\n\nconst Button = ({ children, type }) => <button type={type}>{children}</button>\n\nButton.propTypes = {\n  /**\n   * This is a description for this prop.\n   * Button type.\n   */\n  type: t.oneOf(['button', 'submit', 'reset']),\n}\nButton.defaultProps = {\n  type: 'button',\n}\nexport default Button\n```\n\nFinally, run:\n\n```bash\nyarn docz dev\n```\n\nThis starts a local development server and opens your documentation site in the browser.\n\n## Build\n\n`yarn docz build` generates a static site in `.docz/dist/`.\n\nTry it with `yarn docz serve` or by serving the generated site with your favorite static file server (e.g. `npx serve .docz/dist`).\n\nYou can have `yarn docz build` emit to a different directory by providing a path to the `dest` field in your `doczrc.js` or from the command line: `yarn docz build --dest docs-site-directory`.\n\n## Deploying\n\nThe output of docz consists of static assets only.\nThis allows you to deploy your generated `docz` site with any static site hosting provider you'd like.\n\nStart by building your site with `yarn docz build`, if you haven't provided a `dest` flag to your config then you will find your generated files in `.docz/dist` to copy to the server.\n\n## Examples\n\n- **[with basic](https://github.com/doczjs/docz/tree/main/examples/basic)**\n- **[with a gatsby site](https://github.com/doczjs/docz/tree/main/examples/gatsby)**\n- **[with react native](https://github.com/doczjs/docz/tree/main/examples/react-native)**\n- **[with styled-components](https://github.com/doczjs/docz/tree/main/examples/styled-components)**\n- **[with typescript](https://github.com/doczjs/docz/tree/main/examples/typescript)**\n- **[with algolia search](https://github.com/doczjs/docz/tree/main/examples/with-algolia-search)**\n- **[with gatsby-remark-vscode](https://github.com/doczjs/docz/tree/main/examples/with-gatsby-remark-vscode)**\n- **[with react-router](https://github.com/doczjs/docz/tree/main/examples/react-router)**\n- **[with flow](https://github.com/doczjs/docz/tree/main/examples/flow)**\n- **[with images](https://github.com/doczjs/docz/tree/main/examples/images)**\n- **[with sass](https://github.com/doczjs/docz/tree/main/examples/sass)**\n- **[with less](https://github.com/doczjs/docz/tree/main/examples/less)**\n- **[with stylus](https://github.com/doczjs/docz/tree/main/examples/css-stylus)**\n- **with css modules**: works out of the box.\n\n### You can check the complete list of docz examples [here](https://github.com/doczjs/docz/tree/main/examples).\n\n## More info on [docz.site](https://docz.site)\n\n## Used by\n\n- **[Welcome UI](https://welcome-ui.com/)**: Customizable design system with react \u2022 styled-components \u2022 styled-system and reakit.\n- **[React Hooks Testing Library](https://react-hooks-testing-library.com/)**: \ud83d\udc0f Simple and complete React hooks testing utilities that encourage good testing practices.\n- **[Mobx React](https://mobx-react.js.org/)**: mobx-react documentation site.\n- **[React Google Charts](https://react-google-charts.com/)**: A thin, typed, React wrapper over Google Charts Visualization and Charts API.\n- **[Entur](https://developer.entur.org/)**: Entur operates the national registry for all public transport in Norway.\n- **[FAB Specification](https://fab.dev/)**: \ud83d\udc8e FABs are a compile target for frontend applications.\n- **[@umijs/hooks](https://hooks.umijs.org/)**: React Hooks Library.\n- **[React Yandex Maps](https://react-yandex-maps.now.sh/)**: Yandex Maps API bindings for React.\n- **[Components-extra](https://components-extra.netlify.com)**: Customizable react component blocks built with material-ui and styled-components.\n- **[Add your site](https://github.com/doczjs/docz/edit/main/README.md)**\n\n## Contributors\n\nThis project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].\n\n<a href=\"https://github.com/doczjs/docz/graphs/contributors\"><img src=\"https://opencollective.com/docz/contributors.svg?width=890&button=false\" /></a>\n\n## Contributing\n\nAll kinds of contributions are very welcome and appreciated!\n\nIf you want to contribute time to docz then here's a list of suggestions to get you started:\n\n1. Star the project on GitHub.\n2. Help people in the [issues](https://github.com/doczjs/docz/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc) by sharing your knowledge and experience.\n3. Find and report issues.\n4. Submit pull requests to help solve issues or add features.\n5. Influence the future of docz with feature requests.\n\nIf you're looking for a place to start make sure to check issues tagged with the `good first issue` label:\n\n[![Good First Issue](https://img.shields.io/github/issues/doczjs/docz/good%20first%20issue.svg)](https://github.com/doczjs/docz/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)\n\nRead the [Contributing Guide](/CONTRIBUTING.md) before you open a pull request.\n\nYou can also sponsor us via OpenCollective to help secure docz's future.\n\n<p align=\"center\">\n  <a href=\"https://opencollective.com/docz\" target=\"_blank\">\n    <img src=\"https://cdn-std.dprcdn.net/files/acc_649651/Q5nVhT\" height=\"80\" alt=\"Open Collective\">\n  </a>\n</p>\n",
+        "releases": [
+            {
+                "name": "v2.4.0",
+                "date": "2022-06-23T18:23:34Z"
+            },
+            {
+                "name": "v2.3.1",
+                "date": "2020-04-05T08:58:58Z"
+            },
+            {
+                "name": "v2.3.0",
+                "date": "2020-04-05T08:58:16Z"
+            },
+            {
+                "name": "v2.2.0",
+                "date": "2019-12-11T08:39:20Z"
+            },
+            {
+                "name": "v2.1.0",
+                "date": "2019-11-27T11:15:28Z"
+            },
+            {
+                "name": "v2.0.0-rc.77",
+                "date": "2019-11-27T11:13:46Z"
+            },
+            {
+                "name": "v2.0.0-rc.76",
+                "date": "2019-11-24T10:11:19Z"
+            },
+            {
+                "name": "v2.0.0-rc.75",
+                "date": "2019-11-15T09:58:06Z"
+            },
+            {
+                "name": "v2.0.0-rc.74",
+                "date": "2019-11-14T07:11:59Z"
+            },
+            {
+                "name": "v2.0.0-rc.73",
+                "date": "2019-11-11T14:38:45Z"
+            },
+            {
+                "name": "v2.0.0-rc.72",
+                "date": "2019-11-08T23:14:15Z"
+            },
+            {
+                "name": "v2.0.0-rc.71",
+                "date": "2019-11-06T15:01:09Z"
+            },
+            {
+                "name": "v2.0.0-rc.70",
+                "date": "2019-11-05T14:33:02Z"
+            },
+            {
+                "name": "v2.0.0-rc.69",
+                "date": "2019-11-05T14:32:16Z"
+            },
+            {
+                "name": "v2.0.0-rc.68",
+                "date": "2019-11-01T15:18:49Z"
+            },
+            {
+                "name": "v2.0.0-rc.67",
+                "date": "2019-10-30T10:39:48Z"
+            },
+            {
+                "name": "v2.0.0-rc.66",
+                "date": "2019-10-29T15:13:05Z"
+            },
+            {
+                "name": "v2.0.0-rc.65",
+                "date": "2019-10-28T15:06:19Z"
+            },
+            {
+                "name": "v2.0.0-rc.64",
+                "date": "2019-10-24T15:35:51Z"
+            },
+            {
+                "name": "v2.0.0-rc.63",
+                "date": "2019-10-22T16:08:11Z"
+            },
+            {
+                "name": "v2.0.0-rc.62",
+                "date": "2019-10-22T16:06:14Z"
+            },
+            {
+                "name": "v2.0.0-rc.61",
+                "date": "2019-10-22T16:05:37Z"
+            },
+            {
+                "name": "v2.0.0-rc.60",
+                "date": "2019-10-22T16:05:10Z"
+            },
+            {
+                "name": "v2.0.0-rc.58",
+                "date": "2019-10-17T18:04:19Z"
+            },
+            {
+                "name": "v2.0.0-rc.57",
+                "date": "2019-10-17T18:01:05Z"
+            },
+            {
+                "name": "v2.0.0-rc.56",
+                "date": "2019-10-14T23:18:28Z"
+            },
+            {
+                "name": "v2.0.0-rc.55",
+                "date": "2019-10-09T17:13:42Z"
+            },
+            {
+                "name": "v2.0.0-rc.54",
+                "date": "2019-10-08T17:52:45Z"
+            },
+            {
+                "name": "v2.0.0-rc.53",
+                "date": "2019-10-05T18:13:09Z"
+            },
+            {
+                "name": "v2.0.0-rc.52",
+                "date": "2019-10-01T03:29:51Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-30T20:52:38Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-30T20:52:08Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-30T14:58:08Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-30T14:57:34Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-29T13:13:14Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-29T13:08:12Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-27T23:05:34Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-27T23:06:10Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-27T23:03:31Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-27T23:04:45Z"
+            },
+            {
+                "name": "v2.0.0-rc.41",
+                "date": "2019-09-16T13:53:46Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-13T06:11:31Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-13T05:53:39Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-13T05:52:35Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-13T05:50:03Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-13T05:49:09Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-13T05:46:14Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-13T05:47:16Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-03T15:19:24Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-02T13:02:42Z"
+            },
+            {
+                "name": "v2.0.0-rc.27",
+                "date": "2019-09-02T10:22:20Z"
+            },
+            {
+                "name": "v2.0.0-rc.1",
+                "date": "2019-07-18T18:04:39Z"
+            },
+            {
+                "name": "v1.2.0",
+                "date": "2019-05-08T20:56:42Z"
+            },
+            {
+                "name": "v1.1.0",
+                "date": "2019-05-01T20:24:20Z"
+            },
+            {
+                "name": "v1.0.4",
+                "date": "2019-04-18T16:45:09Z"
+            },
+            {
+                "name": "v1.0.3",
+                "date": "2019-04-18T16:46:42Z"
+            },
+            {
+                "name": "v1.0.2",
+                "date": "2019-04-18T16:46:01Z"
+            },
+            {
+                "name": "v1.0.1",
+                "date": "2019-04-14T21:41:52Z"
+            },
+            {
+                "name": "v1.0.0",
+                "date": "2019-04-11T18:23:48Z"
+            },
+            {
+                "name": "v1.0.0-rc.8",
+                "date": "2019-04-05T00:13:33Z"
+            },
+            {
+                "name": "v1.0.0-rc.7",
+                "date": "2019-03-29T23:03:34Z"
+            },
+            {
+                "name": "v1.0.0-rc.3",
+                "date": "2019-03-21T15:56:34Z"
+            },
+            {
+                "name": "v0.13.7",
+                "date": "2018-12-26T19:50:35Z"
+            },
+            {
+                "name": "v0.13.5",
+                "date": "2018-12-19T19:14:11Z"
+            },
+            {
+                "name": "v0.13.4",
+                "date": "2018-12-17T23:48:51Z"
+            },
+            {
+                "name": "v0.13.3",
+                "date": "2018-12-17T21:29:24Z"
+            },
+            {
+                "name": "v0.13.2",
+                "date": "2018-12-17T18:23:01Z"
+            },
+            {
+                "name": "v0.13.1",
+                "date": "2018-12-17T18:00:20Z"
+            },
+            {
+                "name": "v0.13.0",
+                "date": "2018-12-17T15:53:35Z"
+            },
+            {
+                "name": "v0.12.17",
+                "date": "2018-12-14T14:32:27Z"
+            },
+            {
+                "name": "v0.12.16",
+                "date": "2018-12-13T14:36:05Z"
+            },
+            {
+                "name": "v0.12.15",
+                "date": "2018-12-04T16:50:42Z"
+            },
+            {
+                "name": "v0.12.14",
+                "date": "2018-12-04T02:27:31Z"
+            },
+            {
+                "name": "v0.12.13",
+                "date": "2018-11-23T17:42:01Z"
+            },
+            {
+                "name": "v0.12.12",
+                "date": "2018-11-16T14:04:42Z"
+            },
+            {
+                "name": "v0.12.11",
+                "date": "2018-11-15T17:49:53Z"
+            },
+            {
+                "name": "v0.12.10",
+                "date": "2018-11-15T01:15:42Z"
+            },
+            {
+                "name": "v0.12.9",
+                "date": "2018-11-01T02:13:13Z"
+            },
+            {
+                "name": "v0.12.8",
+                "date": "2018-10-31T22:13:45Z"
+            },
+            {
+                "name": "v0.12.7",
+                "date": "2018-10-30T17:27:01Z"
+            },
+            {
+                "name": "v0.12.5",
+                "date": "2018-09-30T00:44:13Z"
+            },
+            {
+                "name": "v0.12.4",
+                "date": "2018-09-28T17:22:29Z"
+            },
+            {
+                "name": "v0.11.2",
+                "date": "2018-09-11T05:50:10Z"
+            },
+            {
+                "name": "v0.11.1",
+                "date": "2018-09-07T05:24:02Z"
+            },
+            {
+                "name": "v0.11.0",
+                "date": "2018-09-02T23:31:01Z"
+            },
+            {
+                "name": "v0.10.3",
+                "date": "2018-08-16T05:06:06Z"
+            },
+            {
+                "name": "v0.10.2",
+                "date": "2018-08-13T20:26:48Z"
+            },
+            {
+                "name": "v0.10.1",
+                "date": "2018-08-13T19:22:27Z"
+            },
+            {
+                "name": "v0.10.0",
+                "date": "2018-08-13T16:47:04Z"
+            },
+            {
+                "name": "v0.9.6",
+                "date": "2018-08-06T19:52:21Z"
+            },
+            {
+                "name": "v0.9.5",
+                "date": "2018-08-04T17:25:54Z"
+            },
+            {
+                "name": "v0.9.4",
+                "date": "2018-08-04T17:25:10Z"
+            },
+            {
+                "name": "v0.9.3",
+                "date": "2018-08-03T16:08:30Z"
+            },
+            {
+                "name": "v0.9.2",
+                "date": "2018-08-02T22:56:36Z"
+            },
+            {
+                "name": "v0.9.1",
+                "date": "2018-08-02T22:49:59Z"
+            },
+            {
+                "name": "v0.9.0",
+                "date": "2018-08-02T22:18:17Z"
+            },
+            {
+                "name": "v0.8.0",
+                "date": "2018-07-28T23:31:46Z"
+            },
+            {
+                "name": "v0.7.1",
+                "date": "2018-07-24T01:51:52Z"
+            },
+            {
+                "name": "v0.7.0",
+                "date": "2018-07-23T15:13:57Z"
+            },
+            {
+                "name": "v0.6.2",
+                "date": "2018-07-20T16:04:47Z"
+            },
+            {
+                "name": "v0.6.1",
+                "date": "2018-07-19T05:35:43Z"
+            },
+            {
+                "name": "v0.6.0",
+                "date": "2018-07-19T04:58:04Z"
+            },
+            {
+                "name": "v0.5.9",
+                "date": "2018-07-16T20:56:31Z"
+            },
+            {
+                "name": "v0.5.8",
+                "date": "2018-07-11T06:16:51Z"
+            },
+            {
+                "name": "v0.5.7",
+                "date": "2018-07-11T05:49:03Z"
+            },
+            {
+                "name": "v0.5.6",
+                "date": "2018-07-11T05:09:55Z"
+            },
+            {
+                "name": "v0.5.5",
+                "date": "2018-07-07T02:08:50Z"
+            },
+            {
+                "name": "v0.5.4",
+                "date": "2018-07-07T01:47:28Z"
+            },
+            {
+                "name": "v0.5.3",
+                "date": "2018-07-05T23:07:40Z"
+            },
+            {
+                "name": "v0.5.2",
+                "date": "2018-07-05T05:03:52Z"
+            },
+            {
+                "name": "v0.5.1",
+                "date": "2018-07-03T18:44:49Z"
+            },
+            {
+                "name": "v0.5.0",
+                "date": "2018-07-03T06:26:16Z"
+            },
+            {
+                "name": "v0.4.0",
+                "date": "2018-06-30T06:52:57Z"
+            },
+            {
+                "name": "v0.3.4",
+                "date": "2018-06-27T00:25:15Z"
+            },
+            {
+                "name": "v0.3.3",
+                "date": "2018-06-26T05:53:36Z"
+            },
+            {
+                "name": "v0.3.2",
+                "date": "2018-06-25T15:36:28Z"
+            },
+            {
+                "name": "v0.2.11",
+                "date": "2018-06-22T06:18:27Z"
+            },
+            {
+                "name": "v0.2.10",
+                "date": "2018-06-21T22:57:26Z"
+            },
+            {
+                "name": "v0.2.9",
+                "date": "2018-06-21T04:58:55Z"
+            },
+            {
+                "name": "v0.2.8",
+                "date": "2018-06-21T03:41:18Z"
+            },
+            {
+                "name": "v0.2.7",
+                "date": "2018-06-20T23:09:41Z"
+            },
+            {
+                "name": "v0.2.6",
+                "date": "2018-06-17T01:59:14Z"
+            },
+            {
+                "name": "v0.2.5",
+                "date": "2018-06-15T21:51:44Z"
+            },
+            {
+                "name": "v0.2.4",
+                "date": "2018-06-13T23:18:27Z"
+            },
+            {
+                "name": "v0.2.3",
+                "date": "2018-06-13T22:14:32Z"
+            },
+            {
+                "name": "v0.2.2",
+                "date": "2018-06-12T03:35:59Z"
+            },
+            {
+                "name": "v0.2.0",
+                "date": "2018-06-11T21:29:03Z"
+            }
+        ]
+    }
+}

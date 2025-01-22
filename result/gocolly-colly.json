@@ -1,0 +1,79 @@
+{
+    "https://api.github.com/repos/gocolly/colly": {
+        "forks": 1775,
+        "watchers": 23618,
+        "stars": 23618,
+        "languages": {
+            "Go": 207497,
+            "HTML": 1322
+        },
+        "commits": [
+            "2024-06-05T17:43:50Z",
+            "2024-03-27T17:02:23Z",
+            "2024-03-27T15:10:46Z",
+            "2024-03-27T15:07:47Z",
+            "2024-03-25T21:30:32Z",
+            "2024-03-25T21:27:33Z",
+            "2024-03-26T17:40:24Z",
+            "2024-03-25T21:41:14Z",
+            "2024-03-25T21:34:16Z",
+            "2024-03-25T20:07:52Z",
+            "2024-03-25T17:44:42Z",
+            "2023-11-29T17:06:06Z",
+            "2023-10-20T18:40:23Z",
+            "2023-10-16T23:35:22Z",
+            "2023-10-16T23:21:31Z",
+            "2023-10-16T22:48:15Z",
+            "2023-10-03T03:28:34Z",
+            "2023-06-20T15:08:46Z",
+            "2023-06-19T19:00:08Z",
+            "2023-06-19T18:58:44Z",
+            "2023-06-19T18:54:24Z",
+            "2023-05-17T14:50:56Z",
+            "2023-05-10T17:33:00Z",
+            "2023-05-10T17:29:10Z",
+            "2023-04-22T07:42:56Z",
+            "2023-04-17T20:37:52Z",
+            "2023-04-10T23:41:35Z",
+            "2023-04-10T23:26:35Z",
+            "2023-03-07T01:23:53Z",
+            "2023-01-16T16:28:51Z"
+        ],
+        "creation_date": "2017-09-29T14:08:49Z",
+        "contributors": 30,
+        "topics": [
+            "crawler",
+            "crawling",
+            "framework",
+            "go",
+            "golang",
+            "scraper",
+            "scraping",
+            "spider"
+        ],
+        "subscribers": 332,
+        "readme": "# Colly\n\nLightning Fast and Elegant Scraping Framework for Gophers\n\nColly provides a clean interface to write any kind of crawler/scraper/spider.\n\nWith Colly you can easily extract structured data from websites, which can be used for a wide range of applications, like data mining, data processing or archiving.\n\n[![GoDoc](https://godoc.org/github.com/gocolly/colly?status.svg)](https://pkg.go.dev/github.com/gocolly/colly/v2)\n[![Backers on Open Collective](https://opencollective.com/colly/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/colly/sponsors/badge.svg)](#sponsors) [![build status](https://github.com/gocolly/colly/actions/workflows/ci.yml/badge.svg)](https://github.com/gocolly/colly/actions/workflows/ci.yml)\n[![report card](https://img.shields.io/badge/report%20card-a%2B-ff3333.svg?style=flat-square)](http://goreportcard.com/report/gocolly/colly)\n[![view examples](https://img.shields.io/badge/learn%20by-examples-0077b3.svg?style=flat-square)](https://github.com/gocolly/colly/tree/master/_examples)\n[![Code Coverage](https://img.shields.io/codecov/c/github/gocolly/colly/master.svg)](https://codecov.io/github/gocolly/colly?branch=master)\n[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fgocolly%2Fcolly.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fgocolly%2Fcolly?ref=badge_shield)\n[![Twitter URL](https://img.shields.io/badge/twitter-follow-green.svg)](https://twitter.com/gocolly)\n\n\n------\n\n\n## Sponsors\n\n\n<a href=\"https://scrapfly.io/?utm_source=Github&utm_medium=repo&utm_campaign=colly\" target=\"_blank\"><img src=\"assets/scrapfly.png\" alt=\"Scrapfly.io\" width=\"149\"></a>\n\n[Scrapfly](https://scrapfly.io/?utm_source=Github&utm_medium=repo&utm_campaign=colly)\nis an enterprise-grade solution providing Web Scraping API that aims to simplify the\nscraping process by managing everything: real browser rendering, rotating proxies, and\nfingerprints (TLS, HTTP, browser) to bypass all major anti-bots. Scrapfly also unlocks the\nobservability by providing an analytical dashboard and measuring the success rate/block\nrate in detail.\n\n\n------\n\n\n\n## Features\n\n-   Clean API\n-   Fast (>1k request/sec on a single core)\n-   Manages request delays and maximum concurrency per domain\n-   Automatic cookie and session handling\n-   Sync/async/parallel scraping\n-   Caching\n-   Automatic encoding of non-unicode responses\n-   Robots.txt support\n-   Distributed scraping\n-   Configuration via environment variables\n-   Extensions\n\n## Example\n\n```go\nfunc main() {\n\tc := colly.NewCollector()\n\n\t// Find and visit all links\n\tc.OnHTML(\"a[href]\", func(e *colly.HTMLElement) {\n\t\te.Request.Visit(e.Attr(\"href\"))\n\t})\n\n\tc.OnRequest(func(r *colly.Request) {\n\t\tfmt.Println(\"Visiting\", r.URL)\n\t})\n\n\tc.Visit(\"http://go-colly.org/\")\n}\n```\n\nSee [examples folder](https://github.com/gocolly/colly/tree/master/_examples) for more detailed examples.\n\n## Installation\n\nAdd colly to your `go.mod` file:\n\n```\nmodule github.com/x/y\n\ngo 1.14\n\nrequire (\n        github.com/gocolly/colly/v2 latest\n)\n```\n\n## Bugs\n\nBugs or suggestions? Visit the [issue tracker](https://github.com/gocolly/colly/issues) or join `#colly` on freenode\n\n## Other Projects Using Colly\n\nBelow is a list of public, open source projects that use Colly:\n\n-   [greenpeace/check-my-pages](https://github.com/greenpeace/check-my-pages) Scraping script to test the Spanish Greenpeace web archive.\n-   [altsab/gowap](https://github.com/altsab/gowap) Wappalyzer implementation in Go.\n-   [jesuiscamille/goquotes](https://github.com/jesuiscamille/goquotes) A quotes scraper, making your day a little better!\n-   [jivesearch/jivesearch](https://github.com/jivesearch/jivesearch) A search engine that doesn't track you.\n-   [Leagify/colly-draft-prospects](https://github.com/Leagify/colly-draft-prospects) A scraper for future NFL Draft prospects.\n-   [lucasepe/go-ps4](https://github.com/lucasepe/go-ps4) Search playstation store for your favorite PS4 games using the command line.\n-   [yringler/inside-chassidus-scraper](https://github.com/yringler/inside-chassidus-scraper) Scrapes Rabbi Paltiel's web site for lesson metadata.\n-   [gamedb/gamedb](https://github.com/gamedb/gamedb) A database of Steam games.\n-   [lawzava/scrape](https://github.com/lawzava/scrape) CLI for email scraping from any website.\n-   [eureka101v/WeiboSpiderGo](https://github.com/eureka101v/WeiboSpiderGo) A sina weibo(chinese twitter) scraper\n-   [Go-phie/gophie](https://github.com/Go-phie/gophie) Search, Download and Stream movies from your terminal\n-   [imthaghost/goclone](https://github.com/imthaghost/goclone) Clone websites to your computer within seconds.\n-   [superiss/spidy](https://github.com/superiss/spidy) Crawl the web and collect expired domains.\n-   [docker-slim/docker-slim](https://github.com/docker-slim/docker-slim) Optimize your Docker containers to make them smaller and better.\n-   [seversky/gachifinder](https://github.com/seversky/gachifinder) an agent for asynchronous scraping, parsing and writing to some storages(elasticsearch for now)\n-   [eval-exec/goodreads](https://github.com/eval-exec/goodreads) crawl all tags and all pages of quotes from goodreads.\n\nIf you are using Colly in a project please send a pull request to add it to the list.\n\n## Contributors\n\nThis project exists thanks to all the people who contribute. [[Contribute]](CONTRIBUTING.md).\n<a href=\"https://github.com/gocolly/colly/graphs/contributors\"><img src=\"https://opencollective.com/colly/contributors.svg?width=890\" /></a>\n\n## Backers\n\nThank you to all our backers! \ud83d\ude4f [[Become a backer](https://opencollective.com/colly#backer)]\n\n<a href=\"https://opencollective.com/colly#backers\" target=\"_blank\"><img src=\"https://opencollective.com/colly/backers.svg?width=890\"></a>\n\n## Sponsors\n\nSupport this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/colly#sponsor)]\n\n<a href=\"https://opencollective.com/colly/sponsor/0/website\" target=\"_blank\"><img src=\"https://opencollective.com/colly/sponsor/0/avatar.svg\"></a>\n<a href=\"https://opencollective.com/colly/sponsor/1/website\" target=\"_blank\"><img src=\"https://opencollective.com/colly/sponsor/1/avatar.svg\"></a>\n<a href=\"https://opencollective.com/colly/sponsor/2/website\" target=\"_blank\"><img src=\"https://opencollective.com/colly/sponsor/2/avatar.svg\"></a>\n<a href=\"https://opencollective.com/colly/sponsor/3/website\" target=\"_blank\"><img src=\"https://opencollective.com/colly/sponsor/3/avatar.svg\"></a>\n<a href=\"https://opencollective.com/colly/sponsor/4/website\" target=\"_blank\"><img src=\"https://opencollective.com/colly/sponsor/4/avatar.svg\"></a>\n<a href=\"https://opencollective.com/colly/sponsor/5/website\" target=\"_blank\"><img src=\"https://opencollective.com/colly/sponsor/5/avatar.svg\"></a>\n<a href=\"https://opencollective.com/colly/sponsor/6/website\" target=\"_blank\"><img src=\"https://opencollective.com/colly/sponsor/6/avatar.svg\"></a>\n<a href=\"https://opencollective.com/colly/sponsor/7/website\" target=\"_blank\"><img src=\"https://opencollective.com/colly/sponsor/7/avatar.svg\"></a>\n<a href=\"https://opencollective.com/colly/sponsor/8/website\" target=\"_blank\"><img src=\"https://opencollective.com/colly/sponsor/8/avatar.svg\"></a>\n<a href=\"https://opencollective.com/colly/sponsor/9/website\" target=\"_blank\"><img src=\"https://opencollective.com/colly/sponsor/9/avatar.svg\"></a>\n\n## License\n\n[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fgocolly%2Fcolly.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fgocolly%2Fcolly?ref=badge_large)\n",
+        "releases": [
+            {
+                "name": "v2.1.0",
+                "date": "2020-06-08T23:47:53Z"
+            },
+            {
+                "name": "v2.0.0",
+                "date": "2019-11-28T12:29:32Z"
+            },
+            {
+                "name": "",
+                "date": "2019-02-13T13:20:30Z"
+            },
+            {
+                "name": "",
+                "date": "2018-08-28T16:55:27Z"
+            },
+            {
+                "name": "",
+                "date": "2018-05-14T07:19:53Z"
+            }
+        ]
+    }
+}

@@ -1,0 +1,351 @@
+{
+    "https://api.github.com/repos/keras-team/keras": {
+        "forks": 19492,
+        "watchers": 62372,
+        "stars": 62372,
+        "languages": {
+            "Python": 8400828,
+            "Shell": 3914
+        },
+        "commits": [
+            "2025-01-21T10:28:32Z",
+            "2025-01-21T00:50:04Z",
+            "2025-01-20T20:12:11Z",
+            "2025-01-20T20:10:30Z",
+            "2025-01-17T23:38:51Z",
+            "2025-01-17T22:00:46Z",
+            "2025-01-17T22:00:07Z",
+            "2025-01-17T19:56:25Z",
+            "2025-01-17T18:11:53Z",
+            "2025-01-16T01:33:08Z",
+            "2025-01-15T21:59:48Z",
+            "2025-01-15T18:57:52Z",
+            "2025-01-15T03:23:00Z",
+            "2025-01-15T01:11:05Z",
+            "2025-01-15T01:09:39Z",
+            "2025-01-14T22:39:15Z",
+            "2025-01-14T22:17:54Z",
+            "2025-01-13T22:50:48Z",
+            "2025-01-13T22:50:24Z",
+            "2025-01-13T05:25:37Z",
+            "2025-01-13T05:15:08Z",
+            "2025-01-13T05:09:50Z",
+            "2025-01-13T02:20:28Z",
+            "2025-01-13T02:16:33Z",
+            "2025-01-12T23:03:32Z",
+            "2025-01-10T21:20:25Z",
+            "2025-01-08T17:54:18Z",
+            "2025-01-08T17:53:58Z",
+            "2025-01-08T04:31:59Z",
+            "2025-01-08T04:31:33Z"
+        ],
+        "creation_date": "2015-03-28T00:35:42Z",
+        "contributors": 30,
+        "topics": [
+            "data-science",
+            "deep-learning",
+            "jax",
+            "machine-learning",
+            "neural-networks",
+            "python",
+            "pytorch",
+            "tensorflow"
+        ],
+        "subscribers": 1915,
+        "readme": "# Keras 3: Deep Learning for Humans\n\nKeras 3 is a multi-backend deep learning framework, with support for JAX, TensorFlow, PyTorch, and OpenVINO (for inference-only).\nEffortlessly build and train models for computer vision, natural language processing, audio processing,\ntimeseries forecasting, recommender systems, etc.\n\n- **Accelerated model development**: Ship deep learning solutions faster thanks to the high-level UX of Keras\nand the availability of easy-to-debug runtimes like PyTorch or JAX eager execution.\n- **State-of-the-art performance**: By picking the backend that is the fastest for your model architecture (often JAX!),\nleverage speedups ranging from 20% to 350% compared to other frameworks. [Benchmark here](https://keras.io/getting_started/benchmarks/).\n- **Datacenter-scale training**: Scale confidently from your laptop to large clusters of GPUs or TPUs.\n\nJoin nearly three million developers, from burgeoning startups to global enterprises, in harnessing the power of Keras 3.\n\n\n## Installation\n\n### Install with pip\n\nKeras 3 is available on PyPI as `keras`. Note that Keras 2 remains available as the `tf-keras` package.\n\n1. Install `keras`:\n\n```\npip install keras --upgrade\n```\n\n2. Install backend package(s).\n\nTo use `keras`, you should also install the backend of choice: `tensorflow`, `jax`, or `torch`.\nNote that `tensorflow` is required for using certain Keras 3 features: certain preprocessing layers\nas well as `tf.data` pipelines.\n\n### Local installation\n\n#### Minimal installation\n\nKeras 3 is compatible with Linux and MacOS systems. For Windows users, we recommend using WSL2 to run Keras.\nTo install a local development version:\n\n1. Install dependencies:\n\n```\npip install -r requirements.txt\n```\n\n2. Run installation command from the root directory.\n\n```\npython pip_build.py --install\n```\n\n3. Run API generation script when creating PRs that update `keras_export` public APIs:\n\n```\n./shell/api_gen.sh\n```\n\n#### Adding GPU support\n\nThe `requirements.txt` file will install a CPU-only version of TensorFlow, JAX, and PyTorch. For GPU support, we also\nprovide a separate `requirements-{backend}-cuda.txt` for TensorFlow, JAX, and PyTorch. These install all CUDA\ndependencies via `pip` and expect a NVIDIA driver to be pre-installed. We recommend a clean python environment for each\nbackend to avoid CUDA version mismatches. As an example, here is how to create a Jax GPU environment with `conda`:\n\n```shell\nconda create -y -n keras-jax python=3.10\nconda activate keras-jax\npip install -r requirements-jax-cuda.txt\npython pip_build.py --install\n```\n\n## Configuring your backend\n\nYou can export the environment variable `KERAS_BACKEND` or you can edit your local config file at `~/.keras/keras.json`\nto configure your backend. Available backend options are: `\"tensorflow\"`, `\"jax\"`, `\"torch\"`, `\"openvino\"`. Example:\n\n```\nexport KERAS_BACKEND=\"jax\"\n```\n\nIn Colab, you can do:\n\n```python\nimport os\nos.environ[\"KERAS_BACKEND\"] = \"jax\"\n\nimport keras\n```\n\n**Note:** The backend must be configured before importing `keras`, and the backend cannot be changed after \nthe package has been imported.\n\n**Note:** The OpenVINO backend is an inference-only backend, meaning it is designed only for running model\npredictions using `model.predict()` method.\nTo use `openvino` backend, install the required dependencies from the `requirements-openvino.txt` file.\n\n## Backwards compatibility\n\nKeras 3 is intended to work as a drop-in replacement for `tf.keras` (when using the TensorFlow backend). Just take your\nexisting `tf.keras` code, make sure that your calls to `model.save()` are using the up-to-date `.keras` format, and you're\ndone.\n\nIf your `tf.keras` model does not include custom components, you can start running it on top of JAX or PyTorch immediately.\n\nIf it does include custom components (e.g. custom layers or a custom `train_step()`), it is usually possible to convert it\nto a backend-agnostic implementation in just a few minutes.\n\nIn addition, Keras models can consume datasets in any format, regardless of the backend you're using:\nyou can train your models with your existing `tf.data.Dataset` pipelines or PyTorch `DataLoaders`.\n\n## Why use Keras 3?\n\n- Run your high-level Keras workflows on top of any framework -- benefiting at will from the advantages of each framework,\ne.g. the scalability and performance of JAX or the production ecosystem options of TensorFlow.\n- Write custom components (e.g. layers, models, metrics) that you can use in low-level workflows in any framework.\n    - You can take a Keras model and train it in a training loop written from scratch in native TF, JAX, or PyTorch.\n    - You can take a Keras model and use it as part of a PyTorch-native `Module` or as part of a JAX-native model function.\n- Make your ML code future-proof by avoiding framework lock-in.\n- As a PyTorch user: get access to power and usability of Keras, at last!\n- As a JAX user: get access to a fully-featured, battle-tested, well-documented modeling and training library.\n\n\nRead more in the [Keras 3 release announcement](https://keras.io/keras_3/).\n",
+        "releases": [
+            {
+                "name": "Keras 3.8.0",
+                "date": "2025-01-07T18:27:26Z"
+            },
+            {
+                "name": "Keras 3.7.0",
+                "date": "2024-11-26T17:02:51Z"
+            },
+            {
+                "name": "Keras 3.6.0",
+                "date": "2024-10-03T19:44:23Z"
+            },
+            {
+                "name": "Keras 3.5.0",
+                "date": "2024-08-12T20:41:44Z"
+            },
+            {
+                "name": "Keras 3.4.1",
+                "date": "2024-06-26T15:42:10Z"
+            },
+            {
+                "name": "Keras 3.4.0",
+                "date": "2024-06-25T05:12:36Z"
+            },
+            {
+                "name": "Keras 3.3.3",
+                "date": "2024-04-26T23:21:04Z"
+            },
+            {
+                "name": "Keras 3.3.2",
+                "date": "2024-04-22T23:39:26Z"
+            },
+            {
+                "name": "Keras 3.3.1",
+                "date": "2024-04-22T22:45:29Z"
+            },
+            {
+                "name": "Keras 3.3.0",
+                "date": "2024-04-22T18:30:27Z"
+            },
+            {
+                "name": "Keras 3.2.1",
+                "date": "2024-04-10T20:33:49Z"
+            },
+            {
+                "name": "Keras 3.2.0",
+                "date": "2024-04-08T21:21:33Z"
+            },
+            {
+                "name": "Keras 3.1.1",
+                "date": "2024-03-19T18:22:02Z"
+            },
+            {
+                "name": "Keras 3.1.0",
+                "date": "2024-03-11T16:04:05Z"
+            },
+            {
+                "name": "Keras 3.0.5",
+                "date": "2024-02-14T22:35:12Z"
+            },
+            {
+                "name": "Keras 3.0.4",
+                "date": "2024-01-20T20:12:15Z"
+            },
+            {
+                "name": "Keras 3.0.3 release",
+                "date": "2024-01-20T01:45:23Z"
+            },
+            {
+                "name": "Keras 3.0.2",
+                "date": "2023-12-21T19:22:48Z"
+            },
+            {
+                "name": "Keras 3.0.1",
+                "date": "2023-12-06T21:12:25Z"
+            },
+            {
+                "name": "Keras 3.0.0",
+                "date": "2023-11-28T01:07:25Z"
+            },
+            {
+                "name": "Keras Release 2.15.0",
+                "date": "2023-12-12T17:31:31Z"
+            },
+            {
+                "name": "Keras Release 2.14.0",
+                "date": "2023-09-12T16:19:40Z"
+            },
+            {
+                "name": "Keras Release 2.14.0 RC0",
+                "date": "2023-08-03T20:57:59Z"
+            },
+            {
+                "name": "Keras Release 2.13.1",
+                "date": "2023-06-27T23:42:33Z"
+            },
+            {
+                "name": "Keras Release 2.13.1 RC1",
+                "date": "2023-06-27T22:30:37Z"
+            },
+            {
+                "name": "Keras Release 2.13.1 RC0 ",
+                "date": "2023-05-03T16:23:16Z"
+            },
+            {
+                "name": "Keras Release 2.12.0",
+                "date": "2023-03-21T20:12:17Z"
+            },
+            {
+                "name": "Keras Release 2.12.0 RC1",
+                "date": "2023-02-23T19:04:25Z"
+            },
+            {
+                "name": "Keras Release 2.11.0",
+                "date": "2022-11-14T18:10:37Z"
+            },
+            {
+                "name": "Keras Release 2.11.0 RC3",
+                "date": "2022-11-09T17:11:11Z"
+            },
+            {
+                "name": "Keras Release 2.11.0 RC2",
+                "date": "2022-10-24T19:33:45Z"
+            },
+            {
+                "name": "Keras Release 2.11.0 RC1",
+                "date": "2022-10-20T16:58:26Z"
+            },
+            {
+                "name": "Keras Release 2.10.0",
+                "date": "2022-09-02T21:31:44Z"
+            },
+            {
+                "name": "Keras Release 2.10.0 RC1",
+                "date": "2022-09-02T20:31:24Z"
+            },
+            {
+                "name": "Keras Release 2.9.0",
+                "date": "2022-05-13T20:03:15Z"
+            },
+            {
+                "name": "Keras Release 2.9.0 RC2",
+                "date": "2022-04-22T18:03:20Z"
+            },
+            {
+                "name": "Keras Release 2.9.0 RC1",
+                "date": "2022-04-18T17:43:54Z"
+            },
+            {
+                "name": "Keras Release 2.9.0 RC0 ",
+                "date": "2022-04-04T17:50:15Z"
+            },
+            {
+                "name": "Keras Release 2.8.0",
+                "date": "2022-02-03T05:13:44Z"
+            },
+            {
+                "name": "Keras Release 2.8.0 RC1",
+                "date": "2022-01-18T17:54:03Z"
+            },
+            {
+                "name": "Keras Release 2.8.0 RC0",
+                "date": "2021-12-22T18:26:23Z"
+            },
+            {
+                "name": "Keras Release 2.7.0",
+                "date": "2021-11-03T16:24:54Z"
+            },
+            {
+                "name": "Keras Release 2.7.0 RC2",
+                "date": "2021-10-28T04:17:40Z"
+            },
+            {
+                "name": "Keras Release 2.7.0 RC1",
+                "date": "2021-10-05T17:43:29Z"
+            },
+            {
+                "name": "Keras Release 2.7.0 RC0",
+                "date": "2021-09-27T17:53:34Z"
+            },
+            {
+                "name": "Keras Release 2.6.0",
+                "date": "2021-08-09T17:27:44Z"
+            },
+            {
+                "name": "Keras Release 2.6.0 RC3",
+                "date": "2021-08-04T20:53:31Z"
+            },
+            {
+                "name": "Keras Release 2.6.0 RC2",
+                "date": "2021-07-26T21:09:09Z"
+            },
+            {
+                "name": "Keras Release 2.6.0 RC1",
+                "date": "2021-07-26T21:03:09Z"
+            },
+            {
+                "name": "Keras Release 2.6.0 RC0",
+                "date": "2021-07-26T20:51:38Z"
+            },
+            {
+                "name": "Keras 2.4.0",
+                "date": "2020-06-17T22:22:46Z"
+            },
+            {
+                "name": "Keras 2.3.1",
+                "date": "2019-10-07T20:06:38Z"
+            },
+            {
+                "name": "Keras 2.3.0",
+                "date": "2019-09-17T17:09:50Z"
+            },
+            {
+                "name": "Keras 2.2.5",
+                "date": "2019-08-22T16:43:53Z"
+            },
+            {
+                "name": "Keras 2.2.4",
+                "date": "2018-10-03T20:58:33Z"
+            },
+            {
+                "name": "Keras 2.2.3",
+                "date": "2018-10-01T23:39:39Z"
+            },
+            {
+                "name": "Keras 2.2.2",
+                "date": "2018-07-28T19:34:04Z"
+            },
+            {
+                "name": "Keras 2.2.1",
+                "date": "2018-07-27T22:23:54Z"
+            },
+            {
+                "name": "Keras 2.2.0",
+                "date": "2018-06-06T22:42:23Z"
+            },
+            {
+                "name": "Keras 2.1.6",
+                "date": "2018-04-23T20:14:24Z"
+            },
+            {
+                "name": "Keras 2.1.5",
+                "date": "2018-03-06T22:07:49Z"
+            },
+            {
+                "name": "Keras 2.1.4",
+                "date": "2018-02-13T23:53:22Z"
+            },
+            {
+                "name": "Keras 2.1.3",
+                "date": "2018-01-16T05:47:01Z"
+            },
+            {
+                "name": "Keras 2.1.2",
+                "date": "2017-12-01T18:28:02Z"
+            },
+            {
+                "name": "Keras 2.1.1",
+                "date": "2017-11-14T21:41:22Z"
+            },
+            {
+                "name": "Keras 2.1.0",
+                "date": "2017-11-13T20:46:20Z"
+            },
+            {
+                "name": "Keras 2.0.9",
+                "date": "2017-11-01T21:01:43Z"
+            },
+            {
+                "name": "Keras 2.0.8",
+                "date": "2017-08-25T19:21:07Z"
+            },
+            {
+                "name": "Keras 2.0.7",
+                "date": "2017-08-21T23:31:42Z"
+            },
+            {
+                "name": "Keras 2.0.6",
+                "date": "2017-07-07T20:59:28Z"
+            },
+            {
+                "name": "Keras 2.0.5",
+                "date": "2017-06-12T18:52:05Z"
+            },
+            {
+                "name": "Keras 2.0.4",
+                "date": "2017-04-29T23:19:34Z"
+            },
+            {
+                "name": "2.0.0",
+                "date": "2017-05-05T03:11:30Z"
+            }
+        ]
+    }
+}

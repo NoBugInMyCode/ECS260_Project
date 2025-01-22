@@ -1,0 +1,224 @@
+{
+    "https://api.github.com/repos/go-chi/chi": {
+        "forks": 998,
+        "watchers": 18980,
+        "stars": 18980,
+        "languages": {
+            "Go": 274951,
+            "Makefile": 490
+        },
+        "commits": [
+            "2025-01-20T20:41:44Z",
+            "2024-12-14T17:06:53Z",
+            "2024-12-14T16:45:45Z",
+            "2024-09-26T17:44:06Z",
+            "2024-09-18T20:06:37Z",
+            "2024-09-18T15:55:41Z",
+            "2024-09-18T15:36:50Z",
+            "2024-09-18T15:08:04Z",
+            "2024-09-18T14:41:00Z",
+            "2024-09-18T14:09:34Z",
+            "2024-09-18T14:08:04Z",
+            "2024-09-18T14:00:48Z",
+            "2024-09-18T13:25:35Z",
+            "2024-09-17T13:57:04Z",
+            "2024-08-23T14:23:19Z",
+            "2024-08-23T14:22:46Z",
+            "2024-08-20T01:25:17Z",
+            "2024-06-28T14:29:27Z",
+            "2024-06-21T12:30:42Z",
+            "2024-06-19T15:08:18Z",
+            "2024-06-07T23:13:37Z",
+            "2024-05-07T15:29:47Z",
+            "2024-03-31T19:58:23Z",
+            "2024-02-17T00:24:11Z",
+            "2024-02-17T00:23:38Z",
+            "2024-02-17T00:17:06Z",
+            "2024-02-17T00:11:00Z",
+            "2024-02-11T00:58:51Z",
+            "2024-01-23T00:21:48Z",
+            "2024-01-18T23:02:13Z"
+        ],
+        "creation_date": "2015-10-15T20:46:29Z",
+        "contributors": 30,
+        "topics": [
+            "api",
+            "context",
+            "go",
+            "golang",
+            "http",
+            "microservices",
+            "middleware",
+            "rest-api",
+            "router"
+        ],
+        "subscribers": 210,
+        "readme": "# <img alt=\"chi\" src=\"https://cdn.rawgit.com/go-chi/chi/master/_examples/chi.svg\" width=\"220\" />\n\n\n[![GoDoc Widget]][GoDoc]\n\n`chi` is a lightweight, idiomatic and composable router for building Go HTTP services. It's\nespecially good at helping you write large REST API services that are kept maintainable as your\nproject grows and changes. `chi` is built on the new `context` package introduced in Go 1.7 to\nhandle signaling, cancelation and request-scoped values across a handler chain.\n\nThe focus of the project has been to seek out an elegant and comfortable design for writing\nREST API servers, written during the development of the Pressly API service that powers our\npublic API service, which in turn powers all of our client-side applications.\n\nThe key considerations of chi's design are: project structure, maintainability, standard http\nhandlers (stdlib-only), developer productivity, and deconstructing a large system into many small\nparts. The core router `github.com/go-chi/chi` is quite small (less than 1000 LOC), but we've also\nincluded some useful/optional subpackages: [middleware](/middleware), [render](https://github.com/go-chi/render)\nand [docgen](https://github.com/go-chi/docgen). We hope you enjoy it too!\n\n## Install\n\n`go get -u github.com/go-chi/chi/v5`\n\n\n## Features\n\n* **Lightweight** - cloc'd in ~1000 LOC for the chi router\n* **Fast** - yes, see [benchmarks](#benchmarks)\n* **100% compatible with net/http** - use any http or middleware pkg in the ecosystem that is also compatible with `net/http`\n* **Designed for modular/composable APIs** - middlewares, inline middlewares, route groups and sub-router mounting\n* **Context control** - built on new `context` package, providing value chaining, cancellations and timeouts\n* **Robust** - in production at Pressly, Cloudflare, Heroku, 99Designs, and many others (see [discussion](https://github.com/go-chi/chi/issues/91))\n* **Doc generation** - `docgen` auto-generates routing documentation from your source to JSON or Markdown\n* **Go.mod support** - as of v5, go.mod support (see [CHANGELOG](https://github.com/go-chi/chi/blob/master/CHANGELOG.md))\n* **No external dependencies** - plain ol' Go stdlib + net/http\n\n\n## Examples\n\nSee [_examples/](https://github.com/go-chi/chi/blob/master/_examples/) for a variety of examples.\n\n\n**As easy as:**\n\n```go\npackage main\n\nimport (\n\t\"net/http\"\n\n\t\"github.com/go-chi/chi/v5\"\n\t\"github.com/go-chi/chi/v5/middleware\"\n)\n\nfunc main() {\n\tr := chi.NewRouter()\n\tr.Use(middleware.Logger)\n\tr.Get(\"/\", func(w http.ResponseWriter, r *http.Request) {\n\t\tw.Write([]byte(\"welcome\"))\n\t})\n\thttp.ListenAndServe(\":3000\", r)\n}\n```\n\n**REST Preview:**\n\nHere is a little preview of what routing looks like with chi. Also take a look at the generated routing docs\nin JSON ([routes.json](https://github.com/go-chi/chi/blob/master/_examples/rest/routes.json)) and in\nMarkdown ([routes.md](https://github.com/go-chi/chi/blob/master/_examples/rest/routes.md)).\n\nI highly recommend reading the source of the [examples](https://github.com/go-chi/chi/blob/master/_examples/) listed\nabove, they will show you all the features of chi and serve as a good form of documentation.\n\n```go\nimport (\n  //...\n  \"context\"\n  \"github.com/go-chi/chi/v5\"\n  \"github.com/go-chi/chi/v5/middleware\"\n)\n\nfunc main() {\n  r := chi.NewRouter()\n\n  // A good base middleware stack\n  r.Use(middleware.RequestID)\n  r.Use(middleware.RealIP)\n  r.Use(middleware.Logger)\n  r.Use(middleware.Recoverer)\n\n  // Set a timeout value on the request context (ctx), that will signal\n  // through ctx.Done() that the request has timed out and further\n  // processing should be stopped.\n  r.Use(middleware.Timeout(60 * time.Second))\n\n  r.Get(\"/\", func(w http.ResponseWriter, r *http.Request) {\n    w.Write([]byte(\"hi\"))\n  })\n\n  // RESTy routes for \"articles\" resource\n  r.Route(\"/articles\", func(r chi.Router) {\n    r.With(paginate).Get(\"/\", listArticles)                           // GET /articles\n    r.With(paginate).Get(\"/{month}-{day}-{year}\", listArticlesByDate) // GET /articles/01-16-2017\n\n    r.Post(\"/\", createArticle)                                        // POST /articles\n    r.Get(\"/search\", searchArticles)                                  // GET /articles/search\n\n    // Regexp url parameters:\n    r.Get(\"/{articleSlug:[a-z-]+}\", getArticleBySlug)                // GET /articles/home-is-toronto\n\n    // Subrouters:\n    r.Route(\"/{articleID}\", func(r chi.Router) {\n      r.Use(ArticleCtx)\n      r.Get(\"/\", getArticle)                                          // GET /articles/123\n      r.Put(\"/\", updateArticle)                                       // PUT /articles/123\n      r.Delete(\"/\", deleteArticle)                                    // DELETE /articles/123\n    })\n  })\n\n  // Mount the admin sub-router\n  r.Mount(\"/admin\", adminRouter())\n\n  http.ListenAndServe(\":3333\", r)\n}\n\nfunc ArticleCtx(next http.Handler) http.Handler {\n  return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {\n    articleID := chi.URLParam(r, \"articleID\")\n    article, err := dbGetArticle(articleID)\n    if err != nil {\n      http.Error(w, http.StatusText(404), 404)\n      return\n    }\n    ctx := context.WithValue(r.Context(), \"article\", article)\n    next.ServeHTTP(w, r.WithContext(ctx))\n  })\n}\n\nfunc getArticle(w http.ResponseWriter, r *http.Request) {\n  ctx := r.Context()\n  article, ok := ctx.Value(\"article\").(*Article)\n  if !ok {\n    http.Error(w, http.StatusText(422), 422)\n    return\n  }\n  w.Write([]byte(fmt.Sprintf(\"title:%s\", article.Title)))\n}\n\n// A completely separate router for administrator routes\nfunc adminRouter() http.Handler {\n  r := chi.NewRouter()\n  r.Use(AdminOnly)\n  r.Get(\"/\", adminIndex)\n  r.Get(\"/accounts\", adminListAccounts)\n  return r\n}\n\nfunc AdminOnly(next http.Handler) http.Handler {\n  return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {\n    ctx := r.Context()\n    perm, ok := ctx.Value(\"acl.permission\").(YourPermissionType)\n    if !ok || !perm.IsAdmin() {\n      http.Error(w, http.StatusText(403), 403)\n      return\n    }\n    next.ServeHTTP(w, r)\n  })\n}\n```\n\n\n## Router interface\n\nchi's router is based on a kind of [Patricia Radix trie](https://en.wikipedia.org/wiki/Radix_tree).\nThe router is fully compatible with `net/http`.\n\nBuilt on top of the tree is the `Router` interface:\n\n```go\n// Router consisting of the core routing methods used by chi's Mux,\n// using only the standard net/http.\ntype Router interface {\n\thttp.Handler\n\tRoutes\n\n\t// Use appends one or more middlewares onto the Router stack.\n\tUse(middlewares ...func(http.Handler) http.Handler)\n\n\t// With adds inline middlewares for an endpoint handler.\n\tWith(middlewares ...func(http.Handler) http.Handler) Router\n\n\t// Group adds a new inline-Router along the current routing\n\t// path, with a fresh middleware stack for the inline-Router.\n\tGroup(fn func(r Router)) Router\n\n\t// Route mounts a sub-Router along a `pattern`` string.\n\tRoute(pattern string, fn func(r Router)) Router\n\n\t// Mount attaches another http.Handler along ./pattern/*\n\tMount(pattern string, h http.Handler)\n\n\t// Handle and HandleFunc adds routes for `pattern` that matches\n\t// all HTTP methods.\n\tHandle(pattern string, h http.Handler)\n\tHandleFunc(pattern string, h http.HandlerFunc)\n\n\t// Method and MethodFunc adds routes for `pattern` that matches\n\t// the `method` HTTP method.\n\tMethod(method, pattern string, h http.Handler)\n\tMethodFunc(method, pattern string, h http.HandlerFunc)\n\n\t// HTTP-method routing along `pattern`\n\tConnect(pattern string, h http.HandlerFunc)\n\tDelete(pattern string, h http.HandlerFunc)\n\tGet(pattern string, h http.HandlerFunc)\n\tHead(pattern string, h http.HandlerFunc)\n\tOptions(pattern string, h http.HandlerFunc)\n\tPatch(pattern string, h http.HandlerFunc)\n\tPost(pattern string, h http.HandlerFunc)\n\tPut(pattern string, h http.HandlerFunc)\n\tTrace(pattern string, h http.HandlerFunc)\n\n\t// NotFound defines a handler to respond whenever a route could\n\t// not be found.\n\tNotFound(h http.HandlerFunc)\n\n\t// MethodNotAllowed defines a handler to respond whenever a method is\n\t// not allowed.\n\tMethodNotAllowed(h http.HandlerFunc)\n}\n\n// Routes interface adds two methods for router traversal, which is also\n// used by the github.com/go-chi/docgen package to generate documentation for Routers.\ntype Routes interface {\n\t// Routes returns the routing tree in an easily traversable structure.\n\tRoutes() []Route\n\n\t// Middlewares returns the list of middlewares in use by the router.\n\tMiddlewares() Middlewares\n\n\t// Match searches the routing tree for a handler that matches\n\t// the method/path - similar to routing a http request, but without\n\t// executing the handler thereafter.\n\tMatch(rctx *Context, method, path string) bool\n}\n```\n\nEach routing method accepts a URL `pattern` and chain of `handlers`. The URL pattern\nsupports named params (ie. `/users/{userID}`) and wildcards (ie. `/admin/*`). URL parameters\ncan be fetched at runtime by calling `chi.URLParam(r, \"userID\")` for named parameters\nand `chi.URLParam(r, \"*\")` for a wildcard parameter.\n\n\n### Middleware handlers\n\nchi's middlewares are just stdlib net/http middleware handlers. There is nothing special\nabout them, which means the router and all the tooling is designed to be compatible and\nfriendly with any middleware in the community. This offers much better extensibility and reuse\nof packages and is at the heart of chi's purpose.\n\nHere is an example of a standard net/http middleware where we assign a context key `\"user\"`\nthe value of `\"123\"`. This middleware sets a hypothetical user identifier on the request\ncontext and calls the next handler in the chain.\n\n```go\n// HTTP middleware setting a value on the request context\nfunc MyMiddleware(next http.Handler) http.Handler {\n  return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {\n    // create new context from `r` request context, and assign key `\"user\"`\n    // to value of `\"123\"`\n    ctx := context.WithValue(r.Context(), \"user\", \"123\")\n\n    // call the next handler in the chain, passing the response writer and\n    // the updated request object with the new context value.\n    //\n    // note: context.Context values are nested, so any previously set\n    // values will be accessible as well, and the new `\"user\"` key\n    // will be accessible from this point forward.\n    next.ServeHTTP(w, r.WithContext(ctx))\n  })\n}\n```\n\n\n### Request handlers\n\nchi uses standard net/http request handlers. This little snippet is an example of a http.Handler\nfunc that reads a user identifier from the request context - hypothetically, identifying\nthe user sending an authenticated request, validated+set by a previous middleware handler.\n\n```go\n// HTTP handler accessing data from the request context.\nfunc MyRequestHandler(w http.ResponseWriter, r *http.Request) {\n  // here we read from the request context and fetch out `\"user\"` key set in\n  // the MyMiddleware example above.\n  user := r.Context().Value(\"user\").(string)\n\n  // respond to the client\n  w.Write([]byte(fmt.Sprintf(\"hi %s\", user)))\n}\n```\n\n\n### URL parameters\n\nchi's router parses and stores URL parameters right onto the request context. Here is\nan example of how to access URL params in your net/http handlers. And of course, middlewares\nare able to access the same information.\n\n```go\n// HTTP handler accessing the url routing parameters.\nfunc MyRequestHandler(w http.ResponseWriter, r *http.Request) {\n  // fetch the url parameter `\"userID\"` from the request of a matching\n  // routing pattern. An example routing pattern could be: /users/{userID}\n  userID := chi.URLParam(r, \"userID\")\n\n  // fetch `\"key\"` from the request context\n  ctx := r.Context()\n  key := ctx.Value(\"key\").(string)\n\n  // respond to the client\n  w.Write([]byte(fmt.Sprintf(\"hi %v, %v\", userID, key)))\n}\n```\n\n\n## Middlewares\n\nchi comes equipped with an optional `middleware` package, providing a suite of standard\n`net/http` middlewares. Please note, any middleware in the ecosystem that is also compatible\nwith `net/http` can be used with chi's mux.\n\n### Core middlewares\n\n----------------------------------------------------------------------------------------------------\n| chi/middleware Handler | description                                                             |\n| :--------------------- | :---------------------------------------------------------------------- |\n| [AllowContentEncoding] | Enforces a whitelist of request Content-Encoding headers                |\n| [AllowContentType]     | Explicit whitelist of accepted request Content-Types                    |\n| [BasicAuth]            | Basic HTTP authentication                                               |\n| [Compress]             | Gzip compression for clients that accept compressed responses           |\n| [ContentCharset]       | Ensure charset for Content-Type request headers                         |\n| [CleanPath]            | Clean double slashes from request path                                  |\n| [GetHead]              | Automatically route undefined HEAD requests to GET handlers             |\n| [Heartbeat]            | Monitoring endpoint to check the servers pulse                          |\n| [Logger]               | Logs the start and end of each request with the elapsed processing time |\n| [NoCache]              | Sets response headers to prevent clients from caching                   |\n| [Profiler]             | Easily attach net/http/pprof to your routers                            |\n| [RealIP]               | Sets a http.Request's RemoteAddr to either X-Real-IP or X-Forwarded-For |\n| [Recoverer]            | Gracefully absorb panics and prints the stack trace                     |\n| [RequestID]            | Injects a request ID into the context of each request                   |\n| [RedirectSlashes]      | Redirect slashes on routing paths                                       |\n| [RouteHeaders]         | Route handling for request headers                                      |\n| [SetHeader]            | Short-hand middleware to set a response header key/value                |\n| [StripSlashes]         | Strip slashes on routing paths                                          |\n| [Sunset]               | Sunset set Deprecation/Sunset header to response                        |\n| [Throttle]             | Puts a ceiling on the number of concurrent requests                     |\n| [Timeout]              | Signals to the request context when the timeout deadline is reached     |\n| [URLFormat]            | Parse extension from url and put it on request context                  |\n| [WithValue]            | Short-hand middleware to set a key/value on the request context         |\n----------------------------------------------------------------------------------------------------\n\n[AllowContentEncoding]: https://pkg.go.dev/github.com/go-chi/chi/middleware#AllowContentEncoding\n[AllowContentType]: https://pkg.go.dev/github.com/go-chi/chi/middleware#AllowContentType\n[BasicAuth]: https://pkg.go.dev/github.com/go-chi/chi/middleware#BasicAuth\n[Compress]: https://pkg.go.dev/github.com/go-chi/chi/middleware#Compress\n[ContentCharset]: https://pkg.go.dev/github.com/go-chi/chi/middleware#ContentCharset\n[CleanPath]: https://pkg.go.dev/github.com/go-chi/chi/middleware#CleanPath\n[GetHead]: https://pkg.go.dev/github.com/go-chi/chi/middleware#GetHead\n[GetReqID]: https://pkg.go.dev/github.com/go-chi/chi/middleware#GetReqID\n[Heartbeat]: https://pkg.go.dev/github.com/go-chi/chi/middleware#Heartbeat\n[Logger]: https://pkg.go.dev/github.com/go-chi/chi/middleware#Logger\n[NoCache]: https://pkg.go.dev/github.com/go-chi/chi/middleware#NoCache\n[Profiler]: https://pkg.go.dev/github.com/go-chi/chi/middleware#Profiler\n[RealIP]: https://pkg.go.dev/github.com/go-chi/chi/middleware#RealIP\n[Recoverer]: https://pkg.go.dev/github.com/go-chi/chi/middleware#Recoverer\n[RedirectSlashes]: https://pkg.go.dev/github.com/go-chi/chi/middleware#RedirectSlashes\n[RequestLogger]: https://pkg.go.dev/github.com/go-chi/chi/middleware#RequestLogger\n[RequestID]: https://pkg.go.dev/github.com/go-chi/chi/middleware#RequestID\n[RouteHeaders]: https://pkg.go.dev/github.com/go-chi/chi/middleware#RouteHeaders\n[SetHeader]: https://pkg.go.dev/github.com/go-chi/chi/middleware#SetHeader\n[StripSlashes]: https://pkg.go.dev/github.com/go-chi/chi/middleware#StripSlashes\n[Sunset]: https://pkg.go.dev/github.com/go-chi/chi/v5/middleware#Sunset\n[Throttle]: https://pkg.go.dev/github.com/go-chi/chi/middleware#Throttle\n[ThrottleBacklog]: https://pkg.go.dev/github.com/go-chi/chi/middleware#ThrottleBacklog\n[ThrottleWithOpts]: https://pkg.go.dev/github.com/go-chi/chi/middleware#ThrottleWithOpts\n[Timeout]: https://pkg.go.dev/github.com/go-chi/chi/middleware#Timeout\n[URLFormat]: https://pkg.go.dev/github.com/go-chi/chi/middleware#URLFormat\n[WithLogEntry]: https://pkg.go.dev/github.com/go-chi/chi/middleware#WithLogEntry\n[WithValue]: https://pkg.go.dev/github.com/go-chi/chi/middleware#WithValue\n[Compressor]: https://pkg.go.dev/github.com/go-chi/chi/middleware#Compressor\n[DefaultLogFormatter]: https://pkg.go.dev/github.com/go-chi/chi/middleware#DefaultLogFormatter\n[EncoderFunc]: https://pkg.go.dev/github.com/go-chi/chi/middleware#EncoderFunc\n[HeaderRoute]: https://pkg.go.dev/github.com/go-chi/chi/middleware#HeaderRoute\n[HeaderRouter]: https://pkg.go.dev/github.com/go-chi/chi/middleware#HeaderRouter\n[LogEntry]: https://pkg.go.dev/github.com/go-chi/chi/middleware#LogEntry\n[LogFormatter]: https://pkg.go.dev/github.com/go-chi/chi/middleware#LogFormatter\n[LoggerInterface]: https://pkg.go.dev/github.com/go-chi/chi/middleware#LoggerInterface\n[ThrottleOpts]: https://pkg.go.dev/github.com/go-chi/chi/middleware#ThrottleOpts\n[WrapResponseWriter]: https://pkg.go.dev/github.com/go-chi/chi/middleware#WrapResponseWriter\n\n### Extra middlewares & packages\n\nPlease see https://github.com/go-chi for additional packages.\n\n--------------------------------------------------------------------------------------------------------------------\n| package                                            | description                                                 |\n|:---------------------------------------------------|:-------------------------------------------------------------\n| [cors](https://github.com/go-chi/cors)             | Cross-origin resource sharing (CORS)                        |\n| [docgen](https://github.com/go-chi/docgen)         | Print chi.Router routes at runtime                          |\n| [jwtauth](https://github.com/go-chi/jwtauth)       | JWT authentication                                          |\n| [hostrouter](https://github.com/go-chi/hostrouter) | Domain/host based request routing                           |\n| [httplog](https://github.com/go-chi/httplog)       | Small but powerful structured HTTP request logging          |\n| [httprate](https://github.com/go-chi/httprate)     | HTTP request rate limiter                                   |\n| [httptracer](https://github.com/go-chi/httptracer) | HTTP request performance tracing library                    |\n| [httpvcr](https://github.com/go-chi/httpvcr)       | Write deterministic tests for external sources              |\n| [stampede](https://github.com/go-chi/stampede)     | HTTP request coalescer                                      |\n--------------------------------------------------------------------------------------------------------------------\n\n\n## context?\n\n`context` is a tiny pkg that provides simple interface to signal context across call stacks\nand goroutines. It was originally written by [Sameer Ajmani](https://github.com/Sajmani)\nand is available in stdlib since go1.7.\n\nLearn more at https://blog.golang.org/context\n\nand..\n* Docs: https://golang.org/pkg/context\n* Source: https://github.com/golang/go/tree/master/src/context\n\n\n## Benchmarks\n\nThe benchmark suite: https://github.com/pkieltyka/go-http-routing-benchmark\n\nResults as of Nov 29, 2020 with Go 1.15.5 on Linux AMD 3950x\n\n```shell\nBenchmarkChi_Param          \t3075895\t        384 ns/op\t      400 B/op      2 allocs/op\nBenchmarkChi_Param5         \t2116603\t        566 ns/op\t      400 B/op      2 allocs/op\nBenchmarkChi_Param20        \t 964117\t       1227 ns/op\t      400 B/op      2 allocs/op\nBenchmarkChi_ParamWrite     \t2863413\t        420 ns/op\t      400 B/op      2 allocs/op\nBenchmarkChi_GithubStatic   \t3045488\t        395 ns/op\t      400 B/op      2 allocs/op\nBenchmarkChi_GithubParam    \t2204115\t        540 ns/op\t      400 B/op      2 allocs/op\nBenchmarkChi_GithubAll      \t  10000\t     113811 ns/op\t    81203 B/op    406 allocs/op\nBenchmarkChi_GPlusStatic    \t3337485\t        359 ns/op\t      400 B/op      2 allocs/op\nBenchmarkChi_GPlusParam     \t2825853\t        423 ns/op\t      400 B/op      2 allocs/op\nBenchmarkChi_GPlus2Params   \t2471697\t        483 ns/op\t      400 B/op      2 allocs/op\nBenchmarkChi_GPlusAll       \t 194220\t       5950 ns/op\t     5200 B/op     26 allocs/op\nBenchmarkChi_ParseStatic    \t3365324\t        356 ns/op\t      400 B/op      2 allocs/op\nBenchmarkChi_ParseParam     \t2976614\t        404 ns/op\t      400 B/op      2 allocs/op\nBenchmarkChi_Parse2Params   \t2638084\t        439 ns/op\t      400 B/op      2 allocs/op\nBenchmarkChi_ParseAll       \t 109567\t      11295 ns/op\t    10400 B/op     52 allocs/op\nBenchmarkChi_StaticAll      \t  16846\t      71308 ns/op\t    62802 B/op    314 allocs/op\n```\n\nComparison with other routers: https://gist.github.com/pkieltyka/123032f12052520aaccab752bd3e78cc\n\nNOTE: the allocs in the benchmark above are from the calls to http.Request's\n`WithContext(context.Context)` method that clones the http.Request, sets the `Context()`\non the duplicated (alloc'd) request and returns it the new request object. This is just\nhow setting context on a request in Go works.\n\n\n## Credits\n\n* Carl Jackson for https://github.com/zenazn/goji\n  * Parts of chi's thinking comes from goji, and chi's middleware package\n    sources from [goji](https://github.com/zenazn/goji/tree/master/web/middleware).\n  * Please see goji's [LICENSE](https://github.com/zenazn/goji/blob/master/LICENSE) (MIT)\n* Armon Dadgar for https://github.com/armon/go-radix\n* Contributions: [@VojtechVitek](https://github.com/VojtechVitek)\n\nWe'll be more than happy to see [your contributions](./CONTRIBUTING.md)!\n\n\n## Beyond REST\n\nchi is just a http router that lets you decompose request handling into many smaller layers.\nMany companies use chi to write REST services for their public APIs. But, REST is just a convention\nfor managing state via HTTP, and there's a lot of other pieces required to write a complete client-server\nsystem or network of microservices.\n\nLooking beyond REST, I also recommend some newer works in the field:\n* [webrpc](https://github.com/webrpc/webrpc) - Web-focused RPC client+server framework with code-gen\n* [gRPC](https://github.com/grpc/grpc-go) - Google's RPC framework via protobufs\n* [graphql](https://github.com/99designs/gqlgen) - Declarative query language\n* [NATS](https://nats.io) - lightweight pub-sub\n\n\n## License\n\nCopyright (c) 2015-present [Peter Kieltyka](https://github.com/pkieltyka)\n\nLicensed under [MIT License](./LICENSE)\n\n[GoDoc]: https://pkg.go.dev/github.com/go-chi/chi/v5\n[GoDoc Widget]: https://godoc.org/github.com/go-chi/chi?status.svg\n[Travis]: https://travis-ci.org/go-chi/chi\n[Travis Widget]: https://travis-ci.org/go-chi/chi.svg?branch=master\n",
+        "releases": [
+            {
+                "name": "v5.2.0",
+                "date": "2024-12-15T21:57:43Z"
+            },
+            {
+                "name": "v5.1.0",
+                "date": "2024-06-28T14:36:12Z"
+            },
+            {
+                "name": "v5.0.14",
+                "date": "2024-06-21T13:03:44Z"
+            },
+            {
+                "name": "v5.0.13",
+                "date": "2024-06-18T14:02:10Z"
+            },
+            {
+                "name": "v5.0.12",
+                "date": "2024-02-17T00:43:30Z"
+            },
+            {
+                "name": "v5.0.11",
+                "date": "2023-12-20T02:40:57Z"
+            },
+            {
+                "name": "v5.0.10",
+                "date": "2023-07-13T16:02:37Z"
+            },
+            {
+                "name": "v5.0.9",
+                "date": "2023-07-13T15:59:54Z"
+            },
+            {
+                "name": "v5.0.8",
+                "date": "2022-12-07T13:27:24Z"
+            },
+            {
+                "name": "v5.0.7",
+                "date": "2021-11-18T21:57:51Z"
+            },
+            {
+                "name": "v5.0.6",
+                "date": "2021-11-15T21:31:50Z"
+            },
+            {
+                "name": "v5.0.5",
+                "date": "2021-10-27T11:14:07Z"
+            },
+            {
+                "name": "v5.0.4",
+                "date": "2021-08-29T14:38:10Z"
+            },
+            {
+                "name": "v5.0.3",
+                "date": "2021-04-29T22:41:07Z"
+            },
+            {
+                "name": "v5.0.2",
+                "date": "2021-03-25T13:05:13Z"
+            },
+            {
+                "name": "v5.0.1",
+                "date": "2021-03-10T12:43:56Z"
+            },
+            {
+                "name": "v5.0.0",
+                "date": "2021-02-28T00:13:49Z"
+            },
+            {
+                "name": "v1.5.4",
+                "date": "2021-02-27T20:54:17Z"
+            },
+            {
+                "name": "v1.5.3",
+                "date": "2021-02-21T20:29:31Z"
+            },
+            {
+                "name": "v1.5.2",
+                "date": "2021-02-10T19:46:35Z"
+            },
+            {
+                "name": "v1.5.1",
+                "date": "2020-12-06T18:55:34Z"
+            },
+            {
+                "name": "v1.5.0 - now with go.mod support",
+                "date": "2020-12-06T18:55:02Z"
+            },
+            {
+                "name": "v4.1.2",
+                "date": "2020-06-02T19:03:17Z"
+            },
+            {
+                "name": "v4.1.1",
+                "date": "2020-04-16T12:18:36Z"
+            },
+            {
+                "name": "v4.1.0",
+                "date": "2020-04-01T19:43:24Z"
+            },
+            {
+                "name": "v4.0.4",
+                "date": "2020-03-24T15:12:24Z"
+            },
+            {
+                "name": "v4.0.3",
+                "date": "2020-01-09T22:15:42Z"
+            },
+            {
+                "name": "v4.0.2",
+                "date": "2019-02-26T16:21:50Z"
+            },
+            {
+                "name": "v4.0.1",
+                "date": "2019-01-21T17:12:56Z"
+            },
+            {
+                "name": "v4.0.0",
+                "date": "2019-01-10T18:42:06Z"
+            },
+            {
+                "name": "v3.3.4",
+                "date": "2019-01-08T01:25:24Z"
+            },
+            {
+                "name": "v3.3.3",
+                "date": "2018-08-27T21:00:40Z"
+            },
+            {
+                "name": "v3.3.2",
+                "date": "2017-12-22T16:12:26Z"
+            },
+            {
+                "name": "v3.3.1",
+                "date": "2017-11-20T15:19:37Z"
+            },
+            {
+                "name": "v3.3.0",
+                "date": "2017-10-10T22:12:39Z"
+            },
+            {
+                "name": "Router tree Walker, an analogy to filepath.Walk",
+                "date": "2017-07-25T18:00:38Z"
+            },
+            {
+                "name": "v3.1.0",
+                "date": "2017-07-10T19:26:46Z"
+            },
+            {
+                "name": "v3.0.0",
+                "date": "2017-06-23T14:40:08Z"
+            },
+            {
+                "name": "v2.1.0",
+                "date": "2017-03-30T18:42:44Z"
+            },
+            {
+                "name": "v2.0.0",
+                "date": "2017-01-06T20:52:06Z"
+            },
+            {
+                "name": "v0.9.0 (2016-03-31)",
+                "date": "2016-08-02T14:05:18Z"
+            }
+        ]
+    }
+}

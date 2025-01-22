@@ -1,0 +1,480 @@
+{
+    "https://api.github.com/repos/SeleniumHQ/selenium": {
+        "forks": 8296,
+        "watchers": 31354,
+        "stars": 31354,
+        "languages": {
+            "Java": 6093256,
+            "C#": 3169379,
+            "C++": 2288118,
+            "JavaScript": 1962300,
+            "Ruby": 1180278,
+            "Python": 1159598,
+            "HTML": 940084,
+            "Starlark": 625628,
+            "Rust": 264219,
+            "TypeScript": 136793,
+            "C": 82970,
+            "Shell": 27380,
+            "PowerShell": 8326,
+            "Makefile": 4655,
+            "Dockerfile": 3377,
+            "Ragel": 3086,
+            "XSLT": 1047,
+            "ASP.NET": 825,
+            "Batchfile": 688,
+            "CSS": 600
+        },
+        "commits": [
+            "2025-01-22T00:19:50Z",
+            "2025-01-21T20:04:11Z",
+            "2025-01-21T09:02:07Z",
+            "2025-01-21T06:25:47Z",
+            "2025-01-21T00:19:18Z",
+            "2025-01-20T21:06:35Z",
+            "2025-01-20T20:56:32Z",
+            "2025-01-20T20:54:53Z",
+            "2025-01-20T20:53:23Z",
+            "2025-01-20T20:50:05Z",
+            "2025-01-20T19:24:53Z",
+            "2025-01-20T19:00:10Z",
+            "2025-01-20T17:59:49Z",
+            "2025-01-20T15:29:22Z",
+            "2025-01-20T12:35:09Z",
+            "2025-01-20T04:57:43Z",
+            "2025-01-20T02:09:44Z",
+            "2025-01-20T02:08:46Z",
+            "2025-01-20T02:08:29Z",
+            "2025-01-19T23:12:01Z",
+            "2025-01-19T21:04:40Z",
+            "2025-01-19T00:39:25Z",
+            "2025-01-19T00:39:04Z",
+            "2025-01-18T19:52:24Z",
+            "2025-01-18T15:18:01Z",
+            "2025-01-17T22:40:24Z",
+            "2025-01-17T22:05:46Z",
+            "2025-01-17T21:48:32Z",
+            "2025-01-17T21:42:55Z",
+            "2025-01-17T15:30:57Z"
+        ],
+        "creation_date": "2013-01-14T21:40:56Z",
+        "contributors": 30,
+        "topics": [
+            "dotnet",
+            "java",
+            "javascript",
+            "python",
+            "ruby",
+            "selenium",
+            "webdriver"
+        ],
+        "subscribers": 1281,
+        "readme": "# Selenium\n\n[![CI](https://github.com/SeleniumHQ/selenium/actions/workflows/ci.yml/badge.svg?branch=trunk&event=schedule)](https://github.com/SeleniumHQ/selenium/actions/workflows/ci.yml)\n[![CI - RBE](https://github.com/SeleniumHQ/selenium/actions/workflows/ci-rbe.yml/badge.svg?branch=trunk&event=schedule)](https://github.com/SeleniumHQ/selenium/actions/workflows/ci-rbe.yml)\n[![Releases downloads](https://img.shields.io/github/downloads/SeleniumHQ/selenium/total.svg)](https://github.com/SeleniumHQ/selenium/releases)\n\n<a href=\"https://selenium.dev\"><img src=\"common/images/selenium_logo_mark_green.svg\" width=\"180\" alt=\"Selenium Logo\"/></a>\n\nSelenium is an umbrella project encapsulating a variety of tools and\nlibraries enabling web browser automation. Selenium specifically\nprovides an infrastructure for the [W3C WebDriver specification](https://w3c.github.io/webdriver/)\n\u2014 a platform and language-neutral coding interface compatible with all\nmajor web browsers.\n\nThe project is made possible by volunteer contributors who've\ngenerously donated thousands of hours in code development and upkeep.\n\nSelenium's source code is made available under the [Apache 2.0 license](https://github.com/SeleniumHQ/selenium/blob/trunk/LICENSE).\n\nThis README is for developers interested in contributing to the project.\nFor people looking to get started using Selenium, please check out\nour [User Manual](https://selenium.dev/documentation/) for detailed examples and descriptions, and if you\nget stuck, there are several ways to [Get Help](https://www.selenium.dev/support/).\n\n## Contributing\n\nPlease read [CONTRIBUTING.md](https://github.com/SeleniumHQ/selenium/blob/trunk/CONTRIBUTING.md)\nbefore submitting your pull requests.\n\n\n## Installing\n\nThese are the requirements to create your own local dev environment to contribute to Selenium.\n\n### All Platforms\n* [Bazelisk](https://github.com/bazelbuild/bazelisk), a Bazel wrapper that automatically downloads\n  the version of Bazel specified in `.bazelversion` file and transparently passes through all\n  command-line arguments to the real Bazel binary.\n* Java JDK version 17 or greater (e.g., [Java 17 Temurin](https://adoptium.net/temurin/releases/?version=17))\n  * Set `JAVA_HOME` environment variable to location of Java executable (the JDK not the JRE)\n  * To test this, try running the command `javac`. This command won't exist if you only have the JRE\n  installed. If you're met with a list of command-line options, you're referencing the JDK properly.\n\n### MacOS\n  * Xcode including the command-line tools. Install the latest version using: `xcode-select --install`\n  * Rosetta for Apple Silicon Macs. Add `build --host_platform=//:rosetta` to the `.bazelrc.local` file. We are working\n  to make sure this isn't required in the long run.\n\n### Windows\nSeveral years ago [Jim Evans](https://www.linkedin.com/in/jimevansmusic/) published a great article on\n[Setting Up a Windows Development Environment for the Selenium .NET Language Bindings](https://jimevansmusic.blogspot.com/2020/04/setting-up-windows-development.html);\nThis article is out of date, but it includes more detailed descriptions and screenshots that some people might find useful.\n\n<details>\n<summary>Click to see Current Windows Setup Requirements</summary>\n\n#### Option 1: Automatic Installation from Scratch\nThis script will ensure a complete ready to execute developer environment.\n(nothing is installed or set that is already present unless otherwise prompted)\n\n1. Open Powershell as an Administrator\n2. Execute: `Set-ExecutionPolicy Bypass -Scope Process -Force` to allow running the script in the process\n3. Navigate to the directory you want to clone Selenium in, or the parent directory of an already cloned Selenium repo\n4. Download and execute this script in the powershell terminal: [scripts/dev-environment-setup.ps1]`\n\n#### Option 2: Manual Installation\n1. Allow running scripts in Selenium in general:\n    ```\n    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned\n    ```\n2. Enable Developer Mode:\n    ```\n    reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\AppModelUnlock\" /t REG_DWORD /f /v \"AllowDevelopmentWithoutDevLicense\" /d \"1\"\n    ```\n3. Install [MSYS2](https://www.msys2.org/), which is an alternative shell environment that provides Unix-like commands\n    * Add bin directory to `PATH` environment variable (e.g., `\"C:\\tools\\msys64\\usr\\bin\"`)\n    * Add `bash.exe` location as the `BAZEL_SH` environment variable (e.g., `\"C:\\tools\\msys64\\usr\\bin\\bash.exe\"`)\n4. Install the latest version of [Visual Studio Community](https://visualstudio.microsoft.com/vs/community/)\n    * Use the visual studio installer to modify and add the \"Desktop development with C++\" Workload\n    * Add Visual C++ build tools installation directory location to `BAZEL_VC` environment variable (e.g. `\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\"`)\n    * Add Visual C++ Build tools version to `BAZEL_VC_FULL_VERSION` environment variable (this can be discovered from the directory name in `\"$BAZEL_VC\\Tools\\MSVC\\<BAZEL_VC_FULL_VERSION>\"`)\n5. Add support for long file names (bazel has a lot of nested directories that can exceed default limits in Windows)\n    * Enable Long Paths support with these 2 registry commands:\n    ```shell\n    reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Command Processor\" /t REG_DWORD /f /v \"DisableUNCCheck\" /d \"1\"\n    reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\FileSystem\" /t REG_DWORD /f /v \"LongPathsEnabled\" /d \"1\"\n    ```\n    * Allow Bazel to create short name versions of long file paths: `fsutil 8dot3name set 0`\n    * Set bazel output to `C:/tmp` instead of nested inside project directory:\n        * Create a file `selenium/.bazelrc.windows.local`\n        * Add \"startup --output_user_root=C:/tmp\" to the file\n\n</details>\n\n### Alternative Dev Environments\n\nIf you want to contribute to the project, but do not want to set up your own local dev environment,\nthere are two alternatives available.\n\n#### Using GitPod\n\nRather than creating your own local dev environment, GitPod provides a ready to use environment for you.\n\n[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/SeleniumHQ/selenium)\n\n#### Using Dev Container\n\nAs an alternative you can build a [Dev Container](https://containers.dev/) - basically a docker container -\nsuitable for building and testing Selenium using the devcontainer.json in the\n[.devcontainer](.devcontainer/devcontainer.json) directory. Supporting IDEs like VS Code or IntelliJ IDEA\nshould point you to how such a container can be created.\n\n#### Using Docker Image\n\nYou can also build a Docker image suitable\nfor building and testing Selenium using the Dockerfile in the\n[dev image](scripts/dev-image/Dockerfile) directory.\n\n## Building\n\nSelenium is built using a common build tool called [Bazel](https://bazel.build/), to\nallow us to easily manage dependency downloads, generate required binaries, build and release packages, and execute tests;\nall in a fast, efficient manner. For a more detailed discussion, read Simon Stewart's article on [Building Selenium](https://www.selenium.dev/blog/2023/building-selenium/)\n\nOften we wrap Bazel commands with our custom [Rake](http://rake.rubyforge.org/) wrapper. These are run with the `./go` command.\n\nThe common Bazel commands are:\n* `bazel build` \u2014 evaluates dependencies, compiles source files and generates output files for the specified target.\nIt's used to create executable binaries, libraries, or other artifacts.\n* `bazel run` \u2014 builds the target and then executes it.\nIt's typically used for targets that produce executable binaries.\n* `bazel test` \u2014 builds and runs the target in a context with additional testing functionality\n* `bazel query` \u2014 identifies available targets for the provided path.\n\nEach module that can be built is defined in a `BUILD.bazel` file. To execute the module you refer to it starting with a\n`//`, then include the relative path to the file that defines it, then `:`, then the name of the target.\nFor example, the target to build the Grid is named `executable-grid` and it is\ndefined in the `'selenium/java/src/org/openqa/selenium/grid/BAZEL.build'` file.\nSo to build the grid you would run: `bazel build //java/src/org/openqa/selenium/grid:executable-grid`.\n\nThe Bazel documentation has a [handy guide](https://bazel.build/run/build#specifying-build-targets)\nfor various shortcuts and all the ways to build multiple targets, which Selenium makes frequent use of.\n\nTo build everything for a given language:\n```shell\nbazel build //<language>/...\n```\n\nTo build just the grid there is an alias name to use (the log will show where the output jar is located):\n```sh\nbazel build grid\n```\n\nTo make things more simple, building each of the bindings is available with this `./go` command\n```shell\n./go <language>:build\n```\n\n\n## Developing\n\n### Java\n\n#### IntelliJ\nMost of the team uses Intellij for their day-to-day editing. If you're\nworking in IntelliJ, then we highly recommend installing the [Bazel IJ\nplugin](https://plugins.jetbrains.com/plugin/8609-bazel) which is documented on\n[its own site](https://plugins.jetbrains.com/plugin/8609-bazel).\n\nTo use Selenium with the IntelliJ Bazel plugin, import the repository as a Bazel project, and select the project\nview file from the [scripts](scripts) directory. `ij.bazelproject` for Mac/Linux and `ij-win.bazelproject` for Windows.\n\n#### Linting\nWe also use Google Java Format for linting, so using the Google Java Formatter Plugin is useful;\nthere are a few steps to get it working, so read their [configuration documentation](https://github.com/google/google-java-format/blob/master/README.md#intellij-jre-config).\nThere is also an auto-formatting script that can be run: `./scripts/format.sh`\n\n#### Local Installation\nWhile Selenium is not built with Maven, you can build and install the Selenium pieces\nfor Maven to use locally by deploying to your local maven repository (`~/.m2/repository`), using:\n```shell\n./go java:install\n```\n\n#### Updating Dependencies\n\nDependencies are defined in the file [maven_deps.bzl](https://github.com/SeleniumHQ/selenium/blob/trunk/java/maven_deps.bzl).\nTo automatically update and pin new dependencies, run:\n\n```shell\n./go java:update\n```\n\n### Python\n\nYou can run Python code locally by updating generated files in the python directory using:\n```shell\n./go py:update\n```\n\nTo install Selenium locally based on a specific commit, you can use:\n```shell\n./go py:install\n```\n\n### Ruby\n\nInstead of using `irb`, you can create an interactive REPL with all gems loaded using: `bazel run //rb:console`\n\nIf you want to debug code, you can do it via [`debug`](https://github.com/ruby/debug) gem:\n1. Add `binding.break` to the code where you want the debugger to start.\n2. Run tests with  `ruby_debug` configuration: `bazel test --config ruby_debug <test>`.\n3. When debugger starts, run the following in a separate terminal to connect to debugger:\n\n```sh\nbazel-selenium/external/bundle/bin/rdbg -A\n```\n\nIf you want to use [RubyMine](https://www.jetbrains.com/ruby/) for development,\nyou can configure it use Bazel artifacts:\n\n1. Open `rb/` as a main project directory.\n2. Run `bundle exec rake update` as necessary to create up-to-date artifacts. If this does not work, run `./go rb:update` from the `selenium` (parent) directory.\n3. In <kbd>Settings / Languages & Frameworks / Ruby SDK and Gems</kbd> add new <kbd>Interpreter</kbd> pointing to `../bazel-selenium/external/rules_ruby_dist/dist/bin/ruby`.\n4. You should now be able to run and debug any spec. It uses Chrome by default, but you can alter it using environment variables secified in [Ruby Testing](#ruby-2) section below.\n\n### Rust\n\nTo keep `Carbo.Bazel.lock` synchronized with `Cargo.lock`, run:\n```shell\nCARGO_BAZEL_REPIN=true bazel sync --only=crates\n```\n\n\n## Testing\n\nThere are a number of bazel configurations specific for testing.\n\n### Common Options Examples\n\nHere are examples of arguments we make use of in testing the Selenium code:\n* `--pin_browsers` - run specific browser versions defined in the build (versions are updated regularly)\n* `--headless` - run browsers in headless mode (supported be Chrome, Edge and Firefox)\n* `--flaky_test_attempts 3` - re-run failed tests up to 3 times\n* `--local_test_jobs 1` - control parallelism of tests\n* `--cache_test_results=no`, `-t-` - disable caching of test results and re-runs all of them\n* `--test_output all` - print all output from the tests, not just errors\n* `--test_output streamed` - run all tests one by one and print its output immediately\n* `--test_env FOO=bar` - pass extra environment variable to test process\n* `--run_under=\"xvfb-run -a\"` - prefix to insert before the execution\n\n### Filtering\n\nSelenium tests can be filtered by size:\n* small \u2014 typically unit tests where no browser is opened\n* large \u2014 typically tests that actually drive a browser\n* medium \u2014 tests that are more involved than simple unit tests, but not fully driving a browser\n\nThese can be filtered using the `test_size_filters` argument like this:\n```sh\nbazel test //<language>/... --test_size_filters=small\n```\n\nTests can also be filtered by tag like:\n```sh\nbazel test //<language>/... --test_tag_filters=this,-not-this\n```\n\n### Java\n\n<details>\n<summary>Click to see Java Test Commands</summary>\n\nTo run unit tests:\n```shell\nbazel test //java/... --test_size_filters=small\n```\nTo run integration tests:\n```shell\nbazel test //java/... --test_size_filters=medium\n```\nTo run browser tests:\n```shell\nbazel test //java/... --test_size_filters=large --test_tag_filters=<browser>\n```\n\nTo run a specific test:\n```shell\nbazel test //java/test/org/openqa/selenium/chrome:ChromeDriverFunctionalTest\n```\n\n</details>\n\n### JavaScript\n<details>\n<summary>Click to see JavaScript Test Commands</summary>\n\nTo run the tests run:\n\n```sh\nbazel test //javascript/node/selenium-webdriver:tests\n```\n\nYou can use `--test_env` to pass in the browser name as `SELENIUM_BROWSER`.\n\n```sh\nbazel test //javascript/node/selenium-webdriver:tests --test_env=SELENIUM_BROWSER=firefox\n```\n\n</details>\n\n### Python\n<details>\n<summary>Click to see Python Test Commands</summary>\n\nRun unit tests with:\n```shell\nbazel test //py:unit\n```\n\nTo run common tests with a specific browser:\n\n```sh\nbazel test //py:common-<browsername>\n```\n\nTo run common tests with a specific browser (include BiDi tests):\n\n```sh\nbazel test //py:common-<browsername>-bidi\n```\n\nTo run tests with a specific browser:\n\n```sh\nbazel test //py:test-<browsername>\n```\n\nTo run all Python tests:\n```shell\nbazel test //py:all\n```\n\n</details>\n\n### Ruby\n<details>\n<summary>Click to see Ruby Test Commands</summary>\n\nTest targets:\n\n| Command                                                                          | Description                                        |\n| -------------------------------------------------------------------------------- | -------------------------------------------------- |\n| `bazel test //rb/...`                                                            | Run unit, all integration tests and lint           |\n| `bazel test //rb:lint`                                                           | Run RuboCop linter                                 |\n| `bazel test //rb/spec/...`                                                       | Run unit and integration tests for all browsers    |\n| `bazel test //rb/spec/... --test_size_filters small`                             | Run unit tests                                     |\n| `bazel test //rb/spec/unit/...`                                                  | Run unit tests                                     |\n| `bazel test //rb/spec/... --test_size_filters large`                             | Run integration tests for all browsers             |\n| `bazel test //rb/spec/integration/...`                                           | Run integration tests for all browsers             |\n| `bazel test //rb/spec/integration/... --test_tag_filters firefox`                | Run integration tests for local Firefox only       |\n| `bazel test //rb/spec/integration/... --test_tag_filters firefox-remote`         | Run integration tests for remote Firefox only      |\n| `bazel test //rb/spec/integration/... --test_tag_filters firefox,firefox-remote` | Run integration tests for local and remote Firefox |\n\nRuby test targets have the same name as the spec file with `_spec.rb` removed, so you can run them individually.\nIntegration tests targets also have a browser and remote suffix to control which browser to pick and whether to use Grid.\n\n| Test file                                               | Test target                                                      |\n| ------------------------------------------------------- | ---------------------------------------------------------------- |\n| `rb/spec/unit/selenium/webdriver/proxy_spec.rb`         | `//rb/spec/unit/selenium/webdriver:proxy`                        |\n| `rb/spec/integration/selenium/webdriver/driver_spec.rb` | `//rb/spec/integration/selenium/webdriver:driver-chrome`         |\n| `rb/spec/integration/selenium/webdriver/driver_spec.rb` | `//rb/spec/integration/selenium/webdriver:driver-chrome-remote`  |\n| `rb/spec/integration/selenium/webdriver/driver_spec.rb` | `//rb/spec/integration/selenium/webdriver:driver-firefox`        |\n| `rb/spec/integration/selenium/webdriver/driver_spec.rb` | `//rb/spec/integration/selenium/webdriver:driver-firefox-remote` |\n\nSupported browsers:\n\n* `chrome`\n* `edge`\n* `firefox`\n* `firefox-beta`\n* `ie`\n* `safari`\n* `safari-preview`\n\nIn addition to the [Common Options Examples](#common-options-examples), here are some additional Ruby specific ones:\n* `--test_arg \"-eTimeouts\"` - test only specs which name include \"Timeouts\"\n* `--test_arg \"<any other RSpec argument>\"` - pass any extra RSpec arguments (see `bazel run @bundle//bin:rspec -- --help`)\n\nSupported environment variables for use with `--test_env`:\n\n- `WD_SPEC_DRIVER` - the driver to test; either the browser name or 'remote' (gets set by Bazel)\n- `WD_REMOTE_BROWSER` - when `WD_SPEC_DRIVER` is `remote`; the name of the browser to test (gets set by Bazel)\n- `WD_REMOTE_URL` - URL of an already running server to use for remote tests\n- `DOWNLOAD_SERVER` - when `WD_REMOTE_URL` not set; whether to download and use most recently released server version for remote tests\n- `DEBUG` - turns on verbose debugging\n- `HEADLESS` - for chrome, edge and firefox; runs tests in headless mode\n- `DISABLE_BUILD_CHECK` - for chrome and edge; whether to ignore driver and browser version mismatches (allows testing Canary builds)\n- `CHROME_BINARY` - path to test specific Chrome browser\n- `CHROMEDRIVER_BINARY` - path to test specific ChromeDriver\n- `EDGE_BINARY` - path to test specific Edge browser\n- `MSEDGEDRIVER_BINARY` - path to test specific msedgedriver\n- `FIREFOX_BINARY` - path to test specific Firefox browser\n- `GECKODRIVER_BINARY` - path to test specific GeckoDriver\n\nTo run with a specific version of Ruby you can change the version in `rb/.ruby-version` or from command line:\n\n```sh\necho '<X.Y.Z>' > rb/.ruby-version\n```\n</details>\n\n### .NET\n<details>\n<summary>Click to see .NET Test Commands</summary>\n\n.NET tests currently only work with pinned browsers, so make sure to include that.\n\nRun all tests with:\n```sh\nbazel test //dotnet/test/common:AllTests --pin_browsers=true\n```\n\nYou can run specific tests by specifying the class name:\n```shell\nbazel test //dotnet/test/common:ElementFindingTest --pin_browsers=true\n```\n\nIf the module supports multiple browsers:\n```shell\nbazel test //dotnet/test/common:ElementFindingTest-edge --pin_browsers=true\n```\n\n</details>\n\n### Rust\n<details>\n<summary>Click to see Rust Test Commands</summary>\n\nRust tests are run with:\n\n```shell\nbazel test //rust/...\n```\n</details>\n\n### Linux\n\n<details>\n<summary>Click to see Linux Testing Requirements</summary>\n\nBy default, Bazel runs these tests in your current X-server UI. If you prefer, you can\nalternatively run them in a virtual or nested X-server.\n\n1. Run the X server `Xvfb :99` or `Xnest :99`\n2. Run a window manager, for example, `DISPLAY=:99 jwm`\n3. Run the tests you are interested in:\n```sh\nbazel test --test_env=DISPLAY=:99 //java/... --test_tag_filters=chrome\n```\n\nAn easy way to run tests in a virtual X-server is to use Bazel's `--run_under`\nfunctionality:\n```\nbazel test --run_under=\"xvfb-run -a\" //java/...\n```\n</details>\n\n\n## Documenting\n\nAPI documentation can be found here:\n\n* [C#](https://seleniumhq.github.io/selenium/docs/api/dotnet/)\n* [JavaScript](https://seleniumhq.github.io/selenium/docs/api/javascript/)\n* [Java](https://seleniumhq.github.io/selenium/docs/api/java/index.html)\n* [Python](https://seleniumhq.github.io/selenium/docs/api/py/)\n* [Ruby](https://seleniumhq.github.io/selenium/docs/api/rb/)\n\nTo update API documentation for a specific language: `./go <language>:docs`\n\nTo update all documentation: `./go all:docs`\n\nNote that JavaScript generation is [currently broken](https://github.com/SeleniumHQ/selenium/issues/10185).\n\n\n## Releasing\n\nThe full process for doing a release can be found in [the wiki](https://github.com/SeleniumHQ/selenium/wiki/Releasing-Selenium)\n\nReleasing is a combination of building and publishing, which often requires coordination of multiple executions\nand additional processing.\nAs discussed in the [Building](#building) section, we use Rake tasks with the `./go` command for these things.\nThese `./go` commands include the `--stamp` argument to provide necessary information about the constructed asset.\n\nYou can build and release everything with:\n```shell\n./go all:release\n```\n\nTo build and release a specific language:\n```shell\n./go <language>:release\n```\n\nIf you have access to the Selenium EngFlow repository, you can have the assets built remotely and downloaded locally using:\n```shell\n./go all:release['--config', 'release']\n```\n",
+        "releases": [
+            {
+                "name": "Nightly",
+                "date": "2025-01-22T00:16:56Z"
+            },
+            {
+                "name": "Selenium 4.28.0",
+                "date": "2025-01-20T16:57:55Z"
+            },
+            {
+                "name": "Selenium 4.27.0",
+                "date": "2024-11-25T14:18:33Z"
+            },
+            {
+                "name": "Selenium 4.26.0",
+                "date": "2024-10-30T05:36:08Z"
+            },
+            {
+                "name": "Selenium 4.25.0",
+                "date": "2024-09-20T15:03:52Z"
+            },
+            {
+                "name": "Selenium 4.24.0",
+                "date": "2024-08-28T13:54:54Z"
+            },
+            {
+                "name": "Selenium 4.23.0",
+                "date": "2024-07-19T10:31:13Z"
+            },
+            {
+                "name": "Selenium 4.22.0",
+                "date": "2024-06-20T21:38:21Z"
+            },
+            {
+                "name": "Selenium 4.21.0",
+                "date": "2024-05-16T11:24:31Z"
+            },
+            {
+                "name": "Selenium 4.20.0",
+                "date": "2024-04-24T21:03:08Z"
+            },
+            {
+                "name": "Selenium 4.19.0",
+                "date": "2024-03-27T18:09:23Z"
+            },
+            {
+                "name": "Selenium 4.18.0 ",
+                "date": "2024-02-20T01:02:16Z"
+            },
+            {
+                "name": "Selenium 4.17.0",
+                "date": "2024-01-23T06:33:12Z"
+            },
+            {
+                "name": "Selenium 4.16",
+                "date": "2023-12-06T14:24:52Z"
+            },
+            {
+                "name": "Selenium 4.15",
+                "date": "2023-11-01T14:31:11Z"
+            },
+            {
+                "name": "Selenium 4.14",
+                "date": "2023-10-10T03:42:22Z"
+            },
+            {
+                "name": "Selenium 4.13",
+                "date": "2023-09-25T21:45:29Z"
+            },
+            {
+                "name": "Selenium 4.12.0",
+                "date": "2023-08-31T20:30:36Z"
+            },
+            {
+                "name": "Selenium 4.11.0",
+                "date": "2023-07-31T19:31:45Z"
+            },
+            {
+                "name": "Selenium 4.10.0",
+                "date": "2023-06-07T15:40:55Z"
+            },
+            {
+                "name": "Selenium 4.9.0",
+                "date": "2023-04-20T23:44:33Z"
+            },
+            {
+                "name": "Selenium 4.8.0",
+                "date": "2023-01-23T12:56:29Z"
+            },
+            {
+                "name": "Selenium 4.7.0",
+                "date": "2022-12-01T23:55:52Z"
+            },
+            {
+                "name": "Selenium 4.6.0",
+                "date": "2022-11-04T10:01:55Z"
+            },
+            {
+                "name": "Selenium 4.5.0",
+                "date": "2022-09-28T20:41:06Z"
+            },
+            {
+                "name": "Selenium 4.4.0",
+                "date": "2022-08-09T10:54:40Z"
+            },
+            {
+                "name": "Selenium 4.3.0",
+                "date": "2022-06-23T21:27:12Z"
+            },
+            {
+                "name": "Selenium 4.2.0",
+                "date": "2022-05-27T17:57:08Z"
+            },
+            {
+                "name": "Selenium 4.1.0",
+                "date": "2021-11-22T15:30:02Z"
+            },
+            {
+                "name": "Selenium 4.0.0",
+                "date": "2021-10-13T13:13:42Z"
+            },
+            {
+                "name": "Selenium 4.0.0 RC3",
+                "date": "2021-10-08T16:57:11Z"
+            },
+            {
+                "name": "Selenium 4.0.0 RC2",
+                "date": "2021-09-30T15:35:30Z"
+            },
+            {
+                "name": "Selenium 4.0.0 RC 1",
+                "date": "2021-09-01T16:35:27Z"
+            },
+            {
+                "name": "Selenium 4.0.0 Beta 4",
+                "date": "2021-08-20T08:17:45Z"
+            },
+            {
+                "name": "Selenium 4.0.0 Beta 3",
+                "date": "2021-08-20T08:15:21Z"
+            },
+            {
+                "name": "Selenium 4.0.0 Beta 2",
+                "date": "2021-08-20T08:14:30Z"
+            },
+            {
+                "name": "Selenium 4.0.0 Beta 1",
+                "date": "2021-08-20T08:11:54Z"
+            },
+            {
+                "name": "Selenium 4.0.0 Alpha 7",
+                "date": "2021-08-20T08:09:38Z"
+            },
+            {
+                "name": "Selenium 4.0.0 Alpha 6",
+                "date": "2021-08-20T08:07:39Z"
+            },
+            {
+                "name": "Selenium 4.0.0 Alpha 5",
+                "date": "2021-08-20T08:05:09Z"
+            },
+            {
+                "name": "Selenium 4.0.0 Alpha 4",
+                "date": "2021-08-20T08:01:53Z"
+            },
+            {
+                "name": "Selenium 4.0.0 Alpha 3",
+                "date": "2021-08-20T07:59:35Z"
+            },
+            {
+                "name": "Selenium 3.150.0",
+                "date": "2021-08-19T16:47:39Z"
+            },
+            {
+                "name": "Selenium 4.0.0 Alpha 2",
+                "date": "2021-08-20T07:55:55Z"
+            },
+            {
+                "name": "Selenium 4.0.0 Alpha 1",
+                "date": "2021-08-20T07:48:24Z"
+            },
+            {
+                "name": "Selenium 3.141.59",
+                "date": "2018-12-19T20:46:40Z"
+            },
+            {
+                "name": "Selenium 3.141.5",
+                "date": "2018-12-19T20:46:17Z"
+            },
+            {
+                "name": "Selenium 3.141.0",
+                "date": "2018-12-19T20:45:27Z"
+            },
+            {
+                "name": "Selenium 3.14.0",
+                "date": "2018-08-16T15:53:28Z"
+            },
+            {
+                "name": "Selenium 3.13.0",
+                "date": "2018-08-16T15:52:18Z"
+            },
+            {
+                "name": "Selenium 3.12.0",
+                "date": "2018-08-16T15:51:32Z"
+            },
+            {
+                "name": "Selenium 3.11.0",
+                "date": "2018-04-12T18:54:53Z"
+            },
+            {
+                "name": "Selenium 3.10.0",
+                "date": "2018-04-12T18:54:14Z"
+            },
+            {
+                "name": "Selenium 3.9.1",
+                "date": "2018-04-12T18:53:42Z"
+            },
+            {
+                "name": "Selenium 3.9.0",
+                "date": "2018-04-12T18:52:54Z"
+            },
+            {
+                "name": "Selenium 3.8.1",
+                "date": "2017-12-15T17:49:15Z"
+            },
+            {
+                "name": "Selenium 3.8.0",
+                "date": "2017-12-15T17:48:57Z"
+            },
+            {
+                "name": "Selenium 3.7.1",
+                "date": "2017-12-15T17:45:59Z"
+            },
+            {
+                "name": "Selenium 3.7.0",
+                "date": "2017-12-15T17:45:19Z"
+            },
+            {
+                "name": "Selenium 3.6.0",
+                "date": "2017-12-15T17:36:03Z"
+            },
+            {
+                "name": "Selenium 3.5.3",
+                "date": "2017-08-30T19:15:04Z"
+            },
+            {
+                "name": "Selenium 3.5.2",
+                "date": "2017-08-30T19:14:43Z"
+            },
+            {
+                "name": "Selenium 3.5.1",
+                "date": "2017-08-30T19:14:17Z"
+            },
+            {
+                "name": "Selenium 3.5.0",
+                "date": "2017-08-30T19:13:38Z"
+            },
+            {
+                "name": "Selenium 3.4.0",
+                "date": "2017-04-21T17:42:29Z"
+            },
+            {
+                "name": "Selenium 3.3.1",
+                "date": "2017-03-28T15:46:44Z"
+            },
+            {
+                "name": "Selenium 3.3.0",
+                "date": "2017-03-28T15:46:13Z"
+            },
+            {
+                "name": "Selenium 3.2.0",
+                "date": "2017-03-28T15:45:26Z"
+            },
+            {
+                "name": "Selenium 3.1.0",
+                "date": "2017-02-17T19:09:31Z"
+            },
+            {
+                "name": "Selenium 3.0.1",
+                "date": "2017-01-18T07:32:38Z"
+            },
+            {
+                "name": "Selenium 3.0.0",
+                "date": "2016-10-14T12:29:05Z"
+            },
+            {
+                "name": "Selenium 3.0.0-beta-4",
+                "date": "2021-08-19T15:27:45Z"
+            },
+            {
+                "name": "Selenium 3.0.0-beta-3",
+                "date": "2021-08-19T15:26:35Z"
+            },
+            {
+                "name": "Selenium 3.0.0-beta-2",
+                "date": "2021-08-19T15:25:31Z"
+            },
+            {
+                "name": "Selenium 3.0.0-beta-1",
+                "date": "2021-08-19T15:24:35Z"
+            },
+            {
+                "name": "Selenium 2.53.1",
+                "date": "2021-08-19T15:09:53Z"
+            },
+            {
+                "name": "Selenium 2.53.0",
+                "date": "2021-08-19T15:08:50Z"
+            },
+            {
+                "name": "Selenium 2.52.2",
+                "date": "2021-08-19T15:05:45Z"
+            },
+            {
+                "name": "Selenium 2.52.1",
+                "date": "2021-08-19T15:04:29Z"
+            },
+            {
+                "name": "Selenium 2.52.0",
+                "date": "2016-02-16T22:22:57Z"
+            },
+            {
+                "name": "Selenium 2.51.0",
+                "date": "2021-08-19T14:45:25Z"
+            },
+            {
+                "name": "Selenium 2.50.1",
+                "date": "2021-08-19T14:44:11Z"
+            },
+            {
+                "name": "Selenium 2.50.0",
+                "date": "2021-08-19T14:41:25Z"
+            },
+            {
+                "name": "Selenium 2.49.1",
+                "date": "2021-08-19T14:40:45Z"
+            },
+            {
+                "name": "Selenium 2.49.0",
+                "date": "2021-08-19T14:33:16Z"
+            },
+            {
+                "name": "Selenium 2.48.2",
+                "date": "2021-08-19T14:31:59Z"
+            },
+            {
+                "name": "Selenium 2.48.1",
+                "date": "2021-08-19T14:31:47Z"
+            },
+            {
+                "name": "Selenium 2.48.0",
+                "date": "2021-08-19T14:29:35Z"
+            },
+            {
+                "name": "Selenium 2.47.1",
+                "date": "2021-08-19T14:28:17Z"
+            },
+            {
+                "name": "Selenium 2.47.0",
+                "date": "2021-08-19T14:26:58Z"
+            },
+            {
+                "name": "Selenium 2.46.0",
+                "date": "2021-08-19T14:24:43Z"
+            },
+            {
+                "name": "Selenium 2.45.0",
+                "date": "2021-08-19T14:23:11Z"
+            },
+            {
+                "name": "Selenium 2.44.0",
+                "date": "2021-08-19T14:16:24Z"
+            },
+            {
+                "name": "Selenium 2.43.1",
+                "date": "2021-08-19T14:14:13Z"
+            },
+            {
+                "name": "Selenium 2.43.0",
+                "date": "2021-08-19T14:11:34Z"
+            },
+            {
+                "name": "Selenium 2.42.2",
+                "date": "2021-08-19T14:08:07Z"
+            },
+            {
+                "name": "Selenium 2.42.1",
+                "date": "2021-08-19T14:05:56Z"
+            },
+            {
+                "name": "Selenium 2.42.0",
+                "date": "2021-08-19T14:00:41Z"
+            },
+            {
+                "name": "Selenium 2.41.0",
+                "date": "2021-08-19T13:54:55Z"
+            },
+            {
+                "name": "Selenium 2.40.0",
+                "date": "2021-08-19T13:44:10Z"
+            },
+            {
+                "name": "Selenium 2.39.0",
+                "date": "2021-08-19T13:37:52Z"
+            }
+        ]
+    }
+}

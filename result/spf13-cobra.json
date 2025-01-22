@@ -1,0 +1,155 @@
+{
+    "https://api.github.com/repos/spf13/cobra": {
+        "forks": 2872,
+        "watchers": 38917,
+        "stars": 38917,
+        "languages": {
+            "Go": 439264,
+            "Makefile": 907
+        },
+        "commits": [
+            "2025-01-22T01:34:05Z",
+            "2025-01-12T12:49:28Z",
+            "2024-12-28T22:41:43Z",
+            "2024-12-28T22:07:03Z",
+            "2024-12-17T02:26:34Z",
+            "2024-12-11T12:26:08Z",
+            "2024-11-05T11:19:24Z",
+            "2024-11-04T00:45:01Z",
+            "2024-10-16T18:13:47Z",
+            "2024-10-12T16:08:27Z",
+            "2024-10-12T15:35:01Z",
+            "2024-10-11T10:40:47Z",
+            "2024-08-24T23:02:44Z",
+            "2024-08-24T11:05:26Z",
+            "2024-07-28T16:18:07Z",
+            "2024-07-16T23:36:29Z",
+            "2024-06-01T10:31:11Z",
+            "2024-05-19T02:12:02Z",
+            "2024-05-18T13:41:31Z",
+            "2024-04-13T02:21:03Z",
+            "2024-04-08T10:47:35Z",
+            "2024-04-01T12:42:08Z",
+            "2024-03-12T10:42:46Z",
+            "2024-03-12T10:40:19Z",
+            "2024-03-12T10:40:01Z",
+            "2024-03-12T01:36:37Z",
+            "2024-03-12T01:35:05Z",
+            "2024-03-08T00:36:58Z",
+            "2024-01-15T13:38:50Z",
+            "2024-01-06T21:49:13Z"
+        ],
+        "creation_date": "2013-09-03T20:40:26Z",
+        "contributors": 30,
+        "topics": [
+            "cli",
+            "cli-app",
+            "cobra",
+            "cobra-generator",
+            "cobra-library",
+            "command",
+            "command-cobra",
+            "command-line",
+            "commandline",
+            "go",
+            "golang",
+            "golang-application",
+            "golang-library",
+            "posix",
+            "posix-compliant-flags",
+            "subcommands"
+        ],
+        "subscribers": 366,
+        "readme": "![cobra logo](assets/CobraMain.png)\n\nCobra is a library for creating powerful modern CLI applications.\n\nCobra is used in many Go projects such as [Kubernetes](https://kubernetes.io/),\n[Hugo](https://gohugo.io), and [GitHub CLI](https://github.com/cli/cli) to\nname a few. [This list](site/content/projects_using_cobra.md) contains a more extensive list of projects using Cobra.\n\n[![](https://img.shields.io/github/actions/workflow/status/spf13/cobra/test.yml?branch=main&longCache=true&label=Test&logo=github%20actions&logoColor=fff)](https://github.com/spf13/cobra/actions?query=workflow%3ATest)\n[![Go Reference](https://pkg.go.dev/badge/github.com/spf13/cobra.svg)](https://pkg.go.dev/github.com/spf13/cobra)\n[![Go Report Card](https://goreportcard.com/badge/github.com/spf13/cobra)](https://goreportcard.com/report/github.com/spf13/cobra)\n[![Slack](https://img.shields.io/badge/Slack-cobra-brightgreen)](https://gophers.slack.com/archives/CD3LP1199)\n\n# Overview\n\nCobra is a library providing a simple interface to create powerful modern CLI\ninterfaces similar to git & go tools.\n\nCobra provides:\n* Easy subcommand-based CLIs: `app server`, `app fetch`, etc.\n* Fully POSIX-compliant flags (including short & long versions)\n* Nested subcommands\n* Global, local and cascading flags\n* Intelligent suggestions (`app srver`... did you mean `app server`?)\n* Automatic help generation for commands and flags\n* Grouping help for subcommands\n* Automatic help flag recognition of `-h`, `--help`, etc.\n* Automatically generated shell autocomplete for your application (bash, zsh, fish, powershell)\n* Automatically generated man pages for your application\n* Command aliases so you can change things without breaking them\n* The flexibility to define your own help, usage, etc.\n* Optional seamless integration with [viper](https://github.com/spf13/viper) for 12-factor apps\n\n# Concepts\n\nCobra is built on a structure of commands, arguments & flags.\n\n**Commands** represent actions, **Args** are things and **Flags** are modifiers for those actions.\n\nThe best applications read like sentences when used, and as a result, users\nintuitively know how to interact with them.\n\nThe pattern to follow is\n`APPNAME VERB NOUN --ADJECTIVE`\n    or\n`APPNAME COMMAND ARG --FLAG`.\n\nA few good real world examples may better illustrate this point.\n\nIn the following example, 'server' is a command, and 'port' is a flag:\n\n    hugo server --port=1313\n\nIn this command we are telling Git to clone the url bare.\n\n    git clone URL --bare\n\n## Commands\n\nCommand is the central point of the application. Each interaction that\nthe application supports will be contained in a Command. A command can\nhave children commands and optionally run an action.\n\nIn the example above, 'server' is the command.\n\n[More about cobra.Command](https://pkg.go.dev/github.com/spf13/cobra#Command)\n\n## Flags\n\nA flag is a way to modify the behavior of a command. Cobra supports\nfully POSIX-compliant flags as well as the Go [flag package](https://golang.org/pkg/flag/).\nA Cobra command can define flags that persist through to children commands\nand flags that are only available to that command.\n\nIn the example above, 'port' is the flag.\n\nFlag functionality is provided by the [pflag\nlibrary](https://github.com/spf13/pflag), a fork of the flag standard library\nwhich maintains the same interface while adding POSIX compliance.\n\n# Installing\nUsing Cobra is easy. First, use `go get` to install the latest version\nof the library.\n\n```\ngo get -u github.com/spf13/cobra@latest\n```\n\nNext, include Cobra in your application:\n\n```go\nimport \"github.com/spf13/cobra\"\n```\n\n# Usage\n`cobra-cli` is a command line program to generate cobra applications and command files.\nIt will bootstrap your application scaffolding to rapidly\ndevelop a Cobra-based application. It is the easiest way to incorporate Cobra into your application.\n\nIt can be installed by running:\n\n```\ngo install github.com/spf13/cobra-cli@latest\n```\n\nFor complete details on using the Cobra-CLI generator, please read [The Cobra Generator README](https://github.com/spf13/cobra-cli/blob/main/README.md)\n\nFor complete details on using the Cobra library, please read [The Cobra User Guide](site/content/user_guide.md).\n\n# License\n\nCobra is released under the Apache 2.0 license. See [LICENSE.txt](LICENSE.txt)\n",
+        "releases": [
+            {
+                "name": "v1.8.1",
+                "date": "2024-06-14T20:55:24Z"
+            },
+            {
+                "name": "v1.8.0",
+                "date": "2023-11-04T21:06:08Z"
+            },
+            {
+                "name": "v1.7.0",
+                "date": "2023-04-04T14:43:58Z"
+            },
+            {
+                "name": "v1.6.1",
+                "date": "2022-10-24T23:03:01Z"
+            },
+            {
+                "name": "v1.6.0",
+                "date": "2022-10-11T15:37:05Z"
+            },
+            {
+                "name": "v1.5.0",
+                "date": "2022-06-21T02:37:06Z"
+            },
+            {
+                "name": "v1.4.0",
+                "date": "2022-03-10T15:57:43Z"
+            },
+            {
+                "name": "v1.3.0",
+                "date": "2021-12-14T19:05:30Z"
+            },
+            {
+                "name": "v1.2.1",
+                "date": "2021-07-02T15:28:26Z"
+            },
+            {
+                "name": "v1.2.0 - The completions release",
+                "date": "2021-07-01T17:41:14Z"
+            },
+            {
+                "name": "v1.1.3",
+                "date": "2021-02-10T19:42:35Z"
+            },
+            {
+                "name": "v1.1.2",
+                "date": "2021-02-10T01:41:19Z"
+            },
+            {
+                "name": "v1.1.1",
+                "date": "2020-10-18T19:13:12Z"
+            },
+            {
+                "name": "v1.1.0",
+                "date": "2020-10-14T16:44:02Z"
+            },
+            {
+                "name": "v1.0.0",
+                "date": "2020-04-10T20:15:52Z"
+            },
+            {
+                "name": "v0.0.7",
+                "date": "2020-03-27T20:45:23Z"
+            },
+            {
+                "name": "",
+                "date": "2020-02-20T06:40:44Z"
+            },
+            {
+                "name": "",
+                "date": "2019-06-07T21:10:15Z"
+            },
+            {
+                "name": "0.0.4",
+                "date": "2019-05-18T19:54:50Z"
+            },
+            {
+                "name": "0.0.3",
+                "date": "2018-05-15T15:41:50Z"
+            },
+            {
+                "name": "0.0.2",
+                "date": "2018-03-29T17:54:47Z"
+            },
+            {
+                "name": "0.0.1",
+                "date": "2017-10-24T18:17:24Z"
+            }
+        ]
+    }
+}

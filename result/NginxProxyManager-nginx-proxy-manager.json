@@ -1,0 +1,349 @@
+{
+    "https://api.github.com/repos/NginxProxyManager/nginx-proxy-manager": {
+        "forks": 2813,
+        "watchers": 24221,
+        "stars": 24221,
+        "languages": {
+            "JavaScript": 492094,
+            "EJS": 146943,
+            "Shell": 22363,
+            "SCSS": 10561,
+            "Dockerfile": 3715,
+            "HTML": 1033
+        },
+        "commits": [
+            "2025-01-07T00:30:08Z",
+            "2025-01-06T22:13:04Z",
+            "2025-01-06T21:54:44Z",
+            "2024-12-29T04:00:51Z",
+            "2024-12-29T04:00:18Z",
+            "2024-12-29T03:52:03Z",
+            "2024-12-26T01:51:28Z",
+            "2024-12-24T08:19:52Z",
+            "2024-12-24T07:51:25Z",
+            "2024-12-24T07:24:05Z",
+            "2024-12-23T22:57:54Z",
+            "2024-12-23T22:16:48Z",
+            "2024-12-23T22:15:55Z",
+            "2024-12-22T00:44:52Z",
+            "2024-12-22T00:02:47Z",
+            "2024-12-20T00:03:21Z",
+            "2024-12-19T23:59:26Z",
+            "2024-12-19T15:10:46Z",
+            "2024-12-16T21:59:45Z",
+            "2024-12-16T21:57:43Z",
+            "2024-12-16T21:52:24Z",
+            "2024-12-14T10:02:55Z",
+            "2024-12-08T14:23:37Z",
+            "2024-12-07T11:01:57Z",
+            "2024-12-07T10:27:29Z",
+            "2024-12-04T04:50:42Z",
+            "2024-12-04T03:08:21Z",
+            "2024-12-04T02:45:56Z",
+            "2024-12-04T02:08:49Z",
+            "2024-12-04T00:58:08Z"
+        ],
+        "creation_date": "2017-12-20T23:01:16Z",
+        "contributors": 30,
+        "topics": [
+            "nginx",
+            "nginx-proxy"
+        ],
+        "subscribers": 190,
+        "readme": "<p align=\"center\">\n\t<img src=\"https://nginxproxymanager.com/github.png\">\n\t<br><br>\n\t<img src=\"https://img.shields.io/badge/version-2.12.2-green.svg?style=for-the-badge\">\n\t<a href=\"https://hub.docker.com/repository/docker/jc21/nginx-proxy-manager\">\n\t\t<img src=\"https://img.shields.io/docker/stars/jc21/nginx-proxy-manager.svg?style=for-the-badge\">\n\t</a>\n\t<a href=\"https://hub.docker.com/repository/docker/jc21/nginx-proxy-manager\">\n\t\t<img src=\"https://img.shields.io/docker/pulls/jc21/nginx-proxy-manager.svg?style=for-the-badge\">\n\t</a>\n</p>\n\nThis project comes as a pre-built docker image that enables you to easily forward to your websites\nrunning at home or otherwise, including free SSL, without having to know too much about Nginx or Letsencrypt.\n\n- [Quick Setup](#quick-setup)\n- [Full Setup](https://nginxproxymanager.com/setup/)\n- [Screenshots](https://nginxproxymanager.com/screenshots/)\n\n## Project Goal\n\nI created this project to fill a personal need to provide users with an easy way to accomplish reverse\nproxying hosts with SSL termination and it had to be so easy that a monkey could do it. This goal hasn't changed.\nWhile there might be advanced options they are optional and the project should be as simple as possible\nso that the barrier for entry here is low.\n\n<a href=\"https://www.buymeacoffee.com/jc21\" target=\"_blank\"><img src=\"http://public.jc21.com/github/by-me-a-coffee.png\" alt=\"Buy Me A Coffee\" style=\"height: 51px !important;width: 217px !important;\" ></a>\n\n\n## Features\n\n- Beautiful and Secure Admin Interface based on [Tabler](https://tabler.github.io/)\n- Easily create forwarding domains, redirections, streams and 404 hosts without knowing anything about Nginx\n- Free SSL using Let's Encrypt or provide your own custom SSL certificates\n- Access Lists and basic HTTP Authentication for your hosts\n- Advanced Nginx configuration available for super users\n- User management, permissions and audit log\n\n\n## Hosting your home network\n\nI won't go in to too much detail here but here are the basics for someone new to this self-hosted world.\n\n1. Your home router will have a Port Forwarding section somewhere. Log in and find it\n2. Add port forwarding for port 80 and 443 to the server hosting this project\n3. Configure your domain name details to point to your home, either with a static ip or a service like DuckDNS or [Amazon Route53](https://github.com/jc21/route53-ddns)\n4. Use the Nginx Proxy Manager as your gateway to forward to your other web based services\n\n## Quick Setup\n\n1. Install Docker and Docker-Compose\n\n- [Docker Install documentation](https://docs.docker.com/install/)\n- [Docker-Compose Install documentation](https://docs.docker.com/compose/install/)\n\n2. Create a docker-compose.yml file similar to this:\n\n```yml\nservices:\n  app:\n    image: 'docker.io/jc21/nginx-proxy-manager:latest'\n    restart: unless-stopped\n    ports:\n      - '80:80'\n      - '81:81'\n      - '443:443'\n    volumes:\n      - ./data:/data\n      - ./letsencrypt:/etc/letsencrypt\n```\n\nThis is the bare minimum configuration required. See the [documentation](https://nginxproxymanager.com/setup/) for more.\n\n3. Bring up your stack by running\n\n```bash\ndocker-compose up -d\n\n# If using docker-compose-plugin\ndocker compose up -d\n\n```\n\n4. Log in to the Admin UI\n\nWhen your docker container is running, connect to it on port `81` for the admin interface.\nSometimes this can take a little bit because of the entropy of keys.\n\n[http://127.0.0.1:81](http://127.0.0.1:81)\n\nDefault Admin User:\n```\nEmail:    admin@example.com\nPassword: changeme\n```\n\nImmediately after logging in with this default user you will be asked to modify your details and change your password.\n\n\n## Contributing\n\nAll are welcome to create pull requests for this project, against the `develop` branch. Official releases are created from the `master` branch.\n\nCI is used in this project. All PR's must pass before being considered. After passing,\ndocker builds for PR's are available on dockerhub for manual verifications.\n\nDocumentation within the `develop` branch is available for preview at\n[https://develop.nginxproxymanager.com](https://develop.nginxproxymanager.com)\n\n\n### Contributors\n\nSpecial thanks to [all of our contributors](https://github.com/NginxProxyManager/nginx-proxy-manager/graphs/contributors).\n\n\n## Getting Support\n\n1. [Found a bug?](https://github.com/NginxProxyManager/nginx-proxy-manager/issues)\n2. [Discussions](https://github.com/NginxProxyManager/nginx-proxy-manager/discussions)\n3. [Reddit](https://reddit.com/r/nginxproxymanager)\n",
+        "releases": [
+            {
+                "name": "v2.12.2",
+                "date": "2024-12-29T05:06:06Z"
+            },
+            {
+                "name": "v2.12.1",
+                "date": "2024-10-17T00:10:27Z"
+            },
+            {
+                "name": "v2.12.0",
+                "date": "2024-10-16T07:23:35Z"
+            },
+            {
+                "name": "v2.11.3",
+                "date": "2024-07-01T11:55:05Z"
+            },
+            {
+                "name": "v2.11.2",
+                "date": "2024-05-02T00:05:04Z"
+            },
+            {
+                "name": "v2.11.1",
+                "date": "2024-01-21T11:39:51Z"
+            },
+            {
+                "name": "v2.11.0",
+                "date": "2024-01-19T01:28:17Z"
+            },
+            {
+                "name": "v2.10.4",
+                "date": "2023-08-02T02:15:51Z"
+            },
+            {
+                "name": "v2.10.3",
+                "date": "2023-05-10T05:37:06Z"
+            },
+            {
+                "name": "v2.10.2",
+                "date": "2023-03-31T00:07:48Z"
+            },
+            {
+                "name": "v2.10.1",
+                "date": "2023-03-28T23:09:07Z"
+            },
+            {
+                "name": "v2.10.0",
+                "date": "2023-03-27T02:35:49Z"
+            },
+            {
+                "name": "v2.9.22",
+                "date": "2023-03-23T23:07:09Z"
+            },
+            {
+                "name": "v2.9.21",
+                "date": "2023-03-18T06:24:49Z"
+            },
+            {
+                "name": "v2.9.20",
+                "date": "2023-03-16T00:54:14Z"
+            },
+            {
+                "name": "v2.9.19",
+                "date": "2022-11-08T11:00:47Z"
+            },
+            {
+                "name": "v2.9.18",
+                "date": "2022-03-31T21:34:00Z"
+            },
+            {
+                "name": "v2.9.17",
+                "date": "2022-03-31T03:31:50Z"
+            },
+            {
+                "name": "v2.9.16",
+                "date": "2022-02-19T12:26:08Z"
+            },
+            {
+                "name": "v2.9.15",
+                "date": "2022-01-17T02:32:18Z"
+            },
+            {
+                "name": "v2.9.14",
+                "date": "2022-01-02T12:58:05Z"
+            },
+            {
+                "name": "v2.9.13",
+                "date": "2021-12-22T03:37:37Z"
+            },
+            {
+                "name": "v2.9.12",
+                "date": "2021-11-08T05:25:17Z"
+            },
+            {
+                "name": "v2.9.11",
+                "date": "2021-10-27T12:47:51Z"
+            },
+            {
+                "name": "v2.9.10",
+                "date": "2021-10-25T06:26:51Z"
+            },
+            {
+                "name": "v2.9.9",
+                "date": "2021-09-10T04:49:43Z"
+            },
+            {
+                "name": "v2.9.8",
+                "date": "2021-08-25T03:03:42Z"
+            },
+            {
+                "name": "v2.9.7",
+                "date": "2021-08-07T11:41:12Z"
+            },
+            {
+                "name": "v2.9.6",
+                "date": "2021-07-25T22:22:31Z"
+            },
+            {
+                "name": "v2.9.5",
+                "date": "2021-07-19T20:29:55Z"
+            },
+            {
+                "name": "v2.9.4",
+                "date": "2021-06-22T00:25:23Z"
+            },
+            {
+                "name": "v2.9.3",
+                "date": "2021-05-20T23:52:12Z"
+            },
+            {
+                "name": "v2.9.2",
+                "date": "2021-05-10T00:01:40Z"
+            },
+            {
+                "name": "v2.9.1",
+                "date": "2021-05-07T09:56:00Z"
+            },
+            {
+                "name": "v2.9.0",
+                "date": "2021-05-06T03:34:32Z"
+            },
+            {
+                "name": "v2.8.1",
+                "date": "2021-03-18T00:50:20Z"
+            },
+            {
+                "name": "v2.8.0",
+                "date": "2021-02-08T06:15:03Z"
+            },
+            {
+                "name": "v2.7.3",
+                "date": "2021-01-12T02:47:50Z"
+            },
+            {
+                "name": "v2.7.2",
+                "date": "2021-01-07T00:44:19Z"
+            },
+            {
+                "name": "v2.7.1",
+                "date": "2020-11-18T13:58:36Z"
+            },
+            {
+                "name": "v2.7.0",
+                "date": "2020-11-18T05:52:51Z"
+            },
+            {
+                "name": "v2.6.2",
+                "date": "2020-11-06T10:40:44Z"
+            },
+            {
+                "name": "v2.6.1",
+                "date": "2020-10-16T23:25:17Z"
+            },
+            {
+                "name": "v2.6.0",
+                "date": "2020-10-15T06:31:33Z"
+            },
+            {
+                "name": "v2.5.0",
+                "date": "2020-09-04T00:39:21Z"
+            },
+            {
+                "name": "v2.4.0",
+                "date": "2020-08-06T07:34:17Z"
+            },
+            {
+                "name": "v2.3.1",
+                "date": "2020-06-09T00:14:56Z"
+            },
+            {
+                "name": "v2.3.0",
+                "date": "2020-05-28T07:26:50Z"
+            },
+            {
+                "name": "v2.2.4",
+                "date": "2020-05-21T06:55:09Z"
+            },
+            {
+                "name": "v2.2.3",
+                "date": "2020-04-15T07:04:49Z"
+            },
+            {
+                "name": "v2.2.2",
+                "date": "2020-04-07T02:30:21Z"
+            },
+            {
+                "name": "v2.2.1",
+                "date": "2020-04-06T00:43:43Z"
+            },
+            {
+                "name": "v2.2.0",
+                "date": "2020-03-11T22:48:46Z"
+            },
+            {
+                "name": "v2.1.2",
+                "date": "2020-03-09T23:44:46Z"
+            },
+            {
+                "name": "v2.1.1",
+                "date": "2020-02-21T02:41:03Z"
+            },
+            {
+                "name": "v2.1.0",
+                "date": "2020-02-19T06:46:23Z"
+            },
+            {
+                "name": "Minor bug fixes",
+                "date": "2019-09-04T22:24:24Z"
+            },
+            {
+                "name": "Some features, some fixes",
+                "date": "2019-05-09T01:49:57Z"
+            },
+            {
+                "name": "Docker Manifest Support",
+                "date": "2019-04-02T02:55:27Z"
+            },
+            {
+                "name": "Default Page and Sub Folders",
+                "date": "2019-03-05T02:42:10Z"
+            },
+            {
+                "name": "Override default location",
+                "date": "2019-02-27T08:10:03Z"
+            },
+            {
+                "name": "Bug Fixes",
+                "date": "2019-02-19T07:03:36Z"
+            },
+            {
+                "name": "Disabling / Enabling Hosts",
+                "date": "2019-01-04T06:34:24Z"
+            },
+            {
+                "name": "Upstream SSL Support",
+                "date": "2019-01-03T04:56:26Z"
+            },
+            {
+                "name": "HTTP/2 Support",
+                "date": "2018-11-26T06:52:13Z"
+            },
+            {
+                "name": "Redirection fix",
+                "date": "2018-11-08T03:00:46Z"
+            },
+            {
+                "name": "Bug fixes",
+                "date": "2018-11-07T00:43:19Z"
+            },
+            {
+                "name": "Allow Websocket HTTP Upgrades",
+                "date": "2018-10-01T22:33:12Z"
+            },
+            {
+                "name": "Bug fixes",
+                "date": "2018-09-04T00:42:02Z"
+            },
+            {
+                "name": "Version 2 Rewrite",
+                "date": "2018-08-26T23:02:09Z"
+            },
+            {
+                "name": "Bug fixes",
+                "date": "2018-05-09T00:03:53Z"
+            },
+            {
+                "name": "Fix SSL Renewals",
+                "date": "2018-03-16T01:09:39Z"
+            },
+            {
+                "name": "Initial Release",
+                "date": "2018-01-04T06:38:44Z"
+            }
+        ]
+    }
+}

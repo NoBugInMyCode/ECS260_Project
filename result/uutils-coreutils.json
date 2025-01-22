@@ -1,0 +1,173 @@
+{
+    "https://api.github.com/repos/uutils/coreutils": {
+        "forks": 1309,
+        "watchers": 18167,
+        "stars": 18167,
+        "languages": {
+            "Rust": 5236508,
+            "Shell": 64189,
+            "Batchfile": 10824,
+            "Makefile": 8731,
+            "Python": 7028,
+            "Nushell": 4588
+        },
+        "commits": [
+            "2025-01-21T10:53:10Z",
+            "2025-01-21T10:25:15Z",
+            "2025-01-20T15:17:25Z",
+            "2025-01-20T14:19:49Z",
+            "2025-01-19T19:02:59Z",
+            "2025-01-20T10:29:08Z",
+            "2025-01-20T09:47:47Z",
+            "2025-01-20T09:16:53Z",
+            "2025-01-20T06:43:42Z",
+            "2025-01-20T07:47:03Z",
+            "2025-01-18T21:59:54Z",
+            "2025-01-18T09:11:59Z",
+            "2025-01-20T07:09:46Z",
+            "2025-01-19T23:08:58Z",
+            "2025-01-19T23:04:53Z",
+            "2025-01-19T22:35:54Z",
+            "2025-01-19T22:50:16Z",
+            "2025-01-19T22:46:25Z",
+            "2025-01-19T22:42:17Z",
+            "2025-01-19T22:09:37Z",
+            "2025-01-19T21:11:04Z",
+            "2025-01-19T21:39:48Z",
+            "2025-01-19T21:38:29Z",
+            "2025-01-19T20:31:48Z",
+            "2025-01-19T18:54:47Z",
+            "2025-01-19T18:12:13Z",
+            "2025-01-19T18:08:51Z",
+            "2025-01-19T16:48:46Z",
+            "2025-01-19T16:21:54Z",
+            "2025-01-19T16:20:48Z"
+        ],
+        "creation_date": "2013-08-02T16:22:56Z",
+        "contributors": 30,
+        "topics": [
+            "busybox",
+            "command-line-tool",
+            "coreutils",
+            "cross-platform",
+            "gnu-coreutils",
+            "rust"
+        ],
+        "subscribers": 192,
+        "readme": "<!-- markdownlint-disable MD033 MD041 MD002 -->\n<!-- markdownlint-disable commands-show-output no-duplicate-heading -->\n<!-- spell-checker:ignore markdownlint ; (options) DESTDIR UTILNAME manpages reimplementation oranda -->\n<div class=\"oranda-hide\">\n<div align=\"center\">\n\n![uutils logo](docs/src/logo.svg)\n\n# uutils coreutils\n\n[![Crates.io](https://img.shields.io/crates/v/coreutils.svg)](https://crates.io/crates/coreutils)\n[![Discord](https://img.shields.io/badge/discord-join-7289DA.svg?logo=discord&longCache=true&style=flat)](https://discord.gg/wQVJbvJ)\n[![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/uutils/coreutils/blob/main/LICENSE)\n[![dependency status](https://deps.rs/repo/github/uutils/coreutils/status.svg)](https://deps.rs/repo/github/uutils/coreutils)\n\n[![CodeCov](https://codecov.io/gh/uutils/coreutils/branch/master/graph/badge.svg)](https://codecov.io/gh/uutils/coreutils)\n![MSRV](https://img.shields.io/badge/MSRV-1.79.0-brightgreen)\n\n</div>\n\n---\n\n</div>\n\nuutils coreutils is a cross-platform reimplementation of the GNU coreutils in\n[Rust](http://www.rust-lang.org). While all programs have been implemented, some\noptions might be missing or different behavior might be experienced.\n\n<div class=\"oranda-hide\">\n\nTo install it:\n\n```shell\ncargo install coreutils\n~/.cargo/bin/coreutils\n```\n\n</div>\n\n<!-- markdownlint-disable-next-line MD026 -->\n\n## Goals\n\nuutils aims to be a drop-in replacement for the GNU utils. Differences with GNU\nare treated as bugs.\n\nuutils aims to work on as many platforms as possible, to be able to use the same\nutils on Linux, Mac, Windows and other platforms. This ensures, for example,\nthat scripts can be easily transferred between platforms.\n\n<div class=\"oranda-hide\">\n\n## Documentation\nuutils has both user and developer documentation available:\n\n- [User Manual](https://uutils.github.io/coreutils/docs/)\n- [Developer Documentation](https://docs.rs/crate/coreutils/)\n\nBoth can also be generated locally, the instructions for that can be found in\nthe [coreutils docs](https://github.com/uutils/uutils.github.io) repository.\n\n\n<!-- ANCHOR: build (this mark is needed for mdbook) -->\n\n## Requirements\n\n- Rust (`cargo`, `rustc`)\n- GNU Make (optional)\n\n### Rust Version\n\nuutils follows Rust's release channels and is tested against stable, beta and\nnightly. The current Minimum Supported Rust Version (MSRV) is `1.79.0`.\n\n## Building\n\nThere are currently two methods to build the uutils binaries: either Cargo or\nGNU Make.\n\n> Building the full package, including all documentation, requires both Cargo\n> and Gnu Make on a Unix platform.\n\nFor either method, we first need to fetch the repository:\n\n```shell\ngit clone https://github.com/uutils/coreutils\ncd coreutils\n```\n\n### Cargo\n\nBuilding uutils using Cargo is easy because the process is the same as for every\nother Rust program:\n\n```shell\ncargo build --release\n```\n\nThis command builds the most portable common core set of uutils into a multicall\n(BusyBox-type) binary, named 'coreutils', on most Rust-supported platforms.\n\nAdditional platform-specific uutils are often available. Building these expanded\nsets of uutils for a platform (on that platform) is as simple as specifying it\nas a feature:\n\n```shell\ncargo build --release --features macos\n# or ...\ncargo build --release --features windows\n# or ...\ncargo build --release --features unix\n```\n\nIf you don't want to build every utility available on your platform into the\nfinal binary, you can also specify which ones you want to build manually. For\nexample:\n\n```shell\ncargo build --features \"base32 cat echo rm\" --no-default-features\n```\n\nIf you don't want to build the multicall binary and would prefer to build the\nutilities as individual binaries, that is also possible. Each utility is\ncontained in its own package within the main repository, named \"uu_UTILNAME\". To\nbuild individual utilities, use cargo to build just the specific packages (using\nthe `--package` [aka `-p`] option). For example:\n\n```shell\ncargo build -p uu_base32 -p uu_cat -p uu_echo -p uu_rm\n```\n\n### GNU Make\n\nBuilding using `make` is a simple process as well.\n\nTo simply build all available utilities:\n\n```shell\nmake\n```\n\nIn release mode:\n\n```shell\nmake PROFILE=release\n```\n\nTo build all but a few of the available utilities:\n\n```shell\nmake SKIP_UTILS='UTILITY_1 UTILITY_2'\n```\n\nTo build only a few of the available utilities:\n\n```shell\nmake UTILS='UTILITY_1 UTILITY_2'\n```\n\n## Installation\n\n### Install with Cargo\n\nLikewise, installing can simply be done using:\n\n```shell\ncargo install --path . --locked\n```\n\nThis command will install uutils into Cargo's _bin_ folder (_e.g._\n`$HOME/.cargo/bin`).\n\nThis does not install files necessary for shell completion or manpages. For\nmanpages or shell completion to work, use `GNU Make` or see\n`Manually install shell completions`/`Manually install manpages`.\n\n### Install with GNU Make\n\nTo install all available utilities:\n\n```shell\nmake install\n```\n\nTo install using `sudo` switch `-E` must be used:\n\n```shell\nsudo -E make install\n```\n\nTo install all but a few of the available utilities:\n\n```shell\nmake SKIP_UTILS='UTILITY_1 UTILITY_2' install\n```\n\nTo install only a few of the available utilities:\n\n```shell\nmake UTILS='UTILITY_1 UTILITY_2' install\n```\n\nTo install every program with a prefix (e.g. uu-echo uu-cat):\n\n```shell\nmake PROG_PREFIX=PREFIX_GOES_HERE install\n```\n\nTo install the multicall binary:\n\n```shell\nmake MULTICALL=y install\n```\n\nSet install parent directory (default value is /usr/local):\n\n```shell\n# DESTDIR is also supported\nmake PREFIX=/my/path install\n```\n\nInstalling with `make` installs shell completions for all installed utilities\nfor `bash`, `fish` and `zsh`. Completions for `elvish` and `powershell` can also\nbe generated; See `Manually install shell completions`.\n\n### Manually install shell completions\n\nThe `coreutils` binary can generate completions for the `bash`, `elvish`,\n`fish`, `powershell` and `zsh` shells. It prints the result to stdout.\n\nThe syntax is:\n\n```shell\ncargo run completion <utility> <shell>\n```\n\nSo, to install completions for `ls` on `bash` to\n`/usr/local/share/bash-completion/completions/ls`, run:\n\n```shell\ncargo run completion ls bash > /usr/local/share/bash-completion/completions/ls\n```\n\n### Manually install manpages\n\nTo generate manpages, the syntax is:\n\n```bash\ncargo run manpage <utility>\n```\n\nSo, to install the manpage for `ls` to `/usr/local/share/man/man1/ls.1` run:\n\n```bash\ncargo run manpage ls > /usr/local/share/man/man1/ls.1\n```\n\n## Un-installation\n\nUn-installation differs depending on how you have installed uutils. If you used\nCargo to install, use Cargo to uninstall. If you used GNU Make to install, use\nMake to uninstall.\n\n### Uninstall with Cargo\n\nTo uninstall uutils:\n\n```shell\ncargo uninstall coreutils\n```\n\n### Uninstall with GNU Make\n\nTo uninstall all utilities:\n\n```shell\nmake uninstall\n```\n\nTo uninstall every program with a set prefix:\n\n```shell\nmake PROG_PREFIX=PREFIX_GOES_HERE uninstall\n```\n\nTo uninstall the multicall binary:\n\n```shell\nmake MULTICALL=y uninstall\n```\n\nTo uninstall from a custom parent directory:\n\n```shell\n# DESTDIR is also supported\nmake PREFIX=/my/path uninstall\n```\n\n<!-- ANCHOR_END: build (this mark is needed for mdbook) -->\n\n## GNU test suite compatibility\n\nBelow is the evolution of how many GNU tests uutils passes. A more detailed\nbreakdown of the GNU test results of the main branch can be found\n[in the user manual](https://uutils.github.io/coreutils/docs/test_coverage.html).\n\nSee <https://github.com/orgs/uutils/projects/1> for the main meta bugs\n(many are missing).\n\n![Evolution over time](https://github.com/uutils/coreutils-tracking/blob/main/gnu-results.png?raw=true)\n\n</div> <!-- close oranda-hide div -->\n\n## Contributing\n\nTo contribute to uutils, please see [CONTRIBUTING](CONTRIBUTING.md).\n\n## License\n\nuutils is licensed under the MIT License - see the `LICENSE` file for details\n\nGNU Coreutils is licensed under the GPL 3.0 or later.\n",
+        "releases": [
+            {
+                "name": "0.0.29",
+                "date": "2025-01-18T21:35:34Z"
+            },
+            {
+                "name": "0.0.28",
+                "date": "2024-11-16T19:37:15Z"
+            },
+            {
+                "name": "0.0.27",
+                "date": "2024-06-23T17:12:21Z"
+            },
+            {
+                "name": "0.0.26",
+                "date": "2024-04-26T21:47:48Z"
+            },
+            {
+                "name": "0.0.25",
+                "date": "2024-03-23T20:56:02Z"
+            },
+            {
+                "name": "",
+                "date": "2024-01-25T22:49:24Z"
+            },
+            {
+                "name": "0.0.23",
+                "date": "2023-11-14T12:36:32Z"
+            },
+            {
+                "name": "0.0.22",
+                "date": "2023-10-15T16:38:31Z"
+            },
+            {
+                "name": "0.0.21",
+                "date": "2023-09-03T16:12:44Z"
+            },
+            {
+                "name": "0.0.20",
+                "date": "2023-07-14T16:35:47Z"
+            },
+            {
+                "name": "0.0.19",
+                "date": "2023-06-04T16:21:59Z"
+            },
+            {
+                "name": "0.0.18",
+                "date": "2023-04-02T19:43:54Z"
+            },
+            {
+                "name": "0.0.17",
+                "date": "2023-01-21T11:41:45Z"
+            },
+            {
+                "name": "0.0.16",
+                "date": "2022-10-12T09:47:51Z"
+            },
+            {
+                "name": "0.0.15",
+                "date": "2022-08-20T14:19:32Z"
+            },
+            {
+                "name": "0.0.14",
+                "date": "2022-05-22T18:40:07Z"
+            },
+            {
+                "name": "0.0.13",
+                "date": "2022-04-02T12:16:39Z"
+            },
+            {
+                "name": "0.0.12",
+                "date": "2022-01-19T14:53:45Z"
+            },
+            {
+                "name": "0.0.9",
+                "date": "2022-01-18T11:33:14Z"
+            },
+            {
+                "name": "0.0.8",
+                "date": "2021-10-23T23:16:37Z"
+            },
+            {
+                "name": "0.0.7",
+                "date": "2021-07-11T16:00:01Z"
+            },
+            {
+                "name": "0.0.6",
+                "date": "2021-04-03T15:28:51Z"
+            },
+            {
+                "name": "0.0.5",
+                "date": "2021-04-03T10:15:18Z"
+            },
+            {
+                "name": "0.0.4",
+                "date": "2021-03-07T11:37:40Z"
+            },
+            {
+                "name": "0.0.3",
+                "date": "2021-02-02T12:29:44Z"
+            },
+            {
+                "name": "0.0.2",
+                "date": "2021-01-11T14:23:36Z"
+            },
+            {
+                "name": "0.0.1.1",
+                "date": "2020-05-31T22:26:51Z"
+            },
+            {
+                "name": "0.0.1",
+                "date": "2020-04-14T00:15:05Z"
+            }
+        ]
+    }
+}

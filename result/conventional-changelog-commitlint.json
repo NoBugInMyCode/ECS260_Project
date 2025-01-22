@@ -1,0 +1,711 @@
+{
+    "https://api.github.com/repos/conventional-changelog/commitlint": {
+        "forks": 916,
+        "watchers": 17117,
+        "stars": 17117,
+        "languages": {
+            "TypeScript": 451832,
+            "JavaScript": 42089
+        },
+        "commits": [
+            "2025-01-19T10:35:22Z",
+            "2025-01-17T09:03:00Z",
+            "2025-01-16T08:58:57Z",
+            "2025-01-16T08:58:47Z",
+            "2025-01-16T08:57:39Z",
+            "2025-01-15T13:10:35Z",
+            "2025-01-15T12:52:53Z",
+            "2025-01-14T09:38:07Z",
+            "2025-01-14T09:12:34Z",
+            "2025-01-13T09:28:58Z",
+            "2025-01-11T10:09:46Z",
+            "2025-01-11T10:09:37Z",
+            "2025-01-10T16:08:30Z",
+            "2025-01-09T08:59:39Z",
+            "2025-01-08T09:52:30Z",
+            "2025-01-07T15:07:22Z",
+            "2025-01-06T13:08:12Z",
+            "2025-01-05T11:13:24Z",
+            "2025-01-04T11:19:34Z",
+            "2025-01-02T09:32:01Z",
+            "2025-01-02T09:31:44Z",
+            "2025-01-02T09:21:40Z",
+            "2025-01-02T09:21:29Z",
+            "2025-01-02T09:21:20Z",
+            "2024-12-28T17:26:57Z",
+            "2024-12-28T17:26:48Z",
+            "2024-12-27T08:39:51Z",
+            "2024-12-25T11:34:25Z",
+            "2024-12-24T11:16:02Z",
+            "2024-12-20T10:58:45Z"
+        ],
+        "creation_date": "2016-02-12T08:37:56Z",
+        "contributors": 30,
+        "topics": [
+            "commit",
+            "conventions",
+            "git",
+            "lint"
+        ],
+        "subscribers": 68,
+        "readme": "# [Get Started](https://commitlint.js.org/guides/getting-started) | [Website](https://commitlint.js.org)\n\n> Lint commit messages\n\n<p align=\"center\">\n  <img width=\"600\" src=\"docs/public/assets/commitlint.svg\">\n</p>\n\n> Demo generated with [svg-term-cli](https://github.com/marionebl/svg-term-cli)\n>\n> `cat docs/assets/commitlint.json | svg-term --out docs/public/assets/commitlint.svg --frame --profile=Seti --height=20 --width=80`\n\n[![npm latest][2]][3] [![node compatibility][13]][14] [![Github Actions][4]][5]\n\n- \ud83d\ude93 Be a good `commitizen`\n- \ud83d\udce6 Share configuration via `npm`\n- \ud83e\udd16 Tap into `conventional-changelog`\n\n## Contents\n\n- [Get Started | Website](#get-started--website)\n  - [Contents](#contents)\n  - [What is commitlint](#what-is-commitlint)\n    - [Benefits of using commitlint](#benefits-of-using-commitlint)\n  - [Getting started](#getting-started)\n  - [CLI](#cli)\n  - [Config](#config)\n  - [Shared configuration](#shared-configuration)\n  - [Documentation](#documentation)\n  - [API](#api)\n  - [Tools](#tools)\n  - [Roadmap](#roadmap)\n  - [Version Support and Releases](#version-support-and-releases)\n    - [Releases](#releases)\n  - [Related projects](#related-projects)\n  - [License](#license)\n  - [Development](#development)\n    - [Install and run](#install-and-run)\n\n---\n\n## What is commitlint\n\ncommitlint checks if your commit messages meet the [conventional commit format](https://conventionalcommits.org).\n\nIn general the pattern mostly looks like this:\n\n```sh\ntype(scope?): subject  #scope is optional; multiple scopes are supported (current delimiter options: \"/\", \"\\\" and \",\")\n```\n\nReal world examples can look like this:\n\n```text\nchore: run tests on travis ci\n```\n\n```text\nfix(server): send cors headers\n```\n\n```text\nfeat(blog): add comment section\n```\n\nCommon types according to [commitlint-config-conventional (based on the Angular convention)](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional#type-enum) can be:\n\n- build\n- chore\n- ci\n- docs\n- feat\n- fix\n- perf\n- refactor\n- revert\n- style\n- test\n\nThese can be modified by [your own configuration](#config).\n\n### Benefits of using commitlint\n\n- [Why Use Conventional Commits?](https://www.conventionalcommits.org/en/v1.0.0-beta.2/#why-use-conventional-commits)\n- [\"The perks of committing with conventions\" (Talk slides)](https://slides.com/marionebl/the-perks-of-committing-with-conventions#/)\n\n## Getting started\n\n- [Local setup](https://commitlint.js.org/guides/local-setup) - Lint messages on commit with husky\n- [CI setup](https://commitlint.js.org/guides/ci-setup) - Lint messages during CI builds\n\n## CLI\n\n- Primary way to interact with commitlint.\n- `npm install --save-dev @commitlint/cli`\n- Packages: [cli](./@commitlint/cli)\n\n## Config\n\n- Configuration is picked up from:\n  - `.commitlintrc`\n  - `.commitlintrc.json`\n  - `.commitlintrc.yaml`\n  - `.commitlintrc.yml`\n  - `.commitlintrc.js`\n  - `.commitlintrc.cjs`\n  - `.commitlintrc.mjs`\n  - `.commitlintrc.ts`\n  - `.commitlintrc.cts`\n  - `commitlint.config.js`\n  - `commitlint.config.cjs`\n  - `commitlint.config.mjs`\n  - `commitlint.config.ts`\n  - `commitlint.config.cts`\n  - `commitlint` field in `package.json`\n  - `commitlint` field in [`package.yaml`](https://github.com/pnpm/pnpm/pull/1799)\n- Packages: [cli](./@commitlint/cli), [core](./@commitlint/core)\n- See [Rules](./docs/reference/rules.md) for a complete list of possible rules\n- An example configuration can be found at [@commitlint/config-conventional](./@commitlint/config-conventional/src/index.ts)\n\n## Shared configuration\n\nA number of shared configurations are available to install and use with `commitlint`:\n\n- [@commitlint/config-angular](./@commitlint/config-angular)\n- [@commitlint/config-conventional](./@commitlint/config-conventional)\n- [@commitlint/config-lerna-scopes](./@commitlint/config-lerna-scopes)\n- [@commitlint/config-nx-scopes](./@commitlint/config-nx-scopes)\n- [@commitlint/config-patternplate](./@commitlint/config-patternplate)\n- [conventional-changelog-lint-config-atom](https://github.com/erikmueller/conventional-changelog-lint-config-atom)\n- [conventional-changelog-lint-config-canonical](https://github.com/gajus/conventional-changelog-lint-config-canonical)\n\n> \u26a0\ufe0f If you want to publish your own shareable config then make sure it has a name aligning with the pattern `commitlint-config-emoji-log` or `commitlint-config-your-config-name` \u2014 then in extend all you have to write is `emoji-log` or `your-config-name`.\n\n## Documentation\n\nCheck the [main website](https://commitlint.js.org/).\n\n## API\n\n- Alternative, programmatic way to interact with `commitlint`\n- Packages:\n  - [format](./@commitlint/format) - Format commitlint reports\n  - [lint](./@commitlint/lint) - Lint a string against commitlint rules\n  - [load](./@commitlint/load) - Load shared commitlint configuration\n  - [read](./@commitlint/read) - Read commit messages from a specified range or last edit\n- See [API](./docs/api) for a complete list of methods and examples\n\n## Tools\n\n- [commitizen adapter](./@commitlint/prompt)\n- [prompt](./@commitlint/prompt-cli)\n\n## Roadmap\n\n`commitlint` is considered stable and is used in various projects as a development tool.\n\n> **Ideas**: [conventional-changelog/commitlint#94](https://github.com/conventional-changelog/commitlint/issues/94)\n\n## Version Support and Releases\n\n- Node.js [LTS](https://github.com/nodejs/LTS#lts-schedule) `>= 18`\n- git `>= 2.13.2`\n\n### Releases\n\nSecurity patches will be applied to versions which are not yet EOL.\\\nFeatures will only be applied to the current main version.\n\n| Release                                                                          | Initial release |\n| -------------------------------------------------------------------------------- | --------------- |\n| [v19](https://github.com/conventional-changelog/commitlint/releases/tag/v19.0.0) | 02/2024         |\n| [v18](https://github.com/conventional-changelog/commitlint/releases/tag/v18.0.0) | 10/2023         |\n\nEOL is usually after around a year.\n\nWe're not a sponsored OSS project. Therefore we can't promise that we will release patch versions for older releases in a timely manner.\\\nIf you are stuck on an older version and need a security patch we're happy if you can provide a PR.\n\n## Related projects\n\n- [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog)\n  Generate a changelog from conventional commit history\n- [commitizen](https://github.com/commitizen/cz-cli)\n  Simple commit conventions for internet citizens\n- [create-semantic-module](https://github.com/jlegrone/create-semantic-module)\n  CLI for quickly integrating commitizen and commitlint in new or existing projects\n\n## License\n\nCopyright by @marionebl. All `commitlint` packages are released under the MIT license.\n\n## Development\n\n`commitlint` is developed in a mono repository.\n\n### Install and run\n\n```sh\ngit clone git@github.com:conventional-changelog/commitlint.git\ncd commitlint\nyarn\nyarn run build # run build tasks\nyarn start # run tests, again on change\nyarn run commitlint # run CLI\n```\n\nFor more information on how to contribute please take a look at our [contribution guide](./.github/CONTRIBUTING.md).\n\n[0]: https://img.shields.io/badge/stability-stable-green.svg?style=flat-square\n[1]: https://nodejs.org/api/documentation.html#documentation_stability_index\n[2]: https://img.shields.io/npm/v/@commitlint/cli.svg?style=flat-square\n[3]: https://npmjs.org/package/@commitlint/cli\n[4]: https://github.com/conventional-changelog/commitlint/actions/workflows/CI.yml/badge.svg\n[5]: https://github.com/conventional-changelog/commitlint/actions/workflows/CI.yml\n[8]: https://img.shields.io/badge/stability-experimental-orange.svg?style=flat-square\n[9]: https://nodejs.org/api/documentation.html#documentation_stability_index\n[10]: https://img.shields.io/npm/v/@commitlint/cli/next.svg?style=flat-square\n[13]: https://img.shields.io/node/v/@commitlint/cli.svg\n[14]: https://nodejs.org/en/about/previous-releases\n",
+        "releases": [
+            {
+                "name": "v19.7.0",
+                "date": "2025-01-04T11:21:44Z"
+            },
+            {
+                "name": "v19.6.1",
+                "date": "2024-12-15T15:29:38Z"
+            },
+            {
+                "name": "v19.6.0",
+                "date": "2024-11-19T10:42:36Z"
+            },
+            {
+                "name": "v19.5.0",
+                "date": "2024-09-11T08:14:43Z"
+            },
+            {
+                "name": "v19.4.1",
+                "date": "2024-08-28T07:28:56Z"
+            },
+            {
+                "name": "v19.4.0",
+                "date": "2024-08-07T08:42:28Z"
+            },
+            {
+                "name": "v19.3.1",
+                "date": "2024-05-13T11:17:10Z"
+            },
+            {
+                "name": "v19.3.0",
+                "date": "2024-04-23T02:42:06Z"
+            },
+            {
+                "name": "v19.2.2",
+                "date": "2024-04-14T08:05:04Z"
+            },
+            {
+                "name": "v19.2.1",
+                "date": "2024-03-19T02:25:02Z"
+            },
+            {
+                "name": "v19.2.0",
+                "date": "2024-03-15T02:51:17Z"
+            },
+            {
+                "name": "v19.1.0",
+                "date": "2024-03-12T05:22:47Z"
+            },
+            {
+                "name": "v18.6.3",
+                "date": "2024-03-11T06:33:59Z"
+            },
+            {
+                "name": "v19.0.3",
+                "date": "2024-02-28T12:03:46Z"
+            },
+            {
+                "name": "v19.0.2",
+                "date": "2024-02-28T09:03:58Z"
+            },
+            {
+                "name": "v19.0.1",
+                "date": "2024-02-27T17:14:32Z"
+            },
+            {
+                "name": "v19.0.0",
+                "date": "2024-02-27T11:17:31Z"
+            },
+            {
+                "name": "v18.6.2",
+                "date": "2024-02-14T09:49:04Z"
+            },
+            {
+                "name": "v18.6.1",
+                "date": "2024-02-13T08:51:41Z"
+            },
+            {
+                "name": "v18.6.0",
+                "date": "2024-01-25T10:48:45Z"
+            },
+            {
+                "name": "v18.5.1",
+                "date": "2024-01-22T15:17:14Z"
+            },
+            {
+                "name": "v18.5.0",
+                "date": "2024-01-22T09:45:33Z"
+            },
+            {
+                "name": "v18.4.4",
+                "date": "2024-01-04T15:07:20Z"
+            },
+            {
+                "name": "v18.4.3",
+                "date": "2023-11-21T02:42:08Z"
+            },
+            {
+                "name": "v18.4.2",
+                "date": "2023-11-16T04:28:29Z"
+            },
+            {
+                "name": "v18.4.1",
+                "date": "2023-11-12T04:03:53Z"
+            },
+            {
+                "name": "v18.4.0",
+                "date": "2023-11-10T05:13:39Z"
+            },
+            {
+                "name": "v18.3.0",
+                "date": "2023-10-26T08:53:59Z"
+            },
+            {
+                "name": "v18.2.0",
+                "date": "2023-10-26T07:57:50Z"
+            },
+            {
+                "name": "v18.1.0",
+                "date": "2023-10-25T09:02:19Z"
+            },
+            {
+                "name": "v18.0.0",
+                "date": "2023-10-20T13:34:55Z"
+            },
+            {
+                "name": "v17.8.1",
+                "date": "2023-10-20T12:10:48Z"
+            },
+            {
+                "name": "v17.8.0",
+                "date": "2023-10-14T12:19:42Z"
+            },
+            {
+                "name": "v17.7.2",
+                "date": "2023-09-28T17:47:33Z"
+            },
+            {
+                "name": "v17.7.1",
+                "date": "2023-08-10T05:36:22Z"
+            },
+            {
+                "name": "v17.7.0",
+                "date": "2023-08-09T08:28:08Z"
+            },
+            {
+                "name": "v17.6.7",
+                "date": "2023-07-19T05:26:17Z"
+            },
+            {
+                "name": "v17.6.6",
+                "date": "2023-06-24T08:49:13Z"
+            },
+            {
+                "name": "v17.6.5",
+                "date": "2023-05-30T07:53:53Z"
+            },
+            {
+                "name": "v17.6.4",
+                "date": "2023-05-07T11:56:48Z"
+            },
+            {
+                "name": "v17.6.3",
+                "date": "2023-05-04T09:26:22Z"
+            },
+            {
+                "name": "v17.6.2",
+                "date": "2023-05-03T13:54:52Z"
+            },
+            {
+                "name": "v17.6.1",
+                "date": "2023-04-14T08:25:48Z"
+            },
+            {
+                "name": "v17.6.0",
+                "date": "2023-04-13T10:32:11Z"
+            },
+            {
+                "name": "v17.5.1",
+                "date": "2023-03-28T08:31:25Z"
+            },
+            {
+                "name": "v17.5.0",
+                "date": "2023-03-22T10:56:49Z"
+            },
+            {
+                "name": "v17.4.4",
+                "date": "2023-02-17T15:36:00Z"
+            },
+            {
+                "name": "v17.4.3",
+                "date": "2023-02-13T10:38:33Z"
+            },
+            {
+                "name": "v17.4.2",
+                "date": "2023-01-12T14:38:43Z"
+            },
+            {
+                "name": "v17.4.1",
+                "date": "2023-01-09T11:28:26Z"
+            },
+            {
+                "name": "v17.4.0",
+                "date": "2023-01-04T09:32:19Z"
+            },
+            {
+                "name": "v17.3.0",
+                "date": "2022-11-21T15:44:34Z"
+            },
+            {
+                "name": "v17.2.1",
+                "date": "2022-11-01T07:54:40Z"
+            },
+            {
+                "name": "v17.2.0",
+                "date": "2022-10-31T15:06:03Z"
+            },
+            {
+                "name": "v17.1.2",
+                "date": "2022-08-29T07:56:21Z"
+            },
+            {
+                "name": "v17.1.1",
+                "date": "2022-08-27T07:57:51Z"
+            },
+            {
+                "name": "v17.1.0",
+                "date": "2022-08-27T06:27:41Z"
+            },
+            {
+                "name": "v17.0.3",
+                "date": "2022-06-25T10:09:41Z"
+            },
+            {
+                "name": "v17.0.2",
+                "date": "2022-06-01T02:00:52Z"
+            },
+            {
+                "name": "v17.0.1",
+                "date": "2022-05-25T05:53:20Z"
+            },
+            {
+                "name": "v17.0.0",
+                "date": "2022-05-16T10:37:57Z"
+            },
+            {
+                "name": "v16.3.0",
+                "date": "2022-05-14T08:26:31Z"
+            },
+            {
+                "name": "v16.2.4",
+                "date": "2022-04-28T01:53:00Z"
+            },
+            {
+                "name": "v16.2.3",
+                "date": "2022-03-16T03:51:01Z"
+            },
+            {
+                "name": "v16.2.2",
+                "date": "2022-02-14T03:44:33Z"
+            },
+            {
+                "name": "v16.2.1",
+                "date": "2022-02-13T06:48:46Z"
+            },
+            {
+                "name": "v16.2.0",
+                "date": "2022-02-04T03:23:46Z"
+            },
+            {
+                "name": "v16.1.0",
+                "date": "2022-01-20T07:24:09Z"
+            },
+            {
+                "name": "v16.0.3",
+                "date": "2022-01-19T10:53:41Z"
+            },
+            {
+                "name": "v16.0.2",
+                "date": "2022-01-09T06:05:49Z"
+            },
+            {
+                "name": "v16.0.1",
+                "date": "2021-12-28T06:06:40Z"
+            },
+            {
+                "name": "v16.0.0",
+                "date": "2021-12-26T07:40:52Z"
+            },
+            {
+                "name": "v15.0.0",
+                "date": "2021-11-17T06:54:23Z"
+            },
+            {
+                "name": "v8.3.6",
+                "date": "2021-11-17T06:39:13Z"
+            },
+            {
+                "name": "v14.2.0",
+                "date": "2021-11-06T05:39:01Z"
+            },
+            {
+                "name": "v14.1.0",
+                "date": "2021-11-01T06:21:41Z"
+            },
+            {
+                "name": "v14.0.0",
+                "date": "2021-10-26T05:04:08Z"
+            },
+            {
+                "name": "13.2.1",
+                "date": "2021-10-09T09:08:40Z"
+            },
+            {
+                "name": "v13.2.0",
+                "date": "2021-09-28T02:15:34Z"
+            },
+            {
+                "name": "v13.1.0",
+                "date": "2021-07-24T06:58:42Z"
+            },
+            {
+                "name": "v13.0.0",
+                "date": "2021-07-20T01:33:16Z"
+            },
+            {
+                "name": "v12.1.4",
+                "date": "2021-05-13T04:44:04Z"
+            },
+            {
+                "name": "v12.1.3",
+                "date": "2021-05-13T04:43:36Z"
+            },
+            {
+                "name": "v12.1.2",
+                "date": "2021-05-13T04:43:07Z"
+            },
+            {
+                "name": "v12.1.1",
+                "date": "2021-04-02T02:29:52Z"
+            },
+            {
+                "name": "v12.0.1",
+                "date": "2021-02-27T07:55:21Z"
+            },
+            {
+                "name": "v12.0.0",
+                "date": "2021-02-23T01:51:55Z"
+            },
+            {
+                "name": "v11.0.0",
+                "date": "2020-09-13T09:41:04Z"
+            },
+            {
+                "name": "v7.1.0",
+                "date": "2018-08-29T08:58:06Z"
+            },
+            {
+                "name": "v7.0.1",
+                "date": "2018-06-02T21:31:50Z"
+            },
+            {
+                "name": "v7.0.0",
+                "date": "2018-06-02T21:30:59Z"
+            },
+            {
+                "name": "",
+                "date": "2018-05-01T16:29:06Z"
+            },
+            {
+                "name": "v6.1.0",
+                "date": "2018-02-03T11:56:08Z"
+            },
+            {
+                "name": "v6.0.5",
+                "date": "2018-02-03T11:53:59Z"
+            },
+            {
+                "name": "v6.0.4",
+                "date": "2018-02-03T11:53:37Z"
+            },
+            {
+                "name": "v6.0.3",
+                "date": "2018-02-03T11:53:14Z"
+            },
+            {
+                "name": "v6.0.2",
+                "date": "2018-01-12T08:49:14Z"
+            },
+            {
+                "name": "v6.0.1",
+                "date": "2018-01-09T18:43:09Z"
+            },
+            {
+                "name": "v6.0.0",
+                "date": "2018-01-09T18:30:56Z"
+            },
+            {
+                "name": "v5.2.8",
+                "date": "2017-12-26T19:02:16Z"
+            },
+            {
+                "name": "v5.3.0-1",
+                "date": "2017-12-26T19:15:19Z"
+            },
+            {
+                "name": "v5.2.6",
+                "date": "2017-12-21T19:46:46Z"
+            },
+            {
+                "name": "v5.2.5",
+                "date": "2017-12-08T19:21:58Z"
+            },
+            {
+                "name": "v5.2.4",
+                "date": "2017-12-08T18:39:03Z"
+            },
+            {
+                "name": "v5.2.3",
+                "date": "2017-12-05T13:46:02Z"
+            },
+            {
+                "name": "v5.3.0-0",
+                "date": "2017-12-05T13:46:22Z"
+            },
+            {
+                "name": "v5.2.2",
+                "date": "2017-12-05T13:45:38Z"
+            },
+            {
+                "name": "v5.2.1",
+                "date": "2017-12-05T13:45:03Z"
+            },
+            {
+                "name": "v5.2.0",
+                "date": "2017-11-30T08:35:08Z"
+            },
+            {
+                "name": "v5.1.3",
+                "date": "2017-11-28T07:13:17Z"
+            },
+            {
+                "name": "v5.1.2",
+                "date": "2017-11-28T07:12:51Z"
+            },
+            {
+                "name": "v5.1.1",
+                "date": "2017-11-24T16:12:38Z"
+            },
+            {
+                "name": "v5.1.0",
+                "date": "2017-11-24T16:11:08Z"
+            },
+            {
+                "name": "v5.0.2",
+                "date": "2017-11-24T16:11:54Z"
+            },
+            {
+                "name": "v5.0.1",
+                "date": "2017-11-19T11:09:17Z"
+            },
+            {
+                "name": "v5.0.0",
+                "date": "2017-11-18T16:30:19Z"
+            },
+            {
+                "name": "v4.3.0",
+                "date": "2017-11-08T20:41:34Z"
+            },
+            {
+                "name": "4.2.2",
+                "date": "2017-10-26T19:42:27Z"
+            },
+            {
+                "name": "",
+                "date": "2017-10-26T19:41:38Z"
+            },
+            {
+                "name": "v4.2.0",
+                "date": "2017-10-14T09:44:46Z"
+            },
+            {
+                "name": "v4.1.1",
+                "date": "2017-10-09T11:28:31Z"
+            },
+            {
+                "name": "v4.1.0",
+                "date": "2017-10-05T07:05:45Z"
+            },
+            {
+                "name": "v4.0.0",
+                "date": "2017-10-04T19:03:57Z"
+            },
+            {
+                "name": "v3.2.0",
+                "date": "2017-10-04T19:01:52Z"
+            },
+            {
+                "name": "v3.1.3",
+                "date": "2017-10-04T19:00:23Z"
+            },
+            {
+                "name": "v3.1.2",
+                "date": "2017-08-07T10:31:15Z"
+            },
+            {
+                "name": "v3.1.1",
+                "date": "2017-08-07T06:31:32Z"
+            },
+            {
+                "name": "v3.0.4",
+                "date": "2017-08-04T06:43:49Z"
+            },
+            {
+                "name": "v3.0.3",
+                "date": "2017-07-30T04:37:52Z"
+            },
+            {
+                "name": "v3.0.2",
+                "date": "2017-07-30T04:37:38Z"
+            },
+            {
+                "name": "v3.0.1",
+                "date": "2017-07-11T07:55:10Z"
+            },
+            {
+                "name": "v2.1.1",
+                "date": "2017-07-10T17:15:33Z"
+            },
+            {
+                "name": "v2.1.0",
+                "date": "2017-07-07T13:29:37Z"
+            },
+            {
+                "name": "v2.0.0",
+                "date": "2017-07-07T13:20:21Z"
+            },
+            {
+                "name": "v1.1.10",
+                "date": "2017-07-11T05:54:34Z"
+            },
+            {
+                "name": "v1.1.9",
+                "date": "2017-07-07T13:06:45Z"
+            },
+            {
+                "name": "v1.1.8",
+                "date": "2017-07-07T13:06:17Z"
+            },
+            {
+                "name": "v1.1.7",
+                "date": "2017-03-12T21:27:12Z"
+            },
+            {
+                "name": "v1.1.6",
+                "date": "2017-03-12T21:22:01Z"
+            },
+            {
+                "name": "v1.1.5",
+                "date": "2017-03-12T21:18:58Z"
+            },
+            {
+                "name": "v1.1.4",
+                "date": "2017-03-12T21:06:26Z"
+            },
+            {
+                "name": "v1.1.3",
+                "date": "2017-03-12T19:00:27Z"
+            },
+            {
+                "name": "v1.1.2",
+                "date": "2017-03-10T16:29:30Z"
+            },
+            {
+                "name": "v1.1.1",
+                "date": "2017-03-03T16:54:13Z"
+            },
+            {
+                "name": "v1.1.0",
+                "date": "2016-11-01T19:15:12Z"
+            },
+            {
+                "name": "v1.0.1",
+                "date": "2016-08-15T17:02:07Z"
+            },
+            {
+                "name": "v1.0.0",
+                "date": "2016-06-20T20:57:55Z"
+            },
+            {
+                "name": "v0.3.4",
+                "date": "2016-04-15T09:56:27Z"
+            },
+            {
+                "name": "v0.3.3",
+                "date": "2016-03-03T10:55:04Z"
+            },
+            {
+                "name": "v0.3.1",
+                "date": "2016-02-25T16:23:17Z"
+            },
+            {
+                "name": "v0.3.0",
+                "date": "2016-02-25T15:18:19Z"
+            },
+            {
+                "name": "v0.2.0",
+                "date": "2016-02-25T10:55:49Z"
+            },
+            {
+                "name": "v0.1.10",
+                "date": "2016-02-24T13:00:36Z"
+            },
+            {
+                "name": "v0.1.9",
+                "date": "2016-02-22T13:33:51Z"
+            },
+            {
+                "name": "v0.1.8",
+                "date": "2016-02-22T11:03:40Z"
+            },
+            {
+                "name": "v0.1.7",
+                "date": "2016-02-14T15:45:30Z"
+            },
+            {
+                "name": "v0.1.6",
+                "date": "2016-02-14T15:32:46Z"
+            },
+            {
+                "name": "v0.1.5",
+                "date": "2016-02-14T15:07:39Z"
+            },
+            {
+                "name": "v0.1.4",
+                "date": "2016-02-14T14:13:04Z"
+            },
+            {
+                "name": "v0.1.3",
+                "date": "2016-02-14T14:06:35Z"
+            },
+            {
+                "name": "v0.1.2",
+                "date": "2016-02-14T14:04:41Z"
+            },
+            {
+                "name": "v0.1.1",
+                "date": "2016-02-14T13:58:20Z"
+            },
+            {
+                "name": "v0.1.0",
+                "date": "2016-02-14T13:51:51Z"
+            },
+            {
+                "name": "v",
+                "date": "2016-02-14T14:10:14Z"
+            }
+        ]
+    }
+}

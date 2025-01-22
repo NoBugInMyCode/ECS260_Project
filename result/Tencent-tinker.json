@@ -1,0 +1,294 @@
+{
+    "https://api.github.com/repos/Tencent/tinker": {
+        "forks": 3341,
+        "watchers": 17210,
+        "stars": 17210,
+        "languages": {
+            "Java": 1696001,
+            "Groovy": 118261,
+            "Python": 11639,
+            "Shell": 2229,
+            "AIDL": 102
+        },
+        "commits": [
+            "2025-01-21T09:40:27Z",
+            "2024-12-09T08:02:11Z",
+            "2024-09-25T03:04:31Z",
+            "2024-09-25T03:04:02Z",
+            "2022-01-17T13:28:58Z",
+            "2021-06-28T08:48:30Z",
+            "2024-08-26T07:52:32Z",
+            "2024-07-17T08:26:04Z",
+            "2024-07-17T08:16:34Z",
+            "2024-06-24T08:34:56Z",
+            "2024-06-21T08:49:20Z",
+            "2024-06-21T08:39:32Z",
+            "2024-01-23T03:53:05Z",
+            "2024-01-23T03:51:49Z",
+            "2024-01-18T09:41:37Z",
+            "2024-01-18T09:30:26Z",
+            "2024-01-18T04:07:21Z",
+            "2023-12-19T03:17:39Z",
+            "2023-12-19T03:10:29Z",
+            "2023-11-28T12:53:17Z",
+            "2023-11-06T08:29:15Z",
+            "2023-11-06T07:36:08Z",
+            "2023-11-06T07:36:03Z",
+            "2023-10-23T03:44:56Z",
+            "2023-10-23T03:44:37Z",
+            "2023-10-17T03:21:20Z",
+            "2023-08-10T14:54:38Z",
+            "2023-08-09T10:03:45Z",
+            "2023-08-09T09:31:41Z",
+            "2023-03-09T06:06:45Z"
+        ],
+        "creation_date": "2016-09-06T06:57:52Z",
+        "contributors": 30,
+        "topics": [
+            "android",
+            "dynamic",
+            "hotfix",
+            "wechat"
+        ],
+        "subscribers": 693,
+        "readme": "## Tinker\n[![license](http://img.shields.io/badge/license-BSD3-brightgreen.svg?style=flat)](https://github.com/Tencent/tinker/blob/master/LICENSE)\n[![Release Version](https://img.shields.io/badge/release-1.9.15.1-red.svg)](https://github.com/Tencent/tinker/releases)\n[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Tencent/tinker/pulls)\n[![WeChat Approved](https://img.shields.io/badge/Wechat_Approved-1.9.15.1-red.svg)](https://github.com/Tencent/tinker/wiki)\n\n[\u4e2d\u6587\u8bf4\u660e](https://github.com/Tencent/tinker/wiki)\n\nTinker is a hot-fix solution library for Android, it supports dex, library and resources update without reinstalling apk.\n\n![tinker.png](assets/tinker.png)\n\n## Getting started\nAdd tinker-gradle-plugin as a dependency in your main `build.gradle` in the root of your project:\n\n```gradle\nbuildscript {\n    dependencies {\n        classpath ('com.tencent.tinker:tinker-patch-gradle-plugin:1.9.1')\n    }\n}\n```\n\nThen you need to \"apply\" the plugin and add dependencies by adding the following lines to your `app/build.gradle`.\n\n```gradle\ndependencies {\n    //optional, help to generate the final application\n    provided('com.tencent.tinker:tinker-android-anno:1.9.1')\n    //tinker's main Android lib\n    compile('com.tencent.tinker:tinker-android-lib:1.9.1')\n}\n...\n...\napply plugin: 'com.tencent.tinker.patch'\n```\n\nIf your app has a class that subclasses android.app.Application, then you need to modify that class, and move all its implements to [SampleApplicationLike](https://github.com/Tencent/tinker/blob/master/tinker-sample-android/app/src/main/java/tinker/sample/android/app/SampleApplicationLike.java) rather than Application:\n\n```java\n-public class YourApplication extends Application {\n+public class SampleApplicationLike extends DefaultApplicationLike {\n```\n\nNow you should change your `Application` class, make it a subclass of [TinkerApplication](https://github.com/Tencent/tinker/blob/master/tinker-android/tinker-android-loader/src/main/java/com/tencent/tinker/loader/app/TinkerApplication.java). As you can see from its API, it is an abstract class that does not have a default constructor, so you must define a no-arg constructor:\n\n```java\npublic class SampleApplication extends TinkerApplication {\n    public SampleApplication() {\n      super(\n        //tinkerFlags, which types is supported\n        //dex only, library only, all support\n        ShareConstants.TINKER_ENABLE_ALL,\n        // This is passed as a string so the shell application does not\n        // have a binary dependency on your ApplicationLifeCycle class.\n        \"tinker.sample.android.app.SampleApplicationLike\");\n    }\n}\n```\n\nUse `tinker-android-anno` to generate your `Application` is recommended, you just need to add an annotation for your [SampleApplicationLike](https://github.com/Tencent/tinker/blob/master/tinker-sample-android/app/src/main/java/tinker/sample/android/app/SampleApplicationLike.java) class\n\n```java\n@DefaultLifeCycle(\napplication = \"tinker.sample.android.app.SampleApplication\",             //application name to generate\nflags = ShareConstants.TINKER_ENABLE_ALL)                                //tinkerFlags above\npublic class SampleApplicationLike extends DefaultApplicationLike\n```\n\nHow to install tinker? learn more at the sample [SampleApplicationLike](https://github.com/Tencent/tinker/blob/master/tinker-sample-android/app/src/main/java/tinker/sample/android/app/SampleApplicationLike.java).\n\nFor proguard, we have already made the proguard config automatic, and tinker will also generate the multiDex keep proguard file for you.\n\nFor more tinker configurations, learn more at the sample [app/build.gradle](https://github.com/Tencent/tinker/blob/master/tinker-sample-android/app/build.gradle).\n\n## Ark Support\nHow to run tinker on the Ark?\n### building patch\nJust use the following command:\n```buildconfig\nbash build_patch_dexdiff.sh old=xxx new=xxx\n```\n* `old` indicates the absolute path of android apk(not compiled by Ark) with bugs\n* `new` indicates the absolute path of android apk(not compiled by Ark) with fixing\n\nThe patch file is packaged in APK.\n### compiling in Ark\nTODO\n\nAt present it's compiled by Ark compiler team. The output patch is still packaged in APK format without signature.\n### packaging the patch\nFor tinker-cli, add the following lines to your `tinker_config.xml`. Otherwise, the default configure will be used.\n```xml\n<issue id=\"arkHot\">\n   <path value=\"arkHot\"/>         // path of patch\n   <name value=\"patch.apk\"/>      // name of patch\n</issue>\n```\nFor gradle, add the following lines to your `app/build.gradle`. Otherwise, the default configure will be used.\n```gradle\nark {\n   path = \"arkHot\"         // path of patch\n   name = \"patch.apk\"      // name of patch\n}\n```\nThe patch is compiled by Ark and placed on the above path. all subsequent operations are same as tinker-cli or gradle.\n\nThe ultimated patch APK consists of two patch files:\n\n* `classes.dex` for android\n* `patch.apk` with so for Ark.\n\n## Tinker Known Issues\nThere are some issues which Tinker can't dynamic update.\n\n1. Can't update AndroidManifest.xml, such as add Android Component.\n2. Do not support some Samsung models with os version android-21.\n3. Due to Google Play Developer Distribution Agreement, we can't dynamic update our apk.\n\n## Tinker Support\nAny problem?\n\n1. Learn more from [tinker-sample-android](https://github.com/Tencent/tinker/tree/master/tinker-sample-android).\n2. Read the [source code](https://github.com/Tencent/tinker/tree/master).\n3. Read the [wiki](https://github.com/Tencent/tinker/wiki) or [FAQ](https://github.com/Tencent/tinker/wiki/Tinker-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98) for help.\n4. Contact us for help.\n\n## Contributing\nFor more information about contributing issues or pull requests, see our [Tinker Contributing Guide](https://github.com/Tencent/tinker/blob/master/CONTRIBUTING.md).\n\n## License\nTinker is under the BSD license. See the [LICENSE](https://github.com/Tencent/tinker/blob/master/LICENSE) file for details.\n",
+        "releases": [
+            {
+                "name": "v1.9.15.1",
+                "date": "2024-12-09T08:01:17Z"
+            },
+            {
+                "name": "v1.9.15",
+                "date": "2024-12-09T07:59:44Z"
+            },
+            {
+                "name": "v1.9.14.27",
+                "date": "2024-08-26T07:51:45Z"
+            },
+            {
+                "name": "v1.9.14.26.3",
+                "date": "2024-01-19T04:20:52Z"
+            },
+            {
+                "name": "v1.9.14.26",
+                "date": "2023-11-05T09:46:07Z"
+            },
+            {
+                "name": "v1.9.14.25.3",
+                "date": "2023-08-09T09:26:42Z"
+            },
+            {
+                "name": "v1.9.14.25.2",
+                "date": "2023-06-13T02:22:42Z"
+            },
+            {
+                "name": "v1.9.14.25.1",
+                "date": "2022-09-22T03:19:47Z"
+            },
+            {
+                "name": "v1.9.14.25",
+                "date": "2022-09-16T16:32:17Z"
+            },
+            {
+                "name": "v1.9.14.24",
+                "date": "2022-08-08T06:19:29Z"
+            },
+            {
+                "name": "v1.9.14.23.1",
+                "date": "2022-08-05T05:46:43Z"
+            },
+            {
+                "name": "v1.9.14.23",
+                "date": "2022-07-27T03:33:36Z"
+            },
+            {
+                "name": "v1.9.14.22",
+                "date": "2022-07-11T06:51:40Z"
+            },
+            {
+                "name": "v1.9.14.21",
+                "date": "2022-07-11T06:49:33Z"
+            },
+            {
+                "name": "v1.9.14.20",
+                "date": "2022-04-25T08:08:32Z"
+            },
+            {
+                "name": "",
+                "date": "2022-01-13T05:47:10Z"
+            },
+            {
+                "name": "v1.9.14.18",
+                "date": "2021-09-14T03:46:39Z"
+            },
+            {
+                "name": "v1.9.14.17",
+                "date": "2021-06-12T05:51:14Z"
+            },
+            {
+                "name": "",
+                "date": "2021-04-19T12:57:05Z"
+            },
+            {
+                "name": "",
+                "date": "2021-04-01T13:49:12Z"
+            },
+            {
+                "name": "",
+                "date": "2021-03-25T06:04:58Z"
+            },
+            {
+                "name": "",
+                "date": "2021-03-17T03:19:17Z"
+            },
+            {
+                "name": "",
+                "date": "2021-03-10T04:10:29Z"
+            },
+            {
+                "name": "",
+                "date": "2021-03-08T07:35:23Z"
+            },
+            {
+                "name": "",
+                "date": "2020-12-09T03:54:15Z"
+            },
+            {
+                "name": "",
+                "date": "2020-10-20T06:21:09Z"
+            },
+            {
+                "name": "",
+                "date": "2020-09-28T06:24:10Z"
+            },
+            {
+                "name": "",
+                "date": "2020-05-10T11:05:13Z"
+            },
+            {
+                "name": "",
+                "date": "2020-03-11T09:38:52Z"
+            },
+            {
+                "name": "",
+                "date": "2019-12-13T06:44:15Z"
+            },
+            {
+                "name": "",
+                "date": "2019-10-16T07:32:05Z"
+            },
+            {
+                "name": "",
+                "date": "2019-08-30T16:22:15Z"
+            },
+            {
+                "name": "",
+                "date": "2019-06-17T08:08:03Z"
+            },
+            {
+                "name": "v1.9.13.1",
+                "date": "2019-06-11T12:18:58Z"
+            },
+            {
+                "name": "v1.9.13",
+                "date": "2019-04-26T12:28:29Z"
+            },
+            {
+                "name": "v1.9.12",
+                "date": "2019-02-21T06:52:12Z"
+            },
+            {
+                "name": "v1.9.11",
+                "date": "2019-01-11T09:34:01Z"
+            },
+            {
+                "name": "v1.9.9",
+                "date": "2018-09-26T07:17:39Z"
+            },
+            {
+                "name": "v1.9.8",
+                "date": "2018-06-25T03:12:18Z"
+            },
+            {
+                "name": "v1.9.6 \uff08Bugfix for 1.9.5\uff09",
+                "date": "2018-04-09T04:52:27Z"
+            },
+            {
+                "name": "v1.9.5",
+                "date": "2018-03-26T03:08:09Z"
+            },
+            {
+                "name": "v1.9.2 bugfix for 1.9.1",
+                "date": "2017-12-06T11:01:34Z"
+            },
+            {
+                "name": "V1.9.1 bugfix for 1.9.0",
+                "date": "2017-11-09T03:40:01Z"
+            },
+            {
+                "name": "",
+                "date": "2017-11-01T11:04:42Z"
+            },
+            {
+                "name": "v1.8.1 --hoxfix 1.8.0\u4e0d\u652f\u6301\u52a0\u56fa",
+                "date": "2017-08-14T11:11:51Z"
+            },
+            {
+                "name": "v1.8.0",
+                "date": "2017-08-09T07:46:55Z"
+            },
+            {
+                "name": "v1.7.11 hotfix for v1.7.10",
+                "date": "2017-05-24T06:21:04Z"
+            },
+            {
+                "name": "v1.7.10",
+                "date": "2017-05-22T08:08:52Z"
+            },
+            {
+                "name": "hotfix v1.7.9",
+                "date": "2017-04-26T07:40:45Z"
+            },
+            {
+                "name": "v1.7.8",
+                "date": "2017-04-24T05:15:10Z"
+            },
+            {
+                "name": "v1.7.7",
+                "date": "2017-01-13T12:24:57Z"
+            },
+            {
+                "name": "",
+                "date": "2016-12-23T10:09:57Z"
+            },
+            {
+                "name": "v1.7.5",
+                "date": "2016-11-18T08:41:24Z"
+            },
+            {
+                "name": "",
+                "date": "2016-11-01T08:18:04Z"
+            },
+            {
+                "name": "",
+                "date": "2016-10-31T08:24:28Z"
+            },
+            {
+                "name": "v1.7.0",
+                "date": "2016-10-14T09:14:25Z"
+            },
+            {
+                "name": "v1.6.2",
+                "date": "2016-09-29T11:18:28Z"
+            },
+            {
+                "name": "",
+                "date": "2016-09-27T04:09:17Z"
+            },
+            {
+                "name": "First release.",
+                "date": "2016-09-24T08:44:15Z"
+            }
+        ]
+    }
+}

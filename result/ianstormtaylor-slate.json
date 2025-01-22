@@ -1,0 +1,800 @@
+{
+    "https://api.github.com/repos/ianstormtaylor/slate": {
+        "forks": 3275,
+        "watchers": 30242,
+        "stars": 30242,
+        "languages": {
+            "TypeScript": 1031142,
+            "JavaScript": 136499,
+            "CSS": 1236
+        },
+        "commits": [
+            "2025-01-20T17:34:09Z",
+            "2025-01-20T15:08:46Z",
+            "2024-12-31T05:35:10Z",
+            "2024-12-31T04:09:52Z",
+            "2024-12-30T20:21:28Z",
+            "2024-12-25T14:16:53Z",
+            "2024-12-07T20:24:38Z",
+            "2024-12-07T07:19:30Z",
+            "2024-11-26T18:49:43Z",
+            "2024-11-23T00:01:22Z",
+            "2024-11-23T00:01:11Z",
+            "2024-11-19T18:19:24Z",
+            "2024-11-19T18:14:47Z",
+            "2024-11-01T17:44:47Z",
+            "2024-11-01T17:44:18Z",
+            "2024-10-31T14:20:34Z",
+            "2024-10-31T14:18:34Z",
+            "2024-10-24T13:21:28Z",
+            "2024-10-24T06:12:03Z",
+            "2024-10-21T11:55:54Z",
+            "2024-10-17T05:10:39Z",
+            "2024-10-17T05:10:04Z",
+            "2024-10-16T17:15:21Z",
+            "2024-10-16T14:54:14Z",
+            "2024-10-15T19:29:29Z",
+            "2024-10-08T13:55:45Z",
+            "2024-09-26T13:18:05Z",
+            "2024-09-26T07:24:33Z",
+            "2024-09-26T07:24:11Z",
+            "2024-09-26T07:23:48Z"
+        ],
+        "creation_date": "2016-06-18T01:52:42Z",
+        "contributors": 30,
+        "topics": [
+            "browser",
+            "editor",
+            "framework",
+            "javascript",
+            "react",
+            "rich-text",
+            "slate",
+            "text-editor"
+        ],
+        "subscribers": 305,
+        "readme": "<p align=\"center\">\n  <a href=\"#\"><img src=\"./docs/images/banner.png\" /></a>\n</p>\n\n<p align=\"center\">\n  A <em>completely</em> customizable framework <br/>\n  for building rich text editors.\n</p>\n<br/>\n\n<p align=\"center\">\n  <a href=\"#why\"><strong>Why?</strong></a> \u00b7\n  <a href=\"#principles\"><strong>Principles</strong></a> \u00b7\n  <a href=\"http://slatejs.org\"><strong>Demo</strong></a> \u00b7\n  <a href=\"#examples\"><strong>Examples</strong></a> \u00b7\n  <a href=\"http://docs.slatejs.org\"><strong>Documentation</strong></a> \u00b7\n  <a href=\"#contributing\"><strong>Contributing!</strong></a>\n</p>\n<br/>\n\n<p align=\"center\">\n  <a href=\"http://slatejs.org\"><img src=\"./docs/images/preview.png\"></a>\n</p>\n\n<p align=\"center\">\n  <a href=\"https://unpkg.com/slate/dist/slate.min.js\">\n    <img src=\"http://img.badgesize.io/https://unpkg.com/slate/dist/slate.min.js?compression=gzip&amp;label=size\">\n  </a>\n  <a href=\"https://join.slack.com/t/slate-js/shared_invite/zt-f8t986ip-7dA1DyiqPpzootz1snKXkw\">\n    <img src=\"https://img.shields.io/badge/slack-slate--js-brightgreen.svg?logo=slack\">\n  </a>\n  <a href=\"./packages/slate/package.json\">\n    <img src=\"https://img.shields.io/npm/v/slate.svg?maxAge=3600&label=version&colorB=007ec6\">\n  </a>\n</p>\n<br/>\n\nSlate lets you build rich, intuitive editors like those in [Medium](https://medium.com/), [Dropbox Paper](https://www.dropbox.com/paper) or [Google Docs](https://www.google.com/docs/about/)\u2014which are becoming table stakes for applications on the web\u2014without your codebase getting mired in complexity.\n\nIt can do this because all of its logic is implemented with a series of plugins, so you aren't ever constrained by what _is_ or _isn't_ in \"core\". You can think of it like a pluggable implementation of `contenteditable` built on top of [React](https://facebook.github.io/react/). It was inspired by libraries like [Draft.js](https://facebook.github.io/draft-js/), [Prosemirror](http://prosemirror.net/) and [Quill](http://quilljs.com/).\n\n> \ud83e\udd16 **Slate is currently in beta.** Its core API is useable right now, but you might need to pull request improvements for advanced use cases, or fixes for some bugs. Some of its APIs are not \"finalized\" and will have breaking changes over time as we discover better solutions. There isn't currently a `1.0` release schedule, we're still getting the architecture right.\n\n> \ud83e\udd16 **Slate is also contributor-driven.** It is not backed by any huge company, which means that all contributions are voluntary and done by the people who need them. If you need something improved, added, or fixed, please contribute it yourself or no one will. And if you want to become a more active maintainer, let us know in the Slack channel.\n\n<br/>\n\n### Why?\n\nWhy create Slate? Well... _(Beware: this section has a few of [my](https://github.com/ianstormtaylor) opinions!)_\n\nBefore creating Slate, I tried a lot of the other rich text libraries out there\u2014[**Draft.js**](https://facebook.github.io/draft-js/), [**Prosemirror**](http://prosemirror.net/), [**Quill**](http://quilljs.com/), etc. What I found was that while getting simple examples to work was easy enough, once you started trying to build something like [Medium](https://medium.com/), [Dropbox Paper](https://www.dropbox.com/paper) or [Google Docs](https://www.google.com/docs/about/), you ran into deeper issues...\n\n- **The editor's \"schema\" was hardcoded and hard to customize.** Things like bold and italic were supported out of the box, but what about comments, or embeds, or even more domain-specific needs?\n\n- **Transforming the documents programmatically was very convoluted.** Writing as a user may have worked, but making programmatic changes, which is critical for building advanced behaviors, was needlessly complex.\n\n- **Serializing to HTML, Markdown, etc. seemed like an afterthought.** Simple things like transforming a document to HTML or Markdown involved writing lots of boilerplate code, for what seemed like very common use cases.\n\n- **Re-inventing the view layer seemed inefficient and limiting.** Most editors rolled their own views, instead of using existing technologies like React, so you have to learn a whole new system with new \"gotchas\".\n\n- **Collaborative editing wasn't designed for in advance.** Often the editor's internal representation of data made it impossible to use to for a realtime, collaborative editing use case without basically rewriting the editor.\n\n- **The repositories were monolithic, not small and reusable.** The code bases for many of the editors often didn't expose the internal tooling that could have been re-used by developers, leading to having to reinvent the wheel.\n\n- **Building complex, nested documents was impossible.** Many editors were designed around simplistic \"flat\" documents, making things like tables, embeds and captions difficult to reason about and sometimes impossible.\n\nOf course not every editor exhibits all of these issues, but if you've tried using another editor you might have run into similar problems. To get around the limitations of their API's and achieve the user experience you're after, you have to resort to very hacky things. And some experiences are just plain impossible to achieve.\n\nIf that sounds familiar, you might like Slate.\n\nWhich brings me to how Slate solves all of that...\n\n<br/>\n\n### Principles\n\nSlate tries to solve the question of \"[Why?](#why)\" with a few principles:\n\n1. **First-class plugins.** The most important part of Slate is that plugins are first-class entities. That means you can _completely_ customize the editing experience, to build complex editors like Medium's or Dropbox's, without having to fight against the library's assumptions.\n\n2. **Schema-less core.** Slate's core logic assumes very little about the schema of the data you'll be editing, which means that there are no assumptions baked into the library that'll trip you up when you need to go beyond the most basic use cases.\n\n3. **Nested document model.** The document model used for Slate is a nested, recursive tree, just like the DOM itself. This means that creating complex components like tables or nested block quotes are possible for advanced use cases. But it's also easy to keep it simple by only using a single level of hierarchy.\n\n4. **Parallel to the DOM.** Slate's data model is based on the DOM\u2014the document is a nested tree, it uses selections and ranges, and it exposes all the standard event handlers. This means that advanced behaviors like tables or nested block quotes are possible. Pretty much anything you can do in the DOM, you can do in Slate.\n\n5. **Intuitive commands.** Slate documents are edited using \"commands\", that are designed to be high-level and extremely intuitive to write and read, so that custom functionality is as expressive as possible. This greatly increases your ability to reason about your code.\n\n6. **Collaboration-ready data model.** The data model Slate uses\u2014specifically how operations are applied to the document\u2014has been designed to allow for collaborative editing to be layered on top, so you won't need to rethink everything if you decide to make your editor collaborative.\n\n7. **Clear \"core\" boundaries.** With a plugin-first architecture, and a schema-less core, it becomes a lot clearer where the boundary is between \"core\" and \"custom\", which means that the core experience doesn't get bogged down in edge cases.\n\n<br/>\n\n### Demo\n\nCheck out the [**live demo**](http://slatejs.org) of all of the examples!\n\n<br/>\n\n### Examples\n\nTo get a sense for how you might use Slate, check out a few of the examples:\n\n- [**Plain text**](https://github.com/ianstormtaylor/slate/tree/main/site/examples/plaintext.tsx) \u2014 showing the most basic case: a glorified `<textarea>`.\n- [**Rich text**](https://github.com/ianstormtaylor/slate/tree/main/site/examples/richtext.tsx) \u2014 showing the features you'd expect from a basic editor.\n- [**Markdown preview**](https://github.com/ianstormtaylor/slate/tree/main/site/examples/markdown-preview.tsx) \u2014 showing how to add key handlers for Markdown-like shortcuts.\n- [**Inlines**](https://github.com/ianstormtaylor/slate/tree/main/site/examples/inlines.tsx) \u2014 showing how wrap text in inline nodes with associated data.\n- [**Images**](https://github.com/ianstormtaylor/slate/tree/main/site/examples/images.tsx) \u2014 showing how to use void (text-less) nodes to add images.\n- [**Hovering toolbar**](https://github.com/ianstormtaylor/slate/tree/main/site/examples/hovering-toolbar.tsx) \u2014 showing how a hovering toolbar can be implemented.\n- [**Tables**](https://github.com/ianstormtaylor/slate/tree/main/site/examples/tables.tsx) \u2014 showing how to nest blocks to render more advanced components.\n- [**Paste HTML**](https://github.com/ianstormtaylor/slate/tree/main/site/examples/paste-html.tsx) \u2014 showing how to use an HTML serializer to handle pasted HTML.\n- [**Mentions**](https://github.com/ianstormtaylor/slate/tree/main/site/examples/mentions.tsx) \u2014 showing how to use inline void nodes for simple @-mentions.\n- [**See all the examples...**](https://github.com/ianstormtaylor/slate/tree/main/site/examples/)\n\nIf you have an idea for an example that shows a common use case, pull request it!\n\n<br/>\n\n### Documentation\n\nIf you're using Slate for the first time, check out the [Getting Started](https://docs.slatejs.org/walkthroughs/01-installing-slate) walkthroughs and the [Concepts](http://docs.slatejs.org/concepts) to familiarize yourself with Slate's architecture and mental models.\n\n- [**Walkthroughs**](https://docs.slatejs.org/walkthroughs/01-installing-slate)\n- [**Concepts**](https://docs.slatejs.org/concepts)\n- [**FAQ**](https://docs.slatejs.org/general/faq)\n- [**Resources**](https://docs.slatejs.org/general/resources)\n\nIf even that's not enough, you can always [read the source itself](./packages/slate), which is heavily commented.\n\nThere are also translations of the documentation into other languages:\n\n- [\u4e2d\u6587](https://doodlewind.github.io/slate-doc-cn/) (`v0.47`)\n- [\u4e2d\u6587](https://github.com/loveloki/slate-docs-cn) (`v0.57`)\n- [\u4e2d\u6587](https://rain120.github.io/athena/zh/slate/Introduction.html) (`v0.59`)\n\nIf you're maintaining a translation, feel free to pull request it here!\n\n<br/>\n\n### Packages\n\nSlate's codebase is monorepo managed with [Lerna](https://lerna.js.org/). It consists of a handful of packages\u2014although you won't always use all of them. They are:\n\n| **Package**                                         |                                                                                                                           **Version** |                                                                                                                                                                                       **Size** | **Description**                                  |\n| :-------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------- |\n| [`slate`](./packages/slate)                         |                         [![](https://img.shields.io/npm/v/slate.svg?maxAge=3600&label=&colorB=007ec6)](./packages/slate/package.json) |                                                 [![](http://img.badgesize.io/https://unpkg.com/slate/dist/slate.min.js?compression=gzip&label=%20)](https://unpkg.com/slate/dist/slate.min.js) | Slate's core data model logic.                   |\n| [`slate-history`](./packages/slate-history)         |         [![](https://img.shields.io/npm/v/slate-history.svg?maxAge=3600&label=&colorB=007ec6)](./packages/slate-history/package.json) |                 [![](http://img.badgesize.io/https://unpkg.com/slate-history/dist/slate-history.min.js?compression=gzip&label=%20)](https://unpkg.com/slate-history/dist/slate-history.min.js) | A plugin that adds undo/redo history to Slate.   |\n| [`slate-hyperscript`](./packages/slate-hyperscript) | [![](https://img.shields.io/npm/v/slate-hyperscript.svg?maxAge=3600&label=&colorB=007ec6)](./packages/slate-hyperscript/package.json) | [![](http://img.badgesize.io/https://unpkg.com/slate-hyperscript/dist/slate-hyperscript.min.js?compression=gzip&label=%20)](https://unpkg.com/slate-hyperscript/dist/slate-hyperscript.min.js) | A hyperscript tool to write JSX Slate documents! |\n| [`slate-react`](./packages/slate-react)             |             [![](https://img.shields.io/npm/v/slate-react.svg?maxAge=3600&label=&colorB=007ec6)](./packages/slate-react/package.json) |                         [![](http://img.badgesize.io/https://unpkg.com/slate-react/dist/slate-react.min.js?compression=gzip&label=%20)](https://unpkg.com/slate-react/dist/slate-react.min.js) | React components for rendering Slate editors.    |\n\n<br />\n\n### Contributing!\n\nAll contributions are super welcome! Check out the [Contributing instructions](https://docs.slatejs.org/general/contributing) for more info!\n\nSlate is [MIT-licensed](./License.md).\n",
+        "releases": [
+            {
+                "name": "slate-react@0.112.1",
+                "date": "2025-01-20T17:36:41Z"
+            },
+            {
+                "name": "slate@0.112.0",
+                "date": "2024-12-07T20:27:24Z"
+            },
+            {
+                "name": "slate-react@0.112.0",
+                "date": "2024-12-07T20:27:27Z"
+            },
+            {
+                "name": "slate-react@0.111.0",
+                "date": "2024-11-01T17:47:33Z"
+            },
+            {
+                "name": "slate-dom@0.111.0",
+                "date": "2024-11-01T17:47:36Z"
+            },
+            {
+                "name": "slate-react@0.110.3",
+                "date": "2024-10-24T13:24:10Z"
+            },
+            {
+                "name": "slate-history@0.110.3",
+                "date": "2024-10-24T13:24:08Z"
+            },
+            {
+                "name": "slate@0.110.2",
+                "date": "2024-10-17T05:13:20Z"
+            },
+            {
+                "name": "slate-react@0.110.2",
+                "date": "2024-10-17T05:13:23Z"
+            },
+            {
+                "name": "slate-react@0.110.1",
+                "date": "2024-09-12T21:40:12Z"
+            },
+            {
+                "name": "slate-react@0.110.0",
+                "date": "2024-09-03T02:55:18Z"
+            },
+            {
+                "name": "slate-react@0.109.0",
+                "date": "2024-08-23T05:45:40Z"
+            },
+            {
+                "name": "slate-history@0.109.0",
+                "date": "2024-08-23T05:45:37Z"
+            },
+            {
+                "name": "slate-react@0.108.0",
+                "date": "2024-08-12T11:54:51Z"
+            },
+            {
+                "name": "slate-react@0.107.1",
+                "date": "2024-07-16T09:28:53Z"
+            },
+            {
+                "name": "slate-react@0.107.0",
+                "date": "2024-07-08T17:52:34Z"
+            },
+            {
+                "name": "slate-react@0.106.0",
+                "date": "2024-06-25T11:11:44Z"
+            },
+            {
+                "name": "slate-react@0.105.0",
+                "date": "2024-06-04T15:50:18Z"
+            },
+            {
+                "name": "slate-react@0.104.0",
+                "date": "2024-05-15T22:50:23Z"
+            },
+            {
+                "name": "slate@0.103.0",
+                "date": "2024-04-21T20:22:16Z"
+            },
+            {
+                "name": "slate@0.102.0",
+                "date": "2024-02-07T12:09:31Z"
+            },
+            {
+                "name": "slate-react@0.102.0",
+                "date": "2024-02-07T12:09:34Z"
+            },
+            {
+                "name": "slate-react@0.101.6",
+                "date": "2024-01-24T14:12:21Z"
+            },
+            {
+                "name": "slate@0.101.5",
+                "date": "2023-12-22T00:04:42Z"
+            },
+            {
+                "name": "slate-react@0.101.5",
+                "date": "2023-12-22T00:04:45Z"
+            },
+            {
+                "name": "slate@0.101.4",
+                "date": "2023-12-13T00:53:41Z"
+            },
+            {
+                "name": "slate-react@0.101.3",
+                "date": "2023-12-06T16:08:35Z"
+            },
+            {
+                "name": "slate-react@0.101.2",
+                "date": "2023-12-04T19:27:47Z"
+            },
+            {
+                "name": "slate@0.101.1",
+                "date": "2023-11-22T13:30:12Z"
+            },
+            {
+                "name": "slate-react@0.101.1",
+                "date": "2023-11-22T13:30:15Z"
+            },
+            {
+                "name": "slate-react@0.101.0",
+                "date": "2023-11-10T16:57:25Z"
+            },
+            {
+                "name": "slate-react@0.100.1",
+                "date": "2023-10-31T18:15:52Z"
+            },
+            {
+                "name": "slate@0.100.0",
+                "date": "2023-10-20T16:05:45Z"
+            },
+            {
+                "name": "slate-react@0.100.0",
+                "date": "2023-10-20T16:05:54Z"
+            },
+            {
+                "name": "slate-hyperscript@0.100.0",
+                "date": "2023-10-20T16:05:51Z"
+            },
+            {
+                "name": "slate-history@0.100.0",
+                "date": "2023-10-20T16:05:48Z"
+            },
+            {
+                "name": "slate-react@0.99.0",
+                "date": "2023-09-25T15:28:52Z"
+            },
+            {
+                "name": "slate-react@0.98.4",
+                "date": "2023-09-18T17:45:27Z"
+            },
+            {
+                "name": "slate-react@0.98.3",
+                "date": "2023-08-29T12:06:10Z"
+            },
+            {
+                "name": "slate-react@0.98.2",
+                "date": "2023-08-26T12:07:43Z"
+            },
+            {
+                "name": "slate-react@0.98.1",
+                "date": "2023-08-01T00:36:22Z"
+            },
+            {
+                "name": "slate-react@0.98.0",
+                "date": "2023-07-26T14:22:21Z"
+            },
+            {
+                "name": "slate-react@0.97.2",
+                "date": "2023-07-12T12:10:12Z"
+            },
+            {
+                "name": "slate-react@0.97.1",
+                "date": "2023-06-21T18:35:19Z"
+            },
+            {
+                "name": "slate-react@0.97.0",
+                "date": "2023-06-17T03:52:04Z"
+            },
+            {
+                "name": "slate-react@0.96.0",
+                "date": "2023-06-13T02:03:16Z"
+            },
+            {
+                "name": "slate-react@0.95.0",
+                "date": "2023-05-30T05:32:28Z"
+            },
+            {
+                "name": "slate-react@0.94.2",
+                "date": "2023-05-14T06:38:25Z"
+            },
+            {
+                "name": "slate@0.94.1",
+                "date": "2023-05-09T17:29:35Z"
+            },
+            {
+                "name": "slate@0.94.0",
+                "date": "2023-04-20T12:35:53Z"
+            },
+            {
+                "name": "slate-react@0.94.0",
+                "date": "2023-04-20T12:35:53Z"
+            },
+            {
+                "name": "slate@0.93.0",
+                "date": "2023-04-03T23:55:13Z"
+            },
+            {
+                "name": "slate-react@0.93.0",
+                "date": "2023-04-03T23:55:13Z"
+            },
+            {
+                "name": "slate-history@0.93.0",
+                "date": "2023-04-03T23:55:13Z"
+            },
+            {
+                "name": "slate-react@0.92.0",
+                "date": "2023-03-17T20:10:32Z"
+            },
+            {
+                "name": "slate-react@0.91.11",
+                "date": "2023-03-16T13:28:21Z"
+            },
+            {
+                "name": "slate-react@0.91.10",
+                "date": "2023-03-08T05:31:55Z"
+            },
+            {
+                "name": "slate-react@0.91.9",
+                "date": "2023-03-06T16:48:12Z"
+            },
+            {
+                "name": "slate-react@0.91.8",
+                "date": "2023-03-02T19:10:29Z"
+            },
+            {
+                "name": "slate-react@0.91.7",
+                "date": "2023-02-28T00:39:18Z"
+            },
+            {
+                "name": "slate-react@0.91.6",
+                "date": "2023-02-27T06:17:26Z"
+            },
+            {
+                "name": "slate-react@0.91.5",
+                "date": "2023-02-24T23:17:18Z"
+            },
+            {
+                "name": "slate@0.91.4",
+                "date": "2023-02-23T23:23:56Z"
+            },
+            {
+                "name": "slate-react@0.91.4",
+                "date": "2023-02-23T23:23:56Z"
+            },
+            {
+                "name": "slate@0.91.3",
+                "date": "2023-02-22T20:57:08Z"
+            },
+            {
+                "name": "slate-react@0.91.3",
+                "date": "2023-02-22T20:57:08Z"
+            },
+            {
+                "name": "slate-react@0.91.2",
+                "date": "2023-02-20T15:57:54Z"
+            },
+            {
+                "name": "slate@0.91.1",
+                "date": "2023-02-19T01:51:34Z"
+            },
+            {
+                "name": "slate-react@0.91.1",
+                "date": "2023-02-19T01:51:34Z"
+            },
+            {
+                "name": "slate-react@0.91.0",
+                "date": "2023-02-14T06:48:25Z"
+            },
+            {
+                "name": "slate@0.90.0",
+                "date": "2023-02-01T11:49:36Z"
+            },
+            {
+                "name": "slate-react@0.90.0",
+                "date": "2023-02-01T11:49:36Z"
+            },
+            {
+                "name": "slate-react@0.89.0",
+                "date": "2023-01-31T05:25:48Z"
+            },
+            {
+                "name": "slate-react@0.88.2",
+                "date": "2023-01-15T04:26:05Z"
+            },
+            {
+                "name": "slate@0.88.1",
+                "date": "2023-01-07T13:04:01Z"
+            },
+            {
+                "name": "slate-react@0.88.0",
+                "date": "2022-12-20T15:02:54Z"
+            },
+            {
+                "name": "slate-react@0.87.1",
+                "date": "2022-12-14T16:48:04Z"
+            },
+            {
+                "name": "slate@0.87.0",
+                "date": "2022-12-04T22:57:29Z"
+            },
+            {
+                "name": "slate-react@0.87.0",
+                "date": "2022-12-04T22:57:29Z"
+            },
+            {
+                "name": "slate@0.86.0",
+                "date": "2022-11-17T18:05:58Z"
+            },
+            {
+                "name": "slate-react@0.86.0",
+                "date": "2022-11-17T18:05:58Z"
+            },
+            {
+                "name": "slate-history@0.86.0",
+                "date": "2022-11-17T18:05:58Z"
+            },
+            {
+                "name": "slate@0.85.0",
+                "date": "2022-11-08T17:43:15Z"
+            },
+            {
+                "name": "slate-history@0.85.0",
+                "date": "2022-11-08T17:43:15Z"
+            },
+            {
+                "name": "slate@0.84.0",
+                "date": "2022-10-20T04:43:22Z"
+            },
+            {
+                "name": "slate-react@0.83.2",
+                "date": "2022-10-16T00:31:23Z"
+            },
+            {
+                "name": "slate-react@0.83.1",
+                "date": "2022-10-03T20:53:22Z"
+            },
+            {
+                "name": "slate-react@0.83.0",
+                "date": "2022-09-20T21:52:51Z"
+            },
+            {
+                "name": "slate-react@0.82.2",
+                "date": "2022-09-10T13:21:27Z"
+            },
+            {
+                "name": "slate@0.82.1",
+                "date": "2022-08-23T00:32:35Z"
+            },
+            {
+                "name": "slate-react@0.82.1",
+                "date": "2022-08-23T00:32:35Z"
+            },
+            {
+                "name": "slate@0.82.0",
+                "date": "2022-07-29T11:13:57Z"
+            },
+            {
+                "name": "slate-react@0.82.0",
+                "date": "2022-07-29T11:13:57Z"
+            },
+            {
+                "name": "slate@0.81.1",
+                "date": "2022-06-18T15:01:49Z"
+            },
+            {
+                "name": "slate@0.81.0",
+                "date": "2022-06-03T11:20:57Z"
+            },
+            {
+                "name": "slate-react@0.81.0",
+                "date": "2022-06-03T11:20:57Z"
+            },
+            {
+                "name": "slate@0.80.0",
+                "date": "2022-05-26T00:04:18Z"
+            },
+            {
+                "name": "slate-react@0.80.0",
+                "date": "2022-05-26T00:04:18Z"
+            },
+            {
+                "name": "slate-react@0.79.0",
+                "date": "2022-05-04T23:30:54Z"
+            },
+            {
+                "name": "slate-react@0.78.1",
+                "date": "2022-04-30T02:43:53Z"
+            },
+            {
+                "name": "slate@0.78.0",
+                "date": "2022-04-26T19:30:17Z"
+            },
+            {
+                "name": "slate-react@0.77.4",
+                "date": "2022-04-26T05:32:33Z"
+            },
+            {
+                "name": "slate-react@0.77.3",
+                "date": "2022-04-21T15:28:56Z"
+            },
+            {
+                "name": "slate@0.77.2",
+                "date": "2022-04-19T20:14:48Z"
+            },
+            {
+                "name": "slate-react@0.77.2",
+                "date": "2022-04-19T20:14:48Z"
+            },
+            {
+                "name": "slate-react@0.77.1",
+                "date": "2022-04-19T03:48:56Z"
+            },
+            {
+                "name": "slate@0.77.0",
+                "date": "2022-04-13T18:19:26Z"
+            },
+            {
+                "name": "slate-react@0.77.0",
+                "date": "2022-04-13T18:19:26Z"
+            },
+            {
+                "name": "slate-hyperscript@0.77.0",
+                "date": "2022-04-13T18:19:26Z"
+            },
+            {
+                "name": "slate@0.76.1",
+                "date": "2022-04-03T17:06:31Z"
+            },
+            {
+                "name": "slate-react@0.76.1",
+                "date": "2022-04-03T17:06:31Z"
+            },
+            {
+                "name": "slate@0.76.0",
+                "date": "2022-03-25T01:08:16Z"
+            },
+            {
+                "name": "slate-react@0.76.0",
+                "date": "2022-03-25T01:08:16Z"
+            },
+            {
+                "name": "slate@0.75.0",
+                "date": "2022-03-15T05:40:43Z"
+            },
+            {
+                "name": "slate-react@0.75.0",
+                "date": "2022-03-15T05:40:43Z"
+            },
+            {
+                "name": "slate-react@0.74.2",
+                "date": "2022-03-09T11:27:12Z"
+            },
+            {
+                "name": "slate-react@0.74.1",
+                "date": "2022-03-07T23:29:30Z"
+            },
+            {
+                "name": "slate-react@0.74.0",
+                "date": "2022-03-04T01:51:09Z"
+            },
+            {
+                "name": "slate@0.73.1",
+                "date": "2022-03-02T05:53:38Z"
+            },
+            {
+                "name": "slate@0.73.0",
+                "date": "2022-02-23T20:21:00Z"
+            },
+            {
+                "name": "slate-react@0.73.0",
+                "date": "2022-02-23T20:21:00Z"
+            },
+            {
+                "name": "slate-react@0.72.9",
+                "date": "2022-02-11T11:21:20Z"
+            },
+            {
+                "name": "slate@0.72.8",
+                "date": "2022-01-31T19:48:14Z"
+            },
+            {
+                "name": "slate-react@0.72.8",
+                "date": "2022-01-31T19:48:14Z"
+            },
+            {
+                "name": "slate-react@0.72.7",
+                "date": "2022-01-28T04:58:50Z"
+            },
+            {
+                "name": "slate-react@0.72.6",
+                "date": "2022-01-20T11:53:54Z"
+            },
+            {
+                "name": "slate-react@0.72.5",
+                "date": "2022-01-19T16:27:47Z"
+            },
+            {
+                "name": "slate-react@0.72.4",
+                "date": "2022-01-13T17:17:43Z"
+            },
+            {
+                "name": "slate@0.72.3",
+                "date": "2021-12-23T12:25:15Z"
+            },
+            {
+                "name": "slate-react@0.72.1",
+                "date": "2021-12-10T16:01:22Z"
+            },
+            {
+                "name": "slate@0.72.0",
+                "date": "2021-12-07T14:02:54Z"
+            },
+            {
+                "name": "slate-react@0.72.0",
+                "date": "2021-12-07T14:02:54Z"
+            },
+            {
+                "name": "slate@0.71.0",
+                "date": "2021-11-23T10:21:14Z"
+            },
+            {
+                "name": "slate-react@0.71.0",
+                "date": "2021-11-23T10:21:14Z"
+            },
+            {
+                "name": "slate-react@0.70.2",
+                "date": "2021-11-20T22:13:07Z"
+            },
+            {
+                "name": "slate-react@0.70.1",
+                "date": "2021-11-16T11:35:42Z"
+            },
+            {
+                "name": "slate@0.70.0",
+                "date": "2021-11-07T14:14:08Z"
+            },
+            {
+                "name": "slate-react@0.70.0",
+                "date": "2021-11-07T14:14:08Z"
+            },
+            {
+                "name": "slate-react@0.69.0",
+                "date": "2021-10-27T04:52:40Z"
+            },
+            {
+                "name": "slate-react@0.68.1",
+                "date": "2021-10-25T16:48:21Z"
+            },
+            {
+                "name": "slate-react@0.68.0",
+                "date": "2021-10-25T05:22:22Z"
+            },
+            {
+                "name": "slate-react@0.67.0",
+                "date": "2021-10-18T21:09:22Z"
+            },
+            {
+                "name": "slate-hyperscript@0.67.0",
+                "date": "2021-10-18T21:09:22Z"
+            },
+            {
+                "name": "slate-react@0.66.7",
+                "date": "2021-10-12T00:32:43Z"
+            },
+            {
+                "name": "slate-react@0.66.6",
+                "date": "2021-10-06T20:30:35Z"
+            },
+            {
+                "name": "slate@0.66.5",
+                "date": "2021-09-28T17:02:05Z"
+            },
+            {
+                "name": "slate-react@0.66.4",
+                "date": "2021-09-27T16:23:56Z"
+            },
+            {
+                "name": "slate-react@0.66.3",
+                "date": "2021-09-27T13:58:11Z"
+            },
+            {
+                "name": "slate@0.66.2",
+                "date": "2021-09-23T19:33:50Z"
+            },
+            {
+                "name": "slate-react@0.66.2",
+                "date": "2021-09-23T19:33:50Z"
+            },
+            {
+                "name": "slate@0.66.1",
+                "date": "2021-09-14T08:24:50Z"
+            },
+            {
+                "name": "slate-react@0.66.1",
+                "date": "2021-09-14T08:24:50Z"
+            },
+            {
+                "name": "slate@0.66.0",
+                "date": "2021-09-13T11:51:56Z"
+            },
+            {
+                "name": "slate-react@0.66.0",
+                "date": "2021-09-13T11:51:56Z"
+            },
+            {
+                "name": "slate-hyperscript@0.66.0",
+                "date": "2021-09-13T11:51:56Z"
+            },
+            {
+                "name": "slate-history@0.66.0",
+                "date": "2021-09-13T11:51:56Z"
+            },
+            {
+                "name": "slate@0.65.3",
+                "date": "2021-08-10T17:16:13Z"
+            },
+            {
+                "name": "slate-react@0.65.3",
+                "date": "2021-08-10T17:16:13Z"
+            },
+            {
+                "name": "slate-history@0.65.3",
+                "date": "2021-08-10T17:16:13Z"
+            },
+            {
+                "name": "slate-react@0.65.2",
+                "date": "2021-06-09T16:07:36Z"
+            },
+            {
+                "name": "slate-react@0.65.1",
+                "date": "2021-06-09T15:11:12Z"
+            },
+            {
+                "name": "slate-react@0.65.0",
+                "date": "2021-06-01T19:11:41Z"
+            },
+            {
+                "name": "slate@0.63.0",
+                "date": "2021-05-13T01:32:55Z"
+            },
+            {
+                "name": "slate-react@0.63.0",
+                "date": "2021-05-13T01:32:55Z"
+            },
+            {
+                "name": "slate@0.62.1",
+                "date": "2021-05-05T23:13:58Z"
+            },
+            {
+                "name": "slate-react@0.62.1",
+                "date": "2021-05-05T23:13:58Z"
+            },
+            {
+                "name": "v0.61.3",
+                "date": "2021-04-21T08:14:10Z"
+            },
+            {
+                "name": "0.19.0",
+                "date": "2017-03-28T18:07:16Z"
+            },
+            {
+                "name": "0.18.0",
+                "date": "2017-03-28T18:06:55Z"
+            },
+            {
+                "name": "0.17.0",
+                "date": "2017-03-28T18:06:38Z"
+            },
+            {
+                "name": "0.16.0",
+                "date": "2017-03-28T18:06:13Z"
+            },
+            {
+                "name": "0.15.0",
+                "date": "2016-11-22T02:36:17Z"
+            },
+            {
+                "name": "0.14.0",
+                "date": "2016-11-22T02:36:42Z"
+            },
+            {
+                "name": "0.13.0",
+                "date": "2016-11-22T02:39:21Z"
+            },
+            {
+                "name": "0.12.0",
+                "date": "2016-11-22T02:40:24Z"
+            },
+            {
+                "name": "0.11.0",
+                "date": "2016-11-22T02:40:34Z"
+            },
+            {
+                "name": "0.10.0",
+                "date": "2016-11-22T02:40:44Z"
+            },
+            {
+                "name": "0.9.0",
+                "date": "2016-11-22T02:40:53Z"
+            },
+            {
+                "name": "0.8.0",
+                "date": "2016-11-22T02:41:05Z"
+            },
+            {
+                "name": "0.7.0",
+                "date": "2016-11-22T02:45:26Z"
+            },
+            {
+                "name": "0.6.0",
+                "date": "2016-11-22T02:45:17Z"
+            },
+            {
+                "name": "0.5.0",
+                "date": "2016-11-22T02:41:19Z"
+            },
+            {
+                "name": "0.4.0",
+                "date": "2016-11-22T02:41:51Z"
+            },
+            {
+                "name": "0.3.0",
+                "date": "2016-11-22T02:42:00Z"
+            },
+            {
+                "name": "0.2.0",
+                "date": "2016-11-22T02:42:12Z"
+            }
+        ]
+    }
+}

@@ -1,0 +1,141 @@
+{
+    "https://api.github.com/repos/gulpjs/gulp": {
+        "forks": 4218,
+        "watchers": 33055,
+        "stars": 33055,
+        "languages": {
+            "JavaScript": 20593
+        },
+        "commits": [
+            "2024-04-08T04:15:08Z",
+            "2024-04-08T04:13:56Z",
+            "2024-04-08T04:13:19Z",
+            "2024-04-06T19:44:10Z",
+            "2024-03-29T02:56:40Z",
+            "2024-03-29T02:49:51Z",
+            "2024-03-25T14:47:55Z",
+            "2024-03-25T00:43:12Z",
+            "2022-12-19T18:02:08Z",
+            "2021-06-22T18:18:17Z",
+            "2021-05-03T19:37:34Z",
+            "2021-04-09T21:07:03Z",
+            "2021-02-08T20:22:24Z",
+            "2021-01-10T23:13:16Z",
+            "2021-01-10T22:49:51Z",
+            "2020-10-21T19:25:54Z",
+            "2020-10-21T19:02:40Z",
+            "2020-10-21T18:51:22Z",
+            "2020-10-21T18:49:01Z",
+            "2020-10-07T21:24:40Z",
+            "2020-10-07T21:22:22Z",
+            "2020-10-07T21:20:03Z",
+            "2020-10-07T21:17:12Z",
+            "2020-10-07T21:13:00Z",
+            "2020-10-07T21:09:03Z",
+            "2020-10-07T20:55:40Z",
+            "2020-08-24T00:20:08Z",
+            "2020-08-24T00:13:45Z",
+            "2020-08-23T21:41:52Z",
+            "2020-07-28T17:17:22Z"
+        ],
+        "creation_date": "2013-07-04T05:26:06Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 1025,
+        "readme": "<p align=\"center\">\n  <a href=\"https://gulpjs.com\">\n    <img height=\"257\" width=\"114\" src=\"https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png\">\n  </a>\n  <p align=\"center\">The streaming build system</p>\n</p>\n\n[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Build Status][ci-image]][ci-url] [![Coveralls Status][coveralls-image]][coveralls-url]\n\n## What is gulp?\n\n- **Automation** - gulp is a toolkit that helps you automate painful or time-consuming tasks in your development workflow.\n- **Platform-agnostic** - Integrations are built into all major IDEs and people are using gulp with PHP, .NET, Node.js, Java, and other platforms.\n- **Strong Ecosystem** - Use npm modules to do anything you want + over 3000 curated plugins for streaming file transformations.\n- **Simple** - By providing only a minimal API surface, gulp is easy to learn and simple to use.\n\n## Installation\n\nFollow our [Quick Start guide][quick-start].\n\n## Roadmap\n\nFind out about all our work-in-progress and outstanding issues at https://github.com/orgs/gulpjs/projects.\n\n## Documentation\n\nCheck out the [Getting Started guide][getting-started-guide] and [API docs][api-docs] on our website!\n\n__Excuse our dust! All other docs will be behind until we get everything updated. Please open an issue if something isn't working.__\n\n## Sample `gulpfile.js`\n\nThis file will give you a taste of what gulp does.\n\n```js\nvar gulp = require('gulp');\nvar less = require('gulp-less');\nvar babel = require('gulp-babel');\nvar concat = require('gulp-concat');\nvar uglify = require('gulp-uglify');\nvar rename = require('gulp-rename');\nvar cleanCSS = require('gulp-clean-css');\nvar del = require('del');\n\nvar paths = {\n  styles: {\n    src: 'src/styles/**/*.less',\n    dest: 'assets/styles/'\n  },\n  scripts: {\n    src: 'src/scripts/**/*.js',\n    dest: 'assets/scripts/'\n  }\n};\n\n/* Not all tasks need to use streams, a gulpfile is just another node program\n * and you can use all packages available on npm, but it must return either a\n * Promise, a Stream or take a callback and call it\n */\nfunction clean() {\n  // You can use multiple globbing patterns as you would with `gulp.src`,\n  // for example if you are using del 2.0 or above, return its promise\n  return del([ 'assets' ]);\n}\n\n/*\n * Define our tasks using plain functions\n */\nfunction styles() {\n  return gulp.src(paths.styles.src)\n    .pipe(less())\n    .pipe(cleanCSS())\n    // pass in options to the stream\n    .pipe(rename({\n      basename: 'main',\n      suffix: '.min'\n    }))\n    .pipe(gulp.dest(paths.styles.dest));\n}\n\nfunction scripts() {\n  return gulp.src(paths.scripts.src, { sourcemaps: true })\n    .pipe(babel())\n    .pipe(uglify())\n    .pipe(concat('main.min.js'))\n    .pipe(gulp.dest(paths.scripts.dest));\n}\n\nfunction watch() {\n  gulp.watch(paths.scripts.src, scripts);\n  gulp.watch(paths.styles.src, styles);\n}\n\n/*\n * Specify if tasks run in series or parallel using `gulp.series` and `gulp.parallel`\n */\nvar build = gulp.series(clean, gulp.parallel(styles, scripts));\n\n/*\n * You can use CommonJS `exports` module notation to declare tasks\n */\nexports.clean = clean;\nexports.styles = styles;\nexports.scripts = scripts;\nexports.watch = watch;\nexports.build = build;\n/*\n * Define default task that can be called by just running `gulp` from cli\n */\nexports.default = build;\n```\n\n## Use latest JavaScript version in your gulpfile\n\nGulp provides a wrapper that will be loaded in your ESM code, so you can name your gulpfile as `gulpfile.mjs` or with `\"type\": \"module\"` specified in your `package.json` file.\n\nAnd here's the same sample from above written in **ESNext**.\n\n```js\nimport { src, dest, watch } from 'gulp';\nimport less from 'gulp-less';\nimport babel from 'gulp-babel';\nimport concat from 'gulp-concat';\nimport uglify from 'gulp-uglify';\nimport rename from 'gulp-rename';\nimport cleanCSS from 'gulp-clean-css';\nimport del from 'del';\n\nconst paths = {\n  styles: {\n    src: 'src/styles/**/*.less',\n    dest: 'assets/styles/'\n  },\n  scripts: {\n    src: 'src/scripts/**/*.js',\n    dest: 'assets/scripts/'\n  }\n};\n\n/*\n * For small tasks you can export arrow functions\n */\nexport const clean = () => del([ 'assets' ]);\n\n/*\n * You can also declare named functions and export them as tasks\n */\nexport function styles() {\n  return src(paths.styles.src)\n    .pipe(less())\n    .pipe(cleanCSS())\n    // pass in options to the stream\n    .pipe(rename({\n      basename: 'main',\n      suffix: '.min'\n    }))\n    .pipe(dest(paths.styles.dest));\n}\n\nexport function scripts() {\n  return src(paths.scripts.src, { sourcemaps: true })\n    .pipe(babel())\n    .pipe(uglify())\n    .pipe(concat('main.min.js'))\n    .pipe(dest(paths.scripts.dest));\n}\n\n /*\n  * You could even use `export as` to rename exported tasks\n  */\nfunction watchFiles() {\n  watch(paths.scripts.src, scripts);\n  watch(paths.styles.src, styles);\n}\nexport { watchFiles as watch };\n\nconst build = gulp.series(clean, gulp.parallel(styles, scripts));\n/*\n * Export a default task\n */\nexport default build;\n```\n\n## Incremental Builds\n\nYou can filter out unchanged files between runs of a task using\nthe `gulp.src` function's `since` option and `gulp.lastRun`:\n```js\nconst paths = {\n  ...\n  images: {\n    src: 'src/images/**/*.{jpg,jpeg,png}',\n    dest: 'build/img/'\n  }\n}\n\nfunction images() {\n  return gulp.src(paths.images.src, {since: gulp.lastRun(images)})\n    .pipe(imagemin())\n    .pipe(gulp.dest(paths.images.dest));\n}\n\nfunction watch() {\n  gulp.watch(paths.images.src, images);\n}\n```\nTask run times are saved in memory and are lost when gulp exits. It will only\nsave time during the `watch` task when running the `images` task\nfor a second time.\n\n## Want to contribute?\n\nAnyone can help make this project better - check out our [Contributing guide](/CONTRIBUTING.md)!\n\n<!-- prettier-ignore-start -->\n[quick-start]: https://gulpjs.com/docs/en/getting-started/quick-start\n[getting-started-guide]: https://gulpjs.com/docs/en/getting-started/quick-start\n[api-docs]: https://gulpjs.com/docs/en/api/concepts\n[esm-module]: https://github.com/standard-things/esm\n<!-- prettier-ignore-end -->\n\n<!-- prettier-ignore-start -->\n[downloads-image]: https://img.shields.io/npm/dm/gulp.svg?style=flat-square\n[npm-url]: https://www.npmjs.com/package/gulp\n[npm-image]: https://img.shields.io/npm/v/gulp.svg?style=flat-square\n\n[ci-url]: https://github.com/gulpjs/gulp/actions?query=workflow:dev\n[ci-image]: https://img.shields.io/github/actions/workflow/status/gulpjs/gulp/dev.yml?branch=master&style=flat-square\n\n[coveralls-url]: https://coveralls.io/r/gulpjs/gulp\n[coveralls-image]: https://img.shields.io/coveralls/gulpjs/gulp/master.svg?style=flat-square\n<!-- prettier-ignore-end -->\n",
+        "releases": [
+            {
+                "name": "gulp v5.0.0",
+                "date": "2024-03-29T02:56:53Z"
+            },
+            {
+                "name": "v4.0.2",
+                "date": "2019-05-06T17:43:49Z"
+            },
+            {
+                "name": "v4.0.1",
+                "date": "2019-04-21T16:56:10Z"
+            },
+            {
+                "name": null,
+                "date": "2018-01-01T01:27:51Z"
+            },
+            {
+                "name": null,
+                "date": "2018-01-01T01:27:51Z"
+            },
+            {
+                "name": null,
+                "date": "2018-01-01T01:27:51Z"
+            },
+            {
+                "name": null,
+                "date": "2018-01-01T01:27:51Z"
+            },
+            {
+                "name": "v3.9.1",
+                "date": "2019-04-21T16:56:10Z"
+            },
+            {
+                "name": "v3.9.0",
+                "date": "2019-04-21T16:56:10Z"
+            },
+            {
+                "name": "v3.8.11",
+                "date": "2019-04-21T16:56:10Z"
+            },
+            {
+                "name": "v3.8.10",
+                "date": "2019-04-21T16:56:10Z"
+            },
+            {
+                "name": "v3.8.9",
+                "date": "2019-04-21T16:56:10Z"
+            },
+            {
+                "name": "v3.8.8",
+                "date": "2019-04-21T16:56:10Z"
+            },
+            {
+                "name": "v3.8.7",
+                "date": "2019-04-21T16:56:10Z"
+            },
+            {
+                "name": "v3.8.6",
+                "date": "2019-04-21T16:56:10Z"
+            },
+            {
+                "name": "v3.8.5",
+                "date": "2019-04-21T16:56:10Z"
+            },
+            {
+                "name": "v3.8.4",
+                "date": "2019-04-21T16:56:10Z"
+            },
+            {
+                "name": "v3.8.3",
+                "date": "2019-04-21T16:56:10Z"
+            },
+            {
+                "name": "v3.8.1",
+                "date": "2019-04-21T16:56:10Z"
+            },
+            {
+                "name": "vinyl-fs update",
+                "date": "2014-06-10T07:59:28Z"
+            },
+            {
+                "name": "3.7",
+                "date": "2014-06-01T02:53:06Z"
+            },
+            {
+                "name": "deprecated gulp.run and gulp.env",
+                "date": "2014-01-26T01:36:31Z"
+            },
+            {
+                "name": "",
+                "date": "2014-01-17T10:36:23Z"
+            }
+        ]
+    }
+}

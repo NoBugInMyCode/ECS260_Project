@@ -1,0 +1,54 @@
+{
+    "https://api.github.com/repos/jmoiron/sqlx": {
+        "forks": 1088,
+        "watchers": 16530,
+        "stars": 16530,
+        "languages": {
+            "Go": 220442,
+            "Makefile": 583
+        },
+        "commits": [
+            "2024-05-30T13:23:16Z",
+            "2024-05-28T02:11:48Z",
+            "2024-04-15T12:21:02Z",
+            "2024-04-15T12:14:46Z",
+            "2022-04-16T13:03:07Z",
+            "2021-08-10T20:59:26Z",
+            "2021-05-15T17:05:56Z",
+            "2021-05-15T16:50:02Z",
+            "2021-05-15T16:48:14Z",
+            "2021-05-09T10:57:34Z",
+            "2021-05-07T02:13:03Z",
+            "2021-04-28T02:17:11Z",
+            "2021-04-27T08:34:08Z",
+            "2021-04-27T07:16:53Z",
+            "2021-04-23T07:08:56Z",
+            "2021-04-19T21:22:21Z",
+            "2021-04-09T01:03:40Z",
+            "2021-04-08T03:38:04Z",
+            "2021-04-08T02:09:24Z",
+            "2021-03-31T02:25:13Z",
+            "2021-03-31T02:17:50Z",
+            "2021-03-31T02:04:12Z",
+            "2021-03-31T01:40:58Z",
+            "2021-01-28T21:15:50Z",
+            "2021-01-25T23:18:20Z",
+            "2021-01-24T23:54:06Z",
+            "2021-01-24T23:53:10Z",
+            "2021-01-24T23:45:58Z",
+            "2021-01-24T23:44:42Z",
+            "2021-01-24T22:08:12Z"
+        ],
+        "creation_date": "2013-01-28T19:40:00Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 195,
+        "readme": "# sqlx\n\n[![CircleCI](https://dl.circleci.com/status-badge/img/gh/jmoiron/sqlx/tree/master.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/jmoiron/sqlx/tree/master) [![Coverage Status](https://coveralls.io/repos/github/jmoiron/sqlx/badge.svg?branch=master)](https://coveralls.io/github/jmoiron/sqlx?branch=master) [![Godoc](http://img.shields.io/badge/godoc-reference-blue.svg?style=flat)](https://godoc.org/github.com/jmoiron/sqlx) [![license](http://img.shields.io/badge/license-MIT-red.svg?style=flat)](https://raw.githubusercontent.com/jmoiron/sqlx/master/LICENSE)\n\nsqlx is a library which provides a set of extensions on go's standard\n`database/sql` library.  The sqlx versions of `sql.DB`, `sql.TX`, `sql.Stmt`,\net al. all leave the underlying interfaces untouched, so that their interfaces\nare a superset on the standard ones.  This makes it relatively painless to\nintegrate existing codebases using database/sql with sqlx.\n\nMajor additional concepts are:\n\n* Marshal rows into structs (with embedded struct support), maps, and slices\n* Named parameter support including prepared statements\n* `Get` and `Select` to go quickly from query to struct/slice\n\nIn addition to the [godoc API documentation](http://godoc.org/github.com/jmoiron/sqlx),\nthere is also some [user documentation](http://jmoiron.github.io/sqlx/) that\nexplains how to use `database/sql` along with sqlx.\n\n## Recent Changes\n\n1.3.0:\n\n* `sqlx.DB.Connx(context.Context) *sqlx.Conn`\n* `sqlx.BindDriver(driverName, bindType)`\n* support for `[]map[string]interface{}` to do \"batch\" insertions\n* allocation & perf improvements for `sqlx.In`\n\nDB.Connx returns an `sqlx.Conn`, which is an `sql.Conn`-alike consistent with\nsqlx's wrapping of other types.\n\n`BindDriver` allows users to control the bindvars that sqlx will use for drivers,\nand add new drivers at runtime.  This results in a very slight performance hit\nwhen resolving the driver into a bind type (~40ns per call), but it allows users\nto specify what bindtype their driver uses even when sqlx has not been updated\nto know about it by default.\n\n### Backwards Compatibility\n\nCompatibility with the most recent two versions of Go is a requirement for any\nnew changes.  Compatibility beyond that is not guaranteed.\n\nVersioning is done with Go modules.  Breaking changes (eg. removing deprecated API)\nwill get major version number bumps.\n\n## install\n\n    go get github.com/jmoiron/sqlx\n\n## issues\n\nRow headers can be ambiguous (`SELECT 1 AS a, 2 AS a`), and the result of\n`Columns()` does not fully qualify column names in queries like:\n\n```sql\nSELECT a.id, a.name, b.id, b.name FROM foos AS a JOIN foos AS b ON a.parent = b.id;\n```\n\nmaking a struct or map destination ambiguous.  Use `AS` in your queries\nto give columns distinct names, `rows.Scan` to scan them manually, or \n`SliceScan` to get a slice of results.\n\n## usage\n\nBelow is an example which shows some common use cases for sqlx.  Check \n[sqlx_test.go](https://github.com/jmoiron/sqlx/blob/master/sqlx_test.go) for more\nusage.\n\n\n```go\npackage main\n\nimport (\n    \"database/sql\"\n    \"fmt\"\n    \"log\"\n    \n    _ \"github.com/lib/pq\"\n    \"github.com/jmoiron/sqlx\"\n)\n\nvar schema = `\nCREATE TABLE person (\n    first_name text,\n    last_name text,\n    email text\n);\n\nCREATE TABLE place (\n    country text,\n    city text NULL,\n    telcode integer\n)`\n\ntype Person struct {\n    FirstName string `db:\"first_name\"`\n    LastName  string `db:\"last_name\"`\n    Email     string\n}\n\ntype Place struct {\n    Country string\n    City    sql.NullString\n    TelCode int\n}\n\nfunc main() {\n    // this Pings the database trying to connect\n    // use sqlx.Open() for sql.Open() semantics\n    db, err := sqlx.Connect(\"postgres\", \"user=foo dbname=bar sslmode=disable\")\n    if err != nil {\n        log.Fatalln(err)\n    }\n\n    // exec the schema or fail; multi-statement Exec behavior varies between\n    // database drivers;  pq will exec them all, sqlite3 won't, ymmv\n    db.MustExec(schema)\n    \n    tx := db.MustBegin()\n    tx.MustExec(\"INSERT INTO person (first_name, last_name, email) VALUES ($1, $2, $3)\", \"Jason\", \"Moiron\", \"jmoiron@jmoiron.net\")\n    tx.MustExec(\"INSERT INTO person (first_name, last_name, email) VALUES ($1, $2, $3)\", \"John\", \"Doe\", \"johndoeDNE@gmail.net\")\n    tx.MustExec(\"INSERT INTO place (country, city, telcode) VALUES ($1, $2, $3)\", \"United States\", \"New York\", \"1\")\n    tx.MustExec(\"INSERT INTO place (country, telcode) VALUES ($1, $2)\", \"Hong Kong\", \"852\")\n    tx.MustExec(\"INSERT INTO place (country, telcode) VALUES ($1, $2)\", \"Singapore\", \"65\")\n    // Named queries can use structs, so if you have an existing struct (i.e. person := &Person{}) that you have populated, you can pass it in as &person\n    tx.NamedExec(\"INSERT INTO person (first_name, last_name, email) VALUES (:first_name, :last_name, :email)\", &Person{\"Jane\", \"Citizen\", \"jane.citzen@example.com\"})\n    tx.Commit()\n\n    // Query the database, storing results in a []Person (wrapped in []interface{})\n    people := []Person{}\n    db.Select(&people, \"SELECT * FROM person ORDER BY first_name ASC\")\n    jason, john := people[0], people[1]\n\n    fmt.Printf(\"%#v\\n%#v\", jason, john)\n    // Person{FirstName:\"Jason\", LastName:\"Moiron\", Email:\"jmoiron@jmoiron.net\"}\n    // Person{FirstName:\"John\", LastName:\"Doe\", Email:\"johndoeDNE@gmail.net\"}\n\n    // You can also get a single result, a la QueryRow\n    jason = Person{}\n    err = db.Get(&jason, \"SELECT * FROM person WHERE first_name=$1\", \"Jason\")\n    fmt.Printf(\"%#v\\n\", jason)\n    // Person{FirstName:\"Jason\", LastName:\"Moiron\", Email:\"jmoiron@jmoiron.net\"}\n\n    // if you have null fields and use SELECT *, you must use sql.Null* in your struct\n    places := []Place{}\n    err = db.Select(&places, \"SELECT * FROM place ORDER BY telcode ASC\")\n    if err != nil {\n        fmt.Println(err)\n        return\n    }\n    usa, singsing, honkers := places[0], places[1], places[2]\n    \n    fmt.Printf(\"%#v\\n%#v\\n%#v\\n\", usa, singsing, honkers)\n    // Place{Country:\"United States\", City:sql.NullString{String:\"New York\", Valid:true}, TelCode:1}\n    // Place{Country:\"Singapore\", City:sql.NullString{String:\"\", Valid:false}, TelCode:65}\n    // Place{Country:\"Hong Kong\", City:sql.NullString{String:\"\", Valid:false}, TelCode:852}\n\n    // Loop through rows using only one struct\n    place := Place{}\n    rows, err := db.Queryx(\"SELECT * FROM place\")\n    for rows.Next() {\n        err := rows.StructScan(&place)\n        if err != nil {\n            log.Fatalln(err)\n        } \n        fmt.Printf(\"%#v\\n\", place)\n    }\n    // Place{Country:\"United States\", City:sql.NullString{String:\"New York\", Valid:true}, TelCode:1}\n    // Place{Country:\"Hong Kong\", City:sql.NullString{String:\"\", Valid:false}, TelCode:852}\n    // Place{Country:\"Singapore\", City:sql.NullString{String:\"\", Valid:false}, TelCode:65}\n\n    // Named queries, using `:name` as the bindvar.  Automatic bindvar support\n    // which takes into account the dbtype based on the driverName on sqlx.Open/Connect\n    _, err = db.NamedExec(`INSERT INTO person (first_name,last_name,email) VALUES (:first,:last,:email)`, \n        map[string]interface{}{\n            \"first\": \"Bin\",\n            \"last\": \"Smuth\",\n            \"email\": \"bensmith@allblacks.nz\",\n    })\n\n    // Selects Mr. Smith from the database\n    rows, err = db.NamedQuery(`SELECT * FROM person WHERE first_name=:fn`, map[string]interface{}{\"fn\": \"Bin\"})\n\n    // Named queries can also use structs.  Their bind names follow the same rules\n    // as the name -> db mapping, so struct fields are lowercased and the `db` tag\n    // is taken into consideration.\n    rows, err = db.NamedQuery(`SELECT * FROM person WHERE first_name=:first_name`, jason)\n    \n    \n    // batch insert\n    \n    // batch insert with structs\n    personStructs := []Person{\n        {FirstName: \"Ardie\", LastName: \"Savea\", Email: \"asavea@ab.co.nz\"},\n        {FirstName: \"Sonny Bill\", LastName: \"Williams\", Email: \"sbw@ab.co.nz\"},\n        {FirstName: \"Ngani\", LastName: \"Laumape\", Email: \"nlaumape@ab.co.nz\"},\n    }\n\n    _, err = db.NamedExec(`INSERT INTO person (first_name, last_name, email)\n        VALUES (:first_name, :last_name, :email)`, personStructs)\n\n    // batch insert with maps\n    personMaps := []map[string]interface{}{\n        {\"first_name\": \"Ardie\", \"last_name\": \"Savea\", \"email\": \"asavea@ab.co.nz\"},\n        {\"first_name\": \"Sonny Bill\", \"last_name\": \"Williams\", \"email\": \"sbw@ab.co.nz\"},\n        {\"first_name\": \"Ngani\", \"last_name\": \"Laumape\", \"email\": \"nlaumape@ab.co.nz\"},\n    }\n\n    _, err = db.NamedExec(`INSERT INTO person (first_name, last_name, email)\n        VALUES (:first_name, :last_name, :email)`, personMaps)\n}\n```\n",
+        "releases": [
+            {
+                "name": "Update dependencies to their latest stable versions",
+                "date": "2024-04-23T12:04:48Z"
+            }
+        ]
+    }
+}

@@ -1,0 +1,372 @@
+{
+    "https://api.github.com/repos/grafana/loki": {
+        "forks": 3530,
+        "watchers": 24433,
+        "stars": 24433,
+        "languages": {
+            "Go": 13169364,
+            "Jsonnet": 275533,
+            "Smarty": 78861,
+            "Makefile": 67127,
+            "Ruby": 60202,
+            "Shell": 48252,
+            "HCL": 39329,
+            "Yacc": 31675,
+            "Dockerfile": 19714,
+            "Python": 13107,
+            "HTML": 11843,
+            "Nix": 7534,
+            "JavaScript": 6635,
+            "SCSS": 1466,
+            "CSS": 1304,
+            "Ragel": 1067,
+            "Open Policy Agent": 546
+        },
+        "commits": [
+            "2025-01-22T05:52:58Z",
+            "2025-01-22T05:52:49Z",
+            "2025-01-22T05:17:09Z",
+            "2025-01-21T21:39:56Z",
+            "2025-01-21T20:49:28Z",
+            "2025-01-21T20:10:39Z",
+            "2025-01-21T19:59:45Z",
+            "2025-01-21T16:40:26Z",
+            "2025-01-21T15:29:23Z",
+            "2025-01-21T15:02:29Z",
+            "2025-01-21T14:44:31Z",
+            "2025-01-21T14:28:18Z",
+            "2025-01-21T14:10:52Z",
+            "2025-01-21T13:57:06Z",
+            "2025-01-21T06:19:30Z",
+            "2025-01-20T14:55:00Z",
+            "2025-01-20T13:46:51Z",
+            "2025-01-20T08:22:44Z",
+            "2025-01-17T20:26:37Z",
+            "2025-01-17T20:25:11Z",
+            "2025-01-17T18:42:04Z",
+            "2025-01-17T18:15:20Z",
+            "2025-01-17T18:00:53Z",
+            "2025-01-17T17:54:28Z",
+            "2025-01-17T17:17:28Z",
+            "2025-01-17T16:45:32Z",
+            "2025-01-17T16:38:35Z",
+            "2025-01-17T16:27:37Z",
+            "2025-01-17T15:03:58Z",
+            "2025-01-17T15:03:32Z"
+        ],
+        "creation_date": "2018-04-16T09:22:48Z",
+        "contributors": 30,
+        "topics": [
+            "cloudnative",
+            "grafana",
+            "hacktoberfest",
+            "logging",
+            "loki",
+            "prometheus"
+        ],
+        "subscribers": 378,
+        "readme": "<p align=\"center\"><img src=\"docs/sources/logo_and_name.png\" alt=\"Loki Logo\"></p>\n\n<a href=\"https://drone.grafana.net/grafana/loki\"><img src=\"https://drone.grafana.net/api/badges/grafana/loki/status.svg\" alt=\"Drone CI\" /></a>\n<a href=\"https://goreportcard.com/report/github.com/grafana/loki\"><img src=\"https://goreportcard.com/badge/github.com/grafana/loki\" alt=\"Go Report Card\" /></a>\n<a href=\"https://slack.grafana.com/\"><img src=\"https://img.shields.io/badge/join%20slack-%23loki-brightgreen.svg\" alt=\"Slack\" /></a>\n[![Fuzzing Status](https://oss-fuzz-build-logs.storage.googleapis.com/badges/loki.svg)](https://bugs.chromium.org/p/oss-fuzz/issues/list?sort=-opened&can=1&q=proj:loki)\n\n# Loki: like Prometheus, but for logs.\n\nLoki is a horizontally-scalable, highly-available, multi-tenant log aggregation system inspired by [Prometheus](https://prometheus.io/).\nIt is designed to be very cost effective and easy to operate.\nIt does not index the contents of the logs, but rather a set of labels for each log stream.\n\nCompared to other log aggregation systems, Loki:\n\n- does not do full text indexing on logs. By storing compressed, unstructured logs and only indexing metadata, Loki is simpler to operate and cheaper to run.\n- indexes and groups log streams using the same labels you\u2019re already using with Prometheus, enabling you to seamlessly switch between metrics and logs using the same labels that you\u2019re already using with Prometheus.\n- is an especially good fit for storing [Kubernetes](https://kubernetes.io/) Pod logs. Metadata such as Pod labels is automatically scraped and indexed.\n- has native support in Grafana (needs Grafana v6.0).\n\nA Loki-based logging stack consists of 3 components:\n\n- `promtail` is the agent, responsible for gathering logs and sending them to Loki.\n- `loki` is the main server, responsible for storing logs and processing queries.\n- [Grafana](https://github.com/grafana/grafana) for querying and displaying the logs.\n\n**Note that Promtail is considered to be feature complete, and future development for logs collection will be in [Grafana Alloy](https://github.com/grafana/alloy)**\n\nLoki is like Prometheus, but for logs: we prefer a multidimensional label-based approach to indexing, and want a single-binary, easy to operate system with no dependencies.\nLoki differs from Prometheus by focusing on logs instead of metrics, and delivering logs via push, instead of pull.\n\n## Getting started\n\n* [Installing Loki](https://grafana.com/docs/loki/latest/installation/)\n* [Installing Promtail](https://grafana.com/docs/loki/latest/clients/promtail/installation/)\n* [Getting Started](https://grafana.com/docs/loki/latest/get-started/)\n\n## Upgrading\n\n* [Upgrading Loki](https://grafana.com/docs/loki/latest/upgrading/)\n\n## Documentation\n\n* [Latest release](https://grafana.com/docs/loki/latest/)\n* [Upcoming release](https://grafana.com/docs/loki/next/), at the tip of the main branch\n\nCommonly used sections:\n\n- [API documentation](https://grafana.com/docs/loki/latest/api/) for getting logs into Loki.\n- [Labels](https://grafana.com/docs/loki/latest/getting-started/labels/)\n- [Operations](https://grafana.com/docs/loki/latest/operations/)\n- [Promtail](https://grafana.com/docs/loki/latest/clients/promtail/) is an agent which tails log files and pushes them to Loki.\n- [Pipelines](https://grafana.com/docs/loki/latest/clients/promtail/pipelines/) details the log processing pipeline.\n- [Docker Driver Client](https://grafana.com/docs/loki/latest/clients/docker-driver/) is a Docker plugin to send logs directly to Loki from Docker containers.\n- [LogCLI](https://grafana.com/docs/loki/latest/query/logcli/) provides a command-line interface for querying logs.\n- [Loki Canary](https://grafana.com/docs/loki/latest/operations/loki-canary/) monitors your Loki installation for missing logs.\n- [Troubleshooting](https://grafana.com/docs/loki/latest/operations/troubleshooting/) presents help dealing with error messages.\n- [Loki in Grafana](https://grafana.com/docs/loki/latest/operations/grafana/) describes how to set up a Loki datasource in Grafana.\n\n## Getting Help\n\nIf you have any questions or feedback regarding Loki:\n\n- Search existing thread in the Grafana Labs community forum for Loki: [https://community.grafana.com](https://community.grafana.com/c/grafana-loki/)\n- Ask a question on the Loki Slack channel. To invite yourself to the Grafana Slack, visit [https://slack.grafana.com/](https://slack.grafana.com/) and join the #loki channel.\n- [File an issue](https://github.com/grafana/loki/issues/new) for bugs, issues and feature suggestions.\n- Send an email to [lokiproject@googlegroups.com](mailto:lokiproject@googlegroups.com), or use the [web interface](https://groups.google.com/forum/#!forum/lokiproject).\n- UI issues should be filed directly in [Grafana](https://github.com/grafana/grafana/issues/new).\n\nYour feedback is always welcome.\n\n## Further Reading\n\n- The original [design doc](https://docs.google.com/document/d/11tjK_lvp1-SVsFZjgOTr1vV3-q6vBAsZYIQ5ZeYBkyM/view) for Loki is a good source for discussion of the motivation and design decisions.\n- Callum Styan's March 2019 DevOpsDays Vancouver talk \"[Grafana Loki: Log Aggregation for Incident Investigations][devopsdays19-talk]\".\n- Grafana Labs blog post \"[How We Designed Loki to Work Easily Both as Microservices and as Monoliths][architecture-blog]\".\n- Tom Wilkie's early-2019 CNCF Paris/FOSDEM talk \"[Grafana Loki: like Prometheus, but for logs][fosdem19-talk]\" ([slides][fosdem19-slides], [video][fosdem19-video]).\n- David Kaltschmidt's KubeCon 2018 talk \"[On the OSS Path to Full Observability with Grafana][kccna18-event]\" ([slides][kccna18-slides], [video][kccna18-video]) on how Loki fits into a cloud-native environment.\n- Goutham Veeramachaneni's blog post \"[Loki: Prometheus-inspired, open source logging for cloud natives](https://grafana.com/blog/2018/12/12/loki-prometheus-inspired-open-source-logging-for-cloud-natives/)\" on details of the Loki architecture.\n- David Kaltschmidt's blog post \"[Closer look at Grafana's user interface for Loki](https://grafana.com/blog/2019/01/02/closer-look-at-grafanas-user-interface-for-loki/)\" on the ideas that went into the logging user interface.\n\n[devopsdays19-talk]: https://grafana.com/blog/2019/05/06/how-loki-correlates-metrics-and-logs--and-saves-you-money/\n[architecture-blog]: https://grafana.com/blog/2019/04/15/how-we-designed-loki-to-work-easily-both-as-microservices-and-as-monoliths/\n[fosdem19-talk]: https://fosdem.org/2019/schedule/event/loki_prometheus_for_logs/\n[fosdem19-slides]: https://speakerdeck.com/grafana/grafana-loki-like-prometheus-but-for-logs\n[fosdem19-video]: https://mirror.as35701.net/video.fosdem.org/2019/UB2.252A/loki_prometheus_for_logs.mp4\n[kccna18-event]: https://kccna18.sched.com/event/GrXC/on-the-oss-path-to-full-observability-with-grafana-david-kaltschmidt-grafana-labs\n[kccna18-slides]: https://speakerdeck.com/davkal/on-the-path-to-full-observability-with-oss-and-launch-of-loki\n[kccna18-video]: https://www.youtube.com/watch?v=U7C5SpRtK74&list=PLj6h78yzYM2PZf9eA7bhWnIh_mK1vyOfU&index=346\n\n## Contributing\n\nRefer to [CONTRIBUTING.md](CONTRIBUTING.md)\n\n### Building from source\n\nLoki can be run in a single host, no-dependencies mode using the following commands.\n\nYou need `go`, we recommend using the version found in [our build Dockerfile](https://github.com/grafana/loki/blob/main/loki-build-image/Dockerfile)\n\n```bash\n\n$ go get github.com/grafana/loki\n$ cd $GOPATH/src/github.com/grafana/loki # GOPATH is $HOME/go by default.\n\n$ go build ./cmd/loki\n$ ./loki -config.file=./cmd/loki/loki-local-config.yaml\n...\n```\n\nTo build Promtail on non-Linux platforms, use the following command:\n\n```bash\n$ go build ./clients/cmd/promtail\n```\n\nOn Linux, Promtail requires the systemd headers to be installed if\nJournal support is enabled.\nTo enable Journal support the go build tag flag `promtail_journal_enabled` should be passed\n\nWith Journal support on Ubuntu, run with the following commands:\n\n```bash\n$ sudo apt install -y libsystemd-dev\n$ go build --tags=promtail_journal_enabled ./clients/cmd/promtail\n```\n\nWith Journal support on CentOS, run with the following commands:\n\n```bash\n$ sudo yum install -y systemd-devel\n$ go build --tags=promtail_journal_enabled ./clients/cmd/promtail\n```\n\nOtherwise, to build Promtail without Journal support, run `go build`\nwith CGO disabled:\n\n```bash\n$ CGO_ENABLED=0 go build ./clients/cmd/promtail\n```\n## Adopters\nPlease see [ADOPTERS.md](ADOPTERS.md) for some of the organizations using Loki today.\nIf you would like to add your organization to the list, please open a PR to add it to the list.\n\n## License\n\nGrafana Loki is distributed under [AGPL-3.0-only](LICENSE). For Apache-2.0 exceptions, see [LICENSING.md](LICENSING.md).\n",
+        "releases": [
+            {
+                "name": "v3.3.2",
+                "date": "2024-12-18T18:19:44Z"
+            },
+            {
+                "name": "v3.3.1",
+                "date": "2024-12-04T22:08:26Z"
+            },
+            {
+                "name": "v3.2.2",
+                "date": "2024-12-06T17:14:26Z"
+            },
+            {
+                "name": "v2.9.11",
+                "date": "2024-12-05T16:22:53Z"
+            },
+            {
+                "name": "v3.3.0",
+                "date": "2024-11-19T18:40:17Z"
+            },
+            {
+                "name": "operator: v0.7.1",
+                "date": "2024-11-11T11:19:27Z"
+            },
+            {
+                "name": "operator: v0.7.0",
+                "date": "2024-11-04T15:25:52Z"
+            },
+            {
+                "name": "v3.2.1",
+                "date": "2024-10-17T20:22:36Z"
+            },
+            {
+                "name": "v3.1.2",
+                "date": "2024-10-18T15:51:21Z"
+            },
+            {
+                "name": "v3.2.0",
+                "date": "2024-09-19T17:47:36Z"
+            },
+            {
+                "name": "operator: v0.6.2",
+                "date": "2024-09-11T07:03:55Z"
+            },
+            {
+                "name": "v3.0.1",
+                "date": "2024-08-09T14:42:43Z"
+            },
+            {
+                "name": "v2.9.10",
+                "date": "2024-08-09T18:22:34Z"
+            },
+            {
+                "name": "v3.1.1",
+                "date": "2024-08-08T15:24:00Z"
+            },
+            {
+                "name": "v2.9.9",
+                "date": "2024-07-04T15:16:05Z"
+            },
+            {
+                "name": "v3.1.0",
+                "date": "2024-07-02T22:10:23Z"
+            },
+            {
+                "name": "operator: v0.6.1",
+                "date": "2024-06-03T11:41:02Z"
+            },
+            {
+                "name": "v2.9.8",
+                "date": "2024-05-03T07:45:28Z"
+            },
+            {
+                "name": "v2.9.7",
+                "date": "2024-04-10T09:01:20Z"
+            },
+            {
+                "name": "Loki 3.0.0",
+                "date": "2024-04-08T19:19:53Z"
+            },
+            {
+                "name": "operator/v0.6.0",
+                "date": "2024-03-25T13:02:07Z"
+            },
+            {
+                "name": "v2.8.11",
+                "date": "2024-03-22T10:00:53Z"
+            },
+            {
+                "name": "v2.9.6",
+                "date": "2024-03-22T08:57:21Z"
+            },
+            {
+                "name": "v2.9.5",
+                "date": "2024-02-29T00:11:00Z"
+            },
+            {
+                "name": "v2.8.10",
+                "date": "2024-02-28T21:16:52Z"
+            },
+            {
+                "name": "v2.8.9",
+                "date": "2024-02-27T18:19:42Z"
+            },
+            {
+                "name": "v2.9.4",
+                "date": "2024-01-24T16:20:16Z"
+            },
+            {
+                "name": "v2.8.8",
+                "date": "2024-01-24T15:47:47Z"
+            },
+            {
+                "name": "",
+                "date": "2023-12-12T21:58:13Z"
+            },
+            {
+                "name": "v2.9.3",
+                "date": "2023-12-11T19:59:24Z"
+            },
+            {
+                "name": " operator/v0.5.0",
+                "date": "2023-10-25T13:35:32Z"
+            },
+            {
+                "name": "",
+                "date": "2023-10-17T14:46:45Z"
+            },
+            {
+                "name": "",
+                "date": "2023-10-16T14:35:33Z"
+            },
+            {
+                "name": "v2.9.1",
+                "date": "2023-09-14T18:33:03Z"
+            },
+            {
+                "name": "",
+                "date": "2023-09-14T18:49:23Z"
+            },
+            {
+                "name": "Loki 2.9.0",
+                "date": "2023-09-06T16:23:29Z"
+            },
+            {
+                "name": "",
+                "date": "2023-08-11T23:21:18Z"
+            },
+            {
+                "name": "",
+                "date": "2023-08-11T22:39:58Z"
+            },
+            {
+                "name": "operator/v0.4.0",
+                "date": "2023-07-28T08:18:00Z"
+            },
+            {
+                "name": "",
+                "date": "2023-07-24T14:15:19Z"
+            },
+            {
+                "name": "",
+                "date": "2023-07-21T15:45:03Z"
+            },
+            {
+                "name": "v2.8.2",
+                "date": "2023-05-03T11:31:15Z"
+            },
+            {
+                "name": "v2.8.1",
+                "date": "2023-04-24T21:10:44Z"
+            },
+            {
+                "name": "Loki 2.8.0",
+                "date": "2023-04-04T15:52:35Z"
+            },
+            {
+                "name": "v2.7.5",
+                "date": "2023-03-28T15:05:30Z"
+            },
+            {
+                "name": "",
+                "date": "2023-02-24T19:17:26Z"
+            },
+            {
+                "name": "v2.7.3",
+                "date": "2023-02-01T14:39:00Z"
+            },
+            {
+                "name": "v2.7.2",
+                "date": "2023-01-26T21:10:24Z"
+            },
+            {
+                "name": "v2.7.1",
+                "date": "2022-12-09T23:40:50Z"
+            },
+            {
+                "name": "",
+                "date": "2022-11-11T03:35:13Z"
+            },
+            {
+                "name": "v2.6.1",
+                "date": "2022-07-18T11:36:22Z"
+            },
+            {
+                "name": "v2.6.0",
+                "date": "2022-07-08T16:08:29Z"
+            },
+            {
+                "name": "v2.5.0",
+                "date": "2022-04-11T17:45:44Z"
+            },
+            {
+                "name": "v2.4.2",
+                "date": "2022-01-12T18:15:04Z"
+            },
+            {
+                "name": "v2.4.1",
+                "date": "2021-11-08T13:34:04Z"
+            },
+            {
+                "name": "v2.4.0",
+                "date": "2021-11-05T22:27:54Z"
+            },
+            {
+                "name": "v2.3.0",
+                "date": "2021-08-06T18:29:21Z"
+            },
+            {
+                "name": "v2.2.1",
+                "date": "2021-04-06T01:11:54Z"
+            },
+            {
+                "name": "v2.2.0",
+                "date": "2021-03-11T16:58:05Z"
+            },
+            {
+                "name": "v2.1.0",
+                "date": "2020-12-24T15:15:51Z"
+            },
+            {
+                "name": "v2.0.1",
+                "date": "2020-12-23T20:32:37Z"
+            },
+            {
+                "name": "v2.0.0",
+                "date": "2020-10-26T16:36:14Z"
+            },
+            {
+                "name": "v1.6.1",
+                "date": "2020-08-24T19:29:23Z"
+            },
+            {
+                "name": "v1.6.0",
+                "date": "2020-08-13T18:17:21Z"
+            },
+            {
+                "name": "v1.5.0",
+                "date": "2020-05-20T16:56:20Z"
+            },
+            {
+                "name": "",
+                "date": "2020-04-06T21:09:40Z"
+            },
+            {
+                "name": "v1.4.0",
+                "date": "2020-04-01T17:44:10Z"
+            },
+            {
+                "name": "v1.3.0",
+                "date": "2020-01-22T19:35:48Z"
+            },
+            {
+                "name": "v1.2.0",
+                "date": "2019-12-09T16:28:16Z"
+            },
+            {
+                "name": "v1.1.0",
+                "date": "2019-12-04T18:39:50Z"
+            },
+            {
+                "name": "v1.0.0",
+                "date": "2019-11-20T05:47:12Z"
+            },
+            {
+                "name": "v0.4.0",
+                "date": "2019-10-24T17:03:59Z"
+            },
+            {
+                "name": "v0.3.0",
+                "date": "2019-08-18T15:07:40Z"
+            },
+            {
+                "name": "v0.2.0",
+                "date": "2019-08-02T19:19:46Z"
+            },
+            {
+                "name": "v0.1.0",
+                "date": "2019-06-03T21:27:31Z"
+            }
+        ]
+    }
+}

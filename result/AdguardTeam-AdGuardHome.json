@@ -1,0 +1,835 @@
+{
+    "https://api.github.com/repos/AdguardTeam/AdGuardHome": {
+        "forks": 1894,
+        "watchers": 26519,
+        "stars": 26519,
+        "languages": {
+            "Go": 1894366,
+            "TypeScript": 775465,
+            "CSS": 387565,
+            "Shell": 64147,
+            "Makefile": 4919,
+            "HTML": 4637,
+            "JavaScript": 3875,
+            "Dockerfile": 2005
+        },
+        "commits": [
+            "2025-01-20T15:57:51Z",
+            "2025-01-20T10:08:43Z",
+            "2025-01-17T16:24:56Z",
+            "2025-01-10T13:21:34Z",
+            "2024-12-23T16:12:55Z",
+            "2024-12-19T14:17:40Z",
+            "2024-12-19T12:38:18Z",
+            "2024-12-17T13:55:02Z",
+            "2024-12-17T13:37:01Z",
+            "2024-12-17T13:20:12Z",
+            "2024-12-17T12:08:31Z",
+            "2024-12-14T14:43:12Z",
+            "2024-12-12T13:20:13Z",
+            "2024-12-11T14:41:00Z",
+            "2024-12-11T14:32:22Z",
+            "2024-12-06T13:01:58Z",
+            "2024-12-05T12:36:40Z",
+            "2024-12-04T14:57:37Z",
+            "2024-12-03T15:26:00Z",
+            "2024-12-03T11:22:32Z",
+            "2024-12-02T08:45:18Z",
+            "2024-11-29T12:57:06Z",
+            "2024-11-27T14:16:45Z",
+            "2024-11-26T17:35:16Z",
+            "2024-11-26T10:34:16Z",
+            "2024-11-25T11:31:21Z",
+            "2024-11-22T14:18:47Z",
+            "2024-11-22T14:03:09Z",
+            "2024-11-21T17:19:39Z",
+            "2024-11-13T12:44:21Z"
+        ],
+        "creation_date": "2016-07-06T10:31:47Z",
+        "contributors": 30,
+        "topics": [
+            "adblock",
+            "adguard",
+            "dns",
+            "dns-over-https",
+            "dns-over-quic",
+            "dns-over-tls",
+            "dnscrypt",
+            "golang",
+            "open-source",
+            "privacy"
+        ],
+        "subscribers": 295,
+        "readme": "&nbsp;\n<p align=\"center\">\n  <picture>\n    <source media=\"(prefers-color-scheme: dark)\" srcset=\"doc/adguard_home_darkmode.svg\">\n    <img alt=\"AdGuard Home\" src=\"doc/adguard_home_lightmode.svg\" width=\"300px\">\n  </picture>\n</p>\n<h3 align=\"center\">Privacy protection center for you and your devices</h3>\n<p align=\"center\">\n  Free and open source, powerful network-wide ads & trackers blocking DNS server.\n</p>\n<p align=\"center\">\n  <a href=\"https://adguard.com/\">AdGuard.com</a> |\n  <a href=\"https://github.com/AdguardTeam/AdGuardHome/wiki\">Wiki</a> |\n  <a href=\"https://reddit.com/r/Adguard\">Reddit</a> |\n  <a href=\"https://twitter.com/AdGuard\">Twitter</a> |\n  <a href=\"https://t.me/adguard_en\">Telegram</a>\n  <br/><br/>\n  <a href=\"https://codecov.io/github/AdguardTeam/AdGuardHome?branch=master\">\n    <img src=\"https://img.shields.io/codecov/c/github/AdguardTeam/AdGuardHome/master.svg\" alt=\"Code Coverage\"/>\n  </a>\n  <a href=\"https://goreportcard.com/report/AdguardTeam/AdGuardHome\">\n    <img src=\"https://goreportcard.com/badge/github.com/AdguardTeam/AdGuardHome\" alt=\"Go Report Card\"/>\n  </a>\n  <a href=\"https://hub.docker.com/r/adguard/adguardhome\">\n    <img alt=\"Docker Pulls\" src=\"https://img.shields.io/docker/pulls/adguard/adguardhome.svg?maxAge=604800\"/>\n  </a>\n  <br/>\n  <a href=\"https://github.com/AdguardTeam/AdGuardHome/releases\">\n    <img src=\"https://img.shields.io/github/release/AdguardTeam/AdGuardHome/all.svg\" alt=\"Latest release\"/>\n  </a>\n  <a href=\"https://snapcraft.io/adguard-home\">\n    <img alt=\"adguard-home\" src=\"https://snapcraft.io/adguard-home/badge.svg\"/>\n  </a>\n</p>\n<br/>\n<p align=\"center\">\n  <img src=\"https://cdn.adtidy.org/public/Adguard/Common/adguard_home.gif\" width=\"800\"/>\n</p>\n<hr/>\n\nAdGuard Home is a network-wide software for blocking ads and tracking. After you set it up, it'll cover ALL your home devices, and you don't need any client-side software for that.\n\nIt operates as a DNS server that re-routes tracking domains to a \u201cblack hole\u201d, thus preventing your devices from connecting to those servers. It's based on software we use for our public [AdGuard DNS] servers, and both share a lot of code.\n\n[AdGuard DNS]: https://adguard-dns.io/\n\n- [Getting Started](#getting-started)\n    - [Automated install (Linux/Unix/MacOS/FreeBSD/OpenBSD)](#automated-install-linux-and-mac)\n    - [Alternative methods](#alternative-methods)\n    - [Guides](#guides)\n    - [API](#api)\n- [Comparing AdGuard Home to other solutions](#comparison)\n    - [How is this different from public AdGuard DNS servers?](#comparison-adguard-dns)\n    - [How does AdGuard Home compare to Pi-Hole](#comparison-pi-hole)\n    - [How does AdGuard Home compare to traditional ad blockers](#comparison-adblock)\n    - [Known limitations](#comparison-limitations)\n- [How to build from source](#how-to-build)\n    - [Prerequisites](#prerequisites)\n    - [Building](#building)\n- [Contributing](#contributing)\n    - [Test unstable versions](#test-unstable-versions)\n    - [Reporting issues](#reporting-issues)\n    - [Help with translations](#translate)\n    - [Other](#help-other)\n- [Projects that use AdGuard Home](#uses)\n- [Acknowledgments](#acknowledgments)\n- [Privacy](#privacy)\n\n## <a href=\"#getting-started\" id=\"getting-started\" name=\"getting-started\">Getting Started</a>\n\n### <a href=\"#automated-install-linux-and-mac\" id=\"automated-install-linux-and-mac\" name=\"automated-install-linux-and-mac\">Automated install (Linux/Unix/MacOS/FreeBSD/OpenBSD)</a>\n\nTo install with `curl` run the following command:\n\n```sh\ncurl -s -S -L https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -v\n```\n\nTo install with `wget` run the following command:\n\n```sh\nwget --no-verbose -O - https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -v\n```\n\nTo install with `fetch` run the following command:\n\n```sh\nfetch -o - https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -v\n```\n\nThe script also accepts some options:\n\n- `-c <channel>` to use specified channel;\n- `-r` to reinstall AdGuard Home;\n- `-u` to uninstall AdGuard Home;\n- `-v` for verbose output.\n\nNote that options `-r` and `-u` are mutually exclusive.\n\n### <a href=\"#alternative-methods\" id=\"alternative-methods\" name=\"alternative-methods\">Alternative methods</a>\n\n#### <a href=\"#manual-installation\" id=\"manual-installation\" name=\"manual-installation\">Manual installation</a>\n\nPlease read the **[Getting Started][wiki-start]** article on our Wiki to learn how to install AdGuard Home manually, and how to configure your devices to use it.\n\n#### <a href=\"#docker\" id=\"docker\" name=\"docker\">Docker</a>\n\nYou can use our official Docker image on [Docker Hub].\n\n#### <a href=\"#snap-store\" id=\"snap-store\" name=\"snap-store\">Snap Store</a>\n\nIf you're running **Linux,** there's a secure and easy way to install AdGuard Home: get it from the [Snap Store].\n\n[Docker Hub]: https://hub.docker.com/r/adguard/adguardhome\n[Snap Store]: https://snapcraft.io/adguard-home\n[wiki-start]: https://adguard-dns.io/kb/adguard-home/getting-started/\n\n### <a href=\"#guides\" id=\"guides\" name=\"guides\">Guides</a>\n\nSee our [Wiki][wiki].\n\n[wiki]: https://github.com/AdguardTeam/AdGuardHome/wiki\n\n### <a href=\"#api\" id=\"api\" name=\"api\">API</a>\n\nIf you want to integrate with AdGuard Home, you can use our [REST API][openapi]. Alternatively, you can use this [python client][pyclient], which is used to build the [AdGuard Home Hass.io Add-on][hassio].\n\n[hassio]:   https://www.home-assistant.io/integrations/adguard/\n[openapi]:  https://github.com/AdguardTeam/AdGuardHome/tree/master/openapi\n[pyclient]: https://pypi.org/project/adguardhome/\n\n## <a href=\"#comparison\" id=\"comparison\" name=\"comparison\">Comparing AdGuard Home to other solutions</a>\n\n### <a href=\"#comparison-adguard-dns\" id=\"comparison-adguard-dns\" name=\"comparison-adguard-dns\">How is this different from public AdGuard DNS servers?</a>\n\nRunning your own AdGuard Home server allows you to do much more than using a public DNS server. It's a completely different level. See for yourself:\n\n- Choose what exactly the server blocks and permits.\n\n- Monitor your network activity.\n\n- Add your own custom filtering rules.\n\n- **Most importantly, it's your own server, and you are the only one who's in control.**\n\n### <a href=\"#comparison-pi-hole\" id=\"comparison-pi-hole\" name=\"comparison-pi-hole\">How does AdGuard Home compare to Pi-Hole</a>\n\nAt this point, AdGuard Home has a lot in common with Pi-Hole. Both block ads and trackers using the so-called \u201cDNS sinkholing\u201d method and both allow customizing what's blocked.\n\n> [!NOTE]\n> We're not going to stop here. DNS sinkholing is not a bad starting point, but this is just the beginning.\n\nAdGuard Home provides a lot of features out-of-the-box with no need to install and configure additional software. We want it to be simple to the point when even casual users can set it up with minimal effort.\n\n> [!NOTE]\n> Some of the listed features can be added to Pi-Hole by installing additional software or by manually using SSH terminal and reconfiguring one of the utilities Pi-Hole consists of. However, in our opinion, this cannot be legitimately counted as a Pi-Hole's feature.\n\n| Feature                                                                 | AdGuard&nbsp;Home | Pi-Hole                                                   |\n|-------------------------------------------------------------------------|-------------------|-----------------------------------------------------------|\n| Blocking ads and trackers                                               | \u2705                | \u2705                                                        |\n| Customizing blocklists                                                  | \u2705                | \u2705                                                        |\n| Built-in DHCP server                                                    | \u2705                | \u2705                                                        |\n| HTTPS for the Admin interface                                           | \u2705                | Kind of, but you'll need to manually configure lighttpd   |\n| Encrypted DNS upstream servers (DNS-over-HTTPS, DNS-over-TLS, DNSCrypt) | \u2705                | \u274c (requires additional software)                         |\n| Cross-platform                                                          | \u2705                | \u274c (not natively, only via Docker)                        |\n| Running as a DNS-over-HTTPS or DNS-over-TLS server                      | \u2705                | \u274c (requires additional software)                         |\n| Blocking phishing and malware domains                                   | \u2705                | \u274c (requires non-default blocklists)                      |\n| Parental control (blocking adult domains)                               | \u2705                | \u274c (requires non-default blocklists)                      |\n| Force Safe search on search engines                                     | \u2705                | \u274c                                                        |\n| Per-client (device) configuration                                       | \u2705                | \u2705                                                        |\n| Access settings (choose who can use AGH DNS)                            | \u2705                | \u274c                                                        |\n| Running [without root privileges][wiki-noroot]                          | \u2705                | \u274c                                                        |\n\n[wiki-noroot]: https://adguard-dns.io/kb/adguard-home/getting-started/#running-without-superuser\n\n### <a href=\"#comparison-adblock\" id=\"comparison-adblock\" name=\"comparison-adblock\">How does AdGuard Home compare to traditional ad blockers</a>\n\nIt depends.\n\nDNS sinkholing is capable of blocking a big percentage of ads, but it lacks the flexibility and the power of traditional ad blockers. You can get a good impression about the difference between these methods by reading [this article][blog-adaway], which compares AdGuard for Android (a traditional ad blocker) to hosts-level ad blockers (which are almost identical to DNS-based blockers in their capabilities). This level of protection is enough for some users.\n\nAdditionally, using a DNS-based blocker can help to block ads, tracking and analytics requests on other types of devices, such as SmartTVs, smart speakers or other kinds of IoT devices (on which you can't install traditional ad blockers).\n\n### <a href=\"#comparison-limitations\" id=\"comparison-limitations\" name=\"comparison-limitations\">Known limitations</a>\n\nHere are some examples of what cannot be blocked by a DNS-level blocker:\n\n- YouTube, Twitch ads;\n\n- Facebook, Twitter, Instagram sponsored posts.\n\nEssentially, any advertising that shares a domain with content cannot be blocked by a DNS-level blocker.\n\nIs there a chance to handle this in the future?  DNS will never be enough to do this. Our only option is to use a content blocking proxy like what we do in the standalone AdGuard applications. We're [going to bring][issue-1228] this feature support to AdGuard Home in the future. Unfortunately, even in this case, there still will be cases when this won't be enough or would require quite a complicated configuration.\n\n[blog-adaway]: https://adguard.com/blog/adguard-vs-adaway-dns66.html\n[issue-1228]:  https://github.com/AdguardTeam/AdGuardHome/issues/1228\n\n## <a href=\"#how-to-build\" id=\"how-to-build\" name=\"how-to-build\">How to build from source</a>\n\n### <a href=\"#prerequisites\" id=\"prerequisites\" name=\"prerequisites\">Prerequisites</a>\n\nRun `make init` to prepare the development environment.\n\nYou will need this to build AdGuard Home:\n\n- [Go](https://golang.org/dl/) v1.23 or later;\n- [Node.js](https://nodejs.org/en/download/) v18.18 or later;\n- [npm](https://www.npmjs.com/) v8 or later;\n\n### <a href=\"#building\" id=\"building\" name=\"building\">Building</a>\n\nOpen your terminal and execute these commands:\n\n```sh\ngit clone https://github.com/AdguardTeam/AdGuardHome\ncd AdGuardHome\nmake\n```\n\n> [!WARNING]\n> The non-standard `-j` flag is currently not supported, so building with `make -j 4` or setting your `MAKEFLAGS` to include, for example, `-j 4` is likely to break the build. If you do have your `MAKEFLAGS` set to that, and you don't want to change it, you can override it by running `make -j 1`.\n\nCheck the [`Makefile`][src-makefile] to learn about other commands.\n\n#### <a href=\"#building-cross\" id=\"building-cross\" name=\"building-cross\">Building for a different platform</a>\n\nYou can build AdGuard Home for any OS/ARCH that Go supports. In order to do this, specify `GOOS` and `GOARCH` environment variables as macros when running `make`.\n\nFor example:\n\n```sh\nenv GOOS='linux' GOARCH='arm64' make\n```\n\nor:\n\n```sh\nmake GOOS='linux' GOARCH='arm64'\n```\n\n#### <a href=\"#preparing-releases\" id=\"preparing-releases\" name=\"preparing-releases\">Preparing releases</a>\n\nYou'll need [`snapcraft`] to prepare a release build. Once installed, run the following command:\n\n```sh\nmake build-release CHANNEL='...' VERSION='...'\n```\n\nSee the [`build-release` target documentation][targ-release].\n\n#### <a href=\"#docker-image\" id=\"docker-image\" name=\"docker-image\">Docker image</a>\n\nRun `make build-docker` to build the Docker image locally (the one that we publish to DockerHub). Please note, that we're using [Docker Buildx][buildx] to build our official image.\n\nYou may need to prepare before using these builds:\n\n- (Linux-only) Install Qemu:\n\n  ```sh\n  docker run --rm --privileged multiarch/qemu-user-static --reset -p yes --credential yes\n  ```\n\n- Prepare the builder:\n\n  ```sh\n  docker buildx create --name buildx-builder --driver docker-container --use\n  ```\n\nSee the [`build-docker` target documentation][targ-docker].\n\n#### <a href=\"#debugging-the-frontend\" id=\"debugging-the-frontend\" name=\"debugging-the-frontend\">Debugging the frontend</a>\n\nWhen you need to debug the frontend without recompiling the production version every time, for example to check how your labels would look on a form, you can run the frontend build a development environment.\n\n1. In a separate terminal, run:\n\n   ```sh\n   ( cd ./client/ && env NODE_ENV='development' npm run watch )\n   ```\n\n2. Run your `AdGuardHome` binary with the `--local-frontend` flag, which instructs AdGuard Home to ignore the built-in frontend files and use those from the `./build/` directory.\n\n3. Now any changes you make in the `./client/` directory should be recompiled and become available on the web UI. Make sure that you disable the browser cache to make sure that you actually get the recompiled version.\n\n[`snapcraft`]:  https://snapcraft.io/\n[buildx]:       https://docs.docker.com/buildx/working-with-buildx/\n[src-makefile]: https://github.com/AdguardTeam/AdGuardHome/blob/master/Makefile\n[targ-docker]:  https://github.com/AdguardTeam/AdGuardHome/tree/master/scripts#build-dockersh-build-a-multi-architecture-docker-image\n[targ-release]: https://github.com/AdguardTeam/AdGuardHome/tree/master/scripts#build-releasesh-build-a-release-for-all-platforms\n\n## <a href=\"#contributing\" id=\"contributing\" name=\"contributing\">Contributing</a>\n\nYou are welcome to fork this repository, make your changes and [submit a pull request][pr]. Please make sure you follow our [code guidelines][guide] though.\n\nPlease note that we don't expect people to contribute to both UI and backend parts of the program simultaneously. Ideally, the backend part is implemented first, i.e. configuration, API, and the functionality itself. The UI part can be implemented later in a different pull request by a different person.\n\n[guide]: https://github.com/AdguardTeam/CodeGuidelines/\n[pr]:    https://github.com/AdguardTeam/AdGuardHome/pulls\n\n### <a href=\"#test-unstable-versions\" id=\"test-unstable-versions\" name=\"test-unstable-versions\">Test unstable versions</a>\n\nThere are two update channels that you can use:\n\n- `beta`: beta versions of AdGuard Home. More or less stable versions, usually released every two weeks or more often.\n\n- `edge`: the newest version of AdGuard Home from the development branch. New updates are pushed to this channel daily.\n\nThere are three options how you can install an unstable version:\n\n1. [Snap Store]: look for the `beta` and `edge` channels.\n\n2. [Docker Hub]: look for the `beta` and `edge` tags.\n\n3. Standalone builds. Use the automated installation script or look for the available builds [on the Wiki][wiki-platf].\n\n   Script to install a beta version:\n\n   ```sh\n   curl -s -S -L https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -c beta\n   ```\n\n   Script to install an edge version:\n\n   ```sh\n   curl -s -S -L https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -c edge\n   ```\n\n[wiki-platf]: https://github.com/AdguardTeam/AdGuardHome/wiki/Platforms\n\n### <a href=\"#reporting-issues\" id=\"reporting-issues\" name=\"reporting-issues\">Report issues</a>\n\nIf you run into any problem or have a suggestion, head to [this page][iss] and click on the \u201cNew issue\u201d button. Please follow the instructions in the issue form carefully and don't forget to start by searching for duplicates.\n\n[iss]: https://github.com/AdguardTeam/AdGuardHome/issues\n\n### <a href=\"#translate\" id=\"translate\" name=\"translate\">Help with translations</a>\n\nIf you want to help with AdGuard Home translations, please learn more about translating AdGuard products [in our Knowledge Base][kb-trans]. You can contribute to the [AdGuardHome project on CrowdIn][crowdin].\n\n[crowdin]:  https://crowdin.com/project/adguard-applications/en#/adguard-home\n[kb-trans]: https://kb.adguard.com/en/general/adguard-translations\n\n### <a href=\"#help-other\" id=\"help-other\" name=\"help-other\">Other</a>\n\nAnother way you can contribute is by [looking for issues][iss-help] marked as `help wanted`, asking if the issue is up for grabs, and sending a PR fixing the bug or implementing the feature.\n\n[iss-help]: https://github.com/AdguardTeam/AdGuardHome/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22\n\n## <a href=\"#uses\" id=\"uses\" name=\"uses\">Projects that use AdGuard Home</a>\n\nPlease note that these projects are not affiliated with AdGuard, but are made by third-party developers and fans.\n\n- [AdGuard Home Remote](https://apps.apple.com/app/apple-store/id1543143740): iOS app by [Joost](https://rocketscience-it.nl/).\n\n- [Python library](https://github.com/frenck/python-adguardhome) by [@frenck](https://github.com/frenck).\n\n- [Home Assistant add-on](https://github.com/hassio-addons/addon-adguard-home) by [@frenck](https://github.com/frenck).\n\n- [OpenWrt LUCI app](https://github.com/kongfl888/luci-app-adguardhome) by [@kongfl888](https://github.com/kongfl888) (originally by [@rufengsuixing](https://github.com/rufengsuixing)).\n\n- [AdGuardHome sync](https://github.com/bakito/adguardhome-sync) by [@bakito](https://github.com/bakito).\n\n- [Terminal-based, real-time traffic monitoring and statistics for your AdGuard Home instance](https://github.com/Lissy93/AdGuardian-Term) by [@Lissy93](https://github.com/Lissy93)\n\n- [AdGuard Home on GLInet routers](https://forum.gl-inet.com/t/adguardhome-on-gl-routers/10664) by [Gl-Inet](https://gl-inet.com/).\n\n- [Cloudron app](https://git.cloudron.io/cloudron/adguard-home-app) by [@gramakri](https://github.com/gramakri).\n\n- [Asuswrt-Merlin-AdGuardHome-Installer](https://github.com/jumpsmm7/Asuswrt-Merlin-AdGuardHome-Installer) by [@jumpsmm7](https://github.com/jumpsmm7) aka [@SomeWhereOverTheRainBow](https://www.snbforums.com/members/somewhereovertherainbow.64179/).\n\n- [Node.js library](https://github.com/Andrea055/AdguardHomeAPI) by [@Andrea055](https://github.com/Andrea055/).\n\n- [Browser Extension](https://github.com/satheshshiva/Adguard-Home-Browser-Ext) by [@satheshshiva](https://github.com/satheshshiva/).\n\n- [Zabbix Template for AdGuard Home](https://github.com/diasdmhub/AdGuard_Home_Zabbix_Template) by [@diasdmhub](https://github.com/diasdmhub).\n\n- [Chocolatey package](https://community.chocolatey.org/packages/adguardhome/) by [niks255](https://community.chocolatey.org/profiles/niks255).\n\n## <a href=\"#acknowledgments\" id=\"acknowledgments\" name=\"acknowledgments\">Acknowledgments</a>\n\nThis software wouldn't have been possible without:\n\n- [Go](https://golang.org/dl/) and its libraries:\n    - [gcache](https://github.com/bluele/gcache)\n    - [miekg's dns](https://github.com/miekg/dns)\n    - [go-yaml](https://github.com/go-yaml/yaml)\n    - [service](https://godoc.org/github.com/kardianos/service)\n    - [dnsproxy](https://github.com/AdguardTeam/dnsproxy)\n    - [urlfilter](https://github.com/AdguardTeam/urlfilter)\n- [Node.js](https://nodejs.org/) and its libraries:\n    - [React.js](https://reactjs.org)\n    - [Tabler](https://github.com/tabler/tabler)\n    - And many more Node.js packages.\n- [whotracks.me data](https://github.com/cliqz-oss/whotracks.me)\n\nYou might have seen that [CoreDNS] was mentioned here before, but we've stopped using it in AdGuard Home.\n\nFor the full list of all Node.js packages in use, please take a look at [`client/package.json`][src-packagejson] file.\n\n[CoreDNS]:         https://coredns.io\n[src-packagejson]: https://github.com/AdguardTeam/AdGuardHome/blob/master/client/package.json\n\n## <a href=\"#privacy\" id=\"privacy\" name=\"privacy\">Privacy</a>\n\nOur main idea is that you are the one, who should be in control of your data. So it is only natural, that AdGuard Home does not collect any usage statistics, and does not use any web services unless you configure it to do so. See also the [full privacy policy][privacy] with every bit that *could in theory be sent* by AdGuard Home is available.\n\n[privacy]: https://adguard.com/en/privacy/home.html\n",
+        "releases": [
+            {
+                "name": "AdGuard Home v0.108.0-b.62",
+                "date": "2025-01-20T16:44:01Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.55",
+                "date": "2024-12-11T13:32:39Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.61",
+                "date": "2024-12-04T16:36:00Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.60",
+                "date": "2024-11-06T16:46:35Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.54",
+                "date": "2024-11-06T13:26:47Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.59",
+                "date": "2024-10-29T13:25:50Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.53",
+                "date": "2024-10-03T12:46:45Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.58",
+                "date": "2024-10-02T18:29:14Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.52",
+                "date": "2024-07-04T15:51:06Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.57",
+                "date": "2024-07-03T13:41:14Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.51",
+                "date": "2024-06-06T14:41:02Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.56",
+                "date": "2024-05-28T13:19:34Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.50",
+                "date": "2024-05-23T12:53:14Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.49",
+                "date": "2024-05-21T15:25:56Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.55",
+                "date": "2024-05-15T14:27:34Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.48",
+                "date": "2024-04-05T15:17:32Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.47",
+                "date": "2024-04-04T14:28:57Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.46",
+                "date": "2024-03-20T14:55:31Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.54",
+                "date": "2024-03-19T14:01:15Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.45",
+                "date": "2024-03-06T16:01:54Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.53",
+                "date": "2024-02-13T15:53:06Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.44",
+                "date": "2024-02-06T14:05:26Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.52",
+                "date": "2024-01-24T09:42:27Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.43",
+                "date": "2023-12-11T14:37:55Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.51",
+                "date": "2023-12-07T16:22:43Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.42",
+                "date": "2023-12-07T15:22:40Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.50",
+                "date": "2023-11-22T12:45:22Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.49",
+                "date": "2023-11-13T17:35:05Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.41",
+                "date": "2023-11-13T16:04:41Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.40",
+                "date": "2023-10-18T15:44:52Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.48",
+                "date": "2023-10-17T15:25:24Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.47",
+                "date": "2023-10-11T16:47:19Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.39",
+                "date": "2023-10-11T15:54:51Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.46",
+                "date": "2023-09-11T15:58:27Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.38",
+                "date": "2023-09-11T15:20:44Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.45",
+                "date": "2023-09-07T16:44:38Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.37",
+                "date": "2023-09-07T15:12:52Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.44",
+                "date": "2023-08-24T14:03:03Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.43",
+                "date": "2023-08-02T15:35:36Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.36",
+                "date": "2023-08-02T14:00:11Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.35",
+                "date": "2023-07-26T12:42:42Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.42",
+                "date": "2023-07-19T15:09:51Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.41",
+                "date": "2023-07-12T13:39:27Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.34",
+                "date": "2023-07-12T12:48:21Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.40",
+                "date": "2023-07-11T14:08:22Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.39",
+                "date": "2023-07-03T14:43:08Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.33",
+                "date": "2023-07-03T14:07:00Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.38",
+                "date": "2023-06-28T15:52:09Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.37",
+                "date": "2023-06-13T15:22:39Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.32",
+                "date": "2023-06-13T14:41:41Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.36",
+                "date": "2023-06-08T17:32:39Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.31",
+                "date": "2023-06-08T17:10:50Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.35",
+                "date": "2023-06-07T17:44:24Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.30",
+                "date": "2023-06-07T17:34:11Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.34",
+                "date": "2023-04-18T16:15:07Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.29",
+                "date": "2023-04-18T13:48:57Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.33",
+                "date": "2023-04-12T15:04:36Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.28",
+                "date": "2023-04-12T13:47:13Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.32",
+                "date": "2023-04-05T14:27:37Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.27",
+                "date": "2023-04-05T14:08:32Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.31",
+                "date": "2023-03-30T14:12:17Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.30",
+                "date": "2023-03-09T13:34:39Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.26",
+                "date": "2023-03-09T13:17:54Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.29",
+                "date": "2023-03-01T12:21:32Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.28",
+                "date": "2023-02-21T15:27:43Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.25",
+                "date": "2023-02-21T12:30:46Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.27",
+                "date": "2023-02-16T16:40:09Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.24",
+                "date": "2023-02-15T17:31:24Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.26",
+                "date": "2023-02-01T14:17:40Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.23",
+                "date": "2023-02-01T13:30:25Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.25",
+                "date": "2023-01-19T14:33:39Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.22",
+                "date": "2023-01-19T13:17:28Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.24",
+                "date": "2022-12-15T16:01:11Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.21",
+                "date": "2022-12-15T15:18:41Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.23",
+                "date": "2022-12-07T15:36:36Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.20",
+                "date": "2022-12-07T14:37:48Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.22",
+                "date": "2022-11-23T16:46:07Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.19",
+                "date": "2022-11-23T14:35:52Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.21",
+                "date": "2022-11-08T15:45:20Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.18",
+                "date": "2022-11-08T15:28:26Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.20",
+                "date": "2022-11-02T16:18:32Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.17",
+                "date": "2022-11-02T16:12:54Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.19",
+                "date": "2022-10-19T15:48:09Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.18",
+                "date": "2022-10-07T14:22:56Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.16",
+                "date": "2022-10-07T13:51:36Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.17",
+                "date": "2022-10-03T16:55:25Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.15",
+                "date": "2022-10-03T16:30:11Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.16",
+                "date": "2022-09-29T17:16:43Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.14",
+                "date": "2022-09-29T16:40:26Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.15",
+                "date": "2022-09-14T15:28:41Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.13",
+                "date": "2022-09-14T14:55:43Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.14",
+                "date": "2022-09-07T16:34:14Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.12",
+                "date": "2022-09-07T15:42:56Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.13",
+                "date": "2022-08-19T14:15:21Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.11",
+                "date": "2022-08-19T13:41:02Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.12",
+                "date": "2022-08-17T16:35:49Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.10",
+                "date": "2022-08-17T15:54:14Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.11",
+                "date": "2022-08-03T15:10:12Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.9",
+                "date": "2022-08-03T14:14:00Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.10",
+                "date": "2022-07-13T14:19:31Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.8",
+                "date": "2022-07-13T13:26:08Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.7",
+                "date": "2022-06-06T15:40:16Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.9",
+                "date": "2022-06-03T14:45:15Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.8",
+                "date": "2022-05-26T12:46:16Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.7",
+                "date": "2022-04-27T12:20:12Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.6",
+                "date": "2022-04-13T17:52:26Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.6",
+                "date": "2022-04-13T14:05:10Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.5",
+                "date": "2022-03-23T12:09:18Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.4",
+                "date": "2022-03-04T13:46:50Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.5",
+                "date": "2022-03-04T13:19:06Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.4",
+                "date": "2022-03-01T13:20:56Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.3",
+                "date": "2022-02-08T11:27:38Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.3",
+                "date": "2022-01-25T13:50:12Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.2",
+                "date": "2022-01-24T13:45:42Z"
+            },
+            {
+                "name": "AdGuard Home v0.108.0-b.1",
+                "date": "2021-12-30T11:49:31Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.2",
+                "date": "2021-12-29T20:09:13Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.1",
+                "date": "2021-12-29T17:05:17Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.0",
+                "date": "2021-12-21T14:35:34Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.0-b.17 / RC2",
+                "date": "2021-12-21T13:10:50Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.0-b.16 / RC1",
+                "date": "2021-12-15T14:38:39Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.0-b.15",
+                "date": "2021-11-23T12:00:45Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.0-b.14",
+                "date": "2021-11-03T12:09:18Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.0-b.13",
+                "date": "2021-10-12T11:31:28Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.0-b.12",
+                "date": "2021-09-29T12:30:24Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.0-b.11",
+                "date": "2021-09-14T17:32:31Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.0-b.10",
+                "date": "2021-09-14T13:53:00Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.0-b.9",
+                "date": "2021-08-31T11:43:57Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.0-b.8",
+                "date": "2021-08-17T13:55:29Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.0-b.7",
+                "date": "2021-08-04T13:17:09Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.0-b.6",
+                "date": "2021-08-03T13:05:45Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.0-b.5",
+                "date": "2021-07-20T13:23:56Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.0-b.4",
+                "date": "2021-07-07T11:53:58Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.0-b.3",
+                "date": "2021-06-29T15:49:56Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.0-b.2",
+                "date": "2021-06-16T11:31:29Z"
+            },
+            {
+                "name": "AdGuard Home v0.107.0-b.1",
+                "date": "2021-06-01T14:01:00Z"
+            },
+            {
+                "name": "AdGuard Home v0.106.3",
+                "date": "2021-05-19T13:38:41Z"
+            },
+            {
+                "name": "AdGuard Home v0.106.2",
+                "date": "2021-05-06T16:36:44Z"
+            },
+            {
+                "name": "AdGuard Home v0.106.1",
+                "date": "2021-04-30T13:45:07Z"
+            },
+            {
+                "name": "AdGuard Home v0.106.0",
+                "date": "2021-04-28T15:29:14Z"
+            },
+            {
+                "name": "AdGuard Home v0.106.0-b.4",
+                "date": "2021-04-21T14:35:24Z"
+            },
+            {
+                "name": "AdGuard Home v0.106.0-b.3",
+                "date": "2021-04-19T15:25:53Z"
+            },
+            {
+                "name": "AdGuard Home v0.106.0-b.2",
+                "date": "2021-04-14T12:55:03Z"
+            },
+            {
+                "name": "AdGuard Home v0.106.0-b.1",
+                "date": "2021-03-30T10:52:07Z"
+            },
+            {
+                "name": "AdGuard Home v0.105.2",
+                "date": "2021-03-10T14:39:28Z"
+            },
+            {
+                "name": "AdGuard Home v0.105.1",
+                "date": "2021-02-15T19:24:31Z"
+            },
+            {
+                "name": "AdGuard Home v0.105.0",
+                "date": "2021-02-10T15:58:46Z"
+            },
+            {
+                "name": "AdGuard Home v0.105.0-beta.4",
+                "date": "2021-02-08T13:30:43Z"
+            },
+            {
+                "name": "AdGuard Home v0.105.0-beta.3",
+                "date": "2021-02-02T14:33:24Z"
+            },
+            {
+                "name": "AdGuard Home v0.105.0-beta.2",
+                "date": "2020-12-24T14:51:05Z"
+            },
+            {
+                "name": "AdGuard Home v0.105.0-beta.1",
+                "date": "2020-12-09T12:19:02Z"
+            },
+            {
+                "name": "AdGuard Home v0.104.3",
+                "date": "2020-11-20T10:40:04Z"
+            },
+            {
+                "name": "AdGuard Home v0.104.1",
+                "date": "2020-11-11T13:53:05Z"
+            },
+            {
+                "name": "AdGuard Home v0.104.0",
+                "date": "2020-10-28T16:13:47Z"
+            },
+            {
+                "name": "AdGuard Home v0.104.0-beta3",
+                "date": "2020-10-22T21:39:52Z"
+            },
+            {
+                "name": "AdGuard Home v0.104.0-beta2",
+                "date": "2020-10-12T18:12:33Z"
+            },
+            {
+                "name": "AdGuard Home v0.104.0-beta1",
+                "date": "2020-09-16T16:18:15Z"
+            },
+            {
+                "name": "AdGuard Home v0.103.3",
+                "date": "2020-07-24T17:41:30Z"
+            },
+            {
+                "name": "AdGuard Home v0.103.2",
+                "date": "2020-07-23T18:29:10Z"
+            },
+            {
+                "name": "AdGuard Home v0.103.1",
+                "date": "2020-07-23T17:17:52Z"
+            },
+            {
+                "name": "AdGuard Home v0.103.0-beta3",
+                "date": "2020-07-22T18:39:54Z"
+            },
+            {
+                "name": "AdGuard Home v0.103.0-beta2",
+                "date": "2020-07-17T17:59:59Z"
+            },
+            {
+                "name": "AdGuard Home v0.103.0-beta1",
+                "date": "2020-07-13T11:12:50Z"
+            },
+            {
+                "name": "AdGuard Home v0.102.0",
+                "date": "2020-05-15T15:46:06Z"
+            },
+            {
+                "name": "AdGuard Home v0.101.0",
+                "date": "2020-03-13T12:45:18Z"
+            },
+            {
+                "name": "AdGuard Home v0.100.9",
+                "date": "2020-01-15T10:58:44Z"
+            },
+            {
+                "name": "AdGuard Home v0.100.8",
+                "date": "2019-12-25T21:09:41Z"
+            },
+            {
+                "name": "AdGuard Home v0.100.7",
+                "date": "2019-12-24T10:18:31Z"
+            },
+            {
+                "name": "AdGuard Home v0.100.6",
+                "date": "2019-12-19T18:02:04Z"
+            },
+            {
+                "name": "AdGuard Home v0.100.5",
+                "date": "2019-12-19T12:27:30Z"
+            },
+            {
+                "name": "AdGuard Home v0.100.4",
+                "date": "2019-12-19T11:04:29Z"
+            },
+            {
+                "name": "AdGuard Home v0.100.2",
+                "date": "2019-12-18T14:22:23Z"
+            },
+            {
+                "name": "AdGuard Home v0.99.3",
+                "date": "2019-11-19T20:50:45Z"
+            },
+            {
+                "name": "AdGuard Home v0.99.2",
+                "date": "2019-10-25T11:23:36Z"
+            },
+            {
+                "name": "AdGuard Home v0.99.1",
+                "date": "2019-10-24T12:56:41Z"
+            },
+            {
+                "name": "AdGuard Home v0.99.0",
+                "date": "2019-10-18T14:42:36Z"
+            },
+            {
+                "name": "AdGuard Home v0.98.1",
+                "date": "2019-08-22T13:14:12Z"
+            },
+            {
+                "name": "AdGuard Home v0.98.0",
+                "date": "2019-08-22T12:20:14Z"
+            },
+            {
+                "name": "AdGuard Home v0.97.1",
+                "date": "2019-07-17T11:38:27Z"
+            },
+            {
+                "name": "AdGuard Home v0.97.0",
+                "date": "2019-07-12T13:23:20Z"
+            },
+            {
+                "name": "AdGuard Home v0.96-hotfix",
+                "date": "2019-06-07T17:54:50Z"
+            },
+            {
+                "name": "AdGuard Home v0.96",
+                "date": "2019-06-06T16:05:35Z"
+            },
+            {
+                "name": "AdGuard Home v0.95-hotfix",
+                "date": "2019-04-24T13:38:10Z"
+            },
+            {
+                "name": "AdGuard Home v0.95",
+                "date": "2019-04-23T18:18:34Z"
+            },
+            {
+                "name": "AdGuard Home v0.94",
+                "date": "2019-03-22T14:30:14Z"
+            },
+            {
+                "name": "AdGuard Home v0.93",
+                "date": "2019-02-25T16:39:32Z"
+            },
+            {
+                "name": "AdGuard Home v0.92-hotfix2",
+                "date": "2019-01-11T12:31:53Z"
+            },
+            {
+                "name": "AdGuard Home v0.92-hotfix1",
+                "date": "2019-01-04T19:23:05Z"
+            },
+            {
+                "name": "AdGuard Home v0.92",
+                "date": "2018-12-30T13:06:07Z"
+            },
+            {
+                "name": "AdGuard Home v0.91",
+                "date": "2018-11-27T10:18:14Z"
+            },
+            {
+                "name": "AdGuard Home v0.9-hotfix1",
+                "date": "2018-10-18T13:25:12Z"
+            },
+            {
+                "name": "AdGuard Home v0.9",
+                "date": "2018-10-16T20:47:57Z"
+            },
+            {
+                "name": "AdGuard Home v0.1",
+                "date": "2018-08-30T14:42:19Z"
+            }
+        ]
+    }
+}

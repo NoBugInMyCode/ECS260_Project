@@ -1,0 +1,83 @@
+{
+    "https://api.github.com/repos/joewalnes/websocketd": {
+        "forks": 1019,
+        "watchers": 17188,
+        "stars": 17188,
+        "languages": {
+            "Go": 67601,
+            "Makefile": 8830,
+            "Roff": 3666
+        },
+        "commits": [
+            "2023-06-27T18:47:15Z",
+            "2023-02-04T04:44:49Z",
+            "2022-11-04T12:30:56Z",
+            "2021-04-12T13:07:12Z",
+            "2021-04-07T13:25:53Z",
+            "2021-03-31T13:37:00Z",
+            "2021-03-22T03:09:30Z",
+            "2021-02-02T16:39:20Z",
+            "2021-01-25T02:09:03Z",
+            "2021-01-25T02:00:29Z",
+            "2021-01-25T00:59:31Z",
+            "2020-05-08T15:32:41Z",
+            "2020-05-08T15:22:37Z",
+            "2020-05-08T14:19:17Z",
+            "2019-11-22T15:37:51Z",
+            "2019-11-07T16:21:07Z",
+            "2019-10-27T17:38:39Z",
+            "2019-10-27T06:55:14Z",
+            "2019-10-16T03:37:47Z",
+            "2019-09-18T14:55:35Z",
+            "2019-09-17T03:38:54Z",
+            "2019-03-25T01:57:25Z",
+            "2019-03-25T01:55:50Z",
+            "2019-03-24T15:15:32Z",
+            "2019-01-30T14:47:15Z",
+            "2019-01-29T12:12:16Z",
+            "2019-01-29T03:27:28Z",
+            "2019-01-28T17:17:26Z",
+            "2019-01-28T16:56:50Z",
+            "2019-01-28T14:41:19Z"
+        ],
+        "creation_date": "2013-02-14T14:52:55Z",
+        "contributors": 30,
+        "topics": [
+            "proxy",
+            "websocket-server",
+            "websockets"
+        ],
+        "subscribers": 368,
+        "readme": "websocketd\n==========\n\n`websocketd` is a small command-line tool that will wrap an existing command-line interface program, and allow it to be accessed via a WebSocket.\n\nWebSocket-capable applications can now be built very easily. As long as you can write an executable program that reads `STDIN` and writes to `STDOUT`, you can build a WebSocket server. Do it in Python, Ruby, Perl, Bash, .NET, C, Go, PHP, Java, Clojure, Scala, Groovy, Expect, Awk, VBScript, Haskell, Lua, R, whatever! No networking libraries necessary.\n\n-[@joewalnes](https://twitter.com/joewalnes)\n\nDetails\n-------\n\nUpon startup, `websocketd` will start a WebSocket server on a specified port, and listen for connections.\n\nUpon a connection, it will fork the appropriate process, and disconnect the process when the WebSocket connection closes (and vice-versa).\n\nAny message sent from the WebSocket client will be piped to the process's `STDIN` stream, followed by a `\\n` newline.\n\nAny text printed by the process to `STDOUT` shall be sent as a WebSocket message whenever a `\\n` newline is encountered.\n\n\nDownload\n--------\n\nIf you're on a Mac, you can install `websocketd` using [Homebrew](http://brew.sh/). Just run `brew install websocketd`. For other operating systems, or if you don't want to use Homebrew, check out the link below.\n\n**[Download for Linux, OS X and Windows](https://github.com/joewalnes/websocketd/wiki/Download-and-install)**\n\n\nQuickstart\n----------\n\nTo get started, we'll create a WebSocket endpoint that will accept connections, then send back messages, counting to 10 with 1 second pause between each one, before disconnecting.\n\nTo show how simple it is, let's do it in Bash!\n\n__count.sh__:\n\n```sh\n#!/bin/bash\nfor ((COUNT = 1; COUNT <= 10; COUNT++)); do\n  echo $COUNT\n  sleep 1\ndone\n```\n\nBefore turning it into a WebSocket server, let's test it from the command line. The beauty of `websocketd` is that servers work equally well in the command line, or in shell scripts, as they do in the server - with no modifications required.\n\n```sh\n$ chmod +x count.sh\n$ ./count.sh\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n```\n\nNow let's turn it into a WebSocket server:\n\n```sh\n$ websocketd --port=8080 ./count.sh\n```\n\nFinally, let's create a web-page to test it.\n\n__count.html__:\n\n```html\n<!DOCTYPE html>\n<pre id=\"log\"></pre>\n<script>\n  // helper function: log message to screen\n  function log(msg) {\n    document.getElementById('log').textContent += msg + '\\n';\n  }\n\n  // setup websocket with callbacks\n  var ws = new WebSocket('ws://localhost:8080/');\n  ws.onopen = function() {\n    log('CONNECT');\n  };\n  ws.onclose = function() {\n    log('DISCONNECT');\n  };\n  ws.onmessage = function(event) {\n    log('MESSAGE: ' + event.data);\n  };\n</script>\n```\nOpen this page in your web-browser. It will even work if you open it directly\nfrom disk using a `file://` URL.\n\nMore Features\n-------------\n\n*   Very simple install. Just [download](https://github.com/joewalnes/websocketd/wiki/Download-and-install) the single executable for Linux, Mac or Windows and run it. Minimal dependencies, no installers, no package managers, no external libraries. Suitable for development and production servers.\n*   Server side scripts can access details about the WebSocket HTTP request (e.g. remote host, query parameters, cookies, path, etc) via standard [CGI environment variables](https://github.com/joewalnes/websocketd/wiki/Environment-variables).\n*   As well as serving websocket daemons it also includes a static file server and classic CGI server for convenience.\n*   Command line help available via `websocketd --help`.\n*   Includes [WebSocket developer console](https://github.com/joewalnes/websocketd/wiki/Developer-console) to make it easy to test your scripts before you've built a JavaScript frontend.\n*   [Examples in many programming languages](https://github.com/joewalnes/websocketd/tree/master/examples) are available to help you getting started.\n\nUser Manual\n-----------\n\n**[More documentation in the user manual](https://github.com/joewalnes/websocketd/wiki)**\n\nExample Projects\n----------------\n\n*   [Plot real time Linux CPU/IO/Mem stats to a HTML5 dashboard using websocketd and vmstat](https://github.com/joewalnes/web-vmstats) _(for Linux)_\n*   [Arbitrary REPL in the browser using websocketd](https://github.com/rowanthorpe/ws-repl)\n*   [Retrieve SQL data from server with LiveCode and webSocketd](https://github.com/samansjukur/wslc)\n*   [List files from a configured folder](https://github.com/dbalakirev/directator) _(for Linux)_\n*   [Listen for gamepad events and report them to the system](https://github.com/experiment322/controlloid-server) _(this + android = gamepad emulator)_\n\nGot more examples? Open a pull request.\n\nMy Other Projects\n-----------------\n\n*   [ReconnectingWebSocket](https://github.com/joewalnes/reconnecting-websocket) - Simplest way to add some robustness to your WebSocket connections.\n*   [Smoothie Charts](http://smoothiecharts.org/) - JavaScript charts for streaming data.\n*   Visit [The Igloo Lab](http://theigloolab.com/) to see and subscribe to other thingies I make.\n\nAnd [follow @joewalnes](https://twitter.com/joewalnes)!\n",
+        "releases": [
+            {
+                "name": "January 24, 2021",
+                "date": "2021-01-25T02:04:33Z"
+            },
+            {
+                "name": "Version 0.3.1",
+                "date": "2019-01-28T13:36:19Z"
+            },
+            {
+                "name": "Version 0.3.0",
+                "date": "2017-12-14T02:55:13Z"
+            },
+            {
+                "name": "Version 0.2.12",
+                "date": "2016-02-17T22:54:57Z"
+            },
+            {
+                "name": "Version 0.2.11",
+                "date": "2015-07-02T14:43:42Z"
+            },
+            {
+                "name": "Version 0.2.10",
+                "date": "2015-02-16T18:15:50Z"
+            },
+            {
+                "name": "Version 0.2.9",
+                "date": "2014-05-29T19:56:05Z"
+            }
+        ]
+    }
+}

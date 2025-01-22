@@ -1,0 +1,746 @@
+{
+    "https://api.github.com/repos/go-playground/validator": {
+        "forks": 1337,
+        "watchers": 17344,
+        "stars": 17344,
+        "languages": {
+            "Go": 1802120,
+            "Makefile": 400
+        },
+        "commits": [
+            "2025-01-13T02:30:34Z",
+            "2024-11-16T17:21:10Z",
+            "2024-11-16T16:48:15Z",
+            "2024-11-16T16:44:52Z",
+            "2024-11-16T16:44:02Z",
+            "2024-11-16T16:42:27Z",
+            "2024-11-16T16:38:08Z",
+            "2024-09-09T00:16:31Z",
+            "2024-09-09T00:09:32Z",
+            "2024-06-12T04:35:37Z",
+            "2024-06-12T04:29:30Z",
+            "2024-06-12T04:28:03Z",
+            "2024-06-01T15:21:26Z",
+            "2024-06-01T14:54:52Z",
+            "2024-06-01T14:52:01Z",
+            "2024-06-01T14:50:41Z",
+            "2024-06-01T14:47:11Z",
+            "2024-06-01T14:44:41Z",
+            "2024-06-01T14:17:07Z",
+            "2024-06-01T14:07:56Z",
+            "2024-04-30T04:08:48Z",
+            "2024-04-30T04:08:20Z",
+            "2024-04-30T04:08:14Z",
+            "2024-04-30T04:07:56Z",
+            "2024-03-02T19:47:07Z",
+            "2024-03-02T19:43:12Z",
+            "2024-03-02T19:42:06Z",
+            "2024-03-02T19:33:35Z",
+            "2024-02-11T05:10:02Z",
+            "2024-02-11T05:09:36Z"
+        ],
+        "creation_date": "2015-02-12T16:32:22Z",
+        "contributors": 30,
+        "topics": [
+            "error-handling",
+            "translation",
+            "validation"
+        ],
+        "subscribers": 124,
+        "readme": "Package validator\n=================\n<img align=\"right\" src=\"logo.png\">[![Join the chat at https://gitter.im/go-playground/validator](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/go-playground/validator?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)\n![Project status](https://img.shields.io/badge/version-10.24.0-green.svg)\n[![Build Status](https://travis-ci.org/go-playground/validator.svg?branch=master)](https://travis-ci.org/go-playground/validator)\n[![Coverage Status](https://coveralls.io/repos/go-playground/validator/badge.svg?branch=master&service=github)](https://coveralls.io/github/go-playground/validator?branch=master)\n[![Go Report Card](https://goreportcard.com/badge/github.com/go-playground/validator)](https://goreportcard.com/report/github.com/go-playground/validator)\n[![GoDoc](https://godoc.org/github.com/go-playground/validator?status.svg)](https://pkg.go.dev/github.com/go-playground/validator/v10)\n![License](https://img.shields.io/dub/l/vibe-d.svg)\n\nPackage validator implements value validations for structs and individual fields based on tags.\n\nIt has the following **unique** features:\n\n-   Cross Field and Cross Struct validations by using validation tags or custom validators.\n-   Slice, Array and Map diving, which allows any or all levels of a multidimensional field to be validated.\n-   Ability to dive into both map keys and values for validation\n-   Handles type interface by determining it's underlying type prior to validation.\n-   Handles custom field types such as sql driver Valuer see [Valuer](https://golang.org/src/database/sql/driver/types.go?s=1210:1293#L29)\n-   Alias validation tags, which allows for mapping of several validations to a single tag for easier defining of validations on structs\n-   Extraction of custom defined Field Name e.g. can specify to extract the JSON name while validating and have it available in the resulting FieldError\n-   Customizable i18n aware error messages.\n-   Default validator for the [gin](https://github.com/gin-gonic/gin) web framework; upgrading from v8 to v9 in gin see [here](https://github.com/go-playground/validator/tree/master/_examples/gin-upgrading-overriding)\n\nA Call for Maintainers\n----------------------\n\nPlease read the discussiong started [here](https://github.com/go-playground/validator/discussions/1330) if you are interested in contributing/helping maintain this package.\n\nInstallation\n------------\n\nUse go get.\n\n\tgo get github.com/go-playground/validator/v10\n\nThen import the validator package into your own code.\n\n\timport \"github.com/go-playground/validator/v10\"\n\nError Return Value\n-------\n\nValidation functions return type error\n\nThey return type error to avoid the issue discussed in the following, where err is always != nil:\n\n* http://stackoverflow.com/a/29138676/3158232\n* https://github.com/go-playground/validator/issues/134\n\nValidator returns only InvalidValidationError for bad validation input, nil or ValidationErrors as type error; so, in your code all you need to do is check if the error returned is not nil, and if it's not check if error is InvalidValidationError ( if necessary, most of the time it isn't ) type cast it to type ValidationErrors like so:\n\n```go\nerr := validate.Struct(mystruct)\nvalidationErrors := err.(validator.ValidationErrors)\n ```\n\nUsage and documentation\n------\n\nPlease see https://pkg.go.dev/github.com/go-playground/validator/v10 for detailed usage docs.\n\n##### Examples:\n\n- [Simple](https://github.com/go-playground/validator/blob/master/_examples/simple/main.go)\n- [Custom Field Types](https://github.com/go-playground/validator/blob/master/_examples/custom/main.go)\n- [Struct Level](https://github.com/go-playground/validator/blob/master/_examples/struct-level/main.go)\n- [Translations & Custom Errors](https://github.com/go-playground/validator/blob/master/_examples/translations/main.go)\n- [Gin upgrade and/or override validator](https://github.com/go-playground/validator/tree/v9/_examples/gin-upgrading-overriding)\n- [wash - an example application putting it all together](https://github.com/bluesuncorp/wash)\n\nBaked-in Validations\n------\n\n### Special Notes:\n- If new to using validator it is highly recommended to initialize it using the `WithRequiredStructEnabled` option which is opt-in to new behaviour that will become the default behaviour in v11+. See documentation for more details.\n```go\nvalidate := validator.New(validator.WithRequiredStructEnabled())\n```\n\n### Fields:\n\n| Tag | Description |\n| - | - |\n| eqcsfield | Field Equals Another Field (relative)|\n| eqfield | Field Equals Another Field |\n| fieldcontains | Check the indicated characters are present in the Field |\n| fieldexcludes | Check the indicated characters are not present in the field |\n| gtcsfield | Field Greater Than Another Relative Field |\n| gtecsfield | Field Greater Than or Equal To Another Relative Field |\n| gtefield | Field Greater Than or Equal To Another Field |\n| gtfield | Field Greater Than Another Field |\n| ltcsfield | Less Than Another Relative Field |\n| ltecsfield | Less Than or Equal To Another Relative Field |\n| ltefield | Less Than or Equal To Another Field |\n| ltfield | Less Than Another Field |\n| necsfield | Field Does Not Equal Another Field (relative) |\n| nefield | Field Does Not Equal Another Field |\n\n### Network:\n\n| Tag | Description |\n| - | - |\n| cidr | Classless Inter-Domain Routing CIDR |\n| cidrv4 | Classless Inter-Domain Routing CIDRv4 |\n| cidrv6 | Classless Inter-Domain Routing CIDRv6 |\n| datauri | Data URL |\n| fqdn | Full Qualified Domain Name (FQDN) |\n| hostname | Hostname RFC 952 |\n| hostname_port | HostPort |\n| hostname_rfc1123 | Hostname RFC 1123 |\n| ip | Internet Protocol Address IP |\n| ip4_addr | Internet Protocol Address IPv4 |\n| ip6_addr | Internet Protocol Address IPv6 |\n| ip_addr | Internet Protocol Address IP |\n| ipv4 | Internet Protocol Address IPv4 |\n| ipv6 | Internet Protocol Address IPv6 |\n| mac | Media Access Control Address MAC |\n| tcp4_addr | Transmission Control Protocol Address TCPv4 |\n| tcp6_addr | Transmission Control Protocol Address TCPv6 |\n| tcp_addr | Transmission Control Protocol Address TCP |\n| udp4_addr | User Datagram Protocol Address UDPv4 |\n| udp6_addr | User Datagram Protocol Address UDPv6 |\n| udp_addr | User Datagram Protocol Address UDP |\n| unix_addr | Unix domain socket end point Address |\n| uri | URI String |\n| url | URL String |\n| http_url | HTTP URL String |\n| url_encoded | URL Encoded |\n| urn_rfc2141 | Urn RFC 2141 String |\n\n### Strings:\n\n| Tag | Description |\n| - | - |\n| alpha | Alpha Only |\n| alphanum | Alphanumeric |\n| alphanumunicode | Alphanumeric Unicode |\n| alphaunicode | Alpha Unicode |\n| ascii | ASCII |\n| boolean | Boolean |\n| contains | Contains |\n| containsany | Contains Any |\n| containsrune | Contains Rune |\n| endsnotwith | Ends Not With |\n| endswith | Ends With |\n| excludes | Excludes |\n| excludesall | Excludes All |\n| excludesrune | Excludes Rune |\n| lowercase | Lowercase |\n| multibyte | Multi-Byte Characters |\n| number | Number |\n| numeric | Numeric |\n| printascii | Printable ASCII |\n| startsnotwith | Starts Not With |\n| startswith | Starts With |\n| uppercase | Uppercase |\n\n### Format:\n| Tag | Description |\n| - | - |\n| base64 | Base64 String |\n| base64url | Base64URL String |\n| base64rawurl | Base64RawURL String |\n| bic | Business Identifier Code (ISO 9362) |\n| bcp47_language_tag | Language tag (BCP 47) |\n| btc_addr | Bitcoin Address |\n| btc_addr_bech32 | Bitcoin Bech32 Address (segwit) |\n| credit_card | Credit Card Number |\n| mongodb | MongoDB ObjectID |\n| mongodb_connection_string | MongoDB Connection String |\n| cron | Cron |\n| spicedb | SpiceDb ObjectID/Permission/Type |\n| datetime | Datetime |\n| e164 | e164 formatted phone number |\n| email | E-mail String\n| eth_addr | Ethereum Address |\n| hexadecimal | Hexadecimal String |\n| hexcolor | Hexcolor String |\n| hsl | HSL String |\n| hsla | HSLA String |\n| html | HTML Tags |\n| html_encoded | HTML Encoded |\n| isbn | International Standard Book Number |\n| isbn10 | International Standard Book Number 10 |\n| isbn13 | International Standard Book Number 13 |\n| issn | International Standard Serial Number |\n| iso3166_1_alpha2 | Two-letter country code (ISO 3166-1 alpha-2) |\n| iso3166_1_alpha3 | Three-letter country code (ISO 3166-1 alpha-3) |\n| iso3166_1_alpha_numeric | Numeric country code (ISO 3166-1 numeric) |\n| iso3166_2 | Country subdivision code (ISO 3166-2) |\n| iso4217 | Currency code (ISO 4217) |\n| json | JSON |\n| jwt | JSON Web Token (JWT) |\n| latitude | Latitude |\n| longitude | Longitude |\n| luhn_checksum | Luhn Algorithm Checksum (for strings and (u)int) |\n| postcode_iso3166_alpha2 | Postcode |\n| postcode_iso3166_alpha2_field | Postcode |\n| rgb | RGB String |\n| rgba | RGBA String |\n| ssn | Social Security Number SSN |\n| timezone | Timezone |\n| uuid | Universally Unique Identifier UUID |\n| uuid3 | Universally Unique Identifier UUID v3 |\n| uuid3_rfc4122 | Universally Unique Identifier UUID v3 RFC4122 |\n| uuid4 | Universally Unique Identifier UUID v4 |\n| uuid4_rfc4122 | Universally Unique Identifier UUID v4 RFC4122 |\n| uuid5 | Universally Unique Identifier UUID v5 |\n| uuid5_rfc4122 | Universally Unique Identifier UUID v5 RFC4122 |\n| uuid_rfc4122 | Universally Unique Identifier UUID RFC4122 |\n| md4 | MD4 hash |\n| md5 | MD5 hash |\n| sha256 | SHA256 hash |\n| sha384 | SHA384 hash |\n| sha512 | SHA512 hash |\n| ripemd128 | RIPEMD-128 hash |\n| ripemd128 | RIPEMD-160 hash |\n| tiger128 | TIGER128 hash |\n| tiger160 | TIGER160 hash |\n| tiger192 | TIGER192 hash |\n| semver | Semantic Versioning 2.0.0 |\n| ulid | Universally Unique Lexicographically Sortable Identifier ULID |\n| cve | Common Vulnerabilities and Exposures Identifier (CVE id) |\n\n### Comparisons:\n| Tag | Description |\n| - | - |\n| eq | Equals |\n| eq_ignore_case | Equals ignoring case |\n| gt | Greater than|\n| gte | Greater than or equal |\n| lt | Less Than |\n| lte | Less Than or Equal |\n| ne | Not Equal |\n| ne_ignore_case | Not Equal ignoring case |\n\n### Other:\n| Tag | Description |\n| - | - |\n| dir | Existing Directory |\n| dirpath | Directory Path |\n| file | Existing File |\n| filepath | File Path |\n| image | Image |\n| isdefault | Is Default |\n| len | Length |\n| max | Maximum |\n| min | Minimum |\n| oneof | One Of |\n| required | Required |\n| required_if | Required If |\n| required_unless | Required Unless |\n| required_with | Required With |\n| required_with_all | Required With All |\n| required_without | Required Without |\n| required_without_all | Required Without All |\n| excluded_if | Excluded If |\n| excluded_unless | Excluded Unless |\n| excluded_with | Excluded With |\n| excluded_with_all | Excluded With All |\n| excluded_without | Excluded Without |\n| excluded_without_all | Excluded Without All |\n| unique | Unique |\n\n#### Aliases:\n| Tag | Description |\n| - | - |\n| iscolor | hexcolor\\|rgb\\|rgba\\|hsl\\|hsla |\n| country_code | iso3166_1_alpha2\\|iso3166_1_alpha3\\|iso3166_1_alpha_numeric |\n\nBenchmarks\n------\n###### Run on MacBook Pro Max M3\n```go\ngo version go1.23.3 darwin/arm64\ngoos: darwin\ngoarch: arm64\ncpu: Apple M3 Max\npkg: github.com/go-playground/validator/v10\nBenchmarkFieldSuccess-16                                                42461943                27.88 ns/op            0 B/op          0 allocs/op\nBenchmarkFieldSuccessParallel-16                                        486632887                2.289 ns/op           0 B/op          0 allocs/op\nBenchmarkFieldFailure-16                                                 9566167               121.3 ns/op           200 B/op          4 allocs/op\nBenchmarkFieldFailureParallel-16                                        17551471                83.68 ns/op          200 B/op          4 allocs/op\nBenchmarkFieldArrayDiveSuccess-16                                        7602306               155.6 ns/op            97 B/op          5 allocs/op\nBenchmarkFieldArrayDiveSuccessParallel-16                               20664610                59.80 ns/op           97 B/op          5 allocs/op\nBenchmarkFieldArrayDiveFailure-16                                        4659756               252.9 ns/op           301 B/op         10 allocs/op\nBenchmarkFieldArrayDiveFailureParallel-16                                8010116               152.9 ns/op           301 B/op         10 allocs/op\nBenchmarkFieldMapDiveSuccess-16                                          2834575               421.2 ns/op           288 B/op         14 allocs/op\nBenchmarkFieldMapDiveSuccessParallel-16                                  7179700               171.8 ns/op           288 B/op         14 allocs/op\nBenchmarkFieldMapDiveFailure-16                                          3081728               384.4 ns/op           376 B/op         13 allocs/op\nBenchmarkFieldMapDiveFailureParallel-16                                  6058137               204.0 ns/op           377 B/op         13 allocs/op\nBenchmarkFieldMapDiveWithKeysSuccess-16                                  2544975               464.8 ns/op           288 B/op         14 allocs/op\nBenchmarkFieldMapDiveWithKeysSuccessParallel-16                          6661954               181.4 ns/op           288 B/op         14 allocs/op\nBenchmarkFieldMapDiveWithKeysFailure-16                                  2435484               490.7 ns/op           553 B/op         16 allocs/op\nBenchmarkFieldMapDiveWithKeysFailureParallel-16                          4249617               282.0 ns/op           554 B/op         16 allocs/op\nBenchmarkFieldCustomTypeSuccess-16                                      14943525                77.35 ns/op           32 B/op          2 allocs/op\nBenchmarkFieldCustomTypeSuccessParallel-16                              64051954                20.61 ns/op           32 B/op          2 allocs/op\nBenchmarkFieldCustomTypeFailure-16                                      10721384               107.1 ns/op           184 B/op          3 allocs/op\nBenchmarkFieldCustomTypeFailureParallel-16                              18714495                69.77 ns/op          184 B/op          3 allocs/op\nBenchmarkFieldOrTagSuccess-16                                            4063124               294.3 ns/op            16 B/op          1 allocs/op\nBenchmarkFieldOrTagSuccessParallel-16                                   31903756                41.22 ns/op           18 B/op          1 allocs/op\nBenchmarkFieldOrTagFailure-16                                            7748558               146.8 ns/op           216 B/op          5 allocs/op\nBenchmarkFieldOrTagFailureParallel-16                                   13139854                92.05 ns/op          216 B/op          5 allocs/op\nBenchmarkStructLevelValidationSuccess-16                                16808389                70.25 ns/op           16 B/op          1 allocs/op\nBenchmarkStructLevelValidationSuccessParallel-16                        90686955                14.47 ns/op           16 B/op          1 allocs/op\nBenchmarkStructLevelValidationFailure-16                                 5818791               200.2 ns/op           264 B/op          7 allocs/op\nBenchmarkStructLevelValidationFailureParallel-16                        11115874               107.5 ns/op           264 B/op          7 allocs/op\nBenchmarkStructSimpleCustomTypeSuccess-16                                7764956               151.9 ns/op            32 B/op          2 allocs/op\nBenchmarkStructSimpleCustomTypeSuccessParallel-16                       52316265                30.37 ns/op           32 B/op          2 allocs/op\nBenchmarkStructSimpleCustomTypeFailure-16                                4195429               277.2 ns/op           416 B/op          9 allocs/op\nBenchmarkStructSimpleCustomTypeFailureParallel-16                        7305661               164.6 ns/op           432 B/op         10 allocs/op\nBenchmarkStructFilteredSuccess-16                                        6312625               186.1 ns/op           216 B/op          5 allocs/op\nBenchmarkStructFilteredSuccessParallel-16                               13684459                93.42 ns/op          216 B/op          5 allocs/op\nBenchmarkStructFilteredFailure-16                                        6751482               171.2 ns/op           216 B/op          5 allocs/op\nBenchmarkStructFilteredFailureParallel-16                               14146070                86.93 ns/op          216 B/op          5 allocs/op\nBenchmarkStructPartialSuccess-16                                         6544448               177.3 ns/op           224 B/op          4 allocs/op\nBenchmarkStructPartialSuccessParallel-16                                13951946                88.73 ns/op          224 B/op          4 allocs/op\nBenchmarkStructPartialFailure-16                                         4075833               287.5 ns/op           440 B/op          9 allocs/op\nBenchmarkStructPartialFailureParallel-16                                 7490805               161.3 ns/op           440 B/op          9 allocs/op\nBenchmarkStructExceptSuccess-16                                          4107187               281.4 ns/op           424 B/op          8 allocs/op\nBenchmarkStructExceptSuccessParallel-16                                 15979173                80.86 ns/op          208 B/op          3 allocs/op\nBenchmarkStructExceptFailure-16                                          4434372               264.3 ns/op           424 B/op          8 allocs/op\nBenchmarkStructExceptFailureParallel-16                                  8081367               154.1 ns/op           424 B/op          8 allocs/op\nBenchmarkStructSimpleCrossFieldSuccess-16                                6459542               183.4 ns/op            56 B/op          3 allocs/op\nBenchmarkStructSimpleCrossFieldSuccessParallel-16                       41013781                37.95 ns/op           56 B/op          3 allocs/op\nBenchmarkStructSimpleCrossFieldFailure-16                                4034998               292.1 ns/op           272 B/op          8 allocs/op\nBenchmarkStructSimpleCrossFieldFailureParallel-16                       11348446               115.3 ns/op           272 B/op          8 allocs/op\nBenchmarkStructSimpleCrossStructCrossFieldSuccess-16                     4448528               267.7 ns/op            64 B/op          4 allocs/op\nBenchmarkStructSimpleCrossStructCrossFieldSuccessParallel-16            26813619                48.33 ns/op           64 B/op          4 allocs/op\nBenchmarkStructSimpleCrossStructCrossFieldFailure-16                     3090646               384.5 ns/op           288 B/op          9 allocs/op\nBenchmarkStructSimpleCrossStructCrossFieldFailureParallel-16             9870906               129.5 ns/op           288 B/op          9 allocs/op\nBenchmarkStructSimpleSuccess-16                                         10675562               109.5 ns/op             0 B/op          0 allocs/op\nBenchmarkStructSimpleSuccessParallel-16                                 131159784                8.932 ns/op           0 B/op          0 allocs/op\nBenchmarkStructSimpleFailure-16                                          4094979               286.6 ns/op           416 B/op          9 allocs/op\nBenchmarkStructSimpleFailureParallel-16                                  7606663               157.9 ns/op           416 B/op          9 allocs/op\nBenchmarkStructComplexSuccess-16                                         2073470               576.0 ns/op           224 B/op          5 allocs/op\nBenchmarkStructComplexSuccessParallel-16                                 7821831               161.3 ns/op           224 B/op          5 allocs/op\nBenchmarkStructComplexFailure-16                                          576358              2001 ns/op            3042 B/op         48 allocs/op\nBenchmarkStructComplexFailureParallel-16                                 1000000              1171 ns/op            3041 B/op         48 allocs/op\nBenchmarkOneof-16                                                       22503973                52.82 ns/op            0 B/op          0 allocs/op\nBenchmarkOneofParallel-16                                                8538474               140.4 ns/op             0 B/op          0 allocs/op\n```\n\nComplementary Software\n----------------------\n\nHere is a list of software that complements using this library either pre or post validation.\n\n* [form](https://github.com/go-playground/form) - Decodes url.Values into Go value(s) and Encodes Go value(s) into url.Values. Dual Array and Full map support.\n* [mold](https://github.com/go-playground/mold) - A general library to help modify or set data within data structures and other objects\n\nHow to Contribute\n------\n\nMake a pull request...\n\nMaintenance and support for SDK major versions\n----------------------------------------------\n\nSee prior discussion [here](https://github.com/go-playground/validator/discussions/1342) for more details.\n\nThis package is aligned with the [Go release policy](https://go.dev/doc/devel/release) in that support is guaranteed for \nthe two most recent major versions.\n\nThis does not mean the package will not work with older versions of Go, only that we reserve the right to increase the \nMSGV(Minimum Supported Go Version) when the need arises to address Security issues/patches, OS issues & support or newly \nintroduced functionality that would greatly benefit the maintenance and/or usage of this package.\n\nIf and when the MSGV is increased it will be done so in a minimum of a `Minor` release bump.\n\nLicense\n-------\nDistributed under MIT License, please see license file within the code for more details.\n\nMaintainers\n-----------\nThis project has grown large enough that more than one person is required to properly support the community.\nIf you are interested in becoming a maintainer please reach out to me https://github.com/deankarn\n",
+        "releases": [
+            {
+                "name": "Release 10.24.0",
+                "date": "2025-01-13T02:32:58Z"
+            },
+            {
+                "name": "Release 10.23.0",
+                "date": "2024-11-16T16:49:01Z"
+            },
+            {
+                "name": "Release 10.22.1",
+                "date": "2024-09-09T00:17:07Z"
+            },
+            {
+                "name": "Release 10.22.0",
+                "date": "2024-06-12T04:36:18Z"
+            },
+            {
+                "name": "Release 10.21.0",
+                "date": "2024-06-01T15:22:06Z"
+            },
+            {
+                "name": "Release 10.20.0",
+                "date": "2024-04-30T04:09:24Z"
+            },
+            {
+                "name": "Release 10.19.0",
+                "date": "2024-03-02T19:54:02Z"
+            },
+            {
+                "name": "Release 10.18.0",
+                "date": "2024-02-11T05:11:22Z"
+            },
+            {
+                "name": "Release 10.17.0",
+                "date": "2024-01-14T05:00:34Z"
+            },
+            {
+                "name": "Release 10.16.0",
+                "date": "2023-11-04T15:58:11Z"
+            },
+            {
+                "name": "Release 10.15.5",
+                "date": "2023-10-02T03:31:15Z"
+            },
+            {
+                "name": "Release 10.15.4",
+                "date": "2023-09-13T00:51:32Z"
+            },
+            {
+                "name": "Release 10.15.3",
+                "date": "2023-08-30T05:06:12Z"
+            },
+            {
+                "name": "Release 10.15.2",
+                "date": "2023-08-29T03:58:46Z"
+            },
+            {
+                "name": "Release 10.15.1",
+                "date": "2023-08-17T15:01:50Z"
+            },
+            {
+                "name": "Release 10.15.0",
+                "date": "2023-08-06T17:17:47Z"
+            },
+            {
+                "name": "Release 10.14.1",
+                "date": "2023-06-04T14:40:52Z"
+            },
+            {
+                "name": "Release 10.14.0",
+                "date": "2023-05-21T14:35:07Z"
+            },
+            {
+                "name": "Release 10.13.0",
+                "date": "2023-04-29T15:16:36Z"
+            },
+            {
+                "name": "Release 10.12.0",
+                "date": "2023-03-20T00:39:17Z"
+            },
+            {
+                "name": "Release 10.11.2",
+                "date": "2023-01-30T04:46:04Z"
+            },
+            {
+                "name": "Release 10.11.1",
+                "date": "2022-09-16T16:04:55Z"
+            },
+            {
+                "name": "Release 10.11.0",
+                "date": "2022-05-01T17:11:34Z"
+            },
+            {
+                "name": "Release 10.10.1",
+                "date": "2022-03-08T01:33:07Z"
+            },
+            {
+                "name": "Release 10.10.0",
+                "date": "2022-01-02T01:45:08Z"
+            },
+            {
+                "name": "Release 10.9.0",
+                "date": "2021-08-08T23:01:05Z"
+            },
+            {
+                "name": "Release 10.8.0",
+                "date": "2021-07-26T04:41:10Z"
+            },
+            {
+                "name": "Release 10.7.0",
+                "date": "2021-07-08T05:43:42Z"
+            },
+            {
+                "name": "Release 10.6.2",
+                "date": "2021-07-08T05:31:32Z"
+            },
+            {
+                "name": "Release 10.6.1",
+                "date": "2021-05-12T00:38:48Z"
+            },
+            {
+                "name": "Release 10.6.0",
+                "date": "2021-05-06T15:06:02Z"
+            },
+            {
+                "name": "Release 10.5.0",
+                "date": "2021-04-07T04:07:48Z"
+            },
+            {
+                "name": "Release 10.4.2",
+                "date": "2021-04-06T01:26:38Z"
+            },
+            {
+                "name": "Release 10.4.1",
+                "date": "2020-10-17T15:52:38Z"
+            },
+            {
+                "name": "Release 10.4.0",
+                "date": "2020-09-27T23:22:02Z"
+            },
+            {
+                "name": "Release 10.3.0",
+                "date": "2020-05-21T06:24:35Z"
+            },
+            {
+                "name": "Release 10.2.0",
+                "date": "2020-02-09T17:41:31Z"
+            },
+            {
+                "name": "Release 10.1.0",
+                "date": "2019-12-25T05:53:06Z"
+            },
+            {
+                "name": "Release 9.31.0",
+                "date": "2019-12-25T05:39:00Z"
+            },
+            {
+                "name": "Release 9.30.2",
+                "date": "2019-11-25T20:06:16Z"
+            },
+            {
+                "name": "Release 10.0.1",
+                "date": "2019-11-17T21:29:52Z"
+            },
+            {
+                "name": "Release 9.30.1",
+                "date": "2019-11-17T21:28:42Z"
+            },
+            {
+                "name": "Release 10.0.0",
+                "date": "2019-11-11T20:50:02Z"
+            },
+            {
+                "name": "Release 9.30.0",
+                "date": "2019-09-29T22:24:50Z"
+            },
+            {
+                "name": "Release v9.29.1",
+                "date": "2019-07-12T15:37:05Z"
+            },
+            {
+                "name": "Release v9.29.0",
+                "date": "2019-05-23T15:03:29Z"
+            },
+            {
+                "name": "Release 9.28.0",
+                "date": "2019-03-31T13:44:53Z"
+            },
+            {
+                "name": "Release 9.27.0",
+                "date": "2019-02-12T15:30:23Z"
+            },
+            {
+                "name": "Release 9.26.0",
+                "date": "2019-01-28T05:02:21Z"
+            },
+            {
+                "name": "Release 9.25.0",
+                "date": "2019-01-09T04:42:54Z"
+            },
+            {
+                "name": "Release 9.24.0",
+                "date": "2018-12-08T16:45:21Z"
+            },
+            {
+                "name": "Release 9.23.0",
+                "date": "2018-11-04T14:54:45Z"
+            },
+            {
+                "name": "Release 9.22.0",
+                "date": "2018-11-01T04:05:00Z"
+            },
+            {
+                "name": "Release 9.21.1",
+                "date": "2018-10-25T12:30:11Z"
+            },
+            {
+                "name": "Release v9.21.0",
+                "date": "2018-08-13T14:36:46Z"
+            },
+            {
+                "name": "Release 9.20.2",
+                "date": "2018-07-09T15:36:03Z"
+            },
+            {
+                "name": "Release 9.20.1",
+                "date": "2018-07-09T15:30:36Z"
+            },
+            {
+                "name": "Release 9.20.0",
+                "date": "2018-07-09T14:09:50Z"
+            },
+            {
+                "name": "Release 9.19.0",
+                "date": "2018-06-29T15:04:14Z"
+            },
+            {
+                "name": "Release 9.18.0",
+                "date": "2018-06-28T20:33:07Z"
+            },
+            {
+                "name": "Release 9.17.1",
+                "date": "2018-05-14T14:58:31Z"
+            },
+            {
+                "name": "Release 9.17.0",
+                "date": "2018-05-09T16:02:30Z"
+            },
+            {
+                "name": "Release 9.16.1",
+                "date": "2018-05-09T15:35:32Z"
+            },
+            {
+                "name": "Release 9.16.0",
+                "date": "2018-05-05T16:29:42Z"
+            },
+            {
+                "name": "Release 9.15.0",
+                "date": "2018-04-10T05:35:42Z"
+            },
+            {
+                "name": "Release 9.14.0",
+                "date": "2018-04-08T17:25:26Z"
+            },
+            {
+                "name": "Release 9.13.0",
+                "date": "2018-03-19T15:48:20Z"
+            },
+            {
+                "name": "Release v9.12.0",
+                "date": "2018-03-05T15:05:32Z"
+            },
+            {
+                "name": "Release 9.11.0",
+                "date": "2018-02-20T16:22:55Z"
+            },
+            {
+                "name": "Release 9.10.0",
+                "date": "2018-02-15T16:55:24Z"
+            },
+            {
+                "name": "Release 9.9.4",
+                "date": "2018-02-03T18:38:50Z"
+            },
+            {
+                "name": "Release 9.9.3",
+                "date": "2018-01-14T22:15:25Z"
+            },
+            {
+                "name": "Release 9.9.2",
+                "date": "2018-01-06T03:47:32Z"
+            },
+            {
+                "name": "Release 9.9.1",
+                "date": "2017-12-13T16:59:11Z"
+            },
+            {
+                "name": "Release 9.9.0",
+                "date": "2017-11-13T05:00:42Z"
+            },
+            {
+                "name": "Release 9.8.0",
+                "date": "2017-10-23T03:07:53Z"
+            },
+            {
+                "name": "Release 9.7.0",
+                "date": "2017-09-07T03:48:47Z"
+            },
+            {
+                "name": "Release 9.6.0",
+                "date": "2017-08-07T04:33:19Z"
+            },
+            {
+                "name": "Release 9.5.0",
+                "date": "2017-07-30T03:54:59Z"
+            },
+            {
+                "name": "Release 8.18.2",
+                "date": "2017-07-30T05:03:44Z"
+            },
+            {
+                "name": "Release 9.4.0",
+                "date": "2017-06-12T05:30:04Z"
+            },
+            {
+                "name": "Release 9.3.6",
+                "date": "2017-04-05T11:14:21Z"
+            },
+            {
+                "name": "Release 9.3.5",
+                "date": "2017-02-24T17:51:36Z"
+            },
+            {
+                "name": "Release 9.3.4",
+                "date": "2017-02-14T07:26:20Z"
+            },
+            {
+                "name": "Release 9.3.3",
+                "date": "2017-02-01T23:56:28Z"
+            },
+            {
+                "name": "Release 9.3.2",
+                "date": "2016-12-23T02:51:29Z"
+            },
+            {
+                "name": "Release 9.3.1",
+                "date": "2016-12-07T01:55:40Z"
+            },
+            {
+                "name": "Release 9.3.0",
+                "date": "2016-11-30T13:44:42Z"
+            },
+            {
+                "name": "Release 9.2.2",
+                "date": "2016-11-16T01:41:42Z"
+            },
+            {
+                "name": "Release 9.2.1",
+                "date": "2016-09-28T15:03:26Z"
+            },
+            {
+                "name": "Release 9.2.0",
+                "date": "2016-09-25T17:56:12Z"
+            },
+            {
+                "name": "Release 9.1.3",
+                "date": "2016-09-22T23:09:21Z"
+            },
+            {
+                "name": "Release 9.1.2",
+                "date": "2016-09-19T15:37:15Z"
+            },
+            {
+                "name": "Release 9.1.1",
+                "date": "2016-09-19T15:33:55Z"
+            },
+            {
+                "name": "Release 9.1.0",
+                "date": "2016-09-15T19:59:09Z"
+            },
+            {
+                "name": "Release 9.0.0",
+                "date": "2016-09-01T13:03:08Z"
+            },
+            {
+                "name": "Release 9.0.0 RC1",
+                "date": "2016-08-08T14:26:12Z"
+            },
+            {
+                "name": "Release 8.18.1",
+                "date": "2016-07-18T13:42:55Z"
+            },
+            {
+                "name": "Release 8.18.0",
+                "date": "2016-07-18T13:35:12Z"
+            },
+            {
+                "name": "Release 8.17.3",
+                "date": "2016-07-14T20:52:04Z"
+            },
+            {
+                "name": "Release 8.17.2",
+                "date": "2016-06-22T01:17:43Z"
+            },
+            {
+                "name": "Release v8.17.1",
+                "date": "2016-02-23T20:30:46Z"
+            },
+            {
+                "name": "Release v8.17",
+                "date": "2016-02-16T01:44:41Z"
+            },
+            {
+                "name": "Release v8.16",
+                "date": "2016-02-03T01:05:54Z"
+            },
+            {
+                "name": "Release v8.15.1",
+                "date": "2016-01-10T00:44:38Z"
+            },
+            {
+                "name": "Release v8.15",
+                "date": "2016-01-06T14:39:34Z"
+            },
+            {
+                "name": "Release 8.14",
+                "date": "2015-11-28T01:03:26Z"
+            },
+            {
+                "name": "Release 8.13",
+                "date": "2015-11-27T21:06:06Z"
+            },
+            {
+                "name": "Release 8.12",
+                "date": "2015-11-26T13:54:10Z"
+            },
+            {
+                "name": "Release 8.11",
+                "date": "2015-11-23T02:40:37Z"
+            },
+            {
+                "name": "Release 8.10",
+                "date": "2015-11-20T14:04:57Z"
+            },
+            {
+                "name": "Release 8.9",
+                "date": "2015-11-19T21:51:10Z"
+            },
+            {
+                "name": "Release 8.8.1",
+                "date": "2015-11-19T17:20:02Z"
+            },
+            {
+                "name": "Release 8.8",
+                "date": "2015-11-16T18:35:40Z"
+            },
+            {
+                "name": "Release 8.7",
+                "date": "2015-11-13T13:51:00Z"
+            },
+            {
+                "name": "Release 8.6",
+                "date": "2015-11-09T17:34:39Z"
+            },
+            {
+                "name": "Release 8.5",
+                "date": "2015-10-16T01:22:32Z"
+            },
+            {
+                "name": "Release 8.4",
+                "date": "2015-10-06T20:44:33Z"
+            },
+            {
+                "name": "Release 8.3",
+                "date": "2015-09-30T12:47:28Z"
+            },
+            {
+                "name": "Release 8.2",
+                "date": "2015-09-24T11:56:05Z"
+            },
+            {
+                "name": "Release 7.2",
+                "date": "2015-09-24T11:55:45Z"
+            },
+            {
+                "name": "Release 6.8",
+                "date": "2015-09-24T11:55:22Z"
+            },
+            {
+                "name": "Release 5.12",
+                "date": "2015-09-24T11:54:57Z"
+            },
+            {
+                "name": "Release 8.1",
+                "date": "2015-09-03T11:26:13Z"
+            },
+            {
+                "name": "Release 8.0.1",
+                "date": "2015-09-03T02:29:38Z"
+            },
+            {
+                "name": "Release 7.1",
+                "date": "2015-09-03T00:20:59Z"
+            },
+            {
+                "name": "Release 7",
+                "date": "2015-08-20T01:08:23Z"
+            },
+            {
+                "name": "Release 6.7",
+                "date": "2015-08-19T17:21:58Z"
+            },
+            {
+                "name": "Release 6.6",
+                "date": "2015-08-19T12:42:53Z"
+            },
+            {
+                "name": "Release 6.5.1",
+                "date": "2015-08-17T12:30:28Z"
+            },
+            {
+                "name": "Release 6.5",
+                "date": "2015-08-04T03:05:27Z"
+            },
+            {
+                "name": "Release 6.4",
+                "date": "2015-08-04T01:38:00Z"
+            },
+            {
+                "name": "Release 5.11",
+                "date": "2015-08-04T01:37:40Z"
+            },
+            {
+                "name": "Release 6.3",
+                "date": "2015-08-02T01:02:29Z"
+            },
+            {
+                "name": "Release 6.2",
+                "date": "2015-07-31T02:32:35Z"
+            },
+            {
+                "name": "Release 6.1.1",
+                "date": "2015-07-28T02:49:25Z"
+            },
+            {
+                "name": "Release 6.1",
+                "date": "2015-07-27T21:26:16Z"
+            },
+            {
+                "name": "Release 6.0.2",
+                "date": "2015-07-27T01:55:19Z"
+            },
+            {
+                "name": "Release 6.0.1",
+                "date": "2015-07-23T16:54:12Z"
+            },
+            {
+                "name": "Release 6.0",
+                "date": "2015-07-22T01:13:29Z"
+            },
+            {
+                "name": "Release 5.10.3",
+                "date": "2015-07-19T16:04:52Z"
+            },
+            {
+                "name": "Release 5.10.2",
+                "date": "2015-07-13T18:49:45Z"
+            },
+            {
+                "name": "Release v5.10.1",
+                "date": "2015-07-09T18:26:30Z"
+            },
+            {
+                "name": "Release 5.10",
+                "date": "2015-07-05T16:26:11Z"
+            },
+            {
+                "name": "Release 5.9.2",
+                "date": "2015-06-30T01:02:38Z"
+            },
+            {
+                "name": "Release 5.9.1",
+                "date": "2015-06-29T02:00:38Z"
+            },
+            {
+                "name": "Release v5.9",
+                "date": "2015-06-27T18:36:32Z"
+            },
+            {
+                "name": "Release 5.8.1",
+                "date": "2015-06-20T16:03:50Z"
+            },
+            {
+                "name": "Release 5.8",
+                "date": "2015-06-17T14:05:47Z"
+            },
+            {
+                "name": "Release 5.7.1",
+                "date": "2015-06-09T01:51:51Z"
+            },
+            {
+                "name": "Release 5.7",
+                "date": "2015-06-09T01:38:52Z"
+            },
+            {
+                "name": "Release 5.6.1",
+                "date": "2015-06-08T20:52:55Z"
+            },
+            {
+                "name": "Release 5.6",
+                "date": "2015-06-08T12:54:11Z"
+            },
+            {
+                "name": "Release 5.5.1",
+                "date": "2015-05-31T01:06:58Z"
+            },
+            {
+                "name": "Release 5.5",
+                "date": "2015-05-27T01:42:04Z"
+            },
+            {
+                "name": "Release 5.4",
+                "date": "2015-05-23T02:34:26Z"
+            },
+            {
+                "name": "Release 5.2",
+                "date": "2015-05-19T19:38:33Z"
+            },
+            {
+                "name": "Release 5.1",
+                "date": "2015-05-08T16:06:54Z"
+            },
+            {
+                "name": "Release 5.0.2",
+                "date": "2015-04-19T14:37:24Z"
+            },
+            {
+                "name": "Release 5.0.1",
+                "date": "2015-04-19T14:28:04Z"
+            },
+            {
+                "name": "Release 5",
+                "date": "2015-04-10T04:50:43Z"
+            },
+            {
+                "name": "Release 4.0.4",
+                "date": "2015-04-10T00:55:02Z"
+            },
+            {
+                "name": "Release 4.0.3",
+                "date": "2015-04-08T22:30:21Z"
+            },
+            {
+                "name": "Release 4.0.1",
+                "date": "2015-04-06T01:16:24Z"
+            },
+            {
+                "name": "Release 4.0",
+                "date": "2015-03-23T14:59:37Z"
+            },
+            {
+                "name": "Release 3.0.2",
+                "date": "2015-03-21T17:43:37Z"
+            },
+            {
+                "name": "Release 3.0.1",
+                "date": "2015-03-19T19:59:52Z"
+            },
+            {
+                "name": "Release 3.0",
+                "date": "2015-03-11T04:15:09Z"
+            },
+            {
+                "name": "Release 2.3",
+                "date": "2015-03-11T03:39:30Z"
+            },
+            {
+                "name": "Release 2.2",
+                "date": "2015-03-10T22:02:52Z"
+            },
+            {
+                "name": "Release 2.1",
+                "date": "2015-03-10T19:29:37Z"
+            },
+            {
+                "name": "Release 2.0",
+                "date": "2015-03-06T17:03:53Z"
+            },
+            {
+                "name": "Release 1.0",
+                "date": "2015-03-01T17:47:29Z"
+            }
+        ]
+    }
+}

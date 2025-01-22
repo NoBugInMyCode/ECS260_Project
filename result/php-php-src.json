@@ -1,0 +1,88 @@
+{
+    "https://api.github.com/repos/php/php-src": {
+        "forks": 7798,
+        "watchers": 38539,
+        "stars": 38539,
+        "languages": {
+            "C": 65328073,
+            "PHP": 30070655,
+            "C++": 580501,
+            "M4": 408464,
+            "Shell": 299560,
+            "Lua": 272563,
+            "Assembly": 236754,
+            "JavaScript": 199512,
+            "Lex": 99367,
+            "Yacc": 92094,
+            "Makefile": 33437,
+            "Roff": 32243,
+            "GAP": 23811,
+            "Python": 14072,
+            "GDB": 13663,
+            "XSLT": 7963,
+            "Awk": 2920,
+            "Batchfile": 2219,
+            "DTrace": 2180,
+            "HTML": 1894
+        },
+        "commits": [
+            "2025-01-21T19:34:14Z",
+            "2025-01-21T17:11:49Z",
+            "2025-01-21T19:05:29Z",
+            "2025-01-21T18:27:24Z",
+            "2025-01-21T18:27:19Z",
+            "2025-01-21T07:36:20Z",
+            "2025-01-21T18:20:57Z",
+            "2025-01-21T14:43:16Z",
+            "2025-01-21T11:27:49Z",
+            "2025-01-21T07:21:27Z",
+            "2025-01-21T07:21:13Z",
+            "2025-01-20T20:41:46Z",
+            "2025-01-20T21:15:23Z",
+            "2025-01-19T13:43:45Z",
+            "2025-01-19T23:35:24Z",
+            "2025-01-19T20:33:13Z",
+            "2025-01-19T19:39:27Z",
+            "2025-01-19T19:38:51Z",
+            "2025-01-19T19:38:19Z",
+            "2025-01-19T19:37:53Z",
+            "2025-01-19T19:36:12Z",
+            "2025-01-19T18:01:52Z",
+            "2025-01-19T07:27:05Z",
+            "2025-01-19T17:54:01Z",
+            "2025-01-19T17:53:54Z",
+            "2025-01-19T17:53:37Z",
+            "2025-01-19T17:28:36Z",
+            "2025-01-19T12:06:01Z",
+            "2025-01-19T12:05:55Z",
+            "2025-01-19T10:33:41Z"
+        ],
+        "creation_date": "2011-06-16T01:52:25Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 1378,
+        "readme": "<div align=\"center\">\n    <a href=\"https://www.php.net\">\n        <img\n            alt=\"PHP\"\n            src=\"https://www.php.net/images/logos/new-php-logo.svg\"\n            width=\"150\">\n    </a>\n</div>\n\n# The PHP Interpreter\n\nPHP is a popular general-purpose scripting language that is especially suited to\nweb development. Fast, flexible and pragmatic, PHP powers everything from your\nblog to the most popular websites in the world. PHP is distributed under the\n[PHP License v3.01](LICENSE).\n\n[![Push](https://github.com/php/php-src/actions/workflows/push.yml/badge.svg)](https://github.com/php/php-src/actions/workflows/push.yml)\n[![Fuzzing Status](https://oss-fuzz-build-logs.storage.googleapis.com/badges/php.svg)](https://bugs.chromium.org/p/oss-fuzz/issues/list?sort=-opened&can=1&q=proj:php)\n\n## Documentation\n\nThe PHP manual is available at [php.net/docs](https://www.php.net/docs).\n\n## Installation\n\n### Prebuilt packages and binaries\n\nPrebuilt packages and binaries can be used to get up and running fast with PHP.\n\nFor Windows, the PHP binaries can be obtained from\n[windows.php.net](https://windows.php.net). After extracting the archive the\n`*.exe` files are ready to use.\n\nFor other systems, see the [installation chapter](https://www.php.net/install).\n\n### Building PHP source code\n\n*For Windows, see [Build your own PHP on Windows](https://wiki.php.net/internals/windows/stepbystepbuild_sdk_2).*\n\nFor a minimal PHP build from Git, you will need autoconf, bison, and re2c. For\na default build, you will additionally need libxml2 and libsqlite3.\n\nOn Ubuntu, you can install these using:\n\n    sudo apt install -y pkg-config build-essential autoconf bison re2c \\\n                        libxml2-dev libsqlite3-dev\n\nOn Fedora, you can install these using:\n\n    sudo dnf install re2c bison autoconf make libtool ccache libxml2-devel sqlite-devel\n\nGenerate configure:\n\n    ./buildconf\n\nConfigure your build. `--enable-debug` is recommended for development, see\n`./configure --help` for a full list of options.\n\n    # For development\n    ./configure --enable-debug\n    # For production\n    ./configure\n\nBuild PHP. To speed up the build, specify the maximum number of jobs using `-j`:\n\n    make -j4\n\nThe number of jobs should usually match the number of available cores, which\ncan be determined using `nproc`.\n\n## Testing PHP source code\n\nPHP ships with an extensive test suite, the command `make test` is used after\nsuccessful compilation of the sources to run this test suite.\n\nIt is possible to run tests using multiple cores by setting `-jN` in\n`TEST_PHP_ARGS`:\n\n    make TEST_PHP_ARGS=-j4 test\n\nShall run `make test` with a maximum of 4 concurrent jobs: Generally the maximum\nnumber of jobs should not exceed the number of cores available.\n\nThe [qa.php.net](https://qa.php.net) site provides more detailed info about\ntesting and quality assurance.\n\n## Installing PHP built from source\n\nAfter a successful build (and test), PHP may be installed with:\n\n    make install\n\nDepending on your permissions and prefix, `make install` may need super user\npermissions.\n\n## PHP extensions\n\nExtensions provide additional functionality on top of PHP. PHP consists of many\nessential bundled extensions. Additional extensions can be found in the PHP\nExtension Community Library - [PECL](https://pecl.php.net).\n\n## Contributing\n\nThe PHP source code is located in the Git repository at\n[github.com/php/php-src](https://github.com/php/php-src). Contributions are most\nwelcome by forking the repository and sending a pull request.\n\nDiscussions are done on GitHub, but depending on the topic can also be relayed\nto the official PHP developer mailing list internals@lists.php.net.\n\nNew features require an RFC and must be accepted by the developers. See\n[Request for comments - RFC](https://wiki.php.net/rfc) and\n[Voting on PHP features](https://wiki.php.net/rfc/voting) for more information\non the process.\n\nBug fixes don't require an RFC. If the bug has a GitHub issue, reference it in\nthe commit message using `GH-NNNNNN`. Use `#NNNNNN` for tickets in the old\n[bugs.php.net](https://bugs.php.net) bug tracker.\n\n    Fix GH-7815: php_uname doesn't recognise latest Windows versions\n    Fix #55371: get_magic_quotes_gpc() throws deprecation warning\n\nSee [Git workflow](https://wiki.php.net/vcs/gitworkflow) for details on how pull\nrequests are merged.\n\n### Guidelines for contributors\n\nSee further documents in the repository for more information on how to\ncontribute:\n\n- [Contributing to PHP](/CONTRIBUTING.md)\n- [PHP coding standards](/CODING_STANDARDS.md)\n- [Internal documentation](https://php.github.io/php-src/)\n- [Mailing list rules](/docs/mailinglist-rules.md)\n- [PHP release process](/docs/release-process.md)\n\n## Credits\n\nFor the list of people who've put work into PHP, please see the\n[PHP credits page](https://www.php.net/credits.php).\n",
+        "releases": [
+            {
+                "name": "PHP 8.4.3",
+                "date": "2025-01-17T03:12:51Z"
+            },
+            {
+                "name": "PHP 8.3.16",
+                "date": "2025-01-16T17:52:51Z"
+            },
+            {
+                "name": "PHP 8.4.2",
+                "date": "2024-12-20T01:16:21Z"
+            },
+            {
+                "name": "PHP 8.3.15",
+                "date": "2024-12-20T01:15:38Z"
+            },
+            {
+                "name": "PHP 8.2.27",
+                "date": "2024-12-20T01:14:50Z"
+            }
+        ]
+    }
+}

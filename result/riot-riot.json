@@ -1,0 +1,570 @@
+{
+    "https://api.github.com/repos/riot/riot": {
+        "forks": 967,
+        "watchers": 14817,
+        "stars": 14817,
+        "languages": {
+            "JavaScript": 1216767,
+            "Riot": 14860,
+            "TypeScript": 7093,
+            "Makefile": 4053,
+            "HTML": 1488
+        },
+        "commits": [
+            "2024-11-23T14:40:15Z",
+            "2024-11-23T14:36:33Z",
+            "2024-11-21T22:45:03Z",
+            "2024-11-21T22:42:12Z",
+            "2024-11-21T22:41:54Z",
+            "2024-11-21T22:37:42Z",
+            "2024-11-20T21:05:11Z",
+            "2024-11-20T21:04:06Z",
+            "2024-11-20T20:56:48Z",
+            "2024-11-20T09:33:13Z",
+            "2024-11-20T09:23:31Z",
+            "2024-11-20T09:23:08Z",
+            "2024-11-19T09:16:59Z",
+            "2024-11-19T09:10:31Z",
+            "2024-11-19T09:10:11Z",
+            "2024-11-12T14:27:21Z",
+            "2024-11-08T23:18:49Z",
+            "2024-11-08T23:13:53Z",
+            "2024-11-08T23:12:32Z",
+            "2024-11-08T22:18:18Z",
+            "2024-11-08T22:14:01Z",
+            "2024-11-08T21:45:17Z",
+            "2024-10-18T21:31:32Z",
+            "2024-10-18T21:29:30Z",
+            "2024-10-18T20:47:05Z",
+            "2024-10-18T20:44:32Z",
+            "2024-10-18T20:42:30Z",
+            "2024-10-18T20:35:15Z",
+            "2024-10-18T20:27:53Z",
+            "2024-10-18T20:15:15Z"
+        ],
+        "creation_date": "2013-09-27T05:21:01Z",
+        "contributors": 30,
+        "topics": [
+            "client-side",
+            "customelement",
+            "customelements",
+            "customtags",
+            "elegant",
+            "framework",
+            "javascript",
+            "lite",
+            "minimal",
+            "simple",
+            "view",
+            "webcomponents"
+        ],
+        "subscribers": 377,
+        "readme": "[![Riot logo](https://riot.js.org/img/logo/riot-logo.svg)](https://riot.js.org)\n\n## Simple and elegant component-based UI library\n\n[![Build Status][ci-image]][ci-url]\n[![MIT License][license-image]][license-url]\n[![Join the discord community channel][discord-image]][discord-url]\n[![Join the chat (ja) at https://riot-jp-slackin.herokuapp.com/][slack-ja-image]][slack-ja-url]\n[![OpenCollective Backers][backer-badge]][backer-url] [![OpenCollective Sponsors][sponsor-badge]][sponsor-url]\n\n[![NPM version][npm-version-image]][npm-url]\n[![NPM downloads][npm-downloads-image]][npm-url]\n[![jsDelivr Hits][jsdelivr-image]][jsdelivr-url]\n[![Coverage Status][coverage-image]][coverage-url]\n![Riot Size][lib-size]\n[![Code Quality][codeclimate-image]][codeclimate-url]\n\n[![Sauce Test Status][saucelabs-image]][saucelabs-url]\n\n### Custom components \u2022 Concise syntax \u2022 Simple API \u2022 Tiny Size\n\nRiot brings custom components to all modern browsers. It is designed to offer you everything you wished the native web components API provided.\n\n#### Tag definition\n\n```html\n<timer>\n  <p>Seconds Elapsed: { state.time }</p>\n\n  <script>\n    export default {\n      tick() {\n        this.update({ time: ++this.state.time })\n      },\n      onBeforeMount(props) {\n        // create the component initial state\n        this.state = {\n          time: props.start,\n        }\n\n        this.timer = setInterval(this.tick, 1000)\n      },\n      onUnmounted() {\n        clearInterval(this.timer)\n      },\n    }\n  </script>\n</timer>\n```\n\n[Open this example on Plunker](https://riot.js.org/examples/plunker/?app=timer)\n\n#### Mounting\n\n```javascript\n// mount the timer with its initial props\nriot.mount('timer', { start: 0 })\n```\n\n#### Nesting\n\nCustom components let you build complex views with HTML.\n\n```html\n<timetable>\n  <timer start=\"0\"></timer>\n  <timer start=\"10\"></timer>\n  <timer start=\"20\"></timer>\n</timetable>\n```\n\nHTML syntax is the de facto language on the web and it's designed for building user interfaces. The syntax is explicit, nesting is inherent to the language and attributes offer a clean way to provide options for custom tags.\n\n### Performant and predictable\n\n- Absolutely the smallest possible amount of DOM updates and reflows.\n- Fast expressions bindings instead of virtual DOM memory performance issues and drawbacks.\n- One way data flow: updates and unmounts are propagated downwards from parent to children.\n- No \"magic\" or \"smart\" reactive properties or hooks\n- Expressions are pre-compiled and cached for high performance.\n- Lifecycle methods for more control.\n\n### Close to standards\n\n- No proprietary event system.\n- Future proof thanks to the javascript module syntax.\n- The rendered DOM can be freely manipulated with other tools.\n- No extra HTML root elements, `data-` attributes or fancy custom attributes.\n- No new syntax to learn.\n- Plays well with any frontend framework.\n\n### Use your dearest language and tools\n\n- Create components with CoffeeScript, Jade, LiveScript, Typescript, ES6 or [any pre-processor](https://riot.js.org/compiler/#pre-processors) you want.\n- Build with [@riotjs/cli](https://github.com/riot/cli), [webpack](https://github.com/riot/webpack-loader), [Rollup](https://github.com/riot/rollup-plugin-riot), [parcel](https://github.com/riot/parcel-plugin-riot), [Browserify](https://github.com/riot/riotify).\n- Test however you like; you can [load your riot tags directly in node](https://github.com/riot/ssr#render---to-render-only-markup)\n\n### Powerful and modular ecosystem\n\nThe Riot.js ecosystem is completely modular, it's designed to let you pick only the stuff you really need:\n\n- [@riotjs/cli](https://github.com/riot/cli) - CLI to locally compile your tags to javascript\n- [@riotjs/ssr](https://github.com/riot/ssr) - Super simple server side rendering\n- [@riotjs/hydrate](https://github.com/riot/hydrate) - Hydration strategy for your SPA\n- [@riotjs/route](https://github.com/riot/route) - Isomorphic router\n- [@riotjs/lazy](https://github.com/riot/lazy) - Lazy components loader\n- [@riotjs/hot-reload](https://github.com/riot/hot-reload) - Live reload plugin\n- [@riotjs/compiler](https://github.com/riot/compiler) - Advanced tags compiler\n- [@riotjs/parser](https://github.com/riot/parser) - HTML parser\n- [@riotjs/dom-bindings](https://github.com/riot/dom-bindings) - Expressions based template engine\n- [@riotjs/custom-elements](https://github.com/riot/custom-elements) - native custom elements implementation\n\n### CDN hosting\n\n- [unpkg](https://unpkg.com/riot/riot.js)\n- [jsDelivr](https://www.jsdelivr.com/projects/riot)\n- [cdnjs](https://cdnjs.com/libraries/riot)\n\n### How to contribute\n\nIf you are reading this it's already a good sign and I am thankful for it! I try my best working as much as I can on riot but your help is always appreciated.\n\nIf you want to contribute to riot helping the project maintenance please check first the list of [open issues](https://github.com/riot/riot/issues) to understand whether there is a task where you could help.\n\nRiot is mainly developed on UNIX systems so you will be able to run all the commands necessary to build and test the library using our [Makefile](Makefile). If you are on a Microsoft machine it could be harder to set up your development environment properly.\n\nFollowing the steps below you should be able to properly submit your patch to the project\n\n#### 1) Clone the repo and browse to the riot folder\n\n```shell\ngit clone git@github.com:riot/riot.git && cd riot\n```\n\n#### 2) Set up your git branch\n\n```shell\ngit checkout -b feature/my-awesome-patch\n```\n\n#### 3) Install the npm dependencies\n\n```shell\nnpm i\n```\n\n#### 4) Build and test riot using the Makefile\n\n```shell\n# To build and test riot\n$ make riot\n\n# To build without testing\n$ make raw\n```\n\n#### 5) Pull request only against the `main` branch making sure you have read [our pull request template](.github/PULL_REQUEST_TEMPLATE.md)\n\n#### 6) Be patient\n\n### Credits\n\nRiot is actively maintained with :heart: by:\n\n<table>\n  <tbody>\n    <tr>\n      <td valign=\"top\">\n        <img width=\"125\" height=\"125\" src=\"https://github.com/GianlucaGuarini.png?s=125?s=125\">\n        <br>\n        <a href=\"https://github.com/GianlucaGuarini\">Gianluca Guarini</a>\n      </td>\n     </tr>\n  </tbody>\n</table>\n\nMany thanks to all smart people from all over the world who helped improving it.\n\n## Official Website\n\n<https://riot.js.org>\n\n## Backers\n\nSupport us with a monthly donation and help us continue our activities. [Become a backer][support-url]\n\n[![Backers][backers-image]][support-url]\n\n## Sponsors\n\nBecome a sponsor to get your logo on our README. [Become a sponsor][support-url]\n\n[![Sponsors][sponsors-image]][support-url]\n\n## Thanks\n\nSpecial thanks to Browserstack for their support\n\n<table cellpadding=\"8\">\n    <tr>\n        <td>\n          <a href='https://www.browserstack.com/?from=riotjs'>\n            <img width='70px' src=\"https://cdn.worldvectorlogo.com/logos/browserstack.svg\" alt=\"browser stack\">\n          </a>\n        </td>\n    </tr>\n</table>\n\n[ci-image]: https://img.shields.io/github/actions/workflow/status/riot/riot/test.yml?style=flat-square\n[ci-url]: https://github.com/riot/riot/actions\n[license-image]: https://img.shields.io/badge/license-MIT-000000.svg?style=flat-square\n[license-url]: LICENSE.txt\n[npm-version-image]: https://img.shields.io/npm/v/riot.svg?style=flat-square\n[npm-downloads-image]: https://img.shields.io/npm/dm/riot.svg?style=flat-square\n[npm-url]: https://npmjs.org/package/riot\n[coverage-image]: https://img.shields.io/coveralls/riot/riot/main.svg?style=flat-square\n[coverage-url]: https://coveralls.io/r/riot/riot?branch=main\n[saucelabs-image]: https://saucelabs.com/browser-matrix/testsriotjs.svg?1\n[saucelabs-url]: https://saucelabs.com/u/testsriotjs\n[discord-url]: https://discord.gg/PagXe5Y\n[discord-image]: https://img.shields.io/badge/DISCORD-JOIN_CHANNEL_%E2%86%92-7289da.svg?style=flat-square\n[slack-ja-image]: https://img.shields.io/badge/SLACK_(ja)-JOIN_CHAT_%E2%86%92-551a8b.svg?style=flat-square\n[slack-ja-url]: https://riot-jp-slackin.herokuapp.com/\n[codeclimate-image]: https://api.codeclimate.com/v1/badges/b81ddf3c77e8189876da/maintainability\n[codeclimate-url]: https://codeclimate.com/github/riot/riot\n[jsdelivr-image]: https://data.jsdelivr.com/v1/package/npm/riot/badge\n[jsdelivr-url]: https://www.jsdelivr.com/package/npm/riot\n[backer-url]: #backers\n[backer-badge]: https://opencollective.com/riot/backers/badge.svg?color=blue\n[sponsor-url]: #sponsors\n[sponsor-badge]: https://opencollective.com/riot/sponsors/badge.svg?color=blue\n[support-url]: https://opencollective.com/riot#support\n[lib-size]: https://img.badgesize.io/https://unpkg.com/riot/riot.min.js?compression=gzip\n[backers-image]: https://opencollective.com/riot/backers.svg\n[sponsors-image]: https://opencollective.com/riot/sponsors.svg\n",
+        "releases": [
+            {
+                "name": "",
+                "date": "2024-11-08T23:16:00Z"
+            },
+            {
+                "name": "",
+                "date": "2024-10-18T21:32:20Z"
+            },
+            {
+                "name": "",
+                "date": "2024-10-18T20:51:46Z"
+            },
+            {
+                "name": "",
+                "date": "2024-10-11T21:03:08Z"
+            },
+            {
+                "name": "",
+                "date": "2024-09-06T21:30:24Z"
+            },
+            {
+                "name": "",
+                "date": "2024-08-23T21:53:28Z"
+            },
+            {
+                "name": "",
+                "date": "2024-07-12T22:17:49Z"
+            },
+            {
+                "name": "",
+                "date": "2024-07-06T21:09:34Z"
+            },
+            {
+                "name": "",
+                "date": "2024-07-05T21:37:00Z"
+            },
+            {
+                "name": "",
+                "date": "2024-06-21T20:48:32Z"
+            },
+            {
+                "name": "",
+                "date": "2024-06-14T22:07:14Z"
+            },
+            {
+                "name": "",
+                "date": "2024-04-26T21:01:06Z"
+            },
+            {
+                "name": "",
+                "date": "2024-03-29T21:53:13Z"
+            },
+            {
+                "name": "",
+                "date": "2024-02-23T21:45:15Z"
+            },
+            {
+                "name": "",
+                "date": "2024-02-09T21:50:30Z"
+            },
+            {
+                "name": "",
+                "date": "2023-12-01T22:01:44Z"
+            },
+            {
+                "name": "",
+                "date": "2023-10-06T22:22:48Z"
+            },
+            {
+                "name": "",
+                "date": "2023-10-06T22:13:58Z"
+            },
+            {
+                "name": "",
+                "date": "2023-08-26T20:54:21Z"
+            },
+            {
+                "name": "",
+                "date": "2023-07-31T21:17:55Z"
+            },
+            {
+                "name": "",
+                "date": "2023-07-30T21:50:35Z"
+            },
+            {
+                "name": "",
+                "date": "2023-07-30T21:41:14Z"
+            },
+            {
+                "name": "Evergreen",
+                "date": "2023-07-30T20:33:25Z"
+            },
+            {
+                "name": "",
+                "date": "2022-11-07T20:51:30Z"
+            },
+            {
+                "name": "",
+                "date": "2022-11-01T21:33:31Z"
+            },
+            {
+                "name": "",
+                "date": "2022-09-09T19:35:45Z"
+            },
+            {
+                "name": "",
+                "date": "2022-09-02T19:57:14Z"
+            },
+            {
+                "name": "",
+                "date": "2022-08-23T21:16:33Z"
+            },
+            {
+                "name": "",
+                "date": "2022-08-14T18:45:56Z"
+            },
+            {
+                "name": "",
+                "date": "2022-08-04T20:36:45Z"
+            },
+            {
+                "name": "",
+                "date": "2022-08-03T18:52:44Z"
+            },
+            {
+                "name": "",
+                "date": "2022-08-02T20:45:02Z"
+            },
+            {
+                "name": "",
+                "date": "2022-01-24T21:44:04Z"
+            },
+            {
+                "name": "",
+                "date": "2021-12-17T20:14:59Z"
+            },
+            {
+                "name": "",
+                "date": "2021-12-11T20:57:28Z"
+            },
+            {
+                "name": "",
+                "date": "2021-09-19T19:01:47Z"
+            },
+            {
+                "name": "",
+                "date": "2021-08-06T20:02:46Z"
+            },
+            {
+                "name": "",
+                "date": "2021-07-29T20:01:51Z"
+            },
+            {
+                "name": "",
+                "date": "2021-07-14T18:55:09Z"
+            },
+            {
+                "name": "",
+                "date": "2021-07-11T12:49:30Z"
+            },
+            {
+                "name": "",
+                "date": "2021-06-13T17:53:26Z"
+            },
+            {
+                "name": "",
+                "date": "2021-06-05T19:41:07Z"
+            },
+            {
+                "name": "",
+                "date": "2021-05-29T15:24:49Z"
+            },
+            {
+                "name": "",
+                "date": "2021-05-15T13:37:40Z"
+            },
+            {
+                "name": "",
+                "date": "2021-05-04T21:17:58Z"
+            },
+            {
+                "name": "",
+                "date": "2021-05-04T20:17:15Z"
+            },
+            {
+                "name": "",
+                "date": "2021-04-05T20:46:38Z"
+            },
+            {
+                "name": "",
+                "date": "2021-04-05T10:03:11Z"
+            },
+            {
+                "name": "",
+                "date": "2021-02-28T19:52:58Z"
+            },
+            {
+                "name": "",
+                "date": "2021-02-13T14:31:18Z"
+            },
+            {
+                "name": "",
+                "date": "2021-01-31T20:15:59Z"
+            },
+            {
+                "name": "",
+                "date": "2021-01-23T16:55:05Z"
+            },
+            {
+                "name": "",
+                "date": "2021-01-17T16:14:58Z"
+            },
+            {
+                "name": "",
+                "date": "2020-12-22T15:18:56Z"
+            },
+            {
+                "name": "",
+                "date": "2020-12-06T18:35:35Z"
+            },
+            {
+                "name": "",
+                "date": "2020-11-28T16:09:58Z"
+            },
+            {
+                "name": "",
+                "date": "2020-10-18T16:53:59Z"
+            },
+            {
+                "name": "",
+                "date": "2020-09-27T14:04:47Z"
+            },
+            {
+                "name": "",
+                "date": "2020-09-19T15:53:19Z"
+            },
+            {
+                "name": "",
+                "date": "2020-08-31T19:58:43Z"
+            },
+            {
+                "name": "",
+                "date": "2020-08-30T21:57:08Z"
+            },
+            {
+                "name": "",
+                "date": "2020-08-14T20:35:49Z"
+            },
+            {
+                "name": "",
+                "date": "2020-07-18T20:36:25Z"
+            },
+            {
+                "name": "",
+                "date": "2020-07-12T21:34:17Z"
+            },
+            {
+                "name": "",
+                "date": "2020-06-15T20:06:51Z"
+            },
+            {
+                "name": "",
+                "date": "2020-06-05T18:11:19Z"
+            },
+            {
+                "name": "",
+                "date": "2020-06-05T13:23:53Z"
+            },
+            {
+                "name": "",
+                "date": "2020-05-16T09:08:12Z"
+            },
+            {
+                "name": "",
+                "date": "2020-05-16T08:56:46Z"
+            },
+            {
+                "name": "",
+                "date": "2020-05-01T12:56:27Z"
+            },
+            {
+                "name": "",
+                "date": "2020-04-26T11:02:49Z"
+            },
+            {
+                "name": "",
+                "date": "2020-04-11T10:40:24Z"
+            },
+            {
+                "name": "",
+                "date": "2020-03-21T16:02:55Z"
+            },
+            {
+                "name": "",
+                "date": "2020-03-08T20:45:06Z"
+            },
+            {
+                "name": "",
+                "date": "2020-03-01T15:24:59Z"
+            },
+            {
+                "name": "",
+                "date": "2020-02-29T14:16:42Z"
+            },
+            {
+                "name": "",
+                "date": "2020-02-22T21:15:00Z"
+            },
+            {
+                "name": "",
+                "date": "2020-02-22T21:04:31Z"
+            },
+            {
+                "name": "",
+                "date": "2020-02-21T21:30:29Z"
+            },
+            {
+                "name": "",
+                "date": "2020-02-16T13:27:39Z"
+            },
+            {
+                "name": "",
+                "date": "2020-02-02T19:12:46Z"
+            },
+            {
+                "name": "",
+                "date": "2020-02-02T19:10:22Z"
+            },
+            {
+                "name": "",
+                "date": "2020-01-18T15:26:01Z"
+            },
+            {
+                "name": "",
+                "date": "2020-01-09T19:15:20Z"
+            },
+            {
+                "name": "",
+                "date": "2020-01-05T14:17:16Z"
+            },
+            {
+                "name": "",
+                "date": "2020-01-04T17:52:47Z"
+            },
+            {
+                "name": "",
+                "date": "2020-01-03T15:25:45Z"
+            },
+            {
+                "name": "",
+                "date": "2020-01-03T00:02:36Z"
+            },
+            {
+                "name": "",
+                "date": "2019-12-30T23:45:23Z"
+            },
+            {
+                "name": "",
+                "date": "2019-12-27T16:26:49Z"
+            },
+            {
+                "name": "",
+                "date": "2019-12-14T20:20:34Z"
+            },
+            {
+                "name": "",
+                "date": "2019-12-07T18:54:22Z"
+            },
+            {
+                "name": "",
+                "date": "2019-11-30T09:25:51Z"
+            },
+            {
+                "name": "",
+                "date": "2019-10-27T17:19:39Z"
+            },
+            {
+                "name": "",
+                "date": "2019-10-08T19:38:16Z"
+            },
+            {
+                "name": "",
+                "date": "2019-10-06T17:40:12Z"
+            },
+            {
+                "name": "",
+                "date": "2019-10-05T17:36:38Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-26T20:38:05Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-23T21:13:52Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-22T21:00:52Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-18T20:10:59Z"
+            },
+            {
+                "name": "",
+                "date": "2019-08-31T08:44:42Z"
+            },
+            {
+                "name": "",
+                "date": "2019-08-23T20:34:06Z"
+            },
+            {
+                "name": "",
+                "date": "2019-08-18T16:33:49Z"
+            },
+            {
+                "name": "",
+                "date": "2019-08-18T16:05:06Z"
+            },
+            {
+                "name": "",
+                "date": "2019-08-07T21:51:08Z"
+            },
+            {
+                "name": "",
+                "date": "2019-08-03T16:54:29Z"
+            },
+            {
+                "name": "",
+                "date": "2019-08-03T13:04:00Z"
+            },
+            {
+                "name": "",
+                "date": "2019-07-10T20:54:28Z"
+            },
+            {
+                "name": "",
+                "date": "2019-07-09T20:18:04Z"
+            },
+            {
+                "name": "",
+                "date": "2019-07-09T20:02:20Z"
+            },
+            {
+                "name": "",
+                "date": "2019-07-03T19:31:41Z"
+            },
+            {
+                "name": "",
+                "date": "2019-06-29T14:12:25Z"
+            },
+            {
+                "name": "",
+                "date": "2019-06-29T09:54:25Z"
+            },
+            {
+                "name": "",
+                "date": "2019-06-23T14:40:48Z"
+            },
+            {
+                "name": "",
+                "date": "2019-06-10T08:55:14Z"
+            },
+            {
+                "name": "",
+                "date": "2019-06-09T21:21:44Z"
+            },
+            {
+                "name": "",
+                "date": "2019-06-05T20:52:23Z"
+            },
+            {
+                "name": "",
+                "date": "2019-06-05T20:06:43Z"
+            },
+            {
+                "name": "",
+                "date": "2019-06-05T20:04:53Z"
+            },
+            {
+                "name": "",
+                "date": "2019-06-04T20:21:34Z"
+            },
+            {
+                "name": "",
+                "date": "2019-06-02T21:10:29Z"
+            },
+            {
+                "name": "",
+                "date": "2019-06-02T20:29:59Z"
+            },
+            {
+                "name": "",
+                "date": "2019-05-31T21:50:10Z"
+            },
+            {
+                "name": "",
+                "date": "2019-05-30T20:28:36Z"
+            },
+            {
+                "name": "",
+                "date": "2019-05-30T13:12:45Z"
+            }
+        ]
+    }
+}

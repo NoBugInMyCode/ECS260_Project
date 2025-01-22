@@ -1,0 +1,543 @@
+{
+    "https://api.github.com/repos/soimort/you-get": {
+        "forks": 9688,
+        "watchers": 54507,
+        "stars": 54507,
+        "languages": {
+            "Python": 552984,
+            "Shell": 2649,
+            "Makefile": 660
+        },
+        "commits": [
+            "2025-01-04T01:50:35Z",
+            "2024-12-29T12:07:53Z",
+            "2024-12-29T11:36:44Z",
+            "2024-12-10T23:33:07Z",
+            "2024-12-10T23:28:31Z",
+            "2024-12-10T10:19:23Z",
+            "2024-10-28T16:45:24Z",
+            "2024-10-28T16:45:07Z",
+            "2024-10-28T16:29:05Z",
+            "2024-10-27T22:57:56Z",
+            "2024-10-27T22:23:47Z",
+            "2024-10-11T19:21:23Z",
+            "2024-09-09T16:13:51Z",
+            "2024-08-19T19:53:12Z",
+            "2024-08-19T19:48:34Z",
+            "2024-08-19T16:41:21Z",
+            "2024-08-19T16:20:21Z",
+            "2024-08-18T01:36:58Z",
+            "2024-08-04T17:06:56Z",
+            "2024-08-02T18:20:53Z",
+            "2024-07-31T17:42:07Z",
+            "2024-07-31T11:45:22Z",
+            "2024-07-29T22:28:13Z",
+            "2024-07-25T09:20:26Z",
+            "2024-07-23T22:26:54Z",
+            "2024-07-14T06:29:25Z",
+            "2024-07-14T06:28:21Z",
+            "2024-06-27T03:53:56Z",
+            "2024-06-25T03:53:30Z",
+            "2024-06-25T01:33:21Z"
+        ],
+        "creation_date": "2012-08-20T15:53:36Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 1370,
+        "readme": "# You-Get\n\n[![Build Status](https://github.com/soimort/you-get/workflows/develop/badge.svg)](https://github.com/soimort/you-get/actions)\n[![PyPI version](https://img.shields.io/pypi/v/you-get.svg)](https://pypi.python.org/pypi/you-get/)\n[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/soimort/you-get?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)\n\n**NOTICE (30 May 2022): Support for Python 3.5, 3.6 and 3.7 will eventually be dropped. ([see details here](https://github.com/soimort/you-get/wiki/TLS-1.3-post-handshake-authentication-(PHA)))**\n\n**NOTICE (8 Mar 2019): Read [this](https://github.com/soimort/you-get/blob/develop/CONTRIBUTING.md) if you are looking for the conventional \"Issues\" tab.**\n\n---\n\n[You-Get](https://you-get.org/) is a tiny command-line utility to download media contents (videos, audios, images) from the Web, in case there is no other handy way to do it.\n\nHere's how you use `you-get` to download a video from [YouTube](https://www.youtube.com/watch?v=jNQXAC9IVRw):\n\n```console\n$ you-get 'https://www.youtube.com/watch?v=jNQXAC9IVRw'\nsite:                YouTube\ntitle:               Me at the zoo\nstream:\n    - itag:          43\n      container:     webm\n      quality:       medium\n      size:          0.5 MiB (564215 bytes)\n    # download-with: you-get --itag=43 [URL]\n\nDownloading Me at the zoo.webm ...\n 100% (  0.5/  0.5MB) \u251c\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2524[1/1]    6 MB/s\n\nSaving Me at the zoo.en.srt ... Done.\n```\n\nAnd here's why you might want to use it:\n\n* You enjoyed something on the Internet, and just want to download them for your own pleasure.\n* You watch your favorite videos online from your computer, but you are prohibited from saving them. You feel that you have no control over your own computer. (And it's not how an open Web is supposed to work.)\n* You want to get rid of any closed-source technology or proprietary JavaScript code, and disallow things like Flash running on your computer.\n* You are an adherent of hacker culture and free software.\n\nWhat `you-get` can do for you:\n\n* Download videos / audios from popular websites such as YouTube, Youku, Niconico, and a bunch more. (See the [full list of supported sites](#supported-sites))\n* Stream an online video in your media player. No web browser, no more ads.\n* Download images (of interest) by scraping a web page.\n* Download arbitrary non-HTML contents, i.e., binary files.\n\nInterested? [Install it](#installation) now and [get started by examples](#getting-started).\n\nAre you a Python programmer? Then check out [the source](https://github.com/soimort/you-get) and fork it!\n\n![](https://i.imgur.com/GfthFAz.png)\n\n## Installation\n\n### Prerequisites\n\nThe following dependencies are recommended:\n\n* **[Python](https://www.python.org/downloads/)**  3.7.4 or above\n* **[FFmpeg](https://www.ffmpeg.org/)** 1.0 or above\n* (Optional) [RTMPDump](https://rtmpdump.mplayerhq.hu/)\n\n### Option 1: Install via pip\n\nThe official release of `you-get` is distributed on [PyPI](https://pypi.python.org/pypi/you-get), and can be installed easily from a PyPI mirror via the [pip](https://en.wikipedia.org/wiki/Pip_\\(package_manager\\)) package manager: (Note that you must use the Python 3 version of `pip`)\n\n    $ pip install you-get\n\n### Option 2: Install via [Antigen](https://github.com/zsh-users/antigen) (for Zsh users)\n\nAdd the following line to your `.zshrc`:\n\n    antigen bundle soimort/you-get\n\n### Option 3: Download from GitHub\n\nYou may either download the [stable](https://github.com/soimort/you-get/archive/master.zip) (identical with the latest release on PyPI) or the [develop](https://github.com/soimort/you-get/archive/develop.zip) (more hotfixes, unstable features) branch of `you-get`. Unzip it, and put the directory containing the `you-get` script into your `PATH`.\n\nAlternatively, run\n\n```\n$ cd path/to/you-get\n$ [sudo] python -m pip install .\n```\n\nOr\n\n```\n$ cd path/to/you-get\n$ python -m pip install . --user\n```\n\nto install `you-get` to a permanent path. (And don't omit the dot `.` representing the current directory)\n\nYou can also use the [pipenv](https://pipenv.pypa.io/en/latest) to install the `you-get` in the Python virtual environment.\n\n```\n$ pipenv install -e .\n$ pipenv run you-get --version\nyou-get: version 0.4.1555, a tiny downloader that scrapes the web.\n```\n\n### Option 4: Git clone\n\nThis is the recommended way for all developers, even if you don't often code in Python.\n\n```\n$ git clone git://github.com/soimort/you-get.git\n```\n\nThen put the cloned directory into your `PATH`, or run `python -m pip install path/to/you-get` to install `you-get` to a permanent path.\n\n### Option 5: Homebrew (Mac only)\n\nYou can install `you-get` easily via:\n\n```\n$ brew install you-get\n```\n\n### Option 6: pkg (FreeBSD only)\n\nYou can install `you-get` easily via:\n\n```\n# pkg install you-get\n```\n\n### Option 7: Flox (Mac, Linux, and Windows WSL)\n\nYou can install `you-get` easily via:\n\n```\n$ flox install you-get\n```\n\n### Shell completion\n\nCompletion definitions for Bash, Fish and Zsh can be found in [`contrib/completion`](https://github.com/soimort/you-get/tree/develop/contrib/completion). Please consult your shell's manual for how to take advantage of them.\n\n## Upgrading\n\nBased on which option you chose to install `you-get`, you may upgrade it via:\n\n```\n$ pip install --upgrade you-get\n```\n\nor download the latest release via:\n\n```\n$ you-get https://github.com/soimort/you-get/archive/master.zip\n```\n\nIn order to get the latest ```develop``` branch without messing up the PIP, you can try:\n\n```\n$ pip install --upgrade git+https://github.com/soimort/you-get@develop\n```\n\n## Getting Started\n\n### Download a video\n\nWhen you get a video of interest, you might want to use the `--info`/`-i` option to see all available quality and formats:\n\n```\n$ you-get -i 'https://www.youtube.com/watch?v=jNQXAC9IVRw'\nsite:                YouTube\ntitle:               Me at the zoo\nstreams:             # Available quality and codecs\n    [ DASH ] ____________________________________\n    - itag:          242\n      container:     webm\n      quality:       320x240\n      size:          0.6 MiB (618358 bytes)\n    # download-with: you-get --itag=242 [URL]\n\n    - itag:          395\n      container:     mp4\n      quality:       320x240\n      size:          0.5 MiB (550743 bytes)\n    # download-with: you-get --itag=395 [URL]\n\n    - itag:          133\n      container:     mp4\n      quality:       320x240\n      size:          0.5 MiB (498558 bytes)\n    # download-with: you-get --itag=133 [URL]\n\n    - itag:          278\n      container:     webm\n      quality:       192x144\n      size:          0.4 MiB (392857 bytes)\n    # download-with: you-get --itag=278 [URL]\n\n    - itag:          160\n      container:     mp4\n      quality:       192x144\n      size:          0.4 MiB (370882 bytes)\n    # download-with: you-get --itag=160 [URL]\n\n    - itag:          394\n      container:     mp4\n      quality:       192x144\n      size:          0.4 MiB (367261 bytes)\n    # download-with: you-get --itag=394 [URL]\n\n    [ DEFAULT ] _________________________________\n    - itag:          43\n      container:     webm\n      quality:       medium\n      size:          0.5 MiB (568748 bytes)\n    # download-with: you-get --itag=43 [URL]\n\n    - itag:          18\n      container:     mp4\n      quality:       small\n    # download-with: you-get --itag=18 [URL]\n\n    - itag:          36\n      container:     3gp\n      quality:       small\n    # download-with: you-get --itag=36 [URL]\n\n    - itag:          17\n      container:     3gp\n      quality:       small\n    # download-with: you-get --itag=17 [URL]\n```\n\nBy default, the one on the top is the one you will get. If that looks cool to you, download it:\n\n```\n$ you-get 'https://www.youtube.com/watch?v=jNQXAC9IVRw'\nsite:                YouTube\ntitle:               Me at the zoo\nstream:\n    - itag:          242\n      container:     webm\n      quality:       320x240\n      size:          0.6 MiB (618358 bytes)\n    # download-with: you-get --itag=242 [URL]\n\nDownloading Me at the zoo.webm ...\n 100% (  0.6/  0.6MB) \u251c\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2524[2/2]    2 MB/s\nMerging video parts... Merged into Me at the zoo.webm\n\nSaving Me at the zoo.en.srt ... Done.\n```\n\n(If a YouTube video has any closed captions, they will be downloaded together with the video file, in SubRip subtitle format.)\n\nOr, if you prefer another format (mp4), just use whatever the option `you-get` shows to you:\n\n```\n$ you-get --itag=18 'https://www.youtube.com/watch?v=jNQXAC9IVRw'\n```\n\n**Note:**\n\n* At this point, format selection has not been generally implemented for most of our supported sites; in that case, the default format to download is the one with the highest quality.\n* `ffmpeg` is a required dependency, for downloading and joining videos streamed in multiple parts (e.g. on some sites like Youku), and for YouTube videos of 1080p or high resolution.\n* If you don't want `you-get` to join video parts after downloading them, use the `--no-merge`/`-n` option.\n\n### Download anything else\n\nIf you already have the URL of the exact resource you want, you can download it directly with:\n\n```\n$ you-get https://stallman.org/rms.jpg\nSite:       stallman.org\nTitle:      rms\nType:       JPEG Image (image/jpeg)\nSize:       0.06 MiB (66482 Bytes)\n\nDownloading rms.jpg ...\n 100% (  0.1/  0.1MB) \u251c\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2524[1/1]  127 kB/s\n```\n\nOtherwise, `you-get` will scrape the web page and try to figure out if there's anything interesting to you:\n\n```\n$ you-get https://kopasas.tumblr.com/post/69361932517\nSite:       Tumblr.com\nTitle:      [tumblr] tumblr_mxhg13jx4n1sftq6do1_640\nType:       Portable Network Graphics (image/png)\nSize:       0.11 MiB (118484 Bytes)\n\nDownloading [tumblr] tumblr_mxhg13jx4n1sftq6do1_640.png ...\n 100% (  0.1/  0.1MB) \u251c\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2524[1/1]   22 MB/s\n```\n\n**Note:**\n\n* This feature is an experimental one and far from perfect. It works best on scraping large-sized images from popular websites like Tumblr and Blogger, but there is really no universal pattern that can apply to any site on the Internet.\n\n### Search on Google Videos and download\n\nYou can pass literally anything to `you-get`. If it isn't a valid URL, `you-get` will do a Google search and download the most relevant video for you. (It might not be exactly the thing you wish to see, but still very likely.)\n\n```\n$ you-get \"Richard Stallman eats\"\n```\n\n### Pause and resume a download\n\nYou may use <kbd>Ctrl</kbd>+<kbd>C</kbd> to interrupt a download.\n\nA temporary `.download` file is kept in the output directory. Next time you run `you-get` with the same arguments, the download progress will resume from the last session. In case the file is completely downloaded (the temporary `.download` extension is gone), `you-get` will just skip the download.\n\nTo enforce re-downloading, use the `--force`/`-f` option. (**Warning:** doing so will overwrite any existing file or temporary file with the same name!)\n\n### Set the path and name of downloaded file\n\nUse the `--output-dir`/`-o` option to set the path, and `--output-filename`/`-O` to set the name of the downloaded file:\n\n```\n$ you-get -o ~/Videos -O zoo.webm 'https://www.youtube.com/watch?v=jNQXAC9IVRw'\n```\n\n**Tips:**\n\n* These options are helpful if you encounter problems with the default video titles, which may contain special characters that do not play well with your current shell / operating system / filesystem.\n* These options are also helpful if you write a script to batch download files and put them into designated folders with designated names.\n\n### Proxy settings\n\nYou may specify an HTTP proxy for `you-get` to use, via the `--http-proxy`/`-x` option:\n\n```\n$ you-get -x 127.0.0.1:8087 'https://www.youtube.com/watch?v=jNQXAC9IVRw'\n```\n\nHowever, the system proxy setting (i.e. the environment variable `http_proxy`) is applied by default. To disable any proxy, use the `--no-proxy` option.\n\n**Tips:**\n\n* If you need to use proxies a lot (in case your network is blocking certain sites), you might want to use `you-get` with [proxychains](https://github.com/rofl0r/proxychains-ng) and set `alias you-get=\"proxychains -q you-get\"` (in Bash).\n* For some websites (e.g. Youku), if you need access to some videos that are only available in mainland China, there is an option of using a specific proxy to extract video information from the site: `--extractor-proxy`/`-y`.\n\n### Watch a video\n\nUse the `--player`/`-p` option to feed the video into your media player of choice, e.g. `mpv` or `vlc`, instead of downloading it:\n\n```\n$ you-get -p vlc 'https://www.youtube.com/watch?v=jNQXAC9IVRw'\n```\n\nOr, if you prefer to watch the video in a browser, just without ads or comment section:\n\n```\n$ you-get -p chromium 'https://www.youtube.com/watch?v=jNQXAC9IVRw'\n```\n\n**Tips:**\n\n* It is possible to use the `-p` option to start another download manager, e.g., `you-get -p uget-gtk 'https://www.youtube.com/watch?v=jNQXAC9IVRw'`, though they may not play together very well.\n\n### Load cookies\n\nNot all videos are publicly available to anyone. If you need to log in your account to access something (e.g., a private video), it would be unavoidable to feed the browser cookies to `you-get` via the `--cookies`/`-c` option.\n\n**Note:**\n\n* As of now, we are supporting two formats of browser cookies: Mozilla `cookies.sqlite` and Netscape `cookies.txt`.\n\n### Reuse extracted data\n\nUse `--url`/`-u` to get a list of downloadable resource URLs extracted from the page. Use `--json` to get an abstract of extracted data in the JSON format.\n\n**Warning:**\n\n* For the time being, this feature has **NOT** been stabilized and the JSON schema may have breaking changes in the future.\n\n## Supported Sites\n\n| Site | URL | Videos? | Images? | Audios? |\n| :--: | :-- | :-----: | :-----: | :-----: |\n| **YouTube** | <https://www.youtube.com/>    |\u2713| | |\n| **X (Twitter)** | <https://x.com/>        |\u2713|\u2713| |\n| VK          | <https://vk.com/>              |\u2713|\u2713| |\n| Vimeo       | <https://vimeo.com/>          |\u2713| | |\n| Veoh        | <https://www.veoh.com/>        |\u2713| | |\n| **Tumblr**  | <https://www.tumblr.com/>     |\u2713|\u2713|\u2713|\n| TED         | <https://www.ted.com/>         |\u2713| | |\n| SoundCloud  | <https://soundcloud.com/>     | | |\u2713|\n| SHOWROOM    | <https://www.showroom-live.com/> |\u2713| | |\n| Pinterest   | <https://www.pinterest.com/>  | |\u2713| |\n| MTV81       | <https://www.mtv81.com/>       |\u2713| | |\n| Mixcloud    | <https://www.mixcloud.com/>   | | |\u2713|\n| Metacafe    | <https://www.metacafe.com/>    |\u2713| | |\n| Magisto     | <https://www.magisto.com/>     |\u2713| | |\n| Khan Academy | <https://www.khanacademy.org/> |\u2713| | |\n| Internet Archive | <https://archive.org/>   |\u2713| | |\n| **Instagram** | <https://instagram.com/>    |\u2713|\u2713| |\n| InfoQ       | <https://www.infoq.com/presentations/> |\u2713| | |\n| Imgur       | <https://imgur.com/>           | |\u2713| |\n| Heavy Music Archive | <https://www.heavy-music.ru/> | | |\u2713|\n| Freesound   | <https://www.freesound.org/>   | | |\u2713|\n| Flickr      | <https://www.flickr.com/>     |\u2713|\u2713| |\n| FC2 Video   | <https://video.fc2.com/>       |\u2713| | |\n| Facebook    | <https://www.facebook.com/>   |\u2713| | |\n| eHow        | <https://www.ehow.com/>        |\u2713| | |\n| Dailymotion | <https://www.dailymotion.com/> |\u2713| | |\n| Coub        | <https://coub.com/>            |\u2713| | |\n| CBS         | <https://www.cbs.com/>         |\u2713| | |\n| Bandcamp    | <https://bandcamp.com/>        | | |\u2713|\n| AliveThai   | <https://alive.in.th/>         |\u2713| | |\n| interest.me | <https://ch.interest.me/tvn>   |\u2713| | |\n| **755<br/>\u30ca\u30ca\u30b4\u30fc\u30b4\u30fc** | <https://7gogo.jp/> |\u2713|\u2713| |\n| **niconico<br/>\u30cb\u30b3\u30cb\u30b3\u52d5\u753b** | <https://www.nicovideo.jp/> |\u2713| | |\n| **163<br/>\u7f51\u6613\u89c6\u9891<br/>\u7f51\u6613\u4e91\u97f3\u4e50** | <https://v.163.com/><br/><https://music.163.com/> |\u2713| |\u2713|\n| 56\u7f51     | <https://www.56.com/>           |\u2713| | |\n| **AcFun** | <https://www.acfun.cn/>        |\u2713| | |\n| **Baidu<br/>\u767e\u5ea6\u8d34\u5427** | <https://tieba.baidu.com/> |\u2713|\u2713| |\n| \u7206\u7c73\u82b1\u7f51 | <https://www.baomihua.com/>     |\u2713| | |\n| **bilibili<br/>\u54d4\u54e9\u54d4\u54e9** | <https://www.bilibili.com/> |\u2713|\u2713|\u2713|\n| \u8c46\u74e3     | <https://www.douban.com/>       |\u2713| |\u2713|\n| \u6597\u9c7c     | <https://www.douyutv.com/>      |\u2713| | |\n| \u51e4\u51f0\u89c6\u9891 | <https://v.ifeng.com/>          |\u2713| | |\n| \u98ce\u884c\u7f51   | <https://www.fun.tv/>           |\u2713| | |\n| iQIYI<br/>\u7231\u5947\u827a | <https://www.iqiyi.com/> |\u2713| | |\n| \u6fc0\u52a8\u7f51   | <https://www.joy.cn/>           |\u2713| | |\n| \u91776\u7f51    | <https://www.ku6.com/>          |\u2713| | |\n| \u9177\u72d7\u97f3\u4e50 | <https://www.kugou.com/>        | | |\u2713|\n| \u9177\u6211\u97f3\u4e50 | <https://www.kuwo.cn/>          | | |\u2713|\n| \u4e50\u89c6\u7f51   | <https://www.le.com/>           |\u2713| | |\n| \u8354\u679dFM   | <https://www.lizhi.fm/>         | | |\u2713|\n| \u61d2\u4eba\u542c\u4e66 | <https://www.lrts.me/>          | | |\u2713|\n| \u79d2\u62cd     | <https://www.miaopai.com/>      |\u2713| | |\n| MioMio\u5f39\u5e55\u7f51 | <https://www.miomio.tv/>    |\u2713| | |\n| MissEvan<br/>\u732b\u8033FM | <https://www.missevan.com/> | | |\u2713|\n| \u75de\u5ba2\u90a6   | <https://www.pixnet.net/>      |\u2713| | |\n| PPTV\u805a\u529b | <https://www.pptv.com/>         |\u2713| | |\n| \u9f50\u9c81\u7f51   | <https://v.iqilu.com/>          |\u2713| | |\n| QQ<br/>\u817e\u8baf\u89c6\u9891 | <https://v.qq.com/>      |\u2713| | |\n| \u4f01\u9e45\u76f4\u64ad | <https://live.qq.com/>          |\u2713| | |\n| Sina<br/>\u65b0\u6d6a\u89c6\u9891<br/>\u5fae\u535a\u79d2\u62cd\u89c6\u9891 | <https://video.sina.com.cn/><br/><https://video.weibo.com/> |\u2713| | |\n| Sohu<br/>\u641c\u72d0\u89c6\u9891 | <https://tv.sohu.com/> |\u2713| | |\n| **Tudou<br/>\u571f\u8c46** | <https://www.tudou.com/> |\u2713| | |\n| \u9633\u5149\u536b\u89c6 | <https://www.isuntv.com/>       |\u2713| | |\n| **Youku<br/>\u4f18\u9177** | <https://www.youku.com/> |\u2713| | |\n| \u6218\u65d7TV   | <https://www.zhanqi.tv/lives>   |\u2713| | |\n| \u592e\u89c6\u7f51   | <https://www.cntv.cn/>          |\u2713| | |\n| Naver<br/>\ub124\uc774\ubc84 | <https://tvcast.naver.com/>     |\u2713| | |\n| \u8292\u679cTV   | <https://www.mgtv.com/>         |\u2713| | |\n| \u706b\u732bTV   | <https://www.huomao.com/>       |\u2713| | |\n| \u9633\u5149\u5bbd\u9891\u7f51 | <https://www.365yg.com/>      |\u2713| | |\n| \u897f\u74dc\u89c6\u9891 | <https://www.ixigua.com/>      |\u2713| | |\n| \u65b0\u7247\u573a | <https://www.xinpianchang.com/>      |\u2713| | |\n| \u5feb\u624b | <https://www.kuaishou.com/>      |\u2713|\u2713| |\n| \u6296\u97f3 | <https://www.douyin.com/>      |\u2713| | |\n| TikTok | <https://www.tiktok.com/>      |\u2713| | |\n| \u4e2d\u56fd\u4f53\u80b2(TV) | <https://v.zhibo.tv/> </br><https://video.zhibo.tv/>    |\u2713| | |\n| \u77e5\u4e4e | <https://www.zhihu.com/>      |\u2713| | |\n\nFor all other sites not on the list, the universal extractor will take care of finding and downloading interesting resources from the page.\n\n### Known bugs\n\nIf something is broken and `you-get` can't get you things you want, don't panic. (Yes, this happens all the time!)\n\nCheck if it's already a known problem on <https://github.com/soimort/you-get/wiki/Known-Bugs>. If not, follow the guidelines on [how to report an issue](https://github.com/soimort/you-get/blob/develop/CONTRIBUTING.md).\n\n## Getting Involved\n\nYou can reach us on the Gitter channel [#soimort/you-get](https://gitter.im/soimort/you-get) (here's how you [set up your IRC client](https://irc.gitter.im) for Gitter). If you have a quick question regarding `you-get`, ask it there.\n\nIf you are seeking to report an issue or contribute, please make sure to read [the guidelines](https://github.com/soimort/you-get/blob/develop/CONTRIBUTING.md) first.\n\n## Legal Issues\n\nThis software is distributed under the [MIT license](https://raw.github.com/soimort/you-get/master/LICENSE.txt).\n\nIn particular, please be aware that\n\n> THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n\nTranslated to human words:\n\n*In case your use of the software forms the basis of copyright infringement, or you use the software for any other illegal purposes, the authors cannot take any responsibility for you.*\n\nWe only ship the code here, and how you are going to use it is left to your own discretion.\n\n## Authors\n\nMade by [@soimort](https://github.com/soimort), who is in turn powered by :coffee:, :beer: and :ramen:.\n\nYou can find the [list of all contributors](https://github.com/soimort/you-get/graphs/contributors) here.\n",
+        "releases": [
+            {
+                "name": "0.4.1743",
+                "date": "2025-01-04T01:58:50Z"
+            },
+            {
+                "name": "0.4.1730",
+                "date": "2024-08-19T20:26:18Z"
+            },
+            {
+                "name": "0.4.1718",
+                "date": "2024-07-14T06:42:27Z"
+            },
+            {
+                "name": "0.4.1710",
+                "date": "2024-06-23T20:23:42Z"
+            },
+            {
+                "name": "0.4.1700",
+                "date": "2024-05-22T01:44:25Z"
+            },
+            {
+                "name": "0.4.1650",
+                "date": "2022-12-11T17:34:28Z"
+            },
+            {
+                "name": "0.4.1620",
+                "date": "2022-07-01T21:46:55Z"
+            },
+            {
+                "name": "0.4.1612",
+                "date": "2022-05-30T00:29:03Z"
+            },
+            {
+                "name": "0.4.1602",
+                "date": "2022-04-22T21:48:29Z"
+            },
+            {
+                "name": "0.4.1555",
+                "date": "2021-11-03T17:36:31Z"
+            },
+            {
+                "name": "0.4.1545",
+                "date": "2021-08-15T04:52:01Z"
+            },
+            {
+                "name": "0.4.1536",
+                "date": "2021-07-11T16:53:04Z"
+            },
+            {
+                "name": "0.4.1527",
+                "date": "2021-06-01T16:37:10Z"
+            },
+            {
+                "name": "0.4.1525",
+                "date": "2021-05-24T13:49:08Z"
+            },
+            {
+                "name": "0.4.1520",
+                "date": "2021-03-29T15:09:41Z"
+            },
+            {
+                "name": "0.4.1500",
+                "date": "2020-12-26T18:24:57Z"
+            },
+            {
+                "name": "0.4.1488",
+                "date": "2020-11-18T15:43:18Z"
+            },
+            {
+                "name": "0.4.1475",
+                "date": "2020-10-27T17:26:33Z"
+            },
+            {
+                "name": "0.4.1456",
+                "date": "2020-07-19T14:44:42Z"
+            },
+            {
+                "name": "0.4.1432",
+                "date": "2020-03-30T00:46:58Z"
+            },
+            {
+                "name": "0.4.1423",
+                "date": "2020-03-23T11:20:51Z"
+            },
+            {
+                "name": "0.4.1410",
+                "date": "2020-03-02T13:50:35Z"
+            },
+            {
+                "name": "0.4.1403",
+                "date": "2020-01-26T23:37:18Z"
+            },
+            {
+                "name": "0.4.1388",
+                "date": "2019-12-28T20:45:09Z"
+            },
+            {
+                "name": "0.4.1355",
+                "date": "2019-09-24T12:05:39Z"
+            },
+            {
+                "name": "0.4.1347",
+                "date": "2019-09-09T21:30:32Z"
+            },
+            {
+                "name": "0.4.1328",
+                "date": "2019-08-02T11:32:56Z"
+            },
+            {
+                "name": "0.4.1314",
+                "date": "2019-06-11T14:11:05Z"
+            },
+            {
+                "name": "0.4.1302",
+                "date": "2019-05-08T23:49:33Z"
+            },
+            {
+                "name": "0.4.1295",
+                "date": "2019-04-25T14:28:24Z"
+            },
+            {
+                "name": "0.4.1270",
+                "date": "2019-03-08T22:32:39Z"
+            },
+            {
+                "name": "0.4.1256",
+                "date": "2019-02-20T15:51:25Z"
+            },
+            {
+                "name": "0.4.1210",
+                "date": "2019-02-16T05:20:30Z"
+            },
+            {
+                "name": "0.4.1205",
+                "date": "2019-01-18T11:54:38Z"
+            },
+            {
+                "name": "0.4.1193",
+                "date": "2018-12-17T11:13:26Z"
+            },
+            {
+                "name": "0.4.1181",
+                "date": "2018-11-30T20:55:41Z"
+            },
+            {
+                "name": "0.4.1167",
+                "date": "2018-11-07T16:15:10Z"
+            },
+            {
+                "name": "0.4.1164",
+                "date": "2018-10-28T12:36:38Z"
+            },
+            {
+                "name": "0.4.1148",
+                "date": "2018-09-11T21:58:19Z"
+            },
+            {
+                "name": "0.4.1140",
+                "date": "2018-09-07T22:51:11Z"
+            },
+            {
+                "name": "0.4.1128",
+                "date": "2018-08-10T14:49:08Z"
+            },
+            {
+                "name": "0.4.1120",
+                "date": "2018-08-08T15:25:31Z"
+            },
+            {
+                "name": "0.4.1099",
+                "date": "2018-06-27T21:45:05Z"
+            },
+            {
+                "name": "0.4.1077",
+                "date": "2018-05-15T19:24:27Z"
+            },
+            {
+                "name": "0.4.1060",
+                "date": "2018-04-15T15:16:57Z"
+            },
+            {
+                "name": "0.4.1040",
+                "date": "2018-03-01T22:00:38Z"
+            },
+            {
+                "name": "0.4.1025",
+                "date": "2018-02-09T14:52:57Z"
+            },
+            {
+                "name": "0.4.1011",
+                "date": "2017-12-23T17:33:28Z"
+            },
+            {
+                "name": "0.4.995",
+                "date": "2017-12-04T03:21:00Z"
+            },
+            {
+                "name": "0.4.990",
+                "date": "2017-12-02T00:46:52Z"
+            },
+            {
+                "name": "0.4.985",
+                "date": "2017-11-27T20:47:12Z"
+            },
+            {
+                "name": "0.4.964",
+                "date": "2017-11-17T16:46:52Z"
+            },
+            {
+                "name": "0.4.939",
+                "date": "2017-10-13T21:47:35Z"
+            },
+            {
+                "name": "0.4.915",
+                "date": "2017-09-16T09:50:52Z"
+            },
+            {
+                "name": "0.4.909",
+                "date": "2017-09-12T10:46:44Z"
+            },
+            {
+                "name": "0.4.900",
+                "date": "2017-09-11T13:37:10Z"
+            },
+            {
+                "name": "0.4.803",
+                "date": "2017-07-23T21:12:01Z"
+            },
+            {
+                "name": "0.4.775",
+                "date": "2017-07-08T01:21:41Z"
+            },
+            {
+                "name": "0.4.715",
+                "date": "2017-04-16T10:30:15Z"
+            },
+            {
+                "name": "0.4.652",
+                "date": "2017-02-02T05:08:25Z"
+            },
+            {
+                "name": "0.4.648",
+                "date": "2017-02-01T23:01:02Z"
+            },
+            {
+                "name": "0.4.626",
+                "date": "2017-01-10T16:50:22Z"
+            },
+            {
+                "name": "0.4.595",
+                "date": "2016-11-19T20:00:48Z"
+            },
+            {
+                "name": "0.4.575",
+                "date": "2016-11-03T00:50:47Z"
+            },
+            {
+                "name": "0.4.555",
+                "date": "2016-09-23T06:41:45Z"
+            },
+            {
+                "name": "0.4.536",
+                "date": "2016-08-22T23:54:52Z"
+            },
+            {
+                "name": "0.4.523",
+                "date": "2016-08-04T23:28:25Z"
+            },
+            {
+                "name": "0.4.486",
+                "date": "2016-07-08T17:19:57Z"
+            },
+            {
+                "name": "0.4.455",
+                "date": "2016-06-23T20:24:48Z"
+            },
+            {
+                "name": "0.4.424",
+                "date": "2016-05-23T20:48:28Z"
+            },
+            {
+                "name": "0.4.390",
+                "date": "2016-04-30T01:16:40Z"
+            },
+            {
+                "name": "0.4.365",
+                "date": "2016-03-26T21:38:08Z"
+            },
+            {
+                "name": "0.4.350",
+                "date": "2016-03-17T02:31:00Z"
+            },
+            {
+                "name": "0.4.330",
+                "date": "2016-03-10T23:39:18Z"
+            },
+            {
+                "name": "0.4.324",
+                "date": "2016-03-05T19:30:58Z"
+            },
+            {
+                "name": "0.4.306",
+                "date": "2016-02-29T14:16:07Z"
+            },
+            {
+                "name": "0.4.293",
+                "date": "2016-02-19T13:38:48Z"
+            },
+            {
+                "name": "0.4.272",
+                "date": "2016-02-05T15:52:14Z"
+            },
+            {
+                "name": "0.4.266",
+                "date": "2016-02-03T15:09:54Z"
+            },
+            {
+                "name": "0.4.245",
+                "date": "2016-01-11T10:14:44Z"
+            },
+            {
+                "name": "0.4.236",
+                "date": "2016-01-08T13:37:52Z"
+            },
+            {
+                "name": "0.4.232",
+                "date": "2015-12-31T16:08:20Z"
+            },
+            {
+                "name": "0.4.217",
+                "date": "2015-12-22T11:47:32Z"
+            },
+            {
+                "name": "0.4.210",
+                "date": "2015-12-16T04:37:51Z"
+            },
+            {
+                "name": "0.4.192",
+                "date": "2015-12-10T03:33:14Z"
+            },
+            {
+                "name": "0.4.176",
+                "date": "2015-11-24T22:44:48Z"
+            },
+            {
+                "name": "0.4.167",
+                "date": "2015-11-22T05:24:28Z"
+            },
+            {
+                "name": "0.4.156",
+                "date": "2015-11-12T01:50:31Z"
+            },
+            {
+                "name": "0.4.136",
+                "date": "2015-11-09T02:59:53Z"
+            },
+            {
+                "name": "0.4.134",
+                "date": "2015-11-09T01:44:44Z"
+            },
+            {
+                "name": "0.4.125",
+                "date": "2015-10-29T21:47:55Z"
+            },
+            {
+                "name": "0.4.111",
+                "date": "2015-10-23T04:11:01Z"
+            },
+            {
+                "name": "0.3.36",
+                "date": "2015-10-05T19:08:12Z"
+            },
+            {
+                "name": "0.3.35",
+                "date": "2015-09-20T23:59:06Z"
+            },
+            {
+                "name": "0.3.34",
+                "date": "2015-07-12T01:32:59Z"
+            },
+            {
+                "name": "0.3.33",
+                "date": "2015-06-10T04:03:22Z"
+            },
+            {
+                "name": "0.3.32",
+                "date": "2014-12-10T03:37:32Z"
+            },
+            {
+                "name": "0.3.31",
+                "date": "2014-11-01T16:50:57Z"
+            },
+            {
+                "name": "0.3.30",
+                "date": "2014-09-21T05:48:30Z"
+            },
+            {
+                "name": "0.3.30dev-20140907",
+                "date": "2014-09-06T20:34:56Z"
+            },
+            {
+                "name": "0.3.30dev-20140820",
+                "date": "2014-08-20T04:11:36Z"
+            },
+            {
+                "name": "0.3.30dev-20140812",
+                "date": "2014-08-11T21:27:50Z"
+            },
+            {
+                "name": "0.3.30dev-20140806",
+                "date": "2014-08-06T15:13:28Z"
+            },
+            {
+                "name": "0.3.30dev-20140730",
+                "date": "2014-07-30T03:45:07Z"
+            },
+            {
+                "name": "0.3.30dev-20140723",
+                "date": "2014-07-30T03:38:32Z"
+            },
+            {
+                "name": "0.3.30dev-20140716",
+                "date": "2014-07-16T03:37:30Z"
+            },
+            {
+                "name": "0.3.30dev-20140629",
+                "date": "2014-06-29T14:02:25Z"
+            },
+            {
+                "name": "0.3.29",
+                "date": "2014-05-29T01:27:33Z"
+            },
+            {
+                "name": "0.3.28.3",
+                "date": "2014-05-17T23:08:12Z"
+            },
+            {
+                "name": "0.3.28.2",
+                "date": "2014-04-13T11:43:56Z"
+            },
+            {
+                "name": "0.3.28.1",
+                "date": "2014-02-28T18:26:02Z"
+            },
+            {
+                "name": "0.3.28",
+                "date": "2014-02-21T06:55:20Z"
+            },
+            {
+                "name": "0.3.27",
+                "date": "2014-02-14T08:29:16Z"
+            },
+            {
+                "name": "0.3.26",
+                "date": "2014-02-08T04:36:58Z"
+            },
+            {
+                "name": "0.3.25",
+                "date": "2013-12-20T02:17:51Z"
+            },
+            {
+                "name": "0.3.24",
+                "date": "2013-10-30T08:40:06Z"
+            },
+            {
+                "name": "0.3.23",
+                "date": "2013-10-23T04:46:27Z"
+            },
+            {
+                "name": "0.3.22",
+                "date": "2013-10-18T13:34:54Z"
+            },
+            {
+                "name": "0.3.21",
+                "date": "2013-08-17T07:33:50Z"
+            },
+            {
+                "name": "0.3.20",
+                "date": "2013-08-15T14:12:16Z"
+            },
+            {
+                "name": "0.3.18",
+                "date": "2013-07-19T00:36:09Z"
+            },
+            {
+                "name": "0.3.17",
+                "date": "2013-07-11T09:07:01Z"
+            },
+            {
+                "name": "0.3.16",
+                "date": "2013-07-03T04:00:04Z"
+            }
+        ]
+    }
+}

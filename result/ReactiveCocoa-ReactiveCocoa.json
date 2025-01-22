@@ -1,0 +1,388 @@
+{
+    "https://api.github.com/repos/ReactiveCocoa/ReactiveCocoa": {
+        "forks": 3456,
+        "watchers": 19923,
+        "stars": 19923,
+        "languages": {
+            "Swift": 362651,
+            "Shell": 2995,
+            "Ruby": 2531,
+            "Objective-C": 2031
+        },
+        "commits": [
+            "2024-05-19T02:53:00Z",
+            "2023-06-24T19:10:46Z",
+            "2023-06-15T17:32:33Z",
+            "2023-03-02T14:39:27Z",
+            "2023-03-02T14:26:23Z",
+            "2023-03-02T13:36:55Z",
+            "2022-07-04T00:39:45Z",
+            "2022-04-18T18:11:21Z",
+            "2021-11-20T14:18:05Z",
+            "2021-11-19T23:01:24Z",
+            "2021-11-03T14:53:05Z",
+            "2021-11-03T13:31:07Z",
+            "2021-10-19T01:12:07Z",
+            "2021-10-05T08:37:38Z",
+            "2021-10-05T08:26:01Z",
+            "2021-09-07T12:59:24Z",
+            "2021-09-04T16:31:54Z",
+            "2021-06-23T20:18:02Z",
+            "2021-04-23T10:59:53Z",
+            "2021-04-23T10:57:22Z",
+            "2021-03-16T12:35:31Z",
+            "2021-03-16T11:06:22Z",
+            "2020-09-29T18:04:51Z",
+            "2020-09-29T18:03:16Z",
+            "2020-08-07T15:48:15Z",
+            "2020-06-16T13:43:09Z",
+            "2020-06-16T13:00:23Z",
+            "2020-05-11T23:43:19Z",
+            "2020-05-11T21:53:30Z",
+            "2020-01-17T10:44:29Z"
+        ],
+        "creation_date": "2012-03-02T22:11:24Z",
+        "contributors": 30,
+        "topics": [
+            "reactivecocoa",
+            "reactiveswift",
+            "swift"
+        ],
+        "subscribers": 823,
+        "readme": "<p align=\"center\">\n\t<a href=\"https://github.com/ReactiveCocoa/ReactiveCocoa/\"><img src=\"Logo/PNG/logo.png\" alt=\"ReactiveCocoa\" /></a><br /><br />\n\tReactive extensions to Cocoa frameworks, built on top of <a href=\"https://github.com/ReactiveCocoa/ReactiveSwift/\">ReactiveSwift</a>.<br /><br />\n\t<a href=\"http://reactivecocoa.io/slack/\"><img src=\"Logo/PNG/JoinSlack.png\" alt=\"Join the ReactiveSwift Slack community.\" width=\"143\" height=\"40\" /></a>\n</p>\n<br />\n\n[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](#carthage) [![CocoaPods compatible](https://img.shields.io/cocoapods/v/ReactiveCocoa.svg)](#cocoapods) [![SwiftPM compatible](https://img.shields.io/badge/SwiftPM-compatible-orange.svg)](#swift-package-manager) [![GitHub release](https://img.shields.io/github/release/ReactiveCocoa/ReactiveCocoa.svg)](https://github.com/ReactiveCocoa/ReactiveCocoa/releases) ![Swift 5.1](https://img.shields.io/badge/Swift-5.1-orange.svg) ![platforms](https://img.shields.io/badge/platforms-iOS%20%7C%20OS%20X%20%7C%20watchOS%20%7C%20tvOS%20-lightgrey.svg)\n\n\u26a0\ufe0f [Looking for the Objective-C API?][]\n\n\ud83c\udf89 [Migrating from RAC 4.x?][CHANGELOG]\n\n\ud83d\ude84 [Release Roadmap](#release-roadmap)\n\n## What is ReactiveSwift?\n__ReactiveSwift__ offers composable, declarative and flexible primitives that are built around the grand concept of ___streams of values over time___. These primitives can be used to uniformly represent common Cocoa and generic programming patterns that are fundamentally an act of observation.\n\nFor more information about the core primitives, see [ReactiveSwift][].\n\n## What is ReactiveCocoa?\n\n__ReactiveCocoa__ wraps various aspects of Cocoa frameworks with the declarative [ReactiveSwift][] primitives.\n\n1. **UI Bindings**\n\n\tUI components expose [`BindingTarget`][]s, which accept bindings from any\n\tkind of streams of values via the `<~` operator.\n\n\t```swift\n\t// Bind the `name` property of `person` to the text value of an `UILabel`.\n\tnameLabel.reactive.text <~ person.name\n\t```\n\n\t_Note_: You'll need to import ReactiveSwift as well to make use of the `<~` operator.\n\n1. **Controls and User Interactions**\n\n\tInteractive UI components expose [`Signal`][]s for control events\n\tand updates in the control value upon user interactions.\n\n\tA selected set of controls provide a convenience, expressive binding\n\tAPI for [`Action`][]s.\n\n\n\t```swift\n\t// Update `allowsCookies` whenever the toggle is flipped.\n\tpreferences.allowsCookies <~ toggle.reactive.isOnValues\n\n\t// Compute live character counts from the continuous stream of user initiated\n\t// changes in the text.\n\ttextField.reactive.continuousTextValues.map { $0.characters.count }\n\n\t// Trigger `commit` whenever the button is pressed.\n\tbutton.reactive.pressed = CocoaAction(viewModel.commit)\n\t```\n\n1. **Declarative Objective-C Dynamism**\n\n\tCreate signals that are sourced by intercepting Objective-C objects,\n\te.g. method call interception and object deinitialization.\n\n\t```swift\n\t// Notify after every time `viewWillAppear(_:)` is called.\n\tlet appearing = viewController.reactive.trigger(for: #selector(UIViewController.viewWillAppear(_:)))\n\n\t// Observe the lifetime of `object`.\n\tobject.reactive.lifetime.ended.observeCompleted(doCleanup)\n\t```\n\n1. **Expressive, Safe Key Path Observation**\n\n\tEstablish key-value observations in the form of [`SignalProducer`][]s and\n\t`DynamicProperty`s, and enjoy the inherited composability.\n\n\t```swift\n\t// A producer that sends the current value of `keyPath`, followed by\n\t// subsequent changes.\n\t//\n\t// Terminate the KVO observation if the lifetime of `self` ends.\n\tlet producer = object.reactive.producer(forKeyPath: #keyPath(key))\n\t\t.take(during: self.reactive.lifetime)\n\n\t// A parameterized property that represents the supplied key path of the\n\t// wrapped object. It holds a weak reference to the wrapped object.\n\tlet property = DynamicProperty<String>(object: person,\n\t                                       keyPath: #keyPath(person.name))\n\t```\n\nBut there are still more to be discovered and introduced. Read our in-code documentations and release notes to\nfind out more.\n\n## Getting started\n\nReactiveCocoa supports macOS 10.9+, iOS 8.0+, watchOS 2.0+, and tvOS 9.0+.\n\n#### Carthage\n\nIf you use [Carthage][] to manage your dependencies, simply add\nReactiveCocoa to your `Cartfile`:\n\n```\ngithub \"ReactiveCocoa/ReactiveCocoa\" ~> 10.1\n```\n\nIf you use Carthage to build your dependencies, make sure you have added `ReactiveCocoa.framework` and `ReactiveSwift.framework` to the \"_Linked Frameworks and Libraries_\" section of your target, and have included them in your Carthage framework copying build phase.\n\n#### CocoaPods\n\nIf you use [CocoaPods][] to manage your dependencies, simply add\nReactiveCocoa to your `Podfile`:\n\n```\npod 'ReactiveCocoa', '~> 10.1'\n```\n\n#### Swift Package Manager\n\nIf you use Swift Package Manager, simply add ReactiveCocoa as a dependency\nof your package in `Package.swift`:\n\n```\n.package(url: \"https://github.com/ReactiveCocoa/ReactiveCocoa.git\", branch: \"master\")\n```\n\n#### Git submodule\n\n 1. Add the ReactiveCocoa repository as a [submodule][] of your\n    application\u2019s repository.\n 1. Run `git submodule update --init --recursive` from within the ReactiveCocoa folder.\n 1. Drag and drop `ReactiveCocoa.xcodeproj` and `Carthage/Checkouts/ReactiveSwift/ReactiveSwift.xcodeproj` into your application\u2019s Xcode\n    project or workspace.\n 1. On the \u201cGeneral\u201d tab of your application target\u2019s settings, add\n    `ReactiveCocoa.framework` and `ReactiveSwift.framework` to the \u201cEmbedded Binaries\u201d section.\n 1. If your application target does not contain Swift code at all, you should also\n    set the `EMBEDDED_CONTENT_CONTAINS_SWIFT` build setting to \u201cYes\u201d.\n\n## Have a question?\nIf you need any help, please visit our [GitHub issues][] or [Stack Overflow][]. Feel free to file an issue if you do not manage to find any solution from the archives.\n\n## Release Roadmap\n**Current Stable Release:**<br />[![GitHub release](https://img.shields.io/github/release/ReactiveCocoa/ReactiveCocoa.svg)](https://github.com/ReactiveCocoa/ReactiveCocoa/releases)\n\n### In Development\n### Plan of Record\n#### ABI stability release\nReactiveCocoa is expected to declare library ABI stability when Swift rolls out resilience support in Swift 5. Until then, ReactiveCocoa will incrementally adopt new language features.\n\n[ReactiveSwift]: https://github.com/ReactiveCocoa/ReactiveSwift\n[ReactiveObjC]: https://github.com/ReactiveCocoa/ReactiveObjC\n[GitHub issues]: https://github.com/ReactiveCocoa/ReactiveCocoa/issues?q=is%3Aissue+label%3Aquestion+\n[Stack Overflow]: http://stackoverflow.com/questions/tagged/reactive-cocoa\n[CHANGELOG]: CHANGELOG.md\n[Carthage]: https://github.com/Carthage/Carthage\n[CocoaPods]: https://cocoapods.org/\n[submodule]: https://git-scm.com/book/en/v2/Git-Tools-Submodules\n[Looking for the Objective-C API?]: https://github.com/ReactiveCocoa/ReactiveObjC\n[Still using Swift 2.x?]: https://github.com/ReactiveCocoa/ReactiveCocoa/tree/v4.0.0\n[`Signal`]: https://github.com/ReactiveCocoa/ReactiveSwift/blob/master/Documentation/FrameworkOverview.md#signals\n[`SignalProducer`]: https://github.com/ReactiveCocoa/ReactiveSwift/blob/master/Documentation/FrameworkOverview.md#signal-producers\n[`Action`]: https://github.com/ReactiveCocoa/ReactiveSwift/blob/master/Documentation/FrameworkOverview.md#actions\n[`BindingTarget`]: https://github.com/ReactiveCocoa/ReactiveSwift/blob/master/Documentation/FrameworkOverview.md#properties\n",
+        "releases": [
+            {
+                "name": "12.0.0",
+                "date": "2021-11-20T14:26:26Z"
+            },
+            {
+                "name": "11.2.2",
+                "date": "2021-09-07T13:00:32Z"
+            },
+            {
+                "name": "11.2.1",
+                "date": "2021-04-23T11:13:04Z"
+            },
+            {
+                "name": "11.2.0",
+                "date": "2021-03-16T12:50:36Z"
+            },
+            {
+                "name": "11.1.0",
+                "date": "2021-03-08T18:01:21Z"
+            },
+            {
+                "name": "11.0.0",
+                "date": "2020-06-16T13:55:09Z"
+            },
+            {
+                "name": "10.3.0",
+                "date": "2020-05-11T23:44:48Z"
+            },
+            {
+                "name": "10.2.0",
+                "date": "2020-01-07T15:30:55Z"
+            },
+            {
+                "name": "10.1.0",
+                "date": "2019-09-26T04:44:15Z"
+            },
+            {
+                "name": "10.0.0",
+                "date": "2019-04-27T22:36:39Z"
+            },
+            {
+                "name": "9.0.0",
+                "date": "2019-03-28T12:38:54Z"
+            },
+            {
+                "name": "8.0.2",
+                "date": "2018-10-20T14:01:52Z"
+            },
+            {
+                "name": "8.0.1",
+                "date": "2018-10-06T16:26:39Z"
+            },
+            {
+                "name": "8.0.0",
+                "date": "2018-07-25T09:34:25Z"
+            },
+            {
+                "name": "8.0.0 Release Candidate 1",
+                "date": "2018-07-04T09:09:40Z"
+            },
+            {
+                "name": "7.2.0",
+                "date": "2018-04-08T12:50:16Z"
+            },
+            {
+                "name": "7.1.0",
+                "date": "2018-01-13T17:31:02Z"
+            },
+            {
+                "name": "7.1 Release Candidate 2",
+                "date": "2017-12-24T16:28:58Z"
+            },
+            {
+                "name": "7.1 Release Candidate 1",
+                "date": "2017-12-23T09:03:51Z"
+            },
+            {
+                "name": "7.0.1",
+                "date": "2017-11-24T07:30:12Z"
+            },
+            {
+                "name": "7.0.0",
+                "date": "2017-11-17T08:13:27Z"
+            },
+            {
+                "name": "7.0.0 Release Candidate 1",
+                "date": "2017-10-31T08:55:08Z"
+            },
+            {
+                "name": "7.0.0 alpha 2",
+                "date": "2017-10-20T20:32:51Z"
+            },
+            {
+                "name": "7.0.0 alpha 1",
+                "date": "2017-10-07T08:26:56Z"
+            },
+            {
+                "name": "6.1.0 alpha 2",
+                "date": "2017-09-21T06:32:41Z"
+            },
+            {
+                "name": "6.0.2",
+                "date": "2017-09-21T06:38:00Z"
+            },
+            {
+                "name": "6.1.0 alpha 1",
+                "date": "2017-09-16T14:15:18Z"
+            },
+            {
+                "name": "6.0.1",
+                "date": "2017-08-16T05:53:58Z"
+            },
+            {
+                "name": "6.0.0",
+                "date": "2017-07-21T17:27:53Z"
+            },
+            {
+                "name": "6.0.0 Release Candidate 3",
+                "date": "2017-07-12T09:43:20Z"
+            },
+            {
+                "name": "6.0.0 Release Candidate 2",
+                "date": "2017-07-06T10:08:15Z"
+            },
+            {
+                "name": "6.0.0 Release Candidate 1",
+                "date": "2017-06-27T18:52:30Z"
+            },
+            {
+                "name": "6.0.0 alpha 1",
+                "date": "2017-06-12T13:50:28Z"
+            },
+            {
+                "name": "5.0.4",
+                "date": "2017-06-09T21:37:59Z"
+            },
+            {
+                "name": "5.0.3",
+                "date": "2017-04-08T17:37:05Z"
+            },
+            {
+                "name": "5.0.2",
+                "date": "2017-03-30T19:21:10Z"
+            },
+            {
+                "name": "5.0.1",
+                "date": "2017-03-01T07:08:36Z"
+            },
+            {
+                "name": "5.0.0",
+                "date": "2017-01-16T14:02:51Z"
+            },
+            {
+                "name": "5.0 Release Candidate 1",
+                "date": "2016-12-27T22:08:39Z"
+            },
+            {
+                "name": "ReactiveCocoa 5.0.0 alpha 6",
+                "date": "2016-12-22T23:30:31Z"
+            },
+            {
+                "name": "ReactiveCocoa 5.0.0 alpha 5",
+                "date": "2016-12-18T20:48:20Z"
+            },
+            {
+                "name": "ReactiveCocoa 5.0.0 alpha 4",
+                "date": "2016-12-18T13:26:20Z"
+            },
+            {
+                "name": "ReactiveCocoa 5.0 alpha 3",
+                "date": "2016-10-26T11:50:23Z"
+            },
+            {
+                "name": "ReactiveCocoa 5.0 alpha 2",
+                "date": "2016-10-22T16:48:57Z"
+            },
+            {
+                "name": "ReactiveCocoa 5.0 alpha 1",
+                "date": "2016-10-20T15:21:57Z"
+            },
+            {
+                "name": "v4.2.2",
+                "date": "2016-07-18T12:36:49Z"
+            },
+            {
+                "name": "v4.2.1",
+                "date": "2016-06-29T12:41:33Z"
+            },
+            {
+                "name": "v4.2",
+                "date": "2016-06-02T01:50:42Z"
+            },
+            {
+                "name": "v4.1",
+                "date": "2016-03-28T17:40:35Z"
+            },
+            {
+                "name": "v4.0.1",
+                "date": "2016-02-02T02:27:10Z"
+            },
+            {
+                "name": "v4.0",
+                "date": "2016-01-28T22:13:55Z"
+            },
+            {
+                "name": "v4.0 Release Candidate 2",
+                "date": "2016-01-21T00:50:56Z"
+            },
+            {
+                "name": "v4.0 Release Candidate 1",
+                "date": "2015-12-15T02:39:51Z"
+            },
+            {
+                "name": "v4.0-alpha.5",
+                "date": "2015-12-09T23:21:55Z"
+            },
+            {
+                "name": "v4.0-alpha.4",
+                "date": "2015-11-30T18:51:39Z"
+            },
+            {
+                "name": "v4.0-alpha.3",
+                "date": "2015-10-25T13:17:42Z"
+            },
+            {
+                "name": "v4.0-alpha.2",
+                "date": "2015-10-22T23:48:44Z"
+            },
+            {
+                "name": "v4.0-alpha.1",
+                "date": "2015-09-15T18:26:04Z"
+            },
+            {
+                "name": "v3.0",
+                "date": "2015-09-13T17:32:27Z"
+            },
+            {
+                "name": "v3.0 Release Candidate 1",
+                "date": "2015-07-19T04:56:52Z"
+            },
+            {
+                "name": "v3.0-beta.9",
+                "date": "2015-07-07T21:29:09Z"
+            },
+            {
+                "name": "v3.0-beta.8",
+                "date": "2015-06-09T19:42:59Z"
+            },
+            {
+                "name": "v3.0-beta.7",
+                "date": "2015-05-28T04:06:12Z"
+            },
+            {
+                "name": "v3.0-beta.6",
+                "date": "2015-05-23T03:17:11Z"
+            },
+            {
+                "name": "v3.0-beta.5",
+                "date": "2015-05-18T04:14:34Z"
+            },
+            {
+                "name": "v3.0-beta.4",
+                "date": "2015-05-06T16:36:23Z"
+            },
+            {
+                "name": "v3.0-beta.3",
+                "date": "2015-05-05T22:45:43Z"
+            },
+            {
+                "name": "v3.0-beta.2",
+                "date": "2015-05-05T01:27:27Z"
+            },
+            {
+                "name": "v3.0-beta.1",
+                "date": "2015-04-15T21:39:50Z"
+            },
+            {
+                "name": "v3.0-alpha.4",
+                "date": "2015-04-13T05:55:18Z"
+            },
+            {
+                "name": "v2.5",
+                "date": "2015-05-14T19:42:28Z"
+            },
+            {
+                "name": "v3.0-alpha.3",
+                "date": "2015-03-21T17:58:47Z"
+            },
+            {
+                "name": "v3.0-alpha.2",
+                "date": "2015-03-13T19:45:33Z"
+            },
+            {
+                "name": "v3.0-alpha.1",
+                "date": "2015-03-13T19:08:20Z"
+            },
+            {
+                "name": "v2.4.7",
+                "date": "2015-02-13T22:34:46Z"
+            },
+            {
+                "name": "v2.4.6",
+                "date": "2015-01-16T21:13:19Z"
+            },
+            {
+                "name": "v2.4.5",
+                "date": "2015-01-16T19:14:11Z"
+            },
+            {
+                "name": "v2.4.4",
+                "date": "2015-01-06T17:45:30Z"
+            },
+            {
+                "name": "v2.4.3",
+                "date": "2014-12-30T00:52:52Z"
+            },
+            {
+                "name": "v2.4.2",
+                "date": "2014-12-08T18:14:35Z"
+            },
+            {
+                "name": "v2.4.1",
+                "date": "2014-11-21T22:17:44Z"
+            },
+            {
+                "name": "v2.3.1",
+                "date": "2014-05-21T21:21:00Z"
+            },
+            {
+                "name": "",
+                "date": "2013-09-14T23:46:58Z"
+            }
+        ]
+    }
+}

@@ -1,0 +1,303 @@
+{
+    "https://api.github.com/repos/mislav/hub": {
+        "forks": 2195,
+        "watchers": 22856,
+        "stars": 22856,
+        "languages": {
+            "Go": 358746,
+            "Gherkin": 288983,
+            "Shell": 39220,
+            "Ruby": 28753,
+            "Makefile": 2397,
+            "Batchfile": 2112,
+            "Vim Script": 2060,
+            "HTML": 1666,
+            "Dockerfile": 551
+        },
+        "commits": [
+            "2023-10-04T12:39:27Z",
+            "2023-10-04T12:33:46Z",
+            "2023-10-04T12:33:30Z",
+            "2023-10-04T12:24:59Z",
+            "2023-06-21T15:54:37Z",
+            "2023-06-21T15:54:02Z",
+            "2023-06-17T06:53:50Z",
+            "2023-06-17T06:46:54Z",
+            "2022-12-01T12:58:23Z",
+            "2022-12-01T01:21:09Z",
+            "2022-04-04T13:16:50Z",
+            "2021-01-25T19:13:16Z",
+            "2022-03-25T16:46:40Z",
+            "2022-03-25T15:17:18Z",
+            "2022-03-25T15:13:02Z",
+            "2022-03-25T15:07:02Z",
+            "2022-03-25T14:26:25Z",
+            "2022-03-25T14:25:37Z",
+            "2022-03-24T22:00:09Z",
+            "2022-03-24T21:59:13Z",
+            "2022-03-24T22:05:03Z",
+            "2022-03-24T22:00:43Z",
+            "2021-09-04T10:07:08Z",
+            "2021-07-04T23:00:58Z",
+            "2021-07-04T22:55:43Z",
+            "2021-07-04T22:49:09Z",
+            "2021-03-19T16:37:17Z",
+            "2021-01-06T18:48:36Z",
+            "2020-12-29T15:47:48Z",
+            "2020-12-01T19:10:43Z"
+        ],
+        "creation_date": "2009-12-05T22:15:25Z",
+        "contributors": 30,
+        "topics": [
+            "git",
+            "github-api",
+            "go",
+            "homebrew",
+            "pull-request"
+        ],
+        "subscribers": 576,
+        "readme": "hub is a command line tool that wraps `git` in order to extend it with extra\nfeatures and commands that make working with GitHub easier.\n\nFor an official, potentially more user-friendly command-line interface to GitHub,\nsee [cli.github.com](https://cli.github.com) and\n[this comparison](https://github.com/cli/cli/blob/trunk/docs/gh-vs-hub.md).\n\nThis repository and its issue tracker is **not for reporting problems with\nGitHub.com** web interface. If you have a problem with GitHub itself, please\n[contact Support](https://github.com/contact).\n\nUsage\n-----\n\n``` sh\n$ hub clone rtomayko/tilt\n#=> git clone https://github.com/rtomayko/tilt.git\n\n# or, if you prefer the SSH protocol:\n$ git config --global hub.protocol ssh\n$ hub clone rtomayko/tilt\n#=> git clone git@github.com:rtomayko/tilt.git\n```\n\nSee [usage examples](https://hub.github.com/#developer) or the [full reference\ndocumentation](https://hub.github.com/hub.1.html) to see all available commands\nand flags.\n\nhub can also be used to make shell scripts that [directly interact with the\nGitHub API](https://hub.github.com/#scripting).\n\nhub can be safely [aliased](#aliasing) as `git`, so you can type `$ git\n<command>` in the shell and have it expanded with `hub` features.\n\nInstallation\n------------\n\nThe `hub` executable has no dependencies, but since it was designed to wrap\n`git`, it's recommended to have at least **git 1.7.3** or newer.\n\nplatform | manager | command to run\n---------|---------|---------------\nmacOS, Linux | [Homebrew](https://docs.brew.sh/Installation) | `brew install hub`\nmacOS, Linux | [Nix](https://nixos.org/) | `nix-env -i hub`\nWindows | [Scoop](http://scoop.sh/) | `scoop install hub`\nWindows | [Chocolatey](https://chocolatey.org/) | `choco install hub`\nFedora Linux | [DNF](https://fedoraproject.org/wiki/DNF) | `sudo dnf install hub`\nArch Linux | [pacman](https://wiki.archlinux.org/index.php/pacman) | `sudo pacman -S hub`\nFreeBSD | [pkg(8)](http://man.freebsd.org/pkg/8) | `pkg install hub`\nDebian, Ubuntu | [apt(8)](https://manpages.debian.org/buster/apt/apt.8.en.html) | `sudo apt install hub`\nUbuntu | [Snap](https://snapcraft.io) | [We do not recommend installing the snap anymore.](https://github.com/github/hub/issues?q=is%3Aissue+snap)\nopenSUSE | [Zypper](https://en.opensuse.org/SDB:Zypper_manual) | `sudo zypper install hub`\nVoid Linux | [xbps](https://github.com/void-linux/xbps) | `sudo xbps-install -S hub`\nGentoo | [Portage](https://wiki.gentoo.org/wiki/Portage) | `sudo emerge dev-vcs/hub`\n_any_ | [conda](https://docs.conda.io/en/latest/) | `conda install -c conda-forge hub`\n\n\nPackages other than Homebrew are community-maintained (thank you!) and they\nare not guaranteed to match the [latest hub release][latest]. Check `hub\nversion` after installing a community package.\n\n#### Standalone\n\n`hub` can be easily installed as an executable. Download the [latest\nbinary][latest] for your system and put it anywhere in your executable path.\n\n#### GitHub Actions\n\nhub is ready to be used in your [GitHub Actions][] workflows:\n```yaml\nsteps:\n- uses: actions/checkout@v2\n\n- name: List open pull requests\n  run: hub pr list\n  env:\n    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}\n```\n\nNote that the default `secrets.GITHUB_TOKEN` will only work for API operations\nscoped to the repository that runs this workflow. If you need to interact with other\nrepositories, [generate a Personal Access Token][pat] with at least the `repo` scope\nand add it to your [repository secrets][].\n\n\n[github actions]: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions\n[pat]: https://github.com/settings/tokens\n[repository secrets]: https://docs.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets\n\n#### Source\n\nPrerequisites for building from source are:\n\n* `make`\n* [Go 1.11+](https://golang.org/doc/install)\n\nClone this repository and run `make install`:\n\n```sh\ngit clone \\\n  --config transfer.fsckobjects=false \\\n  --config receive.fsckobjects=false \\\n  --config fetch.fsckobjects=false \\\n  https://github.com/github/hub.git\n\ncd hub\nmake install prefix=/usr/local\n```\n\nAliasing\n--------\n\nSome hub features feel best when it's aliased as `git`. This is not dangerous; your\n_normal git commands will all work_. hub merely adds some sugar.\n\n`hub alias` displays instructions for the current shell. With the `-s` flag, it\noutputs a script suitable for `eval`.\n\nYou should place this command in your `.bash_profile` or other startup script:\n\n``` sh\neval \"$(hub alias -s)\"\n```\n\n#### PowerShell\n\nIf you're using PowerShell, you can set an alias for `hub` by placing the\nfollowing in your PowerShell profile (usually\n`~/Documents/WindowsPowerShell/Microsoft.PowerShell_profile.ps1`):\n\n``` sh\nSet-Alias git hub\n```\n\nA simple way to do this is to run the following from the PowerShell prompt:\n\n``` sh\nAdd-Content $PROFILE \"`nSet-Alias git hub\"\n```\n\nNote: You'll need to restart your PowerShell console in order for the changes to be picked up.\n\nIf your PowerShell profile doesn't exist, you can create it by running the following:\n\n``` sh\nNew-Item -Type file -Force $PROFILE\n```\n\n### Shell tab-completion\n\nhub repository contains [tab-completion scripts](./etc) for bash, zsh and fish.\nThese scripts complement existing completion scripts that ship with git.\n\nMeta\n----\n\n* Bugs: <https://github.com/github/hub/issues>\n* Authors: <https://github.com/github/hub/contributors>\n* Our [Code of Conduct](https://github.com/github/hub/blob/master/CODE_OF_CONDUCT.md)\n\n\n[latest]: https://github.com/github/hub/releases/latest\n",
+        "releases": [
+            {
+                "name": "hub 2.14.2",
+                "date": "2020-03-05T17:55:23Z"
+            },
+            {
+                "name": "hub 2.14.1",
+                "date": "2020-01-25T09:53:08Z"
+            },
+            {
+                "name": "hub 2.14.0",
+                "date": "2020-01-21T13:36:04Z"
+            },
+            {
+                "name": "hub 2.13.0",
+                "date": "2019-11-06T15:30:08Z"
+            },
+            {
+                "name": "hub 2.12.8",
+                "date": "2019-10-03T00:57:23Z"
+            },
+            {
+                "name": "hub 2.12.7",
+                "date": "2019-09-23T10:41:21Z"
+            },
+            {
+                "name": "hub 2.12.6",
+                "date": "2019-09-21T16:22:51Z"
+            },
+            {
+                "name": "hub 2.12.5",
+                "date": "2019-09-21T15:13:58Z"
+            },
+            {
+                "name": "hub 2.12.4",
+                "date": "2019-09-08T08:04:19Z"
+            },
+            {
+                "name": "hub 2.12.3",
+                "date": "2019-07-19T12:42:40Z"
+            },
+            {
+                "name": "hub 2.12.2",
+                "date": "2019-07-10T14:49:15Z"
+            },
+            {
+                "name": "hub 2.12.1",
+                "date": "2019-06-30T20:40:36Z"
+            },
+            {
+                "name": "hub 2.12.0",
+                "date": "2019-06-15T14:35:25Z"
+            },
+            {
+                "name": "hub 2.11.2",
+                "date": "2019-04-14T14:37:15Z"
+            },
+            {
+                "name": "hub 2.11.1",
+                "date": "2019-03-29T13:36:09Z"
+            },
+            {
+                "name": "hub 2.11.0",
+                "date": "2019-03-29T01:28:20Z"
+            },
+            {
+                "name": "hub 2.10.2",
+                "date": "2019-03-29T00:49:01Z"
+            },
+            {
+                "name": "hub 2.10.1",
+                "date": "2019-03-28T13:28:47Z"
+            },
+            {
+                "name": "hub 2.10.0",
+                "date": "2019-02-24T09:58:19Z"
+            },
+            {
+                "name": "hub 2.9.0",
+                "date": "2019-02-13T01:19:09Z"
+            },
+            {
+                "name": "hub 2.8.4",
+                "date": "2019-01-28T17:54:05Z"
+            },
+            {
+                "name": "hub 2.8.3",
+                "date": "2019-01-26T17:55:59Z"
+            },
+            {
+                "name": "hub 2.8.2",
+                "date": "2019-01-26T17:00:28Z"
+            },
+            {
+                "name": "hub 2.7.1",
+                "date": "2019-01-18T17:44:43Z"
+            },
+            {
+                "name": "hub 2.7.0",
+                "date": "2018-12-28T07:25:07Z"
+            },
+            {
+                "name": "hub 2.6.1",
+                "date": "2018-12-11T11:13:29Z"
+            },
+            {
+                "name": "hub 2.6.0",
+                "date": "2018-10-31T02:17:27Z"
+            },
+            {
+                "name": "hub 2.5.1",
+                "date": "2018-08-23T14:09:37Z"
+            },
+            {
+                "name": "hub 2.5.0",
+                "date": "2018-07-07T13:19:51Z"
+            },
+            {
+                "name": "hub 2.4.0",
+                "date": "2018-06-07T18:30:28Z"
+            },
+            {
+                "name": "hub 2.3.0 \u2013 codename \u201cAncient Psychic Tandem War Elephant\u201d",
+                "date": "2018-05-29T14:45:18Z"
+            },
+            {
+                "name": "hub 2.3.0-pre10",
+                "date": "2017-06-26T21:26:01Z"
+            },
+            {
+                "name": "hub 2.3.0-pre9",
+                "date": "2017-02-15T20:57:12Z"
+            },
+            {
+                "name": "hub 2.3.0-pre8",
+                "date": "2016-10-03T18:53:30Z"
+            },
+            {
+                "name": "hub 2.2.9",
+                "date": "2016-10-03T18:40:08Z"
+            },
+            {
+                "name": "hub 2.3.0-pre6",
+                "date": "2016-09-11T18:55:42Z"
+            },
+            {
+                "name": "hub 2.3.0-pre5",
+                "date": "2016-09-11T18:23:26Z"
+            },
+            {
+                "name": "hub 2.2.8",
+                "date": "2016-09-11T18:56:27Z"
+            },
+            {
+                "name": "hub 2.2.7",
+                "date": "2016-09-11T18:20:35Z"
+            },
+            {
+                "name": "hub 2.3.0-pre4",
+                "date": "2016-09-08T23:46:19Z"
+            },
+            {
+                "name": "hub 2.2.6",
+                "date": "2016-09-08T23:40:57Z"
+            },
+            {
+                "name": "hub 2.3.0-pre3",
+                "date": "2016-08-21T16:39:18Z"
+            },
+            {
+                "name": "hub 2.3.0-pre2",
+                "date": "2017-01-17T14:14:12Z"
+            },
+            {
+                "name": "hub 2.3.0-pre1",
+                "date": "2017-01-17T14:18:51Z"
+            },
+            {
+                "name": "hub 2.2.5",
+                "date": "2016-08-14T20:11:53Z"
+            },
+            {
+                "name": "hub 2.2.4",
+                "date": "2016-08-11T22:10:24Z"
+            },
+            {
+                "name": "hub 2.2.3",
+                "date": "2016-01-22T12:27:43Z"
+            },
+            {
+                "name": "hub 2.2.2",
+                "date": "2015-10-29T20:53:04Z"
+            },
+            {
+                "name": "hub 2.2.1",
+                "date": "2015-04-13T14:00:42Z"
+            },
+            {
+                "name": "hub 2.2.0",
+                "date": "2015-02-14T21:09:46Z"
+            },
+            {
+                "name": "hub 2.2.0-rc1",
+                "date": "2014-12-26T02:06:50Z"
+            },
+            {
+                "name": "hub 1.12.4",
+                "date": "2014-12-25T19:52:18Z"
+            },
+            {
+                "name": "hub 1.12.3",
+                "date": "2014-11-28T00:40:18Z"
+            },
+            {
+                "name": "hub 2.2.0-preview1",
+                "date": "2014-10-20T00:57:56Z"
+            },
+            {
+                "name": "hub 1.12.2",
+                "date": "2014-07-11T19:11:37Z"
+            },
+            {
+                "name": "hub 1.12.1",
+                "date": "2014-05-23T10:07:42Z"
+            },
+            {
+                "name": "hub 1.12.0",
+                "date": "2014-03-01T00:25:30Z"
+            },
+            {
+                "name": "hub 1.11.2",
+                "date": "2014-03-01T00:28:17Z"
+            },
+            {
+                "name": "hub 1.11.1 - ridododiculous speeds",
+                "date": "2013-12-26T00:55:29Z"
+            },
+            {
+                "name": "hub 1.11 \u2013 codename \u201cWhat Was Missing\u201d",
+                "date": "2013-12-22T01:24:42Z"
+            }
+        ]
+    }
+}

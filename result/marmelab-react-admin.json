@@ -1,0 +1,1566 @@
+{
+    "https://api.github.com/repos/marmelab/react-admin": {
+        "forks": 5287,
+        "watchers": 25245,
+        "stars": 25245,
+        "languages": {
+            "TypeScript": 5182462,
+            "JavaScript": 85689,
+            "Makefile": 5486,
+            "HTML": 4756,
+            "Shell": 1566
+        },
+        "commits": [
+            "2025-01-21T16:29:14Z",
+            "2025-01-21T15:08:05Z",
+            "2025-01-21T08:23:50Z",
+            "2025-01-21T08:14:12Z",
+            "2025-01-20T13:41:31Z",
+            "2025-01-20T13:12:30Z",
+            "2025-01-20T10:59:52Z",
+            "2025-01-20T10:59:09Z",
+            "2025-01-20T10:48:36Z",
+            "2025-01-20T10:33:15Z",
+            "2025-01-20T10:13:30Z",
+            "2025-01-20T10:05:37Z",
+            "2025-01-20T10:01:40Z",
+            "2025-01-17T17:25:23Z",
+            "2025-01-17T15:08:45Z",
+            "2025-01-17T09:02:02Z",
+            "2025-01-17T00:47:16Z",
+            "2025-01-16T14:00:52Z",
+            "2025-01-16T13:49:26Z",
+            "2025-01-16T13:43:28Z",
+            "2025-01-16T13:37:33Z",
+            "2025-01-16T13:33:50Z",
+            "2025-01-16T10:06:51Z",
+            "2025-01-16T08:13:11Z",
+            "2025-01-15T15:49:06Z",
+            "2025-01-15T15:40:27Z",
+            "2025-01-15T15:23:22Z",
+            "2025-01-15T14:55:35Z",
+            "2025-01-15T14:25:29Z",
+            "2025-01-15T10:54:30Z"
+        ],
+        "creation_date": "2016-07-13T07:58:54Z",
+        "contributors": 30,
+        "topics": [
+            "admin",
+            "admin-dashboard",
+            "admin-on-rest",
+            "admin-ui",
+            "frontend-framework",
+            "graphql",
+            "material-ui",
+            "react",
+            "react-admin",
+            "reactjs",
+            "rest",
+            "single-page-app"
+        ],
+        "subscribers": 270,
+        "readme": "# react-admin [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmarmelab%2Freact-admin.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmarmelab%2Freact-admin?ref=badge_shield) [![StandWithUkraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://github.com/vshymanskyy/StandWithUkraine/blob/main/docs/README.md)\n\nA frontend Framework for building single-page applications running in the browser on top of REST/GraphQL APIs, using TypeScript, [React](https://facebook.github.io/react/) and [Material Design](https://material.io/). Open sourced and maintained by [marmelab](https://marmelab.com/).\n\n[Home page](https://marmelab.com/react-admin/) - [Documentation](https://marmelab.com/react-admin/documentation.html) - [Examples](#examples) - [Blog](https://marmelab.com/en/blog/#react-admin) - [Releases](https://github.com/marmelab/react-admin/releases) - [Support](#support)\n\n[![react-admin-demo](https://marmelab.com/react-admin/img/react-admin-demo-still.png)](https://www.youtube.com/watch?v=bJEo1O1oT6o)\n\n## Features\n\n* \ud83d\udd0c **Backend Agnostic**: Connects to any API (REST or GraphQL, see the [list of more than 45 adapters](https://marmelab.com/react-admin/DataProviderList.html))\n\n* \ud83e\udde9 **All The Building Blocks You Need**: Provides hooks and components for authentication, routing, forms & validation, datagrid, search & filter, relationships, validation, roles & permissions, rich text editor, i18n, notifications, menus, theming, caching, etc.\n\n* \ud83e\udea1 **High Quality**: Accessibility, responsive, secure, fast, testable\n\n* \ud83d\udcbb **Great Developer Experience**: Complete documentation, IDE autocompletion, type safety, storybook, demo apps with source code, modular architecture, declarative API\n\n* \ud83d\udc51 **Great User Experience**: Optimistic rendering, filter-as-you-type, undo, preferences, saved queries\n\n* \ud83d\udee0 **Complete Customization**: Replace any component with your own\n\n* \u2602\ufe0f **Opt-In Types**: Develop either in TypeScript or JavaScript\n\n* \ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66 Powered by [Material UI](https://mui.com/material-ui/getting-started/), [react-hook-form](https://react-hook-form.com), [react-router](https://reacttraining.com/react-router/), [react-query](https://tanstack.com/query/latest/docs/framework/react/overview), [TypeScript](https://www.typescriptlang.org/) and a few more\n\n## Installation\n\nReact-admin is available from npm. You can install it (and its required dependencies)\nusing:\n\n```sh\nnpm install react-admin\n#or\nyarn add react-admin\n```\n\n## Documentation\n\n* Read the [Tutorial](https://marmelab.com/react-admin/Tutorial.html) for a 30 minutes introduction\n* Watch the [YouTube video tutorials](https://www.youtube.com/@react-admin)\n* Head to the [Documentation](https://marmelab.com/react-admin/documentation.html) for a complete API reference\n* Checkout the source code of the examples ([e-commerce](https://github.com/marmelab/react-admin/tree/master/examples/demo), [CRM](https://github.com/marmelab/react-admin/tree/master/examples/crm), [blog](https://github.com/marmelab/react-admin/tree/master/examples/simple), [media player](https://github.com/navidrome/navidrome/tree/master/ui))\n\n## At a Glance\n\n```jsx\n// in app.js\nimport * as React from \"react\";\nimport ReactDOM from 'react-dom';\nimport { Admin, Resource } from 'react-admin';\nimport restProvider from 'ra-data-simple-rest';\n\nimport { PostList, PostEdit, PostCreate, PostIcon } from './posts';\n\nReactDOM.createRoot(document.getElementById('root')!).render(\n    <Admin dataProvider={restProvider('http://localhost:3000')}>\n        <Resource name=\"posts\" list={PostList} edit={PostEdit} create={PostCreate} icon={PostIcon} />\n    </Admin>\n);\n```\n\nThe `<Resource>` component defines CRUD pages (`list`, `edit`, and `create`) for an API endpoint (`/posts`). The page components use react-admin components to fetch and render data:\n\n```jsx\n// in posts.js\nimport * as React from \"react\";\nimport { List, Datagrid, Edit, Create, SimpleForm, DateField, TextField, EditButton, TextInput, DateInput, useRecordContext } from 'react-admin';\nimport BookIcon from '@mui/icons-material/Book';\nexport const PostIcon = BookIcon;\n\nexport const PostList = () => (\n    <List>\n        <Datagrid>\n            <TextField source=\"id\" />\n            <TextField source=\"title\" />\n            <DateField source=\"published_at\" />\n            <TextField source=\"average_note\" />\n            <TextField source=\"views\" />\n            <EditButton />\n        </Datagrid>\n    </List>\n);\n\nconst PostTitle = () => {\n    const record = useRecordContext();\n    return <span>Post {record ? `\"${record.title}\"` : ''}</span>;\n};\n\nexport const PostEdit = () => (\n    <Edit title={<PostTitle />}>\n        <SimpleForm>\n            <TextInput disabled source=\"id\" />\n            <TextInput source=\"title\" />\n            <TextInput source=\"teaser\" options={{ multiline: true }} />\n            <TextInput multiline source=\"body\" />\n            <DateInput label=\"Publication date\" source=\"published_at\" />\n            <TextInput source=\"average_note\" />\n            <TextInput disabled label=\"Nb views\" source=\"views\" />\n        </SimpleForm>\n    </Edit>\n);\n\nexport const PostCreate = () => (\n    <Create title=\"Create a Post\">\n        <SimpleForm>\n            <TextInput source=\"title\" />\n            <TextInput source=\"teaser\" options={{ multiline: true }} />\n            <TextInput multiline source=\"body\" />\n            <TextInput label=\"Publication date\" source=\"published_at\" />\n            <TextInput source=\"average_note\" />\n        </SimpleForm>\n    </Create>\n);\n```\n\n## Does It Work With My API?\n\nYes.\n\nReact-admin uses an adapter approach, with a concept called *Data Providers*. Existing providers can be used as a blueprint to design your API, or you can write your own Data Provider to query an existing API. Writing a custom Data Provider is a matter of hours.\n\n![Data provider architecture](https://marmelab.com/react-admin/img/data-provider.png)\n\nSee the [Data Providers documentation](https://marmelab.com/react-admin/DataProviders.html) for details.\n\n## Batteries Included But Removable\n\nReact-admin is designed as a library of loosely coupled React components and hooks exposing reusable controller logic. It is very easy to replace any part of react-admin with your own, e.g. using a custom datagrid, GraphQL instead of REST, or Bootstrap instead of Material Design.\n\n## Examples\n\nThere are several examples inside the `examples` folder:\n\n* `simple` ([StackBlitz](https://stackblitz.com/github/marmelab/react-admin/tree/master/examples/simple?file=src%2Findex.tsx)): a simple blog with posts, comments and users that we use for our e2e tests.\n* `e-commerce`: ([demo](https://marmelab.com/react-admin-demo/), [source](https://github.com/marmelab/react-admin/tree/master/examples/demo)) A fictional poster shop admin, serving as the official react-admin demo.\n* `CRM`: ([demo](https://marmelab.com/react-admin-crm/), [source](https://github.com/marmelab/react-admin/tree/master/examples/crm)) A customer relationship management application\n* `helpdesk`: ([demo](https://marmelab.com/react-admin-helpdesk/), [source](https://github.com/marmelab/react-admin-helpdesk)) A ticketing application with realtime locks and notifications\n* `tutorial` ([Stackblitz](https://stackblitz.com/github/marmelab/react-admin/tree/master/examples/tutorial)): the application built while following the [tutorial](https://marmelab.com/react-admin/Tutorial.html).\n\nYou can run those example applications by calling:\n\n```sh\n# At the react-admin project root\nmake install\n# or\nyarn install\n\n# Run the simple application\nmake run-simple\n\n# Run the tutorial application\nmake build\nmake run-tutorial\n\n# Run the demo application\nmake build\nmake run-demo\n```\n\nAnd then browse to the URL displayed in your console.\n\n## Support\n\n- Get commercial support from Marmelab via [React-Admin Enterprise Edition](https://react-admin-ee.marmelab.com#support)\n- Get community support via [Discord](https://discord.gg/GeZF9sqh3N) and [StackOverflow](https://stackoverflow.com/questions/tagged/react-admin). \n\n## Versions In This Repository\n\n* [master](https://github.com/marmelab/react-admin/commits/master) - commits that will be included in the next _patch_ release\n\n* [next](https://github.com/marmelab/react-admin/commits/next) - commits that will be included in the next _major_ or _minor_ release\n\nBugfix PRs that don't break BC should be made against **master**. All other PRs (new features, BC breaking bugfixes) should be made against **next**.\n\n## Contributing\n\nIf you want to give a hand: Thank you! There are many things you can do to help making react-admin better. \n\nThe easiest task is **bug triaging**. Check that new issues on GitHub follow the issue template and give a way to reproduce the issue. If not, comment on the issue to ask precisions. Then, try and reproduce the issue following the description. If you managed to reproduce the issue, add a comment to say it. Otherwise, add a comment to say that something is missing. \n\nThe second way to contribute is to **answer support questions on [StackOverflow](https://stackoverflow.com/questions/tagged/react-admin)**. There are many beginner questions there, so even if you're not super experienced with react-admin, there is someone you can help there. \n\nPull requests for **bug fixes** are welcome on the [GitHub repository](https://github.com/marmelab/react-admin). There is always a bunch of [issues labeled \"Good First Issue\"](https://github.com/marmelab/react-admin/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) in the bug tracker\u2014start with these. \n\nIf you want to **add a feature**, you can open a Pull request on the `next` branch. We don't accept all features\u2014we try to keep the react-admin code small and manageable. Try and see if your feature can't be built as an additional `npm` package. If you're in doubt, open a \"Feature Request\" issue to see if the core team would accept your feature before developing it.\n\nFor all Pull requests, you must follow the coding style of the existing files (based on [prettier](https://github.com/prettier/prettier)), and include unit tests and documentation. Be prepared for a thorough code review, and be patient for the merge\u2014this is an open-source initiative.\n\n**Tip**: Most of the commands used by the react-admin developers are automated in the `makefile`. Feel free to type `make` without argument to see a list of the available commands. \n\n### Setup\n\nClone this repository and run `make install` to grab the dependencies, then `make build` to compile the sources from TypeScript to JS.\n\n### Testing Your Changes In The Example Apps\n\nWhen developing, most of the time we use the **simple example** to do visual check. It's the same application that we use in Stackblitz to reproduce errors (see https://stackblitz.com/github/marmelab/react-admin/tree/master/examples/simple). The source is located under `examples/simple/`. Call `make run` to launch that example on port 8080 (http://localhost:8080). This command includes a `watch` on the react-admin source, so any of the changes you make to the react-admin packages triggers a live update of the simple example in your browser. \n\nHowever, the simple example is sometimes too limited. You can use the **demo example** (the source for https://marmelab.com/react-admin-demo/), which is more complete. The source is located under `examples/demo/`. Call `make run-demo` to launch the demo example with a REST dataProvider, or `make run-graphql-demo` to run it with a GraphQL dataProvider. Unfortunately, due to the fact that we use Create React App for this demo, these commands don't watch the changes made in the packages. You'll have to rebuild the react-admin packages after a change (using `make build`, or the more targeted `make build-ra-core`, `make build-ra-ui-materialui`, etc.) to see the effect in the demo app.\n\nBoth of these examples work without server\u2014the API is simulated on the client-side. \n\n### Testing Your Changes In Your App\n\nUsing `yarn link`, you can have your project use a local checkout of the react-admin package instead of downloading from npm. This allows you to test react-admin changes in your app.\n\nThe following instructions are targeting yarn >= v3 in the client app.\n\n```sh\n# Go to the folder of your client app\n$ cd /code/path/to/myapp/\n\n# Use the latest version of yarn package manager\n$ corepack enable && yarn set version stable\n\n# Replace the npm-installed version with a symlink to your local version \n$ yarn link /code/path/to/react-admin/packages/react-admin\n\n# If you modified additional internal packages in the react-admin monorepo, e.g. ra-core, also make a link\n$ yarn link /code/path/to/react-admin/packages/ra-core\n\n# Build all of the react-admin package distribution\n$ cd /code/path/to/react-admin/ && make build\n\n# Return to your app and ensure all dependencies have resolved \n$ cd /code/path/to/myapp/ && yarn install\n\n# Start your app\n$ yarn start\n```\n\nTip: If you are still using yarn v1 as your package manager in your client app, we strongly recommend you to update as it is frozen and no longer maintained.\n\n### Automated Tests\n\nAutomated tests are also crucial in our development process. You can run all the tests (linting, unit and functional tests) by calling:\n\n```sh\nmake test\n```\n\nUnit tests use `jest`, so you should be able to run a subset of tests, or run tests continuously on change, by passing options to \n\n```sh\nyarn jest\n```\n\nBesides, tests related to the modified files are run automatically at commit using a git pre-commit hook. This means you won't be able to commit your changes if they break the tests. \n\nWhen working on the end-to-end tests, you can leverage [cypress](https://www.cypress.io/) runner by starting the simple example yourself (`make run-simple` or `yarn run-simple`) and starting cypress in another terminal (`make test-e2e-local` or `yarn test-e2e-local`).\n\n### Coding Standards\n\nIf you have coding standards problems, you can fix them automatically using `prettier` by calling\n\n```sh\nmake prettier\n```\n\nHowever, these commands are run automatically at each commit so you shouldn't have to worry about them.\n\n### Documentation\n\nIf you want to contribute to the documentation, install [jekyll](https://jekyllrb.com/docs/home/), then call\n\n```sh\nmake doc\n```\n\nAnd then browse to [http://localhost:4000/](http://localhost:4000/)\n\n## License\n\nReact-admin is licensed under the [MIT License](https://github.com/marmelab/react-admin/blob/master/LICENSE.md), sponsored and supported by [marmelab](https://marmelab.com). It is free to use, even for commercial purpose. \n\nIf you want to give back, please talk about it, [help newcomers](https://stackoverflow.com/questions/tagged/react-admin), [subscribe to the Enterprise Edition](https://react-admin-ee.marmelab.com/), or contribute code.\n\n[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmarmelab%2Freact-admin.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmarmelab%2Freact-admin?ref=badge_large)\n",
+        "releases": [
+            {
+                "name": "",
+                "date": "2025-01-20T11:01:13Z"
+            },
+            {
+                "name": "5.4.4",
+                "date": "2025-01-10T15:52:13Z"
+            },
+            {
+                "name": "5.4.3",
+                "date": "2024-12-18T15:10:19Z"
+            },
+            {
+                "name": "5.4.2",
+                "date": "2024-12-09T16:33:49Z"
+            },
+            {
+                "name": "5.4.1",
+                "date": "2024-12-02T16:48:10Z"
+            },
+            {
+                "name": "5.4.0",
+                "date": "2024-11-21T09:20:09Z"
+            },
+            {
+                "name": "",
+                "date": "2024-11-15T14:23:33Z"
+            },
+            {
+                "name": "5.3.3",
+                "date": "2024-11-08T14:45:55Z"
+            },
+            {
+                "name": "5.3.2",
+                "date": "2024-10-31T14:10:04Z"
+            },
+            {
+                "name": "5.3.1",
+                "date": "2024-10-25T14:05:59Z"
+            },
+            {
+                "name": "5.3.0",
+                "date": "2024-10-17T13:15:51Z"
+            },
+            {
+                "name": "5.2.3",
+                "date": "2024-10-11T13:01:43Z"
+            },
+            {
+                "name": "5.2.2",
+                "date": "2024-10-01T12:05:41Z"
+            },
+            {
+                "name": "",
+                "date": "2024-09-23T12:43:31Z"
+            },
+            {
+                "name": "",
+                "date": "2024-09-16T13:54:37Z"
+            },
+            {
+                "name": "",
+                "date": "2024-09-13T14:46:33Z"
+            },
+            {
+                "name": "5.1.4",
+                "date": "2024-09-06T14:57:24Z"
+            },
+            {
+                "name": "5.1.3",
+                "date": "2024-08-30T13:34:43Z"
+            },
+            {
+                "name": "5.1.2",
+                "date": "2024-08-19T14:28:10Z"
+            },
+            {
+                "name": "5.1.1",
+                "date": "2024-08-02T10:11:11Z"
+            },
+            {
+                "name": "5.1.0",
+                "date": "2024-07-26T10:25:47Z"
+            },
+            {
+                "name": "4.16.20",
+                "date": "2024-07-23T15:35:17Z"
+            },
+            {
+                "name": "5.0.5",
+                "date": "2024-07-19T14:43:00Z"
+            },
+            {
+                "name": "5.0.4",
+                "date": "2024-07-10T12:39:19Z"
+            },
+            {
+                "name": "5.0.3",
+                "date": "2024-07-02T08:51:38Z"
+            },
+            {
+                "name": "5.0.2",
+                "date": "2024-06-26T14:27:12Z"
+            },
+            {
+                "name": "5.0.1",
+                "date": "2024-06-20T14:35:42Z"
+            },
+            {
+                "name": "5.0.0",
+                "date": "2024-06-20T08:36:15Z"
+            },
+            {
+                "name": "5.0.0-rc.1",
+                "date": "2024-06-18T10:43:55Z"
+            },
+            {
+                "name": "5.0.0-rc.0",
+                "date": "2024-06-17T14:54:37Z"
+            },
+            {
+                "name": "4.16.19",
+                "date": "2024-06-17T08:40:30Z"
+            },
+            {
+                "name": "5.0.0-beta.3",
+                "date": "2024-06-03T05:52:20Z"
+            },
+            {
+                "name": "5.0.0-beta.2",
+                "date": "2024-05-27T11:23:28Z"
+            },
+            {
+                "name": "5.0.0-beta.1",
+                "date": "2024-05-22T13:16:08Z"
+            },
+            {
+                "name": "4.16.18",
+                "date": "2024-05-20T12:12:14Z"
+            },
+            {
+                "name": "5.0.0-beta.0",
+                "date": "2024-05-03T10:39:36Z"
+            },
+            {
+                "name": "4.16.17",
+                "date": "2024-05-02T13:57:42Z"
+            },
+            {
+                "name": "4.16.16",
+                "date": "2024-04-23T05:01:35Z"
+            },
+            {
+                "name": "4.16.15",
+                "date": "2024-04-05T15:05:24Z"
+            },
+            {
+                "name": "4.16.14",
+                "date": "2024-03-29T13:59:44Z"
+            },
+            {
+                "name": "5.0.0-alpha.1",
+                "date": "2024-03-25T09:34:59Z"
+            },
+            {
+                "name": "5.0.0-alpha.0",
+                "date": "2024-03-19T13:08:16Z"
+            },
+            {
+                "name": "4.16.13",
+                "date": "2024-03-15T10:07:04Z"
+            },
+            {
+                "name": "4.16.12",
+                "date": "2024-03-01T11:26:05Z"
+            },
+            {
+                "name": "4.16.11",
+                "date": "2024-02-16T14:40:34Z"
+            },
+            {
+                "name": "4.16.10",
+                "date": "2024-02-09T16:39:03Z"
+            },
+            {
+                "name": "4.16.9",
+                "date": "2024-02-02T15:30:06Z"
+            },
+            {
+                "name": "4.16.8",
+                "date": "2024-01-26T16:46:23Z"
+            },
+            {
+                "name": "4.16.7",
+                "date": "2024-01-19T15:12:24Z"
+            },
+            {
+                "name": "4.16.6",
+                "date": "2024-01-12T15:01:12Z"
+            },
+            {
+                "name": "4.16.5",
+                "date": "2024-01-05T16:33:28Z"
+            },
+            {
+                "name": "4.16.4",
+                "date": "2023-12-22T13:27:48Z"
+            },
+            {
+                "name": "4.16.3",
+                "date": "2023-12-15T13:56:56Z"
+            },
+            {
+                "name": "4.16.2",
+                "date": "2023-12-04T14:28:12Z"
+            },
+            {
+                "name": "4.16.1",
+                "date": "2023-11-24T10:34:39Z"
+            },
+            {
+                "name": "4.16.0",
+                "date": "2023-11-17T14:37:09Z"
+            },
+            {
+                "name": "4.15.5",
+                "date": "2023-11-17T13:52:10Z"
+            },
+            {
+                "name": "4.15.4",
+                "date": "2023-11-10T13:20:10Z"
+            },
+            {
+                "name": "4.15.3",
+                "date": "2023-11-03T13:41:43Z"
+            },
+            {
+                "name": "4.15.2",
+                "date": "2023-10-27T12:33:21Z"
+            },
+            {
+                "name": "4.15.1",
+                "date": "2023-10-20T15:22:02Z"
+            },
+            {
+                "name": "4.15.0",
+                "date": "2023-10-12T13:50:28Z"
+            },
+            {
+                "name": "4.14.6",
+                "date": "2023-10-12T11:56:06Z"
+            },
+            {
+                "name": "4.14.5",
+                "date": "2023-10-06T12:26:35Z"
+            },
+            {
+                "name": "4.14.4",
+                "date": "2023-09-29T15:37:15Z"
+            },
+            {
+                "name": "4.14.3",
+                "date": "2023-09-22T14:49:12Z"
+            },
+            {
+                "name": "4.14.2",
+                "date": "2023-09-22T14:19:04Z"
+            },
+            {
+                "name": "4.14.1",
+                "date": "2023-09-15T15:07:12Z"
+            },
+            {
+                "name": "4.14.0",
+                "date": "2023-09-08T09:38:40Z"
+            },
+            {
+                "name": "4.13.4",
+                "date": "2023-09-08T08:57:18Z"
+            },
+            {
+                "name": "4.13.3",
+                "date": "2023-09-01T13:29:10Z"
+            },
+            {
+                "name": "4.13.2",
+                "date": "2023-08-25T13:32:47Z"
+            },
+            {
+                "name": "4.13.1",
+                "date": "2023-08-21T06:45:33Z"
+            },
+            {
+                "name": "4.13.0",
+                "date": "2023-08-14T13:04:20Z"
+            },
+            {
+                "name": "4.12.4",
+                "date": "2023-08-08T14:02:15Z"
+            },
+            {
+                "name": "4.12.3",
+                "date": "2023-07-28T16:05:16Z"
+            },
+            {
+                "name": "4.12.2",
+                "date": "2023-07-21T10:18:04Z"
+            },
+            {
+                "name": "4.12.1",
+                "date": "2023-07-10T13:08:28Z"
+            },
+            {
+                "name": "4.12.0",
+                "date": "2023-07-03T15:30:01Z"
+            },
+            {
+                "name": "4.11.4",
+                "date": "2023-06-23T08:19:47Z"
+            },
+            {
+                "name": "4.11.3",
+                "date": "2023-06-16T09:59:04Z"
+            },
+            {
+                "name": "4.11.2",
+                "date": "2023-06-09T14:32:47Z"
+            },
+            {
+                "name": "4.11.1",
+                "date": "2023-06-02T08:45:17Z"
+            },
+            {
+                "name": "4.11.0",
+                "date": "2023-05-25T10:31:59Z"
+            },
+            {
+                "name": "4.10.6",
+                "date": "2023-05-23T16:44:22Z"
+            },
+            {
+                "name": "4.10.5",
+                "date": "2023-05-22T11:53:50Z"
+            },
+            {
+                "name": "4.10.4",
+                "date": "2023-05-22T08:24:13Z"
+            },
+            {
+                "name": "4.10.3",
+                "date": "2023-05-16T09:18:02Z"
+            },
+            {
+                "name": "4.10.2",
+                "date": "2023-05-05T15:53:07Z"
+            },
+            {
+                "name": "4.10.1",
+                "date": "2023-04-28T13:48:20Z"
+            },
+            {
+                "name": "",
+                "date": "2023-04-28T13:47:51Z"
+            },
+            {
+                "name": "4.9.4",
+                "date": "2023-04-24T09:53:17Z"
+            },
+            {
+                "name": "v4.9.3",
+                "date": "2023-04-14T14:32:08Z"
+            },
+            {
+                "name": "4.9.2",
+                "date": "2023-04-11T08:23:02Z"
+            },
+            {
+                "name": "4.9.1",
+                "date": "2023-04-03T08:38:59Z"
+            },
+            {
+                "name": "4.9.0",
+                "date": "2023-03-24T11:30:51Z"
+            },
+            {
+                "name": "4.8.4",
+                "date": "2023-03-17T13:58:12Z"
+            },
+            {
+                "name": "4.8.3",
+                "date": "2023-03-13T11:23:48Z"
+            },
+            {
+                "name": "4.8.2",
+                "date": "2023-03-06T06:07:09Z"
+            },
+            {
+                "name": "4.8.1",
+                "date": "2023-02-20T10:31:55Z"
+            },
+            {
+                "name": "4.8.0",
+                "date": "2023-02-14T09:50:34Z"
+            },
+            {
+                "name": "4.7.6",
+                "date": "2023-02-13T15:11:20Z"
+            },
+            {
+                "name": "3.19.12",
+                "date": "2023-02-13T15:10:55Z"
+            },
+            {
+                "name": "4.7.5",
+                "date": "2023-02-10T09:05:16Z"
+            },
+            {
+                "name": "4.7.4",
+                "date": "2023-02-06T12:50:34Z"
+            },
+            {
+                "name": "4.7.3",
+                "date": "2023-01-31T09:32:47Z"
+            },
+            {
+                "name": "4.7.2",
+                "date": "2023-01-27T16:47:02Z"
+            },
+            {
+                "name": "4.7.1",
+                "date": "2023-01-16T09:40:46Z"
+            },
+            {
+                "name": "4.7.0",
+                "date": "2023-01-06T13:52:18Z"
+            },
+            {
+                "name": "4.6.3",
+                "date": "2023-01-05T16:21:02Z"
+            },
+            {
+                "name": "4.6.2",
+                "date": "2022-12-16T16:17:58Z"
+            },
+            {
+                "name": "4.6.1",
+                "date": "2022-12-09T10:18:08Z"
+            },
+            {
+                "name": "4.6.0",
+                "date": "2022-12-02T13:54:14Z"
+            },
+            {
+                "name": "4.5.4",
+                "date": "2022-11-29T09:00:18Z"
+            },
+            {
+                "name": "4.5.3",
+                "date": "2022-11-28T09:27:58Z"
+            },
+            {
+                "name": "4.5.2",
+                "date": "2022-11-17T15:02:04Z"
+            },
+            {
+                "name": "4.5.1",
+                "date": "2022-11-09T13:52:36Z"
+            },
+            {
+                "name": "4.5.0",
+                "date": "2022-11-02T14:01:28Z"
+            },
+            {
+                "name": "4.4.4",
+                "date": "2022-10-21T11:55:11Z"
+            },
+            {
+                "name": "4.4.3",
+                "date": "2022-10-17T12:28:02Z"
+            },
+            {
+                "name": "4.4.2",
+                "date": "2022-10-17T11:34:37Z"
+            },
+            {
+                "name": "4.4.1",
+                "date": "2022-10-07T15:23:47Z"
+            },
+            {
+                "name": "4.4.0",
+                "date": "2022-09-30T14:14:05Z"
+            },
+            {
+                "name": "4.3.4",
+                "date": "2022-09-23T12:44:07Z"
+            },
+            {
+                "name": "4.3.3",
+                "date": "2022-09-16T11:58:39Z"
+            },
+            {
+                "name": "4.3.2",
+                "date": "2022-09-12T07:55:03Z"
+            },
+            {
+                "name": "4.3.1",
+                "date": "2022-09-02T14:20:00Z"
+            },
+            {
+                "name": "4.3.0",
+                "date": "2022-08-23T15:48:49Z"
+            },
+            {
+                "name": "4.2.8",
+                "date": "2022-08-22T15:38:35Z"
+            },
+            {
+                "name": "4.2.7",
+                "date": "2022-08-11T13:15:10Z"
+            },
+            {
+                "name": "4.2.6",
+                "date": "2022-08-05T13:12:54Z"
+            },
+            {
+                "name": "4.2.5",
+                "date": "2022-07-29T14:32:38Z"
+            },
+            {
+                "name": "4.2.4",
+                "date": "2022-07-22T08:30:08Z"
+            },
+            {
+                "name": "4.2.3",
+                "date": "2022-07-18T15:05:20Z"
+            },
+            {
+                "name": "4.2.2",
+                "date": "2022-07-08T09:53:58Z"
+            },
+            {
+                "name": "4.2.1",
+                "date": "2022-07-06T15:39:57Z"
+            },
+            {
+                "name": "4.2.0",
+                "date": "2022-06-24T11:31:12Z"
+            },
+            {
+                "name": "4.1.6",
+                "date": "2022-06-24T09:38:49Z"
+            },
+            {
+                "name": "4.1.5",
+                "date": "2022-06-18T15:54:42Z"
+            },
+            {
+                "name": "4.1.4",
+                "date": "2022-06-17T10:01:33Z"
+            },
+            {
+                "name": "4.1.3",
+                "date": "2022-06-10T08:28:56Z"
+            },
+            {
+                "name": "4.1.2",
+                "date": "2022-06-03T08:04:33Z"
+            },
+            {
+                "name": "4.1.1",
+                "date": "2022-05-30T14:17:25Z"
+            },
+            {
+                "name": "4.1.0",
+                "date": "2022-05-19T13:15:02Z"
+            },
+            {
+                "name": "4.0.5",
+                "date": "2022-05-19T13:03:18Z"
+            },
+            {
+                "name": "4.0.4",
+                "date": "2022-05-15T20:30:23Z"
+            },
+            {
+                "name": "4.0.3",
+                "date": "2022-05-06T11:48:31Z"
+            },
+            {
+                "name": "4.0.2",
+                "date": "2022-05-01T12:13:13Z"
+            },
+            {
+                "name": "4.0.1",
+                "date": "2022-04-15T16:38:09Z"
+            },
+            {
+                "name": "4.0.0",
+                "date": "2022-04-13T11:36:09Z"
+            },
+            {
+                "name": "4.0.0-rc.1",
+                "date": "2022-04-05T11:25:08Z"
+            },
+            {
+                "name": "3.19.11",
+                "date": "2022-04-05T11:46:02Z"
+            },
+            {
+                "name": "4.0.0-rc.0",
+                "date": "2022-03-30T15:47:15Z"
+            },
+            {
+                "name": "4.0.0-beta.3",
+                "date": "2022-03-16T14:55:11Z"
+            },
+            {
+                "name": "4.0.0-beta.2",
+                "date": "2022-03-07T12:39:13Z"
+            },
+            {
+                "name": "4.0.0-beta.1.0",
+                "date": "2022-02-17T17:55:38Z"
+            },
+            {
+                "name": "3.19.10",
+                "date": "2022-02-17T17:43:36Z"
+            },
+            {
+                "name": "3.19.9",
+                "date": "2022-02-17T17:43:15Z"
+            },
+            {
+                "name": "3.19.8",
+                "date": "2022-02-11T15:03:35Z"
+            },
+            {
+                "name": "4.0.0-alpha.2",
+                "date": "2022-01-28T09:06:03Z"
+            },
+            {
+                "name": "3.19.7",
+                "date": "2022-01-24T08:53:03Z"
+            },
+            {
+                "name": "4.0.0-alpha.1",
+                "date": "2022-01-03T15:42:59Z"
+            },
+            {
+                "name": "3.19.6",
+                "date": "2022-01-03T16:33:40Z"
+            },
+            {
+                "name": "3.19.5",
+                "date": "2021-12-22T09:44:23Z"
+            },
+            {
+                "name": "3.19.4",
+                "date": "2021-12-15T16:20:22Z"
+            },
+            {
+                "name": "3.19.3",
+                "date": "2021-12-07T16:13:06Z"
+            },
+            {
+                "name": "3.19.2",
+                "date": "2021-11-24T13:59:05Z"
+            },
+            {
+                "name": "3.19.1",
+                "date": "2021-11-17T14:00:13Z"
+            },
+            {
+                "name": "4.0.0-alpha.0",
+                "date": "2021-10-15T08:57:23Z"
+            },
+            {
+                "name": "3.19.0",
+                "date": "2021-10-15T09:54:19Z"
+            },
+            {
+                "name": "3.18.3",
+                "date": "2021-09-30T15:34:27Z"
+            },
+            {
+                "name": "3.18.2",
+                "date": "2021-09-21T15:00:47Z"
+            },
+            {
+                "name": "3.18.1",
+                "date": "2021-09-08T18:24:09Z"
+            },
+            {
+                "name": "3.18.0",
+                "date": "2021-09-07T12:03:58Z"
+            },
+            {
+                "name": "3.17.3",
+                "date": "2021-08-27T14:30:47Z"
+            },
+            {
+                "name": "3.17.2",
+                "date": "2021-08-13T09:23:10Z"
+            },
+            {
+                "name": "3.17.1",
+                "date": "2021-08-02T10:47:43Z"
+            },
+            {
+                "name": "3.17.0",
+                "date": "2021-07-09T13:32:12Z"
+            },
+            {
+                "name": "3.16.6",
+                "date": "2021-07-07T12:23:57Z"
+            },
+            {
+                "name": "3.16.5",
+                "date": "2021-07-06T16:52:08Z"
+            },
+            {
+                "name": "3.16.4",
+                "date": "2021-06-28T09:31:39Z"
+            },
+            {
+                "name": "3.16.3",
+                "date": "2021-06-21T13:22:13Z"
+            },
+            {
+                "name": "3.16.2",
+                "date": "2021-06-15T12:39:21Z"
+            },
+            {
+                "name": "3.16.1",
+                "date": "2021-06-14T11:56:35Z"
+            },
+            {
+                "name": "3.16.0",
+                "date": "2021-06-07T14:12:16Z"
+            },
+            {
+                "name": "3.15.2",
+                "date": "2021-05-24T14:44:46Z"
+            },
+            {
+                "name": "3.15.1",
+                "date": "2021-05-10T08:17:43Z"
+            },
+            {
+                "name": "3.15.0",
+                "date": "2021-05-02T13:48:33Z"
+            },
+            {
+                "name": "3.14.5",
+                "date": "2021-04-24T07:26:34Z"
+            },
+            {
+                "name": "3.14.4",
+                "date": "2021-04-19T16:03:34Z"
+            },
+            {
+                "name": "3.14.3",
+                "date": "2021-04-12T12:00:59Z"
+            },
+            {
+                "name": "3.14.2",
+                "date": "2021-04-02T14:01:27Z"
+            },
+            {
+                "name": "3.14.1",
+                "date": "2021-03-30T07:27:37Z"
+            },
+            {
+                "name": "3.14.0",
+                "date": "2021-03-29T17:07:11Z"
+            },
+            {
+                "name": "3.13.5",
+                "date": "2021-03-19T15:45:00Z"
+            },
+            {
+                "name": "3.13.4",
+                "date": "2021-03-15T16:53:05Z"
+            },
+            {
+                "name": "3.13.3",
+                "date": "2021-03-12T14:14:09Z"
+            },
+            {
+                "name": "3.13.2",
+                "date": "2021-03-08T13:28:17Z"
+            },
+            {
+                "name": "3.13.1",
+                "date": "2021-03-02T13:21:06Z"
+            },
+            {
+                "name": "3.13.0",
+                "date": "2021-02-26T11:47:01Z"
+            },
+            {
+                "name": "3.12.5",
+                "date": "2021-02-23T08:06:32Z"
+            },
+            {
+                "name": "3.12.4",
+                "date": "2021-02-16T18:11:55Z"
+            },
+            {
+                "name": "3.12.3",
+                "date": "2021-02-16T16:20:27Z"
+            },
+            {
+                "name": "3.12.2",
+                "date": "2021-02-12T10:35:13Z"
+            },
+            {
+                "name": "3.12.1",
+                "date": "2021-02-05T09:42:58Z"
+            },
+            {
+                "name": "3.12.0",
+                "date": "2021-01-30T15:40:10Z"
+            },
+            {
+                "name": "3.11.4",
+                "date": "2021-01-25T12:08:33Z"
+            },
+            {
+                "name": "3.11.3",
+                "date": "2021-01-17T10:53:09Z"
+            },
+            {
+                "name": "3.11.2",
+                "date": "2021-01-08T12:57:16Z"
+            },
+            {
+                "name": "3.11.1",
+                "date": "2020-12-21T15:59:47Z"
+            },
+            {
+                "name": "3.11.0",
+                "date": "2020-12-14T09:29:08Z"
+            },
+            {
+                "name": "3.10.4",
+                "date": "2020-12-07T11:11:15Z"
+            },
+            {
+                "name": "3.10.3",
+                "date": "2020-11-30T14:19:01Z"
+            },
+            {
+                "name": "3.10.2",
+                "date": "2020-11-20T15:47:39Z"
+            },
+            {
+                "name": "3.10.1",
+                "date": "2020-11-13T17:27:54Z"
+            },
+            {
+                "name": "3.10.0",
+                "date": "2020-11-09T14:39:17Z"
+            },
+            {
+                "name": "3.9.6",
+                "date": "2020-11-02T16:44:23Z"
+            },
+            {
+                "name": "3.9.5",
+                "date": "2020-10-26T10:24:40Z"
+            },
+            {
+                "name": "3.9.4",
+                "date": "2020-10-16T12:54:54Z"
+            },
+            {
+                "name": "3.9.3",
+                "date": "2020-10-12T09:50:33Z"
+            },
+            {
+                "name": "3.9.2",
+                "date": "2020-10-05T10:01:25Z"
+            },
+            {
+                "name": "3.9.1",
+                "date": "2020-10-05T09:12:35Z"
+            },
+            {
+                "name": "3.9.0",
+                "date": "2020-10-02T12:23:53Z"
+            },
+            {
+                "name": "3.8.5",
+                "date": "2020-09-18T15:41:06Z"
+            },
+            {
+                "name": "3.8.4",
+                "date": "2020-09-07T16:58:48Z"
+            },
+            {
+                "name": "3.8.3",
+                "date": "2020-09-01T09:16:30Z"
+            },
+            {
+                "name": "3.8.2",
+                "date": "2020-08-21T08:38:46Z"
+            },
+            {
+                "name": "3.8.1",
+                "date": "2020-08-12T10:28:10Z"
+            },
+            {
+                "name": "3.8.0",
+                "date": "2020-08-11T09:55:20Z"
+            },
+            {
+                "name": "3.7.2",
+                "date": "2020-08-05T09:17:53Z"
+            },
+            {
+                "name": "3.7.1",
+                "date": "2020-07-10T14:57:17Z"
+            },
+            {
+                "name": "3.7.0",
+                "date": "2020-07-06T15:37:16Z"
+            },
+            {
+                "name": "3.6.3",
+                "date": "2020-07-06T14:15:51Z"
+            },
+            {
+                "name": "3.6.2",
+                "date": "2020-06-24T12:49:48Z"
+            },
+            {
+                "name": "3.6.1",
+                "date": "2020-06-15T10:06:38Z"
+            },
+            {
+                "name": "3.6.0",
+                "date": "2020-06-05T15:26:13Z"
+            },
+            {
+                "name": "3.5.6",
+                "date": "2020-06-05T14:21:47Z"
+            },
+            {
+                "name": "v3.5.5",
+                "date": "2020-05-29T14:31:42Z"
+            },
+            {
+                "name": "3.5.3",
+                "date": "2020-05-22T14:55:16Z"
+            },
+            {
+                "name": "3.5.2",
+                "date": "2020-05-15T11:24:32Z"
+            },
+            {
+                "name": "3.5.1",
+                "date": "2020-05-11T11:51:54Z"
+            },
+            {
+                "name": "3.5.0",
+                "date": "2020-05-04T10:19:23Z"
+            },
+            {
+                "name": "3.4.4",
+                "date": "2020-05-04T09:38:31Z"
+            },
+            {
+                "name": "3.4.3",
+                "date": "2020-04-27T07:48:01Z"
+            },
+            {
+                "name": "3.4.2",
+                "date": "2020-04-20T08:14:43Z"
+            },
+            {
+                "name": "3.4.1",
+                "date": "2020-04-10T14:23:44Z"
+            },
+            {
+                "name": "3.4.0",
+                "date": "2020-04-03T10:35:13Z"
+            },
+            {
+                "name": "3.3.4",
+                "date": "2020-04-03T07:08:37Z"
+            },
+            {
+                "name": "3.3.3",
+                "date": "2020-03-24T17:54:55Z"
+            },
+            {
+                "name": "3.3.2",
+                "date": "2020-03-22T20:24:40Z"
+            },
+            {
+                "name": "3.3.1",
+                "date": "2020-03-13T16:32:32Z"
+            },
+            {
+                "name": "3.3.0",
+                "date": "2020-03-06T10:22:47Z"
+            },
+            {
+                "name": "3.2.4",
+                "date": "2020-03-05T08:05:15Z"
+            },
+            {
+                "name": "3.2.3",
+                "date": "2020-02-21T16:28:57Z"
+            },
+            {
+                "name": "3.2.2",
+                "date": "2020-02-14T14:59:30Z"
+            },
+            {
+                "name": "3.2.1",
+                "date": "2020-02-07T09:49:12Z"
+            },
+            {
+                "name": "3.2.0",
+                "date": "2020-02-03T15:18:50Z"
+            },
+            {
+                "name": "3.1.4",
+                "date": "2020-01-31T09:53:27Z"
+            },
+            {
+                "name": "3.1.3",
+                "date": "2020-01-22T08:25:41Z"
+            },
+            {
+                "name": "3.1.2",
+                "date": "2020-01-10T07:51:56Z"
+            },
+            {
+                "name": "3.1.1",
+                "date": "2019-12-19T12:47:39Z"
+            },
+            {
+                "name": "3.1.0",
+                "date": "2019-12-18T10:24:39Z"
+            },
+            {
+                "name": "3.0.4",
+                "date": "2019-12-12T14:40:01Z"
+            },
+            {
+                "name": "3.0.3",
+                "date": "2019-12-06T16:51:02Z"
+            },
+            {
+                "name": "3.0.2",
+                "date": "2019-11-28T15:52:12Z"
+            },
+            {
+                "name": "3.0.1",
+                "date": "2019-11-25T09:44:00Z"
+            },
+            {
+                "name": "3.0.0",
+                "date": "2019-11-20T09:37:29Z"
+            },
+            {
+                "name": "2.9.9",
+                "date": "2019-11-19T22:30:18Z"
+            },
+            {
+                "name": "3.0.0-beta.6",
+                "date": "2019-11-08T13:32:54Z"
+            },
+            {
+                "name": "3.0.0-beta.5",
+                "date": "2019-10-31T18:17:04Z"
+            },
+            {
+                "name": "3.0.0-beta.4",
+                "date": "2019-10-31T16:08:37Z"
+            },
+            {
+                "name": "3.0.0-beta.3",
+                "date": "2019-10-22T16:06:05Z"
+            },
+            {
+                "name": "3.0.0-beta.2",
+                "date": "2019-10-18T14:34:21Z"
+            },
+            {
+                "name": "3.0.0-beta.1",
+                "date": "2019-10-18T14:33:44Z"
+            },
+            {
+                "name": "2.9.8",
+                "date": "2019-10-18T15:31:34Z"
+            },
+            {
+                "name": "2.9.7",
+                "date": "2019-10-04T15:43:22Z"
+            },
+            {
+                "name": "3.0.0-beta.0",
+                "date": "2019-10-01T16:22:33Z"
+            },
+            {
+                "name": "3.0.0-alpha.4",
+                "date": "2019-09-02T09:06:37Z"
+            },
+            {
+                "name": "3.0.0-alpha.3",
+                "date": "2019-08-23T15:23:26Z"
+            },
+            {
+                "name": "2.9.6",
+                "date": "2019-08-21T13:53:33Z"
+            },
+            {
+                "name": "3.0.0-alpha.2",
+                "date": "2019-08-02T15:36:29Z"
+            },
+            {
+                "name": "3.0.0-alpha.1",
+                "date": "2019-07-24T11:50:56Z"
+            },
+            {
+                "name": "3.0.0-alpha.0",
+                "date": "2019-07-20T17:22:40Z"
+            },
+            {
+                "name": "2.9.5",
+                "date": "2019-07-19T21:28:54Z"
+            },
+            {
+                "name": "2.9.4",
+                "date": "2019-07-02T09:09:38Z"
+            },
+            {
+                "name": "2.9.3",
+                "date": "2019-06-17T19:34:03Z"
+            },
+            {
+                "name": "2.9.2",
+                "date": "2019-05-28T08:32:39Z"
+            },
+            {
+                "name": "2.9.1",
+                "date": "2019-05-14T14:02:28Z"
+            },
+            {
+                "name": "2.9.0",
+                "date": "2019-04-25T20:05:50Z"
+            },
+            {
+                "name": "2.8.6",
+                "date": "2019-04-19T15:06:13Z"
+            },
+            {
+                "name": "2.8.5",
+                "date": "2019-04-05T12:58:05Z"
+            },
+            {
+                "name": "2.8.4",
+                "date": "2019-04-01T21:41:50Z"
+            },
+            {
+                "name": "2.8.3",
+                "date": "2019-03-25T10:58:23Z"
+            },
+            {
+                "name": "2.8.2",
+                "date": "2019-03-18T08:09:18Z"
+            },
+            {
+                "name": "2.8.1",
+                "date": "2019-03-13T09:35:33Z"
+            },
+            {
+                "name": "2.8.0",
+                "date": "2019-03-12T16:55:27Z"
+            },
+            {
+                "name": "2.7.3",
+                "date": "2019-03-04T13:59:21Z"
+            },
+            {
+                "name": "2.7.2",
+                "date": "2019-02-22T14:24:20Z"
+            },
+            {
+                "name": "2.7.1",
+                "date": "2019-02-11T10:50:03Z"
+            },
+            {
+                "name": "2.7.0",
+                "date": "2019-02-04T14:23:37Z"
+            },
+            {
+                "name": "2.6.4",
+                "date": "2019-02-01T13:12:26Z"
+            },
+            {
+                "name": "2.6.3",
+                "date": "2019-01-28T08:05:38Z"
+            },
+            {
+                "name": "2.6.2",
+                "date": "2019-01-21T12:49:22Z"
+            },
+            {
+                "name": "2.6.1",
+                "date": "2019-01-11T15:48:56Z"
+            },
+            {
+                "name": "2.6.0",
+                "date": "2019-01-07T14:46:53Z"
+            },
+            {
+                "name": "2.5.3",
+                "date": "2019-01-02T16:31:45Z"
+            },
+            {
+                "name": "2.5.2",
+                "date": "2018-12-13T18:30:17Z"
+            },
+            {
+                "name": "2.5.1",
+                "date": "2018-12-03T13:19:48Z"
+            },
+            {
+                "name": "2.5.0",
+                "date": "2018-11-30T11:07:27Z"
+            },
+            {
+                "name": "2.4.4",
+                "date": "2018-11-28T08:30:35Z"
+            },
+            {
+                "name": "2.4.3",
+                "date": "2018-11-22T16:15:35Z"
+            },
+            {
+                "name": "2.4.2",
+                "date": "2018-11-12T14:30:32Z"
+            },
+            {
+                "name": "v2.4.1",
+                "date": "2018-10-29T15:16:35Z"
+            },
+            {
+                "name": "v2.4.0",
+                "date": "2018-10-17T14:43:39Z"
+            },
+            {
+                "name": "2.3.4",
+                "date": "2018-10-11T16:43:31Z"
+            },
+            {
+                "name": "v2.3.3",
+                "date": "2018-10-02T08:31:48Z"
+            },
+            {
+                "name": "v2.3.2",
+                "date": "2018-09-21T11:55:12Z"
+            },
+            {
+                "name": "v2.3.1",
+                "date": "2018-09-13T13:37:30Z"
+            },
+            {
+                "name": "v2.3.0",
+                "date": "2018-09-07T11:56:39Z"
+            },
+            {
+                "name": "v2.2.4",
+                "date": "2018-09-06T20:18:57Z"
+            },
+            {
+                "name": "v2.2.3",
+                "date": "2018-08-31T13:17:54Z"
+            },
+            {
+                "name": "v2.2.2",
+                "date": "2018-08-24T09:39:23Z"
+            },
+            {
+                "name": "v2.2.0",
+                "date": "2018-08-01T11:53:23Z"
+            },
+            {
+                "name": "v2.1.5",
+                "date": "2018-07-31T14:30:18Z"
+            },
+            {
+                "name": "v2.1.4",
+                "date": "2018-07-24T15:05:07Z"
+            },
+            {
+                "name": "v2.1.3",
+                "date": "2018-07-24T11:56:57Z"
+            },
+            {
+                "name": "v2.1.2",
+                "date": "2018-07-16T07:17:09Z"
+            },
+            {
+                "name": "v2.1.1",
+                "date": "2018-07-03T12:33:40Z"
+            },
+            {
+                "name": "v2.1.0",
+                "date": "2018-07-02T09:38:11Z"
+            },
+            {
+                "name": "v2.0.4",
+                "date": "2018-06-29T15:08:15Z"
+            },
+            {
+                "name": "v2.0.3",
+                "date": "2018-06-14T19:47:48Z"
+            },
+            {
+                "name": "v2.0.2",
+                "date": "2018-05-30T08:31:15Z"
+            },
+            {
+                "name": "v2.0.0",
+                "date": "2018-05-18T07:06:17Z"
+            },
+            {
+                "name": "v1.4.1",
+                "date": "2018-04-17T13:05:33Z"
+            },
+            {
+                "name": "v1.4.0",
+                "date": "2018-02-09T15:50:49Z"
+            },
+            {
+                "name": "v1.3.4",
+                "date": "2018-01-22T17:14:57Z"
+            },
+            {
+                "name": "v1.3.3",
+                "date": "2017-12-18T18:25:32Z"
+            },
+            {
+                "name": "v1.3.2",
+                "date": "2017-10-03T21:06:04Z"
+            },
+            {
+                "name": "v1.3.1",
+                "date": "2017-09-20T13:39:55Z"
+            },
+            {
+                "name": "v1.3.0",
+                "date": "2017-09-13T13:14:56Z"
+            },
+            {
+                "name": "v1.2.3",
+                "date": "2017-08-30T10:00:29Z"
+            },
+            {
+                "name": "v1.2.2",
+                "date": "2017-08-02T14:54:38Z"
+            },
+            {
+                "name": "v1.2.1",
+                "date": "2017-07-11T11:15:38Z"
+            },
+            {
+                "name": "v1.2.0",
+                "date": "2017-06-28T21:04:21Z"
+            },
+            {
+                "name": "v1.1.2",
+                "date": "2017-06-26T14:37:03Z"
+            },
+            {
+                "name": "v1.1.1",
+                "date": "2017-06-09T06:16:37Z"
+            },
+            {
+                "name": "v1.1.0",
+                "date": "2017-05-29T21:29:00Z"
+            },
+            {
+                "name": "v1.0.2",
+                "date": "2017-05-12T12:39:42Z"
+            },
+            {
+                "name": "v1.0.1",
+                "date": "2017-05-03T15:28:15Z"
+            },
+            {
+                "name": "v1.0.0",
+                "date": "2017-04-26T09:17:53Z"
+            },
+            {
+                "name": "v0.9.4",
+                "date": "2017-04-05T13:27:55Z"
+            },
+            {
+                "name": "v0.9.3",
+                "date": "2017-03-22T06:54:44Z"
+            },
+            {
+                "name": "v0.9.2",
+                "date": "2017-03-17T15:37:38Z"
+            },
+            {
+                "name": "v0.9.1",
+                "date": "2017-03-10T16:11:03Z"
+            },
+            {
+                "name": "v0.9.0",
+                "date": "2017-03-09T15:48:48Z"
+            },
+            {
+                "name": "v0.8.4",
+                "date": "2017-03-07T22:53:58Z"
+            },
+            {
+                "name": "v0.8.3",
+                "date": "2017-02-23T10:14:03Z"
+            },
+            {
+                "name": "v0.8.2",
+                "date": "2017-02-21T22:28:53Z"
+            },
+            {
+                "name": "v0.8.1",
+                "date": "2017-02-15T13:04:10Z"
+            },
+            {
+                "name": "v0.8.0",
+                "date": "2017-02-14T08:20:07Z"
+            },
+            {
+                "name": "v0.7.2",
+                "date": "2017-02-07T11:01:48Z"
+            },
+            {
+                "name": "v0.7.1",
+                "date": "2017-01-19T17:40:14Z"
+            },
+            {
+                "name": "v0.7.0",
+                "date": "2017-01-13T07:56:17Z"
+            },
+            {
+                "name": "v0.6.2",
+                "date": "2016-12-27T21:16:35Z"
+            },
+            {
+                "name": "v0.6.1",
+                "date": "2016-12-13T16:14:37Z"
+            },
+            {
+                "name": "v0.6.0",
+                "date": "2016-12-13T10:10:28Z"
+            },
+            {
+                "name": "v0.5.4",
+                "date": "2016-11-30T11:03:21Z"
+            },
+            {
+                "name": "v0.5.3",
+                "date": "2016-11-24T16:37:17Z"
+            },
+            {
+                "name": "v0.5.2",
+                "date": "2016-11-24T16:45:36Z"
+            },
+            {
+                "name": "v0.5.1",
+                "date": "2016-11-24T16:46:28Z"
+            },
+            {
+                "name": "v0.5.0",
+                "date": "2016-11-10T10:35:20Z"
+            },
+            {
+                "name": "v0.4.0",
+                "date": "2016-11-10T10:25:18Z"
+            },
+            {
+                "name": "v0.3.0",
+                "date": "2016-11-10T10:11:40Z"
+            },
+            {
+                "name": "v0.2.0",
+                "date": "2016-11-10T10:11:11Z"
+            },
+            {
+                "name": "",
+                "date": "2016-08-12T10:11:35Z"
+            }
+        ]
+    }
+}

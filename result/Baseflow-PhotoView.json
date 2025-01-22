@@ -1,0 +1,69 @@
+{
+    "https://api.github.com/repos/Baseflow/PhotoView": {
+        "forks": 3926,
+        "watchers": 18808,
+        "stars": 18808,
+        "languages": {
+            "Java": 52523
+        },
+        "commits": [
+            "2021-01-20T13:48:09Z",
+            "2021-01-20T13:02:19Z",
+            "2021-01-20T12:29:22Z",
+            "2021-01-20T12:15:24Z",
+            "2021-01-20T12:14:09Z",
+            "2021-01-11T14:56:03Z",
+            "2021-01-11T14:50:52Z",
+            "2021-01-11T14:45:13Z",
+            "2020-06-19T13:12:41Z",
+            "2020-04-09T19:46:09Z",
+            "2020-04-01T10:32:50Z",
+            "2020-04-01T07:45:35Z",
+            "2020-04-01T07:44:53Z",
+            "2020-02-26T17:13:44Z",
+            "2020-02-26T05:47:34Z",
+            "2020-02-25T07:39:00Z",
+            "2020-01-02T21:52:12Z",
+            "2020-01-02T21:51:25Z",
+            "2018-11-28T19:45:36Z",
+            "2018-11-28T19:28:09Z",
+            "2018-11-28T19:12:51Z",
+            "2018-11-28T15:16:24Z",
+            "2018-11-28T15:15:28Z",
+            "2018-11-28T13:58:42Z",
+            "2018-11-28T11:42:39Z",
+            "2018-11-28T08:26:46Z",
+            "2018-09-30T22:02:44Z",
+            "2018-09-07T09:14:45Z",
+            "2018-07-31T05:39:25Z",
+            "2018-07-31T05:35:35Z"
+        ],
+        "creation_date": "2012-07-17T16:39:00Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 635,
+        "readme": "# PhotoView\nPhotoView aims to help produce an easily usable implementation of a zooming Android ImageView.\n\n[![](https://jitpack.io/v/chrisbanes/PhotoView.svg)](https://jitpack.io/#chrisbanes/PhotoView)\n\n[![](https://user-images.githubusercontent.com/12352397/85141529-94648e80-b24f-11ea-9a14-a845fb43b181.gif)\n\n## Dependency\n\nAdd this in your root `build.gradle` file (**not** your module `build.gradle` file):\n\n```gradle\nallprojects {\n    repositories {\n        maven { url \"https://www.jitpack.io\" }\n    }\n}\n\nbuildscript {\n    repositories {\n        maven { url \"https://www.jitpack.io\" }\n    }\t\n}\n```\n\nThen, add the library to your module `build.gradle`\n```gradle\ndependencies {\n    implementation 'com.github.chrisbanes:PhotoView:latest.release.here'\n}\n```\n\n## Features\n- Out of the box zooming, using multi-touch and double-tap.\n- Scrolling, with smooth scrolling fling.\n- Works perfectly when used in a scrolling parent (such as ViewPager).\n- Allows the application to be notified when the displayed Matrix has changed. Useful for when you need to update your UI based on the current zoom/scroll position.\n- Allows the application to be notified when the user taps on the Photo.\n\n## Usage\nThere is a [sample](https://github.com/chrisbanes/PhotoView/tree/master/sample) provided which shows how to use the library in a more advanced way, but for completeness, here is all that is required to get PhotoView working:\n```xml\n<com.github.chrisbanes.photoview.PhotoView\n    android:id=\"@+id/photo_view\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"/>\n```\n```java\nPhotoView photoView = (PhotoView) findViewById(R.id.photo_view);\nphotoView.setImageResource(R.drawable.image);\n```\nThat's it!\n\n## Issues With ViewGroups\nThere are some ViewGroups (ones that utilize onInterceptTouchEvent) that throw exceptions when a PhotoView is placed within them, most notably [ViewPager](http://developer.android.com/reference/android/support/v4/view/ViewPager.html) and [DrawerLayout](https://developer.android.com/reference/android/support/v4/widget/DrawerLayout.html). This is a framework issue that has not been resolved. In order to prevent this exception (which typically occurs when you zoom out), take a look at [HackyDrawerLayout](https://github.com/chrisbanes/PhotoView/blob/master/sample/src/main/java/com/github/chrisbanes/photoview/sample/HackyDrawerLayout.java) and you can see the solution is to simply catch the exception. Any ViewGroup which uses onInterceptTouchEvent will also need to be extended and exceptions caught. Use the [HackyDrawerLayout](https://github.com/chrisbanes/PhotoView/blob/master/sample/src/main/java/com/github/chrisbanes/photoview/sample/HackyDrawerLayout.java) as a template of how to do so. The basic implementation is:\n```java\npublic class HackyProblematicViewGroup extends ProblematicViewGroup {\n\n    public HackyProblematicViewGroup(Context context) {\n        super(context);\n    }\n\n    @Override\n    public boolean onInterceptTouchEvent(MotionEvent ev) {\n        try {\n            return super.onInterceptTouchEvent(ev);\n        } catch (IllegalArgumentException e) {\n\t\t\t\t\t\t//uncomment if you really want to see these errors\n            //e.printStackTrace();\n            return false;\n        }\n    }\n}\n```\n\n## Usage with Fresco\nDue to the complex nature of Fresco, this library does not currently support Fresco. See [this project](https://github.com/ongakuer/PhotoDraweeView) as an alternative solution.\n\n## Subsampling Support\nThis library aims to keep the zooming implementation simple. If you are looking for an implementation that supports subsampling, check out [this project](https://github.com/davemorrissey/subsampling-scale-image-view)\n\nLicense\n--------\n\n    Copyright 2018 Chris Banes\n\n    Licensed under the Apache License, Version 2.0 (the \"License\");\n    you may not use this file except in compliance with the License.\n    You may obtain a copy of the License at\n\n       http://www.apache.org/licenses/LICENSE-2.0\n\n    Unless required by applicable law or agreed to in writing, software\n    distributed under the License is distributed on an \"AS IS\" BASIS,\n    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n    See the License for the specific language governing permissions and\n    limitations under the License.\n",
+        "releases": [
+            {
+                "name": "2.0.0",
+                "date": "2017-03-18T20:58:57Z"
+            },
+            {
+                "name": "1.3.1",
+                "date": "2016-10-26T16:29:46Z"
+            },
+            {
+                "name": "1.3.0",
+                "date": "2016-08-02T23:12:27Z"
+            },
+            {
+                "name": "1.2.7",
+                "date": "2016-07-26T15:19:52Z"
+            },
+            {
+                "name": "1.2.6",
+                "date": "2016-04-15T23:49:00Z"
+            }
+        ]
+    }
+}

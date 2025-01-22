@@ -1,0 +1,804 @@
+{
+    "https://api.github.com/repos/pocketbase/pocketbase": {
+        "forks": 2050,
+        "watchers": 43095,
+        "stars": 43095,
+        "languages": {
+            "Go": 2990906,
+            "Svelte": 757137,
+            "SCSS": 285934,
+            "CSS": 144713,
+            "JavaScript": 106041,
+            "HTML": 2599,
+            "Makefile": 240
+        },
+        "commits": [
+            "2025-01-18T10:45:54Z",
+            "2025-01-18T10:17:07Z",
+            "2025-01-18T10:13:55Z",
+            "2025-01-18T10:11:36Z",
+            "2025-01-12T09:40:03Z",
+            "2025-01-12T09:35:00Z",
+            "2025-01-11T10:33:46Z",
+            "2025-01-11T10:28:17Z",
+            "2025-01-10T07:41:46Z",
+            "2025-01-10T06:53:27Z",
+            "2025-01-05T12:33:16Z",
+            "2025-01-04T07:19:44Z",
+            "2025-01-03T20:10:50Z",
+            "2025-01-03T19:39:21Z",
+            "2025-01-03T19:38:13Z",
+            "2025-01-02T06:37:37Z",
+            "2025-01-01T15:49:30Z",
+            "2025-01-01T15:37:01Z",
+            "2025-01-01T15:19:30Z",
+            "2025-01-01T14:49:26Z",
+            "2025-01-01T14:41:47Z",
+            "2024-12-30T19:58:29Z",
+            "2024-12-30T18:26:33Z",
+            "2024-12-29T20:29:53Z",
+            "2024-12-29T20:26:56Z",
+            "2024-12-29T15:46:37Z",
+            "2024-12-29T15:31:58Z",
+            "2024-12-28T08:44:51Z",
+            "2024-12-28T08:32:14Z",
+            "2024-12-28T08:23:40Z"
+        ],
+        "creation_date": "2022-07-05T06:06:21Z",
+        "contributors": 30,
+        "topics": [
+            "authentication",
+            "backend",
+            "golang",
+            "realtime"
+        ],
+        "subscribers": 242,
+        "readme": "<p align=\"center\">\n    <a href=\"https://pocketbase.io\" target=\"_blank\" rel=\"noopener\">\n        <img src=\"https://i.imgur.com/5qimnm5.png\" alt=\"PocketBase - open source backend in 1 file\" />\n    </a>\n</p>\n\n<p align=\"center\">\n    <a href=\"https://github.com/pocketbase/pocketbase/actions/workflows/release.yaml\" target=\"_blank\" rel=\"noopener\"><img src=\"https://github.com/pocketbase/pocketbase/actions/workflows/release.yaml/badge.svg\" alt=\"build\" /></a>\n    <a href=\"https://github.com/pocketbase/pocketbase/releases\" target=\"_blank\" rel=\"noopener\"><img src=\"https://img.shields.io/github/release/pocketbase/pocketbase.svg\" alt=\"Latest releases\" /></a>\n    <a href=\"https://pkg.go.dev/github.com/pocketbase/pocketbase\" target=\"_blank\" rel=\"noopener\"><img src=\"https://godoc.org/github.com/pocketbase/pocketbase?status.svg\" alt=\"Go package documentation\" /></a>\n</p>\n\n[PocketBase](https://pocketbase.io) is an open source Go backend that includes:\n\n- embedded database (_SQLite_) with **realtime subscriptions**\n- built-in **files and users management**\n- convenient **Admin dashboard UI**\n- and simple **REST-ish API**\n\n**For documentation and examples, please visit https://pocketbase.io/docs.**\n\n> [!WARNING]\n> Please keep in mind that PocketBase is still under active development\n> and therefore full backward compatibility is not guaranteed before reaching v1.0.0.\n\n## API SDK clients\n\nThe easiest way to interact with the PocketBase Web APIs is to use one of the official SDK clients:\n\n- **JavaScript - [pocketbase/js-sdk](https://github.com/pocketbase/js-sdk)** (_Browser, Node.js, React Native_)\n- **Dart - [pocketbase/dart-sdk](https://github.com/pocketbase/dart-sdk)** (_Web, Mobile, Desktop, CLI_)\n\nYou could also check the recommendations in https://pocketbase.io/docs/how-to-use/.\n\n\n## Overview\n\n### Use as standalone app\n\nYou could download the prebuilt executable for your platform from the [Releases page](https://github.com/pocketbase/pocketbase/releases).\nOnce downloaded, extract the archive and run `./pocketbase serve` in the extracted directory.\n\nThe prebuilt executables are based on the [`examples/base/main.go` file](https://github.com/pocketbase/pocketbase/blob/master/examples/base/main.go) and comes with the JS VM plugin enabled by default which allows to extend PocketBase with JavaScript (_for more details please refer to [Extend with JavaScript](https://pocketbase.io/docs/js-overview/)_).\n\n### Use as a Go framework/toolkit\n\nPocketBase is distributed as a regular Go library package which allows you to build\nyour own custom app specific business logic and still have a single portable executable at the end.\n\nHere is a minimal example:\n\n0. [Install Go 1.23+](https://go.dev/doc/install) (_if you haven't already_)\n\n1. Create a new project directory with the following `main.go` file inside it:\n    ```go\n    package main\n\n    import (\n        \"log\"\n\n        \"github.com/pocketbase/pocketbase\"\n        \"github.com/pocketbase/pocketbase/core\"\n    )\n\n    func main() {\n        app := pocketbase.New()\n\n        app.OnServe().BindFunc(func(se *core.ServeEvent) error {\n            // registers new \"GET /hello\" route\n            se.Router.GET(\"/hello\", func(re *core.RequestEvent) error {\n                return re.String(200, \"Hello world!\")\n            })\n\n            return se.Next()\n        })\n\n        if err := app.Start(); err != nil {\n            log.Fatal(err)\n        }\n    }\n    ```\n\n2. To init the dependencies, run `go mod init myapp && go mod tidy`.\n\n3. To start the application, run `go run main.go serve`.\n\n4. To build a statically linked executable, you can run `CGO_ENABLED=0 go build` and then start the created executable with `./myapp serve`.\n\n_For more details please refer to [Extend with Go](https://pocketbase.io/docs/go-overview/)._\n\n### Building and running the repo main.go example\n\nTo build the minimal standalone executable, like the prebuilt ones in the releases page, you can simply run `go build` inside the `examples/base` directory:\n\n0. [Install Go 1.23+](https://go.dev/doc/install) (_if you haven't already_)\n1. Clone/download the repo\n2. Navigate to `examples/base`\n3. Run `GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build`\n   (_https://go.dev/doc/install/source#environment_)\n4. Start the created executable by running `./base serve`.\n\nNote that the supported build targets by the pure Go SQLite driver at the moment are:\n\n```\ndarwin  amd64\ndarwin  arm64\nfreebsd amd64\nfreebsd arm64\nlinux   386\nlinux   amd64\nlinux   arm\nlinux   arm64\nlinux   ppc64le\nlinux   riscv64\nlinux   s390x\nwindows amd64\nwindows arm64\n```\n\n### Testing\n\nPocketBase comes with mixed bag of unit and integration tests.\nTo run them, use the standard `go test` command:\n\n```sh\ngo test ./...\n```\n\nCheck also the [Testing guide](http://pocketbase.io/docs/testing) to learn how to write your own custom application tests.\n\n## Security\n\nIf you discover a security vulnerability within PocketBase, please send an e-mail to **support at pocketbase.io**.\n\nAll reports will be promptly addressed and you'll be credited in the fix release notes.\n\n## Contributing\n\nPocketBase is free and open source project licensed under the [MIT License](LICENSE.md).\nYou are free to do whatever you want with it, even offering it as a paid service.\n\nYou could help continuing its development by:\n\n- [Contribute to the source code](CONTRIBUTING.md)\n- [Suggest new features and report issues](https://github.com/pocketbase/pocketbase/issues)\n\nPRs for new OAuth2 providers, bug fixes, code optimizations and documentation improvements are more than welcome.\n\nBut please refrain creating PRs for _new features_ without previously discussing the implementation details.\nPocketBase has a [roadmap](https://github.com/orgs/pocketbase/projects/2) and I try to work on issues in specific order and such PRs often come in out of nowhere and skew all initial planning with tedious back-and-forth communication.\n\nDon't get upset if I close your PR, even if it is well executed and tested. This doesn't mean that it will never be merged.\nLater we can always refer to it and/or take pieces of your implementation when the time comes to work on the issue (don't worry you'll be credited in the release notes).\n",
+        "releases": [
+            {
+                "name": "v0.24.4 Release",
+                "date": "2025-01-18T10:58:47Z"
+            },
+            {
+                "name": "v0.22.30 Release",
+                "date": "2025-01-18T10:58:06Z"
+            },
+            {
+                "name": "v0.24.3 Release",
+                "date": "2025-01-12T10:03:48Z"
+            },
+            {
+                "name": "v0.24.2 Release",
+                "date": "2025-01-10T07:04:26Z"
+            },
+            {
+                "name": "v0.24.1 Release",
+                "date": "2025-01-04T07:31:40Z"
+            },
+            {
+                "name": "v0.24.0 Release",
+                "date": "2025-01-02T06:49:43Z"
+            },
+            {
+                "name": "v0.23.12 Release",
+                "date": "2024-12-22T14:24:06Z"
+            },
+            {
+                "name": "v0.23.11 Release",
+                "date": "2024-12-19T08:30:21Z"
+            },
+            {
+                "name": "v0.22.29 Release",
+                "date": "2024-12-19T08:29:18Z"
+            },
+            {
+                "name": "v0.23.10 Release",
+                "date": "2024-12-18T16:55:17Z"
+            },
+            {
+                "name": "v0.22.28 Release",
+                "date": "2024-12-18T16:54:35Z"
+            },
+            {
+                "name": "v0.23.9 Release",
+                "date": "2024-12-17T19:50:07Z"
+            },
+            {
+                "name": "v0.23.8 Release",
+                "date": "2024-12-16T13:17:24Z"
+            },
+            {
+                "name": "v0.23.7 Release",
+                "date": "2024-12-13T16:06:20Z"
+            },
+            {
+                "name": "v0.23.6 Release",
+                "date": "2024-12-11T17:11:34Z"
+            },
+            {
+                "name": "v0.23.5 Release",
+                "date": "2024-12-08T12:25:38Z"
+            },
+            {
+                "name": "v0.23.4 Release",
+                "date": "2024-12-02T12:22:07Z"
+            },
+            {
+                "name": "v0.23.3 Release",
+                "date": "2024-11-29T10:14:52Z"
+            },
+            {
+                "name": "v0.23.2 Release",
+                "date": "2024-11-27T08:15:39Z"
+            },
+            {
+                "name": "v0.23.1 Release",
+                "date": "2024-11-25T09:42:00Z"
+            },
+            {
+                "name": "v0.23.0 Release",
+                "date": "2024-11-24T14:50:27Z"
+            },
+            {
+                "name": "v0.22.27",
+                "date": "2024-11-19T20:18:38Z"
+            },
+            {
+                "name": "v0.23.0-rc14 Prerelease",
+                "date": "2024-11-17T14:08:05Z"
+            },
+            {
+                "name": "v0.22.26 Release",
+                "date": "2024-11-17T10:59:15Z"
+            },
+            {
+                "name": "v0.23.0-rc13 Prerelease",
+                "date": "2024-11-14T15:50:19Z"
+            },
+            {
+                "name": "v0.22.25 Release",
+                "date": "2024-11-14T14:02:15Z"
+            },
+            {
+                "name": "v0.22.24 Release",
+                "date": "2024-11-13T08:43:03Z"
+            },
+            {
+                "name": "v0.23.0-rc12 Prerelease",
+                "date": "2024-11-08T07:57:47Z"
+            },
+            {
+                "name": "v0.23.0-rc11 Prerelease",
+                "date": "2024-11-07T12:29:34Z"
+            },
+            {
+                "name": "v0.23.0-rc10 Prerelease",
+                "date": "2024-11-04T17:38:47Z"
+            },
+            {
+                "name": "v0.23.0-rc9 Prerelease",
+                "date": "2024-11-03T12:36:44Z"
+            },
+            {
+                "name": "v0.22.23 Release",
+                "date": "2024-11-03T10:35:31Z"
+            },
+            {
+                "name": "v0.23.0-rc8 Prerelease",
+                "date": "2024-10-25T07:35:12Z"
+            },
+            {
+                "name": "v0.23.0-rc7 Prerelease",
+                "date": "2024-10-18T11:16:11Z"
+            },
+            {
+                "name": "v0.22.22 Release",
+                "date": "2024-10-18T14:24:55Z"
+            },
+            {
+                "name": "v0.23.0-rc6 Prerelease",
+                "date": "2024-10-14T17:28:04Z"
+            },
+            {
+                "name": "v0.23.0-rc5 Prerelease",
+                "date": "2024-10-12T08:50:04Z"
+            },
+            {
+                "name": "v0.23.0-rc4 Prerelease",
+                "date": "2024-10-09T18:16:00Z"
+            },
+            {
+                "name": "v0.23.0-rc3 Prerelease",
+                "date": "2024-10-08T17:37:50Z"
+            },
+            {
+                "name": "v0.23.0-rc2 Prerelease",
+                "date": "2024-10-06T14:14:13Z"
+            },
+            {
+                "name": "v0.23.0-rc Prerelease",
+                "date": "2024-10-06T08:27:55Z"
+            },
+            {
+                "name": "v0.22.21 Release",
+                "date": "2024-09-18T03:56:49Z"
+            },
+            {
+                "name": "v0.22.20 Release",
+                "date": "2024-08-27T19:02:39Z"
+            },
+            {
+                "name": "v0.22.19 Release",
+                "date": "2024-08-12T19:44:27Z"
+            },
+            {
+                "name": "v0.22.18 Release",
+                "date": "2024-07-24T04:28:09Z"
+            },
+            {
+                "name": "v0.22.17 Release",
+                "date": "2024-07-10T04:41:08Z"
+            },
+            {
+                "name": "v0.22.16 Release",
+                "date": "2024-07-06T11:27:03Z"
+            },
+            {
+                "name": "v0.22.15 Release",
+                "date": "2024-07-03T06:44:43Z"
+            },
+            {
+                "name": "v0.22.14 Release",
+                "date": "2024-06-18T16:23:35Z"
+            },
+            {
+                "name": "v0.22.14-rc Prerelease",
+                "date": "2024-06-14T08:55:03Z"
+            },
+            {
+                "name": "v0.22.13 Release",
+                "date": "2024-06-03T05:59:25Z"
+            },
+            {
+                "name": "v0.22.12 Release",
+                "date": "2024-05-11T06:31:33Z"
+            },
+            {
+                "name": "v0.22.11 Release",
+                "date": "2024-05-04T04:59:13Z"
+            },
+            {
+                "name": "v0.22.10 Release",
+                "date": "2024-04-25T07:28:35Z"
+            },
+            {
+                "name": "v0.22.9 Release",
+                "date": "2024-04-15T06:26:43Z"
+            },
+            {
+                "name": "v0.22.8 Release",
+                "date": "2024-04-06T06:36:57Z"
+            },
+            {
+                "name": "v0.22.7 Release",
+                "date": "2024-03-29T19:37:46Z"
+            },
+            {
+                "name": "v0.22.6 Release",
+                "date": "2024-03-23T11:38:47Z"
+            },
+            {
+                "name": "v0.22.5 Release",
+                "date": "2024-03-21T08:41:37Z"
+            },
+            {
+                "name": "v0.22.4 Release",
+                "date": "2024-03-12T22:14:03Z"
+            },
+            {
+                "name": "v0.22.3 Release",
+                "date": "2024-03-06T14:56:08Z"
+            },
+            {
+                "name": "v0.22.2 Release",
+                "date": "2024-03-02T22:25:12Z"
+            },
+            {
+                "name": "v0.22.1 Release",
+                "date": "2024-03-02T16:31:32Z"
+            },
+            {
+                "name": "v0.22.0 Release",
+                "date": "2024-02-26T17:37:33Z"
+            },
+            {
+                "name": "v0.21.3 Release",
+                "date": "2024-02-11T07:46:08Z"
+            },
+            {
+                "name": "v0.21.2 Release",
+                "date": "2024-02-07T18:34:38Z"
+            },
+            {
+                "name": "v0.21.1 Release",
+                "date": "2024-01-24T15:50:13Z"
+            },
+            {
+                "name": "v0.21.0 Release",
+                "date": "2024-01-24T10:02:01Z"
+            },
+            {
+                "name": "v0.20.7 Release",
+                "date": "2024-01-16T11:07:24Z"
+            },
+            {
+                "name": "v0.20.6 Release",
+                "date": "2024-01-13T09:54:17Z"
+            },
+            {
+                "name": "v0.20.5 Release",
+                "date": "2024-01-04T14:36:42Z"
+            },
+            {
+                "name": "v0.20.4 Release",
+                "date": "2024-01-03T12:39:17Z"
+            },
+            {
+                "name": "v0.20.3 Release",
+                "date": "2024-01-03T09:31:30Z"
+            },
+            {
+                "name": "v0.20.2 Release",
+                "date": "2023-12-30T08:15:20Z"
+            },
+            {
+                "name": "v0.20.1 Release",
+                "date": "2023-12-17T09:07:28Z"
+            },
+            {
+                "name": "v0.20.0 Release",
+                "date": "2023-12-10T13:24:06Z"
+            },
+            {
+                "name": "v0.20.0-rc3 Prerelease",
+                "date": "2023-11-11T11:18:36Z"
+            },
+            {
+                "name": "v0.19.4 Release",
+                "date": "2023-11-11T11:20:25Z"
+            },
+            {
+                "name": "v0.20.0-rc2 Prerelease",
+                "date": "2023-11-06T10:10:05Z"
+            },
+            {
+                "name": "v0.19.3 Release",
+                "date": "2023-11-06T10:11:43Z"
+            },
+            {
+                "name": "v0.19.2 Release",
+                "date": "2023-11-03T04:10:24Z"
+            },
+            {
+                "name": "v0.19.1 Release",
+                "date": "2023-10-27T15:10:04Z"
+            },
+            {
+                "name": "v0.20.0-rc Prerelease",
+                "date": "2023-10-24T12:38:16Z"
+            },
+            {
+                "name": "v0.19.0 Release",
+                "date": "2023-10-15T12:02:43Z"
+            },
+            {
+                "name": "v0.18.10 Release",
+                "date": "2023-10-08T21:01:00Z"
+            },
+            {
+                "name": "v0.18.9 Release",
+                "date": "2023-09-30T06:52:16Z"
+            },
+            {
+                "name": "v0.18.8 Release",
+                "date": "2023-09-24T08:47:20Z"
+            },
+            {
+                "name": "v0.18.7 Release",
+                "date": "2023-09-22T16:07:06Z"
+            },
+            {
+                "name": "v0.18.6 Release",
+                "date": "2023-09-16T04:21:28Z"
+            },
+            {
+                "name": "v0.18.5 Release",
+                "date": "2023-09-12T17:13:03Z"
+            },
+            {
+                "name": "v0.18.4 Release",
+                "date": "2023-09-12T07:50:59Z"
+            },
+            {
+                "name": "v0.18.3 Release",
+                "date": "2023-09-10T08:22:50Z"
+            },
+            {
+                "name": "v0.18.2 Release",
+                "date": "2023-09-09T09:28:30Z"
+            },
+            {
+                "name": "v0.18.1 Release",
+                "date": "2023-09-06T04:29:26Z"
+            },
+            {
+                "name": "v0.18.0 Release",
+                "date": "2023-09-05T09:12:18Z"
+            },
+            {
+                "name": "v0.17.7 Release",
+                "date": "2023-08-25T14:21:06Z"
+            },
+            {
+                "name": "v0.17.6 Release",
+                "date": "2023-08-21T15:37:53Z"
+            },
+            {
+                "name": "v0.17.5 Release",
+                "date": "2023-08-14T22:37:52Z"
+            },
+            {
+                "name": "v0.17.4 Release",
+                "date": "2023-08-11T12:32:17Z"
+            },
+            {
+                "name": "v0.17.3 Release",
+                "date": "2023-08-08T11:54:19Z"
+            },
+            {
+                "name": "v0.17.2 Release",
+                "date": "2023-08-05T07:18:14Z"
+            },
+            {
+                "name": "v0.17.1 Release",
+                "date": "2023-08-01T04:47:19Z"
+            },
+            {
+                "name": "v0.17.0 Release",
+                "date": "2023-07-30T11:49:55Z"
+            },
+            {
+                "name": "v0.16.10 Release",
+                "date": "2023-07-17T09:06:49Z"
+            },
+            {
+                "name": "v0.16.9 Release",
+                "date": "2023-07-14T09:33:36Z"
+            },
+            {
+                "name": "v0.16.8 Release",
+                "date": "2023-07-08T17:37:09Z"
+            },
+            {
+                "name": "v0.16.7 Release",
+                "date": "2023-07-03T15:27:23Z"
+            },
+            {
+                "name": "v0.16.6 Release",
+                "date": "2023-06-26T10:11:17Z"
+            },
+            {
+                "name": "v0.16.5 Release",
+                "date": "2023-06-09T10:21:31Z"
+            },
+            {
+                "name": "v0.16.4 Release",
+                "date": "2023-06-02T16:58:15Z"
+            },
+            {
+                "name": "v0.16.3 Release",
+                "date": "2023-05-27T06:50:23Z"
+            },
+            {
+                "name": "v0.16.2 Release",
+                "date": "2023-05-24T07:05:37Z"
+            },
+            {
+                "name": "v0.16.1 Release",
+                "date": "2023-05-23T07:48:32Z"
+            },
+            {
+                "name": "v0.16.0 Release",
+                "date": "2023-05-21T09:09:55Z"
+            },
+            {
+                "name": "v0.15.3 Release",
+                "date": "2023-05-05T03:15:07Z"
+            },
+            {
+                "name": "v0.15.2 Release",
+                "date": "2023-04-26T12:29:09Z"
+            },
+            {
+                "name": "v0.15.1 Release",
+                "date": "2023-04-21T07:51:20Z"
+            },
+            {
+                "name": "v0.15.0 Release",
+                "date": "2023-04-18T03:54:47Z"
+            },
+            {
+                "name": "v0.14.5 Release",
+                "date": "2023-04-14T07:01:18Z"
+            },
+            {
+                "name": "v0.14.4 Release",
+                "date": "2023-04-12T07:46:46Z"
+            },
+            {
+                "name": "v0.14.3 Release",
+                "date": "2023-04-06T17:40:04Z"
+            },
+            {
+                "name": "v0.14.2 Release",
+                "date": "2023-04-03T18:53:23Z"
+            },
+            {
+                "name": "v0.14.1 Release",
+                "date": "2023-04-01T10:32:40Z"
+            },
+            {
+                "name": "v0.14.0 Release",
+                "date": "2023-03-28T06:58:34Z"
+            },
+            {
+                "name": "v0.13.4 Release",
+                "date": "2023-03-13T23:55:00Z"
+            },
+            {
+                "name": "v0.13.3 Release",
+                "date": "2023-03-12T15:54:31Z"
+            },
+            {
+                "name": "v0.13.2 Release",
+                "date": "2023-03-07T11:02:06Z"
+            },
+            {
+                "name": "v0.13.1 Release",
+                "date": "2023-03-05T14:01:19Z"
+            },
+            {
+                "name": "v0.13.0 Release",
+                "date": "2023-02-26T09:28:09Z"
+            },
+            {
+                "name": "v0.12.3 Release",
+                "date": "2023-02-12T10:57:26Z"
+            },
+            {
+                "name": "v0.12.2 Release",
+                "date": "2023-02-02T12:32:04Z"
+            },
+            {
+                "name": "v0.12.1 Release",
+                "date": "2023-01-30T15:19:04Z"
+            },
+            {
+                "name": "v0.12.0 Release",
+                "date": "2023-01-29T18:39:56Z"
+            },
+            {
+                "name": "v0.11.4 Release",
+                "date": "2023-01-25T22:31:42Z"
+            },
+            {
+                "name": "v0.11.3 Release",
+                "date": "2023-01-18T15:02:58Z"
+            },
+            {
+                "name": "v0.11.2 Release",
+                "date": "2023-01-12T15:28:26Z"
+            },
+            {
+                "name": "v0.11.1 Release",
+                "date": "2023-01-11T13:11:32Z"
+            },
+            {
+                "name": "v0.11.0 Release",
+                "date": "2023-01-08T09:54:21Z"
+            },
+            {
+                "name": "v0.10.4 Release",
+                "date": "2022-12-24T07:03:36Z"
+            },
+            {
+                "name": "v0.10.3 Release",
+                "date": "2022-12-22T14:30:06Z"
+            },
+            {
+                "name": "v0.10.2 Release",
+                "date": "2022-12-20T09:39:34Z"
+            },
+            {
+                "name": "v0.10.1 Release",
+                "date": "2022-12-18T09:55:13Z"
+            },
+            {
+                "name": "v0.10.0 Release",
+                "date": "2022-12-16T15:47:35Z"
+            },
+            {
+                "name": "v0.9.2 Release",
+                "date": "2022-12-09T17:41:33Z"
+            },
+            {
+                "name": "v0.9.1 Release",
+                "date": "2022-12-09T10:26:29Z"
+            },
+            {
+                "name": "v0.9.0 Release",
+                "date": "2022-12-06T05:42:42Z"
+            },
+            {
+                "name": "v0.8.0 Release",
+                "date": "2022-11-18T23:12:58Z"
+            },
+            {
+                "name": "v0.8.0-rc4",
+                "date": "2022-11-17T17:21:39Z"
+            },
+            {
+                "name": "v0.8.0-rc3",
+                "date": "2022-11-15T11:02:51Z"
+            },
+            {
+                "name": "v0.8.0-rc2",
+                "date": "2022-11-02T20:42:47Z"
+            },
+            {
+                "name": "v0.7.10 Release",
+                "date": "2022-11-19T00:12:08Z"
+            },
+            {
+                "name": "v0.8.0-rc1 Release",
+                "date": "2022-10-30T08:47:06Z"
+            },
+            {
+                "name": "v0.7.9 Release",
+                "date": "2022-10-04T20:09:01Z"
+            },
+            {
+                "name": "v0.7.8 Release",
+                "date": "2022-10-04T16:18:29Z"
+            },
+            {
+                "name": "v0.7.7 Release",
+                "date": "2022-09-30T08:08:55Z"
+            },
+            {
+                "name": "v0.7.6 Release",
+                "date": "2022-09-23T15:14:44Z"
+            },
+            {
+                "name": "v0.7.5 Release",
+                "date": "2022-09-20T08:46:53Z"
+            },
+            {
+                "name": "v0.7.4 Release",
+                "date": "2022-09-18T06:12:06Z"
+            },
+            {
+                "name": "v0.7.3 Release",
+                "date": "2022-09-16T08:41:59Z"
+            },
+            {
+                "name": "v0.7.2 Release",
+                "date": "2022-09-11T04:26:53Z"
+            },
+            {
+                "name": "v0.7.1 Release",
+                "date": "2022-09-09T06:27:10Z"
+            },
+            {
+                "name": "v0.7.0 Release",
+                "date": "2022-09-08T15:08:16Z"
+            },
+            {
+                "name": "v0.6.0 Release",
+                "date": "2022-09-02T08:23:22Z"
+            },
+            {
+                "name": "v0.5.2 Release",
+                "date": "2022-08-31T18:15:38Z"
+            },
+            {
+                "name": "v0.5.1 Release",
+                "date": "2022-08-25T08:25:22Z"
+            },
+            {
+                "name": "v0.5.0 Release",
+                "date": "2022-08-21T12:05:20Z"
+            },
+            {
+                "name": "v0.4.2 Release",
+                "date": "2022-08-12T09:34:05Z"
+            },
+            {
+                "name": "v0.4.1 Release",
+                "date": "2022-08-11T13:16:47Z"
+            },
+            {
+                "name": "v0.4.0 Release",
+                "date": "2022-08-11T09:09:40Z"
+            },
+            {
+                "name": "v0.3.4 Release",
+                "date": "2022-08-01T11:38:56Z"
+            },
+            {
+                "name": "v0.3.3 Release",
+                "date": "2022-07-31T10:49:47Z"
+            },
+            {
+                "name": "v0.3.2 Release",
+                "date": "2022-07-21T10:20:16Z"
+            },
+            {
+                "name": "v0.3.1 Release",
+                "date": "2022-07-19T17:00:22Z"
+            },
+            {
+                "name": "v0.3.0 Release",
+                "date": "2022-07-18T17:15:40Z"
+            },
+            {
+                "name": "v0.2.8 Release",
+                "date": "2022-07-15T16:53:52Z"
+            },
+            {
+                "name": "v0.2.7 Release",
+                "date": "2022-07-14T19:50:13Z"
+            },
+            {
+                "name": "v0.2.6 Release",
+                "date": "2022-07-14T14:18:37Z"
+            },
+            {
+                "name": "v0.2.5 Release",
+                "date": "2022-07-14T07:41:24Z"
+            },
+            {
+                "name": "v0.2.4 Release",
+                "date": "2022-07-12T11:20:25Z"
+            },
+            {
+                "name": "v0.2.3 Release",
+                "date": "2022-07-11T07:57:58Z"
+            },
+            {
+                "name": "v0.2.2 Release",
+                "date": "2022-07-10T18:12:01Z"
+            },
+            {
+                "name": "v0.2.1 Release",
+                "date": "2022-07-10T12:10:40Z"
+            },
+            {
+                "name": "v0.2.0 Release",
+                "date": "2022-07-10T09:19:27Z"
+            },
+            {
+                "name": "v0.1.2 Release",
+                "date": "2022-07-08T22:10:57Z"
+            },
+            {
+                "name": "v0.1.1 Release",
+                "date": "2022-07-08T10:33:59Z"
+            },
+            {
+                "name": "v0.1.0 Release",
+                "date": "2022-07-07T02:58:50Z"
+            }
+        ]
+    }
+}

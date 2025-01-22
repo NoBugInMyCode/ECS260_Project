@@ -1,0 +1,65 @@
+{
+    "https://api.github.com/repos/google/iosched": {
+        "forks": 6194,
+        "watchers": 21773,
+        "stars": 21773,
+        "languages": {
+            "Kotlin": 1459491,
+            "HTML": 35665,
+            "Shell": 10804
+        },
+        "commits": [
+            "2023-01-05T14:41:43Z",
+            "2022-05-27T12:24:58Z",
+            "2022-05-24T12:22:45Z",
+            "2022-05-12T13:50:02Z",
+            "2022-05-11T13:41:57Z",
+            "2022-05-11T13:26:09Z",
+            "2022-05-11T13:25:51Z",
+            "2022-05-11T13:25:15Z",
+            "2022-05-09T12:57:14Z",
+            "2022-05-09T12:42:13Z",
+            "2022-05-09T12:18:30Z",
+            "2022-04-08T12:34:27Z",
+            "2022-04-08T12:28:34Z",
+            "2022-04-08T11:09:50Z",
+            "2022-04-01T15:20:05Z",
+            "2022-04-01T15:15:49Z",
+            "2022-04-01T09:12:06Z",
+            "2022-04-01T09:11:58Z",
+            "2022-04-01T08:40:44Z",
+            "2022-03-07T11:27:27Z",
+            "2022-03-24T08:06:59Z",
+            "2022-02-14T12:12:49Z",
+            "2022-02-02T09:05:29Z",
+            "2022-02-01T17:34:08Z",
+            "2022-02-01T17:22:09Z",
+            "2022-02-01T17:06:17Z",
+            "2022-01-05T15:58:55Z",
+            "2022-01-03T15:50:44Z",
+            "2022-01-03T15:50:36Z",
+            "2021-12-01T21:59:26Z"
+        ],
+        "creation_date": "2014-04-01T22:40:40Z",
+        "contributors": 30,
+        "topics": [
+            "android",
+            "architecture",
+            "conference",
+            "coroutines",
+            "kotlin"
+        ],
+        "subscribers": 1426,
+        "readme": "Google I/O Android App (ARCHIVED)\n======================\n\n## 2023 Update\n\n**This repository has been archived.** The Google I/O app has guided online and in-person visitors through the Google I/O conference for 10 years since 2009. It has also helped thousands of developers as an open-source sample. \n\nTo follow Modern Android Development best practices, check out the [Now in Android](https://github.com/android/nowinandroid) repository, which replaces iosched as our real-world sample. \n\n## 2021 Update\n\n**Due to global events, Google I/O 2020 was canceled and Google I/O 2021 is an online-only event, so\nthe companion app hasn't been updated since 2019. However, the `iosched` team has continued\nadding several architecture improvements to its codebase.\nThe general look and feel of the app is unchanged, and the app\nstill uses the data from Google I/O 2019.**\n\nMajor improvements implemented in 2021:\n* Migration from LiveData to Kotlin Flows to observe data.\n* Support for large screens and other form factors.\n* Migration from SharedPreferences to [Jetpack DataStore](https://developer.android.com/topic/libraries/architecture/datastore).\n* (Experimental) Partial migration to Jetpack Compose\n(in the [`compose`](https://github.com/google/iosched/tree/compose) branch)\n\n# Description\nGoogle I/O is a developer conference with several days of deep\ntechnical content featuring technical sessions and hundreds of demonstrations\nfrom developers showcasing their technologies.\n\nThis project is the Android app for the conference.\n\n# Running the app\n\nThe project contains a `staging` variant that replaces some modules at compile time so they\ndon't depend on remote services such as Firebase. This allows you to try out and test the app\nwithout the API keys.\n\n# Features\n\nThe app displays a list of conference events - sessions, office hours, app\nreviews, codelabs, etc. - and allows the user to filter these events by event\ntypes and by topics (Android, Firebase, etc.). Users can see details about\nevents, and they can star events that interest them. Conference attendees can\nreserve events to guarantee a seat.\n\nOther features include a Map of the venue, informational pages to\nguide attendees during the conference in Info, and time-relevant information\nduring the conference in Home.\n\n<div>\n  <img align=\"center\" src=\"schedule.png\" alt=\"Schedule screenshot\" height=\"640\" width=\"320\">\n</div>\n\n# Development Environment\n\nThe app is written entirely in Kotlin and uses the Gradle build system.\n\nTo build the app, use the `gradlew build` command or use \"Import Project\" in\nAndroid Studio. Android Studio Arctic Fox or newer is required and may be downloaded\n[here](https://developer.android.com/studio/preview).\n\n# Architecture\n\nThe architecture is built around\n[Android Architecture Components](https://developer.android.com/topic/libraries/architecture/)\nand follows the recommendations laid out in the\n[Guide to App Architecture](https://developer.android.com/jetpack/docs/guide). Logic is kept away\nfrom Activities and Fragments and moved to\n[ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)s.\nData is observed using\n[Kotlin Flows](https://developer.android.com/kotlin/flow/stateflow-and-sharedflow)\nand the [Data Binding Library](https://developer.android.com/topic/libraries/data-binding/)\nbinds UI components in layouts to the app's data sources.\n\nThe Repository layer handles data operations. IOSched's data comes\nfrom a few different sources -  user data is stored in\n[Cloud Firestore](https://firebase.google.com/docs/firestore/)\n(either remotely or in\na local cache for offline use), user preferences and settings are stored in\nDataStore, conference data is stored remotely and is fetched and stored\nin memory for the app to use, etc. - and the repository modules\nare responsible for handling all data operations and abstracting the data sources\nfrom the rest of the app.\n\nA lightweight domain layer sits between the data layer\nand the presentation layer, and handles discrete pieces of business logic off\nthe UI thread. See the `.\\*UseCase.kt` files under `shared/domain` for\n[examples](https://github.com/google/iosched/search?q=UseCase&unscoped_q=UseCase).\n\nThe [Navigation component](https://developer.android.com/guide/navigation) is used\nto implement navigation in the app, handling Fragment transactions and providing a consistent\nuser experience.\n\n[Room](https://developer.android.com/jetpack/androidx/releases/room) is used\nfor Full Text Search using [Fts4](https://developer.android.com/reference/androidx/room/Fts4)\nto search for a session, speaker, or codelab.\n\nUI tests are written with [Espresso](https://developer.android.com/training/testing/espresso/)\nand unit tests use Junit4 with\n[Mockito](https://github.com/mockito/mockito) when necessary.\n\nThe [Jetpack Benchmark library](https://developer.android.com/studio/profile/benchmark)\nmakes it easy to benchmark your code from within Android Studio.\nThe library handles warmup, measures your code performance, and outputs benchmarking\nresults to the Android Studio console. We added a few benchmark tests around\ncritical paths during app startup - in particular, the parsing of the bootstrap\ndata. This enables us to automate measuring and monitoring initial startup time.\nHere is an example from a benchmark run:\n\n```\nStarted running tests\n\nConnected to process 30763 on device 'google-pixel_3'.\nbenchmark:\nbenchmark:    76,076,101 ns BootstrapConferenceDataSourceBenchmark.benchmark_json_parsing\nTests ran to completion.\n```\n\nDependency Injection is implemented with\n[Hilt](https://developer.android.com/training/dependency-injection/hilt-android). For more details\non migrating from *dagger-android* to Hilt, read the\n([migration article](https://medium.com/androiddevelopers/migrating-the-google-i-o-app-to-hilt-f3edf03affe5).\n\n[ViewPager2](https://developer.android.com/training/animation/screen-slide-2) offers enhanced functionality over the\noriginal ViewPager library, such as right-to-left and vertical orientation support.\nFor more details on migrating from ViewPager to ViewPager2, please see this\n[migration guide](https://developer.android.com/training/animation/vp2-migration).\n\n## Firebase\n\nThe app makes considerable use of the following Firebase components:\n\n- [Cloud Firestore](https://firebase.google.com/docs/firestore/) is our source\nfor all user data (events starred or reserved by a user). Firestore gave us\nautomatic sync  and also seamlessly managed offline functionality\nfor us.\n- [Firebase Cloud Functions](https://firebase.google.com/docs/functions/)\nallowed us to run backend code. The reservations feature heavily depended on Cloud\nFunctions working in conjuction with Firestore.\n- [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging/concept-options)\nlet us inform the app about changes to conference data on our server.\n- [Remote Config](https://firebase.google.com/docs/remote-config/) helped us\nmanage in-app constants.\n\nFor 2020, the implementation was migrated to the Firebase Kotlin extension (KTX) libraries to\nwrite more idiomatic Kotlin code when calling Firebase APIs. To learn more,\nread this\n[Firebase blog article](https://firebase.googleblog.com/2020/03/firebase-kotlin-ga.html)\non the Firebase KTX libraries.\n\n## Kotlin\n\nThe app is entirely written in Kotlin and uses Jetpack's\n[Android Ktx extensions](https://developer.android.com/kotlin/ktx).\n\nAsynchronous tasks are handled with\n[coroutines](https://developer.android.com/kotlin/coroutines). Coroutines allow for simple\nand safe management of one-shot operations as well as building and consuming streams of data using\n[Kotlin Flows](https://developer.android.com/kotlin/flow).\n\nAll build scripts are written with the\n[Kotlin DSL](https://docs.gradle.org/current/userguide/kotlin_dsl.html).\n\n# Copyright\n\n    Copyright 2014 Google Inc. All rights reserved.\n\n    Licensed under the Apache License, Version 2.0 (the \"License\");\n    you may not use this file except in compliance with the License.\n    You may obtain a copy of the License at\n\n        http://www.apache.org/licenses/LICENSE-2.0\n\n    Unless required by applicable law or agreed to in writing, software\n    distributed under the License is distributed on an \"AS IS\" BASIS,\n    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n    See the License for the specific language governing permissions and\n    limitations under the License.\n\n",
+        "releases": [
+            {
+                "name": "",
+                "date": "2016-02-11T23:50:34Z"
+            },
+            {
+                "name": "",
+                "date": "2016-02-11T23:58:48Z"
+            }
+        ]
+    }
+}

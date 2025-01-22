@@ -1,0 +1,437 @@
+{
+    "https://api.github.com/repos/openzipkin/zipkin": {
+        "forks": 3095,
+        "watchers": 17098,
+        "stars": 17098,
+        "languages": {
+            "Java": 1931181,
+            "TypeScript": 228494,
+            "JavaScript": 226653,
+            "Shell": 60195,
+            "Dockerfile": 32550,
+            "HTML": 779,
+            "CSS": 126
+        },
+        "commits": [
+            "2025-01-06T22:48:51Z",
+            "2025-01-06T22:48:49Z",
+            "2025-01-06T22:14:38Z",
+            "2024-12-05T03:47:46Z",
+            "2024-12-05T03:47:45Z",
+            "2024-12-04T14:13:30Z",
+            "2024-10-08T12:08:38Z",
+            "2024-10-08T12:08:36Z",
+            "2024-10-08T11:32:12Z",
+            "2024-09-20T12:40:10Z",
+            "2024-08-26T17:37:44Z",
+            "2024-08-04T05:48:28Z",
+            "2024-08-04T05:48:26Z",
+            "2024-08-04T05:44:06Z",
+            "2024-08-04T05:10:55Z",
+            "2024-08-04T04:55:39Z",
+            "2024-08-03T23:34:07Z",
+            "2024-05-28T11:36:00Z",
+            "2024-05-25T23:38:40Z",
+            "2024-05-25T23:38:39Z",
+            "2024-05-25T23:34:37Z",
+            "2024-05-25T23:10:56Z",
+            "2024-05-25T04:50:06Z",
+            "2024-05-25T04:50:04Z",
+            "2024-05-25T04:47:02Z",
+            "2024-05-24T22:41:01Z",
+            "2024-04-30T23:13:43Z",
+            "2024-04-20T17:34:18Z",
+            "2024-04-16T07:00:33Z",
+            "2024-04-16T07:00:32Z"
+        ],
+        "creation_date": "2012-06-06T18:26:16Z",
+        "contributors": 30,
+        "topics": [
+            "distributed-tracing",
+            "observability",
+            "openzipkin",
+            "tracing",
+            "zipkin"
+        ],
+        "subscribers": 684,
+        "readme": "# zipkin\n\n[![Gitter chat](http://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg)](https://gitter.im/openzipkin/zipkin)\n[![Build Status](https://github.com/openzipkin/zipkin/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/openzipkin/zipkin/actions?query=workflow%3Atest+branch%3Amaster)\n[![Maven Central](https://img.shields.io/maven-central/v/io.zipkin/zipkin-server.svg)](https://search.maven.org/search?q=g:io.zipkin%20AND%20a:zipkin-server)\n\n[Zipkin](https://zipkin.io) is a distributed tracing system. It helps gather\ntiming data needed to troubleshoot latency problems in service architectures.\nFeatures include both the collection and lookup of this data.\n\nIf you have a trace ID in a log file, you can jump directly to it. Otherwise,\nyou can query based on attributes such as service, operation name, tags and\nduration. Some interesting data will be summarized for you, such as the\npercentage of time spent in a service, and whether operations failed.\n\n<img src=\"https://zipkin.io/public/img/web-screenshot.png\" alt=\"Trace view screenshot\" />\n\nThe Zipkin UI also presents a dependency diagram showing how many traced\nrequests went through each application. This can be helpful for identifying\naggregate behavior including error paths or calls to deprecated services.\n\n<img src=\"https://zipkin.io/public/img/dependency-graph.png\" alt=\"Dependency graph screenshot\" />\n\nApplication\u2019s need to be \u201cinstrumented\u201d to report trace data to Zipkin. This\nusually means configuration of a [tracer or instrumentation library](https://zipkin.io/pages/tracers_instrumentation.html). The most\npopular ways to report data to Zipkin are via http or Kafka, though many other\noptions exist, such as Apache ActiveMQ, gRPC and RabbitMQ. The data served to\nthe UI is stored in-memory, or persistently with a supported backend such as\nApache Cassandra or Elasticsearch.\n\n## Quick-start\n\nThe quickest way to get started is to fetch the [latest released server](https://search.maven.org/remote_content?g=io.zipkin&a=zipkin-server&v=LATEST&c=exec) as a self-contained\nexecutable jar. Note that the Zipkin server requires minimum JRE 17+. For example:\n\n```bash\ncurl -sSL https://zipkin.io/quickstart.sh | bash -s\njava -jar zipkin.jar\n```\n\nYou can also start Zipkin via Docker.\n```bash\n# Note: this is mirrored as ghcr.io/openzipkin/zipkin\ndocker run -d -p 9411:9411 openzipkin/zipkin\n```\n\nOnce the server is running, you can view traces with the Zipkin UI at http://localhost:9411/zipkin.\n\nIf your applications aren't sending traces, yet, configure them with [Zipkin instrumentation](https://zipkin.io/pages/tracers_instrumentation) or try one of our [examples](https://github.com/openzipkin?utf8=%E2%9C%93&q=example).\n\nCheck out the [`zipkin-server`](zipkin-server/README.md) documentation for configuration details, or [Docker examples](docker/examples) for how to use docker-compose.\n\n### Zipkin Slim\n\nThe slim build of Zipkin is smaller and starts faster. It supports in-memory and Elasticsearch storage, but doesn't support messaging transports like Kafka or RabbitMQ. If these constraints match your needs, you can try slim like below:\n\nRunning via Java:\n```bash\ncurl -sSL https://zipkin.io/quickstart.sh | bash -s io.zipkin:zipkin-server:LATEST:slim zipkin.jar\njava -jar zipkin.jar\n```\n\nRunning via Docker:\n```bash\n# Note: this is mirrored as ghcr.io/openzipkin/zipkin-slim\ndocker run -d -p 9411:9411 openzipkin/zipkin-slim\n```\n\nRunning via [Homebrew](https://formulae.brew.sh/formula/zipkin):\n```bash\nbrew install zipkin\n# to run in foreground\nzipkin\n# to run in background\nbrew services start zipkin\n```\n\n## Core Library\nThe [core library](zipkin/src/main/java/zipkin2) is used by both Zipkin instrumentation and the Zipkin server.\n\nThis includes built-in codec for Zipkin's v1 and v2 json formats. A direct dependency on gson\n(json library) is avoided by minifying and repackaging classes used. The result is a 155k jar which\nwon't conflict with any library you use.\n\nEx.\n```java\n// All data are recorded against the same endpoint, associated with your service graph\nlocalEndpoint = Endpoint.newBuilder().serviceName(\"tweetie\").ip(\"192.168.0.1\").build()\nspan = Span.newBuilder()\n    .traceId(\"d3d200866a77cc59\")\n    .id(\"d3d200866a77cc59\")\n    .name(\"targz\")\n    .localEndpoint(localEndpoint)\n    .timestamp(epochMicros())\n    .duration(durationInMicros)\n    .putTag(\"compression.level\", \"9\");\n\n// Now, you can encode it as json\nbytes = SpanBytesEncoder.JSON_V2.encode(span);\n```\n\nNote: The above is just an example, most likely you'll want to use an existing tracing library like [Brave](https://github.com/openzipkin/brave)\n\n### Core Library Requires Java 8+\n\nThe minimum Java language level of the core library is 8. This helps support those writing agent\ninstrumentation. Version 2.x was the last to support Java 6.\n\n*Note*: [zipkin-reporter-brave](https://github.com/openzipkin/zipkin-reporter-java/blob/master/brave/README.md)\ndoes not use this library. So, [brave](https://github.com/openzipkin/brave) still supports Java 6.\n\n## Storage Component\nZipkin includes a [StorageComponent](zipkin/src/main/java/zipkin2/storage/StorageComponent.java), used to store and query spans and\ndependency links. This is used by the server and those making collectors, or span reporters.\nFor this reason, storage components have minimal dependencies, though require Java 17+.\n\nEx.\n```java\n// this won't create network connections\nstorage = ElasticsearchStorage.newBuilder()\n                              .hosts(asList(\"http://myelastic:9200\")).build();\n\n// prepare a call\ntraceCall = storage.spanStore().getTrace(\"d3d200866a77cc59\");\n\n// execute it synchronously or asynchronously\ntrace = traceCall.execute();\n\n// clean up any sessions, etc\nstorage.close();\n```\n\n### In-Memory\nThe [InMemoryStorage](zipkin-server#in-memory-storage) component is packaged in zipkin's core library. It\nis neither persistent, nor viable for realistic work loads. Its purpose\nis for testing, for example starting a server on your laptop without any\ndatabase needed.\n\n### Cassandra\nThe [Cassandra](zipkin-server#cassandra-storage) component uses Cassandra\n3.11.3+ features, but is tested against the latest patch of Cassandra 4.1.\n\nThis is the second generation of our Cassandra schema. It stores spans\nusing UDTs, such that they appear like Zipkin v2 json in cqlsh. It is\ndesigned for scale, and uses a combination of SASI and manually\nimplemented indexes to make querying larger data more performant.\n\nNote: This store requires a [job to aggregate](https://github.com/openzipkin/zipkin-dependencies) dependency links.\n\n### Elasticsearch\nThe [Elasticsearch](zipkin-server#elasticsearch-storage) component uses\nElasticsearch 5+ features, but is tested against Elasticsearch 7-8.x and\nOpenSearch 2.x.\n\nIt stores spans as Zipkin v2 json so that integration with other tools is\nstraightforward. To help with scale, this uses a combination of custom\nand manually implemented indexing.\n\nNote: This store requires a [spark job](https://github.com/openzipkin/zipkin-dependencies) to aggregate dependency links.\n\n### Disabling search\nThe following API endpoints provide search features, and are enabled by\ndefault. Search primarily allows the trace list screen of the UI operate.\n* `GET /services` - Distinct Span.localServiceName\n* `GET /remoteServices?serviceName=X` - Distinct Span.remoteServiceName by Span.localServiceName\n* `GET /spans?serviceName=X` - Distinct Span.name by Span.localServiceName\n* `GET /autocompleteKeys` - Distinct keys of Span.tags subject to configurable whitelist\n* `GET /autocompleteValues?key=X` - Distinct values of Span.tags by key\n* `GET /traces` - Traces matching a query possibly including the above criteria\n\n\nWhen search is disabled, traces can only be retrieved by ID\n(`GET /trace/{traceId}`). Disabling search is only viable when there is\nan alternative way to find trace IDs, such as logs. Disabling search can\nreduce storage costs or increase write throughput.\n\n`StorageComponent.Builder.searchEnabled(false)` is implied when a zipkin\nis run with the env variable `SEARCH_ENABLED=false`.\n\n### Legacy (v1) components\nThe following components are no longer encouraged, but exist to help aid\ntransition to supported ones. These are indicated as \"v1\" as they use\ndata layouts based on Zipkin's V1 Thrift model, as opposed to the\nsimpler v2 data model currently used.\n\n#### MySQL\nThe [MySQL v1](zipkin-storage/mysql-v1) component uses MySQL 5.6+\nfeatures, but is tested against MariaDB 10.11.\n\nThe schema was designed to be easy to understand and get started with;\nit was not designed for performance. Ex spans fields are columns, so\nyou can perform ad-hoc queries using SQL. However, this component has\n[known performance issues](https://github.com/openzipkin/zipkin/issues/1233): queries will eventually take seconds to return\nif you put a lot of data into it.\n\nThis store does not require a [job to aggregate](https://github.com/openzipkin/zipkin-dependencies) dependency links.\nHowever, running the job will improve performance of dependencies\nqueries.\n\n## Running the server from source\nThe [Zipkin server](zipkin-server) receives spans via HTTP POST and respond to queries\nfrom its UI. It can also run collectors, such as RabbitMQ or Kafka.\n\nTo run the server from the currently checked out source, enter the\nfollowing. JDK 17+ is required to compile the source.\n```bash\n# Build the server and also make its dependencies\n$ ./mvnw -q --batch-mode -DskipTests --also-make -pl zipkin-server clean install\n# Run the server\n$ java -jar ./zipkin-server/target/zipkin-server-*exec.jar\n```\n\n## Artifacts\nServer artifacts are under the maven group id `io.zipkin`\nLibrary artifacts are under the maven group id `io.zipkin.zipkin2`\n\n### Library Releases\nReleases are at [Sonatype](https://oss.sonatype.org/content/repositories/releases) and [Maven Central](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22io.zipkin%22)\n\n### Library Snapshots\nSnapshots are uploaded to [Sonatype](https://oss.sonatype.org/content/repositories/snapshots) after\ncommits to master.\n\n### Docker Images\nReleased versions of zipkin-server are published to Docker Hub as `openzipkin/zipkin` and GitHub\nContainer Registry as `ghcr.io/openzipkin/zipkin`. See [docker](docker) for details.\n\n### Helm Charts\nHelm charts are available via `helm repo add zipkin https://zipkin.io/zipkin-helm`.\nSee [zipkin-helm](https://github.com/openzipkin/zipkin-helm) for details.\n\n### Javadocs\nhttps://zipkin.io/zipkin contains versioned folders with JavaDocs published on each (non-PR) build, as well\nas releases.\n",
+        "releases": [
+            {
+                "name": "Zipkin 3.4.3",
+                "date": "2025-01-06T22:48:34Z"
+            },
+            {
+                "name": "Zipkin 3.4.2",
+                "date": "2024-10-08T12:46:38Z"
+            },
+            {
+                "name": "Zipkin 3.4.1",
+                "date": "2024-08-04T06:44:30Z"
+            },
+            {
+                "name": "Zipkin 3.4",
+                "date": "2024-05-26T02:06:56Z"
+            },
+            {
+                "name": "Zipkin 3.3.1",
+                "date": "2024-05-25T11:57:58Z"
+            },
+            {
+                "name": "Zipkin 3.3",
+                "date": "2024-04-16T17:01:19Z"
+            },
+            {
+                "name": "Zipkin 3.2.1",
+                "date": "2024-04-13T18:22:45Z"
+            },
+            {
+                "name": "Zipkin 3.2",
+                "date": "2024-04-13T02:00:36Z"
+            },
+            {
+                "name": "Zipkin 3.1.1",
+                "date": "2024-03-07T07:02:48Z"
+            },
+            {
+                "name": "Zipkin 3.1",
+                "date": "2024-02-26T12:33:27Z"
+            },
+            {
+                "name": "Zipkin 3.0.6",
+                "date": "2024-02-09T02:47:27Z"
+            },
+            {
+                "name": "Zipkin 3.0.5",
+                "date": "2024-01-25T02:23:59Z"
+            },
+            {
+                "name": "Zipkin 3.0.4",
+                "date": "2024-01-17T19:16:37Z"
+            },
+            {
+                "name": "Zipkin 3.0.3",
+                "date": "2024-01-15T00:55:42Z"
+            },
+            {
+                "name": "Zipkin 3.0.2",
+                "date": "2024-01-13T10:27:29Z"
+            },
+            {
+                "name": "Zipkin 3.0",
+                "date": "2024-01-11T04:06:46Z"
+            },
+            {
+                "name": "Zipkin 2.27.0",
+                "date": "2024-01-06T23:37:04Z"
+            },
+            {
+                "name": "Zipkin 2.26.0",
+                "date": "2023-12-29T09:33:12Z"
+            },
+            {
+                "name": "Zipkin 2.25.2",
+                "date": "2023-12-16T03:41:51Z"
+            },
+            {
+                "name": "Zipkin 2.25.1",
+                "date": "2023-12-14T14:41:17Z"
+            },
+            {
+                "name": "Zipkin 2.25.0",
+                "date": "2023-12-14T14:34:48Z"
+            },
+            {
+                "name": "Zipkin 2.24.4",
+                "date": "2023-12-07T09:34:52Z"
+            },
+            {
+                "name": "Zipkin 2.24.2",
+                "date": "2023-06-26T21:11:36Z"
+            },
+            {
+                "name": "Zipkin helm chart 0.7.0",
+                "date": "2023-05-26T21:57:37Z"
+            },
+            {
+                "name": "Zipkin 2.24.1",
+                "date": "2023-04-28T10:11:02Z"
+            },
+            {
+                "name": "Zipkin 2.24.0",
+                "date": "2022-12-19T20:55:09Z"
+            },
+            {
+                "name": "Zipkin 2.23.19",
+                "date": "2022-10-05T21:02:17Z"
+            },
+            {
+                "name": "Zipkin 2.23.18",
+                "date": "2022-09-21T13:55:08Z"
+            },
+            {
+                "name": "zipkin-0.3.0",
+                "date": "2022-01-27T21:32:36Z"
+            },
+            {
+                "name": "Zipkin 2.23.16",
+                "date": "2022-01-04T09:08:48Z"
+            },
+            {
+                "name": "Zipkin 2.23.15",
+                "date": "2021-12-19T19:43:29Z"
+            },
+            {
+                "name": "Zipkin 2.23.14",
+                "date": "2021-12-16T09:51:19Z"
+            },
+            {
+                "name": "Zipkin 2.23.9",
+                "date": "2021-12-23T11:05:17Z"
+            },
+            {
+                "name": "Zipkin 2.22.1",
+                "date": "2020-10-31T23:50:17Z"
+            },
+            {
+                "name": "Zipkin 2.22",
+                "date": "2020-10-26T10:25:02Z"
+            },
+            {
+                "name": "Zipkin 2.21",
+                "date": "2020-04-16T10:28:30Z"
+            },
+            {
+                "name": "Zipkin 2.20",
+                "date": "2020-03-03T06:17:51Z"
+            },
+            {
+                "name": "Zipkin 2.19.2",
+                "date": "2019-11-19T05:40:38Z"
+            },
+            {
+                "name": "Zipkin 2.19",
+                "date": "2019-11-01T00:39:12Z"
+            },
+            {
+                "name": "Zipkin 2.18",
+                "date": "2019-10-23T01:36:08Z"
+            },
+            {
+                "name": "Zipkin 2.17",
+                "date": "2019-09-24T15:20:01Z"
+            },
+            {
+                "name": "Zipkin 2.16",
+                "date": "2019-08-26T08:19:52Z"
+            },
+            {
+                "name": "Zipkin 2.15",
+                "date": "2019-07-05T08:48:27Z"
+            },
+            {
+                "name": "Zipkin 2.14",
+                "date": "2019-05-15T15:44:39Z"
+            },
+            {
+                "name": "Zipkin 2.13.0",
+                "date": "2019-05-01T11:07:20Z"
+            },
+            {
+                "name": "Zipkin 2.12.6",
+                "date": "2019-03-10T19:00:53Z"
+            },
+            {
+                "name": "2.12.4 DO NOT USE",
+                "date": "2019-03-07T19:52:19Z"
+            },
+            {
+                "name": "Zipkin 2.12.3",
+                "date": "2019-03-02T12:33:08Z"
+            },
+            {
+                "name": "Zipkin 2.11.1",
+                "date": "2018-08-05T11:51:03Z"
+            },
+            {
+                "name": "Zipkin 2.11",
+                "date": "2018-08-03T13:25:39Z"
+            },
+            {
+                "name": "Zipkin 2.10 completes our v2 migration",
+                "date": "2018-07-07T06:49:37Z"
+            },
+            {
+                "name": "Zipkin 2.9",
+                "date": "2018-06-16T01:39:46Z"
+            },
+            {
+                "name": "Zipkin 2.8",
+                "date": "2018-05-03T08:09:42Z"
+            },
+            {
+                "name": "Zipkin 2.7",
+                "date": "2018-04-08T01:54:32Z"
+            },
+            {
+                "name": "Zipkin 2.6",
+                "date": "2018-03-17T07:05:47Z"
+            },
+            {
+                "name": "Zipkin 2.5",
+                "date": "2018-02-26T02:47:57Z"
+            },
+            {
+                "name": "Zipkin 2.4.5",
+                "date": "2018-01-26T01:51:09Z"
+            },
+            {
+                "name": "Do not use Zipkin 2.4.4 as it has a regression",
+                "date": "2018-01-23T12:24:22Z"
+            },
+            {
+                "name": "Zipkin 2.4.3",
+                "date": "2018-01-23T12:30:00Z"
+            },
+            {
+                "name": "Zipkin 2.4.2",
+                "date": "2017-12-21T09:02:22Z"
+            },
+            {
+                "name": "Zipkin 2.4",
+                "date": "2017-11-29T11:50:09Z"
+            },
+            {
+                "name": "Zipkin 2.3",
+                "date": "2017-11-13T09:47:28Z"
+            },
+            {
+                "name": "Zipkin 2.2",
+                "date": "2017-10-11T08:27:41Z"
+            },
+            {
+                "name": "Zipkin 2.1",
+                "date": "2017-10-03T00:48:40Z"
+            },
+            {
+                "name": "Zipkin 2",
+                "date": "2017-09-12T16:58:37Z"
+            },
+            {
+                "name": "Zipkin 1.30",
+                "date": "2018-03-27T06:05:09Z"
+            },
+            {
+                "name": "Zipkin 1.29",
+                "date": "2017-08-07T09:32:20Z"
+            },
+            {
+                "name": "Zipkin 1.28",
+                "date": "2017-07-06T06:15:37Z"
+            },
+            {
+                "name": "Zipkin 1.27",
+                "date": "2017-06-30T08:41:36Z"
+            },
+            {
+                "name": "Zipkin 1.26",
+                "date": "2017-05-18T05:27:39Z"
+            },
+            {
+                "name": "Zipkin 1.25",
+                "date": "2017-05-16T12:56:37Z"
+            },
+            {
+                "name": "Zipkin 1.24",
+                "date": "2017-05-06T03:26:45Z"
+            },
+            {
+                "name": "Zipkin 1.23",
+                "date": "2017-04-22T10:43:00Z"
+            },
+            {
+                "name": "Zipkin 1.22",
+                "date": "2017-04-05T04:22:09Z"
+            },
+            {
+                "name": "Zipkin 1.20",
+                "date": "2017-02-03T01:29:04Z"
+            },
+            {
+                "name": "Zipkin 1.19",
+                "date": "2017-01-03T02:06:13Z"
+            },
+            {
+                "name": "Zipkin 1.18",
+                "date": "2016-12-20T03:37:26Z"
+            },
+            {
+                "name": "Zipkin 1.16",
+                "date": "2016-11-16T14:04:52Z"
+            },
+            {
+                "name": "Zipkin 1.15",
+                "date": "2016-11-12T10:24:39Z"
+            },
+            {
+                "name": "Zipkin 1.14",
+                "date": "2016-10-28T09:32:44Z"
+            },
+            {
+                "name": "Zipkin 1.13",
+                "date": "2016-10-05T03:14:27Z"
+            },
+            {
+                "name": "Zipkin 1.11",
+                "date": "2016-09-12T12:37:10Z"
+            },
+            {
+                "name": "Zipkin 1.10",
+                "date": "2016-09-12T12:24:32Z"
+            },
+            {
+                "name": "Zipkin 1.8",
+                "date": "2016-08-31T02:06:22Z"
+            },
+            {
+                "name": "Zipkin 1.7",
+                "date": "2016-08-18T13:32:54Z"
+            },
+            {
+                "name": "Zipkin 1.6",
+                "date": "2016-07-31T21:07:33Z"
+            },
+            {
+                "name": "Zipkin 1.5",
+                "date": "2016-07-23T03:21:16Z"
+            },
+            {
+                "name": "Zipkin 1.4",
+                "date": "2016-07-13T07:17:12Z"
+            },
+            {
+                "name": "Zipkin 1.3",
+                "date": "2016-07-10T08:11:40Z"
+            },
+            {
+                "name": "Zipkin 1.2",
+                "date": "2016-06-29T05:52:34Z"
+            },
+            {
+                "name": "1.1.5",
+                "date": "2016-06-21T14:35:06Z"
+            },
+            {
+                "name": "Zipkin 1.1.4",
+                "date": "2016-06-04T03:21:38Z"
+            },
+            {
+                "name": "Zipkin 1.1.0",
+                "date": "2013-08-27T22:47:14Z"
+            },
+            {
+                "name": "Zipkin 1.0",
+                "date": "2016-06-03T10:07:13Z"
+            }
+        ]
+    }
+}

@@ -1,0 +1,598 @@
+{
+    "https://api.github.com/repos/locustio/locust": {
+        "forks": 3019,
+        "watchers": 25427,
+        "stars": 25427,
+        "languages": {
+            "Python": 1039758,
+            "TypeScript": 241187,
+            "HTML": 3231,
+            "JavaScript": 2304,
+            "Dockerfile": 1707,
+            "Makefile": 1458
+        },
+        "commits": [
+            "2025-01-21T21:41:40Z",
+            "2025-01-21T14:52:32Z",
+            "2025-01-21T14:44:51Z",
+            "2025-01-20T18:25:33Z",
+            "2025-01-20T17:22:59Z",
+            "2025-01-18T11:22:10Z",
+            "2025-01-17T11:26:37Z",
+            "2025-01-17T11:12:09Z",
+            "2025-01-16T21:02:17Z",
+            "2025-01-16T20:41:38Z",
+            "2025-01-16T20:01:34Z",
+            "2025-01-15T20:01:10Z",
+            "2025-01-14T07:56:30Z",
+            "2025-01-14T03:12:41Z",
+            "2025-01-13T14:45:05Z",
+            "2025-01-13T12:38:47Z",
+            "2025-01-13T12:37:35Z",
+            "2025-01-13T08:25:50Z",
+            "2025-01-12T17:59:48Z",
+            "2025-01-12T13:53:26Z",
+            "2025-01-12T13:49:47Z",
+            "2025-01-12T01:13:48Z",
+            "2025-01-09T12:11:21Z",
+            "2025-01-09T08:18:43Z",
+            "2025-01-08T16:37:06Z",
+            "2025-01-08T13:28:49Z",
+            "2025-01-05T19:58:27Z",
+            "2025-01-05T19:52:46Z",
+            "2025-01-05T19:43:01Z",
+            "2025-01-05T19:42:06Z"
+        ],
+        "creation_date": "2011-02-17T11:08:03Z",
+        "contributors": 30,
+        "topics": [
+            "benchmarking",
+            "hacktoberfest",
+            "http",
+            "load-generator",
+            "load-test",
+            "load-testing",
+            "load-tests",
+            "locust",
+            "performance",
+            "performance-testing",
+            "python"
+        ],
+        "subscribers": 425,
+        "readme": "# Locust\n\n[![PyPI](https://img.shields.io/pypi/v/locust.svg)](https://pypi.org/project/locust/)<!--![Python Version from PEP 621 TOML](https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2Flocustio%2Flocust%2Fmaster%2Fpyproject.toml)-->\n[![Downloads](https://pepy.tech/badge/locust/week)](https://pepy.tech/project/locust)\n[![Build Status](https://github.com/locustio/locust/workflows/Tests/badge.svg)](https://github.com/locustio/locust/actions?query=workflow%3ATests)\n[![GitHub contributors](https://img.shields.io/github/contributors/locustio/locust.svg)](https://github.com/locustio/locust/graphs/contributors)\n[![Support Ukraine Badge](https://bit.ly/support-ukraine-now)](https://github.com/support-ukraine/support-ukraine)\n\nLocust is an open source performance/load testing tool for HTTP and other protocols. Its developer-friendly approach lets you define your tests in regular Python code.\n\nLocust tests can be run from command line or using its web-based UI. Throughput, response times and errors can be viewed in real time and/or exported for later analysis.\n\nYou can import regular Python libraries into your tests, and with Locust's pluggable architecture it is infinitely expandable. Unlike when using most other tools, your test design will never be limited by a GUI or domain-specific language.\n\nTo get started right away, head over to the [documentation](http://docs.locust.io/en/stable/installation.html).\n\n## Features\n\n#### Write user test scenarios in plain old Python\n\nIf you want your users to loop, perform some conditional behaviour or do some calculations, you just use the regular programming constructs provided by Python. Locust runs every user inside its own greenlet (a lightweight process/coroutine). This enables you to write your tests like normal (blocking) Python code instead of having to use callbacks or some other mechanism. Because your scenarios are \u201cjust python\u201d you can use your regular IDE, and version control your tests as regular code (as opposed to some other tools that use XML or binary formats)\n\n```python\nfrom locust import HttpUser, task, between\n\nclass QuickstartUser(HttpUser):\n    wait_time = between(1, 2)\n\n    def on_start(self):\n        self.client.post(\"/login\", json={\"username\":\"foo\", \"password\":\"bar\"})\n\n    @task\n    def hello_world(self):\n        self.client.get(\"/hello\")\n        self.client.get(\"/world\")\n\n    @task(3)\n    def view_item(self):\n        for item_id in range(10):\n            self.client.get(f\"/item?id={item_id}\", name=\"/item\")\n```\n\n#### Distributed & Scalable - supports hundreds of thousands of users\n\nLocust makes it easy to run load tests distributed over multiple machines. It is event-based (using [gevent](http://www.gevent.org/)), which makes it possible for a single process to handle many thousands concurrent users. While there may be other tools that are capable of doing more requests per second on a given hardware, the low overhead of each Locust user makes it very suitable for testing highly concurrent workloads.\n\n#### Web-based UI\n\nLocust has a user friendly web interface that shows the progress of your test in real-time. You can even change the load while the test is running. It can also be run without the UI, making it easy to use for CI/CD testing.\n\n<picture>\n<source media=\"(prefers-color-scheme: light)\" srcset=\"https://raw.githubusercontent.com/locustio/locust/refs/heads/master/docs/images/bottlenecked-server-light.png\" alt=\"Locust UI charts\" height=\"100\" width=\"200\"/>\n<source media=\"(prefers-color-scheme: dark)\" srcset=\"https://raw.githubusercontent.com/locustio/locust/refs/heads/master/docs/images/bottlenecked-server-dark.png\" alt=\"Locust UI charts\" height=\"100\" width=\"200\"/>\n<img src=\"https://raw.githubusercontent.com/locustio/locust/refs/heads/master/docs/images/bottlenecked-server-light.png\" alt=\"Locust UI charts\" height=\"100\" width=\"200\"/>\n</picture>\n<picture>\n<source media=\"(prefers-color-scheme: light)\" srcset=\"https://raw.githubusercontent.com/locustio/locust/refs/heads/master/docs/images/webui-running-statistics-light.png\" alt=\"Locust UI stats\" height=\"100\" width=\"200\"/>\n<source media=\"(prefers-color-scheme: dark)\" srcset=\"https://raw.githubusercontent.com/locustio/locust/refs/heads/master/docs/images/webui-running-statistics-dark.png\" alt=\"Locust UI stats\" height=\"100\" width=\"200\"/>\n<img src=\"https://raw.githubusercontent.com/locustio/locust/refs/heads/master/docs/images/webui-running-statistics-light.png\" alt=\"Locust UI stats\" height=\"100\" width=\"200\"/>\n</picture>\n<picture>\n<source media=\"(prefers-color-scheme: light)\" srcset=\"https://raw.githubusercontent.com/locustio/locust/refs/heads/master/docs/images/locust-workers-light.png\" alt=\"Locust UI workers\" height=\"100\" width=\"200\"/>\n<source media=\"(prefers-color-scheme: dark)\" srcset=\"https://raw.githubusercontent.com/locustio/locust/refs/heads/master/docs/images/locust-workers-dark.png\" alt=\"Locust UI workers\" height=\"100\" width=\"200\"/>\n<img src=\"https://raw.githubusercontent.com/locustio/locust/refs/heads/master/docs/images/locust-workers-light.png\" alt=\"Locust UI workers\" height=\"100\" width=\"200\"/>\n</picture>\n<picture>\n<source media=\"(prefers-color-scheme: light)\" srcset=\"https://raw.githubusercontent.com/locustio/locust/refs/heads/master/docs/images/webui-splash-light.png\" alt=\"Locust UI start test\" height=\"100\" width=\"200\"/>\n<source media=\"(prefers-color-scheme: dark)\" srcset=\"https://raw.githubusercontent.com/locustio/locust/refs/heads/master/docs/images/webui-splash-dark.png\" alt=\"Locust UI start test\" height=\"100\" width=\"200\"/>\n<img src=\"https://raw.githubusercontent.com/locustio/locust/refs/heads/master/docs/images/webui-splash-light.png\" alt=\"Locust UI start test\" height=\"100\" width=\"200\"/>\n</picture>\n\n#### Can test any system\n\nEven though Locust primarily works with web sites/services, it can be used to test almost any system or protocol. Just [write a client](https://docs.locust.io/en/latest/testing-other-systems.html#testing-other-systems) for what you want to test, or [explore some created by the community](https://github.com/SvenskaSpel/locust-plugins#users).\n\n## Hackable\n\nLocust's code base is intentionally kept small and doesn't solve everything out of the box. Instead, we try to make it easy to adapt to any situation you may come across, using regular Python code. There is nothing stopping you from: \n\n* [Send real time reporting data to TimescaleDB and visualize it in Grafana](https://github.com/SvenskaSpel/locust-plugins/blob/master/locust_plugins/dashboards/README.md)\n* [Wrap calls to handle the peculiarities of your REST API](https://github.com/SvenskaSpel/locust-plugins/blob/8af21862d8129a5c3b17559677fe92192e312d8f/examples/rest_ex.py#L87) \n* [Use a totally custom load shape/profile](https://docs.locust.io/en/latest/custom-load-shape.html#custom-load-shape)\n* [...](https://github.com/locustio/locust/wiki/Extensions)\n\n## Links\n\n* Documentation: [docs.locust.io](https://docs.locust.io)\n* Support/Questions: [StackOverflow](https://stackoverflow.com/questions/tagged/locust)\n* Github Discussions: [Github Discussions](https://github.com/orgs/locustio/discussions)\n* Chat/discussion: [Slack](https://locustio.slack.com) [(signup)](https://communityinviter.com/apps/locustio/locust)\n\n## Authors\n\n* Maintainer: [Lars Holmberg](https://github.com/cyberw)\n* UI: [Andrew Baldwin](https://github.com/andrewbaldwin44)\n* Original creator: [Jonatan Heyman](https://github.com/heyman)\n* Massive thanks to [all of our contributors](https://github.com/locustio/locust/graphs/contributors)\n\n## License\n\nOpen source licensed under the MIT license (see _LICENSE_ file for details).\n",
+        "releases": [
+            {
+                "name": "2.32.6",
+                "date": "2025-01-13T14:57:34Z"
+            },
+            {
+                "name": "2.32.5",
+                "date": "2024-12-23T08:40:38Z"
+            },
+            {
+                "name": "2.32.4",
+                "date": "2024-12-01T22:20:05Z"
+            },
+            {
+                "name": "2.32.3",
+                "date": "2024-11-17T17:40:18Z"
+            },
+            {
+                "name": "2.32.2",
+                "date": "2024-11-08T10:54:04Z"
+            },
+            {
+                "name": "2.32.1",
+                "date": "2024-10-29T08:03:02Z"
+            },
+            {
+                "name": "2.32.0",
+                "date": "2024-10-15T08:56:09Z"
+            },
+            {
+                "name": "2.31.8",
+                "date": "2024-09-28T11:41:38Z"
+            },
+            {
+                "name": "2.31.7",
+                "date": "2024-09-25T17:13:17Z"
+            },
+            {
+                "name": "2.31.6",
+                "date": "2024-09-15T10:18:36Z"
+            },
+            {
+                "name": "2.31.5",
+                "date": "2024-08-31T17:59:47Z"
+            },
+            {
+                "name": "2.31.4",
+                "date": "2024-08-26T14:38:33Z"
+            },
+            {
+                "name": "2.31.3",
+                "date": "2024-08-15T18:25:29Z"
+            },
+            {
+                "name": "2.31.2",
+                "date": "2024-08-06T19:19:28Z"
+            },
+            {
+                "name": "2.31.1",
+                "date": "2024-08-05T17:34:09Z"
+            },
+            {
+                "name": "2.31.0",
+                "date": "2024-08-05T14:29:36Z"
+            },
+            {
+                "name": "2.30.0",
+                "date": "2024-07-31T13:48:24Z"
+            },
+            {
+                "name": "2.29.1",
+                "date": "2024-06-25T10:41:20Z"
+            },
+            {
+                "name": "2.29.0",
+                "date": "2024-06-07T18:53:11Z"
+            },
+            {
+                "name": "2.28.0",
+                "date": "2024-05-23T05:47:15Z"
+            },
+            {
+                "name": "2.27.0",
+                "date": "2024-05-06T15:12:23Z"
+            },
+            {
+                "name": "2.26.0",
+                "date": "2024-04-18T20:22:50Z"
+            },
+            {
+                "name": "2.25.0",
+                "date": "2024-04-14T16:27:53Z"
+            },
+            {
+                "name": "2.24.1",
+                "date": "2024-03-20T19:21:04Z"
+            },
+            {
+                "name": "2.24.0",
+                "date": "2024-02-29T17:08:06Z"
+            },
+            {
+                "name": "2.23.1",
+                "date": "2024-02-11T21:55:49Z"
+            },
+            {
+                "name": "2.23.0",
+                "date": "2024-02-11T16:19:14Z"
+            },
+            {
+                "name": "2.22.0",
+                "date": "2024-02-04T15:19:56Z"
+            },
+            {
+                "name": "2.21.0",
+                "date": "2024-01-27T13:15:49Z"
+            },
+            {
+                "name": "2.20.1",
+                "date": "2024-01-03T11:29:33Z"
+            },
+            {
+                "name": "2.20.0",
+                "date": "2023-12-13T12:32:04Z"
+            },
+            {
+                "name": "2.19.1",
+                "date": "2023-11-27T11:35:53Z"
+            },
+            {
+                "name": "2.19.0",
+                "date": "2023-11-21T18:49:49Z"
+            },
+            {
+                "name": "2.18.4",
+                "date": "2023-11-19T07:37:44Z"
+            },
+            {
+                "name": "2.18.3",
+                "date": "2023-11-12T17:54:46Z"
+            },
+            {
+                "name": "2.18.2",
+                "date": "2023-11-10T21:27:28Z"
+            },
+            {
+                "name": "2.18.1",
+                "date": "2023-11-01T18:15:36Z"
+            },
+            {
+                "name": "2.18.0",
+                "date": "2023-10-26T10:17:45Z"
+            },
+            {
+                "name": "2.17.0",
+                "date": "2023-10-05T17:05:50Z"
+            },
+            {
+                "name": "2.16.1",
+                "date": "2023-08-05T14:13:00Z"
+            },
+            {
+                "name": "2.16.0",
+                "date": "2023-08-04T11:33:09Z"
+            },
+            {
+                "name": "2.15.1",
+                "date": "2023-03-14T13:19:52Z"
+            },
+            {
+                "name": "2.15.0",
+                "date": "2023-02-28T14:56:25Z"
+            },
+            {
+                "name": "2.14.2",
+                "date": "2023-01-04T11:28:39Z"
+            },
+            {
+                "name": "2.14.1",
+                "date": "2023-01-03T08:47:38Z"
+            },
+            {
+                "name": "2.14.0",
+                "date": "2022-12-13T10:39:02Z"
+            },
+            {
+                "name": "2.13.2",
+                "date": "2022-12-09T16:06:41Z"
+            },
+            {
+                "name": "2.13.1",
+                "date": "2022-12-01T10:33:33Z"
+            },
+            {
+                "name": "2.13.0",
+                "date": "2022-10-28T09:32:52Z"
+            },
+            {
+                "name": "2.12.2",
+                "date": "2022-10-15T08:49:39Z"
+            },
+            {
+                "name": "2.12.1",
+                "date": "2022-09-21T09:46:03Z"
+            },
+            {
+                "name": "2.12.0",
+                "date": "2022-09-07T12:08:51Z"
+            },
+            {
+                "name": "2.11.1",
+                "date": "2022-08-25T15:52:53Z"
+            },
+            {
+                "name": "2.11.0",
+                "date": "2022-08-12T14:19:28Z"
+            },
+            {
+                "name": "2.10.2",
+                "date": "2022-08-03T10:13:18Z"
+            },
+            {
+                "name": "2.10.1",
+                "date": "2022-06-28T22:12:13Z"
+            },
+            {
+                "name": "2.10.0",
+                "date": "2022-06-27T20:03:04Z"
+            },
+            {
+                "name": "2.9.0",
+                "date": "2022-05-19T17:21:06Z"
+            },
+            {
+                "name": "2.8.6",
+                "date": "2022-04-07T18:26:33Z"
+            },
+            {
+                "name": "2.8.5",
+                "date": "2022-03-28T11:47:55Z"
+            },
+            {
+                "name": "2.8.4",
+                "date": "2022-03-15T12:01:08Z"
+            },
+            {
+                "name": "2.8.3",
+                "date": "2022-02-25T14:53:06Z"
+            },
+            {
+                "name": "2.8.2",
+                "date": "2022-02-14T11:11:59Z"
+            },
+            {
+                "name": "2.8.1",
+                "date": "2022-02-13T20:48:22Z"
+            },
+            {
+                "name": "2.8.0",
+                "date": "2022-02-13T16:44:29Z"
+            },
+            {
+                "name": "2.7.3",
+                "date": "2022-02-06T14:23:11Z"
+            },
+            {
+                "name": "2.7.2",
+                "date": "2022-02-03T20:39:24Z"
+            },
+            {
+                "name": "2.7.1",
+                "date": "2022-02-02T19:31:38Z"
+            },
+            {
+                "name": "2.7.0",
+                "date": "2022-01-29T18:40:54Z"
+            },
+            {
+                "name": "2.6.1",
+                "date": "2022-01-26T07:24:09Z"
+            },
+            {
+                "name": "2.6.0",
+                "date": "2022-01-23T18:09:58Z"
+            },
+            {
+                "name": "2.5.1",
+                "date": "2021-12-09T21:14:11Z"
+            },
+            {
+                "name": "2.5.0",
+                "date": "2021-11-05T10:30:01Z"
+            },
+            {
+                "name": "2.4.3",
+                "date": "2021-11-02T07:11:02Z"
+            },
+            {
+                "name": "2.4.2",
+                "date": "2021-11-01T14:52:57Z"
+            },
+            {
+                "name": "",
+                "date": "2021-10-19T07:27:57Z"
+            },
+            {
+                "name": "2.4.0",
+                "date": "2021-10-11T10:04:27Z"
+            },
+            {
+                "name": "2.2.3",
+                "date": "2021-09-20T09:20:20Z"
+            },
+            {
+                "name": "2.2.2",
+                "date": "2021-09-15T10:32:29Z"
+            },
+            {
+                "name": "2.2.1",
+                "date": "2021-09-02T18:11:07Z"
+            },
+            {
+                "name": "2.2.0",
+                "date": "2021-09-01T16:22:46Z"
+            },
+            {
+                "name": "2.1.0",
+                "date": "2021-08-08T12:51:53Z"
+            },
+            {
+                "name": "2.0.0",
+                "date": "2021-08-01T19:57:31Z"
+            },
+            {
+                "name": "2.0.0b4",
+                "date": "2021-07-28T21:02:21Z"
+            },
+            {
+                "name": "2.0.0b3",
+                "date": "2021-07-16T21:54:25Z"
+            },
+            {
+                "name": "2.0.0b2",
+                "date": "2021-07-12T13:11:36Z"
+            },
+            {
+                "name": "2.0.0b1",
+                "date": "2021-07-05T21:25:08Z"
+            },
+            {
+                "name": "2.0.0b0",
+                "date": "2021-07-05T19:22:06Z"
+            },
+            {
+                "name": "1.6.0",
+                "date": "2021-06-27T07:54:28Z"
+            },
+            {
+                "name": "1.5.3",
+                "date": "2021-05-17T14:33:12Z"
+            },
+            {
+                "name": "1.5.2",
+                "date": "2021-05-12T10:40:55Z"
+            },
+            {
+                "name": "1.5.1",
+                "date": "2021-05-04T12:22:57Z"
+            },
+            {
+                "name": "1.5.0",
+                "date": "2021-05-04T09:10:34Z"
+            },
+            {
+                "name": "1.4.4",
+                "date": "2021-04-04T08:29:44Z"
+            },
+            {
+                "name": "",
+                "date": "2021-01-28T00:32:54Z"
+            },
+            {
+                "name": "1.4.2",
+                "date": "2021-01-26T18:35:16Z"
+            },
+            {
+                "name": "1.4.1",
+                "date": "2020-11-16T15:17:26Z"
+            },
+            {
+                "name": "1.4.0",
+                "date": "2020-11-13T20:00:29Z"
+            },
+            {
+                "name": "1.3.2",
+                "date": "2020-11-04T11:50:37Z"
+            },
+            {
+                "name": "1.3.1",
+                "date": "2020-10-15T16:48:35Z"
+            },
+            {
+                "name": "1.3.0",
+                "date": "2020-10-12T19:51:21Z"
+            },
+            {
+                "name": "1.2.3",
+                "date": "2020-08-28T07:35:12Z"
+            },
+            {
+                "name": "1.2.2",
+                "date": "2020-08-22T08:20:15Z"
+            },
+            {
+                "name": "1.2.1",
+                "date": "2020-08-20T13:13:13Z"
+            },
+            {
+                "name": "1.2",
+                "date": "2020-08-19T10:25:41Z"
+            },
+            {
+                "name": "1.1.1",
+                "date": "2020-07-07T21:21:07Z"
+            },
+            {
+                "name": "1.1",
+                "date": "2020-06-28T19:17:37Z"
+            },
+            {
+                "name": "1.0.3",
+                "date": "2020-06-05T08:44:07Z"
+            },
+            {
+                "name": "1.0.2",
+                "date": "2020-05-25T18:11:51Z"
+            },
+            {
+                "name": "1.0.1",
+                "date": "2020-05-25T18:11:14Z"
+            },
+            {
+                "name": "1.0",
+                "date": "2020-05-25T18:10:44Z"
+            },
+            {
+                "name": "1.0b2",
+                "date": "2020-05-25T18:10:13Z"
+            },
+            {
+                "name": "1.0b1",
+                "date": "2020-04-29T18:00:57Z"
+            },
+            {
+                "name": "0.14.6",
+                "date": "2020-04-29T17:18:57Z"
+            },
+            {
+                "name": "0.14.5",
+                "date": "2020-02-25T15:36:07Z"
+            },
+            {
+                "name": "0.14.4",
+                "date": "2020-02-03T14:57:33Z"
+            },
+            {
+                "name": "0.14.3",
+                "date": "2020-02-03T12:55:18Z"
+            },
+            {
+                "name": "0.14.0",
+                "date": "2020-02-03T08:49:08Z"
+            },
+            {
+                "name": "0.13.5",
+                "date": "2019-12-17T08:03:46Z"
+            },
+            {
+                "name": "0.13.4",
+                "date": "2019-12-16T14:58:41Z"
+            },
+            {
+                "name": "0.13.3",
+                "date": "2019-12-13T16:19:22Z"
+            },
+            {
+                "name": "0.13.2",
+                "date": "2019-12-13T16:20:12Z"
+            },
+            {
+                "name": "0.13.1",
+                "date": "2019-11-16T12:44:10Z"
+            },
+            {
+                "name": "0.13.0",
+                "date": "2019-11-14T15:19:37Z"
+            },
+            {
+                "name": "0.12.2",
+                "date": "2019-11-14T15:22:34Z"
+            },
+            {
+                "name": "0.12.1",
+                "date": "2019-11-14T15:22:25Z"
+            },
+            {
+                "name": "0.12.0",
+                "date": "2019-10-01T17:07:58Z"
+            },
+            {
+                "name": "0.11.1",
+                "date": "2019-10-01T17:10:43Z"
+            },
+            {
+                "name": "0.11.0",
+                "date": "2019-10-01T17:11:11Z"
+            },
+            {
+                "name": "0.10.0",
+                "date": "2019-10-01T17:11:55Z"
+            },
+            {
+                "name": "v0.8.1",
+                "date": "2019-10-01T17:13:17Z"
+            },
+            {
+                "name": "v0.8",
+                "date": "2017-09-19T11:50:27Z"
+            },
+            {
+                "name": "v0.8a3",
+                "date": "2017-09-15T14:59:12Z"
+            }
+        ]
+    }
+}

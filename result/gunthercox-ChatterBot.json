@@ -1,0 +1,401 @@
+{
+    "https://api.github.com/repos/gunthercox/ChatterBot": {
+        "forks": 4458,
+        "watchers": 14158,
+        "stars": 14158,
+        "languages": {
+            "Python": 376033
+        },
+        "commits": [
+            "2025-01-17T22:47:22Z",
+            "2022-09-05T10:37:01Z",
+            "2025-01-05T14:22:46Z",
+            "2025-01-05T14:08:02Z",
+            "2025-01-05T13:58:02Z",
+            "2025-01-05T13:24:20Z",
+            "2025-01-04T23:14:26Z",
+            "2025-01-04T22:54:55Z",
+            "2025-01-04T22:50:33Z",
+            "2025-01-04T22:46:54Z",
+            "2025-01-04T22:28:15Z",
+            "2025-01-04T21:48:37Z",
+            "2025-01-04T21:45:15Z",
+            "2025-01-04T21:43:03Z",
+            "2025-01-04T21:40:42Z",
+            "2025-01-04T21:32:44Z",
+            "2025-01-04T21:28:17Z",
+            "2025-01-04T21:26:26Z",
+            "2025-01-04T21:19:56Z",
+            "2025-01-04T21:08:27Z",
+            "2025-01-04T21:00:13Z",
+            "2025-01-04T20:33:30Z",
+            "2025-01-04T20:08:26Z",
+            "2025-01-04T19:41:26Z",
+            "2025-01-04T19:36:06Z",
+            "2025-01-04T19:26:23Z",
+            "2025-01-04T19:14:24Z",
+            "2022-11-29T10:25:54Z",
+            "2021-07-13T08:06:02Z",
+            "2024-03-13T22:35:48Z"
+        ],
+        "creation_date": "2014-09-28T14:49:00Z",
+        "contributors": 30,
+        "topics": [
+            "bot",
+            "chatbot",
+            "chatterbot",
+            "conversation",
+            "language",
+            "machine-learning",
+            "python"
+        ],
+        "subscribers": 545,
+        "readme": "![ChatterBot: Machine learning in Python](https://i.imgur.com/b3SCmGT.png)\n\n# ChatterBot\n\nChatterBot is a machine-learning based conversational dialog engine built in\nPython which makes it possible to generate responses based on collections of\nknown conversations. The language independent design of ChatterBot allows it\nto be trained to speak any language.\n\n[![Package Version](https://img.shields.io/pypi/v/chatterbot.svg)](https://pypi.python.org/pypi/chatterbot/)\n[![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)\n[![Django 2.0](https://img.shields.io/badge/Django-2.0-blue.svg)](https://docs.djangoproject.com/en/2.1/releases/2.0/)\n[![Documentation Status](https://readthedocs.org/projects/chatterbot/badge/?version=stable)](http://chatterbot.readthedocs.io/en/stable/?badge=stable)\n[![Coverage Status](https://img.shields.io/coveralls/gunthercox/ChatterBot.svg)](https://coveralls.io/r/gunthercox/ChatterBot)\n[![Code Climate](https://codeclimate.com/github/gunthercox/ChatterBot/badges/gpa.svg)](https://codeclimate.com/github/gunthercox/ChatterBot)\n[![Join the chat at https://gitter.im/chatterbot/Lobby](https://badges.gitter.im/chatterbot/Lobby.svg)](https://gitter.im/chatterbot/Lobby?utm_source=badge&utm_medium=badge&utm_content=badge)\n\nAn example of typical input would be something like this:\n\n> **user:** Good morning! How are you doing?  \n> **bot:**  I am doing very well, thank you for asking.  \n> **user:** You're welcome.  \n> **bot:** Do you like hats?  \n\n## How it works\n\nAn untrained instance of ChatterBot starts off with no knowledge of how to communicate. Each time a user enters a statement, the library saves the text that they entered and the text that the statement was in response to. As ChatterBot receives more input the number of responses that it can reply and the accuracy of each response in relation to the input statement increase. The program selects the closest matching response by searching for the closest matching known statement that matches the input, it then returns the most likely response to that statement based on how frequently each response is issued by the people the bot communicates with.\n\n## Installation\n\nThis package can be installed from [PyPi](https://pypi.python.org/pypi/ChatterBot) by running:\n\n```sh\npip install chatterbot\n```\n\n## Basic Usage\n\n```py\nfrom chatterbot import ChatBot\nfrom chatterbot.trainers import ChatterBotCorpusTrainer\n\nchatbot = ChatBot('Ron Obvious')\n\n# Create a new trainer for the chatbot\ntrainer = ChatterBotCorpusTrainer(chatbot)\n\n# Train the chatbot based on the english corpus\ntrainer.train(\"chatterbot.corpus.english\")\n\n# Get a response to an input statement\nchatbot.get_response(\"Hello, how are you today?\")\n```\n\n# Training data\n\nChatterBot comes with a data utility module that can be used to train chat bots.\nAt the moment there is training data for over a dozen languages in this module.\nContributions of additional training data or training data\nin other languages would be greatly appreciated. Take a look at the data files\nin the [chatterbot-corpus](https://github.com/gunthercox/chatterbot-corpus)\npackage if you are interested in contributing.\n\n```py\nfrom chatterbot.trainers import ChatterBotCorpusTrainer\n\n# Create a new trainer for the chatbot\ntrainer = ChatterBotCorpusTrainer(chatbot)\n\n# Train based on the english corpus\ntrainer.train(\"chatterbot.corpus.english\")\n\n# Train based on english greetings corpus\ntrainer.train(\"chatterbot.corpus.english.greetings\")\n\n# Train based on the english conversations corpus\ntrainer.train(\"chatterbot.corpus.english.conversations\")\n```\n\n**Corpus contributions are welcome! Please make a pull request.**\n\n# [Documentation](https://chatterbot.readthedocs.io/)\n\nView the [documentation](https://chatterbot.readthedocs.io/)\nfor ChatterBot on Read the Docs.\n\nTo build the documentation yourself using [Sphinx](http://www.sphinx-doc.org/), run:\n\n```sh\nsphinx-build -b html docs/ build/\n```\n\n# Examples\n\nFor examples, see the [examples](https://github.com/gunthercox/ChatterBot/tree/master/examples)\ndirectory in this project's git repository.\n\nThere is also an example [Django project using ChatterBot](https://github.com/gunthercox/ChatterBot/tree/master/examples), as well as an example [Flask project using ChatterBot](https://github.com/chamkank/flask-chatterbot).\n\n# History\n\nSee release notes for changes https://github.com/gunthercox/ChatterBot/releases\n\n# Development pattern for contributors\n\n1. [Create a fork](https://help.github.com/articles/fork-a-repo/) of\n   the [main ChatterBot repository](https://github.com/gunthercox/ChatterBot) on GitHub.\n2. Make your changes in a branch named something different from `master`, e.g. create\n   a new branch `my-pull-request`.\n3. [Create a pull request](https://help.github.com/articles/creating-a-pull-request/).\n4. Please follow the [Python style guide for PEP-8](https://www.python.org/dev/peps/pep-0008/).\n5. Use the projects [built-in automated testing](https://chatterbot.readthedocs.io/en/latest/testing.html).\n   to help make sure that your contribution is free from errors.\n\n# License\n\nChatterBot is licensed under the [BSD 3-clause license](https://opensource.org/licenses/BSD-3-Clause).\n",
+        "releases": [
+            {
+                "name": "1.0.8",
+                "date": "2020-08-22T18:42:43Z"
+            },
+            {
+                "name": "1.0.7",
+                "date": "2020-08-20T10:30:54Z"
+            },
+            {
+                "name": "1.1 Alpha 7",
+                "date": "2020-05-01T20:57:45Z"
+            },
+            {
+                "name": "1.1 Alpha 6",
+                "date": "2020-05-01T20:52:19Z"
+            },
+            {
+                "name": "1.1 Alpha 5",
+                "date": "2020-05-01T20:42:53Z"
+            },
+            {
+                "name": "1.1 Alpha 4",
+                "date": "2019-05-18T00:29:43Z"
+            },
+            {
+                "name": "1.1 Alpha 3",
+                "date": "2019-05-17T23:44:57Z"
+            },
+            {
+                "name": "1.0.6",
+                "date": "2020-05-01T20:41:33Z"
+            },
+            {
+                "name": "1.1 Alpha 2",
+                "date": "2019-04-10T14:18:03Z"
+            },
+            {
+                "name": "1.1 Alpha 1",
+                "date": "2019-04-07T20:40:18Z"
+            },
+            {
+                "name": "1.0.5",
+                "date": "2019-03-24T14:49:00Z"
+            },
+            {
+                "name": "1.0.4",
+                "date": "2019-02-24T17:34:43Z"
+            },
+            {
+                "name": "1.0.3",
+                "date": "2019-02-23T15:20:25Z"
+            },
+            {
+                "name": "1.0.2",
+                "date": "2019-02-01T00:15:56Z"
+            },
+            {
+                "name": "1.0.1",
+                "date": "2019-01-25T15:09:41Z"
+            },
+            {
+                "name": "1.0.0",
+                "date": "2019-01-15T11:28:11Z"
+            },
+            {
+                "name": "1.0 Alpha 4",
+                "date": "2019-01-15T11:19:23Z"
+            },
+            {
+                "name": "1.0 Alpha 3",
+                "date": "2018-12-15T18:07:44Z"
+            },
+            {
+                "name": "1.0 Alpha 2",
+                "date": "2018-10-03T11:13:01Z"
+            },
+            {
+                "name": "1.0 Alpha 1",
+                "date": "2018-09-22T12:23:28Z"
+            },
+            {
+                "name": "0.8.7",
+                "date": "2018-05-12T13:47:57Z"
+            },
+            {
+                "name": "0.8.6",
+                "date": "2018-05-08T22:04:41Z"
+            },
+            {
+                "name": "0.8.5",
+                "date": "2018-05-04T23:14:58Z"
+            },
+            {
+                "name": "0.8.4",
+                "date": "2018-01-27T21:16:10Z"
+            },
+            {
+                "name": "0.8.3",
+                "date": "2018-01-26T12:22:47Z"
+            },
+            {
+                "name": "0.8.2",
+                "date": "2018-01-21T13:50:36Z"
+            },
+            {
+                "name": "0.8.1",
+                "date": "2017-12-04T12:32:41Z"
+            },
+            {
+                "name": "0.8.0",
+                "date": "2017-12-02T15:14:34Z"
+            },
+            {
+                "name": "0.7.6",
+                "date": "2017-08-08T01:42:46Z"
+            },
+            {
+                "name": "0.7.5",
+                "date": "2017-07-29T15:44:02Z"
+            },
+            {
+                "name": "0.7.4",
+                "date": "2017-07-29T14:13:07Z"
+            },
+            {
+                "name": "0.7.3",
+                "date": "2017-07-19T23:38:34Z"
+            },
+            {
+                "name": "0.7.2",
+                "date": "2017-07-18T11:10:39Z"
+            },
+            {
+                "name": "0.7.1",
+                "date": "2017-07-16T20:39:33Z"
+            },
+            {
+                "name": "0.7.0",
+                "date": "2017-07-04T13:57:13Z"
+            },
+            {
+                "name": "0.6.3",
+                "date": "2017-06-24T18:50:33Z"
+            },
+            {
+                "name": "0.6.2",
+                "date": "2017-06-10T11:45:02Z"
+            },
+            {
+                "name": "0.6.1",
+                "date": "2017-06-01T23:36:21Z"
+            },
+            {
+                "name": "0.6.0",
+                "date": "2017-03-21T19:31:01Z"
+            },
+            {
+                "name": "0.5.5",
+                "date": "2017-01-15T20:14:44Z"
+            },
+            {
+                "name": "0.5.4",
+                "date": "2016-12-29T23:11:47Z"
+            },
+            {
+                "name": "0.5.3",
+                "date": "2016-12-17T11:57:36Z"
+            },
+            {
+                "name": "0.5.2",
+                "date": "2016-12-10T21:15:55Z"
+            },
+            {
+                "name": "0.5.1",
+                "date": "2016-12-03T15:28:11Z"
+            },
+            {
+                "name": "0.5.0",
+                "date": "2016-11-30T19:51:22Z"
+            },
+            {
+                "name": "0.4.14",
+                "date": "2016-11-26T16:04:32Z"
+            },
+            {
+                "name": "0.4.13",
+                "date": "2016-11-19T13:40:14Z"
+            },
+            {
+                "name": "0.4.12",
+                "date": "2016-11-09T02:28:19Z"
+            },
+            {
+                "name": "0.4.11",
+                "date": "2016-10-26T19:48:47Z"
+            },
+            {
+                "name": "0.4.10",
+                "date": "2016-09-19T11:58:59Z"
+            },
+            {
+                "name": "0.4.9",
+                "date": "2016-09-09T00:49:51Z"
+            },
+            {
+                "name": "0.4.8",
+                "date": "2016-09-04T00:45:01Z"
+            },
+            {
+                "name": "0.4.7",
+                "date": "2016-09-02T14:30:39Z"
+            },
+            {
+                "name": "0.4.6",
+                "date": "2016-08-16T20:58:27Z"
+            },
+            {
+                "name": "0.4.5",
+                "date": "2016-07-23T12:35:28Z"
+            },
+            {
+                "name": "0.4.4",
+                "date": "2016-07-09T13:10:11Z"
+            },
+            {
+                "name": "0.4.3",
+                "date": "2016-06-17T00:16:58Z"
+            },
+            {
+                "name": "0.4.2",
+                "date": "2016-06-05T11:38:02Z"
+            },
+            {
+                "name": "0.4.1",
+                "date": "2016-05-24T12:12:06Z"
+            },
+            {
+                "name": "0.4.0",
+                "date": "2016-05-14T10:05:03Z"
+            },
+            {
+                "name": "0.3.7",
+                "date": "2016-05-10T12:29:09Z"
+            },
+            {
+                "name": "0.3.6",
+                "date": "2016-04-01T09:12:02Z"
+            },
+            {
+                "name": "0.3.5",
+                "date": "2016-01-30T17:34:42Z"
+            },
+            {
+                "name": "0.3.4",
+                "date": "2016-01-17T13:01:06Z"
+            },
+            {
+                "name": "0.3.3",
+                "date": "2016-01-04T11:30:03Z"
+            },
+            {
+                "name": "0.3.2",
+                "date": "2015-12-13T21:47:47Z"
+            },
+            {
+                "name": "0.3.1",
+                "date": "2015-12-13T21:39:25Z"
+            },
+            {
+                "name": "0.3.0",
+                "date": "2015-11-28T16:16:22Z"
+            },
+            {
+                "name": "0.2.9",
+                "date": "2015-10-31T21:06:39Z"
+            },
+            {
+                "name": "0.2.8",
+                "date": "2015-10-28T00:52:49Z"
+            },
+            {
+                "name": "0.2.7",
+                "date": "2015-10-17T19:53:01Z"
+            },
+            {
+                "name": "0.2.6",
+                "date": "2015-10-10T17:36:18Z"
+            },
+            {
+                "name": "0.2.5",
+                "date": "2015-09-16T23:31:41Z"
+            },
+            {
+                "name": "0.2.4",
+                "date": "2015-09-07T16:35:30Z"
+            },
+            {
+                "name": "0.2.3",
+                "date": "2015-09-07T16:17:42Z"
+            },
+            {
+                "name": "0.2.2",
+                "date": "2015-07-25T11:01:05Z"
+            },
+            {
+                "name": "0.2.1",
+                "date": "2015-07-15T12:11:25Z"
+            },
+            {
+                "name": "0.2.0",
+                "date": "2015-05-24T19:44:21Z"
+            },
+            {
+                "name": "0.1.1",
+                "date": "2015-02-14T15:46:33Z"
+            },
+            {
+                "name": "0.1.0",
+                "date": "2015-02-03T11:56:38Z"
+            },
+            {
+                "name": "0.0.5",
+                "date": "2015-02-01T01:43:40Z"
+            },
+            {
+                "name": "0.0.4",
+                "date": "2015-01-24T21:26:32Z"
+            },
+            {
+                "name": "0.0.3",
+                "date": "2015-05-22T22:28:58Z"
+            },
+            {
+                "name": "0.0.2",
+                "date": "2014-10-16T00:22:01Z"
+            },
+            {
+                "name": "0.0.1",
+                "date": "2014-10-14T22:59:09Z"
+            },
+            {
+                "name": "0.0.0",
+                "date": "2014-10-12T00:01:19Z"
+            }
+        ]
+    }
+}

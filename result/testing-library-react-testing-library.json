@@ -1,0 +1,870 @@
+{
+    "https://api.github.com/repos/testing-library/react-testing-library": {
+        "forks": 1115,
+        "watchers": 19122,
+        "stars": 19122,
+        "languages": {
+            "JavaScript": 80175,
+            "TypeScript": 8903
+        },
+        "commits": [
+            "2025-01-15T23:51:40Z",
+            "2025-01-15T23:16:35Z",
+            "2025-01-15T23:11:07Z",
+            "2025-01-15T23:09:31Z",
+            "2024-12-05T19:59:45Z",
+            "2024-08-29T09:28:03Z",
+            "2024-08-28T15:43:24Z",
+            "2024-06-03T13:52:18Z",
+            "2024-05-07T11:07:04Z",
+            "2024-05-01T18:29:24Z",
+            "2024-04-26T11:01:06Z",
+            "2024-04-26T10:50:09Z",
+            "2024-04-23T15:32:08Z",
+            "2024-04-23T10:21:18Z",
+            "2024-04-13T09:21:10Z",
+            "2024-04-11T17:03:17Z",
+            "2024-04-10T15:18:28Z",
+            "2024-04-08T14:07:24Z",
+            "2024-03-21T09:24:52Z",
+            "2024-03-19T23:08:40Z",
+            "2024-03-19T22:54:12Z",
+            "2024-03-19T22:24:53Z",
+            "2024-02-01T19:49:43Z",
+            "2024-02-01T19:49:10Z",
+            "2024-01-30T21:21:05Z",
+            "2024-01-30T21:20:01Z",
+            "2023-12-08T16:32:16Z",
+            "2023-11-17T15:46:40Z",
+            "2023-11-17T14:46:53Z",
+            "2023-11-08T06:51:17Z"
+        ],
+        "creation_date": "2018-03-19T13:39:49Z",
+        "contributors": 30,
+        "topics": [
+            "javascript",
+            "reactjs",
+            "testing"
+        ],
+        "subscribers": 139,
+        "readme": "<div align=\"center\">\n<h1>React Testing Library</h1>\n\n<a href=\"https://www.emojione.com/emoji/1f410\">\n  <img\n    height=\"80\"\n    width=\"80\"\n    alt=\"goat\"\n    src=\"https://raw.githubusercontent.com/testing-library/react-testing-library/main/other/goat.png\"\n  />\n</a>\n\n<p>Simple and complete React DOM testing utilities that encourage good testing\npractices.</p>\n\n<br />\n\n[**Read The Docs**](https://testing-library.com/react) |\n[Edit the docs](https://github.com/testing-library/testing-library-docs)\n\n<br />\n</div>\n\n<hr />\n\n<!-- prettier-ignore-start -->\n[![Build Status][build-badge]][build]\n[![Code Coverage][coverage-badge]][coverage]\n[![version][version-badge]][package]\n[![downloads][downloads-badge]][npmtrends]\n[![MIT License][license-badge]][license]\n[![All Contributors][all-contributors-badge]](#contributors)\n[![PRs Welcome][prs-badge]][prs]\n[![Code of Conduct][coc-badge]][coc]\n[![Discord][discord-badge]][discord]\n\n[![Watch on GitHub][github-watch-badge]][github-watch]\n[![Star on GitHub][github-star-badge]][github-star]\n[![Tweet][twitter-badge]][twitter]\n<!-- prettier-ignore-end -->\n\n<div align=\"center\">\n  <a href=\"https://testingjavascript.com\">\n    <img\n      width=\"500\"\n      alt=\"TestingJavaScript.com Learn the smart, efficient way to test any JavaScript application.\"\n      src=\"https://raw.githubusercontent.com/testing-library/react-testing-library/main/other/testingjavascript.jpg\"\n    />\n  </a>\n</div>\n\n## Table of Contents\n\n<!-- START doctoc generated TOC please keep comment here to allow auto update -->\n<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->\n\n- [The problem](#the-problem)\n- [The solution](#the-solution)\n- [Installation](#installation)\n  - [Suppressing unnecessary warnings on React DOM 16.8](#suppressing-unnecessary-warnings-on-react-dom-168)\n- [Examples](#examples)\n  - [Basic Example](#basic-example)\n  - [Complex Example](#complex-example)\n  - [More Examples](#more-examples)\n- [Hooks](#hooks)\n- [Guiding Principles](#guiding-principles)\n- [Docs](#docs)\n- [Issues](#issues)\n  - [\ud83d\udc1b Bugs](#-bugs)\n  - [\ud83d\udca1 Feature Requests](#-feature-requests)\n  - [\u2753 Questions](#-questions)\n- [Contributors](#contributors)\n- [LICENSE](#license)\n\n<!-- END doctoc generated TOC please keep comment here to allow auto update -->\n\n## The problem\n\nYou want to write maintainable tests for your React components. As a part of\nthis goal, you want your tests to avoid including implementation details of your\ncomponents and rather focus on making your tests give you the confidence for\nwhich they are intended. As part of this, you want your testbase to be\nmaintainable in the long run so refactors of your components (changes to\nimplementation but not functionality) don't break your tests and slow you and\nyour team down.\n\n## The solution\n\nThe `React Testing Library` is a very lightweight solution for testing React\ncomponents. It provides light utility functions on top of `react-dom` and\n`react-dom/test-utils`, in a way that encourages better testing practices. Its\nprimary guiding principle is:\n\n> [The more your tests resemble the way your software is used, the more\n> confidence they can give you.][guiding-principle]\n\n## Installation\n\nThis module is distributed via [npm][npm] which is bundled with [node][node] and\nshould be installed as one of your project's `devDependencies`.  \nStarting from RTL version 16, you'll also need to install\n`@testing-library/dom`:\n\n```\nnpm install --save-dev @testing-library/react @testing-library/dom\n```\n\nor\n\nfor installation via [yarn][yarn]\n\n```\nyarn add --dev @testing-library/react @testing-library/dom\n```\n\nThis library has `peerDependencies` listings for `react`, `react-dom` and\nstarting from RTL version 16 also `@testing-library/dom`.\n\n_React Testing Library versions 13+ require React v18. If your project uses an\nolder version of React, be sure to install version 12:_\n\n```\nnpm install --save-dev @testing-library/react@12\n\n\nyarn add --dev @testing-library/react@12\n```\n\nYou may also be interested in installing `@testing-library/jest-dom` so you can\nuse [the custom jest matchers](https://github.com/testing-library/jest-dom).\n\n> [**Docs**](https://testing-library.com/react)\n\n### Suppressing unnecessary warnings on React DOM 16.8\n\nThere is a known compatibility issue with React DOM 16.8 where you will see the\nfollowing warning:\n\n```\nWarning: An update to ComponentName inside a test was not wrapped in act(...).\n```\n\nIf you cannot upgrade to React DOM 16.9, you may suppress the warnings by adding\nthe following snippet to your test configuration\n([learn more](https://github.com/testing-library/react-testing-library/issues/281)):\n\n```js\n// this is just a little hack to silence a warning that we'll get until we\n// upgrade to 16.9. See also: https://github.com/facebook/react/pull/14853\nconst originalError = console.error\nbeforeAll(() => {\n  console.error = (...args) => {\n    if (/Warning.*not wrapped in act/.test(args[0])) {\n      return\n    }\n    originalError.call(console, ...args)\n  }\n})\n\nafterAll(() => {\n  console.error = originalError\n})\n```\n\n## Examples\n\n### Basic Example\n\n```jsx\n// hidden-message.js\nimport * as React from 'react'\n\n// NOTE: React Testing Library works well with React Hooks and classes.\n// Your tests will be the same regardless of how you write your components.\nfunction HiddenMessage({children}) {\n  const [showMessage, setShowMessage] = React.useState(false)\n  return (\n    <div>\n      <label htmlFor=\"toggle\">Show Message</label>\n      <input\n        id=\"toggle\"\n        type=\"checkbox\"\n        onChange={e => setShowMessage(e.target.checked)}\n        checked={showMessage}\n      />\n      {showMessage ? children : null}\n    </div>\n  )\n}\n\nexport default HiddenMessage\n```\n\n```jsx\n// __tests__/hidden-message.js\n// these imports are something you'd normally configure Jest to import for you\n// automatically. Learn more in the setup docs: https://testing-library.com/docs/react-testing-library/setup#cleanup\nimport '@testing-library/jest-dom'\n// NOTE: jest-dom adds handy assertions to Jest and is recommended, but not required\n\nimport * as React from 'react'\nimport {render, fireEvent, screen} from '@testing-library/react'\nimport HiddenMessage from '../hidden-message'\n\ntest('shows the children when the checkbox is checked', () => {\n  const testMessage = 'Test Message'\n  render(<HiddenMessage>{testMessage}</HiddenMessage>)\n\n  // query* functions will return the element or null if it cannot be found\n  // get* functions will return the element or throw an error if it cannot be found\n  expect(screen.queryByText(testMessage)).toBeNull()\n\n  // the queries can accept a regex to make your selectors more resilient to content tweaks and changes.\n  fireEvent.click(screen.getByLabelText(/show/i))\n\n  // .toBeInTheDocument() is an assertion that comes from jest-dom\n  // otherwise you could use .toBeDefined()\n  expect(screen.getByText(testMessage)).toBeInTheDocument()\n})\n```\n\n### Complex Example\n\n```jsx\n// login.js\nimport * as React from 'react'\n\nfunction Login() {\n  const [state, setState] = React.useReducer((s, a) => ({...s, ...a}), {\n    resolved: false,\n    loading: false,\n    error: null,\n  })\n\n  function handleSubmit(event) {\n    event.preventDefault()\n    const {usernameInput, passwordInput} = event.target.elements\n\n    setState({loading: true, resolved: false, error: null})\n\n    window\n      .fetch('/api/login', {\n        method: 'POST',\n        headers: {'Content-Type': 'application/json'},\n        body: JSON.stringify({\n          username: usernameInput.value,\n          password: passwordInput.value,\n        }),\n      })\n      .then(r => r.json().then(data => (r.ok ? data : Promise.reject(data))))\n      .then(\n        user => {\n          setState({loading: false, resolved: true, error: null})\n          window.localStorage.setItem('token', user.token)\n        },\n        error => {\n          setState({loading: false, resolved: false, error: error.message})\n        },\n      )\n  }\n\n  return (\n    <div>\n      <form onSubmit={handleSubmit}>\n        <div>\n          <label htmlFor=\"usernameInput\">Username</label>\n          <input id=\"usernameInput\" />\n        </div>\n        <div>\n          <label htmlFor=\"passwordInput\">Password</label>\n          <input id=\"passwordInput\" type=\"password\" />\n        </div>\n        <button type=\"submit\">Submit{state.loading ? '...' : null}</button>\n      </form>\n      {state.error ? <div role=\"alert\">{state.error}</div> : null}\n      {state.resolved ? (\n        <div role=\"alert\">Congrats! You're signed in!</div>\n      ) : null}\n    </div>\n  )\n}\n\nexport default Login\n```\n\n```jsx\n// __tests__/login.js\n// again, these first two imports are something you'd normally handle in\n// your testing framework configuration rather than importing them in every file.\nimport '@testing-library/jest-dom'\nimport * as React from 'react'\n// import API mocking utilities from Mock Service Worker.\nimport {rest} from 'msw'\nimport {setupServer} from 'msw/node'\n// import testing utilities\nimport {render, fireEvent, screen} from '@testing-library/react'\nimport Login from '../login'\n\nconst fakeUserResponse = {token: 'fake_user_token'}\nconst server = setupServer(\n  rest.post('/api/login', (req, res, ctx) => {\n    return res(ctx.json(fakeUserResponse))\n  }),\n)\n\nbeforeAll(() => server.listen())\nafterEach(() => {\n  server.resetHandlers()\n  window.localStorage.removeItem('token')\n})\nafterAll(() => server.close())\n\ntest('allows the user to login successfully', async () => {\n  render(<Login />)\n\n  // fill out the form\n  fireEvent.change(screen.getByLabelText(/username/i), {\n    target: {value: 'chuck'},\n  })\n  fireEvent.change(screen.getByLabelText(/password/i), {\n    target: {value: 'norris'},\n  })\n\n  fireEvent.click(screen.getByText(/submit/i))\n\n  // just like a manual tester, we'll instruct our test to wait for the alert\n  // to show up before continuing with our assertions.\n  const alert = await screen.findByRole('alert')\n\n  // .toHaveTextContent() comes from jest-dom's assertions\n  // otherwise you could use expect(alert.textContent).toMatch(/congrats/i)\n  // but jest-dom will give you better error messages which is why it's recommended\n  expect(alert).toHaveTextContent(/congrats/i)\n  expect(window.localStorage.getItem('token')).toEqual(fakeUserResponse.token)\n})\n\ntest('handles server exceptions', async () => {\n  // mock the server error response for this test suite only.\n  server.use(\n    rest.post('/api/login', (req, res, ctx) => {\n      return res(ctx.status(500), ctx.json({message: 'Internal server error'}))\n    }),\n  )\n\n  render(<Login />)\n\n  // fill out the form\n  fireEvent.change(screen.getByLabelText(/username/i), {\n    target: {value: 'chuck'},\n  })\n  fireEvent.change(screen.getByLabelText(/password/i), {\n    target: {value: 'norris'},\n  })\n\n  fireEvent.click(screen.getByText(/submit/i))\n\n  // wait for the error message\n  const alert = await screen.findByRole('alert')\n\n  expect(alert).toHaveTextContent(/internal server error/i)\n  expect(window.localStorage.getItem('token')).toBeNull()\n})\n```\n\n> We recommend using [Mock Service Worker](https://github.com/mswjs/msw) library\n> to declaratively mock API communication in your tests instead of stubbing\n> `window.fetch`, or relying on third-party adapters.\n\n### More Examples\n\n> We're in the process of moving examples to the\n> [docs site](https://testing-library.com/docs/example-codesandbox)\n\nYou'll find runnable examples of testing with different libraries in\n[the `react-testing-library-examples` codesandbox](https://codesandbox.io/s/github/kentcdodds/react-testing-library-examples).\nSome included are:\n\n- [`react-redux`](https://codesandbox.io/s/github/kentcdodds/react-testing-library-examples/tree/main/?fontsize=14&module=%2Fsrc%2F__tests__%2Freact-redux.js&previewwindow=tests)\n- [`react-router`](https://codesandbox.io/s/github/kentcdodds/react-testing-library-examples/tree/main/?fontsize=14&module=%2Fsrc%2F__tests__%2Freact-router.js&previewwindow=tests)\n- [`react-context`](https://codesandbox.io/s/github/kentcdodds/react-testing-library-examples/tree/main/?fontsize=14&module=%2Fsrc%2F__tests__%2Freact-context.js&previewwindow=tests)\n\n## Hooks\n\nIf you are interested in testing a custom hook, check out [React Hooks Testing\nLibrary][react-hooks-testing-library].\n\n> NOTE: it is not recommended to test single-use custom hooks in isolation from\n> the components where it's being used. It's better to test the component that's\n> using the hook rather than the hook itself. The `React Hooks Testing Library`\n> is intended to be used for reusable hooks/libraries.\n\n## Guiding Principles\n\n> [The more your tests resemble the way your software is used, the more\n> confidence they can give you.][guiding-principle]\n\nWe try to only expose methods and utilities that encourage you to write tests\nthat closely resemble how your React components are used.\n\nUtilities are included in this project based on the following guiding\nprinciples:\n\n1.  If it relates to rendering components, it deals with DOM nodes rather than\n    component instances, nor should it encourage dealing with component\n    instances.\n2.  It should be generally useful for testing individual React components or\n    full React applications. While this library is focused on `react-dom`,\n    utilities could be included even if they don't directly relate to\n    `react-dom`.\n3.  Utility implementations and APIs should be simple and flexible.\n\nMost importantly, we want React Testing Library to be pretty light-weight,\nsimple, and easy to understand.\n\n## Docs\n\n[**Read The Docs**](https://testing-library.com/react) |\n[Edit the docs](https://github.com/testing-library/testing-library-docs)\n\n## Issues\n\nLooking to contribute? Look for the [Good First Issue][good-first-issue] label.\n\n### \ud83d\udc1b Bugs\n\nPlease file an issue for bugs, missing documentation, or unexpected behavior.\n\n[**See Bugs**][bugs]\n\n### \ud83d\udca1 Feature Requests\n\nPlease file an issue to suggest new features. Vote on feature requests by adding\na \ud83d\udc4d. This helps maintainers prioritize what to work on.\n\n[**See Feature Requests**][requests]\n\n### \u2753 Questions\n\nFor questions related to using the library, please visit a support community\ninstead of filing an issue on GitHub.\n\n- [Discord][discord]\n- [Stack Overflow][stackoverflow]\n\n## Contributors\n\nThanks goes to these people ([emoji key][emojis]):\n\n<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->\n<!-- prettier-ignore-start -->\n<!-- markdownlint-disable -->\n<table>\n  <tbody>\n    <tr>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://kentcdodds.com\"><img src=\"https://avatars.githubusercontent.com/u/1500684?v=3?s=100\" width=\"100px;\" alt=\"Kent C. Dodds\"/><br /><sub><b>Kent C. Dodds</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=kentcdodds\" title=\"Code\">\ud83d\udcbb</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=kentcdodds\" title=\"Documentation\">\ud83d\udcd6</a> <a href=\"#infra-kentcdodds\" title=\"Infrastructure (Hosting, Build-Tools, etc)\">\ud83d\ude87</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=kentcdodds\" title=\"Tests\">\u26a0\ufe0f</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://audiolion.github.io\"><img src=\"https://avatars1.githubusercontent.com/u/2430381?v=4?s=100\" width=\"100px;\" alt=\"Ryan Castner\"/><br /><sub><b>Ryan Castner</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=audiolion\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://www.dnlsandiego.com\"><img src=\"https://avatars0.githubusercontent.com/u/8008023?v=4?s=100\" width=\"100px;\" alt=\"Daniel Sandiego\"/><br /><sub><b>Daniel Sandiego</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=dnlsandiego\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/Miklet\"><img src=\"https://avatars2.githubusercontent.com/u/12592677?v=4?s=100\" width=\"100px;\" alt=\"Pawe\u0142 Miko\u0142ajczyk\"/><br /><sub><b>Pawe\u0142 Miko\u0142ajczyk</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=Miklet\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://co.linkedin.com/in/alejandronanez/\"><img src=\"https://avatars3.githubusercontent.com/u/464978?v=4?s=100\" width=\"100px;\" alt=\"Alejandro \u00d1\u00e1\u00f1ez Ortiz\"/><br /><sub><b>Alejandro \u00d1\u00e1\u00f1ez Ortiz</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=alejandronanez\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/pbomb\"><img src=\"https://avatars0.githubusercontent.com/u/1402095?v=4?s=100\" width=\"100px;\" alt=\"Matt Parrish\"/><br /><sub><b>Matt Parrish</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/issues?q=author%3Apbomb\" title=\"Bug reports\">\ud83d\udc1b</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=pbomb\" title=\"Code\">\ud83d\udcbb</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=pbomb\" title=\"Documentation\">\ud83d\udcd6</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=pbomb\" title=\"Tests\">\u26a0\ufe0f</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/wKovacs64\"><img src=\"https://avatars1.githubusercontent.com/u/1288694?v=4?s=100\" width=\"100px;\" alt=\"Justin Hall\"/><br /><sub><b>Justin Hall</b></sub></a><br /><a href=\"#platform-wKovacs64\" title=\"Packaging/porting to new platform\">\ud83d\udce6</a></td>\n    </tr>\n    <tr>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/antoaravinth\"><img src=\"https://avatars1.githubusercontent.com/u/1241511?s=460&v=4?s=100\" width=\"100px;\" alt=\"Anto Aravinth\"/><br /><sub><b>Anto Aravinth</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=antoaravinth\" title=\"Code\">\ud83d\udcbb</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=antoaravinth\" title=\"Tests\">\u26a0\ufe0f</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=antoaravinth\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/JonahMoses\"><img src=\"https://avatars2.githubusercontent.com/u/3462296?v=4?s=100\" width=\"100px;\" alt=\"Jonah Moses\"/><br /><sub><b>Jonah Moses</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=JonahMoses\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://team.thebrain.pro\"><img src=\"https://avatars1.githubusercontent.com/u/4002543?v=4?s=100\" width=\"100px;\" alt=\"\u0141ukasz Gandecki\"/><br /><sub><b>\u0141ukasz Gandecki</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=lgandecki\" title=\"Code\">\ud83d\udcbb</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=lgandecki\" title=\"Tests\">\u26a0\ufe0f</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=lgandecki\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://sompylasar.github.io\"><img src=\"https://avatars2.githubusercontent.com/u/498274?v=4?s=100\" width=\"100px;\" alt=\"Ivan Babak\"/><br /><sub><b>Ivan Babak</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/issues?q=author%3Asompylasar\" title=\"Bug reports\">\ud83d\udc1b</a> <a href=\"#ideas-sompylasar\" title=\"Ideas, Planning, & Feedback\">\ud83e\udd14</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/jday3\"><img src=\"https://avatars3.githubusercontent.com/u/4439618?v=4?s=100\" width=\"100px;\" alt=\"Jesse Day\"/><br /><sub><b>Jesse Day</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=jday3\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://gnapse.github.io\"><img src=\"https://avatars0.githubusercontent.com/u/15199?v=4?s=100\" width=\"100px;\" alt=\"Ernesto Garc\u00eda\"/><br /><sub><b>Ernesto Garc\u00eda</b></sub></a><br /><a href=\"#question-gnapse\" title=\"Answering Questions\">\ud83d\udcac</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=gnapse\" title=\"Code\">\ud83d\udcbb</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=gnapse\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://jomaxx.com\"><img src=\"https://avatars2.githubusercontent.com/u/2747424?v=4?s=100\" width=\"100px;\" alt=\"Josef Maxx Blake\"/><br /><sub><b>Josef Maxx Blake</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=jomaxx\" title=\"Code\">\ud83d\udcbb</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=jomaxx\" title=\"Documentation\">\ud83d\udcd6</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=jomaxx\" title=\"Tests\">\u26a0\ufe0f</a></td>\n    </tr>\n    <tr>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://twitter.com/baranovskim\"><img src=\"https://avatars1.githubusercontent.com/u/29602306?v=4?s=100\" width=\"100px;\" alt=\"Michal Baranowski\"/><br /><sub><b>Michal Baranowski</b></sub></a><br /><a href=\"#blog-mbaranovski\" title=\"Blogposts\">\ud83d\udcdd</a> <a href=\"#tutorial-mbaranovski\" title=\"Tutorials\">\u2705</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/aputhin\"><img src=\"https://avatars3.githubusercontent.com/u/13985684?v=4?s=100\" width=\"100px;\" alt=\"Arthur Puthin\"/><br /><sub><b>Arthur Puthin</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=aputhin\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/thchia\"><img src=\"https://avatars2.githubusercontent.com/u/21194045?v=4?s=100\" width=\"100px;\" alt=\"Thomas Chia\"/><br /><sub><b>Thomas Chia</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=thchia\" title=\"Code\">\ud83d\udcbb</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=thchia\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://ilegra.com/\"><img src=\"https://avatars3.githubusercontent.com/u/20430611?v=4?s=100\" width=\"100px;\" alt=\"Thiago Galvani\"/><br /><sub><b>Thiago Galvani</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=thiagopaiva99\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://Chriswcs.github.io\"><img src=\"https://avatars1.githubusercontent.com/u/19828824?v=4?s=100\" width=\"100px;\" alt=\"Christian\"/><br /><sub><b>Christian</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=ChrisWcs\" title=\"Tests\">\u26a0\ufe0f</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://alexkrolick.com\"><img src=\"https://avatars3.githubusercontent.com/u/1571667?v=4?s=100\" width=\"100px;\" alt=\"Alex Krolick\"/><br /><sub><b>Alex Krolick</b></sub></a><br /><a href=\"#question-alexkrolick\" title=\"Answering Questions\">\ud83d\udcac</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=alexkrolick\" title=\"Documentation\">\ud83d\udcd6</a> <a href=\"#example-alexkrolick\" title=\"Examples\">\ud83d\udca1</a> <a href=\"#ideas-alexkrolick\" title=\"Ideas, Planning, & Feedback\">\ud83e\udd14</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/johann-sonntagbauer\"><img src=\"https://avatars3.githubusercontent.com/u/1239401?v=4?s=100\" width=\"100px;\" alt=\"Johann Hubert Sonntagbauer\"/><br /><sub><b>Johann Hubert Sonntagbauer</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=johann-sonntagbauer\" title=\"Code\">\ud83d\udcbb</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=johann-sonntagbauer\" title=\"Documentation\">\ud83d\udcd6</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=johann-sonntagbauer\" title=\"Tests\">\u26a0\ufe0f</a></td>\n    </tr>\n    <tr>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://www.maddijoyce.com\"><img src=\"https://avatars2.githubusercontent.com/u/2224291?v=4?s=100\" width=\"100px;\" alt=\"Maddi Joyce\"/><br /><sub><b>Maddi Joyce</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=maddijoyce\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://www.vicesoftware.com\"><img src=\"https://avatars2.githubusercontent.com/u/10080111?v=4?s=100\" width=\"100px;\" alt=\"Ryan Vice\"/><br /><sub><b>Ryan Vice</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=RyanAtViceSoftware\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://ianwilson.io\"><img src=\"https://avatars1.githubusercontent.com/u/7942604?v=4?s=100\" width=\"100px;\" alt=\"Ian Wilson\"/><br /><sub><b>Ian Wilson</b></sub></a><br /><a href=\"#blog-iwilsonq\" title=\"Blogposts\">\ud83d\udcdd</a> <a href=\"#tutorial-iwilsonq\" title=\"Tutorials\">\u2705</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/InExtremaRes\"><img src=\"https://avatars2.githubusercontent.com/u/1635491?v=4?s=100\" width=\"100px;\" alt=\"Daniel\"/><br /><sub><b>Daniel</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/issues?q=author%3AInExtremaRes\" title=\"Bug reports\">\ud83d\udc1b</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=InExtremaRes\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://twitter.com/Gpx\"><img src=\"https://avatars0.githubusercontent.com/u/767959?v=4?s=100\" width=\"100px;\" alt=\"Giorgio Polvara\"/><br /><sub><b>Giorgio Polvara</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/issues?q=author%3AGpx\" title=\"Bug reports\">\ud83d\udc1b</a> <a href=\"#ideas-Gpx\" title=\"Ideas, Planning, & Feedback\">\ud83e\udd14</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/jgoz\"><img src=\"https://avatars2.githubusercontent.com/u/132233?v=4?s=100\" width=\"100px;\" alt=\"John Gozde\"/><br /><sub><b>John Gozde</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=jgoz\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://twitter.com/SavePointSam\"><img src=\"https://avatars0.githubusercontent.com/u/8203211?v=4?s=100\" width=\"100px;\" alt=\"Sam Horton\"/><br /><sub><b>Sam Horton</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=SavePointSam\" title=\"Documentation\">\ud83d\udcd6</a> <a href=\"#example-SavePointSam\" title=\"Examples\">\ud83d\udca1</a> <a href=\"#ideas-SavePointSam\" title=\"Ideas, Planning, & Feedback\">\ud83e\udd14</a></td>\n    </tr>\n    <tr>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://www.richardkotze.com\"><img src=\"https://avatars2.githubusercontent.com/u/10452163?v=4?s=100\" width=\"100px;\" alt=\"Richard Kotze (mobile)\"/><br /><sub><b>Richard Kotze (mobile)</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=rkotze\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/sotobuild\"><img src=\"https://avatars2.githubusercontent.com/u/10819833?v=4?s=100\" width=\"100px;\" alt=\"Brahian E. Soto Mercedes\"/><br /><sub><b>Brahian E. Soto Mercedes</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=sotobuild\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/bdelaforest\"><img src=\"https://avatars2.githubusercontent.com/u/7151559?v=4?s=100\" width=\"100px;\" alt=\"Benoit de La Forest\"/><br /><sub><b>Benoit de La Forest</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=bdelaforest\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/thesalah\"><img src=\"https://avatars3.githubusercontent.com/u/6624197?v=4?s=100\" width=\"100px;\" alt=\"Salah\"/><br /><sub><b>Salah</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=thesalah\" title=\"Code\">\ud83d\udcbb</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=thesalah\" title=\"Tests\">\u26a0\ufe0f</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://gordonizer.com\"><img src=\"https://avatars2.githubusercontent.com/u/370054?v=4?s=100\" width=\"100px;\" alt=\"Adam Gordon\"/><br /><sub><b>Adam Gordon</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/issues?q=author%3Aicfantv\" title=\"Bug reports\">\ud83d\udc1b</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=icfantv\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://silvenon.com\"><img src=\"https://avatars2.githubusercontent.com/u/471278?v=4?s=100\" width=\"100px;\" alt=\"Matija Marohni\u0107\"/><br /><sub><b>Matija Marohni\u0107</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=silvenon\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/Dajust\"><img src=\"https://avatars3.githubusercontent.com/u/8015514?v=4?s=100\" width=\"100px;\" alt=\"Justice Mba\"/><br /><sub><b>Justice Mba</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=Dajust\" title=\"Documentation\">\ud83d\udcd6</a></td>\n    </tr>\n    <tr>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://markpollmann.com/\"><img src=\"https://avatars2.githubusercontent.com/u/5286559?v=4?s=100\" width=\"100px;\" alt=\"Mark Pollmann\"/><br /><sub><b>Mark Pollmann</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=MarkPollmann\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/ehteshamkafeel\"><img src=\"https://avatars1.githubusercontent.com/u/1213123?v=4?s=100\" width=\"100px;\" alt=\"Ehtesham Kafeel\"/><br /><sub><b>Ehtesham Kafeel</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=ehteshamkafeel\" title=\"Code\">\ud83d\udcbb</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=ehteshamkafeel\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://jpavon.com\"><img src=\"https://avatars2.githubusercontent.com/u/1493505?v=4?s=100\" width=\"100px;\" alt=\"Julio Pav\u00f3n\"/><br /><sub><b>Julio Pav\u00f3n</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=jpavon\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://www.duncanleung.com/\"><img src=\"https://avatars3.githubusercontent.com/u/1765048?v=4?s=100\" width=\"100px;\" alt=\"Duncan L\"/><br /><sub><b>Duncan L</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=duncanleung\" title=\"Documentation\">\ud83d\udcd6</a> <a href=\"#example-duncanleung\" title=\"Examples\">\ud83d\udca1</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://www.linkedin.com/in/tyagow/?locale=en_US\"><img src=\"https://avatars1.githubusercontent.com/u/700778?v=4?s=100\" width=\"100px;\" alt=\"Tiago Almeida\"/><br /><sub><b>Tiago Almeida</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=tyagow\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://rbrtsmith.com/\"><img src=\"https://avatars2.githubusercontent.com/u/4982001?v=4?s=100\" width=\"100px;\" alt=\"Robert Smith\"/><br /><sub><b>Robert Smith</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/issues?q=author%3Arbrtsmith\" title=\"Bug reports\">\ud83d\udc1b</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://offbyone.tech\"><img src=\"https://avatars0.githubusercontent.com/u/1700355?v=4?s=100\" width=\"100px;\" alt=\"Zach Green\"/><br /><sub><b>Zach Green</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=zgreen\" title=\"Documentation\">\ud83d\udcd6</a></td>\n    </tr>\n    <tr>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/dadamssg\"><img src=\"https://avatars3.githubusercontent.com/u/881986?v=4?s=100\" width=\"100px;\" alt=\"dadamssg\"/><br /><sub><b>dadamssg</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=dadamssg\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://www.yaabed.com/\"><img src=\"https://avatars0.githubusercontent.com/u/8734097?v=4?s=100\" width=\"100px;\" alt=\"Yazan Aabed\"/><br /><sub><b>Yazan Aabed</b></sub></a><br /><a href=\"#blog-YazanAabeed\" title=\"Blogposts\">\ud83d\udcdd</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/timbonicus\"><img src=\"https://avatars0.githubusercontent.com/u/556258?v=4?s=100\" width=\"100px;\" alt=\"Tim\"/><br /><sub><b>Tim</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/issues?q=author%3Atimbonicus\" title=\"Bug reports\">\ud83d\udc1b</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=timbonicus\" title=\"Code\">\ud83d\udcbb</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=timbonicus\" title=\"Documentation\">\ud83d\udcd6</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=timbonicus\" title=\"Tests\">\u26a0\ufe0f</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://divyanshu.xyz\"><img src=\"https://avatars3.githubusercontent.com/u/6682655?v=4?s=100\" width=\"100px;\" alt=\"Divyanshu Maithani\"/><br /><sub><b>Divyanshu Maithani</b></sub></a><br /><a href=\"#tutorial-divyanshu013\" title=\"Tutorials\">\u2705</a> <a href=\"#video-divyanshu013\" title=\"Videos\">\ud83d\udcf9</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://www.linkedin.com/in/metagrover\"><img src=\"https://avatars2.githubusercontent.com/u/9116042?v=4?s=100\" width=\"100px;\" alt=\"Deepak Grover\"/><br /><sub><b>Deepak Grover</b></sub></a><br /><a href=\"#tutorial-metagrover\" title=\"Tutorials\">\u2705</a> <a href=\"#video-metagrover\" title=\"Videos\">\ud83d\udcf9</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/eyalcohen4\"><img src=\"https://avatars0.githubusercontent.com/u/16276358?v=4?s=100\" width=\"100px;\" alt=\"Eyal Cohen\"/><br /><sub><b>Eyal Cohen</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=eyalcohen4\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/petermakowski\"><img src=\"https://avatars3.githubusercontent.com/u/7452681?v=4?s=100\" width=\"100px;\" alt=\"Peter Makowski\"/><br /><sub><b>Peter Makowski</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=petermakowski\" title=\"Documentation\">\ud83d\udcd6</a></td>\n    </tr>\n    <tr>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/Michielnuyts\"><img src=\"https://avatars2.githubusercontent.com/u/20361668?v=4?s=100\" width=\"100px;\" alt=\"Michiel Nuyts\"/><br /><sub><b>Michiel Nuyts</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=Michielnuyts\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/joeynimu\"><img src=\"https://avatars0.githubusercontent.com/u/1195863?v=4?s=100\" width=\"100px;\" alt=\"Joe Ng'ethe\"/><br /><sub><b>Joe Ng'ethe</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=joeynimu\" title=\"Code\">\ud83d\udcbb</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=joeynimu\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/Enikol\"><img src=\"https://avatars3.githubusercontent.com/u/19998290?v=4?s=100\" width=\"100px;\" alt=\"Kate\"/><br /><sub><b>Kate</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=Enikol\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://www.seanrparker.com\"><img src=\"https://avatars1.githubusercontent.com/u/11980217?v=4?s=100\" width=\"100px;\" alt=\"Sean\"/><br /><sub><b>Sean</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=SeanRParker\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://jlongster.com\"><img src=\"https://avatars2.githubusercontent.com/u/17031?v=4?s=100\" width=\"100px;\" alt=\"James Long\"/><br /><sub><b>James Long</b></sub></a><br /><a href=\"#ideas-jlongster\" title=\"Ideas, Planning, & Feedback\">\ud83e\udd14</a> <a href=\"#platform-jlongster\" title=\"Packaging/porting to new platform\">\ud83d\udce6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/hhagely\"><img src=\"https://avatars1.githubusercontent.com/u/10118777?v=4?s=100\" width=\"100px;\" alt=\"Herb Hagely\"/><br /><sub><b>Herb Hagely</b></sub></a><br /><a href=\"#example-hhagely\" title=\"Examples\">\ud83d\udca1</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://www.wendtedesigns.com/\"><img src=\"https://avatars2.githubusercontent.com/u/5779538?v=4?s=100\" width=\"100px;\" alt=\"Alex Wendte\"/><br /><sub><b>Alex Wendte</b></sub></a><br /><a href=\"#example-themostcolm\" title=\"Examples\">\ud83d\udca1</a></td>\n    </tr>\n    <tr>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://www.aboutmonica.com\"><img src=\"https://avatars0.githubusercontent.com/u/6998954?v=4?s=100\" width=\"100px;\" alt=\"Monica Powell\"/><br /><sub><b>Monica Powell</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=M0nica\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://sivkoff.com\"><img src=\"https://avatars1.githubusercontent.com/u/2699953?v=4?s=100\" width=\"100px;\" alt=\"Vitaly Sivkov\"/><br /><sub><b>Vitaly Sivkov</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=sivkoff\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/weyert\"><img src=\"https://avatars3.githubusercontent.com/u/7049?v=4?s=100\" width=\"100px;\" alt=\"Weyert de Boer\"/><br /><sub><b>Weyert de Boer</b></sub></a><br /><a href=\"#ideas-weyert\" title=\"Ideas, Planning, & Feedback\">\ud83e\udd14</a> <a href=\"https://github.com/testing-library/react-testing-library/pulls?q=is%3Apr+reviewed-by%3Aweyert\" title=\"Reviewed Pull Requests\">\ud83d\udc40</a> <a href=\"#design-weyert\" title=\"Design\">\ud83c\udfa8</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/EstebanMarin\"><img src=\"https://avatars3.githubusercontent.com/u/13613037?v=4?s=100\" width=\"100px;\" alt=\"EstebanMarin\"/><br /><sub><b>EstebanMarin</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=EstebanMarin\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/vctormb\"><img src=\"https://avatars2.githubusercontent.com/u/13953703?v=4?s=100\" width=\"100px;\" alt=\"Victor Martins\"/><br /><sub><b>Victor Martins</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=vctormb\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/RoystonS\"><img src=\"https://avatars0.githubusercontent.com/u/19773?v=4?s=100\" width=\"100px;\" alt=\"Royston Shufflebotham\"/><br /><sub><b>Royston Shufflebotham</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/issues?q=author%3ARoystonS\" title=\"Bug reports\">\ud83d\udc1b</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=RoystonS\" title=\"Documentation\">\ud83d\udcd6</a> <a href=\"#example-RoystonS\" title=\"Examples\">\ud83d\udca1</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/chrbala\"><img src=\"https://avatars0.githubusercontent.com/u/6834804?v=4?s=100\" width=\"100px;\" alt=\"chrbala\"/><br /><sub><b>chrbala</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=chrbala\" title=\"Code\">\ud83d\udcbb</a></td>\n    </tr>\n    <tr>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://donavon.com\"><img src=\"https://avatars3.githubusercontent.com/u/887639?v=4?s=100\" width=\"100px;\" alt=\"Donavon West\"/><br /><sub><b>Donavon West</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=donavon\" title=\"Code\">\ud83d\udcbb</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=donavon\" title=\"Documentation\">\ud83d\udcd6</a> <a href=\"#ideas-donavon\" title=\"Ideas, Planning, & Feedback\">\ud83e\udd14</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=donavon\" title=\"Tests\">\u26a0\ufe0f</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/maisano\"><img src=\"https://avatars2.githubusercontent.com/u/689081?v=4?s=100\" width=\"100px;\" alt=\"Richard Maisano\"/><br /><sub><b>Richard Maisano</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=maisano\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://www.marcobiedermann.com\"><img src=\"https://avatars0.githubusercontent.com/u/5244986?v=4?s=100\" width=\"100px;\" alt=\"Marco Biedermann\"/><br /><sub><b>Marco Biedermann</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=marcobiedermann\" title=\"Code\">\ud83d\udcbb</a> <a href=\"#maintenance-marcobiedermann\" title=\"Maintenance\">\ud83d\udea7</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=marcobiedermann\" title=\"Tests\">\u26a0\ufe0f</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/alexzherdev\"><img src=\"https://avatars3.githubusercontent.com/u/93752?v=4?s=100\" width=\"100px;\" alt=\"Alex Zherdev\"/><br /><sub><b>Alex Zherdev</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/issues?q=author%3Aalexzherdev\" title=\"Bug reports\">\ud83d\udc1b</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=alexzherdev\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://twitter.com/Andrewmat\"><img src=\"https://avatars0.githubusercontent.com/u/5133846?v=4?s=100\" width=\"100px;\" alt=\"Andr\u00e9 Matulionis dos Santos\"/><br /><sub><b>Andr\u00e9 Matulionis dos Santos</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=Andrewmat\" title=\"Code\">\ud83d\udcbb</a> <a href=\"#example-Andrewmat\" title=\"Examples\">\ud83d\udca1</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=Andrewmat\" title=\"Tests\">\u26a0\ufe0f</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/FredyC\"><img src=\"https://avatars0.githubusercontent.com/u/1096340?v=4?s=100\" width=\"100px;\" alt=\"Daniel K.\"/><br /><sub><b>Daniel K.</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/issues?q=author%3AFredyC\" title=\"Bug reports\">\ud83d\udc1b</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=FredyC\" title=\"Code\">\ud83d\udcbb</a> <a href=\"#ideas-FredyC\" title=\"Ideas, Planning, & Feedback\">\ud83e\udd14</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=FredyC\" title=\"Tests\">\u26a0\ufe0f</a> <a href=\"https://github.com/testing-library/react-testing-library/pulls?q=is%3Apr+reviewed-by%3AFredyC\" title=\"Reviewed Pull Requests\">\ud83d\udc40</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/mohamedmagdy17593\"><img src=\"https://avatars0.githubusercontent.com/u/40938625?v=4?s=100\" width=\"100px;\" alt=\"mohamedmagdy17593\"/><br /><sub><b>mohamedmagdy17593</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=mohamedmagdy17593\" title=\"Code\">\ud83d\udcbb</a></td>\n    </tr>\n    <tr>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://lorensr.me\"><img src=\"https://avatars2.githubusercontent.com/u/251288?v=4?s=100\" width=\"100px;\" alt=\"Loren \u263a\ufe0f\"/><br /><sub><b>Loren \u263a\ufe0f</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=lorensr\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/MarkFalconbridge\"><img src=\"https://avatars1.githubusercontent.com/u/20678943?v=4?s=100\" width=\"100px;\" alt=\"MarkFalconbridge\"/><br /><sub><b>MarkFalconbridge</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/issues?q=author%3AMarkFalconbridge\" title=\"Bug reports\">\ud83d\udc1b</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=MarkFalconbridge\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/viniciusavieira\"><img src=\"https://avatars0.githubusercontent.com/u/2073019?v=4?s=100\" width=\"100px;\" alt=\"Vinicius\"/><br /><sub><b>Vinicius</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=viniciusavieira\" title=\"Documentation\">\ud83d\udcd6</a> <a href=\"#example-viniciusavieira\" title=\"Examples\">\ud83d\udca1</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/pschyma\"><img src=\"https://avatars2.githubusercontent.com/u/2489928?v=4?s=100\" width=\"100px;\" alt=\"Peter Schyma\"/><br /><sub><b>Peter Schyma</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=pschyma\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/ianschmitz\"><img src=\"https://avatars1.githubusercontent.com/u/6355370?v=4?s=100\" width=\"100px;\" alt=\"Ian Schmitz\"/><br /><sub><b>Ian Schmitz</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=ianschmitz\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/joual\"><img src=\"https://avatars0.githubusercontent.com/u/157877?v=4?s=100\" width=\"100px;\" alt=\"Joel Marcotte\"/><br /><sub><b>Joel Marcotte</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/issues?q=author%3Ajoual\" title=\"Bug reports\">\ud83d\udc1b</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=joual\" title=\"Tests\">\u26a0\ufe0f</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=joual\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://aledustet.com\"><img src=\"https://avatars3.githubusercontent.com/u/2413802?v=4?s=100\" width=\"100px;\" alt=\"Alejandro Dustet\"/><br /><sub><b>Alejandro Dustet</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/issues?q=author%3Aaledustet\" title=\"Bug reports\">\ud83d\udc1b</a></td>\n    </tr>\n    <tr>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/bcarroll22\"><img src=\"https://avatars2.githubusercontent.com/u/11020406?v=4?s=100\" width=\"100px;\" alt=\"Brandon Carroll\"/><br /><sub><b>Brandon Carroll</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=bcarroll22\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/lucas0707\"><img src=\"https://avatars1.githubusercontent.com/u/26284338?v=4?s=100\" width=\"100px;\" alt=\"Lucas Machado\"/><br /><sub><b>Lucas Machado</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=lucas0707\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://pascalduez.me\"><img src=\"https://avatars3.githubusercontent.com/u/335467?v=4?s=100\" width=\"100px;\" alt=\"Pascal Duez\"/><br /><sub><b>Pascal Duez</b></sub></a><br /><a href=\"#platform-pascalduez\" title=\"Packaging/porting to new platform\">\ud83d\udce6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://twitter.com/minh_ngvyen\"><img src=\"https://avatars3.githubusercontent.com/u/2852660?v=4?s=100\" width=\"100px;\" alt=\"Minh Nguyen\"/><br /><sub><b>Minh Nguyen</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=NMinhNguyen\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://iababy46.blogspot.tw/\"><img src=\"https://avatars0.githubusercontent.com/u/11155585?v=4?s=100\" width=\"100px;\" alt=\"LiaoJimmy\"/><br /><sub><b>LiaoJimmy</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=LiaoJimmy\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/threepointone\"><img src=\"https://avatars2.githubusercontent.com/u/18808?v=4?s=100\" width=\"100px;\" alt=\"Sunil Pai\"/><br /><sub><b>Sunil Pai</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=threepointone\" title=\"Code\">\ud83d\udcbb</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=threepointone\" title=\"Tests\">\u26a0\ufe0f</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://twitter.com/dan_abramov\"><img src=\"https://avatars0.githubusercontent.com/u/810438?v=4?s=100\" width=\"100px;\" alt=\"Dan Abramov\"/><br /><sub><b>Dan Abramov</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/pulls?q=is%3Apr+reviewed-by%3Agaearon\" title=\"Reviewed Pull Requests\">\ud83d\udc40</a></td>\n    </tr>\n    <tr>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/ChristianMurphy\"><img src=\"https://avatars3.githubusercontent.com/u/3107513?v=4?s=100\" width=\"100px;\" alt=\"Christian Murphy\"/><br /><sub><b>Christian Murphy</b></sub></a><br /><a href=\"#infra-ChristianMurphy\" title=\"Infrastructure (Hosting, Build-Tools, etc)\">\ud83d\ude87</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://jeetiss.github.io/\"><img src=\"https://avatars1.githubusercontent.com/u/6726016?v=4?s=100\" width=\"100px;\" alt=\"Ivakhnenko Dmitry\"/><br /><sub><b>Ivakhnenko Dmitry</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=jeetiss\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://ghuser.io/jamesgeorge007\"><img src=\"https://avatars2.githubusercontent.com/u/25279263?v=4?s=100\" width=\"100px;\" alt=\"James George\"/><br /><sub><b>James George</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=jamesgeorge007\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://joaofernandes.me/\"><img src=\"https://avatars1.githubusercontent.com/u/1075053?v=4?s=100\" width=\"100px;\" alt=\"Jo\u00e3o Fernandes\"/><br /><sub><b>Jo\u00e3o Fernandes</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=JSFernandes\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/alejandroperea\"><img src=\"https://avatars3.githubusercontent.com/u/6084749?v=4?s=100\" width=\"100px;\" alt=\"Alejandro Perea\"/><br /><sub><b>Alejandro Perea</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/pulls?q=is%3Apr+reviewed-by%3Aalejandroperea\" title=\"Reviewed Pull Requests\">\ud83d\udc40</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://nickmccurdy.com/\"><img src=\"https://avatars0.githubusercontent.com/u/927220?v=4?s=100\" width=\"100px;\" alt=\"Nick McCurdy\"/><br /><sub><b>Nick McCurdy</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/pulls?q=is%3Apr+reviewed-by%3Anickmccurdy\" title=\"Reviewed Pull Requests\">\ud83d\udc40</a> <a href=\"#question-nickmccurdy\" title=\"Answering Questions\">\ud83d\udcac</a> <a href=\"#infra-nickmccurdy\" title=\"Infrastructure (Hosting, Build-Tools, etc)\">\ud83d\ude87</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://twitter.com/sebsilbermann\"><img src=\"https://avatars3.githubusercontent.com/u/12292047?v=4?s=100\" width=\"100px;\" alt=\"Sebastian Silbermann\"/><br /><sub><b>Sebastian Silbermann</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/pulls?q=is%3Apr+reviewed-by%3Aeps1lon\" title=\"Reviewed Pull Requests\">\ud83d\udc40</a></td>\n    </tr>\n    <tr>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://afontcu.dev\"><img src=\"https://avatars0.githubusercontent.com/u/9197791?v=4?s=100\" width=\"100px;\" alt=\"Adri\u00e0 Fontcuberta\"/><br /><sub><b>Adri\u00e0 Fontcuberta</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/pulls?q=is%3Apr+reviewed-by%3Aafontcu\" title=\"Reviewed Pull Requests\">\ud83d\udc40</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=afontcu\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://blog.johnnyreilly.com/\"><img src=\"https://avatars0.githubusercontent.com/u/1010525?v=4?s=100\" width=\"100px;\" alt=\"John Reilly\"/><br /><sub><b>John Reilly</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/pulls?q=is%3Apr+reviewed-by%3Ajohnnyreilly\" title=\"Reviewed Pull Requests\">\ud83d\udc40</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://michaeldeboey.be\"><img src=\"https://avatars3.githubusercontent.com/u/6643991?v=4?s=100\" width=\"100px;\" alt=\"Micha\u00ebl De Boey\"/><br /><sub><b>Micha\u00ebl De Boey</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/pulls?q=is%3Apr+reviewed-by%3AMichaelDeBoey\" title=\"Reviewed Pull Requests\">\ud83d\udc40</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=MichaelDeBoey\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://cimbul.com\"><img src=\"https://avatars2.githubusercontent.com/u/927923?v=4?s=100\" width=\"100px;\" alt=\"Tim Yates\"/><br /><sub><b>Tim Yates</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/pulls?q=is%3Apr+reviewed-by%3Acimbul\" title=\"Reviewed Pull Requests\">\ud83d\udc40</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/eventualbuddha\"><img src=\"https://avatars3.githubusercontent.com/u/1938?v=4?s=100\" width=\"100px;\" alt=\"Brian Donovan\"/><br /><sub><b>Brian Donovan</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=eventualbuddha\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/JaysQubeXon\"><img src=\"https://avatars1.githubusercontent.com/u/18309230?v=4?s=100\" width=\"100px;\" alt=\"Noam Gabriel Jacobson\"/><br /><sub><b>Noam Gabriel Jacobson</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=JaysQubeXon\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/rvdkooy\"><img src=\"https://avatars1.githubusercontent.com/u/4119960?v=4?s=100\" width=\"100px;\" alt=\"Ronald van der Kooij\"/><br /><sub><b>Ronald van der Kooij</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=rvdkooy\" title=\"Tests\">\u26a0\ufe0f</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=rvdkooy\" title=\"Code\">\ud83d\udcbb</a></td>\n    </tr>\n    <tr>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/aayushrajvanshi\"><img src=\"https://avatars0.githubusercontent.com/u/14968551?v=4?s=100\" width=\"100px;\" alt=\"Aayush Rajvanshi\"/><br /><sub><b>Aayush Rajvanshi</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=aayushrajvanshi\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://elyalamillo.com\"><img src=\"https://avatars2.githubusercontent.com/u/24350492?v=4?s=100\" width=\"100px;\" alt=\"Ely Alamillo\"/><br /><sub><b>Ely Alamillo</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=ely-alamillo\" title=\"Code\">\ud83d\udcbb</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=ely-alamillo\" title=\"Tests\">\u26a0\ufe0f</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/danieljcafonso\"><img src=\"https://avatars3.githubusercontent.com/u/35337607?v=4?s=100\" width=\"100px;\" alt=\"Daniel Afonso\"/><br /><sub><b>Daniel Afonso</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=danieljcafonso\" title=\"Code\">\ud83d\udcbb</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=danieljcafonso\" title=\"Tests\">\u26a0\ufe0f</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://www.laurensbosscher.nl\"><img src=\"https://avatars0.githubusercontent.com/u/13363196?v=4?s=100\" width=\"100px;\" alt=\"Laurens Bosscher\"/><br /><sub><b>Laurens Bosscher</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=LaurensBosscher\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://twitter.com/__sakito__\"><img src=\"https://avatars1.githubusercontent.com/u/15010907?v=4?s=100\" width=\"100px;\" alt=\"Sakito Mukai\"/><br /><sub><b>Sakito Mukai</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=sakito21\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://turkerteke.com\"><img src=\"https://avatars3.githubusercontent.com/u/12457162?v=4?s=100\" width=\"100px;\" alt=\"T\u00fcrker Teke\"/><br /><sub><b>T\u00fcrker Teke</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=tteke\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://linkedin.com/in/zachbrogan\"><img src=\"https://avatars1.githubusercontent.com/u/319162?v=4?s=100\" width=\"100px;\" alt=\"Zach Brogan\"/><br /><sub><b>Zach Brogan</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=zbrogz\" title=\"Code\">\ud83d\udcbb</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=zbrogz\" title=\"Tests\">\u26a0\ufe0f</a></td>\n    </tr>\n    <tr>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://ryota-murakami.github.io/\"><img src=\"https://avatars2.githubusercontent.com/u/5501268?v=4?s=100\" width=\"100px;\" alt=\"Ryota Murakami\"/><br /><sub><b>Ryota Murakami</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=ryota-murakami\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/hottmanmichael\"><img src=\"https://avatars3.githubusercontent.com/u/10534502?v=4?s=100\" width=\"100px;\" alt=\"Michael Hottman\"/><br /><sub><b>Michael Hottman</b></sub></a><br /><a href=\"#ideas-hottmanmichael\" title=\"Ideas, Planning, & Feedback\">\ud83e\udd14</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/stevenfitzpatrick\"><img src=\"https://avatars0.githubusercontent.com/u/23268855?v=4?s=100\" width=\"100px;\" alt=\"Steven Fitzpatrick\"/><br /><sub><b>Steven Fitzpatrick</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/issues?q=author%3Astevenfitzpatrick\" title=\"Bug reports\">\ud83d\udc1b</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/juangl\"><img src=\"https://avatars0.githubusercontent.com/u/1887029?v=4?s=100\" width=\"100px;\" alt=\"Juan Je Garc\u00eda\"/><br /><sub><b>Juan Je Garc\u00eda</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=juangl\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://ghuser.io/Ishaan28malik\"><img src=\"https://avatars3.githubusercontent.com/u/27343592?v=4?s=100\" width=\"100px;\" alt=\"Championrunner\"/><br /><sub><b>Championrunner</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=Ishaan28malik\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/samtsai\"><img src=\"https://avatars0.githubusercontent.com/u/225526?v=4?s=100\" width=\"100px;\" alt=\"Sam Tsai\"/><br /><sub><b>Sam Tsai</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=samtsai\" title=\"Code\">\ud83d\udcbb</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=samtsai\" title=\"Tests\">\u26a0\ufe0f</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=samtsai\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://www.echooff.dev\"><img src=\"https://avatars0.githubusercontent.com/u/149248?v=4?s=100\" width=\"100px;\" alt=\"Christian Rackerseder\"/><br /><sub><b>Christian Rackerseder</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=screendriver\" title=\"Code\">\ud83d\udcbb</a></td>\n    </tr>\n    <tr>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/NiGhTTraX\"><img src=\"https://avatars0.githubusercontent.com/u/485061?v=4?s=100\" width=\"100px;\" alt=\"Andrei Picus\"/><br /><sub><b>Andrei Picus</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/issues?q=author%3ANiGhTTraX\" title=\"Bug reports\">\ud83d\udc1b</a> <a href=\"https://github.com/testing-library/react-testing-library/pulls?q=is%3Apr+reviewed-by%3ANiGhTTraX\" title=\"Reviewed Pull Requests\">\ud83d\udc40</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://redd.one\"><img src=\"https://avatars3.githubusercontent.com/u/14984911?v=4?s=100\" width=\"100px;\" alt=\"Artem Zakharchenko\"/><br /><sub><b>Artem Zakharchenko</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=kettanaito\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://michaelsiek.com\"><img src=\"https://avatars0.githubusercontent.com/u/45568605?v=4?s=100\" width=\"100px;\" alt=\"Michael\"/><br /><sub><b>Michael</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=michael-siek\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://2dubbing.tistory.com\"><img src=\"https://avatars2.githubusercontent.com/u/15885679?v=4?s=100\" width=\"100px;\" alt=\"Braden Lee\"/><br /><sub><b>Braden Lee</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=2dubbing\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://kamranicus.com/\"><img src=\"https://avatars1.githubusercontent.com/u/563819?v=4?s=100\" width=\"100px;\" alt=\"Kamran Ayub\"/><br /><sub><b>Kamran Ayub</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=kamranayub\" title=\"Code\">\ud83d\udcbb</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=kamranayub\" title=\"Tests\">\u26a0\ufe0f</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://twitter.com/matanbobi\"><img src=\"https://avatars2.githubusercontent.com/u/12711091?v=4?s=100\" width=\"100px;\" alt=\"Matan Borenkraout\"/><br /><sub><b>Matan Borenkraout</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=MatanBobi\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://ryanbigg.com\"><img src=\"https://avatars3.githubusercontent.com/u/2687?v=4?s=100\" width=\"100px;\" alt=\"Ryan Bigg\"/><br /><sub><b>Ryan Bigg</b></sub></a><br /><a href=\"#maintenance-radar\" title=\"Maintenance\">\ud83d\udea7</a></td>\n    </tr>\n    <tr>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://antonhalim.com\"><img src=\"https://avatars1.githubusercontent.com/u/10498035?v=4?s=100\" width=\"100px;\" alt=\"Anton Halim\"/><br /><sub><b>Anton Halim</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=antonhalim\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://artmalko.ru\"><img src=\"https://avatars0.githubusercontent.com/u/1823689?v=4?s=100\" width=\"100px;\" alt=\"Artem Malko\"/><br /><sub><b>Artem Malko</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=artem-malko\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://gerritalex.de\"><img src=\"https://avatars1.githubusercontent.com/u/29307652?v=4?s=100\" width=\"100px;\" alt=\"Gerrit Alex\"/><br /><sub><b>Gerrit Alex</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=ljosberinn\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/karthick3018\"><img src=\"https://avatars1.githubusercontent.com/u/47154512?v=4?s=100\" width=\"100px;\" alt=\"Karthick Raja\"/><br /><sub><b>Karthick Raja</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=karthick3018\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/theashraf\"><img src=\"https://avatars1.githubusercontent.com/u/39750790?v=4?s=100\" width=\"100px;\" alt=\"Abdelrahman Ashraf\"/><br /><sub><b>Abdelrahman Ashraf</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=theashraf\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/lidoravitan\"><img src=\"https://avatars0.githubusercontent.com/u/35113398?v=4?s=100\" width=\"100px;\" alt=\"Lidor Avitan\"/><br /><sub><b>Lidor Avitan</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=lidoravitan\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/ljharb\"><img src=\"https://avatars1.githubusercontent.com/u/45469?v=4?s=100\" width=\"100px;\" alt=\"Jordan Harband\"/><br /><sub><b>Jordan Harband</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/pulls?q=is%3Apr+reviewed-by%3Aljharb\" title=\"Reviewed Pull Requests\">\ud83d\udc40</a> <a href=\"#ideas-ljharb\" title=\"Ideas, Planning, & Feedback\">\ud83e\udd14</a></td>\n    </tr>\n    <tr>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/marcosvega91\"><img src=\"https://avatars2.githubusercontent.com/u/5365582?v=4?s=100\" width=\"100px;\" alt=\"Marco Moretti\"/><br /><sub><b>Marco Moretti</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=marcosvega91\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/sanchit121\"><img src=\"https://avatars2.githubusercontent.com/u/30828115?v=4?s=100\" width=\"100px;\" alt=\"sanchit121\"/><br /><sub><b>sanchit121</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/issues?q=author%3Asanchit121\" title=\"Bug reports\">\ud83d\udc1b</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=sanchit121\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/solufa\"><img src=\"https://avatars.githubusercontent.com/u/9402912?v=4?s=100\" width=\"100px;\" alt=\"Solufa\"/><br /><sub><b>Solufa</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/issues?q=author%3Asolufa\" title=\"Bug reports\">\ud83d\udc1b</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=solufa\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://codepen.io/ariperkkio/\"><img src=\"https://avatars.githubusercontent.com/u/14806298?v=4?s=100\" width=\"100px;\" alt=\"Ari Perkki\u00f6\"/><br /><sub><b>Ari Perkki\u00f6</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=AriPerkkio\" title=\"Tests\">\u26a0\ufe0f</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/jhnns\"><img src=\"https://avatars.githubusercontent.com/u/781746?v=4?s=100\" width=\"100px;\" alt=\"Johannes Ewald\"/><br /><sub><b>Johannes Ewald</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=jhnns\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/anpaopao\"><img src=\"https://avatars.githubusercontent.com/u/44686792?v=4?s=100\" width=\"100px;\" alt=\"Angus J. Pope\"/><br /><sub><b>Angus J. Pope</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=anpaopao\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/leschdom\"><img src=\"https://avatars.githubusercontent.com/u/62334278?v=4?s=100\" width=\"100px;\" alt=\"Dominik Lesch\"/><br /><sub><b>Dominik Lesch</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=leschdom\" title=\"Documentation\">\ud83d\udcd6</a></td>\n    </tr>\n    <tr>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/ImADrafter\"><img src=\"https://avatars.githubusercontent.com/u/44379989?v=4?s=100\" width=\"100px;\" alt=\"Marcos G\u00f3mez\"/><br /><sub><b>Marcos G\u00f3mez</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=ImADrafter\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://www.akashshyam.online/\"><img src=\"https://avatars.githubusercontent.com/u/56759828?v=4?s=100\" width=\"100px;\" alt=\"Akash Shyam\"/><br /><sub><b>Akash Shyam</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/issues?q=author%3Aakashshyamdev\" title=\"Bug reports\">\ud83d\udc1b</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://hen.ne.ke\"><img src=\"https://avatars.githubusercontent.com/u/4312191?v=4?s=100\" width=\"100px;\" alt=\"Fabian Meumertzheim\"/><br /><sub><b>Fabian Meumertzheim</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=fmeum\" title=\"Code\">\ud83d\udcbb</a> <a href=\"https://github.com/testing-library/react-testing-library/issues?q=author%3Afmeum\" title=\"Bug reports\">\ud83d\udc1b</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/Nokel81\"><img src=\"https://avatars.githubusercontent.com/u/8225332?v=4?s=100\" width=\"100px;\" alt=\"Sebastian Malton\"/><br /><sub><b>Sebastian Malton</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/issues?q=author%3ANokel81\" title=\"Bug reports\">\ud83d\udc1b</a> <a href=\"https://github.com/testing-library/react-testing-library/commits?author=Nokel81\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/mboettcher\"><img src=\"https://avatars.githubusercontent.com/u/2325337?v=4?s=100\" width=\"100px;\" alt=\"Martin B\u00f6ttcher\"/><br /><sub><b>Martin B\u00f6ttcher</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=mboettcher\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://tkdodo.eu\"><img src=\"https://avatars.githubusercontent.com/u/1021430?v=4?s=100\" width=\"100px;\" alt=\"Dominik Dorfmeister\"/><br /><sub><b>Dominik Dorfmeister</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=TkDodo\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://stephensauceda.com\"><img src=\"https://avatars.githubusercontent.com/u/1017723?v=4?s=100\" width=\"100px;\" alt=\"Stephen Sauceda\"/><br /><sub><b>Stephen Sauceda</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=stephensauceda\" title=\"Documentation\">\ud83d\udcd6</a></td>\n    </tr>\n    <tr>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://cmdcolin.github.io\"><img src=\"https://avatars.githubusercontent.com/u/6511937?v=4?s=100\" width=\"100px;\" alt=\"Colin Diesh\"/><br /><sub><b>Colin Diesh</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=cmdcolin\" title=\"Documentation\">\ud83d\udcd6</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"http://yinm.info\"><img src=\"https://avatars.githubusercontent.com/u/13295106?v=4?s=100\" width=\"100px;\" alt=\"Yusuke Iinuma\"/><br /><sub><b>Yusuke Iinuma</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=yinm\" title=\"Code\">\ud83d\udcbb</a></td>\n      <td align=\"center\" valign=\"top\" width=\"14.28%\"><a href=\"https://github.com/trappar\"><img src=\"https://avatars.githubusercontent.com/u/525726?v=4?s=100\" width=\"100px;\" alt=\"Jeff Way\"/><br /><sub><b>Jeff Way</b></sub></a><br /><a href=\"https://github.com/testing-library/react-testing-library/commits?author=trappar\" title=\"Code\">\ud83d\udcbb</a></td>\n    </tr>\n  </tbody>\n</table>\n\n<!-- markdownlint-restore -->\n<!-- prettier-ignore-end -->\n\n<!-- ALL-CONTRIBUTORS-LIST:END -->\n\nThis project follows the [all-contributors][all-contributors] specification.\nContributions of any kind welcome!\n\n## LICENSE\n\n[MIT](LICENSE)\n\n<!-- prettier-ignore-start -->\n\n[npm]: https://www.npmjs.com/\n[yarn]: https://classic.yarnpkg.com\n[node]: https://nodejs.org\n[build-badge]: https://img.shields.io/github/actions/workflow/status/testing-library/react-testing-library/validate.yml?branch=main&logo=github\n[build]: https://github.com/testing-library/react-testing-library/actions?query=workflow%3Avalidate\n[coverage-badge]: https://img.shields.io/codecov/c/github/testing-library/react-testing-library.svg?style=flat-square\n[coverage]: https://codecov.io/github/testing-library/react-testing-library\n[version-badge]: https://img.shields.io/npm/v/@testing-library/react.svg?style=flat-square\n[package]: https://www.npmjs.com/package/@testing-library/react\n[downloads-badge]: https://img.shields.io/npm/dm/@testing-library/react.svg?style=flat-square\n[npmtrends]: http://www.npmtrends.com/@testing-library/react\n[license-badge]: https://img.shields.io/npm/l/@testing-library/react.svg?style=flat-square\n[license]: https://github.com/testing-library/react-testing-library/blob/main/LICENSE\n[prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square\n[prs]: http://makeapullrequest.com\n[coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square\n[coc]: https://github.com/testing-library/react-testing-library/blob/main/CODE_OF_CONDUCT.md\n[github-watch-badge]: https://img.shields.io/github/watchers/testing-library/react-testing-library.svg?style=social\n[github-watch]: https://github.com/testing-library/react-testing-library/watchers\n[github-star-badge]: https://img.shields.io/github/stars/testing-library/react-testing-library.svg?style=social\n[github-star]: https://github.com/testing-library/react-testing-library/stargazers\n[twitter]: https://twitter.com/intent/tweet?text=Check%20out%20react-testing-library%20by%20%40@TestingLib%20https%3A%2F%2Fgithub.com%2Ftesting-library%2Freact-testing-library%20%F0%9F%91%8D\n[twitter-badge]: https://img.shields.io/twitter/url/https/github.com/testing-library/react-testing-library.svg?style=social\n[emojis]: https://github.com/all-contributors/all-contributors#emoji-key\n[all-contributors]: https://github.com/all-contributors/all-contributors\n[all-contributors-badge]: https://img.shields.io/github/all-contributors/testing-library/react-testing-library?color=orange&style=flat-square\n[guiding-principle]: https://twitter.com/kentcdodds/status/977018512689455106\n[bugs]: https://github.com/testing-library/react-testing-library/issues?q=is%3Aissue+is%3Aopen+label%3Abug+sort%3Acreated-desc\n[requests]: https://github.com/testing-library/react-testing-library/issues?q=is%3Aissue+sort%3Areactions-%2B1-desc+label%3Aenhancement+is%3Aopen\n[good-first-issue]: https://github.com/testing-library/react-testing-library/issues?utf8=\u2713&q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc+label%3A\"good+first+issue\"+\n[discord-badge]: https://img.shields.io/discord/723559267868737556.svg?color=7389D8&labelColor=6A7EC2&logo=discord&logoColor=ffffff&style=flat-square\n[discord]: https://discord.gg/testing-library\n[stackoverflow]: https://stackoverflow.com/questions/tagged/react-testing-library\n[react-hooks-testing-library]: https://github.com/testing-library/react-hooks-testing-library\n\n<!-- prettier-ignore-end -->\n",
+        "releases": [
+            {
+                "name": "v16.2.0",
+                "date": "2025-01-15T23:19:10Z"
+            },
+            {
+                "name": "v16.1.0",
+                "date": "2024-12-05T20:02:47Z"
+            },
+            {
+                "name": "v16.0.1",
+                "date": "2024-08-29T09:30:41Z"
+            },
+            {
+                "name": "v16.0.0",
+                "date": "2024-06-03T13:55:29Z"
+            },
+            {
+                "name": "v15.0.7",
+                "date": "2024-05-07T11:10:19Z"
+            },
+            {
+                "name": "v15.0.6",
+                "date": "2024-05-01T18:32:38Z"
+            },
+            {
+                "name": "v15.0.5",
+                "date": "2024-04-26T15:32:09Z"
+            },
+            {
+                "name": "v15.0.4",
+                "date": "2024-04-23T15:35:24Z"
+            },
+            {
+                "name": "v15.0.3",
+                "date": "2024-04-23T10:24:25Z"
+            },
+            {
+                "name": "v15.0.2",
+                "date": "2024-04-13T09:24:04Z"
+            },
+            {
+                "name": "v15.0.1",
+                "date": "2024-04-11T17:06:45Z"
+            },
+            {
+                "name": "v14.3.1",
+                "date": "2024-04-11T17:14:56Z"
+            },
+            {
+                "name": "v15.0.0",
+                "date": "2024-04-10T15:21:52Z"
+            },
+            {
+                "name": "v14.3.0",
+                "date": "2024-04-08T14:10:40Z"
+            },
+            {
+                "name": "v14.2.2",
+                "date": "2024-03-19T22:57:20Z"
+            },
+            {
+                "name": "v14.2.1",
+                "date": "2024-02-01T19:54:16Z"
+            },
+            {
+                "name": "v14.2.0",
+                "date": "2024-01-30T21:25:56Z"
+            },
+            {
+                "name": "v14.1.2",
+                "date": "2023-11-17T15:49:57Z"
+            },
+            {
+                "name": "v14.1.1",
+                "date": "2023-11-17T14:52:02Z"
+            },
+            {
+                "name": "v14.1.0",
+                "date": "2023-11-08T06:56:22Z"
+            },
+            {
+                "name": "v14.0.0",
+                "date": "2023-02-16T22:59:41Z"
+            },
+            {
+                "name": "v14.0.0-alpha.3",
+                "date": "2023-02-16T22:51:04Z"
+            },
+            {
+                "name": "v14.0.0-alpha.2",
+                "date": "2023-02-16T22:41:25Z"
+            },
+            {
+                "name": "v14.0.0-alpha.1",
+                "date": "2023-01-31T05:02:44Z"
+            },
+            {
+                "name": "v13.5.0-alpha.1",
+                "date": "2023-01-31T04:57:24Z"
+            },
+            {
+                "name": "v13.4.0",
+                "date": "2022-09-04T16:52:41Z"
+            },
+            {
+                "name": "v13.3.0",
+                "date": "2022-05-28T08:23:04Z"
+            },
+            {
+                "name": "v13.2.0",
+                "date": "2022-05-03T18:40:17Z"
+            },
+            {
+                "name": "v13.1.1",
+                "date": "2022-04-15T22:11:18Z"
+            },
+            {
+                "name": "v13.1.0",
+                "date": "2022-04-15T18:59:28Z"
+            },
+            {
+                "name": "v13.0.1",
+                "date": "2022-04-11T18:10:24Z"
+            },
+            {
+                "name": "v12.1.5",
+                "date": "2022-04-11T20:14:36Z"
+            },
+            {
+                "name": "v13.0.0",
+                "date": "2022-03-31T04:59:34Z"
+            },
+            {
+                "name": "v13.0.0-alpha.7",
+                "date": "2022-03-30T15:10:35Z"
+            },
+            {
+                "name": "v12.1.4",
+                "date": "2022-03-09T14:37:28Z"
+            },
+            {
+                "name": "v13.0.0-alpha.6",
+                "date": "2022-03-04T21:10:37Z"
+            },
+            {
+                "name": "v12.1.3",
+                "date": "2022-02-15T22:56:01Z"
+            },
+            {
+                "name": "v13.0.0-alpha.5",
+                "date": "2021-11-23T15:20:35Z"
+            },
+            {
+                "name": "v13.0.0-alpha.4",
+                "date": "2021-10-31T08:57:44Z"
+            },
+            {
+                "name": "v13.0.0-alpha.3",
+                "date": "2021-10-28T10:57:12Z"
+            },
+            {
+                "name": "v12.1.2",
+                "date": "2021-10-03T13:19:49Z"
+            },
+            {
+                "name": "v12.1.1",
+                "date": "2021-09-27T12:44:41Z"
+            },
+            {
+                "name": "v13.0.0-alpha.1",
+                "date": "2021-09-13T08:53:55Z"
+            },
+            {
+                "name": "v12.1.0",
+                "date": "2021-09-11T09:58:47Z"
+            },
+            {
+                "name": "v12.0.0",
+                "date": "2021-06-23T06:36:03Z"
+            },
+            {
+                "name": "v12.0.0-alpha.2",
+                "date": "2021-06-13T16:06:33Z"
+            },
+            {
+                "name": "v12.0.0-alpha.1",
+                "date": "2021-06-12T09:31:18Z"
+            },
+            {
+                "name": "v11.2.8-alpha.1",
+                "date": "2021-06-08T09:34:58Z"
+            },
+            {
+                "name": "v11.2.7",
+                "date": "2021-05-14T12:45:01Z"
+            },
+            {
+                "name": "v11.2.6",
+                "date": "2021-03-30T10:23:41Z"
+            },
+            {
+                "name": "v11.2.5",
+                "date": "2021-02-02T16:40:46Z"
+            },
+            {
+                "name": "v11.2.4",
+                "date": "2021-02-02T09:35:14Z"
+            },
+            {
+                "name": "v11.2.3",
+                "date": "2021-01-07T18:05:23Z"
+            },
+            {
+                "name": "v11.2.2",
+                "date": "2020-11-20T23:36:22Z"
+            },
+            {
+                "name": "v11.2.1",
+                "date": "2020-11-19T10:46:00Z"
+            },
+            {
+                "name": "v11.2.0",
+                "date": "2020-11-18T16:47:10Z"
+            },
+            {
+                "name": "v11.1.2",
+                "date": "2020-11-11T09:06:00Z"
+            },
+            {
+                "name": "v11.1.1",
+                "date": "2020-11-03T19:22:53Z"
+            },
+            {
+                "name": "v11.1.0",
+                "date": "2020-10-14T13:32:58Z"
+            },
+            {
+                "name": "v11.0.4",
+                "date": "2020-09-13T18:46:33Z"
+            },
+            {
+                "name": "v11.0.3",
+                "date": "2020-09-13T16:04:22Z"
+            },
+            {
+                "name": "v11.0.2",
+                "date": "2020-09-03T17:54:56Z"
+            },
+            {
+                "name": "v11.0.1",
+                "date": "2020-09-03T06:40:35Z"
+            },
+            {
+                "name": "v11.0.0",
+                "date": "2020-09-02T18:04:19Z"
+            },
+            {
+                "name": "v11.0.0-beta.1",
+                "date": "2020-08-30T03:34:39Z"
+            },
+            {
+                "name": "v10.4.9",
+                "date": "2020-08-21T06:56:24Z"
+            },
+            {
+                "name": "v10.4.8",
+                "date": "2020-08-05T02:14:28Z"
+            },
+            {
+                "name": "v10.4.7",
+                "date": "2020-07-15T13:16:51Z"
+            },
+            {
+                "name": "v10.4.6",
+                "date": "2020-07-13T18:23:29Z"
+            },
+            {
+                "name": "v10.4.5",
+                "date": "2020-07-08T18:56:18Z"
+            },
+            {
+                "name": "v10.4.4",
+                "date": "2020-07-05T17:29:09Z"
+            },
+            {
+                "name": "v10.4.3",
+                "date": "2020-06-25T04:26:31Z"
+            },
+            {
+                "name": "v10.4.2",
+                "date": "2020-06-24T19:14:27Z"
+            },
+            {
+                "name": "v10.4.1",
+                "date": "2020-06-23T22:00:00Z"
+            },
+            {
+                "name": "v10.4.0",
+                "date": "2020-06-23T16:31:56Z"
+            },
+            {
+                "name": "v10.3.0",
+                "date": "2020-06-18T00:28:37Z"
+            },
+            {
+                "name": "v10.2.1",
+                "date": "2020-06-05T19:26:24Z"
+            },
+            {
+                "name": "v10.2.0",
+                "date": "2020-06-04T13:59:35Z"
+            },
+            {
+                "name": "v10.1.0",
+                "date": "2020-06-04T00:56:21Z"
+            },
+            {
+                "name": "v10.0.6",
+                "date": "2020-06-02T22:15:36Z"
+            },
+            {
+                "name": "v10.0.5",
+                "date": "2020-06-01T23:38:34Z"
+            },
+            {
+                "name": "v10.0.4",
+                "date": "2020-04-30T16:13:25Z"
+            },
+            {
+                "name": "v10.0.3",
+                "date": "2020-04-20T18:05:20Z"
+            },
+            {
+                "name": "v10.0.2",
+                "date": "2020-03-30T16:27:29Z"
+            },
+            {
+                "name": "v10.0.1",
+                "date": "2020-03-13T13:30:05Z"
+            },
+            {
+                "name": "v10.0.0",
+                "date": "2020-03-12T23:25:57Z"
+            },
+            {
+                "name": "v10.0.0-beta.2",
+                "date": "2020-03-04T19:56:53Z"
+            },
+            {
+                "name": "v10.0.0-beta.1",
+                "date": "2020-03-04T19:29:28Z"
+            },
+            {
+                "name": "v9.5.0",
+                "date": "2020-03-04T19:18:08Z"
+            },
+            {
+                "name": "v9.4.1",
+                "date": "2020-02-22T15:46:25Z"
+            },
+            {
+                "name": "v9.4.0",
+                "date": "2019-12-13T15:39:45Z"
+            },
+            {
+                "name": "v9.3.3",
+                "date": "2019-12-11T05:55:56Z"
+            },
+            {
+                "name": "v9.3.2",
+                "date": "2019-11-04T15:01:46Z"
+            },
+            {
+                "name": "v9.3.1",
+                "date": "2019-10-30T17:59:55Z"
+            },
+            {
+                "name": "v9.3.0",
+                "date": "2019-10-03T19:22:44Z"
+            },
+            {
+                "name": "v9.2.0",
+                "date": "2019-09-26T23:06:24Z"
+            },
+            {
+                "name": "v9.1.4",
+                "date": "2019-09-03T21:45:01Z"
+            },
+            {
+                "name": "v9.1.3",
+                "date": "2019-08-16T21:12:47Z"
+            },
+            {
+                "name": "v9.1.2",
+                "date": "2019-08-15T19:31:39Z"
+            },
+            {
+                "name": "v9.1.1",
+                "date": "2019-08-12T23:44:04Z"
+            },
+            {
+                "name": "v9.1.0",
+                "date": "2019-08-10T17:38:47Z"
+            },
+            {
+                "name": "v9.0.2",
+                "date": "2019-08-09T20:38:43Z"
+            },
+            {
+                "name": "v9.0.1",
+                "date": "2019-08-09T20:15:36Z"
+            },
+            {
+                "name": "v9.0.0",
+                "date": "2019-08-09T20:00:01Z"
+            },
+            {
+                "name": "v8.0.9",
+                "date": "2019-08-08T22:57:25Z"
+            },
+            {
+                "name": "v8.0.8",
+                "date": "2019-08-06T20:18:46Z"
+            },
+            {
+                "name": "v8.0.7",
+                "date": "2019-07-26T14:22:00Z"
+            },
+            {
+                "name": "v8.0.6",
+                "date": "2019-07-23T11:55:08Z"
+            },
+            {
+                "name": "v8.0.5",
+                "date": "2019-07-12T17:08:48Z"
+            },
+            {
+                "name": "v8.0.4",
+                "date": "2019-06-25T14:24:45Z"
+            },
+            {
+                "name": "v8.0.3",
+                "date": "2019-06-25T12:57:33Z"
+            },
+            {
+                "name": "v8.0.2",
+                "date": "2019-06-24T18:50:41Z"
+            },
+            {
+                "name": "v8.0.1",
+                "date": "2019-05-30T17:55:43Z"
+            },
+            {
+                "name": "v8.0.0",
+                "date": "2019-05-30T17:47:52Z"
+            },
+            {
+                "name": "v7.0.1",
+                "date": "2019-05-19T19:56:20Z"
+            },
+            {
+                "name": "v7.0.0",
+                "date": "2019-04-25T21:17:49Z"
+            },
+            {
+                "name": "v6.1.2",
+                "date": "2019-04-05T19:48:05Z"
+            },
+            {
+                "name": "v6.1.1",
+                "date": "2019-04-05T16:52:20Z"
+            },
+            {
+                "name": "v6.1.0",
+                "date": "2019-04-05T16:36:01Z"
+            },
+            {
+                "name": "v6.0.4",
+                "date": "2019-04-01T17:36:17Z"
+            },
+            {
+                "name": "v6.0.3",
+                "date": "2019-03-26T17:17:29Z"
+            },
+            {
+                "name": "v6.0.2",
+                "date": "2019-03-21T15:26:34Z"
+            },
+            {
+                "name": "v6.0.1",
+                "date": "2019-03-19T15:45:45Z"
+            },
+            {
+                "name": "v6.0.0",
+                "date": "2019-02-24T06:28:18Z"
+            },
+            {
+                "name": "v5.9.0",
+                "date": "2019-02-19T01:13:48Z"
+            },
+            {
+                "name": "v5.8.0",
+                "date": "2019-02-12T17:45:52Z"
+            },
+            {
+                "name": "v5.7.0",
+                "date": "2019-02-12T15:55:38Z"
+            },
+            {
+                "name": "v5.6.1",
+                "date": "2019-02-11T22:23:34Z"
+            },
+            {
+                "name": "v5.6.0",
+                "date": "2019-02-11T02:00:45Z"
+            },
+            {
+                "name": "v5.5.4",
+                "date": "2019-02-08T23:59:00Z"
+            },
+            {
+                "name": "v5.5.3",
+                "date": "2019-02-06T18:07:25Z"
+            },
+            {
+                "name": "v5.5.2",
+                "date": "2019-02-06T17:56:21Z"
+            },
+            {
+                "name": "v5.5.1",
+                "date": "2019-02-06T17:47:13Z"
+            },
+            {
+                "name": "v5.5.0",
+                "date": "2019-02-06T16:01:56Z"
+            },
+            {
+                "name": "v5.4.4",
+                "date": "2019-01-04T19:03:15Z"
+            },
+            {
+                "name": "v5.4.3",
+                "date": "2019-01-04T16:26:18Z"
+            },
+            {
+                "name": "v5.4.2",
+                "date": "2018-12-20T19:29:47Z"
+            },
+            {
+                "name": "v5.4.1",
+                "date": "2018-12-19T17:23:04Z"
+            },
+            {
+                "name": "v5.4.0",
+                "date": "2018-12-16T01:50:47Z"
+            },
+            {
+                "name": "v5.3.2",
+                "date": "2018-12-09T21:38:52Z"
+            },
+            {
+                "name": "v5.3.1",
+                "date": "2018-11-28T17:17:58Z"
+            },
+            {
+                "name": "v5.3.0",
+                "date": "2018-11-21T04:47:13Z"
+            },
+            {
+                "name": "v5.2.3",
+                "date": "2018-10-25T22:10:27Z"
+            },
+            {
+                "name": "v5.2.2",
+                "date": "2018-10-25T21:52:38Z"
+            },
+            {
+                "name": "v5.2.1",
+                "date": "2018-10-22T20:50:15Z"
+            },
+            {
+                "name": "v5.2.0",
+                "date": "2018-10-05T16:20:43Z"
+            },
+            {
+                "name": "v5.1.1",
+                "date": "2018-10-03T19:42:04Z"
+            },
+            {
+                "name": "v5.1.0",
+                "date": "2018-09-18T16:25:49Z"
+            },
+            {
+                "name": "v5.0.1",
+                "date": "2018-09-03T22:44:16Z"
+            },
+            {
+                "name": "v5.0.0",
+                "date": "2018-08-09T18:01:28Z"
+            },
+            {
+                "name": "v4.1.8",
+                "date": "2018-08-09T15:15:54Z"
+            },
+            {
+                "name": "v4.1.7",
+                "date": "2018-08-06T21:45:52Z"
+            },
+            {
+                "name": "v4.1.6",
+                "date": "2018-08-03T15:47:31Z"
+            },
+            {
+                "name": "v4.1.5",
+                "date": "2018-07-26T17:57:30Z"
+            },
+            {
+                "name": "v4.1.4",
+                "date": "2018-07-25T15:01:15Z"
+            },
+            {
+                "name": "v4.1.3",
+                "date": "2018-07-17T19:31:45Z"
+            },
+            {
+                "name": "v4.1.2",
+                "date": "2018-07-03T16:57:40Z"
+            },
+            {
+                "name": "v4.1.1",
+                "date": "2018-07-02T21:34:16Z"
+            },
+            {
+                "name": "v4.1.0",
+                "date": "2018-06-27T20:40:56Z"
+            },
+            {
+                "name": "v4.0.2",
+                "date": "2018-06-24T13:52:28Z"
+            },
+            {
+                "name": "v4.0.1",
+                "date": "2018-06-19T05:11:26Z"
+            },
+            {
+                "name": "v4.0.0",
+                "date": "2018-06-19T04:19:51Z"
+            },
+            {
+                "name": "v3.1.7",
+                "date": "2018-06-13T15:12:00Z"
+            },
+            {
+                "name": "v3.1.6",
+                "date": "2018-06-12T16:20:28Z"
+            },
+            {
+                "name": "v3.1.5",
+                "date": "2018-06-12T15:29:22Z"
+            },
+            {
+                "name": "v3.1.4",
+                "date": "2018-06-08T22:08:38Z"
+            },
+            {
+                "name": "v3.1.3",
+                "date": "2018-05-18T22:58:26Z"
+            },
+            {
+                "name": "v3.1.2",
+                "date": "2018-05-18T18:59:06Z"
+            },
+            {
+                "name": "v3.1.1",
+                "date": "2018-05-18T14:13:19Z"
+            },
+            {
+                "name": "v3.1.0",
+                "date": "2018-05-15T15:54:51Z"
+            },
+            {
+                "name": "v3.0.2",
+                "date": "2018-05-08T04:12:51Z"
+            },
+            {
+                "name": "v3.0.1",
+                "date": "2018-05-06T04:44:02Z"
+            },
+            {
+                "name": "v3.0.0",
+                "date": "2018-05-06T03:34:04Z"
+            },
+            {
+                "name": "v2.5.2",
+                "date": "2018-05-04T19:38:20Z"
+            },
+            {
+                "name": "v2.5.1",
+                "date": "2018-05-03T23:41:20Z"
+            },
+            {
+                "name": "v2.5.0",
+                "date": "2018-05-03T18:30:24Z"
+            },
+            {
+                "name": "v2.4.0",
+                "date": "2018-05-02T21:02:05Z"
+            },
+            {
+                "name": "v2.3.0",
+                "date": "2018-04-27T01:36:39Z"
+            },
+            {
+                "name": "v2.2.0",
+                "date": "2018-04-24T20:08:29Z"
+            },
+            {
+                "name": "v2.1.1",
+                "date": "2018-04-11T15:41:59Z"
+            },
+            {
+                "name": "v2.1.0",
+                "date": "2018-04-10T16:35:28Z"
+            },
+            {
+                "name": "v2.0.0",
+                "date": "2018-04-06T13:40:41Z"
+            },
+            {
+                "name": "v1.10.0",
+                "date": "2018-04-05T21:11:40Z"
+            },
+            {
+                "name": "v1.9.5",
+                "date": "2018-04-04T14:02:35Z"
+            },
+            {
+                "name": "v1.9.4",
+                "date": "2018-04-02T22:53:42Z"
+            },
+            {
+                "name": "v1.9.3",
+                "date": "2018-04-02T13:45:00Z"
+            },
+            {
+                "name": "v1.9.2",
+                "date": "2018-03-30T04:43:20Z"
+            },
+            {
+                "name": "v1.9.1",
+                "date": "2018-03-29T23:32:14Z"
+            },
+            {
+                "name": "v1.9.0",
+                "date": "2018-03-29T23:19:48Z"
+            },
+            {
+                "name": "v1.8.2",
+                "date": "2018-03-29T16:27:09Z"
+            },
+            {
+                "name": "v1.8.1",
+                "date": "2018-03-29T16:10:24Z"
+            },
+            {
+                "name": "v1.8.0",
+                "date": "2018-03-29T15:37:18Z"
+            },
+            {
+                "name": "v1.7.1",
+                "date": "2018-03-29T15:26:10Z"
+            },
+            {
+                "name": "v1.7.0",
+                "date": "2018-03-28T15:33:46Z"
+            },
+            {
+                "name": "v1.6.0",
+                "date": "2018-03-23T14:01:33Z"
+            },
+            {
+                "name": "v1.5.0",
+                "date": "2018-03-22T17:39:44Z"
+            },
+            {
+                "name": "v1.4.0",
+                "date": "2018-03-21T20:29:35Z"
+            },
+            {
+                "name": "v1.3.0",
+                "date": "2018-03-20T19:23:41Z"
+            },
+            {
+                "name": "v1.2.1",
+                "date": "2018-03-20T19:16:01Z"
+            },
+            {
+                "name": "v1.2.0",
+                "date": "2018-03-20T18:46:42Z"
+            },
+            {
+                "name": "v1.1.0",
+                "date": "2018-03-19T21:51:21Z"
+            },
+            {
+                "name": "v1.0.1",
+                "date": "2018-03-19T16:33:27Z"
+            },
+            {
+                "name": "v1.0.0",
+                "date": "2018-03-19T14:10:12Z"
+            },
+            {
+                "name": "v0.1.0",
+                "date": "2018-03-19T13:58:59Z"
+            }
+        ]
+    }
+}

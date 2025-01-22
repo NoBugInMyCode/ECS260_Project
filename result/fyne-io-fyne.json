@@ -1,0 +1,261 @@
+{
+    "https://api.github.com/repos/fyne-io/fyne": {
+        "forks": 1412,
+        "watchers": 25612,
+        "stars": 25612,
+        "languages": {
+            "Go": 3265306,
+            "C": 43813,
+            "JavaScript": 36693,
+            "Objective-C": 36132,
+            "Java": 13018,
+            "GLSL": 7628,
+            "HTML": 4044,
+            "Makefile": 1759,
+            "Assembly": 1619,
+            "CSS": 466
+        },
+        "commits": [
+            "2024-12-15T10:13:05Z",
+            "2024-12-11T22:00:39Z",
+            "2024-12-11T21:15:39Z",
+            "2024-12-08T20:50:32Z",
+            "2024-12-08T20:46:54Z",
+            "2024-12-08T20:31:03Z",
+            "2024-12-08T20:20:06Z",
+            "2024-12-08T20:01:51Z",
+            "2024-12-07T14:54:37Z",
+            "2024-12-08T20:22:20Z",
+            "2024-12-04T22:02:58Z",
+            "2024-12-04T18:10:38Z",
+            "2024-12-04T15:43:03Z",
+            "2024-12-04T15:18:51Z",
+            "2024-12-04T14:48:57Z",
+            "2024-12-04T14:36:41Z",
+            "2024-12-04T17:59:39Z",
+            "2024-12-04T17:58:30Z",
+            "2024-12-04T10:53:41Z",
+            "2024-12-02T21:33:25Z",
+            "2024-12-02T20:09:53Z",
+            "2024-10-18T19:06:00Z",
+            "2024-12-02T19:52:18Z",
+            "2024-12-02T17:52:32Z",
+            "2024-11-27T18:35:19Z",
+            "2024-11-20T17:44:20Z",
+            "2024-11-30T22:07:14Z",
+            "2024-11-28T09:49:27Z",
+            "2024-11-06T16:50:12Z",
+            "2024-11-06T16:39:51Z"
+        ],
+        "creation_date": "2018-02-04T22:07:16Z",
+        "contributors": 30,
+        "topics": [
+            "android",
+            "cross-platform",
+            "fyne",
+            "go",
+            "golang",
+            "gui",
+            "hacktoberfest",
+            "ios",
+            "theme",
+            "toolkit"
+        ],
+        "subscribers": 262,
+        "readme": "<p align=\"center\">\n  <a href=\"https://pkg.go.dev/fyne.io/fyne/v2?tab=doc\" title=\"Go API Reference\" rel=\"nofollow\"><img src=\"https://img.shields.io/badge/go-documentation-blue.svg?style=flat\" alt=\"Go API Reference\"></a>\n  <a href=\"https://img.shields.io/github/v/release/fyne-io/fyne?include_prereleases\" title=\"Latest Release\" rel=\"nofollow\"><img src=\"https://img.shields.io/github/v/release/fyne-io/fyne?include_prereleases\" alt=\"Latest Release\"></a>\n  <a href='https://gophers.slack.com/messages/fyne'><img src='https://img.shields.io/badge/join-us%20on%20slack-gray.svg?longCache=true&logo=slack&colorB=blue' alt='Join us on Slack' /></a>\n  <br />\n  <a href=\"https://goreportcard.com/report/fyne.io/fyne/v2\"><img src=\"https://goreportcard.com/badge/fyne.io/fyne/v2\" alt=\"Code Status\" /></a>\n  <a href=\"https://github.com/fyne-io/fyne/actions\"><img src=\"https://github.com/fyne-io/fyne/workflows/Platform%20Tests/badge.svg\" alt=\"Build Status\" /></a>\n  <a href='https://coveralls.io/github/fyne-io/fyne?branch=develop'><img src='https://coveralls.io/repos/github/fyne-io/fyne/badge.svg?branch=develop' alt='Coverage Status' /></a>\n</p>\n\n# About\n\n[Fyne](https://fyne.io) is an easy-to-use UI toolkit and app API written in Go.\nIt is designed to build applications that run on desktop and mobile devices with a\nsingle codebase.\n\n# Prerequisites\n\nTo develop apps using Fyne you will need Go version 1.17 or later, a C compiler and your system's development tools.\nIf you're not sure if that's all installed or you don't know how then check out our\n[Getting Started](https://fyne.io/develop/) document.\n\nUsing the standard go tools you can install Fyne's core library using:\n\n    go get fyne.io/fyne/v2@latest\n\nAfter importing a new module, run the following command before compiling the code for the first time. Avoid running it before writing code that uses the module to prevent accidental removal of dependencies:\n\n    go mod tidy\n\n# Widget demo\n\nTo run a showcase of the features of Fyne execute the following:\n\n    go install fyne.io/fyne/v2/cmd/fyne_demo@latest\n    fyne_demo\n\nAnd you should see something like this (after you click a few buttons):\n\n<p align=\"center\" markdown=\"1\" style=\"max-width: 100%\">\n  <img src=\"img/widgets-dark.png\" width=\"752\" alt=\"Fyne Demo Dark Theme\" style=\"max-width: 100%\" />\n</p>\n\nOr if you are using the light theme:\n\n<p align=\"center\" markdown=\"1\" style=\"max-width: 100%\">\n  <img src=\"img/widgets-light.png\" width=\"752\" alt=\"Fyne Demo Light Theme\" style=\"max-width: 100%\" />\n</p>\n\nAnd even running on a mobile device:\n\n<p align=\"center\" markdown=\"1\" style=\"max-width: 100%\">\n  <img src=\"img/widgets-mobile-light.png\" width=\"348\" alt=\"Fyne Demo Mobile Light Theme\" style=\"max-width: 100%\" />\n</p>\n\n# Getting Started\n\nFyne is designed to be really easy to code with.\nIf you have followed the prerequisite steps above then all you need is a\nGo IDE (or a text editor).\n\nOpen a new file and you're ready to write your first app!\n\n```go\npackage main\n\nimport (\n\t\"fyne.io/fyne/v2/app\"\n\t\"fyne.io/fyne/v2/container\"\n\t\"fyne.io/fyne/v2/widget\"\n)\n\nfunc main() {\n\ta := app.New()\n\tw := a.NewWindow(\"Hello\")\n\n\thello := widget.NewLabel(\"Hello Fyne!\")\n\tw.SetContent(container.NewVBox(\n\t\thello,\n\t\twidget.NewButton(\"Hi!\", func() {\n\t\t\thello.SetText(\"Welcome :)\")\n\t\t}),\n\t))\n\n\tw.ShowAndRun()\n}\n```\n\nAnd you can run that simply as:\n\n    go run main.go\n\n> [!NOTE]  \n> The first compilation of Fyne on Windows _can_ take up to 10 minutes, depending on your hardware. Subsequent builds will be fast.\n\nIt should look like this:\n\n<div align=\"center\">\n  <table cellpadding=\"0\" cellspacing=\"0\" style=\"margin: auto; border-collapse: collapse;\">\n    <tr style=\"border: none;\"><td style=\"border: none;\">\n      <img src=\"img/hello-light.png\" width=\"207\" alt=\"Fyne Hello Dark Theme\" />\n    </td><td style=\"border: none;\">\n      <img src=\"img/hello-dark.png\" width=\"207\" alt=\"Fyne Hello Dark Theme\" />\n    </td></tr>\n  </table>\n</div>\n\n## Run in mobile simulation\n\nThere is a helpful mobile simulation mode that gives a hint of how your app would work on a mobile device:\n\n    go run -tags mobile main.go\n\nAnother option is to use `fyne` command, see [Packaging for mobile](#packaging-for-mobile).\n\n# Installing\n\nUsing `go install` will copy the executable into your go `bin` dir.\nTo install the application with icons etc into your operating system's standard\napplication location you can use the fyne utility and the \"install\" subcommand.\n\n    go install fyne.io/fyne/v2/cmd/fyne@latest\n    fyne install\n\n# Packaging for mobile\n\nTo run on a mobile device it is necessary to package up the application.\nTo do this we can use the fyne utility \"package\" subcommand.\nYou will need to add appropriate parameters as prompted, but the basic command is shown below.\nOnce packaged you can install using the platform development tools or the fyne \"install\" subcommand.\n\n    fyne package -os android -appID my.domain.appname\n    fyne install -os android\n\nThe built Android application can run either in a real device or an Android emulator.\nHowever, building for iOS is slightly different.\nIf the \"-os\" argument is \"ios\", it is build only for a real iOS device.\nSpecify \"-os\" to \"iossimulator\" allows the application be able to run in an iOS simulator:\n\n    fyne package -os ios -appID my.domain.appname\n    fyne package -os iossimulator -appID my.domain.appname\n\n# Preparing a release\n\nUsing the fyne utility \"release\" subcommand you can package up your app for release\nto app stores and market places. Make sure you have the standard build tools installed\nand have followed the platform documentation for setting up accounts and signing.\nThen you can execute something like the following, notice the `-os ios` parameter allows\nbuilding an iOS app from macOS computer. Other combinations work as well :)\n\n    $ fyne release -os ios -certificate \"Apple Distribution\" -profile \"My App Distribution\" -appID \"com.example.myapp\"\n\nThe above command will create a '.ipa' file that can then be uploaded to the iOS App Store.\n\n# Documentation\n\nMore documentation is available at the [Fyne developer website](https://developer.fyne.io/) or on [pkg.go.dev](https://pkg.go.dev/fyne.io/fyne/v2?tab=doc).\n\n# Examples\n\nYou can find many example applications in the [examples repository](https://github.com/fyne-io/examples/).\nAlternatively a list of applications using fyne can be found at [our website](https://apps.fyne.io/).\n\n# Shipping the Fyne Toolkit\n\nAll Fyne apps will work without pre-installed libraries, this is one reason the apps are so portable.\nHowever, if looking to support Fyne in a bigger way on your operating system then you can install some utilities that help to make a more complete experience.\n\n## Additional apps\n\nIt is recommended that you install the following additional apps:\n\n| app           | go install                          | description                                                            |\n| ------------- | ----------------------------------- | ---------------------------------------------------------------------- |\n| fyne_settings | `fyne.io/fyne/v2/cmd/fyne_settings` | A GUI for managing your global Fyne settings like theme and scaling    |\n| apps          | `github.com/fyne-io/apps`           | A graphical installer for the Fyne apps listed at https://apps.fyne.io |\n\nThese are optional applications but can help to create a more complete desktop experience.\n\n## FyneDesk (Linux / BSD)\n\nTo go all the way with Fyne on your desktop / laptop computer you could install [FyneDesk](https://github.com/fyshos/fynedesk) as well :)\n\n![FyneDesk screenshopt in dark mode](https://fyshos.com/img/desktop.png)\n",
+        "releases": [
+            {
+                "name": "Festive cheer delivered early with latest bugfix release",
+                "date": "2024-12-15T11:23:21Z"
+            },
+            {
+                "name": "v2.5.2 adds Swedish translation, documentation improvements and many fixes",
+                "date": "2024-10-15T10:50:12Z"
+            },
+            {
+                "name": "Polishes and text/translation improvements form v2.5.1",
+                "date": "2024-08-25T19:32:21Z"
+            },
+            {
+                "name": "v2.5 introduces international support, system font lookup and completes Wayland and Web support (except file handling)",
+                "date": "2024-07-14T17:50:27Z"
+            },
+            {
+                "name": "Optimisations, storage enhancements and fixes arrive in v2.4.5",
+                "date": "2024-04-15T11:03:00Z"
+            },
+            {
+                "name": "Lots of bug fixes and speed improvements for 2.4",
+                "date": "2024-02-13T19:10:39Z"
+            },
+            {
+                "name": "Happy holidays and enjoy a better Fyne for your coding projects :)",
+                "date": "2023-12-24T13:49:16Z"
+            },
+            {
+                "name": "Lots of fixes and display improvements for v2.4.1",
+                "date": "2023-10-09T13:31:18Z"
+            },
+            {
+                "name": "So many new features like rounded corners, emojis, table headers and a load more make v2.4.0!",
+                "date": "2023-09-01T20:21:55Z"
+            },
+            {
+                "name": "v2.3.5 - Lots of great fixes from the team and community - thanks!",
+                "date": "2023-06-06T14:33:16Z"
+            },
+            {
+                "name": "Memory usage improvements and reducing CPU for item moves",
+                "date": "2023-05-03T09:19:46Z"
+            },
+            {
+                "name": "Resolving a possible compilation regression in v2.3.2",
+                "date": "2023-03-24T15:28:07Z"
+            },
+            {
+                "name": "Fyne \ud83d\udc99 Apple M2 and better performance",
+                "date": "2023-03-20T14:26:35Z"
+            },
+            {
+                "name": "Share Fyne v2.3.1 with someone special this Valentine's day!",
+                "date": "2023-02-13T13:32:38Z"
+            },
+            {
+                "name": "A fresh new look, richer text and cloud integration delivers Christmas cheer!",
+                "date": "2022-12-24T16:06:28Z"
+            },
+            {
+                "name": "v2.2.4 Maintenance and bug fixes",
+                "date": "2022-11-09T22:29:41Z"
+            },
+            {
+                "name": "Improve default lifecycle for system tray apps and various fixes",
+                "date": "2022-06-30T22:02:02Z"
+            },
+            {
+                "name": "v2.2.1 improves systray support and resolves a FYNE_FONT regression",
+                "date": "2022-06-12T20:09:10Z"
+            },
+            {
+                "name": "v2.2.0 - System tray, web driver and JSON themes :)",
+                "date": "2022-06-07T20:36:01Z"
+            },
+            {
+                "name": "Fixing possible container crash and fixed size window sizing",
+                "date": "2022-03-17T12:02:22Z"
+            },
+            {
+                "name": "v2.1.3 for February Fix fiesta :)",
+                "date": "2022-02-25T20:13:06Z"
+            },
+            {
+                "name": "Stability fixes for 32bit iOS devices and many more fixes",
+                "date": "2021-12-06T22:40:30Z"
+            },
+            {
+                "name": "Lots of refresh fixes and some optimisations polish 2.1 in the v2.1.1 release",
+                "date": "2021-10-22T20:59:54Z"
+            },
+            {
+                "name": "v2.1 for RichText and DocTabs goodness :)",
+                "date": "2021-09-21T15:32:30Z"
+            },
+            {
+                "name": "Android SDK update, TextGrid performance enhancements and a host of bug fixes",
+                "date": "2021-08-06T14:26:02Z"
+            },
+            {
+                "name": "TextGrid optimisations FreeBSD 13 support and many bug fixes",
+                "date": "2021-04-30T19:22:05Z"
+            },
+            {
+                "name": "No April fool, this is a load of handy bug fixes",
+                "date": "2021-04-01T16:17:56Z"
+            },
+            {
+                "name": "Support for Apple M1 and 35 other fixes",
+                "date": "2021-03-04T21:55:22Z"
+            },
+            {
+                "name": "Data binding, storage repositories and animation take Fyne to the next level!",
+                "date": "2021-01-25T10:01:42Z"
+            },
+            {
+                "name": "Happy new year, here's a 1.4.3 to celebrate",
+                "date": "2021-01-04T14:36:23Z"
+            },
+            {
+                "name": "Bug fixes to 1.4 release, including macOS release process",
+                "date": "2020-12-09T23:06:39Z"
+            },
+            {
+                "name": "Fixes for 1.4 branch including iOS release build completion",
+                "date": "2020-11-20T20:12:14Z"
+            },
+            {
+                "name": "A polished theme and new collections widgets headline our 1.4 release",
+                "date": "2020-11-04T14:51:07Z"
+            },
+            {
+                "name": "A month of bug fixes",
+                "date": "2020-08-10T10:07:34Z"
+            },
+            {
+                "name": "Smooth enhancements to 1.3",
+                "date": "2020-07-08T21:21:03Z"
+            },
+            {
+                "name": "Version 1.3 just 1000 commits later!",
+                "date": "2020-06-05T17:12:13Z"
+            },
+            {
+                "name": "1.2.4 \u2764\ufe0fmobile \ud83d\ude00",
+                "date": "2020-04-13T08:32:46Z"
+            },
+            {
+                "name": "Focus on older Android devices",
+                "date": "2020-03-02T12:44:23Z"
+            },
+            {
+                "name": "Stability and extended widgets fixes",
+                "date": "2020-01-29T18:01:04Z"
+            },
+            {
+                "name": "Fixes and improvements to new mobile support",
+                "date": "2019-12-24T23:01:52Z"
+            },
+            {
+                "name": "1.2 brings Mobile Support",
+                "date": "2019-12-13T15:36:00Z"
+            },
+            {
+                "name": "1.2 Mobile Support pre-release2",
+                "date": "2019-12-10T20:46:05Z"
+            },
+            {
+                "name": "1.2 Mobile Support pre-release",
+                "date": "2019-11-28T23:11:24Z"
+            },
+            {
+                "name": "Bugfix release 1.1.2",
+                "date": "2019-10-12T18:29:50Z"
+            },
+            {
+                "name": "Bugfix release v1.1.1",
+                "date": "2019-08-27T17:09:35Z"
+            },
+            {
+                "name": "v1.1 feature release",
+                "date": "2019-07-01T06:46:18Z"
+            },
+            {
+                "name": "Bugfix release 1.0.1 improves stability of 1.0",
+                "date": "2019-04-20T11:34:30Z"
+            },
+            {
+                "name": "Fyne's first major release",
+                "date": "2019-03-19T22:21:24Z"
+            }
+        ]
+    }
+}

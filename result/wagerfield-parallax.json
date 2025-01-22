@@ -1,0 +1,93 @@
+{
+    "https://api.github.com/repos/wagerfield/parallax": {
+        "forks": 2135,
+        "watchers": 16527,
+        "stars": 16527,
+        "languages": {
+            "JavaScript": 20594
+        },
+        "commits": [
+            "2024-04-06T08:07:54Z",
+            "2024-04-06T07:39:34Z",
+            "2024-04-06T07:35:54Z",
+            "2024-04-06T07:30:42Z",
+            "2024-04-06T07:27:11Z",
+            "2024-04-06T07:21:00Z",
+            "2022-05-09T06:15:57Z",
+            "2022-05-09T01:32:02Z",
+            "2019-07-03T13:29:25Z",
+            "2017-11-11T23:20:29Z",
+            "2017-11-11T23:18:42Z",
+            "2017-10-07T19:08:21Z",
+            "2017-10-07T00:31:21Z",
+            "2017-10-05T08:47:29Z",
+            "2017-09-17T09:14:45Z",
+            "2017-09-17T09:10:57Z",
+            "2017-09-10T11:10:07Z",
+            "2017-09-10T10:52:08Z",
+            "2017-09-10T10:50:44Z",
+            "2017-09-10T10:36:24Z",
+            "2017-09-10T10:35:02Z",
+            "2017-09-10T10:32:08Z",
+            "2017-09-10T10:30:39Z",
+            "2017-09-10T10:13:07Z",
+            "2017-09-10T10:01:07Z",
+            "2017-08-22T18:08:12Z",
+            "2017-08-08T09:39:27Z",
+            "2017-07-24T12:27:32Z",
+            "2017-06-29T16:10:45Z",
+            "2017-06-29T16:04:00Z"
+        ],
+        "creation_date": "2013-08-01T15:28:05Z",
+        "contributors": 13,
+        "topics": [],
+        "subscribers": 528,
+        "readme": "![Parallax.js](logo.png)\n\n[![CDNJS](https://img.shields.io/cdnjs/v/parallax.svg)](https://cdnjs.com/libraries/parallax)\n\nParallax Engine that reacts to the orientation of a smart device. Where no gyroscope or motion detection hardware is available, the position of the cursor is used instead.\n\nCheck out the **[demo](https://matthew.wagerfield.com/parallax/)** to see it in action!\n\n# Table of Contents\n\n- [1. Getting started](#1-getting-started)\n\t- [1.1 Installation](#11-installation)\n\t- [1.2 Preparations](#12-preparations)\n\t- [1.3 Run Parallax](#13-run-parallax)\n- [2. Configuration](#2-configuration)\n\t- [2.1 Programmatic vs Declarative](#21-programmatic-vs-declarative)\n\t- [2.2 Configuration Options](#22-configuration-options)\n- [3. Methods](#3-methods)\n- [4. Development](#4-development)\n\t- [4.1 Running the Project](#41-running-the-project)\n\t- [4.2 Opening an Issue](#42-opening-an-issue)\n\t- [4.3 Known Issues](#43-known-issues)\n- [5. FAQ](#5-faq)\n- [6. Information](#6-information)\n   - [6.1 License](#61-license)\n   - [6.2 Contributors](#62-authors)\n\n# 1. Getting started\n\n## 1.1 Installation\n\n### 1.1 a) Using the CDN\n\n1. Add `<script src=\"https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js\"></script>` to your markup\n2. Done!\n\nMany thanks to the fine folks over at [cdnjs](https://cdnjs.com/) for hosting our library.\n\n### 1.1 b) Beginners\n\n1. Head over to the [releases](https://github.com/wagerfield/parallax/releases) Section\n2. Download `compiled.zip` from the latest release\n3. Extract the ZIP archive and locate the `parallax.js` and `parallax.min.js` files\n\t- Use `parallax.js` if you want to snoop around in the code\n\t- Use `parallax.min.js` for deployment, because it has a smaller file size\n4. Copy the file of your choice into your project directory\n5. So far, so good!\n\n### 1.1 c) Professionals\n\n`npm i -s parallax-js`\n\nYou will then find the source code in `node_modules/parallax-js/src/parallax.js` and the browserified, babelified, uglified, production-ready version in `node_modules/parallax-js/dist/parallax.min.js`\n\n## 1.2 Preparations\n\n### Include the Script\n\nIf you use the compiled version, either downloaded from the releases page, or copied from the `dist` folder, include the script like any other Javascript library:  \n`<script src=\"path/to/parallax.js\"></script>`\n\nOf course, when you've installed via npm, and use browserify/babel, you can also simply do:  \n`import Parallax from 'parallax-js'` or  \n`const Parallax = require('parallax-js')`\n\n### Create your HTML elements\n\nEach Parallax.js instance needs a container element, the scene. You're free to identify it by any means you want, but for now, let's use an ID:\n\n```html\n<div id=\"scene\">\n</div>\n```\n\nPer default, all direct child elements of the scene will become moving objects, the layers. You can change this to a custom query selector, but again, we're going with the easiest approach for now:\n\n```html\n<div id=\"scene\">\n  <div>My first Layer!</div>\n  <div>My second Layer!</div>\n</div>\n```\n\nWhile all other options and parameters are optional, with sane defaults, and can be set programatically, each layer needs a `data-depth` attribute. The movement applied to each layer will be multiplied by its depth attribute.\n\n```html\n<div id=\"scene\">\n  <div data-depth=\"0.2\">My first Layer!</div>\n  <div data-depth=\"0.6\">My second Layer!</div>\n</div>\n```\n\n## 1.3 Run Parallax\n\nAs soon as your DOM is ready and loaded, you can create a new Parallax.js instance, providing your scene element as first parameter.\n\n```javascript\nvar scene = document.getElementById('scene');\nvar parallaxInstance = new Parallax(scene);\n```\n\nThat's it, you're running Parallax.js now!\n\n# 2. Configuration\n\n## 2.1 Programmatic vs Declarative\n\nMost configuration settings can be declared either as data-value attribute of the scene element, or property of the configuration object. The programmatic approach will take priority over the data-value attributes set in the HTML.  \nSome options can also be set at run-time via instance methods.\n\nDeclarative:\n\n```html\n<div data-relative-input=\"true\" id=\"scene\">\n  <div data-depth=\"0.2\">My first Layer!</div>\n  <div data-depth=\"0.6\">My second Layer!</div>\n</div>\n```\n\nProgrammatic:\n\n```javascript\nvar scene = document.getElementById('scene');\nvar parallaxInstance = new Parallax(scene, {\n  relativeInput: true\n});\n```\n\nUsing Methods at Runtime:\n\n```javascript\nparallaxInstance.friction(0.2, 0.2);\n```\n\n## 2.2 Configuration Options\n\n### relativeInput\n\nProperty: **relativeInput**  \nAttribute: **data-relative-input**\n\nValue: *boolean*  \nDefault: *false*\n\nMakes mouse input relative to the position of the scene element.  \nNo effect when gyroscope is used.\n\n### clipRelativeInput\n\nProperty: **clipRelativeInput**  \nAttribute: **data-clip-relative-input**\n\nValue: *boolean*  \nDefault: *false*\n\nClips mouse input to the bounds of the scene. This means the movement stops as soon as the edge of the scene element is reached by the cursor.  \nNo effect when gyroscope is used, or `hoverOnly` is active.\n\n### hoverOnly\n\nProperty: **hoverOnly**  \nAttribute: **data-hover-only**\n\nValue: *boolean*  \nDefault: *false*\n\nParallax will only be in effect while the cursor is over the scene element, otherwise all layers move back to their initial position. Works best in combination with `relativeInput`.  \nNo effect when gyroscope is used.\n\n### inputElement\n\nProperty: **inputElement**  \nAttribute: **data-input-element**  \nMethod: **setInputElement(HTMLElement)**\n\nValue: *null* or *HTMLElement* / *String*  \nDefault: *null*\n\nAllows usage of a different element for cursor input.  \nThe configuration property expects an HTMLElement, the data value attribute a query selector string.  \nWill only work in combination with `relativeInput`, setting `hoverOnly` might make sense too.  \nNo effect when gyroscope is used.\n\n### calibrateX & calibrateY\n\nProperty: **calibrateX** & **calibrateY**  \nAttribute: **data-calibrate-x** & **data-calibrate-y**  \nMethod: **calibrate(x, y)**\n\nValue: *boolean*  \nDefault: *false* for X, *true* for Y\n\nCaches the initial X/Y axis value on initialization and calculates motion relative to this.  \nNo effect when cursor is used.\n\n### invertX & invertY\n\nProperty: **invertX** & **invertY**  \nAttribute: **data-invert-x** & **data-invert-y**  \nMethod: **invert(x, y)**\n\nValue: *boolean*  \nDefault: *true*\n\nInverts the movement of the layers relative to the input. Setting both of these values to *false* will cause the layers to move with the device motion or cursor.\n\n### limitX & limitY\n\nProperty: **limitX** & **limitY**  \nAttribute: **data-limit-x** & **data-limit-y**  \nMethod: **limit(x, y)**\n\nValue: *false* or *integer*  \nDefault: *false*\n\nLimits the movement of layers on the respective axis. Leaving this value at false gives complete freedom to the movement.\n\n### scalarX & scalarY\n\nProperty: **scalarX** & **scalarY**  \nAttribute: **data-scalar-x** & **data-scalar-y**  \nMethod: **scalar(x, y)**\n\nValue: *float*  \nDefault: *10.0*\n\nMultiplies the input motion by this value, increasing or decreasing the movement speed and range.\n\n### frictionX & frictionY\n\nProperty: **frictionX** & **frictionY**  \nAttribute: **data-friction-x** & **data-friction-y**  \nMethod: **friction(x, y)**\n\nValue: *float* between *0* and *1*  \nDefault: *0.1*\n\nAmount of friction applied to the layers. At *1* the layers will instantly go to their new positions, everything below 1 adds some easing.  \nThe default value of *0.1* adds some sensible easing. Try *0.15* or *0.075* for some difference.\n\n### originX & originY\n\nProperty: **originX** & **originY**  \nAttribute: **data-origin-x** & **data-origin-y**  \nMethod: **origin(x, y)**\n\nValue: *float* between *0* and *1*  \nDefault: *0.5*\n\nX and Y origin of the mouse input. The default of *0.5* refers to the center of the screen or element, *0* is the left (X axis) or top (Y axis) border, 1 the right or bottom.  \nNo effect when gyroscope is used.\n\n### precision\n\nProperty: **precision**  \nAttribute: **data-precision**\n\nValue: *integer*  \nDefault: *1*\n\nDecimals the element positions will be rounded to. *1* is a sensible default which you should not need to change in the next few years, unless you have a very interesting and unique setup.\n\n### selector\n\nProperty: **selector**  \nAttribute: **data-selector**\n\nValue: *null* or *string*  \nDefault: *null*\n\nString that will be fed to querySelectorAll on the scene element to select the layer elements. When *null*, will simply select all direct child elements.  \nUse `.layer` for legacy behaviour, selecting only child elements having the class name *layer*.\n\n### pointerEvents\n\nProperty: **pointerEvents**  \nAttribute: **data-pointer-events**\n\nValue: *boolean*  \nDefault: *false*\n\nSet to *true* to enable interactions with the scene and layer elements. When set to the default of *false*, the CSS attribute `pointer-events: none` will be applied for performance reasons.  \nSetting this to *true* alone will not be enough to fully interact with all layers, since they will be overlapping. You have to either set `position: absolute` on all layer child elements, or keep **pointerEvents** at *false* and set `pointer-events: all` for the interactable elements only.\n\n### onReady\n\nProperty: **onReady**\n\nValue: *null* or *function*  \nDefault: *null*\n\nCallback function that will be called as soon as the Parallax instance has finished its setup. This might currently take up to 1000ms (`calibrationDelay * 2`).\n\n# 3. Methods\n\nIn addition to the configuration methods outlined in the section above, there are a few more publicly accessible methods:\n\n### enable()\n\nEnables a disabled Parallax instance.\n\n### disable()\n\nDisables a running Parallax instance.\n\n### destroy()\n\nCompletely destroys a Parallax instance, allowing it to be garbage collected.\n\n### version()\n\nReturns the version number of the Parallax library.\n\n# 4. Development\n\n## 4.1 Running the Project\n\n1. Clone the Repository `git clone git@github.com:wagerfield/parallax.git`\n2. Open the working directory `cd parallax`\n3. Install dependencies `npm install`\n4. Run development server `gulp watch`\n5. Open [http://localhost:9000/](http://localhost:9000/) in browser\n\n## 4.2 Opening an Issue\n\nIf you need help relating the direct usage of this library in a project of yours, provide us with a working, running example of your work. This can be a GitHub repository, a ZIP file containing your work, a project on CodePen or JSFiddle, you name it.  \n*Do not complain about something not working without giving us some way to help you.* Thank you!\n\n## 4.3 Known Issues\n\n### SVG-Bug in MS Edge\n\nIt seems MS Edge does not support the `children` or `querySelectorAll` methods for SVG elements.\n\n### Animation running really slow\n\nDepending on your site, the GPU might have a bit too much to do. You can try adding the CSS definition `will-change: transform` to the layer elements to speed things up. Use sparingly!\n\n### Gyroscope not working on Android\n\nAndroid will only allow access to the gyroscope o secure origins (that is, with `https` protocol).\n\n### Gyroscope not working on iOS\n\nBecause gyroscope data had been abused to track users, it's disabled on iDevices by default and needs to be enabled by the users. You can try asking for permission via [DeviceOrientationEvent.requestPermission](https://www.w3.org/TR/orientation-event/#dom-deviceorientationevent-requestpermission).\n\nDo something like:\n\n```js\nDeviceOrientationEvent\n  .requestPermission()\n  .then(() => {\n    new Parallax(scene)\n  })\n```\n\n### Unable to manually set position of layers\n\nSince this often lead to issues, this library forces the positioning of the layers to be absolute. If you need to override this, add `!important` to your CSS positioning.\n\n# 5. FAQ\n\n### How can I use this Library with jQuery?\n\njQuery will not prevent you from using this library in any way. If you want to use jQuery for selecting your Parallax scene element, you can do so too.\n\n```javascript\nvar scene = $('#scene').get(0);\nvar parallaxInstance = new Parallax(scene);\n```\n\n### How can I interact with my layers?\n\nCheck out the section on the configuration option `pointerEvents` above.\n\n### How do I get the demo files to work?\n\nEither download compiled_with_examples.zip from the [GitHub Releases](https://github.com/wagerfield/parallax/releases) section, or follow section 4.1\n\n\n# 6. Information\n\n## 6.1 License\n\nThis project is licensed under the terms of the  [MIT](http://www.opensource.org/licenses/mit-license.php) License. Enjoy!\n\n## 6.2 Authors\n\nMatthew Wagerfield: [@wagerfield](http://twitter.com/wagerfield)  \nRen\u00e9 Roth: [Website](http://reneroth.xyz/)\n",
+        "releases": [
+            {
+                "name": "v3.1",
+                "date": "2017-09-10T10:49:35Z"
+            },
+            {
+                "name": "v3.0",
+                "date": "2017-05-06T11:43:27Z"
+            },
+            {
+                "name": "v2.1.3",
+                "date": "2014-05-12T17:34:17Z"
+            },
+            {
+                "name": "v2.1.2",
+                "date": "2014-04-26T13:37:29Z"
+            },
+            {
+                "name": "v2.1.1",
+                "date": "2014-04-26T13:05:48Z"
+            },
+            {
+                "name": "v2.1.0",
+                "date": "2014-04-26T12:45:04Z"
+            },
+            {
+                "name": "v2.0.1",
+                "date": "2014-04-25T19:30:02Z"
+            },
+            {
+                "name": "v2.0.0",
+                "date": "2014-04-25T19:24:14Z"
+            },
+            {
+                "name": "v1.1.1",
+                "date": "2014-04-20T21:51:12Z"
+            },
+            {
+                "name": "v1.1.0",
+                "date": "2014-04-20T21:35:21Z"
+            },
+            {
+                "name": "v1.0.0",
+                "date": "2014-02-04T10:45:55Z"
+            }
+        ]
+    }
+}

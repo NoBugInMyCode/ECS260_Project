@@ -1,0 +1,696 @@
+{
+    "https://api.github.com/repos/Textualize/textual": {
+        "forks": 839,
+        "watchers": 26961,
+        "stars": 26961,
+        "languages": {
+            "Python": 3771013,
+            "Scheme": 32237,
+            "Jinja": 11112,
+            "TypeScript": 4869,
+            "Makefile": 2309
+        },
+        "commits": [
+            "2025-01-12T16:20:15Z",
+            "2025-01-12T16:19:55Z",
+            "2025-01-10T15:10:42Z",
+            "2025-01-10T15:10:01Z",
+            "2025-01-10T15:09:54Z",
+            "2025-01-10T15:08:05Z",
+            "2025-01-10T14:49:18Z",
+            "2025-01-10T14:36:35Z",
+            "2025-01-10T14:08:22Z",
+            "2025-01-10T13:03:31Z",
+            "2025-01-10T12:20:16Z",
+            "2025-01-10T12:05:40Z",
+            "2025-01-09T13:45:39Z",
+            "2025-01-09T13:45:24Z",
+            "2025-01-09T13:01:56Z",
+            "2025-01-09T13:00:21Z",
+            "2025-01-09T10:46:14Z",
+            "2025-01-09T10:45:29Z",
+            "2025-01-09T09:33:42Z",
+            "2025-01-09T09:09:27Z",
+            "2025-01-08T22:06:35Z",
+            "2025-01-08T19:56:57Z",
+            "2025-01-08T18:57:18Z",
+            "2025-01-08T18:45:16Z",
+            "2025-01-08T18:44:11Z",
+            "2025-01-08T18:33:54Z",
+            "2025-01-08T18:30:43Z",
+            "2025-01-08T18:26:48Z",
+            "2025-01-08T18:26:43Z",
+            "2025-01-08T18:11:44Z"
+        ],
+        "creation_date": "2021-04-08T15:24:47Z",
+        "contributors": 30,
+        "topics": [
+            "cli",
+            "framework",
+            "python",
+            "rich",
+            "terminal",
+            "tui"
+        ],
+        "subscribers": 167,
+        "readme": "\n\n[![Discord](https://img.shields.io/discord/1026214085173461072)](https://discord.gg/Enf6Z3qhVr)\n[![Supported Python Versions](https://img.shields.io/pypi/pyversions/textual/1.0.0)](https://pypi.org/project/textual/)\n[![PyPI version](https://badge.fury.io/py/textual.svg?)](https://badge.fury.io/py/textual)\n![OS support](https://img.shields.io/badge/OS-macOS%20Linux%20Windows-red)\n\n\n\n![textual-splash](https://github.com/user-attachments/assets/4caeb77e-48c0-4cf7-b14d-c53ded855ffd)\n\n# Textual\n\n<img align=\"right\" width=\"250\" alt=\"clock\" src=\"https://github.com/user-attachments/assets/63e839c3-5b8e-478d-b78e-cf7647eb85e8\" />\n\nBuild cross-platform user interfaces with a simple Python API. Run your apps in the terminal *or* a web browser.\n\nTextual's API combines modern Python with the best of developments from the web world, for a lean app development experience.\nDe-coupled components and an advanced [testing](https://textual.textualize.io/guide/testing/) framework ensure you can maintain your app for the long-term.\n\nWant some more examples? See the [examples](https://github.com/Textualize/textual/tree/main/examples) directory.\n\n```python\n\"\"\"\nAn App to show the current time.\n\"\"\"\n\nfrom datetime import datetime\n\nfrom textual.app import App, ComposeResult\nfrom textual.widgets import Digits\n\n\nclass ClockApp(App):\n    CSS = \"\"\"\n    Screen { align: center middle; }\n    Digits { width: auto; }\n    \"\"\"\n\n    def compose(self) -> ComposeResult:\n        yield Digits(\"\")\n\n    def on_ready(self) -> None:\n        self.update_clock()\n        self.set_interval(1, self.update_clock)\n\n    def update_clock(self) -> None:\n        clock = datetime.now().time()\n        self.query_one(Digits).update(f\"{clock:%T}\")\n\n\nif __name__ == \"__main__\":\n    app = ClockApp()\n    app.run()\n```\n\n> [!TIP]\n> Textual is an asynchronous framework under the hood. Which means you can integrate your apps with async libraries &mdash; if you want to.\n> If you don't want or need to use async, Textual won't force it on you. \n\n\n\n<img src=\"https://img.spacergif.org/spacer.gif\" width=\"1\" height=\"64\"/>\n\n## Widgets\n\nTextual's library of [widgets](https://textual.textualize.io/widget_gallery/) covers everything from buttons, tree controls, data tables, inputs, text areas, and more\u2026\nCombined with a flexible [layout](https://textual.textualize.io/how-to/design-a-layout/) system, you can realize any User Interface you need.\n\nPredefined themes ensure your apps will look good out of the box. \n\n\n<table>\n\n<tr>\n\n  <td>\n    \n  ![buttons](https://github.com/user-attachments/assets/2ac26387-aaa3-41ed-bc00-7d488600343c)\n    \n  </td>\n\n  <td>\n    \n![tree](https://github.com/user-attachments/assets/61ccd6e9-97ea-4918-8eda-3ee0f0d3770e)\n    \n  </td>\n  \n</tr>\n\n\n<tr>\n\n  <td>\n    \n  ![datatables](https://github.com/user-attachments/assets/3e1f9f7a-f965-4901-a114-3c188bd17695)\n    \n  </td>\n\n  <td>\n    \n![inputs](https://github.com/user-attachments/assets/b02aa203-7c37-42da-a1bb-2cb244b7d0d3)\n    \n  </td>\n  \n</tr>\n<tr>\n\n<td>\n\n![listview](https://github.com/user-attachments/assets/963603bc-aa07-4688-bd24-379962ece871)\n\n</td>\n\n<td>\n\n![textarea](https://github.com/user-attachments/assets/cd4ba787-5519-40e2-8d86-8224e1b7e506)\n  \n</td>\n\n  \n</tr>\n\n</table>\n\n\n<img src=\"https://img.spacergif.org/spacer.gif\" width=\"1\" height=\"32\"/>\n\n## Installing\n\nInstall Textual via pip:\n\n```\npip install textual textual-dev\n```\n\nSee [getting started](https://textual.textualize.io/getting_started/) for details.\n\n\n<img src=\"https://img.spacergif.org/spacer.gif\" width=\"1\" height=\"32\"/>\n\n## Demo\n\n\nRun the following command to see a little of what Textual can do:\n\n```\npython -m textual\n```\n\nOr try the [textual demo](https://github.com/textualize/textual-demo) *without* installing (requires [uv](https://docs.astral.sh/uv/)):\n\n```bash\nuvx --python 3.12 textual-demo\n```\n\n<img src=\"https://img.spacergif.org/spacer.gif\" width=\"1\" height=\"32\"/>\n\n## Dev Console\n\n<img align=\"right\" width=\"40%\" alt=\"devtools\" src=\"https://github.com/user-attachments/assets/12c60d65-e342-4b2f-9372-bae0459a7552\" />\n\n\nHow do you debug an app in the terminal that is also running in the terminal?\n\nThe `textual-dev` package supplies a dev console that connects to your application from another terminal.\nIn addition to system messages and events, your logged messages and print statements will appear in the dev console.\n\nSee [the guide](https://textual.textualize.io/guide/devtools/) for other helpful tools provided by the `textual-dev` package.\n\n<img src=\"https://img.spacergif.org/spacer.gif\" width=\"1\" height=\"32\"/>\n\n## Command Palette\n\n\nTextual apps have a *fuzzy search* command palette.\nHit `ctrl+p` to open the command palette.\n\nIt is easy to extend the command palette with [custom commands](https://textual.textualize.io/guide/command_palette/) for your application.\n\n\n![Command Palette](https://github.com/user-attachments/assets/94d8ec5d-b668-4033-a5cb-bf820e1b8d60)\n\n<img src=\"https://img.spacergif.org/spacer.gif\" width=\"1\" height=\"32\"/>\n\n# Textual \u2764\ufe0f Web\n\n<img align=\"right\" width=\"40%\" alt=\"textual-serve\" src=\"https://github.com/user-attachments/assets/a25820fb-87ae-433a-858b-ac3940169242\">\n\n\nTextual apps are equally at home in the browser as they are the terminal. Any Textual app may be served with `textual serve` &mdash; so you can share your creations on the web.\nHere's how to serve the demo app:\n\n```\ntextual serve \"python -m textual\"\n```\n\nIn addition to serving your apps locally, you can serve apps with [Textual Web](https://github.com/Textualize/textual-web).\n\nTextual Web's firewall-busting technology can serve an unlimited number of applications.\n\nSince Textual apps have low system requirements, you can install them anywhere Python also runs. Turning any device into a connected device.\nNo desktop required!\n\n\n<img src=\"https://img.spacergif.org/spacer.gif\" width=\"1\" height=\"32\"/>\n\n\n## Join us on Discord\n\nJoin the Textual developers and community on our [Discord Server](https://discord.gg/Enf6Z3qhVr).\n",
+        "releases": [
+            {
+                "name": "There can be only One point Zero Release",
+                "date": "2024-12-12T10:49:16Z"
+            },
+            {
+                "name": "The wacky hotfix Release",
+                "date": "2024-12-05T15:18:47Z"
+            },
+            {
+                "name": "The so-long zero-ver Release",
+                "date": "2024-12-05T10:28:10Z"
+            },
+            {
+                "name": "The make fists with your toes Release",
+                "date": "2024-11-30T17:30:34Z"
+            },
+            {
+                "name": "The Yippee Ki\u2010Yay Release",
+                "date": "2024-11-29T10:21:09Z"
+            },
+            {
+                "name": "The Absolute hotfix",
+                "date": "2024-11-24T20:43:44Z"
+            },
+            {
+                "name": "The Absolute Unit of a Release",
+                "date": "2024-11-24T12:19:21Z"
+            },
+            {
+                "name": "The Quickening tutorial update",
+                "date": "2024-11-19T15:53:35Z"
+            },
+            {
+                "name": "The Quickening fix part 2",
+                "date": "2024-11-18T16:23:37Z"
+            },
+            {
+                "name": "The Quickening fix release",
+                "date": "2024-11-16T18:54:57Z"
+            },
+            {
+                "name": "The Quickening Release",
+                "date": "2024-11-16T18:35:19Z"
+            },
+            {
+                "name": "The Focus, Will, Focus! Release",
+                "date": "2024-11-02T18:19:39Z"
+            },
+            {
+                "name": "The Freddy's hotfix Release",
+                "date": "2024-10-26T18:39:33Z"
+            },
+            {
+                "name": "The Freddy's Revenge Release",
+                "date": "2024-10-25T15:06:26Z"
+            },
+            {
+                "name": "The Who You Gonna Call Release",
+                "date": "2024-10-22T13:20:27Z"
+            },
+            {
+                "name": "The Enhanced AF Release",
+                "date": "2024-10-10T13:55:12Z"
+            },
+            {
+                "name": "The Are you the Keymaster Release?",
+                "date": "2024-10-03T10:12:13Z"
+            },
+            {
+                "name": "The glitch-free-tree release",
+                "date": "2024-09-25T15:00:17Z"
+            },
+            {
+                "name": "The Scanners release",
+                "date": "2024-09-24T11:22:21Z"
+            },
+            {
+                "name": "The best decade release",
+                "date": "2024-09-23T14:59:56Z"
+            },
+            {
+                "name": "The Wedding Anniversary Release",
+                "date": "2024-08-31T16:30:19Z"
+            },
+            {
+                "name": "The Query faster Release",
+                "date": "2024-08-30T15:30:14Z"
+            },
+            {
+                "name": "The Push it to the Max Release",
+                "date": "2024-08-27T12:24:04Z"
+            },
+            {
+                "name": "The lucky number 77 release",
+                "date": "2024-08-22T14:18:02Z"
+            },
+            {
+                "name": "The Key Release",
+                "date": "2024-08-09T09:24:55Z"
+            },
+            {
+                "name": "Hotfix for slow UI",
+                "date": "2024-08-07T15:46:25Z"
+            },
+            {
+                "name": "The 74-75 Release",
+                "date": "2024-08-01T15:06:01Z"
+            },
+            {
+                "name": "The Year Zero Release",
+                "date": "2024-07-25T11:00:46Z"
+            },
+            {
+                "name": "The Taste the Rainbow Release",
+                "date": "2024-07-18T15:47:38Z"
+            },
+            {
+                "name": "The Prune Release",
+                "date": "2024-07-09T12:11:14Z"
+            },
+            {
+                "name": "The Working on my Break Release",
+                "date": "2024-06-29T10:02:07Z"
+            },
+            {
+                "name": "The Buttoned Down Release",
+                "date": "2024-06-19T11:57:49Z"
+            },
+            {
+                "name": "The \"I'm not going there\" Release",
+                "date": "2024-06-16T18:06:05Z"
+            },
+            {
+                "name": "The Concurrency is hard Release",
+                "date": "2024-06-14T10:14:07Z"
+            },
+            {
+                "name": "The Less Users Release",
+                "date": "2024-06-11T14:53:24Z"
+            },
+            {
+                "name": "The Trees and Keys Release",
+                "date": "2024-06-11T13:56:56Z"
+            },
+            {
+                "name": "The Two Thirds of the Number of the Beast Release",
+                "date": "2024-06-08T13:34:14Z"
+            },
+            {
+                "name": "The Toast of the Town Release",
+                "date": "2024-06-06T17:14:46Z"
+            },
+            {
+                "name": "The Matches and Dispatches Hotfix Release",
+                "date": "2024-06-05T17:05:41Z"
+            },
+            {
+                "name": "The Please don't Sue Us Ofek Release",
+                "date": "2024-06-05T14:54:10Z"
+            },
+            {
+                "name": "The Nintendo Release",
+                "date": "2024-06-03T14:51:39Z"
+            },
+            {
+                "name": "The In a Bind Release",
+                "date": "2024-05-29T10:52:59Z"
+            },
+            {
+                "name": "The vanishing DataTable release",
+                "date": "2024-05-28T11:32:31Z"
+            },
+            {
+                "name": "Hotfix for freeze issue",
+                "date": "2024-05-26T13:18:08Z"
+            },
+            {
+                "name": "The best Footer forward release",
+                "date": "2024-05-24T15:46:24Z"
+            },
+            {
+                "name": "The Working on your Birthday release",
+                "date": "2024-05-23T07:59:40Z"
+            },
+            {
+                "name": "The double key fix release",
+                "date": "2024-05-22T19:57:49Z"
+            },
+            {
+                "name": "The new Footer release",
+                "date": "2024-05-22T16:45:59Z"
+            },
+            {
+                "name": "The anchored release",
+                "date": "2024-05-20T18:41:19Z"
+            },
+            {
+                "name": "The down in the gutter release",
+                "date": "2024-05-19T14:12:45Z"
+            },
+            {
+                "name": "The Dynamic Actions release",
+                "date": "2024-05-18T10:17:23Z"
+            },
+            {
+                "name": "The pointless dependency release",
+                "date": "2024-05-15T16:36:45Z"
+            },
+            {
+                "name": "The sweet sixty release",
+                "date": "2024-05-14T14:35:51Z"
+            },
+            {
+                "name": "The message signal release",
+                "date": "2024-05-11T11:08:59Z"
+            },
+            {
+                "name": "The Mayday release!",
+                "date": "2024-05-01T15:47:26Z"
+            },
+            {
+                "name": "The Signalled release",
+                "date": "2024-04-25T10:36:15Z"
+            },
+            {
+                "name": "The flushed release",
+                "date": "2024-04-20T16:32:38Z"
+            },
+            {
+                "name": "The copy to clipboard release",
+                "date": "2024-04-19T10:27:02Z"
+            },
+            {
+                "name": "Inline fix for some terminals",
+                "date": "2024-04-09T15:07:17Z"
+            },
+            {
+                "name": "The Century release!",
+                "date": "2024-04-08T15:47:48Z"
+            },
+            {
+                "name": "The inline mode is tricky release",
+                "date": "2024-04-07T14:24:38Z"
+            },
+            {
+                "name": "The flicker free inline release",
+                "date": "2024-04-07T13:46:38Z"
+            },
+            {
+                "name": "The fixed inline release",
+                "date": "2024-04-06T11:06:44Z"
+            },
+            {
+                "name": "The Speedy Gonzales release",
+                "date": "2024-04-02T15:20:34Z"
+            },
+            {
+                "name": "The not April Fool Release",
+                "date": "2024-04-01T12:30:36Z"
+            },
+            {
+                "name": "The progress release",
+                "date": "2024-03-26T10:56:50Z"
+            },
+            {
+                "name": "The focused hot-fix",
+                "date": "2024-03-18T15:37:38Z"
+            },
+            {
+                "name": "The focused release",
+                "date": "2024-03-18T14:32:15Z"
+            },
+            {
+                "name": "The sin tax release",
+                "date": "2024-02-20T10:41:22Z"
+            },
+            {
+                "name": "The Envy release",
+                "date": "2024-02-19T16:26:08Z"
+            },
+            {
+                "name": "The American friends release",
+                "date": "2024-02-15T17:33:25Z"
+            },
+            {
+                "name": "The tiny tint release",
+                "date": "2024-02-09T18:22:50Z"
+            },
+            {
+                "name": "The half a century release",
+                "date": "2024-02-08T17:37:54Z"
+            },
+            {
+                "name": "The one release to bind them all release",
+                "date": "2024-02-07T13:13:02Z"
+            },
+            {
+                "name": "The \"truly your forgiveness I implore\" release.",
+                "date": "2024-02-02T16:43:09Z"
+            },
+            {
+                "name": "The nevermore bug release",
+                "date": "2024-02-01T11:34:19Z"
+            },
+            {
+                "name": "The \"As of some one gently wrapping, wrapping at my chamber door\" release.",
+                "date": "2024-02-01T10:24:11Z"
+            },
+            {
+                "name": "The nested specificity fixed release",
+                "date": "2024-01-05T11:38:05Z"
+            },
+            {
+                "name": "The Nested Release",
+                "date": "2024-01-04T15:21:04Z"
+            },
+            {
+                "name": "The last release of `23 release",
+                "date": "2023-12-17T20:20:21Z"
+            },
+            {
+                "name": "The styles should update on mount now release",
+                "date": "2023-12-12T21:22:07Z"
+            },
+            {
+                "name": "The speedy release",
+                "date": "2023-12-12T14:45:18Z"
+            },
+            {
+                "name": "The Buttery Release",
+                "date": "2023-12-04T14:00:26Z"
+            },
+            {
+                "name": "The so long 3.7 release",
+                "date": "2023-12-01T11:54:09Z"
+            },
+            {
+                "name": "The NoWidget fix release",
+                "date": "2023-11-29T13:31:52Z"
+            },
+            {
+                "name": "The fixed scrollbar release",
+                "date": "2023-11-29T10:45:14Z"
+            },
+            {
+                "name": "The Nothing to See Here Release",
+                "date": "2023-11-28T14:38:32Z"
+            },
+            {
+                "name": "The Life Universe and Everything release!",
+                "date": "2023-11-22T16:21:40Z"
+            },
+            {
+                "name": "The scarily good release",
+                "date": "2023-10-31T13:31:52Z"
+            },
+            {
+                "name": "The loading release",
+                "date": "2023-10-11T15:57:26Z"
+            },
+            {
+                "name": "The invisible scrollbar release",
+                "date": "2023-10-10T14:51:44Z"
+            },
+            {
+                "name": "The hotfixed Textarea release",
+                "date": "2023-09-21T16:18:36Z"
+            },
+            {
+                "name": "The TextArea has landed release",
+                "date": "2023-09-21T12:00:12Z"
+            },
+            {
+                "name": "Whoah, time out!",
+                "date": "2023-09-16T09:57:02Z"
+            },
+            {
+                "name": "The Commanding release",
+                "date": "2023-09-15T15:43:33Z"
+            },
+            {
+                "name": "The Rule release",
+                "date": "2023-09-05T12:57:01Z"
+            },
+            {
+                "name": "",
+                "date": "2023-08-27T07:22:35Z"
+            },
+            {
+                "name": "Textual web driver",
+                "date": "2023-08-26T16:21:06Z"
+            },
+            {
+                "name": "The hidden Tabs release",
+                "date": "2023-08-22T12:06:28Z"
+            },
+            {
+                "name": "Digits Widget ",
+                "date": "2023-08-15T16:07:42Z"
+            },
+            {
+                "name": "The Log release",
+                "date": "2023-08-03T09:15:50Z"
+            },
+            {
+                "name": "Worker update and more",
+                "date": "2023-08-01T10:10:32Z"
+            },
+            {
+                "name": "The Notification Release",
+                "date": "2023-07-17T13:12:06Z"
+            },
+            {
+                "name": "Refactored dev tools",
+                "date": "2023-07-03T14:45:10Z"
+            },
+            {
+                "name": "Markdown fixes",
+                "date": "2023-06-20T08:28:53Z"
+            },
+            {
+                "name": "Who remembers Tab Clear ?",
+                "date": "2023-06-19T09:28:35Z"
+            },
+            {
+                "name": "The sparkly release",
+                "date": "2023-06-01T10:37:51Z"
+            },
+            {
+                "name": "The Trogon release",
+                "date": "2023-05-20T10:33:14Z"
+            },
+            {
+                "name": "Focusing on fixes",
+                "date": "2023-05-17T15:32:15Z"
+            },
+            {
+                "name": "Fixes an error in the code browser example",
+                "date": "2023-05-08T17:44:38Z"
+            },
+            {
+                "name": "The King of releases",
+                "date": "2023-05-08T16:48:36Z"
+            },
+            {
+                "name": "The On decorator",
+                "date": "2023-05-03T12:27:00Z"
+            },
+            {
+                "name": "Fix run on Windows",
+                "date": "2023-04-28T19:58:28Z"
+            },
+            {
+                "name": "",
+                "date": "2023-04-28T17:11:09Z"
+            },
+            {
+                "name": "",
+                "date": "2023-04-28T11:39:39Z"
+            },
+            {
+                "name": "Making good Progress!",
+                "date": "2023-04-27T14:08:21Z"
+            },
+            {
+                "name": "Run Textual, Run",
+                "date": "2023-04-26T12:58:42Z"
+            },
+            {
+                "name": "Fix for stuck tabs",
+                "date": "2023-04-18T15:48:35Z"
+            },
+            {
+                "name": "The remove row release",
+                "date": "2023-04-18T12:44:06Z"
+            },
+            {
+                "name": "Fix for broken vw and vh units",
+                "date": "2023-04-10T15:52:27Z"
+            },
+            {
+                "name": "DataTable cursor and Directory filtering",
+                "date": "2023-04-07T08:56:04Z"
+            },
+            {
+                "name": "New Worker API",
+                "date": "2023-04-04T12:19:15Z"
+            },
+            {
+                "name": "Bugfix for scrolling under dock",
+                "date": "2023-04-02T08:58:16Z"
+            },
+            {
+                "name": "Modal fixes",
+                "date": "2023-04-02T07:56:27Z"
+            },
+            {
+                "name": "Fixes WIndows cursor and ctrl+click freeze",
+                "date": "2023-03-30T10:05:47Z"
+            },
+            {
+                "name": "You can see right through us!",
+                "date": "2023-03-29T15:43:00Z"
+            },
+            {
+                "name": "Tabbed content and border titles",
+                "date": "2023-03-22T13:42:25Z"
+            },
+            {
+                "name": "Fix Tab import",
+                "date": "2023-03-14T09:59:14Z"
+            },
+            {
+                "name": "The Tabs release",
+                "date": "2023-03-13T15:53:01Z"
+            },
+            {
+                "name": "Shake up of posting messages",
+                "date": "2023-03-09T15:03:47Z"
+            },
+            {
+                "name": "We're not superstitious!",
+                "date": "2023-03-02T14:53:54Z"
+            },
+            {
+                "name": "Fix for batch updates",
+                "date": "2023-02-25T08:29:47Z"
+            },
+            {
+                "name": "New disabled property and compose method",
+                "date": "2023-02-24T15:37:30Z"
+            },
+            {
+                "name": "Massive speed gains in the DataTable!",
+                "date": "2023-02-17T13:12:24Z"
+            },
+            {
+                "name": "Getting down with Markdown",
+                "date": "2023-02-15T11:40:36Z"
+            },
+            {
+                "name": "Fixed `textual diagnose` on Python 3.7",
+                "date": "2023-01-20T09:09:53Z"
+            },
+            {
+                "name": "Cursor-tastic release",
+                "date": "2023-01-19T14:43:16Z"
+            },
+            {
+                "name": "The last release of the year, for real this time",
+                "date": "2022-12-30T17:41:43Z"
+            },
+            {
+                "name": "The performance release",
+                "date": "2022-12-30T13:28:46Z"
+            },
+            {
+                "name": "Fix for TextLog.clear",
+                "date": "2022-12-28T10:57:17Z"
+            },
+            {
+                "name": "The Xmas release",
+                "date": "2022-12-25T15:30:40Z"
+            },
+            {
+                "name": "v0.8.0 with textual keys",
+                "date": "2022-12-22T13:09:31Z"
+            },
+            {
+                "name": "You are bound to like this release",
+                "date": "2022-12-17T09:35:06Z"
+            },
+            {
+                "name": "Treemendous Redux",
+                "date": "2022-12-11T13:25:10Z"
+            },
+            {
+                "name": "Lazy screens",
+                "date": "2022-11-20T16:48:16Z"
+            },
+            {
+                "name": "Mounting excitement",
+                "date": "2022-11-08T17:54:26Z"
+            },
+            {
+                "name": "Scarily good release with FR units",
+                "date": "2022-10-31T16:01:46Z"
+            },
+            {
+                "name": "Just a metadata update",
+                "date": "2022-10-22T20:44:07Z"
+            },
+            {
+                "name": "The CSS Release",
+                "date": "2022-10-22T18:54:07Z"
+            },
+            {
+                "name": "",
+                "date": "2022-04-30T08:02:14Z"
+            },
+            {
+                "name": "Bump Rich",
+                "date": "2022-03-10T16:14:54Z"
+            },
+            {
+                "name": "Fix escape key on Windows",
+                "date": "2022-03-10T15:05:42Z"
+            },
+            {
+                "name": "Windows Support",
+                "date": "2022-01-31T11:52:40Z"
+            },
+            {
+                "name": "Bumps Rich to 11.0.0",
+                "date": "2022-01-09T15:43:28Z"
+            },
+            {
+                "name": "",
+                "date": "2022-01-01T15:08:59Z"
+            },
+            {
+                "name": "",
+                "date": "2021-09-12T14:34:05Z"
+            },
+            {
+                "name": "v0.1.10",
+                "date": "2021-08-25T19:29:28Z"
+            },
+            {
+                "name": "New Layout system",
+                "date": "2021-07-05T11:48:12Z"
+            },
+            {
+                "name": "Smoooooth scrolling",
+                "date": "2021-06-24T19:15:00Z"
+            }
+        ]
+    }
+}

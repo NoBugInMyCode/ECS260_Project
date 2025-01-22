@@ -1,0 +1,52 @@
+{
+    "https://api.github.com/repos/openai/CLIP": {
+        "forks": 3412,
+        "watchers": 27049,
+        "stars": 27049,
+        "languages": {
+            "Jupyter Notebook": 3658307,
+            "Python": 34355
+        },
+        "commits": [
+            "2024-06-04T19:47:22Z",
+            "2023-07-08T09:26:30Z",
+            "2023-02-20T19:49:43Z",
+            "2023-01-20T19:31:18Z",
+            "2022-07-27T19:42:37Z",
+            "2022-07-27T07:30:08Z",
+            "2022-07-21T20:04:35Z",
+            "2022-07-14T12:40:02Z",
+            "2022-05-01T21:31:46Z",
+            "2022-04-21T23:45:46Z",
+            "2022-04-10T21:08:16Z",
+            "2022-04-10T21:07:46Z",
+            "2022-04-10T20:39:41Z",
+            "2022-04-10T20:35:32Z",
+            "2022-01-26T01:23:09Z",
+            "2022-01-26T01:04:00Z",
+            "2021-11-09T06:57:26Z",
+            "2021-11-05T05:17:26Z",
+            "2021-11-04T21:32:10Z",
+            "2021-11-04T21:20:40Z",
+            "2021-10-19T05:40:06Z",
+            "2021-09-24T04:57:32Z",
+            "2021-09-24T03:21:49Z",
+            "2021-09-24T03:06:39Z",
+            "2021-09-24T01:56:48Z",
+            "2021-09-24T01:42:20Z",
+            "2021-08-29T09:15:03Z",
+            "2021-08-29T09:08:37Z",
+            "2021-08-12T10:24:27Z",
+            "2021-08-09T08:29:38Z"
+        ],
+        "creation_date": "2020-12-16T11:24:42Z",
+        "contributors": 21,
+        "topics": [
+            "deep-learning",
+            "machine-learning"
+        ],
+        "subscribers": 327,
+        "readme": "# CLIP\n\n[[Blog]](https://openai.com/blog/clip/) [[Paper]](https://arxiv.org/abs/2103.00020) [[Model Card]](model-card.md) [[Colab]](https://colab.research.google.com/github/openai/clip/blob/master/notebooks/Interacting_with_CLIP.ipynb)\n\nCLIP (Contrastive Language-Image Pre-Training) is a neural network trained on a variety of (image, text) pairs. It can be instructed in natural language to predict the most relevant text snippet, given an image, without directly optimizing for the task, similarly to the zero-shot capabilities of GPT-2 and 3. We found CLIP matches the performance of the original ResNet50 on ImageNet \u201czero-shot\u201d without using any of the original 1.28M labeled examples, overcoming several major challenges in computer vision.\n\n\n\n## Approach\n\n![CLIP](CLIP.png)\n\n\n\n## Usage\n\nFirst, [install PyTorch 1.7.1](https://pytorch.org/get-started/locally/) (or later) and torchvision, as well as small additional dependencies, and then install this repo as a Python package. On a CUDA GPU machine, the following will do the trick:\n\n```bash\n$ conda install --yes -c pytorch pytorch=1.7.1 torchvision cudatoolkit=11.0\n$ pip install ftfy regex tqdm\n$ pip install git+https://github.com/openai/CLIP.git\n```\n\nReplace `cudatoolkit=11.0` above with the appropriate CUDA version on your machine or `cpuonly` when installing on a machine without a GPU.\n\n```python\nimport torch\nimport clip\nfrom PIL import Image\n\ndevice = \"cuda\" if torch.cuda.is_available() else \"cpu\"\nmodel, preprocess = clip.load(\"ViT-B/32\", device=device)\n\nimage = preprocess(Image.open(\"CLIP.png\")).unsqueeze(0).to(device)\ntext = clip.tokenize([\"a diagram\", \"a dog\", \"a cat\"]).to(device)\n\nwith torch.no_grad():\n    image_features = model.encode_image(image)\n    text_features = model.encode_text(text)\n    \n    logits_per_image, logits_per_text = model(image, text)\n    probs = logits_per_image.softmax(dim=-1).cpu().numpy()\n\nprint(\"Label probs:\", probs)  # prints: [[0.9927937  0.00421068 0.00299572]]\n```\n\n\n## API\n\nThe CLIP module `clip` provides the following methods:\n\n#### `clip.available_models()`\n\nReturns the names of the available CLIP models.\n\n#### `clip.load(name, device=..., jit=False)`\n\nReturns the model and the TorchVision transform needed by the model, specified by the model name returned by `clip.available_models()`. It will download the model as necessary. The `name` argument can also be a path to a local checkpoint.\n\nThe device to run the model can be optionally specified, and the default is to use the first CUDA device if there is any, otherwise the CPU. When `jit` is `False`, a non-JIT version of the model will be loaded.\n\n#### `clip.tokenize(text: Union[str, List[str]], context_length=77)`\n\nReturns a LongTensor containing tokenized sequences of given text input(s). This can be used as the input to the model\n\n---\n\nThe model returned by `clip.load()` supports the following methods:\n\n#### `model.encode_image(image: Tensor)`\n\nGiven a batch of images, returns the image features encoded by the vision portion of the CLIP model.\n\n#### `model.encode_text(text: Tensor)`\n\nGiven a batch of text tokens, returns the text features encoded by the language portion of the CLIP model.\n\n#### `model(image: Tensor, text: Tensor)`\n\nGiven a batch of images and a batch of text tokens, returns two Tensors, containing the logit scores corresponding to each image and text input. The values are cosine similarities between the corresponding image and text features, times 100.\n\n\n\n## More Examples\n\n### Zero-Shot Prediction\n\nThe code below performs zero-shot prediction using CLIP, as shown in Appendix B in the paper. This example takes an image from the [CIFAR-100 dataset](https://www.cs.toronto.edu/~kriz/cifar.html), and predicts the most likely labels among the 100 textual labels from the dataset.\n\n```python\nimport os\nimport clip\nimport torch\nfrom torchvision.datasets import CIFAR100\n\n# Load the model\ndevice = \"cuda\" if torch.cuda.is_available() else \"cpu\"\nmodel, preprocess = clip.load('ViT-B/32', device)\n\n# Download the dataset\ncifar100 = CIFAR100(root=os.path.expanduser(\"~/.cache\"), download=True, train=False)\n\n# Prepare the inputs\nimage, class_id = cifar100[3637]\nimage_input = preprocess(image).unsqueeze(0).to(device)\ntext_inputs = torch.cat([clip.tokenize(f\"a photo of a {c}\") for c in cifar100.classes]).to(device)\n\n# Calculate features\nwith torch.no_grad():\n    image_features = model.encode_image(image_input)\n    text_features = model.encode_text(text_inputs)\n\n# Pick the top 5 most similar labels for the image\nimage_features /= image_features.norm(dim=-1, keepdim=True)\ntext_features /= text_features.norm(dim=-1, keepdim=True)\nsimilarity = (100.0 * image_features @ text_features.T).softmax(dim=-1)\nvalues, indices = similarity[0].topk(5)\n\n# Print the result\nprint(\"\\nTop predictions:\\n\")\nfor value, index in zip(values, indices):\n    print(f\"{cifar100.classes[index]:>16s}: {100 * value.item():.2f}%\")\n```\n\nThe output will look like the following (the exact numbers may be slightly different depending on the compute device):\n\n```\nTop predictions:\n\n           snake: 65.31%\n          turtle: 12.29%\n    sweet_pepper: 3.83%\n          lizard: 1.88%\n       crocodile: 1.75%\n```\n\nNote that this example uses the `encode_image()` and `encode_text()` methods that return the encoded features of given inputs.\n\n\n### Linear-probe evaluation\n\nThe example below uses [scikit-learn](https://scikit-learn.org/) to perform logistic regression on image features.\n\n```python\nimport os\nimport clip\nimport torch\n\nimport numpy as np\nfrom sklearn.linear_model import LogisticRegression\nfrom torch.utils.data import DataLoader\nfrom torchvision.datasets import CIFAR100\nfrom tqdm import tqdm\n\n# Load the model\ndevice = \"cuda\" if torch.cuda.is_available() else \"cpu\"\nmodel, preprocess = clip.load('ViT-B/32', device)\n\n# Load the dataset\nroot = os.path.expanduser(\"~/.cache\")\ntrain = CIFAR100(root, download=True, train=True, transform=preprocess)\ntest = CIFAR100(root, download=True, train=False, transform=preprocess)\n\n\ndef get_features(dataset):\n    all_features = []\n    all_labels = []\n    \n    with torch.no_grad():\n        for images, labels in tqdm(DataLoader(dataset, batch_size=100)):\n            features = model.encode_image(images.to(device))\n\n            all_features.append(features)\n            all_labels.append(labels)\n\n    return torch.cat(all_features).cpu().numpy(), torch.cat(all_labels).cpu().numpy()\n\n# Calculate the image features\ntrain_features, train_labels = get_features(train)\ntest_features, test_labels = get_features(test)\n\n# Perform logistic regression\nclassifier = LogisticRegression(random_state=0, C=0.316, max_iter=1000, verbose=1)\nclassifier.fit(train_features, train_labels)\n\n# Evaluate using the logistic regression classifier\npredictions = classifier.predict(test_features)\naccuracy = np.mean((test_labels == predictions).astype(float)) * 100.\nprint(f\"Accuracy = {accuracy:.3f}\")\n```\n\nNote that the `C` value should be determined via a hyperparameter sweep using a validation split.\n\n\n## See Also\n\n* [OpenCLIP](https://github.com/mlfoundations/open_clip): includes larger and independently trained CLIP models up to ViT-G/14\n* [Hugging Face implementation of CLIP](https://huggingface.co/docs/transformers/model_doc/clip): for easier integration with the HF ecosystem\n",
+        "releases": []
+    }
+}

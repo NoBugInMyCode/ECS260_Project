@@ -1,0 +1,48 @@
+{
+    "https://api.github.com/repos/tpope/vim-fugitive": {
+        "forks": 1015,
+        "watchers": 20285,
+        "stars": 20285,
+        "languages": {
+            "Vim Script": 327426
+        },
+        "commits": [
+            "2025-01-20T06:29:31Z",
+            "2025-01-20T06:19:46Z",
+            "2024-07-12T17:08:01Z",
+            "2024-12-29T07:17:31Z",
+            "2024-12-15T23:44:08Z",
+            "2024-11-19T17:16:44Z",
+            "2024-09-06T23:59:21Z",
+            "2024-09-02T00:07:09Z",
+            "2024-07-18T23:24:26Z",
+            "2024-02-11T18:38:02Z",
+            "2024-07-03T20:30:41Z",
+            "2024-06-26T02:34:15Z",
+            "2024-06-12T16:58:48Z",
+            "2024-02-11T04:49:25Z",
+            "2024-05-19T14:51:19Z",
+            "2024-05-19T04:36:48Z",
+            "2024-03-02T20:08:49Z",
+            "2024-05-17T16:59:54Z",
+            "2024-05-17T17:14:29Z",
+            "2024-05-15T16:46:12Z",
+            "2024-05-15T16:41:57Z",
+            "2024-05-15T05:14:44Z",
+            "2024-05-15T03:38:44Z",
+            "2024-05-01T22:16:45Z",
+            "2024-04-08T05:40:26Z",
+            "2024-03-31T20:12:45Z",
+            "2024-03-28T20:43:41Z",
+            "2024-03-26T18:14:01Z",
+            "2024-03-21T05:22:22Z",
+            "2024-03-16T16:38:32Z"
+        ],
+        "creation_date": "2009-10-09T01:09:49Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 227,
+        "readme": "# fugitive.vim\n\nFugitive is the premier Vim plugin for Git.  Or maybe it's the premier Git\nplugin for Vim?  Either way, it's \"so awesome, it should be illegal\".  That's\nwhy it's called Fugitive.\n\nThe crown jewel of Fugitive is `:Git` (or just `:G`), which calls any\narbitrary Git command.  If you know how to use Git at the command line, you\nknow how to use `:Git`.  It's vaguely akin to `:!git` but with numerous\nimprovements:\n\n* The default behavior is to directly echo the command's output.  Quiet\n  commands like `:Git add` avoid the dreaded \"Press ENTER or type command to\n  continue\" prompt.\n* `:Git commit`, `:Git rebase -i`, and other commands that invoke an editor do\n  their editing in the current Vim instance.\n* `:Git diff`, `:Git log`, and other verbose, paginated commands have their\n  output loaded into a temporary buffer.  Force this behavior for any command\n  with `:Git --paginate` or `:Git -p`.\n* `:Git blame` uses a temporary buffer with maps for additional triage.  Press\n  enter on a line to view the commit where the line changed, or `g?` to see\n  other available maps.  Omit the filename argument and the currently edited\n  file will be blamed in a vertical, scroll-bound split.\n* `:Git mergetool` and `:Git difftool` load their changesets into the quickfix\n  list.\n* Called with no arguments, `:Git` opens a summary window with dirty files and\n  unpushed and unpulled commits.  Press `g?` to bring up a list of maps for\n  numerous operations including diffing, staging, committing, rebasing, and\n  stashing.  (This is the successor to the old `:Gstatus`.)\n* This command (along with all other commands) always uses the current\n  buffer's repository, so you don't need to worry about the current working\n  directory.\n\nAdditional commands are provided for higher level operations:\n\n* View any blob, tree, commit, or tag in the repository with `:Gedit` (and\n  `:Gsplit`, etc.).  For example, `:Gedit HEAD~3:%` loads the current file as\n  it existed 3 commits ago.\n* `:Gdiffsplit` (or `:Gvdiffsplit`) brings up the staged version of the file\n  side by side with the working tree version.  Use Vim's diff handling\n  capabilities to apply changes to the staged version, and write that buffer\n  to stage the changes.  You can also give an arbitrary `:Gedit` argument to\n  diff against older versions of the file.\n* `:Gread` is a variant of `git checkout -- filename` that operates on the\n  buffer rather than the file itself.  This means you can use `u` to undo it\n  and you never get any warnings about the file changing outside Vim.\n* `:Gwrite` writes to both the work tree and index versions of a file, making\n  it like `git add` when called from a work tree file and like `git checkout`\n  when called from the index or a blob in history.\n* `:Ggrep` is `:grep` for `git grep`.  `:Glgrep` is `:lgrep` for the same.\n* `:GMove` does a `git mv` on the current file and changes the buffer name to\n  match.  `:GRename` does the same with a destination filename relative to the\n  current file's directory.\n* `:GDelete` does a `git rm` on the current file and simultaneously deletes\n  the buffer.  `:GRemove` does the same but leaves the (now empty) buffer\n  open.\n* `:GBrowse` to open the current file on the web front-end of your favorite\n  hosting provider, with optional line range (try it in visual mode).  Plugins\n  are available for popular providers such as [GitHub][rhubarb.vim],\n  [GitLab][fugitive-gitlab.vim], [Bitbucket][fubitive.vim],\n  [Gitee][fugitive-gitee.vim], [Pagure][pagure],\n  [Phabricator][vim-phabricator], [Azure DevOps][fugitive-azure-devops.vim],\n  and [sourcehut][srht.vim].\n\n[rhubarb.vim]: https://github.com/tpope/vim-rhubarb\n[fugitive-gitlab.vim]: https://github.com/shumphrey/fugitive-gitlab.vim\n[fubitive.vim]: https://github.com/tommcdo/vim-fubitive\n[fugitive-gitee.vim]: https://github.com/linuxsuren/fugitive-gitee.vim\n[pagure]: https://github.com/FrostyX/vim-fugitive-pagure\n[vim-phabricator]: https://github.com/jparise/vim-phabricator\n[fugitive-azure-devops.vim]: https://github.com/cedarbaum/fugitive-azure-devops.vim\n[srht.vim]: https://git.sr.ht/~willdurand/srht.vim\n\nAdd `%{FugitiveStatusline()}` to `'statusline'` to get an indicator\nwith the current branch in your statusline.\n\nFor more information, see `:help fugitive`.\n\n## Screencasts\n\n* [A complement to command line git](http://vimcasts.org/e/31)\n* [Working with the git index](http://vimcasts.org/e/32)\n* [Resolving merge conflicts with vimdiff](http://vimcasts.org/e/33)\n* [Browsing the git object database](http://vimcasts.org/e/34)\n* [Exploring the history of a git repository](http://vimcasts.org/e/35)\n\n## Installation\n\nInstall using your favorite package manager, or use Vim's built-in package\nsupport:\n\n    mkdir -p ~/.vim/pack/tpope/start\n    cd ~/.vim/pack/tpope/start\n    git clone https://tpope.io/vim/fugitive.git\n    vim -u NONE -c \"helptags fugitive/doc\" -c q\n\n## FAQ\n\n> What happened to the dispatch.vim backed asynchronous `:Gpush` and\n> `:Gfetch`?\n\nThis behavior was divisive, confusing, and complicated inputting passwords, so\nit was removed.  Use `:Git! push` to use Fugitive's own asynchronous\nexecution, or retroactively make `:Git push` asynchronous by pressing\n`CTRL-D`.\n\n> Why am I getting `core.worktree is required when using an external Git dir`?\n\nGit generally sets `core.worktree` for you automatically when necessary, but\nif you're doing something weird, or using a third-party tool that does\nsomething weird, you may need to set it manually:\n\n    git config core.worktree \"$PWD\"\n\nThis may be necessary even when simple `git` commands seem to work fine\nwithout it.\n\n> So I have a symlink and...\n\nStop.  Just stop.  If Git won't deal with your symlink, then Fugitive won't\neither.  Consider using a [plugin that resolves\nsymlinks](https://github.com/aymericbeaumet/symlink.vim), or even better,\nusing fewer symlinks.\n\n## Self-Promotion\n\nLike fugitive.vim? Follow the repository on\n[GitHub](https://github.com/tpope/vim-fugitive) and vote for it on\n[vim.org](http://www.vim.org/scripts/script.php?script_id=2975).  And if\nyou're feeling especially charitable, follow [tpope](http://tpo.pe/) on\n[Twitter](http://twitter.com/tpope) and\n[GitHub](https://github.com/tpope).\n\n## License\n\nCopyright (c) Tim Pope.  Distributed under the same terms as Vim itself.\nSee `:help license`.\n",
+        "releases": []
+    }
+}

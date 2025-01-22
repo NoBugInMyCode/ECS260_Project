@@ -1,0 +1,363 @@
+{
+    "https://api.github.com/repos/firecracker-microvm/firecracker": {
+        "forks": 1864,
+        "watchers": 26801,
+        "stars": 26801,
+        "languages": {
+            "Rust": 3538314,
+            "Python": 762293,
+            "Shell": 80823,
+            "C": 14967,
+            "Dockerfile": 7288
+        },
+        "commits": [
+            "2025-01-21T08:45:16Z",
+            "2025-01-20T18:59:39Z",
+            "2024-10-30T15:14:33Z",
+            "2025-01-20T13:25:29Z",
+            "2025-01-15T11:40:21Z",
+            "2025-01-17T12:45:56Z",
+            "2025-01-13T17:37:52Z",
+            "2025-01-10T11:37:21Z",
+            "2025-01-10T17:19:39Z",
+            "2025-01-10T11:27:02Z",
+            "2025-01-14T17:32:43Z",
+            "2025-01-10T09:57:08Z",
+            "2025-01-10T14:22:37Z",
+            "2025-01-10T13:20:30Z",
+            "2025-01-10T12:59:11Z",
+            "2025-01-10T12:55:09Z",
+            "2025-01-09T17:04:25Z",
+            "2024-12-11T16:04:26Z",
+            "2024-12-11T14:57:58Z",
+            "2024-12-11T13:54:46Z",
+            "2024-12-11T12:41:15Z",
+            "2024-11-29T16:17:19Z",
+            "2024-12-16T16:21:23Z",
+            "2024-11-22T13:51:33Z",
+            "2025-01-16T07:34:08Z",
+            "2025-01-16T07:32:45Z",
+            "2025-01-13T16:07:53Z",
+            "2025-01-13T13:44:15Z",
+            "2025-01-09T19:10:56Z",
+            "2024-12-11T16:57:28Z"
+        ],
+        "creation_date": "2017-10-19T06:18:47Z",
+        "contributors": 30,
+        "topics": [
+            "containers",
+            "minimalist",
+            "open-source",
+            "oversubscription",
+            "rust",
+            "sandbox",
+            "serverless",
+            "virtual-machine",
+            "virtualization"
+        ],
+        "subscribers": 338,
+        "readme": "<picture>\n   <source media=\"(prefers-color-scheme: dark)\" srcset=\"docs/images/fc_logo_full_transparent-bg_white-fg.png\">\n   <source media=\"(prefers-color-scheme: light)\" srcset=\"docs/images/fc_logo_full_transparent-bg.png\">\n   <img alt=\"Firecracker Logo Title\" width=\"750\" src=\"docs/images/fc_logo_full_transparent-bg.png\">\n</picture>\n\nOur mission is to enable secure, multi-tenant, minimal-overhead execution of\ncontainer and function workloads.\n\nRead more about the Firecracker Charter [here](CHARTER.md).\n\n## What is Firecracker?\n\nFirecracker is an open source virtualization technology that is purpose-built\nfor creating and managing secure, multi-tenant container and function-based\nservices that provide serverless operational models. Firecracker runs workloads\nin lightweight virtual machines, called microVMs, which combine the security and\nisolation properties provided by hardware virtualization technology with the\nspeed and flexibility of containers.\n\n## Overview\n\nThe main component of Firecracker is a virtual machine monitor (VMM) that uses\nthe Linux Kernel Virtual Machine (KVM) to create and run microVMs. Firecracker\nhas a minimalist design. It excludes unnecessary devices and guest-facing\nfunctionality to reduce the memory footprint and attack surface area of each\nmicroVM. This improves security, decreases the startup time, and increases\nhardware utilization. Firecracker has also been integrated in container\nruntimes, for example\n[Kata Containers](https://github.com/kata-containers/kata-containers) and\n[Flintlock](https://github.com/liquidmetal-dev/flintlock).\n\nFirecracker was developed at Amazon Web Services to accelerate the speed and\nefficiency of services like [AWS Lambda](https://aws.amazon.com/lambda/) and\n[AWS Fargate](https://aws.amazon.com/fargate/). Firecracker is open sourced\nunder [Apache version 2.0](LICENSE).\n\nTo read more about Firecracker, check out\n[firecracker-microvm.io](https://firecracker-microvm.github.io).\n\n## Getting Started\n\nTo get started with Firecracker, download the latest\n[release](https://github.com/firecracker-microvm/firecracker/releases) binaries\nor build it from source.\n\nYou can build Firecracker on any Unix/Linux system that has Docker running (we\nuse a development container) and `bash` installed, as follows:\n\n```bash\ngit clone https://github.com/firecracker-microvm/firecracker\ncd firecracker\ntools/devtool build\ntoolchain=\"$(uname -m)-unknown-linux-musl\"\n```\n\nThe Firecracker binary will be placed at\n`build/cargo_target/${toolchain}/debug/firecracker`. For more information on\nbuilding, testing, and running Firecracker, go to the\n[quickstart guide](docs/getting-started.md).\n\nThe overall security of Firecracker microVMs, including the ability to meet the\ncriteria for safe multi-tenant computing, depends on a well configured Linux\nhost operating system. A configuration that we believe meets this bar is\nincluded in [the production host setup document](docs/prod-host-setup.md).\n\n## Contributing\n\nFirecracker is already running production workloads within AWS, but it's still\nDay 1 on the journey guided by our [mission](CHARTER.md). There's a lot more to\nbuild and we welcome all contributions.\n\nTo contribute to Firecracker, check out the development setup section in the\n[getting started guide](docs/getting-started.md) and then the Firecracker\n[contribution guidelines](CONTRIBUTING.md).\n\n## Releases\n\nNew Firecracker versions are released via the GitHub repository\n[releases](https://github.com/firecracker-microvm/firecracker/releases) page,\ntypically every two or three months. A history of changes is recorded in our\n[changelog](CHANGELOG.md).\n\nThe Firecracker release policy is detailed [here](docs/RELEASE_POLICY.md).\n\n## Design\n\nFirecracker's overall architecture is described in\n[the design document](docs/design.md).\n\n## Features & Capabilities\n\nFirecracker consists of a single micro Virtual Machine Manager process that\nexposes an API endpoint to the host once started. The API is\n[specified in OpenAPI format](src/firecracker/swagger/firecracker.yaml). Read\nmore about it in the [API docs](docs/api_requests).\n\nThe **API endpoint** can be used to:\n\n- Configure the microvm by:\n  - Setting the number of vCPUs (the default is 1).\n  - Setting the memory size (the default is 128 MiB).\n  - Configuring a [CPU template](docs/cpu_templates/cpu-templates.md).\n- Add one or more network interfaces to the microVM.\n- Add one or more read-write or read-only disks to the microVM, each represented\n  by a file-backed block device.\n- Trigger a block device re-scan while the guest is running. This enables the\n  guest OS to pick up size changes to the block device's backing file.\n- Change the backing file for a block device, before or after the guest boots.\n- Configure rate limiters for virtio devices which can limit the bandwidth,\n  operations per second, or both.\n- Configure the logging and metric system.\n- `[BETA]` Configure the data tree of the guest-facing metadata service. The\n  service is only available to the guest if this resource is configured.\n- Add a [vsock socket](docs/vsock.md) to the microVM.\n- Add a [entropy device](docs/entropy.md) to the microVM.\n- Start the microVM using a given kernel image, root file system, and boot\n  arguments.\n- [x86_64 only] Stop the microVM.\n\n**Built-in Capabilities**:\n\n- Demand fault paging and CPU oversubscription enabled by default.\n- Advanced, thread-specific seccomp filters for enhanced security.\n- [Jailer](docs/jailer.md) process for starting Firecracker in production\n  scenarios; applies a cgroup/namespace isolation barrier and then drops\n  privileges.\n\n## Tested platforms\n\nWe test all combinations of:\n\n| Instance  | Host OS & Kernel | Guest Rootfs | Guest Kernel |\n| :-------- | :--------------- | :----------- | :----------- |\n| c5n.metal | al2 linux_5.10   | ubuntu 24.04 | linux_5.10   |\n| m5n.metal | al2023 linux_6.1 |              | linux_6.1    |\n| m6i.metal |                  |              |              |\n| m6a.metal |                  |              |              |\n| m6g.metal |                  |              |              |\n| m7g.metal |                  |              |              |\n\n## Known issues and Limitations\n\n- The `pl031` RTC device on aarch64 does not support interrupts, so guest\n  programs which use an RTC alarm (e.g. `hwclock`) will not work.\n\n## Performance\n\nFirecracker's performance characteristics are listed as part of the\n[specification documentation](SPECIFICATION.md). All specifications are a part\nof our commitment to supporting container and function workloads in serverless\noperational models, and are therefore enforced via continuous integration\ntesting.\n\n## Policy for Security Disclosures\n\nThe security of Firecracker is our top priority. If you suspect you have\nuncovered a vulnerability, contact us privately, as outlined in our\n[security policy document](SECURITY.md); we will immediately prioritize your\ndisclosure.\n\n## FAQ & Contact\n\nFrequently asked questions are collected in our [FAQ doc](FAQ.md).\n\nYou can get in touch with the Firecracker community in the following ways:\n\n- Security-related issues, see our [security policy document](SECURITY.md).\n- Chat with us on our\n  [Slack workspace](https://join.slack.com/t/firecracker-microvm/shared_invite/zt-2tc0mfxpc-tU~HYAYSzLDl5XGGJU3YIg)\n  _Note: most of the maintainers are on a European time zone._\n- Open a GitHub issue in this repository.\n- Email the maintainers at\n  [firecracker-maintainers@amazon.com](mailto:firecracker-maintainers@amazon.com).\n\nWhen communicating within the Firecracker community, please mind our\n[code of conduct](CODE_OF_CONDUCT.md).\n",
+        "releases": [
+            {
+                "name": "Firecracker v1.10.1",
+                "date": "2024-11-13T10:56:54Z"
+            },
+            {
+                "name": "Firecracker v1.10.0",
+                "date": "2024-11-07T18:54:21Z"
+            },
+            {
+                "name": "Firecracker v1.9.1",
+                "date": "2024-10-03T15:17:10Z"
+            },
+            {
+                "name": "Firecracker v1.9.0",
+                "date": "2024-09-03T12:11:11Z"
+            },
+            {
+                "name": "Firecracker v1.8.0",
+                "date": "2024-07-10T09:15:47Z"
+            },
+            {
+                "name": "Firecracker v1.7.0",
+                "date": "2024-03-18T16:05:08Z"
+            },
+            {
+                "name": "Firecracker v1.6.0",
+                "date": "2023-12-20T14:13:52Z"
+            },
+            {
+                "name": "Firecracker v1.5.1",
+                "date": "2023-12-05T15:11:22Z"
+            },
+            {
+                "name": "Firecracker v1.5.0",
+                "date": "2023-10-12T11:33:58Z"
+            },
+            {
+                "name": "Firecracker v1.4.1",
+                "date": "2023-08-09T14:59:56Z"
+            },
+            {
+                "name": "Firecracker v1.4.0",
+                "date": "2023-07-20T10:08:26Z"
+            },
+            {
+                "name": "Firecracker v1.3.3",
+                "date": "2023-05-24T15:56:55Z"
+            },
+            {
+                "name": "Firecracker v1.2.1",
+                "date": "2023-05-02T14:43:29Z"
+            },
+            {
+                "name": "Firecracker v1.3.2",
+                "date": "2023-04-27T17:02:52Z"
+            },
+            {
+                "name": "Firecracker v1.3.1",
+                "date": "2023-03-06T15:33:43Z"
+            },
+            {
+                "name": "Firecracker v1.3.0",
+                "date": "2023-03-02T17:56:45Z"
+            },
+            {
+                "name": "Firecracker v1.1.4",
+                "date": "2022-12-07T09:21:49Z"
+            },
+            {
+                "name": "Firecracker v1.2.0",
+                "date": "2022-12-02T10:11:54Z"
+            },
+            {
+                "name": "Firecracker v1.0.2",
+                "date": "2022-11-30T14:08:46Z"
+            },
+            {
+                "name": "Firecracker v1.1.3",
+                "date": "2022-11-24T08:43:45Z"
+            },
+            {
+                "name": "Firecracker v1.1.2",
+                "date": "2022-10-10T08:27:48Z"
+            },
+            {
+                "name": "Firecracker v1.0.1",
+                "date": "2022-10-10T08:27:31Z"
+            },
+            {
+                "name": "Firecracker v1.1.1",
+                "date": "2022-07-29T12:09:23Z"
+            },
+            {
+                "name": "Firecracker v1.1.0",
+                "date": "2022-05-06T12:32:05Z"
+            },
+            {
+                "name": "Firecracker v1.0.0",
+                "date": "2022-01-31T08:00:15Z"
+            },
+            {
+                "name": "Firecracker v0.25.2",
+                "date": "2021-11-24T13:27:55Z"
+            },
+            {
+                "name": "Firecracker v0.25.1",
+                "date": "2021-11-05T08:46:23Z"
+            },
+            {
+                "name": "Firecracker v0.24.6",
+                "date": "2021-08-24T11:22:36Z"
+            },
+            {
+                "name": "Firecracker v0.25.0",
+                "date": "2021-08-13T16:26:05Z"
+            },
+            {
+                "name": "Firecracker v0.24.5",
+                "date": "2021-07-23T14:16:47Z"
+            },
+            {
+                "name": "Firecracker v0.23.5",
+                "date": "2021-07-23T13:55:31Z"
+            },
+            {
+                "name": "Firecracker v0.24.4",
+                "date": "2021-05-25T15:33:01Z"
+            },
+            {
+                "name": "Firecracker v0.23.4",
+                "date": "2021-05-25T16:09:56Z"
+            },
+            {
+                "name": "Firecracker v0.24.3",
+                "date": "2021-05-11T15:34:29Z"
+            },
+            {
+                "name": "Firecracker v0.24.2",
+                "date": "2021-02-19T13:04:35Z"
+            },
+            {
+                "name": "Firecracker v0.23.3",
+                "date": "2021-02-19T13:07:52Z"
+            },
+            {
+                "name": "Firecracker v0.22.4",
+                "date": "2021-02-01T14:26:55Z"
+            },
+            {
+                "name": "Firecracker v0.23.2",
+                "date": "2021-01-15T16:55:47Z"
+            },
+            {
+                "name": "Firecracker v0.24.1",
+                "date": "2021-01-14T08:58:11Z"
+            },
+            {
+                "name": "Firecracker v0.22.3",
+                "date": "2021-01-13T16:48:07Z"
+            },
+            {
+                "name": "Firecracker v0.24.0",
+                "date": "2020-12-23T16:15:21Z"
+            },
+            {
+                "name": "Firecracker v0.23.1",
+                "date": "2020-11-23T15:27:38Z"
+            },
+            {
+                "name": "Firecracker v0.22.2",
+                "date": "2020-11-23T15:26:32Z"
+            },
+            {
+                "name": "Firecracker v0.23.0",
+                "date": "2020-10-27T15:29:09Z"
+            },
+            {
+                "name": "Firecracker v0.22.1",
+                "date": "2020-10-14T18:35:13Z"
+            },
+            {
+                "name": "Firecracker v0.21.3",
+                "date": "2020-10-14T17:03:30Z"
+            },
+            {
+                "name": "Firecracker v0.22.0",
+                "date": "2020-08-05T12:57:13Z"
+            },
+            {
+                "name": "Firecracker v0.21.2",
+                "date": "2020-08-04T10:36:49Z"
+            },
+            {
+                "name": "Firecracker v0.20.1",
+                "date": "2020-08-04T10:34:48Z"
+            },
+            {
+                "name": "Firecracker v0.21.1",
+                "date": "2020-03-06T13:34:25Z"
+            },
+            {
+                "name": "Firecracker v0.21.0",
+                "date": "2020-02-19T09:41:09Z"
+            },
+            {
+                "name": "Firecracker v0.20.0",
+                "date": "2019-12-18T16:39:29Z"
+            },
+            {
+                "name": "Firecracker v0.19.1",
+                "date": "2019-12-09T13:20:43Z"
+            },
+            {
+                "name": "Firecracker v0.18.1",
+                "date": "2019-12-09T13:16:36Z"
+            },
+            {
+                "name": "Firecracker v0.19.0",
+                "date": "2019-10-14T14:11:40Z"
+            },
+            {
+                "name": "Firecracker v0.18.0",
+                "date": "2019-09-04T14:38:56Z"
+            },
+            {
+                "name": "Firecracker v0.17.0",
+                "date": "2019-06-14T13:38:04Z"
+            },
+            {
+                "name": "Firecracker v0.16.0",
+                "date": "2019-05-03T08:12:11Z"
+            },
+            {
+                "name": "Firecracker v0.15.2",
+                "date": "2019-03-09T00:53:21Z"
+            },
+            {
+                "name": "Firecracker v0.15.1",
+                "date": "2019-03-07T22:22:29Z"
+            },
+            {
+                "name": "Firecracker v0.15.0",
+                "date": "2019-02-22T17:45:04Z"
+            },
+            {
+                "name": "Firecracker v0.14.0",
+                "date": "2019-01-22T17:25:59Z"
+            },
+            {
+                "name": "Firecracker v0.13.0",
+                "date": "2019-01-08T16:36:55Z"
+            },
+            {
+                "name": "Firecracker v0.12.0",
+                "date": "2018-12-18T16:56:44Z"
+            },
+            {
+                "name": "Firecracker v0.11.0",
+                "date": "2018-11-23T17:01:31Z"
+            },
+            {
+                "name": "Firecracker v0.10.1",
+                "date": "2018-10-24T11:58:47Z"
+            },
+            {
+                "name": "Firecracker v0.10.0",
+                "date": "2018-10-18T12:50:34Z"
+            },
+            {
+                "name": "Firecracker v0.9.0",
+                "date": "2018-09-28T15:35:11Z"
+            },
+            {
+                "name": "Firecracker v0.7.0",
+                "date": "2018-08-03T13:41:52Z"
+            },
+            {
+                "name": "Firecracker-v0.6.0",
+                "date": "2018-06-29T14:36:48Z"
+            },
+            {
+                "name": "Firecracker-v0.5.0",
+                "date": "2018-06-15T17:18:26Z"
+            },
+            {
+                "name": "Firecracker-v0.4.0",
+                "date": "2018-06-08T20:42:46Z"
+            },
+            {
+                "name": "Firecracker-v0.3.0",
+                "date": "2018-05-15T16:19:52Z"
+            },
+            {
+                "name": "Firecracker-v0.2.0",
+                "date": "2018-04-04T15:20:32Z"
+            },
+            {
+                "name": "Firecracker-v.0.1.0",
+                "date": "2018-03-05T10:08:15Z"
+            }
+        ]
+    }
+}

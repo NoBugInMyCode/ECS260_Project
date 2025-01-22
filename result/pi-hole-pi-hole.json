@@ -1,0 +1,492 @@
+{
+    "https://api.github.com/repos/pi-hole/pi-hole": {
+        "forks": 2726,
+        "watchers": 49973,
+        "stars": 49973,
+        "languages": {
+            "Shell": 367985,
+            "Python": 53907,
+            "Roff": 11096,
+            "Dockerfile": 4659
+        },
+        "commits": [
+            "2024-12-29T13:53:35Z",
+            "2024-12-29T13:32:07Z",
+            "2024-12-29T12:43:08Z",
+            "2024-12-29T12:35:32Z",
+            "2024-12-29T12:22:35Z",
+            "2024-09-11T22:10:30Z",
+            "2024-09-11T22:00:57Z",
+            "2024-09-02T21:26:11Z",
+            "2024-09-02T21:22:24Z",
+            "2024-07-05T18:12:15Z",
+            "2024-07-05T18:03:40Z",
+            "2024-04-30T13:47:57Z",
+            "2024-06-22T16:00:48Z",
+            "2024-06-22T16:01:05Z",
+            "2024-06-22T12:49:27Z",
+            "2024-06-15T12:16:16Z",
+            "2024-06-15T10:14:34Z",
+            "2024-06-01T11:02:37Z",
+            "2024-06-01T10:29:56Z",
+            "2024-06-01T10:15:39Z",
+            "2024-06-01T10:01:49Z",
+            "2024-05-25T19:54:01Z",
+            "2024-05-25T19:49:24Z",
+            "2024-05-25T10:38:28Z",
+            "2024-05-22T19:29:54Z",
+            "2024-05-18T10:31:36Z",
+            "2024-05-11T20:40:58Z",
+            "2024-05-11T20:36:33Z",
+            "2024-05-11T20:35:46Z",
+            "2024-05-11T20:32:20Z"
+        ],
+        "creation_date": "2014-06-08T15:02:55Z",
+        "contributors": 30,
+        "topics": [
+            "ad-blocker",
+            "blocker",
+            "cloud",
+            "dashboard",
+            "dhcp",
+            "dhcp-server",
+            "dns-server",
+            "dnsmasq",
+            "pi-hole",
+            "raspberry-pi",
+            "shell"
+        ],
+        "subscribers": 710,
+        "readme": "<!-- markdownlint-configure-file { \"MD004\": { \"style\": \"consistent\" } } -->\n<!-- markdownlint-disable MD033 -->\n#\n\n<p align=\"center\">\n  <picture>\n    <source media=\"(prefers-color-scheme: dark)\" srcset=\"https://pi-hole.github.io/graphics/Vortex/Vortex_Vertical_wordmark_darkmode.png\">\n    <source media=\"(prefers-color-scheme: light)\" srcset=\"https://pi-hole.github.io/graphics/Vortex/Vortex_Vertical_wordmark_lightmode.png\">\n    <img src=\"https://pi-hole.github.io/graphics/Vortex/Vortex_Vertical_wordmark_lightmode.png\" width=\"168\" height=\"270\" alt=\"Pi-hole website\">\n  </picture>\n    <br>\n    <strong>Network-wide ad blocking via your own Linux hardware</strong>\n</p>\n\n<!-- markdownlint-enable MD033 -->\n\nThe Pi-hole\u00ae is a [DNS sinkhole](https://en.wikipedia.org/wiki/DNS_Sinkhole) that protects your devices from unwanted content without installing any client-side software.\n\n- **Easy-to-install**: our dialogs walk you through the simple installation process in less than ten minutes\n- **Resolute**: content is blocked in _non-browser locations_, such as ad-laden mobile apps and smart TVs\n- **Responsive**: seamlessly speeds up the feel of everyday browsing by caching DNS queries\n- **Lightweight**: runs smoothly with [minimal hardware and software requirements](https://docs.pi-hole.net/main/prerequisites/)\n- **Robust**: a command-line interface that is quality assured for interoperability\n- **Insightful**: a beautiful responsive Web Interface dashboard to view and control your Pi-hole\n- **Versatile**: can optionally function as a [DHCP server](https://discourse.pi-hole.net/t/how-do-i-use-pi-holes-built-in-dhcp-server-and-why-would-i-want-to/3026), ensuring _all_ your devices are protected automatically\n- **Scalable**: [capable of handling hundreds of millions of queries](https://pi-hole.net/2017/05/24/how-much-traffic-can-pi-hole-handle/) when installed on server-grade hardware\n- **Modern**: blocks ads over both IPv4 and IPv6\n- **Free**: open source software that helps ensure _you_ are the sole person in control of your privacy\n\n-----\n\n## One-Step Automated Install\n\nThose who want to get started quickly and conveniently may install Pi-hole using the following command:\n\n```bash\ncurl -sSL https://install.pi-hole.net | bash\n```\n\n## Alternative Install Methods\n\nPiping to `bash` is [controversial](https://pi-hole.net/2016/07/25/curling-and-piping-to-bash), as it prevents you from [reading code that is about to run](https://github.com/pi-hole/pi-hole/blob/master/automated%20install/basic-install.sh) on your system. Therefore, we provide these alternative installation methods which allow code review before installation:\n\n### Method 1: Clone our repository and run\n\n```bash\ngit clone --depth 1 https://github.com/pi-hole/pi-hole.git Pi-hole\ncd \"Pi-hole/automated install/\"\nsudo bash basic-install.sh\n```\n\n### Method 2: Manually download the installer and run\n\n```bash\nwget -O basic-install.sh https://install.pi-hole.net\nsudo bash basic-install.sh\n```\n\n### Method 3: Using Docker to deploy Pi-hole\n\nPlease refer to the [Pi-hole docker repo](https://github.com/pi-hole/docker-pi-hole) to use the Official Docker Images.\n\n## [Post-install: Make your network take advantage of Pi-hole](https://docs.pi-hole.net/main/post-install/)\n\nOnce the installer has been run, you will need to [configure your router to have **DHCP clients use Pi-hole as their DNS server**](https://discourse.pi-hole.net/t/how-do-i-configure-my-devices-to-use-pi-hole-as-their-dns-server/245). This router configuration will ensure that all devices connecting to your network will have content blocked without any further intervention.\n\nIf your router does not support setting the DNS server, you can [use Pi-hole's built-in DHCP server](https://discourse.pi-hole.net/t/how-do-i-use-pi-holes-built-in-dhcp-server-and-why-would-i-want-to/3026); be sure to disable DHCP on your router first (if it has that feature available).\n\nAs a last resort, you can manually set each device to use Pi-hole as their DNS server.\n\n-----\n\n## Pi-hole is free but powered by your support\n\nThere are many reoccurring costs involved with maintaining free, open-source, and privacy-respecting software; expenses which [our volunteer developers](https://github.com/orgs/pi-hole/people) pitch in to cover out-of-pocket. This is just one example of how strongly we feel about our software and the importance of keeping it maintained.\n\nMake no mistake: **your support is absolutely vital to help keep us innovating!**\n\n### [Donations](https://pi-hole.net/donate)\n\nDonating using our Sponsor Button is **extremely helpful** in offsetting a portion of our monthly expenses:\n\n### Alternative support\n\nIf you'd rather not donate (_which is okay!_), there are other ways you can help support us:\n\n- [GitHub Sponsors](https://github.com/sponsors/pi-hole/)\n- [Patreon](https://patreon.com/pihole)\n- [Hetzner Cloud](https://hetzner.cloud/?ref=7aceisRX3AzA) _affiliate link_\n- [Digital Ocean](https://www.digitalocean.com/?refcode=344d234950e1) _affiliate link_\n- [Stickermule](https://www.stickermule.com/unlock?ref_id=9127301701&utm_medium=link&utm_source=invite) _earn a $10 credit after your first purchase_\n- [Amazon US](https://www.amazon.com/exec/obidos/redirect-home/pihole09-20) _affiliate link_\n- Spreading the word about our software and how you have benefited from it\n\n### Contributing via GitHub\n\nWe welcome _everyone_ to contribute to issue reports, suggest new features, and create pull requests.\n\nIf you have something to add - anything from a typo through to a whole new feature, we're happy to check it out! Just make sure to fill out our template when submitting your request; the questions it asks will help the volunteers quickly understand what you're aiming to achieve.\n\nYou'll find that the [install script](https://github.com/pi-hole/pi-hole/blob/master/automated%20install/basic-install.sh) and the [debug script](https://github.com/pi-hole/pi-hole/blob/master/advanced/Scripts/piholeDebug.sh) have an abundance of comments, which will help you better understand how Pi-hole works. They're also a valuable resource to those who want to learn how to write scripts or code a program! We encourage anyone who likes to tinker to read through it and submit a pull request for us to review.\n\n-----\n\n## Getting in touch with us\n\nWhile we are primarily reachable on our [Discourse User Forum](https://discourse.pi-hole.net/), we can also be found on various social media outlets.\n\n**Please be sure to check the FAQs** before starting a new discussion, as we do not have the spare time to reply to every request for assistance.\n\n- [Frequently Asked Questions](https://discourse.pi-hole.net/c/faqs)\n- [Feature Requests](https://discourse.pi-hole.net/c/feature-requests?order=votes)\n- [Reddit](https://www.reddit.com/r/pihole/)\n- [Twitter](https://twitter.com/The_Pi_hole)\n\n-----\n\n## Breakdown of Features\n\n### [Faster-than-light Engine](https://github.com/pi-hole/ftl)\n\n[FTLDNS](https://github.com/pi-hole/ftl) is a lightweight, purpose-built daemon used to provide statistics needed for the Web Interface, and its API can be easily integrated into your own projects. As the name implies, FTLDNS does this all _very quickly_!\n\nSome of the statistics you can integrate include:\n\n- Total number of domains being blocked\n- Total number of DNS queries today\n- Total number of ads blocked today\n- Percentage of ads blocked\n- Unique domains\n- Queries forwarded (to your chosen upstream DNS server)\n- Queries cached\n- Unique clients\n\nAccess the API via [`telnet`](https://github.com/pi-hole/FTL), the Web (`admin/api.php`) and Command Line (`pihole -c -j`). You can find out [more details over here](https://discourse.pi-hole.net/t/pi-hole-api/1863).\n\n### The Command-Line Interface\n\nThe [pihole](https://docs.pi-hole.net/core/pihole-command/) command has all the functionality necessary to fully administer the Pi-hole, without the need for the Web Interface. It's fast, user-friendly, and auditable by anyone with an understanding of `bash`.\n\nSome notable features include:\n\n- [Whitelisting, Blacklisting, and Regex](https://docs.pi-hole.net/core/pihole-command/#whitelisting-blacklisting-and-regex)\n- [Debugging utility](https://docs.pi-hole.net/core/pihole-command/#debugger)\n- [Viewing the live log file](https://docs.pi-hole.net/core/pihole-command/#tail)\n- [Updating Ad Lists](https://docs.pi-hole.net/core/pihole-command/#gravity)\n- [Querying Ad Lists for blocked domains](https://docs.pi-hole.net/core/pihole-command/#query)\n- [Enabling and Disabling Pi-hole](https://docs.pi-hole.net/core/pihole-command/#enable-disable)\n- ... and _many_ more!\n\nYou can read our [Core Feature Breakdown](https://docs.pi-hole.net/core/pihole-command/#pi-hole-core) for more information.\n\n### The Web Interface Dashboard\n\nThis [optional dashboard](https://github.com/pi-hole/web) allows you to view stats, change settings, and configure your Pi-hole. It's the power of the Command Line Interface, with none of the learning curve!\n\nSome notable features include:\n\n- Mobile-friendly interface\n- Password protection\n- Detailed graphs and doughnut charts\n- Top lists of domains and clients\n- A filterable and sortable query log\n- Long Term Statistics to view data over user-defined time ranges\n- The ability to easily manage and configure Pi-hole features\n- ... and all the main features of the Command Line Interface!\n\nThere are several ways to [access the dashboard](https://discourse.pi-hole.net/t/how-do-i-access-pi-holes-dashboard-admin-interface/3168):\n\n1. `http://pi.hole/admin/` (when using Pi-hole as your DNS server)\n2. `http://<IP_ADDRESS_OF_YOUR_PI_HOLE>/admin/`\n",
+        "releases": [
+            {
+                "name": "v5.18.4",
+                "date": "2024-12-29T13:55:26Z"
+            },
+            {
+                "name": "v5.18.3",
+                "date": "2024-07-05T18:15:02Z"
+            },
+            {
+                "name": "v5.18.2",
+                "date": "2024-03-31T18:46:53Z"
+            },
+            {
+                "name": "v5.18.1",
+                "date": "2024-03-27T19:18:48Z"
+            },
+            {
+                "name": "v5.18",
+                "date": "2024-03-27T18:13:50Z"
+            },
+            {
+                "name": "v5.17.3",
+                "date": "2024-01-06T16:54:00Z"
+            },
+            {
+                "name": "v5.17.2",
+                "date": "2023-10-11T09:42:01Z"
+            },
+            {
+                "name": "v5.17.1",
+                "date": "2023-05-30T18:28:14Z"
+            },
+            {
+                "name": "v5.17",
+                "date": "2023-05-28T11:01:33Z"
+            },
+            {
+                "name": "v5.16.2",
+                "date": "2023-03-25T19:13:04Z"
+            },
+            {
+                "name": "v5.16.1",
+                "date": "2023-03-22T22:20:18Z"
+            },
+            {
+                "name": "v5.16",
+                "date": "2023-03-22T21:33:13Z"
+            },
+            {
+                "name": "v5.15.5",
+                "date": "2023-02-10T20:57:19Z"
+            },
+            {
+                "name": "v5.15.4",
+                "date": "2023-02-10T18:59:25Z"
+            },
+            {
+                "name": "v5.15.3",
+                "date": "2023-01-25T21:25:48Z"
+            },
+            {
+                "name": "v5.15.2",
+                "date": "2023-01-23T17:18:18Z"
+            },
+            {
+                "name": "v5.15.1",
+                "date": "2023-01-22T17:09:01Z"
+            },
+            {
+                "name": "v5.15",
+                "date": "2023-01-15T20:02:20Z"
+            },
+            {
+                "name": "v5.14.2",
+                "date": "2022-11-27T21:31:45Z"
+            },
+            {
+                "name": "v5.14.1",
+                "date": "2022-11-14T22:21:43Z"
+            },
+            {
+                "name": "v5.14",
+                "date": "2022-11-14T19:00:55Z"
+            },
+            {
+                "name": "v5.13",
+                "date": "2022-10-10T21:01:03Z"
+            },
+            {
+                "name": "v5.12.2",
+                "date": "2022-09-19T10:00:31Z"
+            },
+            {
+                "name": "v5.12.1",
+                "date": "2022-09-14T20:29:13Z"
+            },
+            {
+                "name": "v5.12",
+                "date": "2022-09-02T17:39:19Z"
+            },
+            {
+                "name": "v5.11.4",
+                "date": "2022-07-10T12:53:08Z"
+            },
+            {
+                "name": "v5.11.3",
+                "date": "2022-07-07T21:01:38Z"
+            },
+            {
+                "name": "v5.11.2",
+                "date": "2022-07-07T20:41:56Z"
+            },
+            {
+                "name": "v5.11.1",
+                "date": "2022-07-07T19:18:51Z"
+            },
+            {
+                "name": "v5.11",
+                "date": "2022-07-07T18:49:48Z"
+            },
+            {
+                "name": "v5.10",
+                "date": "2022-04-20T18:41:52Z"
+            },
+            {
+                "name": "v5.9.1",
+                "date": "2022-04-01T22:27:54Z"
+            },
+            {
+                "name": "v5.9",
+                "date": "2022-02-12T20:04:48Z"
+            },
+            {
+                "name": "v5.8.1",
+                "date": "2022-01-05T23:00:12Z"
+            },
+            {
+                "name": "v5.8",
+                "date": "2022-01-05T18:25:22Z"
+            },
+            {
+                "name": "v5.7",
+                "date": "2021-12-22T20:26:07Z"
+            },
+            {
+                "name": "v5.6",
+                "date": "2021-10-23T19:02:01Z"
+            },
+            {
+                "name": "Pi-hole v5.5",
+                "date": "2021-09-29T20:46:02Z"
+            },
+            {
+                "name": "Pi-hole v5.4",
+                "date": "2021-09-11T21:18:45Z"
+            },
+            {
+                "name": "Hotfix v5.3.1",
+                "date": "2021-04-14T21:10:34Z"
+            },
+            {
+                "name": "Pi-hole Core v5.3",
+                "date": "2021-04-14T18:04:27Z"
+            },
+            {
+                "name": "Pi-hole Core v5.2.4",
+                "date": "2021-01-19T12:29:20Z"
+            },
+            {
+                "name": "Pi-hole Core v5.2.3",
+                "date": "2021-01-15T19:46:08Z"
+            },
+            {
+                "name": "Pi-hole Core v5.2.2",
+                "date": "2020-12-24T11:07:58Z"
+            },
+            {
+                "name": "Pi-hole Core v5.2.1",
+                "date": "2020-12-02T21:37:59Z"
+            },
+            {
+                "name": "Pi-hole Core v5.2",
+                "date": "2020-11-28T19:05:28Z"
+            },
+            {
+                "name": "Pi-hole Core v5.1.2",
+                "date": "2020-08-09T21:22:21Z"
+            },
+            {
+                "name": "Pi-hole Core v5.1.1",
+                "date": "2020-07-15T22:56:58Z"
+            },
+            {
+                "name": "Pi-hole Core v5.1",
+                "date": "2020-07-15T21:35:21Z"
+            },
+            {
+                "name": "Pi-hole core v5.0",
+                "date": "2020-05-10T18:08:14Z"
+            },
+            {
+                "name": "Pi-hole Core v4.4",
+                "date": "2020-02-25T20:59:42Z"
+            },
+            {
+                "name": "Pi-hole Core v4.3.5",
+                "date": "2020-02-24T20:17:02Z"
+            },
+            {
+                "name": "Pi-hole Core v4.3.4",
+                "date": "2020-02-24T18:48:12Z"
+            },
+            {
+                "name": "Pi-hole Core v4.3.3",
+                "date": "2020-02-23T21:34:24Z"
+            },
+            {
+                "name": "Pi-hole Core v4.3.2",
+                "date": "2019-09-15T15:49:19Z"
+            },
+            {
+                "name": "Pi-hole Core v4.3.1",
+                "date": "2019-06-29T19:45:53Z"
+            },
+            {
+                "name": "Pi-hole Core v4.3",
+                "date": "2019-05-18T20:09:26Z"
+            },
+            {
+                "name": "Pi-hole Core v4.2.2",
+                "date": "2019-02-18T17:37:09Z"
+            },
+            {
+                "name": "Pi-hole core v4.2.1",
+                "date": "2019-02-03T19:37:55Z"
+            },
+            {
+                "name": "Pi-hole Core v4.2",
+                "date": "2019-02-03T16:52:59Z"
+            },
+            {
+                "name": "Pi-hole Core v4.1.1",
+                "date": "2018-12-21T17:12:57Z"
+            },
+            {
+                "name": "Pi-hole Core v4.1",
+                "date": "2018-12-09T20:35:13Z"
+            },
+            {
+                "name": "Pi-hole Core v4.0",
+                "date": "2018-08-05T17:41:17Z"
+            },
+            {
+                "name": "Pi-hole Core v3.3.1",
+                "date": "2018-04-03T00:30:06Z"
+            },
+            {
+                "name": "Pi-hole Core v3.3",
+                "date": "2018-02-14T21:25:59Z"
+            },
+            {
+                "name": "Pi-hole Core v3.2.1",
+                "date": "2017-12-22T20:56:03Z"
+            },
+            {
+                "name": "Pi-hole v3.2",
+                "date": "2017-12-07T03:38:08Z"
+            },
+            {
+                "name": "Pi-hole Hotfix 3.1.4",
+                "date": "2017-07-18T08:39:30Z"
+            },
+            {
+                "name": "Pi-hole v3.1",
+                "date": "2017-06-20T21:17:49Z"
+            },
+            {
+                "name": "Pi-hole v3.0.1",
+                "date": "2017-05-04T14:12:36Z"
+            },
+            {
+                "name": "Pi-hole v3.0",
+                "date": "2017-07-28T15:23:38Z"
+            },
+            {
+                "name": "Pi-hole v2.13.2",
+                "date": "2017-03-14T10:33:02Z"
+            },
+            {
+                "name": "Pi-hole v2.13.1",
+                "date": "2017-03-04T04:00:08Z"
+            },
+            {
+                "name": "Pi-hole v2.13",
+                "date": "2017-03-02T22:35:01Z"
+            },
+            {
+                "name": "Pi-hole v2.12.1",
+                "date": "2017-01-31T19:37:36Z"
+            },
+            {
+                "name": "Pi-hole v2.12",
+                "date": "2017-01-29T00:19:43Z"
+            },
+            {
+                "name": "Pi-hole v2.11.2",
+                "date": "2017-01-11T23:16:00Z"
+            },
+            {
+                "name": "Pi-hole v2.11.1",
+                "date": "2017-01-08T23:06:46Z"
+            },
+            {
+                "name": "Pi-hole v2.11",
+                "date": "2017-01-02T21:37:04Z"
+            },
+            {
+                "name": "Pi-hole v2.10.2",
+                "date": "2016-12-25T23:43:44Z"
+            },
+            {
+                "name": "Pi-hole v2.10.1",
+                "date": "2016-12-23T21:57:19Z"
+            },
+            {
+                "name": "Pi-Hole V2.10",
+                "date": "2016-12-21T18:22:14Z"
+            },
+            {
+                "name": "Pi-Hole V2.9.5",
+                "date": "2016-10-30T00:09:12Z"
+            },
+            {
+                "name": "Pi-hole v2.9.4a",
+                "date": "2016-10-25T18:01:38Z"
+            },
+            {
+                "name": "Pi-hole v2.9.4",
+                "date": "2016-10-18T03:51:33Z"
+            },
+            {
+                "name": "Pi-Hole v2.9.3",
+                "date": "2016-10-17T14:45:51Z"
+            },
+            {
+                "name": "Pi-Hole V2.9.2",
+                "date": "2016-10-07T09:49:42Z"
+            },
+            {
+                "name": "Pi-Hole V2.9.1",
+                "date": "2016-09-12T13:56:52Z"
+            },
+            {
+                "name": "Pi-Hole V2.9",
+                "date": "2016-08-30T20:46:47Z"
+            },
+            {
+                "name": "Pi-Hole V2.8.1",
+                "date": "2016-07-15T20:13:46Z"
+            },
+            {
+                "name": "2.8 Pi-Hole Core",
+                "date": "2016-07-15T19:06:16Z"
+            },
+            {
+                "name": "Pi-Hole 2.7.1",
+                "date": "2016-06-24T10:52:40Z"
+            },
+            {
+                "name": "Pi-hole Core 2.7",
+                "date": "2016-06-11T18:54:35Z"
+            },
+            {
+                "name": "Pi-hole 2.6.3",
+                "date": "2016-05-23T00:48:33Z"
+            },
+            {
+                "name": "Pi-hole 2.6.2",
+                "date": "2016-04-11T11:55:16Z"
+            },
+            {
+                "name": "Pi-hole 2.6.1.2",
+                "date": "2016-04-06T08:45:37Z"
+            },
+            {
+                "name": "Pi-hole 2.6.1.1",
+                "date": "2016-04-05T13:33:41Z"
+            },
+            {
+                "name": "Pi-hole 2.6.1",
+                "date": "2016-04-05T07:57:01Z"
+            },
+            {
+                "name": "Pi-hole 2.6",
+                "date": "2016-04-04T23:30:56Z"
+            },
+            {
+                "name": "Pi-hole 2.5.3",
+                "date": "2016-02-21T21:05:07Z"
+            },
+            {
+                "name": "Pi-hole 2.5.2",
+                "date": "2016-02-14T23:10:59Z"
+            },
+            {
+                "name": "Pi-hole 2.5",
+                "date": "2016-02-01T09:58:24Z"
+            },
+            {
+                "name": "Pi-hole 2.5.1",
+                "date": "2016-02-01T22:31:45Z"
+            },
+            {
+                "name": "Pi-hole 2.4",
+                "date": "2016-01-26T16:34:03Z"
+            },
+            {
+                "name": "Pi-hole 2.3",
+                "date": "2016-01-21T16:44:07Z"
+            },
+            {
+                "name": "Pi-hole 2.2",
+                "date": "2016-01-02T23:27:11Z"
+            },
+            {
+                "name": "Pi-hole 2.1",
+                "date": "2015-11-27T19:28:10Z"
+            }
+        ]
+    }
+}

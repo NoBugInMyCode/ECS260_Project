@@ -1,0 +1,168 @@
+{
+    "https://api.github.com/repos/Modernizr/Modernizr": {
+        "forks": 2979,
+        "watchers": 25683,
+        "stars": 25683,
+        "languages": {
+            "JavaScript": 504797,
+            "Pug": 4621,
+            "CSS": 1498,
+            "Shell": 486,
+            "Batchfile": 34
+        },
+        "commits": [
+            "2024-10-27T14:29:26Z",
+            "2024-10-16T14:27:58Z",
+            "2024-10-16T14:20:37Z",
+            "2024-10-16T14:16:44Z",
+            "2024-10-16T14:16:22Z",
+            "2024-10-16T14:15:21Z",
+            "2023-12-20T07:22:21Z",
+            "2023-10-21T17:33:42Z",
+            "2023-10-19T21:38:56Z",
+            "2023-10-12T09:43:35Z",
+            "2023-07-19T11:24:21Z",
+            "2023-07-19T11:16:09Z",
+            "2023-04-03T20:38:37Z",
+            "2022-10-20T11:52:34Z",
+            "2022-10-19T11:25:58Z",
+            "2022-10-17T17:54:20Z",
+            "2022-10-16T19:18:43Z",
+            "2022-10-16T19:03:09Z",
+            "2022-10-16T18:24:03Z",
+            "2022-10-14T19:13:43Z",
+            "2022-10-12T05:44:16Z",
+            "2022-10-11T19:35:10Z",
+            "2022-09-12T20:04:50Z",
+            "2022-09-12T19:53:37Z",
+            "2022-09-12T19:40:43Z",
+            "2021-10-19T07:49:47Z",
+            "2021-10-14T18:28:06Z",
+            "2021-10-14T12:04:04Z",
+            "2021-10-13T19:40:12Z",
+            "2021-10-12T20:01:35Z"
+        ],
+        "creation_date": "2009-09-25T20:13:23Z",
+        "contributors": 30,
+        "topics": [
+            "css3-features",
+            "feature-detection",
+            "hacktoberfest",
+            "javascript",
+            "javascript-library",
+            "modernizr"
+        ],
+        "subscribers": 891,
+        "readme": "<p align=\"center\">\n   <a href=\"https://www.npmjs.com/package/modernizr\" rel=\"noopener\" target=\"_blank\"><img alt=\"Modernizr\" src=\"./media/Modernizr-2-Logo-vertical-medium.png\" width=\"250\" /></a>\n</p>\n\n<div align=\"center\">\n  \n##### Modernizr is a JavaScript library that detects HTML5 and CSS3 features in the user\u2019s browser.\n  \n[![npm version](https://badge.fury.io/js/modernizr.svg)](https://badge.fury.io/js/modernizr)\n[![Build Status](https://github.com/Modernizr/Modernizr/workflows/Testing/badge.svg)](https://github.com/Modernizr/Modernizr/actions)\n[![codecov](https://codecov.io/gh/Modernizr/Modernizr/branch/master/graph/badge.svg)](https://codecov.io/gh/Modernizr/Modernizr)\n[![Inline docs](https://inch-ci.org/github/Modernizr/Modernizr.svg?branch=master)](https://inch-ci.org/github/Modernizr/Modernizr)\n\n</div>\n\n- Read this file in Portuguese-BR [here](/README.pt_br.md)\n- Read this file in Indonesian [here](/README.id.md)\n- Read this file in Spanish [here](/README.sp.md)\n- Read this file in Swedish [here](/README.sv.md)\n- Read this file in Tamil [here](/README.ta.md)\n- Read this file in Kannada [here](/README.ka.md)\n- Read this file in Hindi [here](/README.hi.md)\n\n- Our Website is outdated and broken, please DO NOT use it (https://modernizr.com) but rather build your modernizr version from npm.\n- [Documentation](https://modernizr.com/docs/)\n- [Integration tests](https://modernizr.github.io/Modernizr/test/integration.html)\n- [Unit tests](https://modernizr.github.io/Modernizr/test/unit.html)\n\nModernizr tests which native CSS3 and HTML5 features are available in the current UA and makes the results available to you in two ways: as properties on a global `Modernizr` object, and as classes on the `<html>` element. This information allows you to progressively enhance your pages with a granular level of control over the experience.\n\n## Breaking changes with v4\n\n- Dropped support for node versions <= 10, please upgrade to at least version 12\n\n- Following tests got renamed:\n\n  - `class` to `es6class` to keep in line with the rest of the es-tests\n\n- Following tests got moved in subdirectories:\n\n  - `cookies`, `indexeddb`, `indexedblob`, `quota-management-api`, `userdata` moved into the storage subdirectory\n  - `audio` moved into the audio subdirectory\n  - `battery` moved into the battery subdirectory\n  - `canvas`, `canvastext` moved into the canvas subdirectory\n  - `customevent`, `eventlistener`, `forcetouch`, `hashchange`, `pointerevents`, `proximity` moved into the event subdirectory\n  - `exiforientation` moved into the image subdirectory\n  - `capture`, `fileinput`, `fileinputdirectory`, `formatattribute`, `input`, `inputnumber-l10n`, `inputsearchevent`, `inputtypes`, `placeholder`, `requestautocomplete`, `validation` moved into the input subdirectory\n  - `svg` moved into the svg subdirectory\n  - `webgl` moved into the webgl subdirectory\n\n- Following tests got removed:\n\n  - `touchevents`: [discussion](https://github.com/Modernizr/Modernizr/pull/2432)\n  - `unicode`: [discussion](https://github.com/Modernizr/Modernizr/issues/2468)\n  - `templatestrings`: duplicate of the es6 detect `stringtemplate`\n  - `contains`: duplicate of the es6 detect `es6string`\n  - `datalistelem`: A dupe of Modernizr.input.list\n\n## New Asynchronous Event Listeners\n\nOften times people want to know when an asynchronous test is done so they can allow their application to react to it.\nIn the past, you've had to rely on watching properties or `<html>` classes. Only events on **asynchronous** tests are\nsupported. Synchronous tests should be handled synchronously to improve speed and to maintain consistency.\n\nThe new API looks like this:\n\n```js\n// Listen to a test, give it a callback\nModernizr.on(\"testname\", function (result) {\n  if (result) {\n    console.log(\"The test passed!\");\n  } else {\n    console.log(\"The test failed!\");\n  }\n});\n```\n\nWe guarantee that we'll only invoke your function once (per time that you call `on`). We are currently not exposing\na method for exposing the `trigger` functionality. Instead, if you'd like to have control over async tests, use the\n`src/addTest` feature, and any test that you set will automatically expose and trigger the `on` functionality.\n\n## Getting Started\n\n- Clone or download the repository\n- Install project dependencies with `npm install`\n\n## Building Modernizr\n\n### From javascript\n\nModernizr can be used programmatically via npm:\n\n```js\nvar modernizr = require(\"modernizr\");\n```\n\nA `build` method is exposed for generating custom Modernizr builds. Example:\n\n```javascript\nvar modernizr = require(\"modernizr\");\n\nmodernizr.build({}, function (result) {\n  console.log(result); // the build\n});\n```\n\nThe first parameter takes a JSON object of options and feature-detects to include. See [`lib/config-all.json`](lib/config-all.json) for all available options.\n\nThe second parameter is a function invoked on task completion.\n\n### From the command-line\n\nWe also provide a command line interface for building modernizr.\nTo see all available options run:\n\n```shell\n./bin/modernizr\n```\n\nOr to generate everything in 'config-all.json' run this with npm:\n\n```shell\nnpm start\n//outputs to ./dist/modernizr-build.js\n```\n\n## Testing Modernizr\n\nTo execute the tests using mocha-headless-chrome on the console run:\n\n```shell\nnpm test\n```\n\nYou can also run tests in your browser of choice with this command:\n\n```shell\nnpm run serve-gh-pages\n```\n\nand navigate to these two URLs:\n\n```shell\nhttp://localhost:8080/test/unit.html\nhttp://localhost:8080/test/integration.html\n```\n\n## Integrating Modernizr with Build Tools\n\nThis section provides guidance on how to integrate Modernizr with various build tools and frameworks, making it easier to use in your projects.\n\n### 1. Integrating with Webpack\n\nTo integrate Modernizr with Webpack, follow these steps:\n\n1. **Install Modernizr**:\n   ```bash\n   npm install modernizr --save\n   ```\n\n2. **Create a Modernizr Configuration File**:\n   Create a file named `modernizr-config.js` in your project root:\n   ```javascript\n   module.exports = {\n     \"feature-detects\": [\n       \"test/feature1\",\n       \"test/feature2\",\n       // Add more feature detects as needed\n     ]\n   };\n   ```\n\n3. **Update Webpack Configuration**:\n   Modify your Webpack configuration file (e.g., `webpack.config.js`) to include the Modernizr plugin:\n   ```javascript\n   const ModernizrWebpackPlugin = require('modernizr-webpack-plugin');\n\n   module.exports = {\n     // Other configurations...\n     plugins: [\n       new ModernizrWebpackPlugin({\n         \"feature-detects\": [\n           \"test/feature1\",\n           \"test/feature2\"\n         ]\n       })\n     ]\n   };\n   ```\n\n4. **Build Your Project**:\n   Run your Webpack build process:\n   ```bash\n   npm run build\n   ```\n\n### 2. Integrating with Gulp\n\nIf you are using Gulp, you can integrate Modernizr as follows:\n\n1. **Install Modernizr**:\n   ```bash\n   npm install modernizr --save-dev\n   ```\n\n2. **Create a Gulp Task**:\n   In your `gulpfile.js`, add a task to build Modernizr:\n   ```javascript\n   const gulp = require('gulp');\n   const modernizr = require('modernizr');\n\n   gulp.task('modernizr', function() {\n     return modernizr.build({\n       \"feature-detects\": [\n         \"test/feature1\",\n         \"test/feature2\"\n       ]\n     }).pipe(gulp.dest('dist/'));\n   });\n   ```\n\n3. **Run the Gulp Task**:\n   Execute the task to generate the Modernizr build:\n   ```bash\n   gulp modernizr\n   ```\n\n### 3. Integrating with Parcel\n\nFor projects using Parcel, you can integrate Modernizr as follows:\n\n1. **Install Modernizr**:\n   ```bash\n   npm install modernizr --save\n   ```\n\n2. **Create a Modernizr Configuration File**:\n   Similar to the Webpack setup, create a `modernizr-config.js` file:\n   ```javascript\n   module.exports = {\n     \"feature-detects\": [\n       \"test/feature1\",\n       \"test/feature2\"\n     ]\n   };\n   ```\n\n3. **Update Parcel Configuration**:\n   You can use a plugin like `parcel-plugin-modernizr` to integrate Modernizr:\n   ```bash\n   npm install parcel-plugin-modernizr --save-dev\n   ```\n\n4. **Build Your Project**:\n   Run Parcel to build your project:\n   ```bash\n   parcel build index.html\n   ```\n\n### Conclusion\n\nIntegrating Modernizr with your build tools can enhance your web applications by allowing you to detect and respond to the capabilities of the user's browser. Follow the steps above to set up Modernizr with your preferred build tool.\n\nFor more information, refer to the [Modernizr documentation](https://modernizr.com/docs/).\n\n## Code of Conduct\n\nThis project adheres to the [Open Code of Conduct](https://github.com/Modernizr/Modernizr/blob/master/.github/CODE_OF_CONDUCT.md).\nBy participating, you are expected to honor this code.\n\n## License\n\n[MIT License](https://opensource.org/licenses/MIT)\n",
+        "releases": [
+            {
+                "name": "",
+                "date": "2024-08-06T07:47:04Z"
+            },
+            {
+                "name": "",
+                "date": "2024-08-06T07:46:53Z"
+            },
+            {
+                "name": "",
+                "date": "2022-02-15T12:24:39Z"
+            },
+            {
+                "name": "",
+                "date": "2021-08-17T16:04:24Z"
+            },
+            {
+                "name": "",
+                "date": "2021-04-12T07:26:19Z"
+            },
+            {
+                "name": "",
+                "date": "2021-03-16T15:24:12Z"
+            },
+            {
+                "name": "",
+                "date": "2021-03-16T15:24:55Z"
+            },
+            {
+                "name": "",
+                "date": "2020-11-27T09:40:37Z"
+            },
+            {
+                "name": "",
+                "date": "2020-09-28T12:58:38Z"
+            },
+            {
+                "name": "",
+                "date": "2020-05-19T14:34:57Z"
+            },
+            {
+                "name": "",
+                "date": "2020-05-05T15:59:22Z"
+            },
+            {
+                "name": "",
+                "date": "2020-04-27T05:29:52Z"
+            },
+            {
+                "name": "",
+                "date": "2020-04-07T12:22:54Z"
+            },
+            {
+                "name": "",
+                "date": "2020-02-17T12:00:04Z"
+            },
+            {
+                "name": "",
+                "date": "2020-02-04T16:12:51Z"
+            },
+            {
+                "name": "",
+                "date": "2019-10-24T15:26:27Z"
+            },
+            {
+                "name": "",
+                "date": "2019-03-14T16:44:08Z"
+            },
+            {
+                "name": "",
+                "date": "2019-02-26T21:51:09Z"
+            },
+            {
+                "name": "",
+                "date": "2018-05-28T16:02:30Z"
+            },
+            {
+                "name": "v3.5.0",
+                "date": "2017-04-20T16:31:15Z"
+            },
+            {
+                "name": "",
+                "date": "2014-07-03T16:35:23Z"
+            },
+            {
+                "name": "",
+                "date": "2014-05-02T01:15:49Z"
+            },
+            {
+                "name": "",
+                "date": "2014-04-29T19:39:06Z"
+            },
+            {
+                "name": "",
+                "date": "2014-03-04T18:41:35Z"
+            },
+            {
+                "name": "",
+                "date": "2014-02-24T08:50:43Z"
+            },
+            {
+                "name": "",
+                "date": "2014-02-24T08:53:10Z"
+            },
+            {
+                "name": "",
+                "date": "2014-02-24T08:53:54Z"
+            }
+        ]
+    }
+}

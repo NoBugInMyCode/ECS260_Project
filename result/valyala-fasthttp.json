@@ -1,0 +1,305 @@
+{
+    "https://api.github.com/repos/valyala/fasthttp": {
+        "forks": 1771,
+        "watchers": 22156,
+        "stars": 22156,
+        "languages": {
+            "Go": 1217802
+        },
+        "commits": [
+            "2025-01-16T01:39:25Z",
+            "2025-01-15T04:47:54Z",
+            "2025-01-15T03:39:15Z",
+            "2025-01-15T03:37:04Z",
+            "2025-01-15T03:35:12Z",
+            "2025-01-10T04:49:40Z",
+            "2025-01-10T03:01:33Z",
+            "2025-01-07T04:50:13Z",
+            "2025-01-06T05:06:21Z",
+            "2025-01-02T23:05:43Z",
+            "2024-12-19T06:00:04Z",
+            "2024-12-19T05:58:09Z",
+            "2024-12-18T06:54:39Z",
+            "2024-12-15T04:32:21Z",
+            "2024-12-15T04:32:05Z",
+            "2024-12-12T12:02:39Z",
+            "2024-12-12T11:06:06Z",
+            "2024-12-08T11:52:06Z",
+            "2024-11-24T12:10:50Z",
+            "2024-11-15T04:53:08Z",
+            "2024-11-11T06:04:30Z",
+            "2024-11-10T12:09:27Z",
+            "2024-11-08T05:02:43Z",
+            "2024-11-08T04:42:23Z",
+            "2024-10-27T19:15:57Z",
+            "2024-10-22T17:19:00Z",
+            "2024-10-22T11:03:34Z",
+            "2024-10-18T21:02:54Z",
+            "2024-10-18T20:53:52Z",
+            "2024-10-18T20:51:22Z"
+        ],
+        "creation_date": "2015-10-18T22:19:57Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 392,
+        "readme": "# fasthttp\n\n[![Go Reference](https://pkg.go.dev/badge/github.com/valyala/fasthttp)](https://pkg.go.dev/github.com/valyala/fasthttp) [![Go Report](https://goreportcard.com/badge/github.com/valyala/fasthttp)](https://goreportcard.com/report/github.com/valyala/fasthttp)\n\n![FastHTTP \u2013\u00a0Fastest and reliable HTTP implementation in Go](https://github.com/fasthttp/docs-assets/raw/master/banner@0.5.png)\n\nFast HTTP implementation for Go.\n\n## fasthttp might not be for you!\n\nfasthttp was designed for some high performance edge cases. **Unless** your server/client needs to handle **thousands of small to medium requests per second** and needs a consistent low millisecond response time fasthttp might not be for you. **For most cases `net/http` is much better** as it's easier to use and can handle more cases. For most cases you won't even notice the performance difference.\n\n## General info and links\n\nCurrently fasthttp is successfully used by [VertaMedia](https://vertamedia.com/)\nin a production serving up to 200K rps from more than 1.5M concurrent keep-alive\nconnections per physical server.\n\n[TechEmpower Benchmark round 19 results](https://www.techempower.com/benchmarks/#section=data-r19&hw=ph&test=plaintext)\n\n[Server Benchmarks](#http-server-performance-comparison-with-nethttp)\n\n[Client Benchmarks](#http-client-comparison-with-nethttp)\n\n[Install](#install)\n\n[Documentation](https://pkg.go.dev/github.com/valyala/fasthttp)\n\n[Examples from docs](https://pkg.go.dev/github.com/valyala/fasthttp#pkg-examples)\n\n[Code examples](examples)\n\n[Awesome fasthttp tools](https://github.com/fasthttp)\n\n[Switching from net/http to fasthttp](#switching-from-nethttp-to-fasthttp)\n\n[Fasthttp best practices](#fasthttp-best-practices)\n\n[Tricks with byte buffers](#tricks-with-byte-buffers)\n\n[Related projects](#related-projects)\n\n[FAQ](#faq)\n\n## HTTP server performance comparison with [net/http](https://pkg.go.dev/net/http)\n\nIn short, fasthttp server is up to 10 times faster than net/http.\nBelow are benchmark results.\n\n*GOMAXPROCS=1*\n\nnet/http server:\n```\n$ GOMAXPROCS=1 go test -bench=NetHTTPServerGet -benchmem -benchtime=10s\nBenchmarkNetHTTPServerGet1ReqPerConn                \t 1000000\t     12052 ns/op\t    2297 B/op\t      29 allocs/op\nBenchmarkNetHTTPServerGet2ReqPerConn                \t 1000000\t     12278 ns/op\t    2327 B/op\t      24 allocs/op\nBenchmarkNetHTTPServerGet10ReqPerConn               \t 2000000\t      8903 ns/op\t    2112 B/op\t      19 allocs/op\nBenchmarkNetHTTPServerGet10KReqPerConn              \t 2000000\t      8451 ns/op\t    2058 B/op\t      18 allocs/op\nBenchmarkNetHTTPServerGet1ReqPerConn10KClients      \t  500000\t     26733 ns/op\t    3229 B/op\t      29 allocs/op\nBenchmarkNetHTTPServerGet2ReqPerConn10KClients      \t 1000000\t     23351 ns/op\t    3211 B/op\t      24 allocs/op\nBenchmarkNetHTTPServerGet10ReqPerConn10KClients     \t 1000000\t     13390 ns/op\t    2483 B/op\t      19 allocs/op\nBenchmarkNetHTTPServerGet100ReqPerConn10KClients    \t 1000000\t     13484 ns/op\t    2171 B/op\t      18 allocs/op\n```\n\nfasthttp server:\n```\n$ GOMAXPROCS=1 go test -bench=kServerGet -benchmem -benchtime=10s\nBenchmarkServerGet1ReqPerConn                       \t10000000\t      1559 ns/op\t       0 B/op\t       0 allocs/op\nBenchmarkServerGet2ReqPerConn                       \t10000000\t      1248 ns/op\t       0 B/op\t       0 allocs/op\nBenchmarkServerGet10ReqPerConn                      \t20000000\t       797 ns/op\t       0 B/op\t       0 allocs/op\nBenchmarkServerGet10KReqPerConn                     \t20000000\t       716 ns/op\t       0 B/op\t       0 allocs/op\nBenchmarkServerGet1ReqPerConn10KClients             \t10000000\t      1974 ns/op\t       0 B/op\t       0 allocs/op\nBenchmarkServerGet2ReqPerConn10KClients             \t10000000\t      1352 ns/op\t       0 B/op\t       0 allocs/op\nBenchmarkServerGet10ReqPerConn10KClients            \t20000000\t       789 ns/op\t       2 B/op\t       0 allocs/op\nBenchmarkServerGet100ReqPerConn10KClients           \t20000000\t       604 ns/op\t       0 B/op\t       0 allocs/op\n```\n\n*GOMAXPROCS=4*\n\nnet/http server:\n```\n$ GOMAXPROCS=4 go test -bench=NetHTTPServerGet -benchmem -benchtime=10s\nBenchmarkNetHTTPServerGet1ReqPerConn-4                  \t 3000000\t      4529 ns/op\t    2389 B/op\t      29 allocs/op\nBenchmarkNetHTTPServerGet2ReqPerConn-4                  \t 5000000\t      3896 ns/op\t    2418 B/op\t      24 allocs/op\nBenchmarkNetHTTPServerGet10ReqPerConn-4                 \t 5000000\t      3145 ns/op\t    2160 B/op\t      19 allocs/op\nBenchmarkNetHTTPServerGet10KReqPerConn-4                \t 5000000\t      3054 ns/op\t    2065 B/op\t      18 allocs/op\nBenchmarkNetHTTPServerGet1ReqPerConn10KClients-4        \t 1000000\t     10321 ns/op\t    3710 B/op\t      30 allocs/op\nBenchmarkNetHTTPServerGet2ReqPerConn10KClients-4        \t 2000000\t      7556 ns/op\t    3296 B/op\t      24 allocs/op\nBenchmarkNetHTTPServerGet10ReqPerConn10KClients-4       \t 5000000\t      3905 ns/op\t    2349 B/op\t      19 allocs/op\nBenchmarkNetHTTPServerGet100ReqPerConn10KClients-4      \t 5000000\t      3435 ns/op\t    2130 B/op\t      18 allocs/op\n```\n\nfasthttp server:\n```\n$ GOMAXPROCS=4 go test -bench=kServerGet -benchmem -benchtime=10s\nBenchmarkServerGet1ReqPerConn-4                         \t10000000\t      1141 ns/op\t       0 B/op\t       0 allocs/op\nBenchmarkServerGet2ReqPerConn-4                         \t20000000\t       707 ns/op\t       0 B/op\t       0 allocs/op\nBenchmarkServerGet10ReqPerConn-4                        \t30000000\t       341 ns/op\t       0 B/op\t       0 allocs/op\nBenchmarkServerGet10KReqPerConn-4                       \t50000000\t       310 ns/op\t       0 B/op\t       0 allocs/op\nBenchmarkServerGet1ReqPerConn10KClients-4               \t10000000\t      1119 ns/op\t       0 B/op\t       0 allocs/op\nBenchmarkServerGet2ReqPerConn10KClients-4               \t20000000\t       644 ns/op\t       0 B/op\t       0 allocs/op\nBenchmarkServerGet10ReqPerConn10KClients-4              \t30000000\t       346 ns/op\t       0 B/op\t       0 allocs/op\nBenchmarkServerGet100ReqPerConn10KClients-4             \t50000000\t       282 ns/op\t       0 B/op\t       0 allocs/op\n```\n\n## HTTP client comparison with net/http\n\nIn short, fasthttp client is up to 10 times faster than net/http.\nBelow are benchmark results.\n\n*GOMAXPROCS=1*\n\nnet/http client:\n```\n$ GOMAXPROCS=1 go test -bench='HTTPClient(Do|GetEndToEnd)' -benchmem -benchtime=10s\nBenchmarkNetHTTPClientDoFastServer                  \t 1000000\t     12567 ns/op\t    2616 B/op\t      35 allocs/op\nBenchmarkNetHTTPClientGetEndToEnd1TCP               \t  200000\t     67030 ns/op\t    5028 B/op\t      56 allocs/op\nBenchmarkNetHTTPClientGetEndToEnd10TCP              \t  300000\t     51098 ns/op\t    5031 B/op\t      56 allocs/op\nBenchmarkNetHTTPClientGetEndToEnd100TCP             \t  300000\t     45096 ns/op\t    5026 B/op\t      55 allocs/op\nBenchmarkNetHTTPClientGetEndToEnd1Inmemory          \t  500000\t     24779 ns/op\t    5035 B/op\t      57 allocs/op\nBenchmarkNetHTTPClientGetEndToEnd10Inmemory         \t 1000000\t     26425 ns/op\t    5035 B/op\t      57 allocs/op\nBenchmarkNetHTTPClientGetEndToEnd100Inmemory        \t  500000\t     28515 ns/op\t    5045 B/op\t      57 allocs/op\nBenchmarkNetHTTPClientGetEndToEnd1000Inmemory       \t  500000\t     39511 ns/op\t    5096 B/op\t      56 allocs/op\n```\n\nfasthttp client:\n```\n$ GOMAXPROCS=1 go test -bench='kClient(Do|GetEndToEnd)' -benchmem -benchtime=10s\nBenchmarkClientDoFastServer                         \t20000000\t       865 ns/op\t       0 B/op\t       0 allocs/op\nBenchmarkClientGetEndToEnd1TCP                      \t 1000000\t     18711 ns/op\t       0 B/op\t       0 allocs/op\nBenchmarkClientGetEndToEnd10TCP                     \t 1000000\t     14664 ns/op\t       0 B/op\t       0 allocs/op\nBenchmarkClientGetEndToEnd100TCP                    \t 1000000\t     14043 ns/op\t       1 B/op\t       0 allocs/op\nBenchmarkClientGetEndToEnd1Inmemory                 \t 5000000\t      3965 ns/op\t       0 B/op\t       0 allocs/op\nBenchmarkClientGetEndToEnd10Inmemory                \t 3000000\t      4060 ns/op\t       0 B/op\t       0 allocs/op\nBenchmarkClientGetEndToEnd100Inmemory               \t 5000000\t      3396 ns/op\t       0 B/op\t       0 allocs/op\nBenchmarkClientGetEndToEnd1000Inmemory              \t 5000000\t      3306 ns/op\t       2 B/op\t       0 allocs/op\n```\n\n*GOMAXPROCS=4*\n\nnet/http client:\n```\n$ GOMAXPROCS=4 go test -bench='HTTPClient(Do|GetEndToEnd)' -benchmem -benchtime=10s\nBenchmarkNetHTTPClientDoFastServer-4                    \t 2000000\t      8774 ns/op\t    2619 B/op\t      35 allocs/op\nBenchmarkNetHTTPClientGetEndToEnd1TCP-4                 \t  500000\t     22951 ns/op\t    5047 B/op\t      56 allocs/op\nBenchmarkNetHTTPClientGetEndToEnd10TCP-4                \t 1000000\t     19182 ns/op\t    5037 B/op\t      55 allocs/op\nBenchmarkNetHTTPClientGetEndToEnd100TCP-4               \t 1000000\t     16535 ns/op\t    5031 B/op\t      55 allocs/op\nBenchmarkNetHTTPClientGetEndToEnd1Inmemory-4            \t 1000000\t     14495 ns/op\t    5038 B/op\t      56 allocs/op\nBenchmarkNetHTTPClientGetEndToEnd10Inmemory-4           \t 1000000\t     10237 ns/op\t    5034 B/op\t      56 allocs/op\nBenchmarkNetHTTPClientGetEndToEnd100Inmemory-4          \t 1000000\t     10125 ns/op\t    5045 B/op\t      56 allocs/op\nBenchmarkNetHTTPClientGetEndToEnd1000Inmemory-4         \t 1000000\t     11132 ns/op\t    5136 B/op\t      56 allocs/op\n```\n\nfasthttp client:\n```\n$ GOMAXPROCS=4 go test -bench='kClient(Do|GetEndToEnd)' -benchmem -benchtime=10s\nBenchmarkClientDoFastServer-4                           \t50000000\t       397 ns/op\t       0 B/op\t       0 allocs/op\nBenchmarkClientGetEndToEnd1TCP-4                        \t 2000000\t      7388 ns/op\t       0 B/op\t       0 allocs/op\nBenchmarkClientGetEndToEnd10TCP-4                       \t 2000000\t      6689 ns/op\t       0 B/op\t       0 allocs/op\nBenchmarkClientGetEndToEnd100TCP-4                      \t 3000000\t      4927 ns/op\t       1 B/op\t       0 allocs/op\nBenchmarkClientGetEndToEnd1Inmemory-4                   \t10000000\t      1604 ns/op\t       0 B/op\t       0 allocs/op\nBenchmarkClientGetEndToEnd10Inmemory-4                  \t10000000\t      1458 ns/op\t       0 B/op\t       0 allocs/op\nBenchmarkClientGetEndToEnd100Inmemory-4                 \t10000000\t      1329 ns/op\t       0 B/op\t       0 allocs/op\nBenchmarkClientGetEndToEnd1000Inmemory-4                \t10000000\t      1316 ns/op\t       5 B/op\t       0 allocs/op\n```\n\n\n## Install\n\n```\ngo get -u github.com/valyala/fasthttp\n```\n\n\n## Switching from net/http to fasthttp\n\nUnfortunately, fasthttp doesn't provide API identical to net/http.\nSee the [FAQ](#faq) for details.\nThere is [net/http -> fasthttp handler converter](https://pkg.go.dev/github.com/valyala/fasthttp/fasthttpadaptor),\nbut it is better to write fasthttp request handlers by hand in order to use\nall of the fasthttp advantages (especially high performance :) ).\n\nImportant points:\n\n* Fasthttp works with [RequestHandler functions](https://pkg.go.dev/github.com/valyala/fasthttp#RequestHandler)\ninstead of objects implementing [Handler interface](https://pkg.go.dev/net/http#Handler).\nFortunately, it is easy to pass bound struct methods to fasthttp:\n\n  ```go\n  type MyHandler struct {\n  \tfoobar string\n  }\n\n  // request handler in net/http style, i.e. method bound to MyHandler struct.\n  func (h *MyHandler) HandleFastHTTP(ctx *fasthttp.RequestCtx) {\n  \t// notice that we may access MyHandler properties here - see h.foobar.\n  \tfmt.Fprintf(ctx, \"Hello, world! Requested path is %q. Foobar is %q\",\n  \t\tctx.Path(), h.foobar)\n  }\n\n  // request handler in fasthttp style, i.e. just plain function.\n  func fastHTTPHandler(ctx *fasthttp.RequestCtx) {\n  \tfmt.Fprintf(ctx, \"Hi there! RequestURI is %q\", ctx.RequestURI())\n  }\n\n  // pass bound struct method to fasthttp\n  myHandler := &MyHandler{\n  \tfoobar: \"foobar\",\n  }\n  fasthttp.ListenAndServe(\":8080\", myHandler.HandleFastHTTP)\n\n  // pass plain function to fasthttp\n  fasthttp.ListenAndServe(\":8081\", fastHTTPHandler)\n  ```\n\n* The [RequestHandler](https://pkg.go.dev/github.com/valyala/fasthttp#RequestHandler)\naccepts only one argument - [RequestCtx](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx).\nIt contains all the functionality required for http request processing\nand response writing. Below is an example of a simple request handler conversion\nfrom net/http to fasthttp.\n\n  ```go\n  // net/http request handler\n  requestHandler := func(w http.ResponseWriter, r *http.Request) {\n  \tswitch r.URL.Path {\n  \tcase \"/foo\":\n  \t\tfooHandler(w, r)\n  \tcase \"/bar\":\n  \t\tbarHandler(w, r)\n  \tdefault:\n  \t\thttp.Error(w, \"Unsupported path\", http.StatusNotFound)\n  \t}\n  }\n  ```\n\n  ```go\n  // the corresponding fasthttp request handler\n  requestHandler := func(ctx *fasthttp.RequestCtx) {\n  \tswitch string(ctx.Path()) {\n  \tcase \"/foo\":\n  \t\tfooHandler(ctx)\n  \tcase \"/bar\":\n  \t\tbarHandler(ctx)\n  \tdefault:\n  \t\tctx.Error(\"Unsupported path\", fasthttp.StatusNotFound)\n  \t}\n  }\n  ```\n\n* Fasthttp allows setting response headers and writing response body\nin an arbitrary order. There is no 'headers first, then body' restriction\nlike in net/http. The following code is valid for fasthttp:\n\n  ```go\n  requestHandler := func(ctx *fasthttp.RequestCtx) {\n  \t// set some headers and status code first\n  \tctx.SetContentType(\"foo/bar\")\n  \tctx.SetStatusCode(fasthttp.StatusOK)\n\n  \t// then write the first part of body\n  \tfmt.Fprintf(ctx, \"this is the first part of body\\n\")\n\n  \t// then set more headers\n  \tctx.Response.Header.Set(\"Foo-Bar\", \"baz\")\n\n  \t// then write more body\n  \tfmt.Fprintf(ctx, \"this is the second part of body\\n\")\n\n  \t// then override already written body\n  \tctx.SetBody([]byte(\"this is completely new body contents\"))\n\n  \t// then update status code\n  \tctx.SetStatusCode(fasthttp.StatusNotFound)\n\n  \t// basically, anything may be updated many times before\n  \t// returning from RequestHandler.\n  \t//\n  \t// Unlike net/http fasthttp doesn't put response to the wire until\n  \t// returning from RequestHandler.\n  }\n  ```\n\n* Fasthttp doesn't provide [ServeMux](https://pkg.go.dev/net/http#ServeMux),\nbut there are more powerful third-party routers and web frameworks\nwith fasthttp support:\n\n  * [fasthttp-routing](https://github.com/qiangxue/fasthttp-routing)\n  * [router](https://github.com/fasthttp/router)\n  * [lu](https://github.com/vincentLiuxiang/lu)\n  * [atreugo](https://github.com/savsgio/atreugo)\n  * [Fiber](https://github.com/gofiber/fiber)\n  * [Gearbox](https://github.com/gogearbox/gearbox)\n\n  Net/http code with simple ServeMux is trivially converted to fasthttp code:\n\n  ```go\n  // net/http code\n\n  m := &http.ServeMux{}\n  m.HandleFunc(\"/foo\", fooHandlerFunc)\n  m.HandleFunc(\"/bar\", barHandlerFunc)\n  m.Handle(\"/baz\", bazHandler)\n\n  http.ListenAndServe(\":80\", m)\n  ```\n\n  ```go\n  // the corresponding fasthttp code\n  m := func(ctx *fasthttp.RequestCtx) {\n  \tswitch string(ctx.Path()) {\n  \tcase \"/foo\":\n  \t\tfooHandlerFunc(ctx)\n  \tcase \"/bar\":\n  \t\tbarHandlerFunc(ctx)\n  \tcase \"/baz\":\n  \t\tbazHandler.HandlerFunc(ctx)\n  \tdefault:\n  \t\tctx.Error(\"not found\", fasthttp.StatusNotFound)\n  \t}\n  }\n\n  fasthttp.ListenAndServe(\":80\", m)\n  ```\n\n* Because creating a new channel for every request is just too expensive, so the channel returned by RequestCtx.Done() is only closed when the server is shutting down.\n\n  ```go\n  func main() {\n\tfasthttp.ListenAndServe(\":8080\", fasthttp.TimeoutHandler(func(ctx *fasthttp.RequestCtx) {\n\t\tselect {\n\t\tcase <-ctx.Done():\n\t\t\t// ctx.Done() is only closed when the server is shutting down.\n\t\t\tlog.Println(\"context cancelled\")\n\t\t\treturn\n\t\tcase <-time.After(10 * time.Second):\n\t\t\tlog.Println(\"process finished ok\")\n\t\t}\n\t}, time.Second*2, \"timeout\"))\n  }\n  ```\n\n* net/http -> fasthttp conversion table:\n\n  * All the pseudocode below assumes w, r and ctx have these types:\n  ```go\n\tvar (\n\t\tw http.ResponseWriter\n\t\tr *http.Request\n\t\tctx *fasthttp.RequestCtx\n\t)\n  ```\n  * r.Body -> [ctx.PostBody()](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.PostBody)\n  * r.URL.Path -> [ctx.Path()](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.Path)\n  * r.URL -> [ctx.URI()](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.URI)\n  * r.Method -> [ctx.Method()](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.Method)\n  * r.Header -> [ctx.Request.Header](https://pkg.go.dev/github.com/valyala/fasthttp#RequestHeader)\n  * r.Header.Get() -> [ctx.Request.Header.Peek()](https://pkg.go.dev/github.com/valyala/fasthttp#RequestHeader.Peek)\n  * r.Host -> [ctx.Host()](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.Host)\n  * r.Form -> [ctx.QueryArgs()](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.QueryArgs) +\n  [ctx.PostArgs()](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.PostArgs)\n  * r.PostForm -> [ctx.PostArgs()](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.PostArgs)\n  * r.FormValue() -> [ctx.FormValue()](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.FormValue)\n  * r.FormFile() -> [ctx.FormFile()](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.FormFile)\n  * r.MultipartForm -> [ctx.MultipartForm()](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.MultipartForm)\n  * r.RemoteAddr -> [ctx.RemoteAddr()](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.RemoteAddr)\n  * r.RequestURI -> [ctx.RequestURI()](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.RequestURI)\n  * r.TLS -> [ctx.IsTLS()](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.IsTLS)\n  * r.Cookie() -> [ctx.Request.Header.Cookie()](https://pkg.go.dev/github.com/valyala/fasthttp#RequestHeader.Cookie)\n  * r.Referer() -> [ctx.Referer()](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.Referer)\n  * r.UserAgent() -> [ctx.UserAgent()](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.UserAgent)\n  * w.Header() -> [ctx.Response.Header](https://pkg.go.dev/github.com/valyala/fasthttp#ResponseHeader)\n  * w.Header().Set() -> [ctx.Response.Header.Set()](https://pkg.go.dev/github.com/valyala/fasthttp#ResponseHeader.Set)\n  * w.Header().Set(\"Content-Type\") -> [ctx.SetContentType()](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.SetContentType)\n  * w.Header().Set(\"Set-Cookie\") -> [ctx.Response.Header.SetCookie()](https://pkg.go.dev/github.com/valyala/fasthttp#ResponseHeader.SetCookie)\n  * w.Write() -> [ctx.Write()](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.Write),\n  [ctx.SetBody()](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.SetBody),\n  [ctx.SetBodyStream()](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.SetBodyStream),\n  [ctx.SetBodyStreamWriter()](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.SetBodyStreamWriter)\n  * w.WriteHeader() -> [ctx.SetStatusCode()](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.SetStatusCode)\n  * w.(http.Hijacker).Hijack() -> [ctx.Hijack()](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.Hijack)\n  * http.Error() -> [ctx.Error()](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.Error)\n  * http.FileServer() -> [fasthttp.FSHandler()](https://pkg.go.dev/github.com/valyala/fasthttp#FSHandler),\n  [fasthttp.FS](https://pkg.go.dev/github.com/valyala/fasthttp#FS)\n  * http.ServeFile() -> [fasthttp.ServeFile()](https://pkg.go.dev/github.com/valyala/fasthttp#ServeFile)\n  * http.Redirect() -> [ctx.Redirect()](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.Redirect)\n  * http.NotFound() -> [ctx.NotFound()](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.NotFound)\n  * http.StripPrefix() -> [fasthttp.PathRewriteFunc](https://pkg.go.dev/github.com/valyala/fasthttp#PathRewriteFunc)\n\n* *VERY IMPORTANT!* Fasthttp disallows holding references\nto [RequestCtx](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx) or to its'\nmembers after returning from [RequestHandler](https://pkg.go.dev/github.com/valyala/fasthttp#RequestHandler).\nOtherwise [data races](http://go.dev/blog/race-detector) are inevitable.\nCarefully inspect all the net/http request handlers converted to fasthttp whether\nthey retain references to RequestCtx or to its' members after returning.\nRequestCtx provides the following _band aids_ for this case:\n\n  * Wrap RequestHandler into [TimeoutHandler](https://pkg.go.dev/github.com/valyala/fasthttp#TimeoutHandler).\n  * Call [TimeoutError](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.TimeoutError)\n  before returning from RequestHandler if there are references to RequestCtx or to its' members.\n  See [the example](https://pkg.go.dev/github.com/valyala/fasthttp#example-RequestCtx-TimeoutError)\n  for more details.\n\nUse this brilliant tool - [race detector](http://go.dev/blog/race-detector) -\nfor detecting and eliminating data races in your program. If you detected\ndata race related to fasthttp in your program, then there is high probability\nyou forgot calling [TimeoutError](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.TimeoutError)\nbefore returning from [RequestHandler](https://pkg.go.dev/github.com/valyala/fasthttp#RequestHandler).\n\n* Blind switching from net/http to fasthttp won't give you performance boost.\nWhile fasthttp is optimized for speed, its' performance may be easily saturated\nby slow [RequestHandler](https://pkg.go.dev/github.com/valyala/fasthttp#RequestHandler).\nSo [profile](http://go.dev/blog/pprof) and optimize your\ncode after switching to fasthttp. For instance, use [quicktemplate](https://github.com/valyala/quicktemplate)\ninstead of [html/template](https://pkg.go.dev/html/template).\n\n* See also [fasthttputil](https://pkg.go.dev/github.com/valyala/fasthttp/fasthttputil),\n[fasthttpadaptor](https://pkg.go.dev/github.com/valyala/fasthttp/fasthttpadaptor) and\n[expvarhandler](https://pkg.go.dev/github.com/valyala/fasthttp/expvarhandler).\n\n\n## Performance optimization tips for multi-core systems\n\n* Use [reuseport](https://pkg.go.dev/github.com/valyala/fasthttp/reuseport) listener.\n* Run a separate server instance per CPU core with GOMAXPROCS=1.\n* Pin each server instance to a separate CPU core using [taskset](http://linux.die.net/man/1/taskset).\n* Ensure the interrupts of multiqueue network card are evenly distributed between CPU cores.\n  See [this article](https://blog.cloudflare.com/how-to-achieve-low-latency/) for details.\n* Use the latest version of Go as each version contains performance improvements.\n\n\n## Fasthttp best practices\n\n* Do not allocate objects and `[]byte` buffers - just reuse them as much\n  as possible. Fasthttp API design encourages this.\n* [sync.Pool](https://pkg.go.dev/sync#Pool) is your best friend.\n* [Profile your program](http://go.dev/blog/pprof)\n  in production.\n  `go tool pprof --alloc_objects your-program mem.pprof` usually gives better\n  insights for optimization opportunities than `go tool pprof your-program cpu.pprof`.\n* Write [tests and benchmarks](https://pkg.go.dev/testing) for hot paths.\n* Avoid conversion between `[]byte` and `string`, since this may result in memory\n  allocation+copy. Fasthttp API provides functions for both `[]byte` and `string` -\n  use these functions instead of converting manually between `[]byte` and `string`.\n  There are some exceptions - see [this wiki page](https://github.com/golang/go/wiki/CompilerOptimizations#string-and-byte)\n  for more details.\n* Verify your tests and production code under\n  [race detector](https://go.dev/doc/articles/race_detector.html) on a regular basis.\n* Prefer [quicktemplate](https://github.com/valyala/quicktemplate) instead of\n  [html/template](https://pkg.go.dev/html/template) in your webserver.\n\n\n## Tricks with `[]byte` buffers\n\nThe following tricks are used by fasthttp. Use them in your code too.\n\n* Standard Go functions accept nil buffers\n```go\nvar (\n\t// both buffers are uninitialized\n\tdst []byte\n\tsrc []byte\n)\ndst = append(dst, src...)  // is legal if dst is nil and/or src is nil\ncopy(dst, src)  // is legal if dst is nil and/or src is nil\n(string(src) == \"\")  // is true if src is nil\n(len(src) == 0)  // is true if src is nil\nsrc = src[:0]  // works like a charm with nil src\n\n// this for loop doesn't panic if src is nil\nfor i, ch := range src {\n\tdoSomething(i, ch)\n}\n```\n\nSo throw away nil checks for `[]byte` buffers from you code. For example,\n```go\nsrcLen := 0\nif src != nil {\n\tsrcLen = len(src)\n}\n```\n\nbecomes\n\n```go\nsrcLen := len(src)\n```\n\n* String may be appended to `[]byte` buffer with `append`\n```go\ndst = append(dst, \"foobar\"...)\n```\n\n* `[]byte` buffer may be extended to its' capacity.\n```go\nbuf := make([]byte, 100)\na := buf[:10]  // len(a) == 10, cap(a) == 100.\nb := a[:100]  // is valid, since cap(a) == 100.\n```\n\n* All fasthttp functions accept nil `[]byte` buffer\n```go\nstatusCode, body, err := fasthttp.Get(nil, \"http://google.com/\")\nuintBuf := fasthttp.AppendUint(nil, 1234)\n```\n\n* String and `[]byte` buffers may converted without memory allocations\n```go\nfunc b2s(b []byte) string {\n    return *(*string)(unsafe.Pointer(&b))\n}\n\nfunc s2b(s string) (b []byte) {\n    bh := (*reflect.SliceHeader)(unsafe.Pointer(&b))\n    sh := (*reflect.StringHeader)(unsafe.Pointer(&s))\n    bh.Data = sh.Data\n    bh.Cap = sh.Len\n    bh.Len = sh.Len\n    return b\n}\n```\n\n### Warning:\nThis is an **unsafe** way, the result string and `[]byte` buffer share the same bytes.\n\n**Please make sure not to modify the bytes in the `[]byte` buffer if the string still survives!**\n\n## Related projects\n\n  * [fasthttp](https://github.com/fasthttp) - various useful\n    helpers for projects based on fasthttp.\n  * [fasthttp-routing](https://github.com/qiangxue/fasthttp-routing) - fast and\n    powerful routing package for fasthttp servers.\n  * [http2](https://github.com/dgrr/http2) - HTTP/2 implementation for fasthttp.\n  * [router](https://github.com/fasthttp/router) - a high\n    performance fasthttp request router that scales well.\n  * [fastws](https://github.com/fasthttp/fastws) - Bloatless WebSocket package made for fasthttp\n    to handle Read/Write operations concurrently.\n  * [gramework](https://github.com/gramework/gramework) - a web framework made by one of fasthttp maintainers\n  * [lu](https://github.com/vincentLiuxiang/lu) - a high performance\n    go middleware web framework which is based on fasthttp.\n  * [websocket](https://github.com/fasthttp/websocket) - Gorilla-based\n    websocket implementation for fasthttp.\n  * [websocket](https://github.com/dgrr/websocket) - Event-based high-performance WebSocket library for zero-allocation\n    websocket servers and clients.\n  * [fasthttpsession](https://github.com/phachon/fasthttpsession) - a fast and powerful session package for fasthttp servers.\n  * [atreugo](https://github.com/savsgio/atreugo) - High performance and extensible micro web framework with zero memory allocations in hot paths.\n  * [kratgo](https://github.com/savsgio/kratgo) - Simple, lightweight and ultra-fast HTTP Cache to speed up your websites.\n  * [kit-plugins](https://github.com/wencan/kit-plugins/tree/master/transport/fasthttp) - go-kit transport implementation for fasthttp.\n  * [Fiber](https://github.com/gofiber/fiber) - An Expressjs inspired web framework running on Fasthttp\n  * [Gearbox](https://github.com/gogearbox/gearbox) - :gear: gearbox is a web framework written in Go with a focus on high performance and memory optimization\n  * [http2curl](https://github.com/li-jin-gou/http2curl) - A tool to convert fasthttp requests to curl command line\n\n## FAQ\n\n* *Why creating yet another http package instead of optimizing net/http?*\n\n  Because net/http API limits many optimization opportunities.\n  For example:\n  * net/http Request object lifetime isn't limited by request handler execution\n    time. So the server must create a new request object per each request instead\n    of reusing existing objects like fasthttp does.\n  * net/http headers are stored in a `map[string][]string`. So the server\n    must parse all the headers, convert them from `[]byte` to `string` and put\n    them into the map before calling user-provided request handler.\n    This all requires unnecessary memory allocations avoided by fasthttp.\n  * net/http client API requires creating a new response object per each request.\n\n* *Why fasthttp API is incompatible with net/http?*\n\n  Because net/http API limits many optimization opportunities. See the answer\n  above for more details. Also certain net/http API parts are suboptimal\n  for use:\n  * Compare [net/http connection hijacking](https://pkg.go.dev/net/http#Hijacker)\n    to [fasthttp connection hijacking](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.Hijack).\n  * Compare [net/http Request.Body reading](https://pkg.go.dev/net/http#Request)\n    to [fasthttp request body reading](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.PostBody).\n\n* *Why fasthttp doesn't support HTTP/2.0 and WebSockets?*\n\n  [HTTP/2.0 support](https://github.com/fasthttp/http2) is in progress. [WebSockets](https://github.com/fasthttp/websockets) has been done already.\n  Third parties also may use [RequestCtx.Hijack](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.Hijack)\n  for implementing these goodies.\n\n* *Are there known net/http advantages comparing to fasthttp?*\n\n  Yes:\n  * net/http supports [HTTP/2.0 starting from go1.6](https://pkg.go.dev/golang.org/x/net/http2).\n  * net/http API is stable, while fasthttp API constantly evolves.\n  * net/http handles more HTTP corner cases.\n  * net/http can stream both request and response bodies\n  * net/http can handle bigger bodies as it doesn't read the whole body into memory\n  * net/http should contain less bugs, since it is used and tested by much\n    wider audience.\n\n* *Why fasthttp API prefers returning `[]byte` instead of `string`?*\n\n  Because `[]byte` to `string` conversion isn't free - it requires memory\n  allocation and copy. Feel free wrapping returned `[]byte` result into\n  `string()` if you prefer working with strings instead of byte slices.\n  But be aware that this has non-zero overhead.\n\n* *Which GO versions are supported by fasthttp?*\n\n  Go 1.21.x and newer. Older versions might work, but won't officially be supported.\n\n* *Please provide real benchmark data and server information*\n\n  See [this issue](https://github.com/valyala/fasthttp/issues/4).\n\n* *Are there plans to add request routing to fasthttp?*\n\n  There are no plans to add request routing into fasthttp.\n  Use third-party routers and web frameworks with fasthttp support:\n\n    * [fasthttp-routing](https://github.com/qiangxue/fasthttp-routing)\n    * [router](https://github.com/fasthttp/router)\n    * [gramework](https://github.com/gramework/gramework)\n    * [lu](https://github.com/vincentLiuxiang/lu)\n    * [atreugo](https://github.com/savsgio/atreugo)\n    * [Fiber](https://github.com/gofiber/fiber)\n    * [Gearbox](https://github.com/gogearbox/gearbox)\n\n  See also [this issue](https://github.com/valyala/fasthttp/issues/9) for more info.\n\n* *I detected data race in fasthttp!*\n\n  Cool! [File a bug](https://github.com/valyala/fasthttp/issues/new). But before\n  doing this check the following in your code:\n\n  * Make sure there are no references to [RequestCtx](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx)\n  or to its' members after returning from [RequestHandler](https://pkg.go.dev/github.com/valyala/fasthttp#RequestHandler).\n  * Make sure you call [TimeoutError](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx.TimeoutError)\n  before returning from [RequestHandler](https://pkg.go.dev/github.com/valyala/fasthttp#RequestHandler)\n  if there are references to [RequestCtx](https://pkg.go.dev/github.com/valyala/fasthttp#RequestCtx)\n  or to its' members, which may be accessed by other goroutines.\n\n* *I didn't find an answer for my question here*\n\n  Try exploring [these questions](https://github.com/valyala/fasthttp/issues?q=label%3Aquestion).\n",
+        "releases": [
+            {
+                "name": "v1.58.0",
+                "date": "2024-12-09T15:12:11Z"
+            },
+            {
+                "name": "v1.57.0",
+                "date": "2024-10-28T17:56:04Z"
+            },
+            {
+                "name": "v1.56.0",
+                "date": "2024-09-24T13:44:05Z"
+            },
+            {
+                "name": "v1.55.0",
+                "date": "2024-06-17T12:38:53Z"
+            },
+            {
+                "name": "v1.54.0",
+                "date": "2024-05-22T16:15:02Z"
+            },
+            {
+                "name": "v1.53.0",
+                "date": "2024-05-14T09:40:56Z"
+            },
+            {
+                "name": "v1.52.0",
+                "date": "2024-02-12T13:41:11Z"
+            },
+            {
+                "name": " v1.51.0",
+                "date": "2023-11-14T11:29:15Z"
+            },
+            {
+                "name": "v1.50.0",
+                "date": "2023-09-14T12:28:39Z"
+            },
+            {
+                "name": "v1.49.0",
+                "date": "2023-08-28T12:43:46Z"
+            },
+            {
+                "name": "v1.48.0",
+                "date": "2023-06-20T08:17:56Z"
+            },
+            {
+                "name": "v1.47.0",
+                "date": "2023-05-01T16:16:04Z"
+            },
+            {
+                "name": "v1.46.0",
+                "date": "2023-04-20T20:30:10Z"
+            },
+            {
+                "name": "v1.45.0",
+                "date": "2023-03-15T14:32:58Z"
+            },
+            {
+                "name": "v1.44.0",
+                "date": "2023-01-10T14:40:44Z"
+            },
+            {
+                "name": "v1.43.0",
+                "date": "2022-11-28T10:53:32Z"
+            },
+            {
+                "name": "v1.42.0",
+                "date": "2022-11-24T14:07:30Z"
+            },
+            {
+                "name": "v1.41.0",
+                "date": "2022-10-25T11:36:23Z"
+            },
+            {
+                "name": "v1.40.0",
+                "date": "2022-09-06T05:59:35Z"
+            },
+            {
+                "name": "v1.39.0",
+                "date": "2022-08-15T13:04:33Z"
+            },
+            {
+                "name": "v1.38.0",
+                "date": "2022-06-27T17:17:00Z"
+            },
+            {
+                "name": "v1.37.0",
+                "date": "2022-05-17T07:08:16Z"
+            },
+            {
+                "name": "v1.36.0",
+                "date": "2022-04-27T07:19:10Z"
+            },
+            {
+                "name": "v1.35.0",
+                "date": "2022-04-05T15:12:27Z"
+            },
+            {
+                "name": "v1.34.0",
+                "date": "2022-03-07T15:35:02Z"
+            },
+            {
+                "name": "v1.33.0",
+                "date": "2022-01-27T09:41:17Z"
+            },
+            {
+                "name": "v1.32.0",
+                "date": "2022-01-10T11:21:39Z"
+            },
+            {
+                "name": "v1.31.0",
+                "date": "2021-10-11T13:09:21Z"
+            },
+            {
+                "name": "v1.30.0",
+                "date": "2021-09-09T11:48:26Z"
+            },
+            {
+                "name": "v1.29.0",
+                "date": "2021-08-17T11:14:53Z"
+            },
+            {
+                "name": "v1.28.0",
+                "date": "2021-06-30T10:25:28Z"
+            },
+            {
+                "name": "v1.27.0",
+                "date": "2021-06-21T06:10:45Z"
+            },
+            {
+                "name": "v1.26.0",
+                "date": "2021-06-01T08:53:38Z"
+            },
+            {
+                "name": "v1.25.0",
+                "date": "2021-05-20T08:04:06Z"
+            },
+            {
+                "name": "v1.24.0",
+                "date": "2021-04-28T13:03:26Z"
+            },
+            {
+                "name": "v1.23.0",
+                "date": "2021-03-29T11:50:04Z"
+            },
+            {
+                "name": "v1.22.0",
+                "date": "2021-03-01T09:53:14Z"
+            },
+            {
+                "name": "v1.21.0",
+                "date": "2021-02-17T08:48:15Z"
+            },
+            {
+                "name": "v1.20.0",
+                "date": "2021-02-08T08:47:21Z"
+            },
+            {
+                "name": "v1.19.0",
+                "date": "2021-01-04T10:02:44Z"
+            },
+            {
+                "name": "v1.18.0",
+                "date": "2020-12-09T16:02:11Z"
+            },
+            {
+                "name": "v1.17.0",
+                "date": "2020-11-05T08:33:40Z"
+            },
+            {
+                "name": "v1.16.0",
+                "date": "2020-08-17T10:14:35Z"
+            },
+            {
+                "name": "v1.15.1",
+                "date": "2020-07-15T13:11:48Z"
+            },
+            {
+                "name": "v1.15.0",
+                "date": "2020-07-14T21:16:57Z"
+            },
+            {
+                "name": "v1.14.0",
+                "date": "2020-06-02T07:56:48Z"
+            },
+            {
+                "name": "v1.13.1",
+                "date": "2020-05-25T19:33:32Z"
+            },
+            {
+                "name": "v1.13.0",
+                "date": "2020-05-25T14:23:38Z"
+            },
+            {
+                "name": "v1.12.0",
+                "date": "2020-04-21T07:16:17Z"
+            },
+            {
+                "name": "Fixes s.concurrency",
+                "date": "2020-04-18T22:11:36Z"
+            },
+            {
+                "name": "v1.10.0",
+                "date": "2020-04-16T07:43:28Z"
+            },
+            {
+                "name": "v1.9.0",
+                "date": "2020-02-04T07:57:16Z"
+            },
+            {
+                "name": "v1.8.0",
+                "date": "2020-01-12T12:20:42Z"
+            },
+            {
+                "name": "v1.7.1",
+                "date": "2019-12-30T15:12:56Z"
+            },
+            {
+                "name": "v1.7.0",
+                "date": "2019-12-18T17:33:30Z"
+            },
+            {
+                "name": "v1.6.0",
+                "date": "2019-10-28T05:58:49Z"
+            },
+            {
+                "name": "v1.5.0",
+                "date": "2019-09-14T10:15:42Z"
+            },
+            {
+                "name": "v1.4.0",
+                "date": "2019-07-09T15:39:27Z"
+            },
+            {
+                "name": "v1.3.0",
+                "date": "2019-05-19T11:16:12Z"
+            },
+            {
+                "name": "v1.2.0",
+                "date": "2019-02-17T10:13:14Z"
+            },
+            {
+                "name": "v1.1.0",
+                "date": "2019-01-08T08:47:58Z"
+            },
+            {
+                "name": "v1.0.0",
+                "date": "2018-10-09T13:18:30Z"
+            },
+            {
+                "name": "20180529",
+                "date": "2018-05-29T15:06:55Z"
+            },
+            {
+                "name": "new release",
+                "date": "2016-06-17T10:20:12Z"
+            }
+        ]
+    }
+}

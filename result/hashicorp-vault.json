@@ -1,0 +1,680 @@
+{
+    "https://api.github.com/repos/hashicorp/vault": {
+        "forks": 4264,
+        "watchers": 31609,
+        "stars": 31609,
+        "languages": {
+            "Go": 16956743,
+            "MDX": 5677672,
+            "JavaScript": 4753871,
+            "Handlebars": 1138415,
+            "HCL": 754262,
+            "TypeScript": 367717,
+            "Shell": 161469,
+            "SCSS": 126657,
+            "Makefile": 16371,
+            "Dockerfile": 10559,
+            "Batchfile": 5507,
+            "HTML": 2135
+        },
+        "commits": [
+            "2025-01-21T19:28:31Z",
+            "2025-01-21T19:27:54Z",
+            "2025-01-21T17:49:36Z",
+            "2025-01-21T17:17:14Z",
+            "2025-01-16T21:05:20Z",
+            "2025-01-16T20:35:42Z",
+            "2025-01-16T20:35:32Z",
+            "2025-01-16T19:41:58Z",
+            "2025-01-15T19:24:49Z",
+            "2025-01-10T22:17:36Z",
+            "2025-01-10T22:06:42Z",
+            "2025-01-10T21:17:09Z",
+            "2025-01-10T18:11:45Z",
+            "2025-01-10T17:52:03Z",
+            "2025-01-10T17:16:43Z",
+            "2025-01-10T16:07:46Z",
+            "2025-01-10T11:56:40Z",
+            "2025-01-10T04:54:21Z",
+            "2025-01-09T22:03:15Z",
+            "2025-01-09T22:00:41Z",
+            "2025-01-09T20:57:29Z",
+            "2025-01-09T20:07:15Z",
+            "2025-01-09T19:58:29Z",
+            "2025-01-09T17:33:23Z",
+            "2025-01-09T16:30:29Z",
+            "2025-01-09T16:20:09Z",
+            "2025-01-09T15:51:38Z",
+            "2025-01-09T15:49:28Z",
+            "2025-01-09T13:27:58Z",
+            "2025-01-08T21:35:04Z"
+        ],
+        "creation_date": "2015-02-25T00:15:59Z",
+        "contributors": 30,
+        "topics": [
+            "go",
+            "secrets",
+            "vault"
+        ],
+        "subscribers": 811,
+        "readme": "# Vault [![build](https://github.com/hashicorp/vault/actions/workflows/build.yml/badge.svg)](https://github.com/hashicorp/vault/actions/workflows/build.yml) [![ci](https://github.com/hashicorp/vault/actions/workflows/ci.yml/badge.svg)](https://github.com/hashicorp/vault/actions/workflows/ci.yml)  [![vault enterprise](https://img.shields.io/badge/vault-enterprise-yellow.svg?colorB=7c8797&colorA=000000)](https://www.hashicorp.com/products/vault/?utm_source=github&utm_medium=banner&utm_campaign=github-vault-enterprise)\n\n----\n\n**Please note**: We take Vault's security and our users' trust very seriously. If you believe you have found a security issue in Vault, _please responsibly disclose_ by contacting us at [security@hashicorp.com](mailto:security@hashicorp.com).\n\n----\n\n-\tWebsite: https://www.vaultproject.io\n-\tAnnouncement list: [Google Groups](https://groups.google.com/group/hashicorp-announce)\n-\tDiscussion forum: [Discuss](https://discuss.hashicorp.com/c/vault)\n- Documentation: [https://developer.hashicorp.com/vault/docs](https://developer.hashicorp.com/vault/docs)\n- Tutorials: [https://developer.hashicorp.com/vault/tutorials](https://developer.hashicorp.com/vault/tutorials)\n- Certification Exam: [https://developer.hashicorp.com/certifications/security-automation](https://developer.hashicorp.com/certifications/security-automation)\n\n<img width=\"300\" alt=\"Vault Logo\" src=\"https://github.com/hashicorp/vault/blob/f22d202cde2018f9455dec755118a9b84586e082/Vault_PrimaryLogo_Black.png\">\n\nVault is a tool for securely accessing secrets. A secret is anything that you want to tightly control access to, such as API keys, passwords, certificates, and more. Vault provides a unified interface to any secret, while providing tight access control and recording a detailed audit log.\n\nA modern system requires access to a multitude of secrets: database credentials, API keys for external services, credentials for service-oriented architecture communication, etc. Understanding who is accessing what secrets is already very difficult and platform-specific. Adding on key rolling, secure storage, and detailed audit logs is almost impossible without a custom solution. This is where Vault steps in.\n\nThe key features of Vault are:\n\n* **Secure Secret Storage**: Vault can store arbitrary key/value pairs. Vault encrypts data before writing it to persistent\n  storage, so gaining access to the raw storage isn't enough to access\n  your secrets. Vault can write to disk, [Consul](https://www.consul.io),\n  and more.\n\n* **Dynamic Secrets**: Vault can generate secrets on-demand for some\n  systems, such as AWS or SQL databases. For example, when an application\n  needs to access an S3 bucket, it asks Vault for credentials, and Vault\n  will generate an AWS keypair with valid permissions on demand. After\n  creating these dynamic secrets, Vault will also automatically revoke them\n  after the lease is up.\n\n* **Data Encryption**: Vault can encrypt and decrypt data without storing\n  it. This allows security teams to define encryption parameters and\n  developers to store encrypted data in a location such as a SQL database without\n  having to design their own encryption methods.\n\n* **Leasing and Renewal**: Vault associates a **lease** with each secret.\n  At the end of the lease, Vault automatically revokes the\n  secret. Clients are able to renew leases via built-in renew APIs.\n\n* **Revocation**: Vault has built-in support for secret revocation. Vault\n  can revoke not only single secrets, but a tree of secrets, for example,\n  all secrets read by a specific user, or all secrets of a particular type.\n  Revocation assists in key rolling as well as locking down systems in the\n  case of an intrusion.\n\nDocumentation, Getting Started, and Certification Exams\n-------------------------------\n\nDocumentation is available on the [Vault website](https://developer.hashicorp.com/vault/docs).\n\nIf you're new to Vault and want to get started with security automation, please\ncheck out our [Getting Started guides](https://learn.hashicorp.com/collections/vault/getting-started)\non HashiCorp's learning platform. There are also [additional guides](https://learn.hashicorp.com/vault)\nto continue your learning.\n\nFor examples of how to interact with Vault from inside your application in different programming languages, see the [vault-examples](https://github.com/hashicorp/vault-examples) repo. An out-of-the-box [sample application](https://github.com/hashicorp/hello-vault-go) is also available.\n\nShow off your Vault knowledge by passing a certification exam. Visit the\n[certification page](https://www.hashicorp.com/certification/#hashicorp-certified-vault-associate)\nfor information about exams and find [study materials](https://learn.hashicorp.com/collections/vault/certification)\non HashiCorp's learning platform.\n\nDeveloping Vault\n--------------------\n\nIf you wish to work on Vault itself or any of its built-in systems, you'll\nfirst need [Go](https://www.golang.org) installed on your machine.\n\nFor local dev first make sure Go is properly installed, including setting up a\n[GOPATH](https://golang.org/doc/code.html#GOPATH), then setting the \n[GOBIN](https://pkg.go.dev/cmd/go#hdr-Environment_variables) variable to `$GOPATH/bin`. \nEnsure that `$GOPATH/bin` is in your path as some distributions bundle the old version \nof build tools. \n\nNext, clone this repository. Vault uses [Go Modules](https://github.com/golang/go/wiki/Modules),\nso it is recommended that you clone the repository ***outside*** of the GOPATH.\nYou can then download any required build tools by bootstrapping your environment:\n\n```sh\n$ make bootstrap\n...\n```\n\nTo compile a development version of Vault, run `make` or `make dev`. This will\nput the Vault binary in the `bin` and `$GOPATH/bin` folders:\n\n```sh\n$ make dev\n...\n$ bin/vault\n...\n```\n\nTo compile a development version of Vault with the UI, run `make static-dist dev-ui`. This will\nput the Vault binary in the `bin` and `$GOPATH/bin` folders:\n\n```sh\n$ make static-dist dev-ui\n...\n$ bin/vault\n...\n```\n\nTo run tests, type `make test`. Note: this requires Docker to be installed. If\nthis exits with exit status 0, then everything is working!\n\n```sh\n$ make test\n...\n```\n\nIf you're developing a specific package, you can run tests for just that\npackage by specifying the `TEST` variable. For example below, only\n`vault` package tests will be run.\n\n```sh\n$ make test TEST=./vault\n...\n```\n\n### Troubleshooting\n\nIf you encounter an error like `could not read Username for 'https://github.com'` you may need to adjust your git config like so:\n\n```sh\n$ git config --global --add url.\"git@github.com:\".insteadOf \"https://github.com/\"\n```\n\n\n### Importing Vault\n\nThis repository publishes two libraries that may be imported by other projects:\n`github.com/hashicorp/vault/api` and `github.com/hashicorp/vault/sdk`.\n\nNote that this repository also contains Vault (the product), and as with most Go\nprojects, Vault uses Go modules to manage its dependencies. The mechanism to do\nthat is the [go.mod](./go.mod) file. As it happens, the presence of that file\nalso makes it theoretically possible to import Vault as a dependency into other\nprojects. Some other projects have made a practice of doing so in order to take\nadvantage of testing tooling that was developed for testing Vault itself. This\nis not, and has never been, a supported way to use the Vault project. We aren't \nlikely to fix bugs relating to failure to import `github.com/hashicorp/vault` \ninto your project.\n\nSee also the section \"Docker-based tests\" below.\n\n### Acceptance Tests\n\nVault has comprehensive [acceptance tests](https://en.wikipedia.org/wiki/Acceptance_testing)\ncovering most of the features of the secret and auth methods.\n\nIf you're working on a feature of a secret or auth method and want to\nverify it is functioning (and also hasn't broken anything else), we recommend\nrunning the acceptance tests.\n\n**Warning:** The acceptance tests create/destroy/modify *real resources*, which\nmay incur real costs in some cases. In the presence of a bug, it is technically\npossible that broken backends could leave dangling data behind. Therefore,\nplease run the acceptance tests at your own risk. At the very least,\nwe recommend running them in their own private account for whatever backend\nyou're testing.\n\nTo run the acceptance tests, invoke `make testacc`:\n\n```sh\n$ make testacc TEST=./builtin/logical/consul\n...\n```\n\nThe `TEST` variable is required, and you should specify the folder where the\nbackend is. The `TESTARGS` variable is recommended to filter down to a specific\nresource to test, since testing all of them at once can sometimes take a very\nlong time.\n\nAcceptance tests typically require other environment variables to be set for\nthings such as access keys. The test itself should error early and tell\nyou what to set, so it is not documented here.\n\nFor more information on Vault Enterprise features, visit the [Vault Enterprise site](https://www.hashicorp.com/products/vault/?utm_source=github&utm_medium=referral&utm_campaign=github-vault-enterprise).\n\n### Docker-based Tests\n\nWe have created an experimental new testing mechanism inspired by NewTestCluster.\nAn example of how to use it:\n\n```go\nimport (\n  \"testing\"\n  \"github.com/hashicorp/vault/sdk/helper/testcluster/docker\"\n)\n\nfunc Test_Something_With_Docker(t *testing.T) {\n  opts := &docker.DockerClusterOptions{\n    ImageRepo: \"hashicorp/vault\", // or \"hashicorp/vault-enterprise\"\n    ImageTag:    \"latest\",\n  }\n  cluster := docker.NewTestDockerCluster(t, opts)\n  defer cluster.Cleanup()\n  \n  client := cluster.Nodes()[0].APIClient()\n  _, err := client.Logical().Read(\"sys/storage/raft/configuration\")\n  if err != nil {\n    t.Fatal(err)\n  }\n}\n```\n\nOr for Enterprise:\n\n```go\nimport (\n  \"testing\"\n  \"github.com/hashicorp/vault/sdk/helper/testcluster/docker\"\n)\n\nfunc Test_Something_With_Docker(t *testing.T) {\n  opts := &docker.DockerClusterOptions{\n    ImageRepo: \"hashicorp/vault-enterprise\",\n    ImageTag:  \"latest\",\n\tVaultLicense: licenseString, // not a path, the actual license bytes\n  }\n  cluster := docker.NewTestDockerCluster(t, opts)\n  defer cluster.Cleanup()\n}\n```\n\nHere is a more realistic example of how we use it in practice.  DefaultOptions uses \n`hashicorp/vault`:`latest` as the repo and tag, but it also looks at the environment\nvariable VAULT_BINARY. If populated, it will copy the local file referenced by\nVAULT_BINARY into the container. This is useful when testing local changes.\n\nInstead of setting the VaultLicense option, you can set the VAULT_LICENSE_CI environment\nvariable, which is better than committing a license to version control.\n\nOptionally you can set COMMIT_SHA, which will be appended to the image name we\nbuild as a debugging convenience.\n\n```go\nfunc Test_Custom_Build_With_Docker(t *testing.T) {\n  opts := docker.DefaultOptions(t)\n  cluster := docker.NewTestDockerCluster(t, opts)\n  defer cluster.Cleanup()\n}\n```\n\nThere are a variety of helpers in the `github.com/hashicorp/vault/sdk/helper/testcluster`\npackage, e.g. these tests below will create a pair of 3-node clusters and link them using\nPR or DR replication respectively, and fail if the replication state doesn't become healthy\nbefore the passed context expires.\n\nAgain, as written, these depend on having a Vault Enterprise binary locally and the env\nvar VAULT_BINARY set to point to it, as well as having VAULT_LICENSE_CI set.\n\n```go\nfunc TestStandardPerfReplication_Docker(t *testing.T) {\n  opts := docker.DefaultOptions(t)\n  r, err := docker.NewReplicationSetDocker(t, opts)\n  if err != nil {\n      t.Fatal(err)\n  }\n  defer r.Cleanup()\n\n  ctx, cancel := context.WithTimeout(context.Background(), time.Minute)\n  defer cancel()\n  err = r.StandardPerfReplication(ctx)\n  if err != nil {\n    t.Fatal(err)\n  }\n}\n\nfunc TestStandardDRReplication_Docker(t *testing.T) {\n  opts := docker.DefaultOptions(t)\n  r, err := docker.NewReplicationSetDocker(t, opts)\n  if err != nil {\n    t.Fatal(err)\n  }\n  defer r.Cleanup()\n\n  ctx, cancel := context.WithTimeout(context.Background(), time.Minute)\n  defer cancel()\n  err = r.StandardDRReplication(ctx)\n  if err != nil {\n    t.Fatal(err)\n  }\n}\n```\n\nFinally, here's an example of running an existing OSS docker test with a custom binary:\n\n```bash\n$ GOOS=linux make dev\n$ VAULT_BINARY=$(pwd)/bin/vault go test -run 'TestRaft_Configuration_Docker' ./vault/external_tests/raft/raft_binary\nok      github.com/hashicorp/vault/vault/external_tests/raft/raft_binary        20.960s\n```\n",
+        "releases": [
+            {
+                "name": "v1.18.3",
+                "date": "2024-12-18T17:20:05Z"
+            },
+            {
+                "name": "v1.18.2",
+                "date": "2024-11-21T20:02:53Z"
+            },
+            {
+                "name": "v1.18.1",
+                "date": "2024-10-30T18:52:48Z"
+            },
+            {
+                "name": "v1.18.0",
+                "date": "2024-10-09T02:52:07Z"
+            },
+            {
+                "name": "v1.17.6",
+                "date": "2024-09-25T22:30:25Z"
+            },
+            {
+                "name": "v1.18.0-rc1",
+                "date": "2024-09-18T15:32:30Z"
+            },
+            {
+                "name": "v1.17.5",
+                "date": "2024-08-30T23:15:39Z"
+            },
+            {
+                "name": "v1.17.4",
+                "date": "2024-08-29T17:28:34Z"
+            },
+            {
+                "name": "v1.17.3",
+                "date": "2024-08-07T18:19:22Z"
+            },
+            {
+                "name": "v1.17.2",
+                "date": "2024-07-10T13:58:50Z"
+            },
+            {
+                "name": "v1.17.1",
+                "date": "2024-06-26T20:25:52Z"
+            },
+            {
+                "name": "v1.17.0",
+                "date": "2024-06-12T13:20:15Z"
+            },
+            {
+                "name": "v1.15.9+ent",
+                "date": "2024-05-30T22:51:06Z"
+            },
+            {
+                "name": "v1.14.13+ent",
+                "date": "2024-05-30T22:45:23Z"
+            },
+            {
+                "name": "v1.16.3",
+                "date": "2024-05-29T20:47:30Z"
+            },
+            {
+                "name": "v1.17.0-rc1",
+                "date": "2024-05-29T20:58:51Z"
+            },
+            {
+                "name": "v1.15.8+ent",
+                "date": "2024-04-30T14:28:14Z"
+            },
+            {
+                "name": "v1.15.7+ent",
+                "date": "2024-03-29T19:11:51Z"
+            },
+            {
+                "name": "v1.14.12+ent",
+                "date": "2024-04-26T19:40:15Z"
+            },
+            {
+                "name": "v1.14.11+ent",
+                "date": "2024-03-29T19:11:04Z"
+            },
+            {
+                "name": "v1.16.2",
+                "date": "2024-04-23T21:51:34Z"
+            },
+            {
+                "name": "v1.16.1",
+                "date": "2024-04-04T13:39:03Z"
+            },
+            {
+                "name": "v1.16.0",
+                "date": "2024-03-26T17:18:34Z"
+            },
+            {
+                "name": "v1.16.0-rc3",
+                "date": "2024-03-13T13:48:41Z"
+            },
+            {
+                "name": "v1.15.6",
+                "date": "2024-02-29T19:00:00Z"
+            },
+            {
+                "name": "v1.14.10",
+                "date": "2024-02-29T18:57:52Z"
+            },
+            {
+                "name": "v1.16.0-rc2",
+                "date": "2024-02-21T01:15:18Z"
+            },
+            {
+                "name": "v1.16.0-rc1",
+                "date": "2024-02-14T18:06:28Z"
+            },
+            {
+                "name": "v1.14.9",
+                "date": "2024-01-30T17:48:08Z"
+            },
+            {
+                "name": "v1.13.13",
+                "date": "2024-01-30T15:49:19Z"
+            },
+            {
+                "name": "v1.15.5",
+                "date": "2024-01-30T20:59:02Z"
+            },
+            {
+                "name": "v1.15.4",
+                "date": "2023-12-05T20:48:13Z"
+            },
+            {
+                "name": "v1.14.8",
+                "date": "2023-12-05T20:47:16Z"
+            },
+            {
+                "name": "v1.13.12",
+                "date": "2023-12-05T20:40:41Z"
+            },
+            {
+                "name": "v1.15.3",
+                "date": "2023-11-30T22:04:03Z"
+            },
+            {
+                "name": "v1.14.7",
+                "date": "2023-11-30T21:55:54Z"
+            },
+            {
+                "name": "v1.13.11",
+                "date": "2023-11-30T17:18:31Z"
+            },
+            {
+                "name": "v1.15.2",
+                "date": "2023-11-08T19:39:49Z"
+            },
+            {
+                "name": "v1.14.6",
+                "date": "2023-11-08T19:39:06Z"
+            },
+            {
+                "name": "v1.13.10",
+                "date": "2023-11-08T16:28:34Z"
+            },
+            {
+                "name": "v1.15.1",
+                "date": "2023-10-25T00:27:02Z"
+            },
+            {
+                "name": "v1.14.5",
+                "date": "2023-10-24T22:11:45Z"
+            },
+            {
+                "name": "v1.13.9",
+                "date": "2023-10-24T18:20:57Z"
+            },
+            {
+                "name": "v1.15.0",
+                "date": "2023-09-26T19:00:10Z"
+            },
+            {
+                "name": "v1.14.4",
+                "date": "2023-09-26T18:59:47Z"
+            },
+            {
+                "name": "v1.13.8",
+                "date": "2023-09-26T17:43:29Z"
+            },
+            {
+                "name": "v1.15.0-rc1",
+                "date": "2023-09-13T18:41:44Z"
+            },
+            {
+                "name": "v1.14.3",
+                "date": "2023-09-13T15:24:18Z"
+            },
+            {
+                "name": "v1.13.7",
+                "date": "2023-09-12T23:17:01Z"
+            },
+            {
+                "name": "v1.12.11",
+                "date": "2023-09-12T22:56:53Z"
+            },
+            {
+                "name": "v1.14.2",
+                "date": "2023-08-29T21:11:37Z"
+            },
+            {
+                "name": "v1.13.6",
+                "date": "2023-08-29T17:25:41Z"
+            },
+            {
+                "name": "v1.12.10",
+                "date": "2023-08-29T14:54:25Z"
+            },
+            {
+                "name": "v1.14.1",
+                "date": "2023-07-25T18:08:48Z"
+            },
+            {
+                "name": "v1.13.5",
+                "date": "2023-07-25T18:00:03Z"
+            },
+            {
+                "name": "v1.12.9",
+                "date": "2023-07-25T17:48:27Z"
+            },
+            {
+                "name": "v1.14.0",
+                "date": "2023-06-20T22:56:17Z"
+            },
+            {
+                "name": "v1.13.4",
+                "date": "2023-06-20T20:59:33Z"
+            },
+            {
+                "name": "v1.12.8",
+                "date": "2023-06-20T18:28:39Z"
+            },
+            {
+                "name": "v1.11.12",
+                "date": "2023-06-20T16:35:33Z"
+            },
+            {
+                "name": "v1.14.0-rc1",
+                "date": "2023-06-08T04:20:00Z"
+            },
+            {
+                "name": "v1.13.3",
+                "date": "2023-06-08T00:58:27Z"
+            },
+            {
+                "name": "v1.12.7",
+                "date": "2023-06-07T23:07:12Z"
+            },
+            {
+                "name": "v1.11.11",
+                "date": "2023-06-07T21:11:37Z"
+            },
+            {
+                "name": "v1.13.2",
+                "date": "2023-04-26T19:33:13Z"
+            },
+            {
+                "name": "v1.12.6",
+                "date": "2023-04-26T17:16:17Z"
+            },
+            {
+                "name": "v1.11.10",
+                "date": "2023-04-26T14:54:21Z"
+            },
+            {
+                "name": "v1.13.1",
+                "date": "2023-03-29T22:06:08Z"
+            },
+            {
+                "name": "v1.12.5",
+                "date": "2023-03-29T20:02:35Z"
+            },
+            {
+                "name": "v1.11.9",
+                "date": "2023-03-29T19:22:07Z"
+            },
+            {
+                "name": "v1.13.0",
+                "date": "2023-03-01T20:05:27Z"
+            },
+            {
+                "name": "v1.12.4",
+                "date": "2023-03-02T00:01:35Z"
+            },
+            {
+                "name": "v1.11.8",
+                "date": "2023-03-01T21:43:40Z"
+            },
+            {
+                "name": "v1.10.11",
+                "date": "2023-03-01T21:09:19Z"
+            },
+            {
+                "name": "v1.13.0-rc1",
+                "date": "2023-02-15T21:50:18Z"
+            },
+            {
+                "name": "v1.12.3",
+                "date": "2023-02-06T18:24:57Z"
+            },
+            {
+                "name": "v1.11.7",
+                "date": "2023-02-06T16:44:53Z"
+            },
+            {
+                "name": "v1.10.10",
+                "date": "2023-02-06T15:35:34Z"
+            },
+            {
+                "name": "v1.12.2",
+                "date": "2022-11-30T20:02:10Z"
+            },
+            {
+                "name": "v1.11.6",
+                "date": "2022-11-30T18:41:50Z"
+            },
+            {
+                "name": "v1.10.9",
+                "date": "2022-11-30T17:00:28Z"
+            },
+            {
+                "name": "v1.11.5",
+                "date": "2022-11-01T16:41:31Z"
+            },
+            {
+                "name": "v1.12.1",
+                "date": "2022-11-01T21:25:22Z"
+            },
+            {
+                "name": "v1.10.8",
+                "date": "2022-11-01T14:40:09Z"
+            },
+            {
+                "name": "v1.12.0",
+                "date": "2022-10-12T15:58:54Z"
+            },
+            {
+                "name": "v1.12.0-rc1",
+                "date": "2022-09-30T18:58:13Z"
+            },
+            {
+                "name": "v1.11.4",
+                "date": "2022-09-29T22:14:24Z"
+            },
+            {
+                "name": "v1.10.7",
+                "date": "2022-09-29T22:04:58Z"
+            },
+            {
+                "name": "v1.9.10",
+                "date": "2022-09-29T21:10:22Z"
+            },
+            {
+                "name": "v1.11.3",
+                "date": "2022-08-31T17:29:01Z"
+            },
+            {
+                "name": "v1.10.6",
+                "date": "2022-08-31T14:57:29Z"
+            },
+            {
+                "name": "v1.9.9",
+                "date": "2022-08-31T13:20:05Z"
+            },
+            {
+                "name": "v1.11.2",
+                "date": "2022-08-02T18:32:42Z"
+            },
+            {
+                "name": "v1.11.1",
+                "date": "2022-07-21T15:25:18Z"
+            },
+            {
+                "name": "v1.10.5",
+                "date": "2022-07-21T14:51:36Z"
+            },
+            {
+                "name": "v1.9.8",
+                "date": "2022-07-21T14:31:57Z"
+            },
+            {
+                "name": "v1.11.0",
+                "date": "2022-06-20T21:40:40Z"
+            },
+            {
+                "name": "v1.11.0-rc1",
+                "date": "2022-06-10T23:21:52Z"
+            },
+            {
+                "name": "v1.10.4",
+                "date": "2022-06-10T22:21:40Z"
+            },
+            {
+                "name": "v1.9.7",
+                "date": "2022-06-09T18:39:25Z"
+            },
+            {
+                "name": "v1.8.12",
+                "date": "2022-06-09T14:38:38Z"
+            },
+            {
+                "name": "v1.10.3",
+                "date": "2022-05-11T21:32:09Z"
+            },
+            {
+                "name": "v1.10.2",
+                "date": "2022-04-29T15:38:59Z"
+            },
+            {
+                "name": "v1.9.6",
+                "date": "2022-04-29T15:35:56Z"
+            },
+            {
+                "name": "v1.8.11",
+                "date": "2022-04-29T14:57:56Z"
+            },
+            {
+                "name": "v1.10.1",
+                "date": "2022-04-22T18:28:39Z"
+            },
+            {
+                "name": "v1.9.5",
+                "date": "2022-04-22T17:09:18Z"
+            },
+            {
+                "name": "v1.8.10",
+                "date": "2022-04-22T15:46:34Z"
+            },
+            {
+                "name": "v1.10.0",
+                "date": "2022-03-23T13:10:52Z"
+            },
+            {
+                "name": "v1.10.0-rc1",
+                "date": "2022-03-04T00:26:58Z"
+            },
+            {
+                "name": "v1.9.4",
+                "date": "2022-03-03T23:19:31Z"
+            },
+            {
+                "name": "v1.8.9",
+                "date": "2022-03-03T21:13:37Z"
+            },
+            {
+                "name": "v1.7.10",
+                "date": "2022-03-03T19:39:37Z"
+            },
+            {
+                "name": "v1.9.3",
+                "date": "2022-01-27T15:30:02Z"
+            },
+            {
+                "name": "v1.8.8",
+                "date": "2022-01-27T15:24:32Z"
+            },
+            {
+                "name": "v1.7.9",
+                "date": "2022-01-27T15:19:04Z"
+            },
+            {
+                "name": "v1.9.2",
+                "date": "2021-12-21T21:00:38Z"
+            },
+            {
+                "name": "v1.8.7",
+                "date": "2021-12-21T20:49:04Z"
+            },
+            {
+                "name": "v1.7.8",
+                "date": "2021-12-21T20:47:19Z"
+            },
+            {
+                "name": "v1.9.1",
+                "date": "2021-12-10T00:11:31Z"
+            },
+            {
+                "name": "v1.8.6",
+                "date": "2021-12-09T16:59:13Z"
+            },
+            {
+                "name": "v1.7.7",
+                "date": "2021-12-09T16:36:10Z"
+            },
+            {
+                "name": "v1.9.0",
+                "date": "2021-11-17T17:19:59Z"
+            },
+            {
+                "name": "v1.9.0-rc1",
+                "date": "2021-11-05T20:15:56Z"
+            },
+            {
+                "name": "v1.8.5",
+                "date": "2021-11-04T14:12:13Z"
+            },
+            {
+                "name": "v1.7.6",
+                "date": "2021-11-04T14:03:38Z"
+            },
+            {
+                "name": "v1.8.4",
+                "date": "2021-10-06T20:06:44Z"
+            },
+            {
+                "name": "v1.8.3",
+                "date": "2021-09-29T17:42:45Z"
+            },
+            {
+                "name": "v1.7.5",
+                "date": "2021-09-29T17:31:53Z"
+            },
+            {
+                "name": "v1.6.7",
+                "date": "2021-09-29T17:26:51Z"
+            },
+            {
+                "name": "v1.8.2",
+                "date": "2021-08-26T22:54:13Z"
+            },
+            {
+                "name": "v1.7.4",
+                "date": "2021-08-26T22:47:57Z"
+            },
+            {
+                "name": "v1.6.6",
+                "date": "2021-08-26T22:38:51Z"
+            },
+            {
+                "name": "v1.8.1",
+                "date": "2021-08-05T15:20:53Z"
+            },
+            {
+                "name": "v1.8.0",
+                "date": "2021-07-28T14:08:55Z"
+            },
+            {
+                "name": "v1.8.0-rc2",
+                "date": "2021-07-14T21:50:42Z"
+            },
+            {
+                "name": "v1.8.0-rc1",
+                "date": "2021-06-16T16:08:22Z"
+            },
+            {
+                "name": "v1.7.3",
+                "date": "2021-06-16T16:20:08Z"
+            },
+            {
+                "name": "v1.7.2",
+                "date": "2021-05-21T20:30:57Z"
+            },
+            {
+                "name": "v1.6.5",
+                "date": "2021-05-21T20:30:32Z"
+            },
+            {
+                "name": "v1.5.9",
+                "date": "2021-05-21T20:29:55Z"
+            },
+            {
+                "name": "v1.7.1",
+                "date": "2021-04-23T16:09:32Z"
+            },
+            {
+                "name": "v1.6.4",
+                "date": "2021-04-21T17:18:34Z"
+            },
+            {
+                "name": "v1.5.8",
+                "date": "2021-04-21T17:19:17Z"
+            },
+            {
+                "name": "v1.7.0",
+                "date": "2021-03-24T21:04:15Z"
+            },
+            {
+                "name": "v1.7.0-rc2",
+                "date": "2021-03-17T16:34:18Z"
+            },
+            {
+                "name": "v1.7.0-rc1",
+                "date": "2021-03-11T00:42:46Z"
+            },
+            {
+                "name": "v1.6.3",
+                "date": "2021-02-25T18:21:48Z"
+            },
+            {
+                "name": "v1.6.2",
+                "date": "2021-01-29T18:22:46Z"
+            },
+            {
+                "name": "v1.5.7",
+                "date": "2021-01-29T18:18:36Z"
+            },
+            {
+                "name": "v1.6.1",
+                "date": "2020-12-16T15:44:29Z"
+            },
+            {
+                "name": "v1.5.6",
+                "date": "2020-12-16T15:31:35Z"
+            },
+            {
+                "name": "v1.6.0",
+                "date": "2020-11-11T15:10:32Z"
+            },
+            {
+                "name": "v1.6.0-rc",
+                "date": "2020-11-04T22:39:25Z"
+            }
+        ]
+    }
+}

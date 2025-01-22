@@ -1,0 +1,1552 @@
+{
+    "https://api.github.com/repos/istio/istio": {
+        "forks": 7829,
+        "watchers": 36371,
+        "stars": 36371,
+        "languages": {
+            "Go": 14436708,
+            "Shell": 121619,
+            "Makefile": 51308,
+            "CSS": 47647,
+            "Jsonnet": 32268,
+            "HTML": 28430,
+            "Python": 12110,
+            "Smarty": 8813,
+            "Dockerfile": 1273,
+            "Java": 1080,
+            "JavaScript": 13
+        },
+        "commits": [
+            "2025-01-22T02:04:56Z",
+            "2025-01-22T01:24:57Z",
+            "2025-01-21T22:45:57Z",
+            "2025-01-21T18:13:57Z",
+            "2025-01-21T17:22:57Z",
+            "2025-01-21T16:23:57Z",
+            "2025-01-21T15:27:56Z",
+            "2025-01-21T05:11:03Z",
+            "2025-01-21T05:10:57Z",
+            "2025-01-21T02:49:55Z",
+            "2025-01-21T00:12:55Z",
+            "2025-01-20T22:37:56Z",
+            "2025-01-20T20:34:55Z",
+            "2025-01-20T19:50:55Z",
+            "2025-01-20T13:46:55Z",
+            "2025-01-20T08:24:55Z",
+            "2025-01-20T06:33:55Z",
+            "2025-01-19T17:06:54Z",
+            "2025-01-19T16:31:54Z",
+            "2025-01-19T11:08:55Z",
+            "2025-01-19T02:48:56Z",
+            "2025-01-18T15:20:54Z",
+            "2025-01-18T00:09:54Z",
+            "2025-01-17T17:42:55Z",
+            "2025-01-17T16:14:54Z",
+            "2025-01-17T02:45:54Z",
+            "2025-01-17T00:57:54Z",
+            "2025-01-17T00:12:54Z",
+            "2025-01-16T22:01:54Z",
+            "2025-01-16T21:06:54Z"
+        ],
+        "creation_date": "2016-11-18T23:57:21Z",
+        "contributors": 30,
+        "topics": [
+            "api-management",
+            "circuit-breaker",
+            "consul",
+            "enforce-policies",
+            "envoy",
+            "fault-injection",
+            "kubernetes",
+            "lyft-envoy",
+            "microservice",
+            "microservices",
+            "nomad",
+            "polyglot-microservices",
+            "proxies",
+            "request-routing",
+            "resiliency",
+            "service-mesh"
+        ],
+        "subscribers": 981,
+        "readme": "# Istio\n\n[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/1395/badge)](https://bestpractices.coreinfrastructure.org/projects/1395)\n[![Go Report Card](https://goreportcard.com/badge/github.com/istio/istio)](https://goreportcard.com/report/github.com/istio/istio)\n[![GoDoc](https://godoc.org/istio.io/istio?status.svg)](https://godoc.org/istio.io/istio)\n\n<a href=\"https://istio.io/\">\n    <img src=\"https://github.com/istio/istio/raw/master/logo/istio-bluelogo-whitebackground-unframed.svg\"\n         alt=\"Istio logo\" title=\"Istio\" height=\"100\" width=\"100\" />\n</a>\n\n---\n\nIstio is an open source service mesh that layers transparently onto existing distributed applications. Istio\u2019s powerful features provide a uniform and more efficient way to secure, connect, and monitor services. Istio is the path to load balancing, service-to-service authentication, and monitoring \u2013 with few or no service code changes.\n\n- For in-depth information about how to use Istio, visit [istio.io](https://istio.io)\n- To ask questions and get assistance from our community, visit [Github Discussions](https://github.com/istio/istio/discussions)\n- To learn how to participate in our overall community, visit [our community page](https://istio.io/about/community)\n\nIn this README:\n\n- [Introduction](#introduction)\n- [Repositories](#repositories)\n- [Issue management](#issue-management)\n\nIn addition, here are some other documents you may wish to read:\n\n- [Istio Community](https://github.com/istio/community#istio-community) - describes how to get involved and contribute to the Istio project\n- [Istio Developer's Guide](https://github.com/istio/istio/wiki/Preparing-for-Development) - explains how to set up and use an Istio development environment\n- [Project Conventions](https://github.com/istio/istio/wiki/Development-Conventions) - describes the conventions we use within the code base\n- [Creating Fast and Lean Code](https://github.com/istio/istio/wiki/Writing-Fast-and-Lean-Code) - performance-oriented advice and guidelines for the code base\n\nYou'll find many other useful documents on our [Wiki](https://github.com/istio/istio/wiki).\n\n## Introduction\n\n[Istio](https://istio.io/latest/docs/concepts/what-is-istio/) is an open platform for providing a uniform way to [integrate\nmicroservices](https://istio.io/latest/docs/examples/microservices-istio/), manage [traffic flow](https://istio.io/latest/docs/concepts/traffic-management/) across microservices, enforce policies\nand aggregate telemetry data. Istio's control plane provides an abstraction\nlayer over the underlying cluster management platform, such as Kubernetes.\n\nIstio is composed of these components:\n\n- **Envoy** - Sidecar proxies per microservice to handle ingress/egress traffic\n   between services in the cluster and from a service to external\n   services. The proxies form a _secure microservice mesh_ providing a rich\n   set of functions like discovery, rich layer-7 routing, circuit breakers,\n   policy enforcement and telemetry recording/reporting\n   functions.\n\n  > Note: The service mesh is not an overlay network. It\n  > simplifies and enhances how microservices in an application talk to each\n  > other over the network provided by the underlying platform.\n\n- **Istiod** - The Istio control plane. It provides service discovery, configuration and certificate management. It consists of the following sub-components:\n\n    - **Pilot** - Responsible for configuring the proxies at runtime.\n\n    - **Citadel** - Responsible for certificate issuance and rotation.\n\n    - **Galley** - Responsible for validating, ingesting, aggregating, transforming and distributing config within Istio.\n\n- **Operator** - The component provides user friendly options to operate the Istio service mesh.\n\n## Repositories\n\nThe Istio project is divided across a few GitHub repositories:\n\n- [istio/api](https://github.com/istio/api). This repository defines\ncomponent-level APIs and common configuration formats for the Istio platform.\n\n- [istio/community](https://github.com/istio/community). This repository contains\ninformation on the Istio community, including the various documents that govern\nthe Istio open source project.\n\n- [istio/istio](README.md). This is the main code repository. It hosts Istio's\ncore components, install artifacts, and sample programs. It includes:\n\n    - [istioctl](istioctl/). This directory contains code for the\n[_istioctl_](https://istio.io/latest/docs/reference/commands/istioctl/) command line utility.\n\n    - [pilot](pilot/). This directory\ncontains platform-specific code to populate the\n[abstract service model](https://istio.io/docs/concepts/traffic-management/#pilot), dynamically reconfigure the proxies\nwhen the application topology changes, as well as translate\n[routing rules](https://istio.io/latest/docs/reference/config/networking/) into proxy specific configuration.\n\n    - [security](security/). This directory contains [security](https://istio.io/latest/docs/concepts/security/) related code,\nincluding Citadel (acting as Certificate Authority), citadel agent, etc.\n\n- [istio/proxy](https://github.com/istio/proxy). The Istio proxy contains\nextensions to the [Envoy proxy](https://github.com/envoyproxy/envoy) (in the form of\nEnvoy filters) that support authentication, authorization, and telemetry collection.\n\n- [istio/ztunnel](https://github.com/istio/ztunnel). The repository contains the Rust implementation of the ztunnel\ncomponent of Ambient mesh.\n\n- [istio/client-go](https://github.com/istio/client-go). This repository defines\n  auto-generated Kubernetes clients for interacting with Istio resources programmatically.\n\n> [!NOTE]\n> Only the `istio/api` and `istio/client-go` repositories expose stable interfaces intended for direct usage as libraries.\n\n## Issue management\n\nWe use GitHub to track all of our bugs and feature requests. Each issue we track has a variety of metadata:\n\n- **Epic**. An epic represents a feature area for Istio as a whole. Epics are fairly broad in scope and are basically product-level things.\nEach issue is ultimately part of an epic.\n\n- **Milestone**. Each issue is assigned a milestone. This is 0.1, 0.2, ..., or 'Nebulous Future'. The milestone indicates when we\nthink the issue should get addressed.\n\n- **Priority**. Each issue has a priority which is represented by the column in the [Prioritization](https://github.com/orgs/istio/projects/6) project. Priority can be one of\nP0, P1, P2, or >P2. The priority indicates how important it is to address the issue within the milestone. P0 says that the\nmilestone cannot be considered achieved if the issue isn't resolved.\n\n---\n\n<div align=\"center\">\n    <img src=\"https://raw.githubusercontent.com/cncf/artwork/master/other/cncf/horizontal/color/cncf-color.svg\" width=\"300\" alt=\"Cloud Native Computing Foundation logo\"/>\n    <p>Istio is a <a href=\"https://cncf.io\">Cloud Native Computing Foundation</a> project.</p>\n</div>\n",
+        "releases": [
+            {
+                "name": "Istio 1.23.4",
+                "date": "2024-12-19T02:04:39Z"
+            },
+            {
+                "name": "Istio 1.24.2",
+                "date": "2024-12-19T02:05:09Z"
+            },
+            {
+                "name": "Istio 1.22.7",
+                "date": "2024-12-19T02:04:54Z"
+            },
+            {
+                "name": "Istio 1.24.1",
+                "date": "2024-11-25T20:17:56Z"
+            },
+            {
+                "name": "Istio 1.24.0",
+                "date": "2024-11-07T22:42:57Z"
+            },
+            {
+                "name": "Istio 1.24.0-rc.0",
+                "date": "2024-10-31T19:18:58Z"
+            },
+            {
+                "name": "Istio 1.23.3",
+                "date": "2024-11-01T16:57:17Z"
+            },
+            {
+                "name": "Istio 1.22.6",
+                "date": "2024-10-23T14:19:56Z"
+            },
+            {
+                "name": "Istio 1.24.0-alpha.0",
+                "date": "2024-10-16T17:44:42Z"
+            },
+            {
+                "name": "Istio 1.21.6",
+                "date": "2024-09-23T18:52:37Z"
+            },
+            {
+                "name": "Istio 1.23.2",
+                "date": "2024-09-20T01:09:47Z"
+            },
+            {
+                "name": "Istio 1.22.5",
+                "date": "2024-09-20T17:18:31Z"
+            },
+            {
+                "name": "Istio 1.23.1",
+                "date": "2024-09-10T17:15:00Z"
+            },
+            {
+                "name": "Istio 1.22.4",
+                "date": "2024-08-19T20:22:46Z"
+            },
+            {
+                "name": "Istio 1.23.0",
+                "date": "2024-08-15T02:07:37Z"
+            },
+            {
+                "name": "Istio 1.23.0-rc.1",
+                "date": "2024-08-12T18:31:31Z"
+            },
+            {
+                "name": "Istio 1.23.0-rc.0",
+                "date": "2024-08-12T18:50:45Z"
+            },
+            {
+                "name": "Istio 1.22.3",
+                "date": "2024-07-16T18:17:47Z"
+            },
+            {
+                "name": "Istio 1.21.5",
+                "date": "2024-07-16T18:17:36Z"
+            },
+            {
+                "name": "Istio 1.23.0-alpha.0",
+                "date": "2024-07-16T18:18:02Z"
+            },
+            {
+                "name": "Istio 1.20.8",
+                "date": "2024-07-01T06:56:02Z"
+            },
+            {
+                "name": "Istio 1.22.2",
+                "date": "2024-06-28T04:00:01Z"
+            },
+            {
+                "name": "Istio 1.21.4",
+                "date": "2024-06-28T03:59:45Z"
+            },
+            {
+                "name": "Istio 1.22.1",
+                "date": "2024-06-05T00:04:15Z"
+            },
+            {
+                "name": "Istio 1.21.3",
+                "date": "2024-06-05T00:03:44Z"
+            },
+            {
+                "name": "Istio 1.20.7",
+                "date": "2024-06-05T00:03:17Z"
+            },
+            {
+                "name": "Istio 1.22.0",
+                "date": "2024-05-13T23:40:51Z"
+            },
+            {
+                "name": "Istio 1.22.0-rc.0",
+                "date": "2024-05-10T01:46:21Z"
+            },
+            {
+                "name": "Istio 1.22.0-beta.1",
+                "date": "2024-05-03T08:29:12Z"
+            },
+            {
+                "name": "Istio 1.22.0-beta.0",
+                "date": "2024-04-25T02:06:42Z"
+            },
+            {
+                "name": "Istio 1.21.2",
+                "date": "2024-04-22T18:13:51Z"
+            },
+            {
+                "name": "Istio 1.20.6",
+                "date": "2024-04-22T18:13:22Z"
+            },
+            {
+                "name": "Istio 1.19.10",
+                "date": "2024-04-22T18:12:41Z"
+            },
+            {
+                "name": "Istio 1.22.0-alpha.1",
+                "date": "2024-04-25T02:06:55Z"
+            },
+            {
+                "name": "Istio 1.21.1",
+                "date": "2024-04-08T18:20:17Z"
+            },
+            {
+                "name": "Istio 1.20.5",
+                "date": "2024-04-08T18:19:58Z"
+            },
+            {
+                "name": "Istio 1.19.9",
+                "date": "2024-04-08T18:19:44Z"
+            },
+            {
+                "name": "Istio 1.21.0",
+                "date": "2024-03-14T01:51:27Z"
+            },
+            {
+                "name": "Istio 1.20.4",
+                "date": "2024-03-14T15:00:52Z"
+            },
+            {
+                "name": "Istio 1.19.8",
+                "date": "2024-03-14T15:01:12Z"
+            },
+            {
+                "name": "Istio 1.21.0-rc.1",
+                "date": "2024-03-07T18:49:18Z"
+            },
+            {
+                "name": "Istio 1.21.0-rc.0",
+                "date": "2024-02-20T18:12:11Z"
+            },
+            {
+                "name": "Istio 1.20.3",
+                "date": "2024-02-09T18:31:02Z"
+            },
+            {
+                "name": "Istio 1.19.7",
+                "date": "2024-02-09T18:30:51Z"
+            },
+            {
+                "name": "Istio 1.21.0-beta.1",
+                "date": "2024-02-02T22:20:39Z"
+            },
+            {
+                "name": "Istio 1.21.0-beta.0",
+                "date": "2024-01-26T17:10:56Z"
+            },
+            {
+                "name": "Istio 1.20.2",
+                "date": "2024-01-10T01:31:57Z"
+            },
+            {
+                "name": "Istio 1.19.6",
+                "date": "2024-01-05T17:36:49Z"
+            },
+            {
+                "name": "Istio 1.18.7",
+                "date": "2024-01-04T04:41:22Z"
+            },
+            {
+                "name": "Istio 1.20.1",
+                "date": "2023-12-12T20:33:07Z"
+            },
+            {
+                "name": "Istio 1.19.5",
+                "date": "2023-12-12T20:32:54Z"
+            },
+            {
+                "name": "Istio 1.18.6",
+                "date": "2023-12-12T20:32:40Z"
+            },
+            {
+                "name": "Istio 1.20.0",
+                "date": "2023-11-14T21:01:56Z"
+            },
+            {
+                "name": "Istio 1.19.4",
+                "date": "2023-11-13T22:54:02Z"
+            },
+            {
+                "name": "Istio 1.20.0-rc.0",
+                "date": "2023-11-02T06:56:03Z"
+            },
+            {
+                "name": "Istio 1.20.0-beta.0",
+                "date": "2023-10-24T13:59:30Z"
+            },
+            {
+                "name": "Istio 1.19.3",
+                "date": "2023-10-11T15:53:39Z"
+            },
+            {
+                "name": "Istio 1.18.5",
+                "date": "2023-10-11T15:54:14Z"
+            },
+            {
+                "name": "Istio 1.17.8",
+                "date": "2023-10-11T15:53:53Z"
+            },
+            {
+                "name": "Istio 1.19.1",
+                "date": "2023-10-03T11:39:08Z"
+            },
+            {
+                "name": "Istio 1.17.6",
+                "date": "2023-09-19T16:03:20Z"
+            },
+            {
+                "name": "Istio 1.18.3",
+                "date": "2023-09-12T19:36:13Z"
+            },
+            {
+                "name": "Istio 1.19.0",
+                "date": "2023-09-05T19:40:12Z"
+            },
+            {
+                "name": "Istio 1.19.0-rc.0",
+                "date": "2023-08-25T15:51:01Z"
+            },
+            {
+                "name": "Istio 1.19.0-beta.1",
+                "date": "2023-08-21T16:27:28Z"
+            },
+            {
+                "name": "Istio 1.19.0-beta.0",
+                "date": "2023-08-11T14:06:44Z"
+            },
+            {
+                "name": "Istio 1.18.2",
+                "date": "2023-07-25T17:03:22Z"
+            },
+            {
+                "name": "Istio 1.17.5",
+                "date": "2023-07-25T17:03:13Z"
+            },
+            {
+                "name": "Istio 1.16.7",
+                "date": "2023-07-25T17:03:02Z"
+            },
+            {
+                "name": "Istio 1.18.1",
+                "date": "2023-07-14T21:12:02Z"
+            },
+            {
+                "name": "Istio 1.17.4",
+                "date": "2023-07-14T21:11:53Z"
+            },
+            {
+                "name": "Istio 1.16.6",
+                "date": "2023-07-14T21:11:44Z"
+            },
+            {
+                "name": "Istio 1.19.0-alpha.1",
+                "date": "2023-06-28T22:14:42Z"
+            },
+            {
+                "name": "Istio 1.18.0",
+                "date": "2023-06-07T18:46:51Z"
+            },
+            {
+                "name": "Istio 1.17.3",
+                "date": "2023-06-06T18:29:52Z"
+            },
+            {
+                "name": "Istio 1.18.0-rc.0",
+                "date": "2023-05-25T20:23:00Z"
+            },
+            {
+                "name": "Istio 1.16.5",
+                "date": "2023-05-23T23:02:30Z"
+            },
+            {
+                "name": "Istio 1.18.0-beta.1",
+                "date": "2023-05-11T12:20:38Z"
+            },
+            {
+                "name": "Istio 1.18.0-beta.0",
+                "date": "2023-05-03T16:21:45Z"
+            },
+            {
+                "name": "Istio 1.17.2",
+                "date": "2023-04-04T22:01:23Z"
+            },
+            {
+                "name": "Istio 1.16.4",
+                "date": "2023-04-04T22:01:02Z"
+            },
+            {
+                "name": "Istio 1.15.7",
+                "date": "2023-04-04T22:00:46Z"
+            },
+            {
+                "name": "Istio 1.18.0-alpha.0",
+                "date": "2023-03-04T00:11:19Z"
+            },
+            {
+                "name": "Istio 1.17.1",
+                "date": "2023-02-23T20:50:10Z"
+            },
+            {
+                "name": "Istio 1.16.3",
+                "date": "2023-02-21T22:26:33Z"
+            },
+            {
+                "name": "Istio 1.15.6",
+                "date": "2023-02-21T22:26:24Z"
+            },
+            {
+                "name": "Istio 1.17.0",
+                "date": "2023-02-14T23:38:30Z"
+            },
+            {
+                "name": "Istio 1.17.0-rc.0",
+                "date": "2023-02-10T01:23:05Z"
+            },
+            {
+                "name": "Istio 1.17.0-beta.2",
+                "date": "2023-02-06T23:20:14Z"
+            },
+            {
+                "name": "Istio 1.17.0-beta.1",
+                "date": "2023-01-31T16:57:29Z"
+            },
+            {
+                "name": "Istio 1.16.2",
+                "date": "2023-01-30T21:20:51Z"
+            },
+            {
+                "name": "Istio 1.15.5",
+                "date": "2023-01-30T21:20:38Z"
+            },
+            {
+                "name": "Istio 1.17.0-beta.0",
+                "date": "2023-01-20T23:06:46Z"
+            },
+            {
+                "name": "Istio 1.16.1",
+                "date": "2022-12-12T23:56:24Z"
+            },
+            {
+                "name": "Istio 1.15.4",
+                "date": "2022-12-12T23:56:14Z"
+            },
+            {
+                "name": "Istio 1.14.6",
+                "date": "2022-12-12T19:59:51Z"
+            },
+            {
+                "name": "Istio 1.16.0",
+                "date": "2022-11-15T22:44:29Z"
+            },
+            {
+                "name": "Istio 1.16.0-rc.0",
+                "date": "2022-11-08T23:54:33Z"
+            },
+            {
+                "name": "Istio 1.15.3",
+                "date": "2022-10-28T16:22:57Z"
+            },
+            {
+                "name": "Istio 1.16.0-beta.2",
+                "date": "2022-10-27T18:11:02Z"
+            },
+            {
+                "name": "Istio 1.16.0-beta.1",
+                "date": "2022-10-22T00:07:04Z"
+            },
+            {
+                "name": "Istio 1.16.0-beta.0",
+                "date": "2022-10-21T17:14:12Z"
+            },
+            {
+                "name": "Istio 1.15.2",
+                "date": "2022-10-11T18:25:50Z"
+            },
+            {
+                "name": "Istio 1.14.5",
+                "date": "2022-10-11T16:40:56Z"
+            },
+            {
+                "name": "Istio 1.13.9",
+                "date": "2022-10-11T17:33:06Z"
+            },
+            {
+                "name": "Istio 1.15.1",
+                "date": "2022-09-26T17:49:21Z"
+            },
+            {
+                "name": "Istio 1.14.4",
+                "date": "2022-09-12T20:30:25Z"
+            },
+            {
+                "name": "Istio 1.13.8",
+                "date": "2022-09-12T18:45:08Z"
+            },
+            {
+                "name": "Istio 1.15.0",
+                "date": "2022-08-31T22:31:58Z"
+            },
+            {
+                "name": "Istio 1.15.0-rc.0",
+                "date": "2022-08-30T13:16:13Z"
+            },
+            {
+                "name": "Istio 1.15.0-beta.1",
+                "date": "2022-08-18T14:02:45Z"
+            },
+            {
+                "name": "Istio 1.15.0-beta.0",
+                "date": "2022-08-10T13:34:47Z"
+            },
+            {
+                "name": "Istio 1.14.3",
+                "date": "2022-08-01T17:48:14Z"
+            },
+            {
+                "name": "Istio 1.13.7",
+                "date": "2022-08-01T17:48:59Z"
+            },
+            {
+                "name": "Istio 1.13.6",
+                "date": "2022-07-25T19:02:58Z"
+            },
+            {
+                "name": "Istio 1.14.2",
+                "date": "2022-07-25T18:32:11Z"
+            },
+            {
+                "name": "Istio 1.12.9",
+                "date": "2022-07-12T16:44:32Z"
+            },
+            {
+                "name": "Istio 1.14.1",
+                "date": "2022-06-09T20:03:53Z"
+            },
+            {
+                "name": "Istio 1.13.5",
+                "date": "2022-06-09T20:03:44Z"
+            },
+            {
+                "name": "Istio 1.12.8",
+                "date": "2022-06-09T20:03:35Z"
+            },
+            {
+                "name": "Istio 1.14.0",
+                "date": "2022-06-01T19:33:48Z"
+            },
+            {
+                "name": "Istio 1.14.0-beta.1",
+                "date": "2022-05-20T20:15:02Z"
+            },
+            {
+                "name": "Istio 1.13.4",
+                "date": "2022-05-17T17:29:36Z"
+            },
+            {
+                "name": "Istio 1.14.0-beta.0",
+                "date": "2022-05-15T16:04:45Z"
+            },
+            {
+                "name": "Istio 1.12.7",
+                "date": "2022-05-06T18:09:29Z"
+            },
+            {
+                "name": "Istio 1.14.0-alpha.0",
+                "date": "2022-05-09T22:03:24Z"
+            },
+            {
+                "name": "Istio 1.13.3",
+                "date": "2022-04-19T16:05:24Z"
+            },
+            {
+                "name": "Istio 1.12.6",
+                "date": "2022-04-06T08:57:17Z"
+            },
+            {
+                "name": "Istio 1.13.2",
+                "date": "2022-03-09T23:55:30Z"
+            },
+            {
+                "name": "Istio 1.12.5",
+                "date": "2022-03-09T23:55:22Z"
+            },
+            {
+                "name": "Istio 1.11.8",
+                "date": "2022-03-09T23:55:14Z"
+            },
+            {
+                "name": "Istio 1.13.1",
+                "date": "2022-02-22T21:03:29Z"
+            },
+            {
+                "name": "Istio 1.12.4",
+                "date": "2022-02-22T21:03:21Z"
+            },
+            {
+                "name": "Istio 1.11.7",
+                "date": "2022-02-22T21:03:13Z"
+            },
+            {
+                "name": "Istio 1.13.0",
+                "date": "2022-02-11T23:00:24Z"
+            },
+            {
+                "name": "Istio 1.12.3",
+                "date": "2022-02-11T13:41:52Z"
+            },
+            {
+                "name": "Istio 1.11.6",
+                "date": "2022-02-04T00:24:37Z"
+            },
+            {
+                "name": "Istio 1.13.0-beta.1",
+                "date": "2022-02-04T17:06:24Z"
+            },
+            {
+                "name": "Istio 1.13.0-beta.0",
+                "date": "2022-02-04T17:06:04Z"
+            },
+            {
+                "name": "Istio 1.12.2",
+                "date": "2022-01-19T00:19:17Z"
+            },
+            {
+                "name": "Istio 1.12.1",
+                "date": "2021-12-08T20:17:30Z"
+            },
+            {
+                "name": "Istio 1.10.6",
+                "date": "2021-12-06T23:19:19Z"
+            },
+            {
+                "name": "Istio 1.11.5",
+                "date": "2021-12-03T19:25:41Z"
+            },
+            {
+                "name": "Istio 1.12.0",
+                "date": "2021-11-19T02:14:39Z"
+            },
+            {
+                "name": "Istio 1.12.0-rc.1",
+                "date": "2021-11-16T17:09:11Z"
+            },
+            {
+                "name": "Istio 1.12.0-beta.2",
+                "date": "2021-11-10T09:26:14Z"
+            },
+            {
+                "name": "Istio 1.12.0-beta.1",
+                "date": "2021-11-18T21:09:19Z"
+            },
+            {
+                "name": "Istio 1.12.0-beta.0",
+                "date": "2021-11-01T16:04:27Z"
+            },
+            {
+                "name": "Istio 1.11.4",
+                "date": "2021-10-15T21:05:33Z"
+            },
+            {
+                "name": "Istio 1.12.0-alpha.5",
+                "date": "2021-10-19T16:50:26Z"
+            },
+            {
+                "name": "Istio 1.9.9",
+                "date": "2021-10-08T19:39:05Z"
+            },
+            {
+                "name": "Istio 1.10.5",
+                "date": "2021-10-07T19:52:41Z"
+            },
+            {
+                "name": "Istio 1.11.3",
+                "date": "2021-09-23T22:09:08Z"
+            },
+            {
+                "name": "Istio 1.12.0-alpha.1",
+                "date": "2021-10-19T16:50:21Z"
+            },
+            {
+                "name": "Istio 1.12.0-alpha.0",
+                "date": "2021-10-19T16:50:14Z"
+            },
+            {
+                "name": "Istio 1.11.2",
+                "date": "2021-09-03T01:01:40Z"
+            },
+            {
+                "name": "Istio 1.11.1",
+                "date": "2021-08-24T20:30:51Z"
+            },
+            {
+                "name": "Istio 1.10.4",
+                "date": "2021-08-24T20:30:44Z"
+            },
+            {
+                "name": "Istio 1.9.8",
+                "date": "2021-08-24T20:30:34Z"
+            },
+            {
+                "name": "Istio 1.11.0",
+                "date": "2021-08-12T22:30:23Z"
+            },
+            {
+                "name": "Istio 1.11.0-rc.4",
+                "date": "2021-08-10T18:40:46Z"
+            },
+            {
+                "name": "Istio 1.11.0-rc.3",
+                "date": "2021-08-09T22:47:22Z"
+            },
+            {
+                "name": "Istio 1.11.0-rc.2",
+                "date": "2021-08-05T20:30:51Z"
+            },
+            {
+                "name": "Istio 1.11.0-rc.1",
+                "date": "2021-08-04T21:24:20Z"
+            },
+            {
+                "name": "Istio 1.11.0-beta.3",
+                "date": "2021-07-29T16:57:07Z"
+            },
+            {
+                "name": "Istio 1.11.0-beta.2",
+                "date": "2021-07-23T21:40:16Z"
+            },
+            {
+                "name": "Istio 1.9.7",
+                "date": "2021-07-22T19:43:51Z"
+            },
+            {
+                "name": "Istio 1.11.0-beta.1",
+                "date": "2021-07-20T19:13:04Z"
+            },
+            {
+                "name": "Istio 1.10.3",
+                "date": "2021-07-16T23:50:37Z"
+            },
+            {
+                "name": "Istio 1.11.0-beta.0",
+                "date": "2021-07-15T18:35:21Z"
+            },
+            {
+                "name": "Istio 1.10.2",
+                "date": "2021-06-24T19:28:08Z"
+            },
+            {
+                "name": "Istio 1.9.6",
+                "date": "2021-06-24T19:27:52Z"
+            },
+            {
+                "name": "Istio 1.10.1",
+                "date": "2021-06-10T17:37:06Z"
+            },
+            {
+                "name": "Istio 1.10.0",
+                "date": "2021-05-18T17:18:47Z"
+            },
+            {
+                "name": "Istio 1.9.5",
+                "date": "2021-05-11T21:20:55Z"
+            },
+            {
+                "name": "Istio 1.8.6",
+                "date": "2021-05-11T21:20:47Z"
+            },
+            {
+                "name": "Istio 1.10.0-rc.1",
+                "date": "2021-05-06T16:34:24Z"
+            },
+            {
+                "name": "Istio 1.10.0-rc.0",
+                "date": "2021-04-28T04:03:42Z"
+            },
+            {
+                "name": "Istio 1.9.4",
+                "date": "2021-04-27T18:10:16Z"
+            },
+            {
+                "name": "Istio 1.10.0-alpha.1",
+                "date": "2021-04-20T16:18:31Z"
+            },
+            {
+                "name": "Istio 1.9.3",
+                "date": "2021-04-15T20:26:15Z"
+            },
+            {
+                "name": "Istio 1.8.5",
+                "date": "2021-04-15T20:26:26Z"
+            },
+            {
+                "name": "Istio 1.10.0-alpha.0",
+                "date": "2021-04-12T14:27:28Z"
+            },
+            {
+                "name": "Istio 1.9.2",
+                "date": "2021-03-25T19:50:24Z"
+            },
+            {
+                "name": "Istio 1.8.4",
+                "date": "2021-03-10T19:58:43Z"
+            },
+            {
+                "name": "Istio 1.9.1",
+                "date": "2021-03-01T21:34:18Z"
+            },
+            {
+                "name": "Istio 1.7.8",
+                "date": "2021-02-25T18:56:59Z"
+            },
+            {
+                "name": "Istio 1.9.0",
+                "date": "2021-02-09T20:12:41Z"
+            },
+            {
+                "name": "Istio 1.8.3",
+                "date": "2021-02-08T21:25:38Z"
+            },
+            {
+                "name": "Istio 1.9.0-rc.0",
+                "date": "2021-02-01T19:02:05Z"
+            },
+            {
+                "name": "Istio 1.7.7",
+                "date": "2021-01-29T23:12:00Z"
+            },
+            {
+                "name": "Istio 1.9.0-beta.1",
+                "date": "2021-01-25T18:22:52Z"
+            },
+            {
+                "name": "Istio 1.9.0-beta.0",
+                "date": "2021-01-16T00:46:18Z"
+            },
+            {
+                "name": "Istio 1.8.2",
+                "date": "2021-01-15T01:08:44Z"
+            },
+            {
+                "name": "Istio 1.7.6",
+                "date": "2020-12-10T18:05:18Z"
+            },
+            {
+                "name": "Istio 1.8.1",
+                "date": "2020-12-08T21:23:48Z"
+            },
+            {
+                "name": "Istio 1.6.14",
+                "date": "2020-11-25T17:39:53Z"
+            },
+            {
+                "name": "Istio 1.8.0",
+                "date": "2020-11-19T18:19:18Z"
+            },
+            {
+                "name": "Istio 1.8.0-rc.1",
+                "date": "2020-11-19T15:23:51Z"
+            },
+            {
+                "name": "Istio 1.7.5",
+                "date": "2020-11-19T18:18:13Z"
+            },
+            {
+                "name": "Istio 1.8.0-rc.0",
+                "date": "2020-11-18T03:45:11Z"
+            },
+            {
+                "name": "Istio 1.8.0-alpha.2",
+                "date": "2020-10-29T13:53:08Z"
+            },
+            {
+                "name": "Istio 1.7.4",
+                "date": "2020-10-28T17:27:32Z"
+            },
+            {
+                "name": "Istio 1.6.13",
+                "date": "2020-10-28T20:38:41Z"
+            },
+            {
+                "name": "Istio 1.8.0-alpha.0",
+                "date": "2020-10-22T00:46:03Z"
+            },
+            {
+                "name": "Istio 1.6.12",
+                "date": "2020-10-09T21:06:03Z"
+            },
+            {
+                "name": "Istio 1.7.3",
+                "date": "2020-09-29T19:50:59Z"
+            },
+            {
+                "name": "Istio 1.6.11",
+                "date": "2020-09-29T19:51:50Z"
+            },
+            {
+                "name": "Istio 1.6.10",
+                "date": "2020-09-22T21:36:46Z"
+            },
+            {
+                "name": "Istio 1.7.2",
+                "date": "2020-09-18T20:08:33Z"
+            },
+            {
+                "name": "Istio 1.7.1",
+                "date": "2020-09-10T21:35:25Z"
+            },
+            {
+                "name": "Istio 1.6.9",
+                "date": "2020-09-09T21:00:03Z"
+            },
+            {
+                "name": "Istio 1.5.10",
+                "date": "2020-08-25T19:00:34Z"
+            },
+            {
+                "name": "Istio 1.7.0",
+                "date": "2020-08-22T01:02:18Z"
+            },
+            {
+                "name": "Istio 1.7.0-rc.4",
+                "date": "2020-08-21T15:06:57Z"
+            },
+            {
+                "name": "Istio 1.7.0-rc.3",
+                "date": "2020-08-19T22:14:03Z"
+            },
+            {
+                "name": "Istio 1.7.0-rc.2",
+                "date": "2020-08-18T19:07:44Z"
+            },
+            {
+                "name": "Istio 1.7.0-rc.1",
+                "date": "2020-08-13T01:22:19Z"
+            },
+            {
+                "name": "Istio 1.6.8",
+                "date": "2020-08-11T18:31:31Z"
+            },
+            {
+                "name": "Istio 1.5.9",
+                "date": "2020-08-11T18:35:30Z"
+            },
+            {
+                "name": "Istio 1.7.0-beta.2",
+                "date": "2020-08-10T14:28:53Z"
+            },
+            {
+                "name": "Istio 1.7.0-beta.1",
+                "date": "2020-08-04T20:17:25Z"
+            },
+            {
+                "name": "Istio 1.6.7",
+                "date": "2020-07-31T19:21:34Z"
+            },
+            {
+                "name": "Istio 1.7.0-alpha.2",
+                "date": "2020-07-29T15:09:31Z"
+            },
+            {
+                "name": "Istio 1.6.6",
+                "date": "2020-07-29T20:51:53Z"
+            },
+            {
+                "name": "Istio 1.7.0-alpha.1",
+                "date": "2020-07-23T00:17:57Z"
+            },
+            {
+                "name": "Istio 1.6.5",
+                "date": "2020-07-09T20:54:47Z"
+            },
+            {
+                "name": "Istio 1.5.8",
+                "date": "2020-07-09T20:54:37Z"
+            },
+            {
+                "name": "Istio 1.7.0-alpha.0",
+                "date": "2020-07-08T17:16:27Z"
+            },
+            {
+                "name": "Istio 1.6.4",
+                "date": "2020-06-30T20:01:10Z"
+            },
+            {
+                "name": "Istio 1.5.7",
+                "date": "2020-06-30T19:55:40Z"
+            },
+            {
+                "name": "Istio 1.4.10",
+                "date": "2020-06-22T19:03:31Z"
+            },
+            {
+                "name": "Istio 1.6.3",
+                "date": "2020-06-18T21:24:04Z"
+            },
+            {
+                "name": "Istio 1.5.6",
+                "date": "2020-06-17T23:25:00Z"
+            },
+            {
+                "name": "Istio 1.6.2",
+                "date": "2020-06-11T20:43:24Z"
+            },
+            {
+                "name": "Istio 1.5.5",
+                "date": "2020-06-11T20:56:10Z"
+            },
+            {
+                "name": "Istio 1.6.1",
+                "date": "2020-06-05T02:31:24Z"
+            },
+            {
+                "name": "Istio 1.6.0",
+                "date": "2020-05-21T19:22:23Z"
+            },
+            {
+                "name": "Istio 1.6.0-rc.2",
+                "date": "2020-05-16T02:48:39Z"
+            },
+            {
+                "name": "Istio 1.6.0-rc.1",
+                "date": "2020-05-15T03:41:42Z"
+            },
+            {
+                "name": "Istio 1.6.0-rc.0",
+                "date": "2020-05-14T05:01:53Z"
+            },
+            {
+                "name": "Istio 1.5.4",
+                "date": "2020-05-13T14:10:12Z"
+            },
+            {
+                "name": "Istio 1.5.3",
+                "date": "2020-05-12T23:13:47Z"
+            },
+            {
+                "name": "Istio 1.4.9",
+                "date": "2020-05-12T23:30:11Z"
+            },
+            {
+                "name": "Istio 1.6.0-beta.1",
+                "date": "2020-05-11T16:20:11Z"
+            },
+            {
+                "name": "Istio 1.6.0-beta.0",
+                "date": "2020-04-29T13:41:25Z"
+            },
+            {
+                "name": "Istio 1.6.0-alpha.2",
+                "date": "2020-04-23T16:24:25Z"
+            },
+            {
+                "name": "Istio 1.5.2",
+                "date": "2020-04-23T23:21:01Z"
+            },
+            {
+                "name": "Istio 1.4.8",
+                "date": "2020-04-23T18:19:53Z"
+            },
+            {
+                "name": "Istio 1.6.0-alpha.1",
+                "date": "2020-04-09T18:35:20Z"
+            },
+            {
+                "name": "Istio 1.5.1",
+                "date": "2020-03-25T17:40:57Z"
+            },
+            {
+                "name": "Istio 1.4.7",
+                "date": "2020-03-25T17:41:23Z"
+            },
+            {
+                "name": "Istio 1.6.0-alpha.0",
+                "date": "2020-04-09T18:35:59Z"
+            },
+            {
+                "name": "Istio 1.5.0",
+                "date": "2020-03-05T22:38:15Z"
+            },
+            {
+                "name": "Istio 1.4.6",
+                "date": "2020-03-03T18:29:08Z"
+            },
+            {
+                "name": "Istio 1.5.0-beta.5",
+                "date": "2020-03-02T15:08:16Z"
+            },
+            {
+                "name": "Istio 1.5.0-beta.4",
+                "date": "2020-02-28T16:02:15Z"
+            },
+            {
+                "name": "Istio 1.5.0-beta.3",
+                "date": "2020-02-25T15:55:56Z"
+            },
+            {
+                "name": "Istio 1.5.0-beta.2",
+                "date": "2020-02-18T17:00:16Z"
+            },
+            {
+                "name": "Istio 1.4.5",
+                "date": "2020-02-19T00:10:04Z"
+            },
+            {
+                "name": "",
+                "date": "2020-02-11T19:29:18Z"
+            },
+            {
+                "name": "Istio 1.4.4",
+                "date": "2020-02-11T19:29:08Z"
+            },
+            {
+                "name": "Istio 1.3.7",
+                "date": "2020-02-04T22:45:40Z"
+            },
+            {
+                "name": "Istio 1.4.3",
+                "date": "2020-01-08T22:29:58Z"
+            },
+            {
+                "name": "Istio 1.5.0-alpha.0",
+                "date": "2019-12-20T21:53:13Z"
+            },
+            {
+                "name": "Istio 1.4.2",
+                "date": "2019-12-10T18:49:24Z"
+            },
+            {
+                "name": "Istio 1.4.1",
+                "date": "2019-12-05T19:34:32Z"
+            },
+            {
+                "name": "Istio 1.3.6",
+                "date": "2019-12-10T18:58:28Z"
+            },
+            {
+                "name": "",
+                "date": "2019-12-10T20:03:48Z"
+            },
+            {
+                "name": "Istio 1.4.0",
+                "date": "2019-11-14T19:24:25Z"
+            },
+            {
+                "name": "Istio 1.4.0-beta.5",
+                "date": "2019-11-13T18:09:06Z"
+            },
+            {
+                "name": "Istio 1.4.0-beta.4",
+                "date": "2019-11-10T20:00:27Z"
+            },
+            {
+                "name": "Istio 1.4.0-beta.3",
+                "date": "2019-11-08T15:38:13Z"
+            },
+            {
+                "name": "Istio 1.3.5",
+                "date": "2019-11-11T19:16:10Z"
+            },
+            {
+                "name": "Istio 1.4.0-beta.2",
+                "date": "2019-11-05T17:28:47Z"
+            },
+            {
+                "name": "",
+                "date": "2019-11-06T21:36:43Z"
+            },
+            {
+                "name": "Istio 1.4.0-beta.1",
+                "date": "2019-10-29T16:49:43Z"
+            },
+            {
+                "name": "Istio 1.3.4",
+                "date": "2019-10-31T17:48:49Z"
+            },
+            {
+                "name": "Istio 1.4.0-beta.0",
+                "date": "2019-10-23T21:59:33Z"
+            },
+            {
+                "name": "",
+                "date": "2019-10-23T19:23:34Z"
+            },
+            {
+                "name": "Istio 1.1.17",
+                "date": "2019-10-21T18:33:40Z"
+            },
+            {
+                "name": "Istio 1.3.3",
+                "date": "2019-10-14T17:56:17Z"
+            },
+            {
+                "name": "Istio 1.1.16",
+                "date": "2019-10-08T17:47:28Z"
+            },
+            {
+                "name": "Istio 1.2.7",
+                "date": "2019-10-10T00:11:52Z"
+            },
+            {
+                "name": "Istio 1.3.2",
+                "date": "2019-10-08T17:46:49Z"
+            },
+            {
+                "name": "Istio 1.3.1",
+                "date": "2019-09-27T17:25:29Z"
+            },
+            {
+                "name": "Istio 1.2.6",
+                "date": "2019-09-18T00:27:14Z"
+            },
+            {
+                "name": "Istio 1.1.15",
+                "date": "2019-09-16T22:52:38Z"
+            },
+            {
+                "name": "Istio 1.3.0",
+                "date": "2019-09-12T16:10:17Z"
+            },
+            {
+                "name": "Istio 1.3.0-rc.3",
+                "date": "2019-09-10T04:25:18Z"
+            },
+            {
+                "name": "Istio 1.3.0-rc.2",
+                "date": "2019-09-07T03:32:47Z"
+            },
+            {
+                "name": "Istio 1.3.0-rc.1",
+                "date": "2019-08-31T03:19:23Z"
+            },
+            {
+                "name": "",
+                "date": "2019-08-26T22:50:54Z"
+            },
+            {
+                "name": "",
+                "date": "2019-08-26T22:50:57Z"
+            },
+            {
+                "name": "Istio 1.3.0-rc.0",
+                "date": "2019-08-23T22:23:17Z"
+            },
+            {
+                "name": "Istio 1.2.4",
+                "date": "2019-08-13T17:52:37Z"
+            },
+            {
+                "name": "Istio 1.1.13",
+                "date": "2019-08-13T17:52:27Z"
+            },
+            {
+                "name": "",
+                "date": "2019-08-02T22:53:14Z"
+            },
+            {
+                "name": "",
+                "date": "2019-08-02T22:55:24Z"
+            },
+            {
+                "name": "Istio 1.2.2",
+                "date": "2019-07-10T14:21:56Z"
+            },
+            {
+                "name": "Istio 1.1.11",
+                "date": "2019-07-03T17:43:27Z"
+            },
+            {
+                "name": "Istio 1.1.10",
+                "date": "2019-06-28T21:53:14Z"
+            },
+            {
+                "name": "Istio 1.0.9",
+                "date": "2019-06-28T21:53:47Z"
+            },
+            {
+                "name": "Istio 1.2.1",
+                "date": "2019-06-28T21:55:07Z"
+            },
+            {
+                "name": "Istio 1.2.0",
+                "date": "2019-06-18T23:48:16Z"
+            },
+            {
+                "name": "Istio 1.2.0-rc.3",
+                "date": "2019-06-18T03:01:16Z"
+            },
+            {
+                "name": "Istio 1.2.0-rc.2",
+                "date": "2019-06-17T02:30:24Z"
+            },
+            {
+                "name": "Istio 1.1.9",
+                "date": "2019-06-18T03:01:44Z"
+            },
+            {
+                "name": "Istio 1.2.0-rc.1",
+                "date": "2019-06-13T04:11:46Z"
+            },
+            {
+                "name": "Istio 1.0.8",
+                "date": "2019-06-07T20:02:32Z"
+            },
+            {
+                "name": "Istio 1.2.0-rc.0",
+                "date": "2019-06-05T03:16:05Z"
+            },
+            {
+                "name": "Istio 1.1.8",
+                "date": "2019-06-07T20:02:24Z"
+            },
+            {
+                "name": "Istio 1.1.7",
+                "date": "2019-05-18T00:37:35Z"
+            },
+            {
+                "name": "Istio 1.1.6",
+                "date": "2019-05-12T02:38:57Z"
+            },
+            {
+                "name": "Istio 1.1.5",
+                "date": "2019-05-03T19:08:13Z"
+            },
+            {
+                "name": "Istio 1.1.4",
+                "date": "2019-04-26T18:08:38Z"
+            },
+            {
+                "name": "Istio 1.1.3",
+                "date": "2019-04-16T17:07:49Z"
+            },
+            {
+                "name": "Istio 1.1.2",
+                "date": "2019-04-05T17:09:36Z"
+            },
+            {
+                "name": "Istio 1.0.7",
+                "date": "2019-04-05T17:10:08Z"
+            },
+            {
+                "name": "Istio 1.1.1",
+                "date": "2019-03-25T19:28:44Z"
+            },
+            {
+                "name": "Istio 1.1.0",
+                "date": "2019-03-19T18:59:38Z"
+            },
+            {
+                "name": "Istio 1.1.0-rc.6",
+                "date": "2019-03-16T17:10:02Z"
+            },
+            {
+                "name": "Istio 1.1.0-rc.5",
+                "date": "2019-03-14T06:26:17Z"
+            },
+            {
+                "name": "Istio 1.1.0-rc.4",
+                "date": "2019-03-12T21:46:25Z"
+            },
+            {
+                "name": "Istio 1.1.0-rc.3",
+                "date": "2019-03-08T20:17:46Z"
+            },
+            {
+                "name": "Istio 1.1.0-rc.2",
+                "date": "2019-03-04T00:28:00Z"
+            },
+            {
+                "name": "Istio 1.1.0-rc.1",
+                "date": "2019-02-27T22:46:51Z"
+            },
+            {
+                "name": "Istio 1.1.0-rc.0",
+                "date": "2019-02-21T02:20:04Z"
+            },
+            {
+                "name": "Istio 1.1.0-snapshot.6 - February 2019 Pre-Release",
+                "date": "2019-02-13T18:39:49Z"
+            },
+            {
+                "name": "Istio 1.0.6",
+                "date": "2019-02-13T22:02:39Z"
+            },
+            {
+                "name": "Istio 1.1.0-snapshot.5 - January 2019 Release",
+                "date": "2019-01-25T22:45:56Z"
+            },
+            {
+                "name": "Istio 1.1.0-snapshot.4 - December 2018 Release",
+                "date": "2019-01-25T22:06:26Z"
+            },
+            {
+                "name": "Istio 1.0.5",
+                "date": "2018-12-08T00:42:19Z"
+            },
+            {
+                "name": "Istio 1.1.0-snapshot.3 - November 2018 Release",
+                "date": "2018-11-27T23:25:57Z"
+            },
+            {
+                "name": "Istio 1.0.4",
+                "date": "2018-11-21T18:32:28Z"
+            },
+            {
+                "name": "Istio 1.0.3",
+                "date": "2018-10-26T02:07:41Z"
+            },
+            {
+                "name": "Istio 1.1.0-snapshot.2 - October 2018 Release",
+                "date": "2018-10-23T17:07:25Z"
+            },
+            {
+                "name": "Istio 1.1.0-snapshot.1 - September 2018 Release",
+                "date": "2018-09-27T17:33:15Z"
+            },
+            {
+                "name": "Istio 1.0.2",
+                "date": "2018-09-06T21:21:32Z"
+            },
+            {
+                "name": "Istio 1.1.0-snapshot.0 - August 2018 Release",
+                "date": "2018-08-29T17:19:53Z"
+            },
+            {
+                "name": "Istio 1.0.1",
+                "date": "2018-08-24T21:50:56Z"
+            },
+            {
+                "name": "Istio 1.0.0",
+                "date": "2018-07-31T01:42:22Z"
+            },
+            {
+                "name": "Istio 1.0.0-snapshot.2 - 1.0.0 Preview",
+                "date": "2018-07-23T22:48:29Z"
+            },
+            {
+                "name": "Istio 1.0.0-snapshot.1 - 1.0.0 Preview",
+                "date": "2018-07-20T03:56:46Z"
+            },
+            {
+                "name": "Istio 1.0.0-snapshot.0 - June 2018 Release",
+                "date": "2018-06-28T23:19:01Z"
+            },
+            {
+                "name": "Istio 0.8.0 - May 2018 Release (LTS)",
+                "date": "2018-06-01T00:29:56Z"
+            },
+            {
+                "name": "Istio 0.7.1 - March 2018 Release",
+                "date": "2018-03-31T00:59:58Z"
+            },
+            {
+                "name": "Istio 0.7.0",
+                "date": "2018-03-28T23:21:43Z"
+            },
+            {
+                "name": "Istio 0.6.0 - February 2018 Release",
+                "date": "2018-03-01T04:14:26Z"
+            },
+            {
+                "name": "Istio 0.5.1",
+                "date": "2018-02-13T02:09:12Z"
+            },
+            {
+                "name": "Istio 0.5.0 - January 2018 Release",
+                "date": "2018-01-30T22:16:33Z"
+            },
+            {
+                "name": "Istio 0.4.0 - December 2017 Release",
+                "date": "2017-12-15T22:39:35Z"
+            },
+            {
+                "name": "Istio 0.3.0 - November 2017 Release",
+                "date": "2017-11-29T22:43:40Z"
+            },
+            {
+                "name": "Istio 0.2.12 - Quarterly Release, stable/LTS release",
+                "date": "2017-11-07T06:45:33Z"
+            },
+            {
+                "name": "0.2.10",
+                "date": "2017-10-25T20:07:37Z"
+            },
+            {
+                "name": "0.2.9",
+                "date": "2017-10-19T19:45:02Z"
+            },
+            {
+                "name": "0.2.7 ",
+                "date": "2017-10-03T23:00:23Z"
+            },
+            {
+                "name": "0.2.6",
+                "date": "2017-09-28T22:18:48Z"
+            },
+            {
+                "name": "0.2.4",
+                "date": "2017-09-22T23:09:47Z"
+            },
+            {
+                "name": "0.2.2",
+                "date": "2017-09-22T21:30:19Z"
+            },
+            {
+                "name": "0.2.1",
+                "date": "2017-09-01T01:01:05Z"
+            },
+            {
+                "name": "0.2.0",
+                "date": "2017-08-07T22:44:48Z"
+            },
+            {
+                "name": "0.1.6",
+                "date": "2017-06-08T19:15:03Z"
+            },
+            {
+                "name": "",
+                "date": "2017-05-24T05:39:54Z"
+            },
+            {
+                "name": "0.1.4",
+                "date": "2017-05-24T00:26:43Z"
+            },
+            {
+                "name": "",
+                "date": "2017-05-16T04:20:59Z"
+            },
+            {
+                "name": "",
+                "date": "2017-05-15T05:52:47Z"
+            },
+            {
+                "name": "",
+                "date": "2017-05-11T05:51:06Z"
+            },
+            {
+                "name": "0.1.0",
+                "date": "2017-05-10T04:38:20Z"
+            }
+        ]
+    }
+}

@@ -1,0 +1,189 @@
+{
+    "https://api.github.com/repos/typicode/lowdb": {
+        "forks": 934,
+        "watchers": 21734,
+        "stars": 21734,
+        "languages": {
+            "JavaScript": 16473,
+            "Shell": 146
+        },
+        "commits": [
+            "2024-04-30T17:16:48Z",
+            "2024-02-14T11:00:47Z",
+            "2023-12-26T23:26:17Z",
+            "2023-12-26T23:25:07Z",
+            "2023-12-26T22:40:51Z",
+            "2023-12-26T22:40:02Z",
+            "2023-12-26T22:32:47Z",
+            "2023-10-23T16:10:37Z",
+            "2023-10-23T16:05:59Z",
+            "2023-10-23T13:53:50Z",
+            "2023-10-23T13:50:11Z",
+            "2023-10-23T13:48:28Z",
+            "2023-10-18T21:50:56Z",
+            "2023-10-18T21:48:06Z",
+            "2023-10-14T00:46:44Z",
+            "2023-10-14T00:42:57Z",
+            "2023-10-13T17:08:05Z",
+            "2023-10-08T22:29:56Z",
+            "2023-10-08T21:53:13Z",
+            "2023-10-08T21:48:19Z",
+            "2023-10-07T23:05:55Z",
+            "2023-05-19T12:34:09Z",
+            "2023-05-04T21:08:46Z",
+            "2023-04-28T09:19:11Z",
+            "2023-04-28T09:18:25Z",
+            "2023-04-19T00:52:50Z",
+            "2023-04-19T00:51:55Z",
+            "2023-04-19T00:44:14Z",
+            "2023-04-19T00:38:30Z",
+            "2023-04-19T00:37:10Z"
+        ],
+        "creation_date": "2014-04-02T02:16:06Z",
+        "contributors": 30,
+        "topics": [
+            "database",
+            "electron",
+            "embeddable",
+            "embedded-database",
+            "javascript",
+            "json",
+            "localstorage",
+            "lodash",
+            "nodejs",
+            "storage"
+        ],
+        "subscribers": 242,
+        "readme": "# lowdb [![](http://img.shields.io/npm/dm/lowdb.svg?style=flat)](https://www.npmjs.org/package/lowdb) [![Node.js CI](https://github.com/typicode/lowdb/actions/workflows/node.js.yml/badge.svg)](https://github.com/typicode/lowdb/actions/workflows/node.js.yml)\n\n> Simple to use type-safe local JSON database \ud83e\udd89\n> \n> If you know JavaScript, you know how to use lowdb.\n\nRead or create `db.json`\n\n```js\nconst db = await JSONFilePreset('db.json', { posts: [] })\n```\n\nUse plain JavaScript to change data\n\n```js\nconst post = { id: 1, title: 'lowdb is awesome', views: 100 }\n\n// In two steps\ndb.data.posts.push(post)\nawait db.write()\n\n// Or in one\nawait db.update(({ posts }) => posts.push(post))\n```\n\n```js\n// db.json\n{\n  \"posts\": [\n    { \"id\": 1, \"title\": \"lowdb is awesome\", \"views\": 100 }\n  ]\n}\n```\n\nIn the same spirit, query using native `Array` functions:\n\n```js\nconst { posts } = db.data\n\nposts.at(0) // First post\nposts.filter((post) => post.title.includes('lowdb')) // Filter by title\nposts.find((post) => post.id === 1) // Find by id\nposts.toSorted((a, b) => a.views - b.views) // Sort by views\n```\n\nIt's that simple. `db.data` is just a JavaScript object, no magic.\n\n## Sponsors\n\n<br>\n<br>\n\n<p align=\"center\">\n  <a href=\"https://mockend.com/\" target=\"_blank\">\n    <img src=\"https://jsonplaceholder.typicode.com/mockend.svg\" height=\"70px\">\n  </a>\n</p>\n\n<br>\n<br>\n\n[Become a sponsor and have your company logo here](https://github.com/sponsors/typicode) \ud83d\udc49 [GitHub Sponsors](https://github.com/sponsors/typicode)\n\n## Features\n\n- **Lightweight**\n- **Minimalist**\n- **TypeScript**\n- **Plain JavaScript**\n- Safe atomic writes\n- Hackable:\n  - Change storage, file format (JSON, YAML, ...) or add encryption via [adapters](#adapters)\n  - Extend it with lodash, ramda, ... for super powers!\n- Automatically switches to fast in-memory mode during tests\n\n## Install\n\n```sh\nnpm install lowdb\n```\n\n## Usage\n\n_Lowdb is a pure ESM package. If you're having trouble using it in your project, please [read this](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c)._\n\n```js\nimport { JSONFilePreset } from 'lowdb/node'\n\n// Read or create db.json\nconst defaultData = { posts: [] }\nconst db = await JSONFilePreset('db.json', defaultData)\n\n// Update db.json\nawait db.update(({ posts }) => posts.push('hello world'))\n\n// Alternatively you can call db.write() explicitely later\n// to write to db.json\ndb.data.posts.push('hello world')\nawait db.write()\n```\n\n```js\n// db.json\n{\n  \"posts\": [ \"hello world\" ]\n}\n```\n\n### TypeScript\n\nYou can use TypeScript to check your data types.\n\n```ts\ntype Data = {\n  messages: string[]\n}\n\nconst defaultData: Data = { messages: [] }\nconst db = await JSONPreset<Data>('db.json', defaultData)\n\ndb.data.messages.push('foo') // \u2705 Success\ndb.data.messages.push(1) // \u274c TypeScript error\n```\n\n### Lodash\n\nYou can extend lowdb with Lodash (or other libraries). To be able to extend it, we're not using `JSONPreset` here. Instead, we're using lower components.\n\n```ts\nimport { Low } from 'lowdb'\nimport { JSONFile } from 'lowdb/node'\nimport lodash from 'lodash'\n\ntype Post = {\n  id: number\n  title: string\n}\n\ntype Data = {\n  posts: Post[]\n}\n\n// Extend Low class with a new `chain` field\nclass LowWithLodash<T> extends Low<T> {\n  chain: lodash.ExpChain<this['data']> = lodash.chain(this).get('data')\n}\n\nconst defaultData: Data = {\n  posts: [],\n}\nconst adapter = new JSONFile<Data>('db.json', defaultData)\n\nconst db = new LowWithLodash(adapter)\nawait db.read()\n\n// Instead of db.data use db.chain to access lodash API\nconst post = db.chain.get('posts').find({ id: 1 }).value() // Important: value() must be called to execute chain\n```\n\n### CLI, Server, Browser and in tests usage\n\nSee [`src/examples/`](src/examples) directory.\n\n## API\n\n### Presets\n\nLowdb provides four presets for common cases.\n\n- `JSONFilePreset(filename, defaultData)`\n- `JSONFileSyncPreset(filename, defaultData)`\n- `LocalStoragePreset(name, defaultData)`\n- `SessionStoragePreset(name, defaultData)`\n\nSee [`src/examples/`](src/examples) directory for usage.\n\nLowdb is extremely flexible, if you need to extend it or modify its behavior, use the classes and adapters below instead of the presets.\n\n### Classes\n\nLowdb has two classes (for asynchronous and synchronous adapters).\n\n#### `new Low(adapter, defaultData)`\n\n```js\nimport { Low } from 'lowdb'\nimport { JSONFile } from 'lowdb/node'\n\nconst db = new Low(new JSONFile('file.json'), {})\nawait db.read()\nawait db.write()\n```\n\n#### `new LowSync(adapterSync, defaultData)`\n\n```js\nimport { LowSync } from 'lowdb'\nimport { JSONFileSync } from 'lowdb/node'\n\nconst db = new LowSync(new JSONFileSync('file.json'), {})\ndb.read()\ndb.write()\n```\n\n### Methods\n\n#### `db.read()`\n\nCalls `adapter.read()` and sets `db.data`.\n\n**Note:** `JSONFile` and `JSONFileSync` adapters will set `db.data` to `null` if file doesn't exist.\n\n```js\ndb.data // === null\ndb.read()\ndb.data // !== null\n```\n\n#### `db.write()`\n\nCalls `adapter.write(db.data)`.\n\n```js\ndb.data = { posts: [] }\ndb.write() // file.json will be { posts: [] }\ndb.data = {}\ndb.write() // file.json will be {}\n```\n\n#### `db.update(fn)`\n\nCalls `fn()` then `db.write()`.\n\n```js\ndb.update((data) => {\n  // make changes to data\n  // ...\n})\n// files.json will be updated\n```\n\n### Properties\n\n#### `db.data`\n\nHolds your db content. If you're using the adapters coming with lowdb, it can be any type supported by [`JSON.stringify`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify).\n\nFor example:\n\n```js\ndb.data = 'string'\ndb.data = [1, 2, 3]\ndb.data = { key: 'value' }\n```\n\n## Adapters\n\n### Lowdb adapters\n\n#### `JSONFile` `JSONFileSync`\n\nAdapters for reading and writing JSON files.\n\n```js\nimport { JSONFile, JSONFileSync } from 'lowdb/node'\n\nnew Low(new JSONFile(filename), {})\nnew LowSync(new JSONFileSync(filename), {})\n```\n\n#### `Memory` `MemorySync`\n\nIn-memory adapters. Useful for speeding up unit tests. See [`src/examples/`](src/examples) directory.\n\n```js\nimport { Memory, MemorySync } from 'lowdb'\n\nnew Low(new Memory(), {})\nnew LowSync(new MemorySync(), {})\n```\n\n#### `LocalStorage` `SessionStorage`\n\nSynchronous adapter for `window.localStorage` and `window.sessionStorage`.\n\n```js\nimport { LocalStorage, SessionStorage } from 'lowdb/browser'\nnew LowSync(new LocalStorage(name), {})\nnew LowSync(new SessionStorage(name), {})\n```\n\n### Utility adapters\n\n#### `TextFile` `TextFileSync`\n\nAdapters for reading and writing text. Useful for creating custom adapters.\n\n#### `DataFile` `DataFileSync`\n\nAdapters for easily supporting other data formats or adding behaviors (encrypt, compress...).\n\n```js\nimport { DataFile } from 'lowdb/node'\nnew DataFile(filename, {\n  parse: YAML.parse,\n  stringify: YAML.stringify\n})\nnew DataFile(filename, {\n  parse: (data) => { decypt(JSON.parse(data)) },\n  stringify: (str) => { encrypt(JSON.stringify(str)) }\n})\n```\n\n### Third-party adapters\n\nIf you've published an adapter for lowdb, feel free to create a PR to add it here.\n\n### Writing your own adapter\n\nYou may want to create an adapter to write `db.data` to YAML, XML, encrypt data, a remote storage, ...\n\nAn adapter is a simple class that just needs to expose two methods:\n\n```js\nclass AsyncAdapter {\n  read() {\n    /* ... */\n  } // should return Promise<data>\n  write(data) {\n    /* ... */\n  } // should return Promise<void>\n}\n\nclass SyncAdapter {\n  read() {\n    /* ... */\n  } // should return data\n  write(data) {\n    /* ... */\n  } // should return nothing\n}\n```\n\nFor example, let's say you have some async storage and want to create an adapter for it:\n\n```js\nimport { Low } from 'lowdb'\nimport { api } from './AsyncStorage'\n\nclass CustomAsyncAdapter {\n  // Optional: your adapter can take arguments\n  constructor(args) {\n    // ...\n  }\n\n  async read() {\n    const data = await api.read()\n    return data\n  }\n\n  async write(data) {\n    await api.write(data)\n  }\n}\n\nconst adapter = new CustomAsyncAdapter()\nconst db = new Low(adapter, {})\n```\n\nSee [`src/adapters/`](src/adapters) for more examples.\n\n#### Custom serialization\n\nTo create an adapter for another format than JSON, you can use `TextFile` or `TextFileSync`.\n\nFor example:\n\n```js\nimport { Adapter, Low } from 'lowdb'\nimport { TextFile } from 'lowdb/node'\nimport YAML from 'yaml'\n\nclass YAMLFile {\n  constructor(filename) {\n    this.adapter = new TextFile(filename)\n  }\n\n  async read() {\n    const data = await this.adapter.read()\n    if (data === null) {\n      return null\n    } else {\n      return YAML.parse(data)\n    }\n  }\n\n  write(obj) {\n    return this.adapter.write(YAML.stringify(obj))\n  }\n}\n\nconst adapter = new YAMLFile('file.yaml')\nconst db = new Low(adapter, {})\n```\n\n## Limits\n\nLowdb doesn't support Node's cluster module.\n\nIf you have large JavaScript objects (`~10-100MB`) you may hit some performance issues. This is because whenever you call `db.write`, the whole `db.data` is serialized using `JSON.stringify` and written to storage.\n\nDepending on your use case, this can be fine or not. It can be mitigated by doing batch operations and calling `db.write` only when you need it.\n\nIf you plan to scale, it's highly recommended to use databases like PostgreSQL or MongoDB instead.\n",
+        "releases": [
+            {
+                "name": "",
+                "date": "2023-12-26T23:10:43Z"
+            },
+            {
+                "name": "v6.1.1",
+                "date": "2023-10-23T14:00:59Z"
+            },
+            {
+                "name": "",
+                "date": "2023-10-14T01:00:36Z"
+            },
+            {
+                "name": "v6.0.1",
+                "date": "2023-04-28T09:20:43Z"
+            },
+            {
+                "name": "v6.0.0",
+                "date": "2023-04-19T01:06:20Z"
+            },
+            {
+                "name": "v5.1.0",
+                "date": "2023-02-02T22:15:27Z"
+            },
+            {
+                "name": "",
+                "date": "2022-10-22T01:39:54Z"
+            },
+            {
+                "name": "",
+                "date": "2022-10-17T23:35:03Z"
+            },
+            {
+                "name": "",
+                "date": "2021-09-13T14:36:29Z"
+            },
+            {
+                "name": "",
+                "date": "2021-05-24T11:05:18Z"
+            },
+            {
+                "name": "",
+                "date": "2021-05-20T06:45:19Z"
+            },
+            {
+                "name": "",
+                "date": "2017-08-31T20:39:36Z"
+            },
+            {
+                "name": "",
+                "date": "2017-08-23T11:08:26Z"
+            },
+            {
+                "name": "",
+                "date": "2017-08-20T18:04:54Z"
+            },
+            {
+                "name": "",
+                "date": "2017-03-09T11:59:00Z"
+            },
+            {
+                "name": "",
+                "date": "2017-02-07T21:54:50Z"
+            },
+            {
+                "name": "",
+                "date": "2016-10-25T20:41:28Z"
+            },
+            {
+                "name": "v0.13.0",
+                "date": "2016-06-06T11:23:34Z"
+            },
+            {
+                "name": "",
+                "date": "2016-05-27T11:26:34Z"
+            },
+            {
+                "name": "",
+                "date": "2016-05-27T11:07:01Z"
+            },
+            {
+                "name": "v0.12.4",
+                "date": "2016-02-17T23:45:51Z"
+            },
+            {
+                "name": "",
+                "date": "2016-01-13T21:34:04Z"
+            },
+            {
+                "name": "",
+                "date": "2016-01-07T04:47:19Z"
+            },
+            {
+                "name": "",
+                "date": "2015-12-25T16:38:22Z"
+            },
+            {
+                "name": "",
+                "date": "2015-12-16T11:35:42Z"
+            },
+            {
+                "name": "",
+                "date": "2015-12-15T20:07:58Z"
+            },
+            {
+                "name": "v0.7.0",
+                "date": "2015-02-03T11:32:09Z"
+            },
+            {
+                "name": "v0.5.0",
+                "date": "2014-10-15T13:29:02Z"
+            },
+            {
+                "name": "v0.4.2",
+                "date": "2014-10-09T16:58:46Z"
+            },
+            {
+                "name": "v0.4.1",
+                "date": "2014-09-17T00:10:37Z"
+            },
+            {
+                "name": "v0.4.0",
+                "date": "2014-09-03T08:18:14Z"
+            },
+            {
+                "name": "v0.3.1",
+                "date": "2014-09-03T07:53:32Z"
+            }
+        ]
+    }
+}

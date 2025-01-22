@@ -1,0 +1,1228 @@
+{
+    "https://api.github.com/repos/wbkd/react-flow": {
+        "forks": 1753,
+        "watchers": 27089,
+        "stars": 27089,
+        "languages": {
+            "TypeScript": 584028,
+            "Svelte": 94646,
+            "CSS": 18069,
+            "JavaScript": 4260
+        },
+        "commits": [
+            "2025-01-21T14:55:09Z",
+            "2025-01-21T14:50:47Z",
+            "2025-01-21T14:49:09Z",
+            "2025-01-21T14:48:19Z",
+            "2025-01-21T14:46:28Z",
+            "2025-01-21T14:45:35Z",
+            "2025-01-21T14:45:08Z",
+            "2025-01-20T11:14:40Z",
+            "2025-01-20T10:23:26Z",
+            "2025-01-20T10:20:33Z",
+            "2025-01-16T12:39:07Z",
+            "2025-01-16T10:31:00Z",
+            "2025-01-16T10:29:43Z",
+            "2025-01-16T09:37:23Z",
+            "2025-01-16T09:36:13Z",
+            "2025-01-15T13:55:22Z",
+            "2025-01-15T13:53:16Z",
+            "2025-01-15T13:51:42Z",
+            "2025-01-15T13:50:45Z",
+            "2025-01-15T13:50:21Z",
+            "2025-01-15T13:46:17Z",
+            "2025-01-14T09:42:11Z",
+            "2025-01-11T04:02:45Z",
+            "2025-01-10T09:27:19Z",
+            "2025-01-10T09:26:55Z",
+            "2025-01-09T15:08:52Z",
+            "2025-01-08T17:04:46Z",
+            "2025-01-08T16:12:12Z",
+            "2025-01-08T16:01:57Z",
+            "2025-01-08T15:09:20Z"
+        ],
+        "creation_date": "2019-07-15T14:47:30Z",
+        "contributors": 30,
+        "topics": [
+            "flowchart",
+            "graph",
+            "javascript",
+            "node-based-ui",
+            "react",
+            "react-flow",
+            "svelte",
+            "svelte-flow",
+            "typescript",
+            "typescript-library",
+            "workflow"
+        ],
+        "subscribers": 121,
+        "readme": "![xyflow-header](https://user-images.githubusercontent.com/2857535/279643999-ffda9f91-6b6d-447d-82be-fcbd6103edb6.svg#gh-light-mode-only)\n![xyflow-header-dark](https://user-images.githubusercontent.com/2857535/279644026-a01c231c-6c6e-4b41-96e0-a85c75c9acee.svg#gh-dark-mode-only)\n\n<div align=\"center\">\n\n![GitHub License MIT](https://img.shields.io/github/license/wbkd/react-flow?color=%23ff0072)\n![npm downloads](https://img.shields.io/npm/dt/reactflow?color=%23FF0072&label=React%20Flow%20downloads)\n![npm downloads](https://img.shields.io/npm/dt/@xyflow/svelte?color=%23FF3E00&label=Svelte%20Flow%20downloads)\n\nPowerful open source libraries for building node-based UIs with React or Svelte. Ready out-of-the-box and infinitely customizable.\n\n[React Flow](https://reactflow.dev/) \u00b7 [Svelte Flow](https://svelteflow.dev/) \u00b7 [React Flow Pro](https://reactflow.dev/pro) \u00b7 [Discord](https://discord.gg/Bqt6xrs)\n</div>\n\n---\n\n## The xyflow mono repo\n\nThe xyflow repository is the home of four packages:\n* React Flow 12 `@xyflow/react` [packages/react](./packages/react)\n* React Flow 11 `reactflow` [v11 branch](https://github.com/xyflow/xyflow/tree/v11)\n* Svelte Flow `@xyflow/svelte` [packages/svelte](./packages/svelte)\n* Shared helper library `@xyflow/system` [packages/system](./packages/system)\n\n## Commercial usage\n\n**Are you using React Flow or Svelte Flow for a personal project?** Great! No sponsorship needed, you can support us by reporting any bugs you find, sending us screenshots of your projects, and starring us on Github \ud83c\udf1f\n\n**Are you using React Flow or Svelte Flow at your organization and making money from it?** Awesome! We rely on your support to keep our libraries developed and maintained under an MIT License, just how we like it. For React Flow you can do that on the [React Flow Pro website](https://reactflow.dev/pro) and for both of our libraries you can do it through [Github Sponsors](https://github.com/sponsors/xyflow).\n\n## Getting started\n\nThe best way to get started is to check out the [React Flow](https://reactflow.dev/learn) or [Svelte Flow](https://svelteflow.dev/learn) learn section. However if you want to get a sneak peek of how to install and use the libraries you can see it here: \n\n<details>\n  <summary><strong>React Flow</strong> basic usage</summary>\n\n  ### Installation\n  \n  ```sh\nnpm install @xyflow/react\n  ```\n\n  ### Basic usage\n  ```jsx\nimport { useCallback } from 'react';\nimport {\n  ReactFlow,\n  MiniMap,\n  Controls,\n  Background,\n  useNodesState,\n  useEdgesState,\n  addEdge,\n} from '@xyflow/react';\n\nimport '@xyflow/react/dist/style.css';\n\nconst initialNodes = [\n  { id: '1', position: { x: 0, y: 0 }, data: { label: '1' } },\n  { id: '2', position: { x: 0, y: 100 }, data: { label: '2' } },\n];\n\nconst initialEdges = [{ id: 'e1-2', source: '1', target: '2' }];\n\nfunction Flow() {\n  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);\n  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);\n\n  const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), [setEdges]);\n\n  return (\n    <ReactFlow\n      nodes={nodes}\n      edges={edges}\n      onNodesChange={onNodesChange}\n      onEdgesChange={onEdgesChange}\n      onConnect={onConnect}\n    >\n      <MiniMap />\n      <Controls />\n      <Background />\n    </ReactFlow>\n  );\n}\n\nexport default Flow;\n```\n</details>\n\n<details>\n  <summary><strong>Svelte Flow</strong> basic usage</summary>\n\n  ### Installation\n  \n  ```sh\nnpm install @xyflow/svelte\n  ```\n\n  ### Basic usage\n  ```svelte\n<script lang=\"ts\">\n  import { writable } from 'svelte/store';\n  import {\n    SvelteFlow,\n    Controls,\n    Background,\n    BackgroundVariant,\n    MiniMap,\n  } from '@xyflow/svelte';\n\n  import '@xyflow/svelte/dist/style.css'\n  \n  const nodes = writable([\n    {\n      id: '1',\n      type: 'input',\n      data: { label: 'Input Node' },\n      position: { x: 0, y: 0 }\n    },\n    {\n      id: '2',\n      type: 'custom',\n      data: { label: 'Node' },\n      position: { x: 0, y: 150 }\n    }\n  ]);\n\n  const edges = writable([\n    {\n      id: '1-2',\n      type: 'default',\n      source: '1',\n      target: '2',\n      label: 'Edge Text'\n    }\n  ]);\n</script>\n\n<SvelteFlow\n  {nodes}\n  {edges}\n  fitView\n  on:nodeclick={(event) => console.log('on node click', event)}\n>\n  <Controls />\n  <Background variant={BackgroundVariant.Dots} />\n  <MiniMap />\n</SvelteFlow>\n```\n</details>\n\n## Releases \n\nFor releasing packages we are using [changesets](https://github.com/changesets/changesets) in combination with the [changeset Github action](https://github.com/changesets/action). The rough idea is:\n\n1. create PRs for new features, updates and fixes (with a changeset if relevant for changelog)\n2. merge into main \n3. changset creates a PR that bumps all packages based on the changesets \n4. merge changeset PR if you want to release to Github and npm\n\n## The xyflow team\n\nReact Flow and Svelte Flow are maintained by the team behind [xyflow](https://xyflow.com). If you need help or want to talk to us about a collaboration, reach out through our\u00a0[contact form](https://xyflow.com/contact)\u00a0or by joining our [Discord Server](https://discord.gg/Bqt6xrs).\n\n- Christopher \u2022\u00a0[Twitter](https://twitter.com/chrtze)\u00a0\u2022\u00a0[Github](https://github.com/chrtze)\n- Hayleigh \u2022\u00a0[Twitter](https://twitter.com/hayleighdotdev)\u00a0\u2022\u00a0[Github](https://github.com/hayleigh-dot-dev)\n- Abbey \u2022\u00a0[Github](https://github.com/printerscanner)\n- Moritz \u2022\u00a0[Twitter](https://twitter.com/moklick)\u00a0\u2022\u00a0[Github](https://github.com/moklick)\n- Peter \u2022\u00a0[Github](https://github.com/peterkogo)\n\n\n## License\n\nReact Flow and Svelte Flow are [MIT licensed](./LICENSE).\n",
+        "releases": [
+            {
+                "name": "@xyflow/system@0.0.50",
+                "date": "2025-01-21T14:56:27Z"
+            },
+            {
+                "name": "@xyflow/svelte@0.1.29",
+                "date": "2025-01-21T14:56:24Z"
+            },
+            {
+                "name": "@xyflow/react@12.4.2",
+                "date": "2025-01-21T14:56:30Z"
+            },
+            {
+                "name": "@xyflow/system@0.0.49",
+                "date": "2025-01-16T12:40:26Z"
+            },
+            {
+                "name": "@xyflow/svelte@0.1.28",
+                "date": "2025-01-16T12:40:23Z"
+            },
+            {
+                "name": "@xyflow/react@12.4.1",
+                "date": "2025-01-16T12:40:20Z"
+            },
+            {
+                "name": "@xyflow/system@0.0.48",
+                "date": "2025-01-15T13:56:42Z"
+            },
+            {
+                "name": "@xyflow/svelte@0.1.27",
+                "date": "2025-01-15T13:56:36Z"
+            },
+            {
+                "name": "@xyflow/react@12.4.0",
+                "date": "2025-01-15T13:56:39Z"
+            },
+            {
+                "name": "@xyflow/svelte@0.1.26",
+                "date": "2024-12-18T10:34:34Z"
+            },
+            {
+                "name": "@xyflow/system@0.0.47",
+                "date": "2024-12-09T17:12:59Z"
+            },
+            {
+                "name": "@xyflow/svelte@0.1.25",
+                "date": "2024-12-09T17:12:56Z"
+            },
+            {
+                "name": "@xyflow/react@12.3.6",
+                "date": "2024-12-09T17:12:53Z"
+            },
+            {
+                "name": "@xyflow/system@0.0.46",
+                "date": "2024-11-11T11:52:08Z"
+            },
+            {
+                "name": "@xyflow/svelte@0.1.24",
+                "date": "2024-11-11T11:52:05Z"
+            },
+            {
+                "name": "@xyflow/react@12.3.5",
+                "date": "2024-11-11T11:52:11Z"
+            },
+            {
+                "name": "@xyflow/system@0.0.45",
+                "date": "2024-10-31T11:55:14Z"
+            },
+            {
+                "name": "@xyflow/svelte@0.1.23",
+                "date": "2024-10-31T11:55:11Z"
+            },
+            {
+                "name": "@xyflow/react@12.3.4",
+                "date": "2024-10-31T11:55:08Z"
+            },
+            {
+                "name": "@xyflow/system@0.0.44",
+                "date": "2024-10-30T14:06:53Z"
+            },
+            {
+                "name": "@xyflow/svelte@0.1.22",
+                "date": "2024-10-30T14:06:50Z"
+            },
+            {
+                "name": "@xyflow/react@12.3.3",
+                "date": "2024-10-30T14:06:47Z"
+            },
+            {
+                "name": "@xyflow/svelte@0.1.21",
+                "date": "2024-10-10T14:13:24Z"
+            },
+            {
+                "name": "@xyflow/react@12.3.2",
+                "date": "2024-10-10T14:13:21Z"
+            },
+            {
+                "name": "@xyflow/system@0.0.43",
+                "date": "2024-09-26T08:27:51Z"
+            },
+            {
+                "name": "@xyflow/svelte@0.1.20",
+                "date": "2024-09-26T08:27:54Z"
+            },
+            {
+                "name": "@xyflow/react@12.3.1",
+                "date": "2024-09-26T08:27:48Z"
+            },
+            {
+                "name": "@xyflow/system@0.0.42",
+                "date": "2024-09-12T10:24:16Z"
+            },
+            {
+                "name": "@xyflow/svelte@0.1.19",
+                "date": "2024-09-12T10:24:13Z"
+            },
+            {
+                "name": "@xyflow/react@12.3.0",
+                "date": "2024-09-12T10:24:10Z"
+            },
+            {
+                "name": "@xyflow/system@0.0.41",
+                "date": "2024-09-04T13:26:33Z"
+            },
+            {
+                "name": "@xyflow/svelte@0.1.18",
+                "date": "2024-09-04T13:26:27Z"
+            },
+            {
+                "name": "@xyflow/react@12.2.1",
+                "date": "2024-09-04T13:26:30Z"
+            },
+            {
+                "name": "@xyflow/system@0.0.40",
+                "date": "2024-08-28T14:37:30Z"
+            },
+            {
+                "name": "@xyflow/svelte@0.1.17",
+                "date": "2024-08-28T14:37:26Z"
+            },
+            {
+                "name": "@xyflow/react@12.2.0",
+                "date": "2024-08-28T14:37:23Z"
+            },
+            {
+                "name": "@xyflow/system@0.0.39",
+                "date": "2024-08-19T14:42:04Z"
+            },
+            {
+                "name": "@xyflow/svelte@0.1.16",
+                "date": "2024-08-19T14:42:07Z"
+            },
+            {
+                "name": "@xyflow/react@12.1.1",
+                "date": "2024-08-19T14:42:01Z"
+            },
+            {
+                "name": "@xyflow/system@0.0.38",
+                "date": "2024-08-15T11:46:26Z"
+            },
+            {
+                "name": "@xyflow/svelte@0.1.15",
+                "date": "2024-08-15T11:46:23Z"
+            },
+            {
+                "name": "@xyflow/react@12.1.0",
+                "date": "2024-08-15T11:46:20Z"
+            },
+            {
+                "name": "@xyflow/svelte@0.1.14",
+                "date": "2024-07-30T15:33:41Z"
+            },
+            {
+                "name": "@xyflow/react@12.0.4",
+                "date": "2024-07-30T15:33:38Z"
+            },
+            {
+                "name": "@xyflow/system@0.0.37",
+                "date": "2024-07-18T14:10:03Z"
+            },
+            {
+                "name": "@xyflow/svelte@0.1.13",
+                "date": "2024-07-18T14:10:00Z"
+            },
+            {
+                "name": "@xyflow/react@12.0.3",
+                "date": "2024-07-18T14:10:06Z"
+            },
+            {
+                "name": "@xyflow/system@0.0.36",
+                "date": "2024-07-15T14:31:41Z"
+            },
+            {
+                "name": "@xyflow/svelte@0.1.12",
+                "date": "2024-07-15T14:31:38Z"
+            },
+            {
+                "name": "@xyflow/react@12.0.2",
+                "date": "2024-07-15T14:31:35Z"
+            },
+            {
+                "name": "@xyflow/system@0.0.35",
+                "date": "2024-07-10T12:40:06Z"
+            },
+            {
+                "name": "@xyflow/svelte@0.1.11",
+                "date": "2024-07-10T12:40:09Z"
+            },
+            {
+                "name": "@xyflow/react@12.0.1",
+                "date": "2024-07-10T12:40:03Z"
+            },
+            {
+                "name": "@xyflow/react@12.0.0",
+                "date": "2024-07-09T09:51:56Z"
+            },
+            {
+                "name": "Release 11.11.4",
+                "date": "2024-06-20T11:32:39Z"
+            },
+            {
+                "name": "Release 11.11.3",
+                "date": "2024-04-30T16:11:31Z"
+            },
+            {
+                "name": "Release 11.11.2",
+                "date": "2024-04-22T10:57:13Z"
+            },
+            {
+                "name": "Release 11.11.1",
+                "date": "2024-04-11T10:24:01Z"
+            },
+            {
+                "name": "Release 11.11.0",
+                "date": "2024-04-04T09:58:01Z"
+            },
+            {
+                "name": "Release 11.10.4",
+                "date": "2024-02-15T16:43:25Z"
+            },
+            {
+                "name": "Release 11.10.3",
+                "date": "2024-01-25T17:26:13Z"
+            },
+            {
+                "name": "Release 11.10.2",
+                "date": "2024-01-17T15:40:54Z"
+            },
+            {
+                "name": "Release 11.10.1",
+                "date": "2023-11-10T16:43:54Z"
+            },
+            {
+                "name": "Release 11.10.0",
+                "date": "2023-11-10T15:55:18Z"
+            },
+            {
+                "name": "Release 11.9.4",
+                "date": "2023-10-16T07:52:56Z"
+            },
+            {
+                "name": "Release 11.9.3",
+                "date": "2023-10-09T13:15:29Z"
+            },
+            {
+                "name": "Release 11.9.2",
+                "date": "2023-09-26T14:57:22Z"
+            },
+            {
+                "name": "Release 11.9.1",
+                "date": "2023-09-26T11:38:57Z"
+            },
+            {
+                "name": "Release 11.9.0",
+                "date": "2023-09-26T09:54:15Z"
+            },
+            {
+                "name": "Release 11.8.3",
+                "date": "2023-08-21T15:55:17Z"
+            },
+            {
+                "name": "Release 11.8.2",
+                "date": "2023-08-15T15:06:46Z"
+            },
+            {
+                "name": "Release 11.8.1",
+                "date": "2023-08-11T06:19:18Z"
+            },
+            {
+                "name": "Release 11.8.0",
+                "date": "2023-08-10T08:49:27Z"
+            },
+            {
+                "name": "Release 11.7.4",
+                "date": "2023-06-22T14:02:20Z"
+            },
+            {
+                "name": "Release 11.7.3",
+                "date": "2023-06-19T14:37:30Z"
+            },
+            {
+                "name": "Release 11.7.2",
+                "date": "2023-05-17T09:28:21Z"
+            },
+            {
+                "name": "Release 11.7.1",
+                "date": "2023-05-15T14:43:18Z"
+            },
+            {
+                "name": "Release 11.7.0",
+                "date": "2023-03-28T11:08:29Z"
+            },
+            {
+                "name": "Release 11.6.1",
+                "date": "2023-03-15T11:04:44Z"
+            },
+            {
+                "name": "Release 11.6.0",
+                "date": "2023-03-13T16:01:54Z"
+            },
+            {
+                "name": "Release 11.5.6",
+                "date": "2023-02-13T15:31:14Z"
+            },
+            {
+                "name": "Release 11.5.5",
+                "date": "2023-02-06T01:05:48Z"
+            },
+            {
+                "name": "Release 11.5.4",
+                "date": "2023-02-05T21:15:55Z"
+            },
+            {
+                "name": "Release 11.5.3",
+                "date": "2023-02-01T11:31:11Z"
+            },
+            {
+                "name": "Release 11.5.2",
+                "date": "2023-01-30T10:55:37Z"
+            },
+            {
+                "name": "Release 11.5.1",
+                "date": "2023-01-26T11:22:22Z"
+            },
+            {
+                "name": "Release 11.5.0",
+                "date": "2023-01-26T10:53:01Z"
+            },
+            {
+                "name": "Release 11.4.2",
+                "date": "2023-01-11T14:14:34Z"
+            },
+            {
+                "name": "Release 11.4.1",
+                "date": "2023-01-10T16:19:08Z"
+            },
+            {
+                "name": "Release 11.4.0",
+                "date": "2022-12-19T14:27:33Z"
+            },
+            {
+                "name": "Release 11.3.3",
+                "date": "2022-12-06T17:56:10Z"
+            },
+            {
+                "name": "Release 11.3.2",
+                "date": "2022-11-28T20:19:52Z"
+            },
+            {
+                "name": "Release 11.3.1",
+                "date": "2022-11-25T21:46:58Z"
+            },
+            {
+                "name": "Release 11.3.0",
+                "date": "2022-11-21T14:00:58Z"
+            },
+            {
+                "name": "Release 11.2.0",
+                "date": "2022-11-02T19:51:49Z"
+            },
+            {
+                "name": "Release 11.1.2",
+                "date": "2022-10-21T10:36:12Z"
+            },
+            {
+                "name": "Release 11.1.1",
+                "date": "2022-10-10T11:29:17Z"
+            },
+            {
+                "name": "Release 11.1.0",
+                "date": "2022-10-03T12:54:05Z"
+            },
+            {
+                "name": "Release 11.0.0",
+                "date": "2022-09-29T11:28:18Z"
+            },
+            {
+                "name": "Release 10.3.17",
+                "date": "2022-09-14T13:33:43Z"
+            },
+            {
+                "name": "Release 10.3.16",
+                "date": "2022-08-16T22:18:12Z"
+            },
+            {
+                "name": "Release 10.3.15",
+                "date": "2022-08-16T12:09:55Z"
+            },
+            {
+                "name": "Release 10.3.14",
+                "date": "2022-08-05T17:21:53Z"
+            },
+            {
+                "name": "Release 10.3.13",
+                "date": "2022-08-05T16:13:38Z"
+            },
+            {
+                "name": "Release 10.3.12",
+                "date": "2022-07-25T12:42:30Z"
+            },
+            {
+                "name": "Release 10.3.11",
+                "date": "2022-07-18T15:55:07Z"
+            },
+            {
+                "name": "Release 10.3.10",
+                "date": "2022-07-14T19:12:34Z"
+            },
+            {
+                "name": "Release 10.3.9",
+                "date": "2022-07-14T13:57:47Z"
+            },
+            {
+                "name": "Release 10.3.8",
+                "date": "2022-06-22T15:42:44Z"
+            },
+            {
+                "name": "Release 10.3.7",
+                "date": "2022-06-16T11:42:22Z"
+            },
+            {
+                "name": "Release 10.3.6",
+                "date": "2022-06-07T21:59:21Z"
+            },
+            {
+                "name": "Release 10.3.5",
+                "date": "2022-06-01T11:02:11Z"
+            },
+            {
+                "name": "Release 10.3.4",
+                "date": "2022-05-28T20:14:12Z"
+            },
+            {
+                "name": "Release 10.3.3",
+                "date": "2022-05-28T18:10:23Z"
+            },
+            {
+                "name": "Release 10.3.2",
+                "date": "2022-05-26T17:19:01Z"
+            },
+            {
+                "name": "Release 10.3.1",
+                "date": "2022-05-25T11:01:58Z"
+            },
+            {
+                "name": "Release 10.3.0",
+                "date": "2022-05-23T14:37:06Z"
+            },
+            {
+                "name": "Release 10.2.3",
+                "date": "2022-05-18T11:45:31Z"
+            },
+            {
+                "name": "Release 10.2.2",
+                "date": "2022-05-08T11:34:45Z"
+            },
+            {
+                "name": "Release 10.2.1",
+                "date": "2022-05-03T21:23:12Z"
+            },
+            {
+                "name": "Release 10.2.0",
+                "date": "2022-05-03T08:19:07Z"
+            },
+            {
+                "name": "Release 10.1.2",
+                "date": "2022-04-21T21:10:46Z"
+            },
+            {
+                "name": "Release 10.1.1",
+                "date": "2022-04-18T09:10:31Z"
+            },
+            {
+                "name": "Release 10.1.0",
+                "date": "2022-04-11T14:28:17Z"
+            },
+            {
+                "name": "Release 10.0.8",
+                "date": "2022-04-02T10:47:15Z"
+            },
+            {
+                "name": "10.0.7",
+                "date": "2022-03-30T09:40:34Z"
+            },
+            {
+                "name": "Release 10.0.6",
+                "date": "2022-03-23T17:37:19Z"
+            },
+            {
+                "name": "Release 10.0.5",
+                "date": "2022-03-23T10:07:03Z"
+            },
+            {
+                "name": "Release 10.0.4",
+                "date": "2022-03-22T11:49:11Z"
+            },
+            {
+                "name": "Release 10.0.3",
+                "date": "2022-03-17T12:14:52Z"
+            },
+            {
+                "name": "Release 10.0.2",
+                "date": "2022-03-16T23:26:29Z"
+            },
+            {
+                "name": "Release 10.0.1",
+                "date": "2022-03-15T18:35:38Z"
+            },
+            {
+                "name": "Release 10.0.0",
+                "date": "2022-03-14T18:53:02Z"
+            },
+            {
+                "name": "Release 9.7.4",
+                "date": "2022-02-08T15:45:11Z"
+            },
+            {
+                "name": "Release 9.7.3",
+                "date": "2022-01-11T12:13:38Z"
+            },
+            {
+                "name": "Release 9.7.2",
+                "date": "2022-01-03T16:19:04Z"
+            },
+            {
+                "name": "Release 9.7.1",
+                "date": "2021-12-18T13:47:29Z"
+            },
+            {
+                "name": "Release 9.7.0",
+                "date": "2021-12-03T22:34:04Z"
+            },
+            {
+                "name": "Release 9.6.11",
+                "date": "2021-11-02T13:56:16Z"
+            },
+            {
+                "name": "Release 9.6.10",
+                "date": "2021-11-01T11:11:35Z"
+            },
+            {
+                "name": "Release 9.6.9",
+                "date": "2021-10-14T09:41:15Z"
+            },
+            {
+                "name": "Release 9.6.8",
+                "date": "2021-10-05T13:12:39Z"
+            },
+            {
+                "name": "Release 9.6.7",
+                "date": "2021-09-01T21:08:29Z"
+            },
+            {
+                "name": "Release 9.6.6",
+                "date": "2021-07-26T11:45:08Z"
+            },
+            {
+                "name": "Release 9.6.5",
+                "date": "2021-07-20T17:27:55Z"
+            },
+            {
+                "name": "Release 9.6.4",
+                "date": "2021-07-13T07:56:59Z"
+            },
+            {
+                "name": "Release 9.6.3",
+                "date": "2021-07-01T13:35:47Z"
+            },
+            {
+                "name": "Release 9.6.2",
+                "date": "2021-06-24T13:45:15Z"
+            },
+            {
+                "name": "Release 9.6.1",
+                "date": "2021-06-16T09:48:33Z"
+            },
+            {
+                "name": "Release 9.6.0",
+                "date": "2021-05-29T13:34:18Z"
+            },
+            {
+                "name": "Release 9.5.5",
+                "date": "2021-05-28T12:44:16Z"
+            },
+            {
+                "name": "Release 9.5.4",
+                "date": "2021-04-30T14:37:45Z"
+            },
+            {
+                "name": "Release 9.5.3",
+                "date": "2021-04-24T21:26:44Z"
+            },
+            {
+                "name": "Release 9.5.2",
+                "date": "2021-04-24T13:57:36Z"
+            },
+            {
+                "name": "Release 9.5.1",
+                "date": "2021-04-17T19:08:17Z"
+            },
+            {
+                "name": "Release 9.5.0",
+                "date": "2021-04-14T08:15:52Z"
+            },
+            {
+                "name": "Release 9.4.4",
+                "date": "2021-04-06T16:54:26Z"
+            },
+            {
+                "name": "Release 9.4.3",
+                "date": "2021-04-05T14:16:20Z"
+            },
+            {
+                "name": "Release 9.4.2",
+                "date": "2021-03-30T10:21:39Z"
+            },
+            {
+                "name": "Release 9.4.1",
+                "date": "2021-03-29T12:22:30Z"
+            },
+            {
+                "name": "Release 9.4.0",
+                "date": "2021-03-28T15:07:03Z"
+            },
+            {
+                "name": "Release 9.3.2",
+                "date": "2021-03-22T09:54:00Z"
+            },
+            {
+                "name": "Release 9.3.1",
+                "date": "2021-03-21T16:18:20Z"
+            },
+            {
+                "name": "Release 9.3.0",
+                "date": "2021-03-19T22:51:45Z"
+            },
+            {
+                "name": "Release 9.2.0",
+                "date": "2021-03-14T14:35:54Z"
+            },
+            {
+                "name": "Release 9.1.2",
+                "date": "2021-03-10T11:53:59Z"
+            },
+            {
+                "name": "Release 9.1.1",
+                "date": "2021-03-05T20:19:56Z"
+            },
+            {
+                "name": "Release 9.1.0",
+                "date": "2021-03-01T16:04:28Z"
+            },
+            {
+                "name": "Release 9.0.4",
+                "date": "2021-02-25T16:45:32Z"
+            },
+            {
+                "name": "Release 9.0.3",
+                "date": "2021-02-25T13:38:44Z"
+            },
+            {
+                "name": "Release 9.0.2",
+                "date": "2021-02-23T18:28:44Z"
+            },
+            {
+                "name": "Release 9.0.1",
+                "date": "2021-02-19T17:15:03Z"
+            },
+            {
+                "name": "Release 9.0.0",
+                "date": "2021-02-18T17:40:06Z"
+            },
+            {
+                "name": "Release 8.8.0",
+                "date": "2021-02-08T11:17:56Z"
+            },
+            {
+                "name": "Release 8.7.0",
+                "date": "2021-01-27T09:42:34Z"
+            },
+            {
+                "name": "Release 8.6.0",
+                "date": "2021-01-26T09:43:54Z"
+            },
+            {
+                "name": "Release 8.5.0",
+                "date": "2021-01-21T10:01:12Z"
+            },
+            {
+                "name": "Release 8.4.1",
+                "date": "2021-01-20T13:38:21Z"
+            },
+            {
+                "name": "Release 8.4.0",
+                "date": "2021-01-20T10:56:40Z"
+            },
+            {
+                "name": "Release 8.3.7",
+                "date": "2021-01-14T15:36:40Z"
+            },
+            {
+                "name": "Release 8.3.6",
+                "date": "2021-01-13T09:25:55Z"
+            },
+            {
+                "name": "Release 8.3.5",
+                "date": "2021-01-11T16:10:27Z"
+            },
+            {
+                "name": "Release 8.3.4",
+                "date": "2021-01-11T11:53:01Z"
+            },
+            {
+                "name": "Release 8.3.3",
+                "date": "2021-01-11T11:39:38Z"
+            },
+            {
+                "name": "Release 8.3.2",
+                "date": "2020-12-30T17:25:22Z"
+            },
+            {
+                "name": "Release 8.3.1",
+                "date": "2020-12-24T10:48:48Z"
+            },
+            {
+                "name": "Release 8.3.0",
+                "date": "2020-12-22T13:16:45Z"
+            },
+            {
+                "name": "Release 8.2.3",
+                "date": "2020-12-20T12:51:29Z"
+            },
+            {
+                "name": "Release 8.2.2",
+                "date": "2020-12-18T12:47:00Z"
+            },
+            {
+                "name": "Release 8.2.1",
+                "date": "2020-12-10T13:48:36Z"
+            },
+            {
+                "name": "Release 8.2.0",
+                "date": "2020-12-10T11:43:54Z"
+            },
+            {
+                "name": "Release 8.1.2",
+                "date": "2020-12-03T17:56:28Z"
+            },
+            {
+                "name": "Release 8.1.1",
+                "date": "2020-12-01T11:06:34Z"
+            },
+            {
+                "name": "Release 8.1.0",
+                "date": "2020-12-01T10:16:19Z"
+            },
+            {
+                "name": "Release 8.0.0-next.11",
+                "date": "2020-11-30T10:26:12Z"
+            },
+            {
+                "name": "Release 8.0.0-next.10",
+                "date": "2020-11-29T12:23:41Z"
+            },
+            {
+                "name": "Release 8.0.0-next.9",
+                "date": "2020-11-17T14:02:54Z"
+            },
+            {
+                "name": "Release 8.0.0",
+                "date": "2020-11-16T14:39:49Z"
+            },
+            {
+                "name": "Release 8.0.0-next.8",
+                "date": "2020-11-16T14:33:12Z"
+            },
+            {
+                "name": "Release 8.0.0-next.7",
+                "date": "2020-11-16T13:56:48Z"
+            },
+            {
+                "name": "Release 8.0.0-next.6",
+                "date": "2020-11-15T13:08:24Z"
+            },
+            {
+                "name": "Release 8.0.0-next.5",
+                "date": "2020-11-14T16:20:58Z"
+            },
+            {
+                "name": "Release 8.0.0-next.4",
+                "date": "2020-11-11T17:35:40Z"
+            },
+            {
+                "name": "Release 8.0.0-next.3",
+                "date": "2020-11-11T09:29:44Z"
+            },
+            {
+                "name": "Release 8.0.0-next.2",
+                "date": "2020-11-10T16:08:29Z"
+            },
+            {
+                "name": "Release 8.0.0-next.1",
+                "date": "2020-11-10T12:03:20Z"
+            },
+            {
+                "name": "Release 8.0.0-next.0",
+                "date": "2020-11-09T16:29:37Z"
+            },
+            {
+                "name": "Release 7.1.2",
+                "date": "2020-11-09T12:44:52Z"
+            },
+            {
+                "name": "Release 7.1.1",
+                "date": "2020-11-05T17:00:06Z"
+            },
+            {
+                "name": "Release 7.1.0",
+                "date": "2020-11-05T14:44:57Z"
+            },
+            {
+                "name": "Release 7.0.0",
+                "date": "2020-11-03T16:58:37Z"
+            },
+            {
+                "name": "Release 7.0.0-next.0",
+                "date": "2020-11-02T13:21:56Z"
+            },
+            {
+                "name": "Release 6.2.2",
+                "date": "2020-10-23T12:08:31Z"
+            },
+            {
+                "name": "Release 6.2.1",
+                "date": "2020-10-22T16:25:49Z"
+            },
+            {
+                "name": "Release 6.2.0",
+                "date": "2020-10-22T15:33:25Z"
+            },
+            {
+                "name": "Release 6.1.3",
+                "date": "2020-10-08T13:45:18Z"
+            },
+            {
+                "name": "Release 6.1.2",
+                "date": "2020-10-07T16:13:59Z"
+            },
+            {
+                "name": "Release 6.1.1",
+                "date": "2020-10-06T16:07:21Z"
+            },
+            {
+                "name": "Release 6.1.0",
+                "date": "2020-10-06T12:28:45Z"
+            },
+            {
+                "name": "Release 6.0.3",
+                "date": "2020-10-05T10:17:59Z"
+            },
+            {
+                "name": "Release 6.0.2",
+                "date": "2020-10-01T16:40:09Z"
+            },
+            {
+                "name": "Release 6.0.1",
+                "date": "2020-10-01T16:02:00Z"
+            },
+            {
+                "name": "Release 6.0.0",
+                "date": "2020-09-30T16:13:07Z"
+            },
+            {
+                "name": "Release 5.11.1",
+                "date": "2020-09-27T20:26:06Z"
+            },
+            {
+                "name": "Release 5.11.0",
+                "date": "2020-09-27T11:01:55Z"
+            },
+            {
+                "name": "Release 5.10.0",
+                "date": "2020-09-19T11:42:32Z"
+            },
+            {
+                "name": "Release 5.9.4",
+                "date": "2020-09-18T10:54:35Z"
+            },
+            {
+                "name": "Release 5.9.3",
+                "date": "2020-09-15T09:20:19Z"
+            },
+            {
+                "name": "Release 5.9.2",
+                "date": "2020-09-14T11:35:21Z"
+            },
+            {
+                "name": "Release 5.9.1",
+                "date": "2020-09-11T15:10:34Z"
+            },
+            {
+                "name": "Release 5.9.0",
+                "date": "2020-09-11T09:02:08Z"
+            },
+            {
+                "name": "Release 5.8.0",
+                "date": "2020-09-10T16:38:49Z"
+            },
+            {
+                "name": "Release 5.7.1",
+                "date": "2020-09-05T10:15:11Z"
+            },
+            {
+                "name": "Release 5.7.0",
+                "date": "2020-09-03T07:12:15Z"
+            },
+            {
+                "name": "Release 5.6.0",
+                "date": "2020-08-28T19:02:31Z"
+            },
+            {
+                "name": "Release 5.5.0",
+                "date": "2020-08-21T07:44:14Z"
+            },
+            {
+                "name": "Release 5.4.1",
+                "date": "2020-08-20T06:52:11Z"
+            },
+            {
+                "name": "Release 5.4.0",
+                "date": "2020-08-19T17:20:16Z"
+            },
+            {
+                "name": "Release 5.3.1",
+                "date": "2020-08-13T07:29:24Z"
+            },
+            {
+                "name": "Release 5.3.0",
+                "date": "2020-08-12T11:27:16Z"
+            },
+            {
+                "name": "Release 5.2.1",
+                "date": "2020-08-11T17:20:34Z"
+            },
+            {
+                "name": "Release 5.2.0",
+                "date": "2020-08-11T08:40:15Z"
+            },
+            {
+                "name": "Release 5.1.2",
+                "date": "2020-08-10T10:11:42Z"
+            },
+            {
+                "name": "Release 5.1.1",
+                "date": "2020-08-05T17:02:01Z"
+            },
+            {
+                "name": "Release 5.1.0",
+                "date": "2020-08-05T07:53:22Z"
+            },
+            {
+                "name": "Release 5.0.0",
+                "date": "2020-08-04T19:15:00Z"
+            },
+            {
+                "name": "Release 4.9.3",
+                "date": "2020-08-04T08:49:48Z"
+            },
+            {
+                "name": "Release 4.9.2",
+                "date": "2020-08-03T15:39:57Z"
+            },
+            {
+                "name": "Release 4.9.1",
+                "date": "2020-08-03T12:42:37Z"
+            },
+            {
+                "name": "Release 4.9.0",
+                "date": "2020-08-01T11:04:09Z"
+            },
+            {
+                "name": "Release 4.8.0",
+                "date": "2020-07-30T09:17:16Z"
+            },
+            {
+                "name": "Release 4.7.2",
+                "date": "2020-07-29T09:01:51Z"
+            },
+            {
+                "name": "Release 4.7.1",
+                "date": "2020-07-28T08:00:39Z"
+            },
+            {
+                "name": "Release 4.7.0",
+                "date": "2020-07-27T10:58:00Z"
+            },
+            {
+                "name": "Release 4.6.0",
+                "date": "2020-07-26T15:16:43Z"
+            },
+            {
+                "name": "Release 4.5.0",
+                "date": "2020-07-24T16:02:45Z"
+            },
+            {
+                "name": "Release 4.4.0",
+                "date": "2020-07-22T09:32:47Z"
+            },
+            {
+                "name": "Release 4.3.3",
+                "date": "2020-07-21T15:11:44Z"
+            },
+            {
+                "name": "Release 4.3.2",
+                "date": "2020-07-21T14:51:29Z"
+            },
+            {
+                "name": "Release 4.3.1",
+                "date": "2020-07-20T08:45:46Z"
+            },
+            {
+                "name": "Release 4.3.0",
+                "date": "2020-07-17T09:04:16Z"
+            },
+            {
+                "name": "Release 4.2.2",
+                "date": "2020-07-15T16:37:41Z"
+            },
+            {
+                "name": "Release 4.2.1",
+                "date": "2020-07-15T09:51:00Z"
+            },
+            {
+                "name": "Release 4.2.0",
+                "date": "2020-07-15T08:38:09Z"
+            },
+            {
+                "name": "Release 4.1.1",
+                "date": "2020-07-14T13:12:28Z"
+            },
+            {
+                "name": "Release 4.1.0",
+                "date": "2020-07-14T12:21:44Z"
+            },
+            {
+                "name": "Release 4.0.0",
+                "date": "2020-07-13T16:08:02Z"
+            },
+            {
+                "name": "Release 3.2.4",
+                "date": "2020-06-19T11:14:07Z"
+            },
+            {
+                "name": "Release 3.2.3",
+                "date": "2020-06-05T11:23:32Z"
+            },
+            {
+                "name": "Release 3.2.2",
+                "date": "2020-06-05T10:42:04Z"
+            },
+            {
+                "name": "Release 3.2.1",
+                "date": "2020-06-03T21:17:29Z"
+            },
+            {
+                "name": "Release 3.2.0",
+                "date": "2020-06-02T16:40:48Z"
+            },
+            {
+                "name": "Release 3.1.0",
+                "date": "2020-06-02T14:13:19Z"
+            },
+            {
+                "name": "Release 3.0.2",
+                "date": "2020-05-31T10:19:39Z"
+            },
+            {
+                "name": "Release 3.0.1",
+                "date": "2020-05-30T18:46:19Z"
+            },
+            {
+                "name": "Release 3.0.0",
+                "date": "2020-05-30T18:29:48Z"
+            },
+            {
+                "name": "Release 2.2.1",
+                "date": "2020-05-29T12:47:38Z"
+            },
+            {
+                "name": "Release 2.2.0",
+                "date": "2020-05-28T09:30:34Z"
+            },
+            {
+                "name": "Release 2.1.1",
+                "date": "2020-05-27T16:08:56Z"
+            },
+            {
+                "name": "Release 2.1.0",
+                "date": "2020-05-25T16:18:53Z"
+            },
+            {
+                "name": "Release 2.0.0",
+                "date": "2020-05-25T15:26:38Z"
+            },
+            {
+                "name": "Release 1.4.0",
+                "date": "2020-05-25T12:04:22Z"
+            },
+            {
+                "name": "Release 1.3.8",
+                "date": "2020-05-19T17:13:57Z"
+            },
+            {
+                "name": "Release 1.3.7",
+                "date": "2020-05-15T23:20:33Z"
+            },
+            {
+                "name": "Release 1.3.6",
+                "date": "2020-05-15T20:08:33Z"
+            },
+            {
+                "name": "Release 1.3.5",
+                "date": "2020-05-14T12:40:54Z"
+            },
+            {
+                "name": "Release 1.3.4",
+                "date": "2020-05-14T09:09:42Z"
+            },
+            {
+                "name": "Release 1.3.3",
+                "date": "2020-05-13T12:46:40Z"
+            },
+            {
+                "name": "Release 1.3.2",
+                "date": "2020-05-11T15:53:04Z"
+            },
+            {
+                "name": "Release 1.3.1",
+                "date": "2020-05-11T15:18:12Z"
+            },
+            {
+                "name": "Release 1.3.0",
+                "date": "2020-05-11T11:25:09Z"
+            }
+        ]
+    }
+}

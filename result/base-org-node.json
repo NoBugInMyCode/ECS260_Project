@@ -1,0 +1,206 @@
+{
+    "https://api.github.com/repos/base-org/node": {
+        "forks": 2629,
+        "watchers": 68574,
+        "stars": 68574,
+        "languages": {
+            "Shell": 6355,
+            "Dockerfile": 4267
+        },
+        "commits": [
+            "2025-01-07T17:51:29Z",
+            "2025-01-06T14:35:59Z",
+            "2024-12-18T21:23:30Z",
+            "2024-11-28T19:12:11Z",
+            "2024-11-22T16:01:13Z",
+            "2024-11-18T17:57:15Z",
+            "2024-10-21T20:16:08Z",
+            "2024-10-21T18:27:03Z",
+            "2024-10-21T17:55:24Z",
+            "2024-09-30T15:28:58Z",
+            "2024-09-27T16:59:59Z",
+            "2024-09-17T14:26:34Z",
+            "2024-08-30T12:51:36Z",
+            "2024-08-12T14:38:37Z",
+            "2024-08-10T02:00:24Z",
+            "2024-08-07T21:38:52Z",
+            "2024-08-07T20:58:54Z",
+            "2024-07-22T11:42:18Z",
+            "2024-07-07T22:02:11Z",
+            "2024-06-27T16:33:57Z",
+            "2024-06-24T17:57:35Z",
+            "2024-06-20T15:31:23Z",
+            "2024-06-20T15:22:33Z",
+            "2024-06-17T21:53:43Z",
+            "2024-06-14T02:58:47Z",
+            "2024-06-13T15:26:06Z",
+            "2024-06-12T22:01:39Z",
+            "2024-06-08T02:32:58Z",
+            "2024-05-28T14:21:42Z",
+            "2024-05-15T20:55:11Z"
+        ],
+        "creation_date": "2023-02-01T13:55:02Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 321,
+        "readme": "![Base](logo.webp)\n\n# Base node\n\nBase is a secure, low-cost, developer-friendly Ethereum L2 built to bring the next billion users onchain. It's built on Optimism\u2019s open-source [OP Stack](https://stack.optimism.io/).\n\nThis repository contains the relevant Docker builds to run your own node on the Base network.\n\n<!-- Badge row 1 - status -->\n\n[![GitHub contributors](https://img.shields.io/github/contributors/base-org/node)](https://github.com/base-org/node/graphs/contributors)\n[![GitHub commit activity](https://img.shields.io/github/commit-activity/w/base-org/node)](https://github.com/base-org/node/graphs/commit-activity)\n[![GitHub Stars](https://img.shields.io/github/stars/base-org/node.svg)](https://github.com/base-org/node/stargazers)\n![GitHub repo size](https://img.shields.io/github/repo-size/base-org/node)\n[![GitHub](https://img.shields.io/github/license/base-org/node?color=blue)](https://github.com/base-org/node/blob/main/LICENSE)\n\n<!-- Badge row 2 - links and profiles -->\n\n[![Website base.org](https://img.shields.io/website-up-down-green-red/https/base.org.svg)](https://base.org)\n[![Blog](https://img.shields.io/badge/blog-up-green)](https://base.mirror.xyz/)\n[![Docs](https://img.shields.io/badge/docs-up-green)](https://docs.base.org/)\n[![Discord](https://img.shields.io/discord/1067165013397213286?label=discord)](https://base.org/discord)\n[![Twitter Base](https://img.shields.io/twitter/follow/Base?style=social)](https://x.com/Base)\n\n<!-- Badge row 3 - detailed status -->\n\n[![GitHub pull requests by-label](https://img.shields.io/github/issues-pr-raw/base-org/node)](https://github.com/base-org/node/pulls)\n[![GitHub Issues](https://img.shields.io/github/issues-raw/base-org/node.svg)](https://github.com/base-org/node/issues)\n\n### Hardware requirements\n\nWe recommend you have this hardware configuration to run a node:\n\n- a modern multi-core CPU with good single-core performance\n- at least 16 GB RAM (32 GB recommended)\n- a locally attached NVMe SSD drive\n- adequate storage capacity to accommodate both the snapshot restoration process (if restoring from snapshot) and chain data, ensuring a minimum of (2 \\* current_chain_size) + snapshot_size + 20%\\_buffer\n\n**Note:** If utilizing Amazon Elastic Block Store (EBS), ensure timing buffered disk reads are fast enough in order to avoid latency issues alongside the rate of new blocks added to Base during the initial synchronization process; `io2 block express` is recommended.\n\n### Troubleshooting\n\nIf you encounter problems with your node, please open a [GitHub issue](https://github.com/base-org/node/issues/new/choose) or reach out on our [Discord](https://discord.gg/buildonbase):\n\n- Once you've joined, in the Discord app go to `server menu` > `Linked Roles` > `connect GitHub` and connect your GitHub account so you can gain access to our developer channels\n- Report your issue in `#\ud83d\udedf|developer-support` or `\ud83d\udee0\uff5cnode-operators`\n\n### Supported networks\n\n| Base Network      | Status |\n|-------------------| ------ |\n| Testnet (Sepolia) | \u2705     |\n| Mainnet           | \u2705     |\n\n### Usage\n\n1. Ensure you have an Ethereum L1 full node RPC available (not Base), and set `OP_NODE_L1_ETH_RPC` (in the `.env.*` file if using docker-compose). If running your own L1 node, it needs to be synced before Base will be able to fully sync.\n2. Uncomment the line relevant to your network (`.env.sepolia`, or `.env.mainnet`) under the 2 `env_file` keys in `docker-compose.yml`.\n3. Run:\n\n```\ndocker compose up --build\n```\n\n> [!NOTE]\n> To run the node using a supported client, you can use the following command:\n> `CLIENT=supported_client docker compose up --build`\n> \n> Supported clients:\n> - geth\n> - reth\n> - nethermind\n\n4. You should now be able to `curl` your Base node:\n\n```\ncurl -d '{\"id\":0,\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByNumber\",\"params\":[\"latest\",false]}' \\\n  -H \"Content-Type: application/json\" http://localhost:8545\n```\n\nNote: Some L1 nodes (e.g. Erigon) do not support fetching storage proofs. You can work around this by specifying `--l1.trustrpc` when starting op-node (add it in `op-node-entrypoint` and rebuild the docker image with `docker compose build`.) Do not do this unless you fully trust the L1 node provider.\n\n#### Persisting Data\n\nBy default, the data directory is stored in `${PROJECT_ROOT}/geth-data`. You can override this by modifying the value of\n`GETH_HOST_DATA_DIR` variable in the [`.env`](./.env) file.\n\nTo load a [snapshot](#snapshots) you can extract the snapshot into the `$GETH_HOST_DATA_DIR` folder.\n\n#### Running in single container with `supervisord`\n\nIf you'd like to run the node in a single container instead of `docker-compose`, you can use the `supervisord` entrypoint.\nThis is useful for running the node in a Kubernetes cluster, for example.\n\nNote that you'll need to override some of the default configuration that assumes a multi-container environment (`OP_NODE_L2_ENGINE_RPC`) and any port conflicts (`OP_NODE_RPC_PORT`).\nExample:\n\n```\ndocker run --env-file .env.sepolia -e OP_NODE_L2_ENGINE_RPC=ws://localhost:8551 -e OP_NODE_RPC_PORT=7545 ghcr.io/base-org/node:latest\n```\n\n### Snapshots\n\nYou can fetch the latest snapshots via the URLs provided in the [Base docs](https://docs.base.org/guides/run-a-base-node/#snapshots).\n\n### Syncing\n\nSync speed depends on your L1 node, as the majority of the chain is derived from data submitted to the L1. You can check your syncing status using the `optimism_syncStatus` RPC on the `op-node` container. Example:\n\n```\ncommand -v jq  &> /dev/null || { echo \"jq is not installed\" 1>&2 ; }\necho Latest synced block behind by: \\\n$((($( date +%s )-\\\n$( curl -s -d '{\"id\":0,\"jsonrpc\":\"2.0\",\"method\":\"optimism_syncStatus\"}' -H \"Content-Type: application/json\" http://localhost:7545 |\n   jq -r .result.unsafe_l2.timestamp))/60)) minutes\n```\n\n## Disclaimer\n\nWe\u2019re excited for you to build on Base \ud83d\udd35 \u2014 but we want to make sure that you understand the nature of the node software and smart contracts offered here.\n\nTHE NODE SOFTWARE AND SMART CONTRACTS CONTAINED HEREIN ARE FURNISHED AS IS, WHERE IS, WITH ALL FAULTS AND WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, NON- INFRINGEMENT, OR FITNESS FOR ANY PARTICULAR PURPOSE. IN PARTICULAR, THERE IS NO REPRESENTATION OR WARRANTY THAT THE NODE SOFTWARE AND SMART CONTRACTS WILL PROTECT YOUR ASSETS \u2014 OR THE ASSETS OF THE USERS OF YOUR APPLICATION \u2014 FROM THEFT, HACKING, CYBER ATTACK, OR OTHER FORM OF LOSS OR DEVALUATION.\n\nYou also understand that using the node software and smart contracts are subject to applicable law, including without limitation, any applicable anti-money laundering laws, anti-terrorism laws, export control laws, end user restrictions, privacy laws, or economic sanctions laws/regulations.\n",
+        "releases": [
+            {
+                "name": "v0.11.2",
+                "date": "2025-01-07T18:40:09Z"
+            },
+            {
+                "name": "v0.11.1",
+                "date": "2024-12-18T21:27:40Z"
+            },
+            {
+                "name": "v0.11.0",
+                "date": "2024-11-22T16:22:33Z"
+            },
+            {
+                "name": "v0.10.3",
+                "date": "2024-11-18T18:04:39Z"
+            },
+            {
+                "name": "v0.10.2",
+                "date": "2024-08-30T13:05:45Z"
+            },
+            {
+                "name": "v0.10.1",
+                "date": "2024-08-10T02:19:43Z"
+            },
+            {
+                "name": "v0.10.0",
+                "date": "2024-08-08T03:48:49Z"
+            },
+            {
+                "name": "v0.9.0",
+                "date": "2024-06-20T19:07:33Z"
+            },
+            {
+                "name": "v0.8.4",
+                "date": "2024-05-28T14:31:22Z"
+            },
+            {
+                "name": "v0.8.3",
+                "date": "2024-05-15T20:59:12Z"
+            },
+            {
+                "name": "v0.8.2",
+                "date": "2024-05-03T17:23:49Z"
+            },
+            {
+                "name": "v0.8.1",
+                "date": "2024-03-13T02:26:27Z"
+            },
+            {
+                "name": "v0.8.0",
+                "date": "2024-02-27T02:56:47Z"
+            },
+            {
+                "name": "v0.7.1",
+                "date": "2024-02-13T19:48:26Z"
+            },
+            {
+                "name": "v0.7.0",
+                "date": "2024-02-01T23:15:50Z"
+            },
+            {
+                "name": "v0.6.1",
+                "date": "2023-12-19T00:05:50Z"
+            },
+            {
+                "name": "v0.6.0",
+                "date": "2023-12-15T17:18:26Z"
+            },
+            {
+                "name": "v0.5.1",
+                "date": "2023-11-07T18:19:24Z"
+            },
+            {
+                "name": "v0.5.0",
+                "date": "2023-11-02T04:00:51Z"
+            },
+            {
+                "name": "v0.4.0",
+                "date": "2023-10-24T22:11:22Z"
+            },
+            {
+                "name": "v0.3.3",
+                "date": "2023-10-06T17:08:23Z"
+            },
+            {
+                "name": "v0.3.2",
+                "date": "2023-10-05T19:28:49Z"
+            },
+            {
+                "name": "v0.3.1 (sepolia)",
+                "date": "2023-09-27T20:52:38Z"
+            },
+            {
+                "name": "",
+                "date": "2023-09-12T21:41:34Z"
+            },
+            {
+                "name": "v0.3.1-rc.2",
+                "date": "2023-08-24T23:14:05Z"
+            },
+            {
+                "name": "v0.3.1-rc.1",
+                "date": "2023-08-23T19:33:30Z"
+            },
+            {
+                "name": "v0.3.0 (mainnet)",
+                "date": "2023-07-13T17:53:29Z"
+            },
+            {
+                "name": "v0.2.3",
+                "date": "2023-07-11T18:23:29Z"
+            },
+            {
+                "name": "v0.2.2",
+                "date": "2023-06-22T18:04:49Z"
+            },
+            {
+                "name": "v0.2.1",
+                "date": "2023-06-17T02:18:29Z"
+            },
+            {
+                "name": "v0.2.0",
+                "date": "2023-04-27T21:59:39Z"
+            },
+            {
+                "name": "v0.1.3",
+                "date": "2023-04-27T17:33:55Z"
+            },
+            {
+                "name": "v0.1.2",
+                "date": "2023-04-27T17:38:54Z"
+            },
+            {
+                "name": "v0.1.1",
+                "date": "2023-04-21T19:08:07Z"
+            },
+            {
+                "name": "v0.1.0",
+                "date": "2023-04-20T21:48:45Z"
+            },
+            {
+                "name": "v0.0.4",
+                "date": "2023-03-23T00:29:13Z"
+            },
+            {
+                "name": "v0.0.3",
+                "date": "2023-03-15T01:16:18Z"
+            },
+            {
+                "name": "v0.0.2",
+                "date": "2023-03-07T16:50:14Z"
+            },
+            {
+                "name": "v0.0.1",
+                "date": "2023-03-07T15:52:58Z"
+            }
+        ]
+    }
+}

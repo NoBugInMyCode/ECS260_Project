@@ -1,0 +1,571 @@
+{
+    "https://api.github.com/repos/microsoft/terminal": {
+        "forks": 8417,
+        "watchers": 96540,
+        "stars": 96540,
+        "languages": {
+            "C++": 11773586,
+            "C#": 527539,
+            "C": 235454,
+            "PowerShell": 113790,
+            "Batchfile": 71365,
+            "HLSL": 21336,
+            "Python": 7946,
+            "Roff": 7142,
+            "Jupyter Notebook": 4741,
+            "JavaScript": 894,
+            "HTML": 552
+        },
+        "commits": [
+            "2025-01-22T02:22:20Z",
+            "2025-01-22T02:21:30Z",
+            "2025-01-21T20:48:51Z",
+            "2025-01-21T19:56:50Z",
+            "2025-01-15T20:57:54Z",
+            "2025-01-15T01:53:58Z",
+            "2025-01-15T00:35:29Z",
+            "2025-01-10T22:43:03Z",
+            "2025-01-08T21:35:40Z",
+            "2025-01-08T21:23:36Z",
+            "2025-01-06T22:15:41Z",
+            "2025-01-06T21:41:19Z",
+            "2025-01-06T21:39:58Z",
+            "2025-01-06T18:23:16Z",
+            "2024-12-13T20:40:25Z",
+            "2024-12-13T17:13:03Z",
+            "2024-12-12T23:38:21Z",
+            "2024-12-12T22:44:32Z",
+            "2024-12-12T21:21:24Z",
+            "2024-12-12T20:30:54Z",
+            "2024-12-11T21:21:15Z",
+            "2024-12-11T18:23:24Z",
+            "2024-12-06T18:34:51Z",
+            "2024-12-06T18:32:57Z",
+            "2024-12-05T21:38:41Z",
+            "2024-12-05T17:34:00Z",
+            "2024-12-05T16:21:39Z",
+            "2024-12-05T12:20:13Z",
+            "2024-12-05T12:18:45Z",
+            "2024-12-05T00:41:14Z"
+        ],
+        "creation_date": "2017-08-11T18:38:22Z",
+        "contributors": 30,
+        "topics": [
+            "cmd",
+            "command-line",
+            "console",
+            "contributions-welcome",
+            "good-first-issue",
+            "hacktoberfest",
+            "terminal",
+            "windows",
+            "windows-console",
+            "windows-terminal",
+            "wsl"
+        ],
+        "subscribers": 1320,
+        "readme": "![terminal-logos](https://github.com/microsoft/terminal/assets/91625426/333ddc76-8ab2-4eb4-a8c0-4d7b953b1179)\n\n[![Terminal Build Status](https://dev.azure.com/shine-oss/terminal/_apis/build/status%2FTerminal%20CI?branchName=main)](https://dev.azure.com/shine-oss/terminal/_build/latest?definitionId=1&branchName=main)\n\n# Welcome to the Windows Terminal, Console and Command-Line repo\n\n<details>\n  <summary><strong>Table of Contents</strong></summary>\n\n- [Installing and running Windows Terminal](#installing-and-running-windows-terminal)\n  - [Microsoft Store \\[Recommended\\]](#microsoft-store-recommended)\n  - [Other install methods](#other-install-methods)\n    - [Via GitHub](#via-github)\n    - [Via Windows Package Manager CLI (aka winget)](#via-windows-package-manager-cli-aka-winget)\n    - [Via Chocolatey (unofficial)](#via-chocolatey-unofficial)\n    - [Via Scoop (unofficial)](#via-scoop-unofficial)\n- [Installing Windows Terminal Canary](#installing-windows-terminal-canary)\n- [Windows Terminal Roadmap](#windows-terminal-roadmap)\n- [Terminal \\& Console Overview](#terminal--console-overview)\n  - [Windows Terminal](#windows-terminal)\n  - [The Windows Console Host](#the-windows-console-host)\n  - [Shared Components](#shared-components)\n  - [Creating the new Windows Terminal](#creating-the-new-windows-terminal)\n- [Resources](#resources)\n- [FAQ](#faq)\n  - [I built and ran the new Terminal, but it looks just like the old console](#i-built-and-ran-the-new-terminal-but-it-looks-just-like-the-old-console)\n- [Documentation](#documentation)\n- [Contributing](#contributing)\n- [Communicating with the Team](#communicating-with-the-team)\n- [Developer Guidance](#developer-guidance)\n- [Prerequisites](#prerequisites)\n- [Building the Code](#building-the-code)\n  - [Building in PowerShell](#building-in-powershell)\n  - [Building in Cmd](#building-in-cmd)\n- [Running \\& Debugging](#running--debugging)\n  - [Coding Guidance](#coding-guidance)\n- [Code of Conduct](#code-of-conduct)\n\n</details>\n\n<br />\n\nThis repository contains the source code for:\n\n* [Windows Terminal](https://aka.ms/terminal)\n* [Windows Terminal Preview](https://aka.ms/terminal-preview)\n* The Windows console host (`conhost.exe`)\n* Components shared between the two projects\n* [ColorTool](./src/tools/ColorTool)\n* [Sample projects](./samples)\n  that show how to consume the Windows Console APIs\n\nRelated repositories include:\n\n* [Windows Terminal Documentation](https://docs.microsoft.com/windows/terminal)\n  ([Repo: Contribute to the docs](https://github.com/MicrosoftDocs/terminal))\n* [Console API Documentation](https://github.com/MicrosoftDocs/Console-Docs)\n* [Cascadia Code Font](https://github.com/Microsoft/Cascadia-Code)\n\n## Installing and running Windows Terminal\n\n> [!NOTE]\n> Windows Terminal requires Windows 10 2004 (build 19041) or later\n\n### Microsoft Store [Recommended]\n\nInstall the [Windows Terminal from the Microsoft Store][store-install-link].\nThis allows you to always be on the latest version when we release new builds\nwith automatic upgrades.\n\nThis is our preferred method.\n\n### Other install methods\n\n#### Via GitHub\n\nFor users who are unable to install Windows Terminal from the Microsoft Store,\nreleased builds can be manually downloaded from this repository's [Releases\npage](https://github.com/microsoft/terminal/releases).\n\nDownload the `Microsoft.WindowsTerminal_<versionNumber>.msixbundle` file from\nthe **Assets** section. To install the app, you can simply double-click on the\n`.msixbundle` file, and the app installer should automatically run. If that\nfails for any reason, you can try the following command at a PowerShell prompt:\n\n```powershell\n# NOTE: If you are using PowerShell 7+, please run\n# Import-Module Appx -UseWindowsPowerShell\n# before using Add-AppxPackage.\n\nAdd-AppxPackage Microsoft.WindowsTerminal_<versionNumber>.msixbundle\n```\n\n> [!NOTE]\n> If you install Terminal manually:\n>\n> * You may need to install the [VC++ v14 Desktop Framework Package](https://docs.microsoft.com/troubleshoot/cpp/c-runtime-packages-desktop-bridge#how-to-install-and-update-desktop-framework-packages).\n>   This should only be necessary on older builds of Windows 10 and only if you get an error about missing framework packages.\n> * Terminal will not auto-update when new builds are released so you will need\n>   to regularly install the latest Terminal release to receive all the latest\n>   fixes and improvements!\n\n#### Via Windows Package Manager CLI (aka winget)\n\n[winget](https://github.com/microsoft/winget-cli) users can download and install\nthe latest Terminal release by installing the `Microsoft.WindowsTerminal`\npackage:\n\n```powershell\nwinget install --id Microsoft.WindowsTerminal -e\n```\n\n> [!NOTE]\n> Dependency support is available in WinGet version [1.6.2631 or later](https://github.com/microsoft/winget-cli/releases). To install the Terminal stable release 1.18 or later, please make sure you have the updated version of the WinGet client.\n\n#### Via Chocolatey (unofficial)\n\n[Chocolatey](https://chocolatey.org) users can download and install the latest\nTerminal release by installing the `microsoft-windows-terminal` package:\n\n```powershell\nchoco install microsoft-windows-terminal\n```\n\nTo upgrade Windows Terminal using Chocolatey, run the following:\n\n```powershell\nchoco upgrade microsoft-windows-terminal\n```\n\nIf you have any issues when installing/upgrading the package please go to the\n[Windows Terminal package\npage](https://chocolatey.org/packages/microsoft-windows-terminal) and follow the\n[Chocolatey triage process](https://chocolatey.org/docs/package-triage-process)\n\n#### Via Scoop (unofficial)\n\n[Scoop](https://scoop.sh) users can download and install the latest Terminal\nrelease by installing the `windows-terminal` package:\n\n```powershell\nscoop bucket add extras\nscoop install windows-terminal\n```\n\nTo update Windows Terminal using Scoop, run the following:\n\n```powershell\nscoop update windows-terminal\n```\n\nIf you have any issues when installing/updating the package, please search for\nor report the same on the [issues\npage](https://github.com/lukesampson/scoop-extras/issues) of Scoop Extras bucket\nrepository.\n\n---\n\n## Installing Windows Terminal Canary\nWindows Terminal Canary is a nightly build of Windows Terminal. This build has the latest code from our `main` branch, giving you an opportunity to try features before they make it to Windows Terminal Preview.\n\nWindows Terminal Canary is our least stable offering, so you may discover bugs before we have had a chance to find them.\n\nWindows Terminal Canary is available as an App Installer distribution and a Portable ZIP distribution.\n\nThe App Installer distribution supports automatic updates. Due to platform limitations, this installer only works on Windows 11.\n\nThe Portable ZIP distribution is a portable application. It will not automatically update and will not automatically check for updates. This portable ZIP distribution works on Windows 10 (19041+) and Windows 11.\n\n| Distribution  | Architecture    | Link                                                 |\n|---------------|:---------------:|------------------------------------------------------|\n| App Installer | x64, arm64, x86 | [download](https://aka.ms/terminal-canary-installer) |\n| Portable ZIP  | x64             | [download](https://aka.ms/terminal-canary-zip-x64)   |\n| Portable ZIP  | ARM64           | [download](https://aka.ms/terminal-canary-zip-arm64) |\n| Portable ZIP  | x86             | [download](https://aka.ms/terminal-canary-zip-x86)   |\n\n_Learn more about the [types of Windows Terminal distributions](https://learn.microsoft.com/windows/terminal/distributions)._\n\n---\n\n## Windows Terminal Roadmap\n\nThe plan for the Windows Terminal [is described here](/doc/roadmap-2023.md) and\nwill be updated as the project proceeds.\n\n## Terminal & Console Overview\n\nPlease take a few minutes to review the overview below before diving into the\ncode:\n\n### Windows Terminal\n\nWindows Terminal is a new, modern, feature-rich, productive terminal application\nfor command-line users. It includes many of the features most frequently\nrequested by the Windows command-line community including support for tabs, rich\ntext, globalization, configurability, theming & styling, and more.\n\nThe Terminal will also need to meet our goals and measures to ensure it remains\nfast and efficient, and doesn't consume vast amounts of memory or power.\n\n### The Windows Console Host\n\nThe Windows Console host, `conhost.exe`, is Windows' original command-line user\nexperience. It also hosts Windows' command-line infrastructure and the Windows\nConsole API server, input engine, rendering engine, user preferences, etc. The\nconsole host code in this repository is the actual source from which the\n`conhost.exe` in Windows itself is built.\n\nSince taking ownership of the Windows command-line in 2014, the team added\nseveral new features to the Console, including background transparency,\nline-based selection, support for [ANSI / Virtual Terminal\nsequences](https://en.wikipedia.org/wiki/ANSI_escape_code), [24-bit\ncolor](https://devblogs.microsoft.com/commandline/24-bit-color-in-the-windows-console/),\na [Pseudoconsole\n(\"ConPTY\")](https://devblogs.microsoft.com/commandline/windows-command-line-introducing-the-windows-pseudo-console-conpty/),\nand more.\n\nHowever, because Windows Console's primary goal is to maintain backward\ncompatibility, we have been unable to add many of the features the community\n(and the team) have been wanting for the last several years including tabs,\nunicode text, and emoji.\n\nThese limitations led us to create the new Windows Terminal.\n\n> You can read more about the evolution of the command-line in general, and the\n> Windows command-line specifically in [this accompanying series of blog\n> posts](https://devblogs.microsoft.com/commandline/windows-command-line-backgrounder/)\n> on the Command-Line team's blog.\n\n### Shared Components\n\nWhile overhauling Windows Console, we modernized its codebase considerably,\ncleanly separating logical entities into modules and classes, introduced some\nkey extensibility points, replaced several old, home-grown collections and\ncontainers with safer, more efficient [STL\ncontainers](https://docs.microsoft.com/en-us/cpp/standard-library/stl-containers?view=vs-2022),\nand made the code simpler and safer by using Microsoft's [Windows Implementation\nLibraries - WIL](https://github.com/Microsoft/wil).\n\nThis overhaul resulted in several of Console's key components being available\nfor re-use in any terminal implementation on Windows. These components include a\nnew DirectWrite-based text layout and rendering engine, a text buffer capable of\nstoring both UTF-16 and UTF-8, a VT parser/emitter, and more.\n\n### Creating the new Windows Terminal\n\nWhen we started planning the new Windows Terminal application, we explored and\nevaluated several approaches and technology stacks. We ultimately decided that\nour goals would be best met by continuing our investment in our C++ codebase,\nwhich would allow us to reuse several of the aforementioned modernized\ncomponents in both the existing Console and the new Terminal. Further, we\nrealized that this would allow us to build much of the Terminal's core itself as\na reusable UI control that others can incorporate into their own applications.\n\nThe result of this work is contained within this repo and delivered as the\nWindows Terminal application you can download from the Microsoft Store, or\n[directly from this repo's\nreleases](https://github.com/microsoft/terminal/releases).\n\n---\n\n## Resources\n\nFor more information about Windows Terminal, you may find some of these\nresources useful and interesting:\n\n* [Command-Line Blog](https://devblogs.microsoft.com/commandline)\n* [Command-Line Backgrounder Blog\n  Series](https://devblogs.microsoft.com/commandline/windows-command-line-backgrounder/)\n* Windows Terminal Launch: [Terminal \"Sizzle\n  Video\"](https://www.youtube.com/watch?v=8gw0rXPMMPE&list=PLEHMQNlPj-Jzh9DkNpqipDGCZZuOwrQwR&index=2&t=0s)\n* Windows Terminal Launch: [Build 2019\n  Session](https://www.youtube.com/watch?v=KMudkRcwjCw)\n* Run As Radio: [Show 645 - Windows Terminal with Richard\n  Turner](https://www.runasradio.com/Shows/Show/645)\n* Azure Devops Podcast: [Episode 54 - Kayla Cinnamon and Rich Turner on DevOps\n  on the Windows\n  Terminal](http://azuredevopspodcast.clear-measure.com/kayla-cinnamon-and-rich-turner-on-devops-on-the-windows-terminal-team-episode-54)\n* Microsoft Ignite 2019 Session: [The Modern Windows Command Line: Windows\n  Terminal -\n  BRK3321](https://myignite.techcommunity.microsoft.com/sessions/81329?source=sessions)\n\n---\n\n## FAQ\n\n### I built and ran the new Terminal, but it looks just like the old console\n\nCause: You're launching the incorrect solution in Visual Studio.\n\nSolution: Make sure you're building & deploying the `CascadiaPackage` project in\nVisual Studio.\n\n> [!NOTE]\n> `OpenConsole.exe` is just a locally-built `conhost.exe`, the classic\n> Windows Console that hosts Windows' command-line infrastructure. OpenConsole\n> is used by Windows Terminal to connect to and communicate with command-line\n> applications (via\n> [ConPty](https://devblogs.microsoft.com/commandline/windows-command-line-introducing-the-windows-pseudo-console-conpty/)).\n\n---\n\n## Documentation\n\nAll project documentation is located at [aka.ms/terminal-docs](https://aka.ms/terminal-docs). If you would like\nto contribute to the documentation, please submit a pull request on the [Windows\nTerminal Documentation repo](https://github.com/MicrosoftDocs/terminal).\n\n---\n\n## Contributing\n\nWe are excited to work alongside you, our amazing community, to build and\nenhance Windows Terminal\\!\n\n***BEFORE you start work on a feature/fix***, please read & follow our\n[Contributor's\nGuide](./CONTRIBUTING.md) to\nhelp avoid any wasted or duplicate effort.\n\n## Communicating with the Team\n\nThe easiest way to communicate with the team is via GitHub issues.\n\nPlease file new issues, feature requests and suggestions, but **DO search for\nsimilar open/closed preexisting issues before creating a new issue.**\n\nIf you would like to ask a question that you feel doesn't warrant an issue\n(yet), please reach out to us via Twitter:\n\n* Christopher Nguyen, Product Manager:\n  [@nguyen_dows](https://twitter.com/nguyen_dows)\n* Dustin Howett, Engineering Lead: [@dhowett](https://twitter.com/DHowett)\n* Mike Griese, Senior Developer: [@zadjii@mastodon.social](https://mastodon.social/@zadjii)\n* Carlos Zamora, Developer: [@cazamor_msft](https://twitter.com/cazamor_msft)\n* Pankaj Bhojwani, Developer\n* Leonard Hecker, Developer: [@LeonardHecker](https://twitter.com/LeonardHecker)\n\n## Developer Guidance\n\n## Prerequisites\n\n* You must be running Windows 10 2004 (build >= 10.0.19041.0) or later to run\n  Windows Terminal\n* You must [enable Developer Mode in the Windows Settings\n  app](https://docs.microsoft.com/en-us/windows/uwp/get-started/enable-your-device-for-development)\n  to locally install and run Windows Terminal\n* You must have [PowerShell 7 or later](https://github.com/PowerShell/PowerShell/releases/latest) installed\n* You must have the [Windows 11 (10.0.22621.0)\n  SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/)\n  installed\n* You must have at least [VS\n  2022](https://visualstudio.microsoft.com/downloads/) installed\n* You must install the following Workloads via the VS Installer. Note: Opening\n  the solution in VS 2022 will [prompt you to install missing components\n  automatically](https://devblogs.microsoft.com/setup/configure-visual-studio-across-your-organization-with-vsconfig/):\n  * Desktop Development with C++\n  * Universal Windows Platform Development\n  * **The following Individual Components**\n    * C++ (v143) Universal Windows Platform Tools\n* You must install the [.NET Framework Targeting Pack](https://docs.microsoft.com/dotnet/framework/install/guide-for-developers#to-install-the-net-framework-developer-pack-or-targeting-pack) to build test projects\n\n## Building the Code\n\nOpenConsole.sln may be built from within Visual Studio or from the command-line\nusing a set of convenience scripts & tools in the **/tools** directory:\n\n### Building in PowerShell\n\n```powershell\nImport-Module .\\tools\\OpenConsole.psm1\nSet-MsBuildDevEnvironment\nInvoke-OpenConsoleBuild\n```\n\n### Building in Cmd\n\n```shell\n.\\tools\\razzle.cmd\nbcz\n```\n\n## Running & Debugging\n\nTo debug the Windows Terminal in VS, right click on `CascadiaPackage` (in the\nSolution Explorer) and go to properties. In the Debug menu, change \"Application\nprocess\" and \"Background task process\" to \"Native Only\".\n\nYou should then be able to build & debug the Terminal project by hitting\n<kbd>F5</kbd>. Make sure to select either the \"x64\" or the \"x86\" platform - the\nTerminal doesn't build for \"Any Cpu\" (because the Terminal is a C++ application,\nnot a C# one).\n\n> \ud83d\udc49 You will _not_ be able to launch the Terminal directly by running the\n> WindowsTerminal.exe. For more details on why, see\n> [#926](https://github.com/microsoft/terminal/issues/926),\n> [#4043](https://github.com/microsoft/terminal/issues/4043)\n\n### Coding Guidance\n\nPlease review these brief docs below about our coding practices.\n\n> \ud83d\udc49 If you find something missing from these docs, feel free to contribute to\n> any of our documentation files anywhere in the repository (or write some new\n> ones!)\n\nThis is a work in progress as we learn what we'll need to provide people in\norder to be effective contributors to our project.\n\n* [Coding Style](./doc/STYLE.md)\n* [Code Organization](./doc/ORGANIZATION.md)\n* [Exceptions in our legacy codebase](./doc/EXCEPTIONS.md)\n* [Helpful smart pointers and macros for interfacing with Windows in WIL](./doc/WIL.md)\n\n---\n\n## Code of Conduct\n\nThis project has adopted the [Microsoft Open Source Code of\nConduct][conduct-code]. For more information see the [Code of Conduct\nFAQ][conduct-FAQ] or contact [opencode@microsoft.com][conduct-email] with any\nadditional questions or comments.\n\n[conduct-code]: https://opensource.microsoft.com/codeofconduct/\n[conduct-FAQ]: https://opensource.microsoft.com/codeofconduct/faq/\n[conduct-email]: mailto:opencode@microsoft.com\n[store-install-link]: https://aka.ms/terminal\n",
+        "releases": [
+            {
+                "name": "Windows Terminal Preview v1.22.3232.0",
+                "date": "2024-11-19T20:28:15Z"
+            },
+            {
+                "name": "Windows Terminal v1.21.3231.0",
+                "date": "2024-11-19T20:27:00Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.22.2912.0",
+                "date": "2024-10-22T21:13:21Z"
+            },
+            {
+                "name": "Windows Terminal v1.21.2911.0",
+                "date": "2024-10-22T21:13:19Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.22.2702.0",
+                "date": "2024-09-28T01:23:25Z"
+            },
+            {
+                "name": "Windows Terminal v1.21.2701.0",
+                "date": "2024-09-28T01:22:54Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.22.2362.0",
+                "date": "2024-08-27T16:24:36Z"
+            },
+            {
+                "name": "Windows Terminal v1.21.2361.0",
+                "date": "2024-08-27T16:23:43Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.21.1772.0",
+                "date": "2024-06-27T22:57:25Z"
+            },
+            {
+                "name": "Windows Terminal v1.20.11781.0",
+                "date": "2024-06-27T22:57:19Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.21.1382.0",
+                "date": "2024-06-07T22:47:04Z"
+            },
+            {
+                "name": "Windows Terminal v1.20.11381.0",
+                "date": "2024-06-07T22:46:56Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.21.1272.0",
+                "date": "2024-05-07T19:45:11Z"
+            },
+            {
+                "name": "Windows Terminal v1.20.11271.0",
+                "date": "2024-05-07T19:44:40Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.20.11215.0",
+                "date": "2024-05-03T23:03:24Z"
+            },
+            {
+                "name": "Windows Terminal v1.19.11213.0",
+                "date": "2024-05-03T23:03:02Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.20.10822.0",
+                "date": "2024-03-25T19:34:29Z"
+            },
+            {
+                "name": "Windows Terminal v1.19.10821.0",
+                "date": "2024-03-25T19:34:04Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.20.10572.0",
+                "date": "2024-02-27T20:06:11Z"
+            },
+            {
+                "name": "Windows Terminal v1.19.10573.0",
+                "date": "2024-02-27T20:05:23Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.20.10303.0",
+                "date": "2024-01-31T17:19:00Z"
+            },
+            {
+                "name": "Windows Terminal v1.19.10302.0",
+                "date": "2024-01-31T17:18:39Z"
+            },
+            {
+                "name": "Windows Terminal v1.18.10301.0",
+                "date": "2024-01-31T17:18:14Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.20.10293.0",
+                "date": "2024-01-30T20:12:52Z"
+            },
+            {
+                "name": "Windows Terminal v1.19.10292.0",
+                "date": "2024-01-30T20:12:47Z"
+            },
+            {
+                "name": "Windows Terminal v1.18.10291.0",
+                "date": "2024-01-30T20:12:44Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.19.3172.0",
+                "date": "2023-11-15T18:24:17Z"
+            },
+            {
+                "name": "Windows Terminal v1.18.3181.0",
+                "date": "2023-11-15T18:24:13Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.19.2831.0",
+                "date": "2023-10-10T23:39:47Z"
+            },
+            {
+                "name": "Windows Terminal v1.18.2822.0",
+                "date": "2023-10-10T23:38:26Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.19.2682.0",
+                "date": "2023-09-26T19:04:03Z"
+            },
+            {
+                "name": "Windows Terminal v1.18.2681.0",
+                "date": "2023-09-26T18:49:06Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.18.1462.0",
+                "date": "2023-05-29T16:20:59Z"
+            },
+            {
+                "name": "Windows Terminal v1.17.11461.0",
+                "date": "2023-05-29T16:14:52Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.18.1421.0",
+                "date": "2023-05-23T16:59:35Z"
+            },
+            {
+                "name": "Windows Terminal v1.17.11391.0",
+                "date": "2023-05-23T16:59:33Z"
+            },
+            {
+                "name": "Windows Terminal v1.16.1026 (1.16.10261.0 and 1.16.10262.0)",
+                "date": "2023-01-27T20:15:52Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.17.1023",
+                "date": "2023-01-24T18:15:14Z"
+            },
+            {
+                "name": "Windows Terminal v1.16.1023 (10231 and 10232)",
+                "date": "2023-01-24T18:15:09Z"
+            },
+            {
+                "name": "Windows Terminal v1.15.3465.0 and v1.15.3466.0",
+                "date": "2022-12-14T20:41:24Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.16.3463.0 and v1.16.3464.0",
+                "date": "2022-12-14T20:41:31Z"
+            },
+            {
+                "name": "Windows Terminal v1.15.2874 and v1.15.2875",
+                "date": "2022-10-18T21:50:01Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.16.264",
+                "date": "2022-09-23T16:55:59Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.16.252",
+                "date": "2022-09-13T17:01:43Z"
+            },
+            {
+                "name": "Windows Terminal v1.15.252",
+                "date": "2022-09-13T17:01:38Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.15.228",
+                "date": "2022-08-17T23:28:12Z"
+            },
+            {
+                "name": "Windows Terminal v1.14.228",
+                "date": "2022-08-17T23:28:08Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.15.200",
+                "date": "2022-08-05T18:55:02Z"
+            },
+            {
+                "name": "Windows Terminal v1.14.196",
+                "date": "2022-08-05T18:54:59Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.15.186",
+                "date": "2022-07-06T18:05:27Z"
+            },
+            {
+                "name": "Windows Terminal v1.14.186",
+                "date": "2022-07-06T18:05:19Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.14.145",
+                "date": "2022-06-10T17:09:44Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.14.143",
+                "date": "2022-05-24T17:01:55Z"
+            },
+            {
+                "name": "Windows Terminal v1.13.1143",
+                "date": "2022-05-24T17:01:48Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.13.1098",
+                "date": "2022-04-19T19:55:34Z"
+            },
+            {
+                "name": "Windows Terminal v1.12.1098",
+                "date": "2022-04-19T19:55:30Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.13.1073",
+                "date": "2022-03-25T22:49:19Z"
+            },
+            {
+                "name": "Windows Terminal v1.12.1073",
+                "date": "2022-03-25T22:49:16Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.13.10395.0",
+                "date": "2022-02-11T23:45:09Z"
+            },
+            {
+                "name": "Windows Terminal v1.12.10393.0",
+                "date": "2022-02-11T23:45:06Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.13.10336.0",
+                "date": "2022-02-03T18:01:35Z"
+            },
+            {
+                "name": "Windows Terminal v1.12.10334.0",
+                "date": "2022-02-03T18:01:30Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.12.3472.0",
+                "date": "2021-12-14T20:43:25Z"
+            },
+            {
+                "name": "Windows Terminal v1.11.3471.0",
+                "date": "2021-12-14T20:43:27Z"
+            },
+            {
+                "name": "Terminal Preview v1.12.2931.0",
+                "date": "2021-10-21T00:19:09Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.12.2922.0",
+                "date": "2021-10-20T17:02:26Z"
+            },
+            {
+                "name": "Windows Terminal v1.11.2921.0",
+                "date": "2021-10-20T17:02:17Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.11.2731.0",
+                "date": "2021-10-04T20:57:54Z"
+            },
+            {
+                "name": "Windows Terminal v1.10.2714.0",
+                "date": "2021-10-04T20:55:42Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.11.2421.0",
+                "date": "2021-08-31T17:01:04Z"
+            },
+            {
+                "name": "Windows Terminal v1.10.2383.0",
+                "date": "2021-08-31T17:01:01Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.10.1933.0",
+                "date": "2021-07-14T17:00:47Z"
+            },
+            {
+                "name": "Windows Terminal v1.9.1942.0",
+                "date": "2021-07-14T17:00:44Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.9.1445.0",
+                "date": "2021-05-25T19:03:33Z"
+            },
+            {
+                "name": "Windows Terminal v1.8.1444.0",
+                "date": "2021-05-25T19:03:26Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.8.1092.0 (Scoop Compatibility)",
+                "date": "2021-04-19T22:06:02Z"
+            },
+            {
+                "name": "Windows Terminal v1.7.1091.0 (Scoop Compatibility)",
+                "date": "2021-04-19T22:05:18Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.8.1032.0",
+                "date": "2021-04-14T17:01:57Z"
+            },
+            {
+                "name": "Windows Terminal v1.7.1033.0",
+                "date": "2021-04-14T17:01:55Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.7.572.0",
+                "date": "2021-03-01T18:00:33Z"
+            },
+            {
+                "name": "Windows Terminal v1.6.10571.0",
+                "date": "2021-03-01T18:00:26Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.6.10412.0",
+                "date": "2021-02-11T20:28:09Z"
+            },
+            {
+                "name": "Windows Terminal v1.5.10411.0",
+                "date": "2021-02-11T20:28:07Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.6.10272.0",
+                "date": "2021-01-28T18:00:19Z"
+            },
+            {
+                "name": "Windows Terminal v1.5.10271.0",
+                "date": "2021-01-28T18:00:16Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.5.3242.0",
+                "date": "2020-11-20T21:47:15Z"
+            },
+            {
+                "name": "Windows Terminal v1.4.3243.0",
+                "date": "2020-11-20T21:43:33Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.5.3142.0",
+                "date": "2020-11-11T18:04:06Z"
+            },
+            {
+                "name": "Windows Terminal v1.4.3141.0",
+                "date": "2020-11-11T18:04:03Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.4.2652.0",
+                "date": "2020-09-22T16:00:31Z"
+            },
+            {
+                "name": "Windows Terminal v1.3.2651.0",
+                "date": "2020-09-22T16:00:29Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.3.2382.0",
+                "date": "2020-08-26T17:00:59Z"
+            },
+            {
+                "name": "Windows Terminal v1.2.2381.0",
+                "date": "2020-08-26T17:00:55Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.2.2234.0",
+                "date": "2020-08-13T18:53:36Z"
+            },
+            {
+                "name": "Windows Terminal v1.1.2233.0",
+                "date": "2020-08-13T18:53:32Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.2.2022.0",
+                "date": "2020-07-22T16:18:35Z"
+            },
+            {
+                "name": "Windows Terminal v1.1.2021.0",
+                "date": "2020-07-22T16:18:30Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.1.1812.0",
+                "date": "2020-06-30T19:00:08Z"
+            },
+            {
+                "name": "Windows Terminal v1.0.1811.0",
+                "date": "2020-06-30T18:59:57Z"
+            },
+            {
+                "name": "Windows Terminal Preview v1.1.1671.0",
+                "date": "2020-06-18T17:00:25Z"
+            },
+            {
+                "name": "Windows Terminal v1.0.1401.0",
+                "date": "2020-05-19T16:08:09Z"
+            },
+            {
+                "name": "Windows Terminal Release Candidate v0.11.1333.0 (1.0rc2)",
+                "date": "2020-05-13T17:11:54Z"
+            },
+            {
+                "name": "Windows Terminal Release Candidate v0.11.1251.0 (1.0rc1)",
+                "date": "2020-05-05T22:25:47Z"
+            },
+            {
+                "name": "Windows Terminal Preview v0.11.1191.0",
+                "date": "2020-04-28T23:21:56Z"
+            },
+            {
+                "name": "Windows Terminal Preview v0.11.1121.0",
+                "date": "2020-04-22T17:11:20Z"
+            },
+            {
+                "name": "Windows Terminal Preview v0.10.781.0",
+                "date": "2020-03-20T15:18:17Z"
+            },
+            {
+                "name": "Windows Terminal Preview v0.10.761.0",
+                "date": "2020-03-17T17:00:31Z"
+            },
+            {
+                "name": "Windows Terminal Preview v0.9.433.0",
+                "date": "2020-02-13T18:00:01Z"
+            },
+            {
+                "name": "Windows Terminal Preview v0.8.10261.0",
+                "date": "2020-01-27T18:48:53Z"
+            },
+            {
+                "name": "Windows Terminal Preview v0.8.10091.0",
+                "date": "2020-01-14T17:13:53Z"
+            },
+            {
+                "name": "Windows Terminal Preview v0.7.3451.0",
+                "date": "2019-12-12T17:28:52Z"
+            },
+            {
+                "name": "Windows Terminal Preview v0.7.3382.0",
+                "date": "2019-12-06T02:06:47Z"
+            },
+            {
+                "name": "Windows Terminal Preview v0.7.3291.0",
+                "date": "2019-11-26T17:27:15Z"
+            },
+            {
+                "name": "Windows Terminal Preview v0.6.2951.0",
+                "date": "2019-10-23T19:55:00Z"
+            },
+            {
+                "name": "Windows Terminal Preview v0.5.2762.0",
+                "date": "2019-10-04T16:18:25Z"
+            },
+            {
+                "name": "Windows Terminal Preview v0.5.2681.0",
+                "date": "2019-09-25T15:38:04Z"
+            },
+            {
+                "name": "Windows Terminal Preview v0.5.2661.0",
+                "date": "2019-09-24T16:25:50Z"
+            },
+            {
+                "name": "Windows Terminal Preview v0.4.2382.0",
+                "date": "2019-08-27T16:08:27Z"
+            },
+            {
+                "name": "Windows Terminal Preview v0.3.2171.0",
+                "date": "2019-08-06T18:37:02Z"
+            },
+            {
+                "name": "Windows Terminal Preview v0.3.2142.0",
+                "date": "2019-08-03T01:48:00Z"
+            },
+            {
+                "name": "Windows Terminal - Preview v0.2 update 1831",
+                "date": "2019-07-09T23:52:33Z"
+            },
+            {
+                "name": "Windows Terminal - Preview v0.2",
+                "date": "2019-07-09T23:49:02Z"
+            },
+            {
+                "name": "Color Tool April 2019",
+                "date": "2019-04-29T22:17:37Z"
+            },
+            {
+                "name": "Color Tool October 2018",
+                "date": "2018-10-02T19:35:55Z"
+            },
+            {
+                "name": "Color Tool Initial Release",
+                "date": "2017-08-14T20:00:35Z"
+            }
+        ]
+    }
+}

@@ -1,0 +1,141 @@
+{
+    "https://api.github.com/repos/apache/rocketmq": {
+        "forks": 11752,
+        "watchers": 21467,
+        "stars": 21467,
+        "languages": {
+            "Java": 14381487,
+            "Starlark": 68410,
+            "Shell": 60756,
+            "Batchfile": 22751,
+            "Python": 17544
+        },
+        "commits": [
+            "2025-01-17T03:44:32Z",
+            "2025-01-16T05:54:04Z",
+            "2025-01-15T06:51:09Z",
+            "2025-01-14T12:22:30Z",
+            "2025-01-14T08:01:28Z",
+            "2025-01-14T06:50:56Z",
+            "2025-01-14T02:29:40Z",
+            "2025-01-13T06:45:20Z",
+            "2025-01-11T02:27:46Z",
+            "2025-01-08T15:00:22Z",
+            "2025-01-08T09:25:04Z",
+            "2025-01-08T09:14:59Z",
+            "2025-01-06T02:51:58Z",
+            "2025-01-06T02:23:47Z",
+            "2025-01-06T02:03:34Z",
+            "2025-01-03T11:39:35Z",
+            "2024-12-30T12:05:20Z",
+            "2024-12-30T07:21:25Z",
+            "2024-12-27T05:56:09Z",
+            "2024-12-26T06:49:00Z",
+            "2024-12-25T09:57:47Z",
+            "2024-12-25T09:02:06Z",
+            "2024-12-25T06:38:57Z",
+            "2024-12-20T12:37:25Z",
+            "2024-12-20T07:39:46Z",
+            "2024-12-19T03:44:32Z",
+            "2024-12-15T02:34:08Z",
+            "2024-12-14T02:08:54Z",
+            "2024-12-10T12:05:44Z",
+            "2024-12-10T06:54:42Z"
+        ],
+        "creation_date": "2016-11-30T08:00:08Z",
+        "contributors": 30,
+        "topics": [
+            "cloud-native",
+            "eventing",
+            "hacktoberfest",
+            "java",
+            "messaging",
+            "rocketmq",
+            "streaming"
+        ],
+        "subscribers": 866,
+        "readme": "## Apache RocketMQ\n\n[![Build Status][maven-build-image]][maven-build-url]\n[![CodeCov][codecov-image]][codecov-url]\n[![Maven Central][maven-central-image]][maven-central-url]\n[![Release][release-image]][release-url]\n[![License][license-image]][license-url]\n[![Average Time to Resolve An Issue][percentage-of-issues-still-open-image]][percentage-of-issues-still-open-url]\n[![Percentage of Issues Still Open][average-time-to-resolve-an-issue-image]][average-time-to-resolve-an-issue-url]\n[![Twitter Follow][twitter-follow-image]][twitter-follow-url]\n\n**[Apache RocketMQ](https://rocketmq.apache.org) is a distributed messaging and streaming platform with low latency, high performance and reliability, trillion-level capacity and flexible scalability.**\n\n\nIt offers a variety of features:\n\n* Messaging patterns including publish/subscribe, request/reply and streaming\n* Financial grade transactional message\n* Built-in fault tolerance and high availability configuration options base on [DLedger Controller](docs/en/controller/quick_start.md)\n* Built-in message tracing capability, also support opentracing\n* Versatile big-data and streaming ecosystem integration\n* Message retroactivity by time or offset\n* Reliable FIFO and strict ordered messaging in the same queue\n* Efficient pull and push consumption model\n* Million-level message accumulation capacity in a single queue\n* Multiple messaging protocols like gRPC, MQTT, JMS and OpenMessaging\n* Flexible distributed scale-out deployment architecture\n* Lightning-fast batch message exchange system\n* Various message filter mechanics such as SQL and Tag\n* Docker images for isolated testing and cloud isolated clusters\n* Feature-rich administrative dashboard for configuration, metrics and monitoring\n* Authentication and authorization\n* Free open source connectors, for both sources and sinks\n* Lightweight real-time computing\n----------\n\n\n## Quick Start\n\nThis paragraph guides you through steps of installing RocketMQ in different ways.\nFor local development and testing, only one instance will be created for each component.\n\n### Run RocketMQ locally\n\nRocketMQ runs on all major operating systems and requires only a Java JDK version 8 or higher to be installed.\nTo check, run `java -version`:\n```shell\n$ java -version\njava version \"1.8.0_121\"\n```\n\nFor Windows users, click [here](https://dist.apache.org/repos/dist/release/rocketmq/5.2.0/rocketmq-all-5.2.0-bin-release.zip) to download the 5.2.0 RocketMQ binary release,\nunpack it to your local disk, such as `D:\\rocketmq`.\nFor macOS and Linux users, execute following commands:\n\n```shell\n# Download release from the Apache mirror\n$ wget https://dist.apache.org/repos/dist/release/rocketmq/5.2.0/rocketmq-all-5.2.0-bin-release.zip\n\n# Unpack the release\n$ unzip rocketmq-all-5.2.0-bin-release.zip\n```\n\nPrepare a terminal and change to the extracted `bin` directory:\n```shell\n$ cd rocketmq-all-5.2.0-bin-release/bin\n```\n\n**1) Start NameServer**\n\nNameServer will be listening at `0.0.0.0:9876`, make sure that the port is not used by others on the local machine, and then do as follows.\n\nFor macOS and Linux users:\n```shell\n### start Name Server\n$ nohup sh mqnamesrv &\n\n### check whether Name Server is successfully started\n$ tail -f ~/logs/rocketmqlogs/namesrv.log\nThe Name Server boot success...\n```\n\nFor Windows users, you need set environment variables first:\n- From the desktop, right click the Computer icon.\n- Choose Properties from the context menu.\n- Click the Advanced system settings link.\n- Click Environment Variables.\n- Add Environment `ROCKETMQ_HOME=\"D:\\rocketmq\"`. \n\nThen change directory to rocketmq, type and run:\n```shell\n$ mqnamesrv.cmd\nThe Name Server boot success...\n```\n\n**2) Start Broker**\n\nFor macOS and Linux users:\n```shell\n### start Broker\n$ nohup sh bin/mqbroker -n localhost:9876 &\n\n### check whether Broker is successfully started, eg: Broker's IP is 192.168.1.2, Broker's name is broker-a\n$ tail -f ~/logs/rocketmqlogs/broker.log\nThe broker[broker-a, 192.169.1.2:10911] boot success...\n```\n\nFor Windows users:\n```shell\n$ mqbroker.cmd -n localhost:9876\nThe broker[broker-a, 192.169.1.2:10911] boot success...\n```\n\n### Run RocketMQ in Docker\n\nYou can run RocketMQ on your own machine within Docker containers,\n`host` network will be used to expose listening port in the container.\n\n**1) Start NameServer**\n\n```shell\n$ docker run -it --net=host apache/rocketmq ./mqnamesrv\n```\n\n**2) Start Broker**\n\n```shell\n$ docker run -it --net=host --mount type=bind,source=/tmp/store,target=/home/rocketmq/store apache/rocketmq ./mqbroker -n localhost:9876\n```\n\n### Run RocketMQ in Kubernetes\n\nYou can also run a RocketMQ cluster within a Kubernetes cluster using [RocketMQ Operator](https://github.com/apache/rocketmq-operator).\nBefore your operations, make sure that `kubectl` and related kubeconfig file installed on your machine.\n\n**1) Install CRDs**\n```shell\n### install CRDs\n$ git clone https://github.com/apache/rocketmq-operator\n$ cd rocketmq-operator && make deploy\n\n### check whether CRDs is successfully installed\n$ kubectl get crd | grep rocketmq.apache.org\nbrokers.rocketmq.apache.org                 2022-05-12T09:23:18Z\nconsoles.rocketmq.apache.org                2022-05-12T09:23:19Z\nnameservices.rocketmq.apache.org            2022-05-12T09:23:18Z\ntopictransfers.rocketmq.apache.org          2022-05-12T09:23:19Z\n\n### check whether operator is running\n$ kubectl get pods | grep rocketmq-operator\nrocketmq-operator-6f65c77c49-8hwmj   1/1     Running   0          93s\n```\n\n**2) Create Cluster Instance**\n```shell\n### create RocketMQ cluster resource\n$ cd example && kubectl create -f rocketmq_v1alpha1_rocketmq_cluster.yaml\n\n### check whether cluster resources is running\n$ kubectl get sts\nNAME                 READY   AGE\nbroker-0-master      1/1     107m\nbroker-0-replica-1   1/1     107m\nname-service         1/1     107m\n```\n\n---\n## Apache RocketMQ Community\n* [RocketMQ Streams](https://github.com/apache/rocketmq-streams): A lightweight stream computing engine based on Apache RocketMQ.\n* [RocketMQ Flink](https://github.com/apache/rocketmq-flink): The Apache RocketMQ connector of Apache Flink that supports source and sink connector in data stream and Table.\n* [RocketMQ APIs](https://github.com/apache/rocketmq-apis): RocketMQ protobuf protocol.\n* [RocketMQ Clients](https://github.com/apache/rocketmq-clients): gRPC/protobuf-based RocketMQ clients.\n* RocketMQ Remoting-based Clients\n\t - [RocketMQ Client CPP](https://github.com/apache/rocketmq-client-cpp)\n\t - [RocketMQ Client Go](https://github.com/apache/rocketmq-client-go)\n\t - [RocketMQ Client Python](https://github.com/apache/rocketmq-client-python)\n\t - [RocketMQ Client Nodejs](https://github.com/apache/rocketmq-client-nodejs)\n* [RocketMQ Spring](https://github.com/apache/rocketmq-spring): A project which helps developers quickly integrate Apache RocketMQ with Spring Boot.\n* [RocketMQ Exporter](https://github.com/apache/rocketmq-exporter): An Apache RocketMQ exporter for Prometheus.\n* [RocketMQ Operator](https://github.com/apache/rocketmq-operator): Providing a way to run an Apache RocketMQ cluster on Kubernetes.\n* [RocketMQ Docker](https://github.com/apache/rocketmq-docker): The Git repo of the Docker Image for Apache RocketMQ.\n* [RocketMQ Dashboard](https://github.com/apache/rocketmq-dashboard): Operation and maintenance console of Apache RocketMQ.\n* [RocketMQ Connect](https://github.com/apache/rocketmq-connect): A tool for scalably and reliably streaming data between Apache RocketMQ and other systems.\n* [RocketMQ MQTT](https://github.com/apache/rocketmq-mqtt): A new MQTT protocol architecture model, based on which Apache RocketMQ can better support messages from terminals such as IoT devices and Mobile APP.\n* [RocketMQ EventBridge](https://github.com/apache/rocketmq-eventbridge): EventBridge make it easier to build a event-driven application.\n* [RocketMQ Incubating Community Projects](https://github.com/apache/rocketmq-externals): Incubator community projects of Apache RocketMQ, including [logappender](https://github.com/apache/rocketmq-externals/tree/master/logappender), [rocketmq-ansible](https://github.com/apache/rocketmq-externals/tree/master/rocketmq-ansible), [rocketmq-beats-integration](https://github.com/apache/rocketmq-externals/tree/master/rocketmq-beats-integration), [rocketmq-cloudevents-binding](https://github.com/apache/rocketmq-externals/tree/master/rocketmq-cloudevents-binding), etc.\n* [RocketMQ Site](https://github.com/apache/rocketmq-site): The repository for Apache RocketMQ website.\n* [RocketMQ E2E](https://github.com/apache/rocketmq-e2e): A project for testing Apache RocketMQ, including end-to-end, performance, compatibility tests.\n\n\n----------\n## Learn it & Contact us\n* Mailing Lists: <https://rocketmq.apache.org/about/contact/>\n* Home: <https://rocketmq.apache.org>\n* Docs: <https://rocketmq.apache.org/docs/quick-start/>\n* Issues: <https://github.com/apache/rocketmq/issues>\n* Rips: <https://github.com/apache/rocketmq/wiki/RocketMQ-Improvement-Proposal>\n* Ask: <https://stackoverflow.com/questions/tagged/rocketmq>\n* Slack: <https://rocketmq-invite-automation.herokuapp.com/>\n\n\n----------\n\n\n\n## Contributing\nWe always welcome new contributions, whether for trivial cleanups, [big new features](https://github.com/apache/rocketmq/wiki/RocketMQ-Improvement-Proposal) or other material rewards, more details see [here](http://rocketmq.apache.org/docs/how-to-contribute/).\n\n----------\n## License\n[Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html) Copyright (C) Apache Software Foundation\n\n\n----------\n## Export Control Notice\nThis distribution includes cryptographic software. The country in which you currently reside may have\nrestrictions on the import, possession, use, and/or re-export to another country, of encryption software.\nBEFORE using any encryption software, please check your country's laws, regulations and policies concerning\nthe import, possession, or use, and re-export of encryption software, to see if this is permitted. See\n<http://www.wassenaar.org/> for more information.\n\nThe U.S. Government Department of Commerce, Bureau of Industry and Security (BIS), has classified this\nsoftware as Export Commodity Control Number (ECCN) 5D002.C.1, which includes information security software\nusing or performing cryptographic functions with asymmetric algorithms. The form and manner of this Apache\nSoftware Foundation distribution makes it eligible for export under the License Exception ENC Technology\nSoftware Unrestricted (TSU) exception (see the BIS Export Administration Regulations, Section 740.13) for\nboth object code and source code.\n\nThe following provides more details on the included cryptographic software:\n\nThis software uses Apache Commons Crypto (https://commons.apache.org/proper/commons-crypto/) to\nsupport authentication, and encryption and decryption of data sent across the network between\nservices.\n\n[maven-build-image]: https://github.com/apache/rocketmq/actions/workflows/maven.yaml/badge.svg\n[maven-build-url]: https://github.com/apache/rocketmq/actions/workflows/maven.yaml\n[codecov-image]: https://codecov.io/gh/apache/rocketmq/branch/master/graph/badge.svg\n[codecov-url]: https://codecov.io/gh/apache/rocketmq\n[maven-central-image]: https://maven-badges.herokuapp.com/maven-central/org.apache.rocketmq/rocketmq-all/badge.svg\n[maven-central-url]: http://search.maven.org/#search%7Cga%7C1%7Corg.apache.rocketmq\n[release-image]: https://img.shields.io/badge/release-download-orange.svg\n[release-url]: https://www.apache.org/licenses/LICENSE-2.0.html\n[license-image]: https://img.shields.io/badge/license-Apache%202-4EB1BA.svg\n[license-url]: https://www.apache.org/licenses/LICENSE-2.0.html\n[average-time-to-resolve-an-issue-image]: http://isitmaintained.com/badge/resolution/apache/rocketmq.svg\n[average-time-to-resolve-an-issue-url]: http://isitmaintained.com/project/apache/rocketmq\n[percentage-of-issues-still-open-image]: http://isitmaintained.com/badge/open/apache/rocketmq.svg\n[percentage-of-issues-still-open-url]: http://isitmaintained.com/project/apache/rocketmq\n[twitter-follow-image]: https://img.shields.io/twitter/follow/ApacheRocketMQ?style=social\n[twitter-follow-url]: https://twitter.com/intent/follow?screen_name=ApacheRocketMQ\n",
+        "releases": [
+            {
+                "name": "rocketmq-all-5.3.1",
+                "date": "2024-09-25T15:52:08Z"
+            },
+            {
+                "name": "rocketmq-all-5.3.0",
+                "date": "2024-07-17T04:02:45Z"
+            },
+            {
+                "name": "rocketmq-all-4.9.8",
+                "date": "2024-02-22T09:53:41Z"
+            },
+            {
+                "name": "rocketmq-all-5.2.0",
+                "date": "2024-02-11T10:22:06Z"
+            },
+            {
+                "name": "rocketmq-all-5.1.4",
+                "date": "2023-10-09T03:01:07Z"
+            },
+            {
+                "name": "rocketmq-all-5.1.3",
+                "date": "2023-06-24T04:38:45Z"
+            },
+            {
+                "name": "rocketmq-all-5.1.2",
+                "date": "2023-06-12T10:49:14Z"
+            },
+            {
+                "name": "rocketmq-all-4.9.7",
+                "date": "2023-06-12T10:47:30Z"
+            },
+            {
+                "name": "rocketmq-all-4.9.6",
+                "date": "2023-05-17T09:35:03Z"
+            },
+            {
+                "name": "rocketmq-all-5.1.1",
+                "date": "2023-05-15T11:11:23Z"
+            },
+            {
+                "name": "rocketmq-all-4.9.5",
+                "date": "2023-03-27T06:32:11Z"
+            },
+            {
+                "name": "release 5.1.0",
+                "date": "2023-02-20T11:46:55Z"
+            },
+            {
+                "name": "release 5.0.0",
+                "date": "2022-09-22T07:19:30Z"
+            },
+            {
+                "name": "release 4.9.4",
+                "date": "2022-06-27T02:37:17Z"
+            },
+            {
+                "name": "release 4.9.3",
+                "date": "2022-02-27T05:53:08Z"
+            },
+            {
+                "name": "rocketmq-all-4.9.2",
+                "date": "2021-10-26T04:44:40Z"
+            },
+            {
+                "name": "rocketmq-all-5.0.0-PREVIEW",
+                "date": "2021-12-09T03:16:56Z"
+            },
+            {
+                "name": "release rocketmq 4.9.1",
+                "date": "2021-08-23T02:20:44Z"
+            },
+            {
+                "name": "",
+                "date": "2021-06-17T04:50:34Z"
+            },
+            {
+                "name": "",
+                "date": "2020-12-09T02:00:44Z"
+            }
+        ]
+    }
+}

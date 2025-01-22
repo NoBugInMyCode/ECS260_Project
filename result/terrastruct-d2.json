@@ -1,0 +1,188 @@
+{
+    "https://api.github.com/repos/terrastruct/d2": {
+        "forks": 490,
+        "watchers": 19300,
+        "stars": 19300,
+        "languages": {
+            "JavaScript": 3760726,
+            "Go": 1776711,
+            "Shell": 91022,
+            "Roff": 5792,
+            "HTML": 5475,
+            "Dockerfile": 1573,
+            "Makefile": 1227,
+            "CSS": 404
+        },
+        "commits": [
+            "2025-01-21T03:06:42Z",
+            "2025-01-21T02:56:26Z",
+            "2025-01-21T02:55:23Z",
+            "2025-01-21T02:47:26Z",
+            "2025-01-20T22:54:07Z",
+            "2025-01-20T19:16:04Z",
+            "2025-01-14T18:54:39Z",
+            "2025-01-17T00:58:04Z",
+            "2025-01-16T01:44:18Z",
+            "2025-01-16T01:33:37Z",
+            "2025-01-16T01:28:05Z",
+            "2025-01-16T01:26:22Z",
+            "2025-01-16T01:24:30Z",
+            "2025-01-16T01:16:19Z",
+            "2025-01-15T23:30:17Z",
+            "2025-01-14T18:55:48Z",
+            "2025-01-15T18:51:41Z",
+            "2025-01-15T18:37:04Z",
+            "2025-01-14T22:16:02Z",
+            "2025-01-14T22:03:02Z",
+            "2025-01-14T21:46:45Z",
+            "2025-01-14T18:45:34Z",
+            "2025-01-14T18:31:57Z",
+            "2025-01-14T16:45:50Z",
+            "2025-01-14T06:15:26Z",
+            "2025-01-14T06:00:37Z",
+            "2025-01-14T05:07:03Z",
+            "2025-01-14T03:40:25Z",
+            "2025-01-14T03:21:18Z",
+            "2025-01-14T03:18:15Z"
+        ],
+        "creation_date": "2022-09-05T23:12:27Z",
+        "contributors": 30,
+        "topics": [
+            "developer-tools",
+            "diagramming",
+            "diagrams",
+            "go",
+            "golang",
+            "software-architecture",
+            "text-to-diagram"
+        ],
+        "subscribers": 73,
+        "readme": "<div align=\"center\">\n  <img src=\"./docs/assets/banner.png\" alt=\"D2\" />\n  <h2>\n    A modern diagram scripting language that turns text to diagrams.\n  </h2>\n\n[Docs](https://d2lang.com) | [Cheat sheet](./docs/assets/cheat_sheet.pdf) | [Comparisons](https://text-to-diagram.com) | [Playground](https://play.d2lang.com)\n\n[![ci](https://github.com/terrastruct/d2/actions/workflows/ci.yml/badge.svg)](https://github.com/terrastruct/d2/actions/workflows/ci.yml)\n[![daily](https://github.com/terrastruct/d2/actions/workflows/daily.yml/badge.svg)](https://github.com/terrastruct/d2/actions/workflows/daily.yml)\n[![release](https://img.shields.io/github/v/release/terrastruct/d2)](https://github.com/terrastruct/d2/releases)\n[![discord](https://img.shields.io/discord/1039184639652265985?label=discord)](https://discord.gg/NF6X8K4eDq)\n[![twitter](https://img.shields.io/twitter/follow/terrastruct?style=social)](https://twitter.com/terrastruct)\n[![license](https://img.shields.io/github/license/terrastruct/d2?color=9cf)](./LICENSE.txt)\n\n<a href=\"https://play.d2lang.com\">\n<img src=\"./docs/assets/playground_button.png\" alt=\"D2 Playground button\" width=\"200\" />\n</a>\n\nhttps://user-images.githubusercontent.com/3120367/206125010-bd1fea8e-248a-43e7-8f85-0bbfca0c6e2a.mp4\n\n</div>\n\n# Table of Contents\n\n<!-- toc -->\n- [What does D2 look like?](#what-does-d2-look-like)\n- [Quickstart](#quickstart)\n- [Install](#install)\n- [D2 as a library](#d2-as-a-library)\n- [Themes](#themes)\n- [Fonts](#fonts)\n- [Export file types](#export-file-types)\n- [Language tooling](#language-tooling)\n- [Plugins](#plugins)\n- [Comparison](#comparison)\n- [Contributing](#contributing)\n- [License](#license)\n- [Related](#related)\n  - [Official plugins](#official-plugins)\n  - [Community plugins](#community-plugins)\n  - [Misc](#misc)\n- [FAQ](#faq)\n- [Notable open-source projects documenting with D2](#notable-open-source-projects-documenting-with-d2)\n\n## What does D2 look like?\n\n```d2\nvars: {\n  d2-config: {\n    layout-engine: elk\n    # Terminal theme code\n    theme-id: 300\n  }\n}\nnetwork: {\n  cell tower: {\n    satellites: {\n      shape: stored_data\n      style.multiple: true\n    }\n\n    transmitter\n\n    satellites -> transmitter: send\n    satellites -> transmitter: send\n    satellites -> transmitter: send\n  }\n\n  online portal: {\n    ui: {shape: hexagon}\n  }\n\n  data processor: {\n    storage: {\n      shape: cylinder\n      style.multiple: true\n    }\n  }\n\n  cell tower.transmitter -> data processor.storage: phone logs\n}\n\nuser: {\n  shape: person\n  width: 130\n}\n\nuser -> network.cell tower: make call\nuser -> network.online portal.ui: access {\n  style.stroke-dash: 3\n}\n\napi server -> network.online portal.ui: display\napi server -> logs: persist\nlogs: {shape: page; style.multiple: true}\n\nnetwork.data processor -> api server\n```\n\n<p align=\"center\">\n    <img width=\"400px\" src=\"./docs/assets/example.svg\" alt=\"D2 render example\" />\n</p>\n\n> Open in [playground](https://play.d2lang.com/?script=rVLLTsQwDLznKyJxbrWwtyLxFdyR1Zg2ahpHibvLCvXfcdqGfSHthVv8yIxn7APE1OhvpbV5qVryn7ZbQ60dnGjiCn1nPTYa3bCkn_Q7xtF6cJp7HFG3ZHCpLGFlTaP3u51kZjUrj3ykOKyYLTr5REeMhSMBS84yppKRXA9B-BJTRPNhgKEU-OSwHifHNjjp4DitxLNa-SP4NFpmjOoGXVdvl2VBR2_-sWeZgLwTp3SgyOCKnsnKa5PU4xd05OfyIWvTIVKLKdHZExEOHd4Z0p4E3oi2h25s8Ge764uZs4Rr4vqXMfQkAhx1SVanplQWtU0QMCbyEh-t4b7Rz_td6cuo267ryzWPMMiFgHN3XVdu1dkmaPM8K-EiLnGkASsDScj2mQqCFcvj4RGUsSnI_d70Z2GrCptYrVHZTRADXv80VWgL0bVvGfJMoH4A)\n\n> For more examples, see [./docs/examples](./docs/examples).\n\n## Quickstart\n\nThe most convenient way to use D2 is to just run it as a CLI executable to\nproduce SVGs from `.d2` files.\n\n```sh\n# First, install D2\ncurl -fsSL https://d2lang.com/install.sh | sh -s --\n\necho 'x -> y -> z' > in.d2\nd2 --watch in.d2 out.svg\n```\n\nA browser window will open with `out.svg` and live-reload on changes to `in.d2`.\n\n## Install\n\nThe easiest way to install is with our install script:\n\n```sh\ncurl -fsSL https://d2lang.com/install.sh | sh -s --\n```\n\nYou can run the install script with `--dry-run` to see the commands that will be used\nto install without executing them.\n\nOr if you have Go installed you can install from source though you won't get the manpage:\n\n```sh\ngo install oss.terrastruct.com/d2@latest\n```\n\nYou can also install a release from source which will include manpages.\nSee [./docs/INSTALL.md#source-release](./docs/INSTALL.md#source-release).\n\nTo uninstall with the install script:\n\n```sh\ncurl -fsSL https://d2lang.com/install.sh | sh -s -- --uninstall\n```\n\nFor detailed installation docs, see [./docs/INSTALL.md](./docs/INSTALL.md).\nWe demonstrate alternative methods and examples for each OS.\n\nAs well, the functioning of the install script is described in detail to alleviate any\nconcern of its use. We recommend using your OS's package manager directly instead for\nimproved security but the install script is by no means insecure.\n\n## D2 as a library\n\nIn addition to being a runnable CLI tool, D2 can also be used to produce diagrams from\nGo programs.\n\nFor examples, see [./docs/examples/lib](./docs/examples/lib). This [blog\npost](https://terrastruct.com/blog/post/generate-diagrams-programmatically/) also demos a\ncomplete, runnable example of using D2 as a library for a real-world use case.\n\n## Themes\n\nD2 includes a variety of official themes to style your diagrams beautifully right out of\nthe box. See [./d2themes](./d2themes) to browse the available themes and make or\ncontribute your own creation.\n\n## Fonts\n\nD2 ships with \"Source Sans Pro\" as the font in renders. If you wish to use a different\none, please see [./d2renderers/d2fonts](./d2renderers/d2fonts).\n\n## Export file types\n\nD2 currently supports SVG, PNG and PDF exports. More coming soon.\n\n## Language tooling\n\nD2 is designed with language tooling in mind. D2's parser can parse multiple errors from a\nbroken program, has an autoformatter, syntax highlighting, and we have plans for LSP's and\nmore. Good language tooling is necessary for creating and maintaining large diagrams.\n\nThe extensions for VSCode and Vim can be found in the [Related](#related) section.\n\n## Plugins\n\nD2 is designed to be extensible and composable. The plugin system allows you to\nchange out layout engines and customize the rendering pipeline. Plugins can either be\nbundled with the build or separately installed as a standalone binary.\n\n**Layout engines**:\n\n- [dagre](https://github.com/dagrejs/dagre) (default, bundled): A fast, directed graph\n  layout engine that produces layered/hierarchical layouts. Based on Graphviz's DOT\n  algorithm.\n- [ELK](https://github.com/kieler/elkjs) (bundled): A directed graph layout engine\n  particularly suited for node-link diagrams with an inherent direction and ports.\n- [TALA](https://github.com/terrastruct/TALA) (binary): Novel layout engine designed\n  specifically for software architecture diagrams. Requires separate install, visit the\n  Github page for more.\n\nD2 intends to integrate with a variety of layout engines, e.g. `dot`, as well as\nsingle-purpose layout types like sequence diagrams. You can choose whichever layout engine\nyou like and works best for the diagram you're making.\n\n## Comparison\n\nFor a comparison against other popular text-to-diagram tools, see\n[https://text-to-diagram.com](https://text-to-diagram.com).\n\n## Contributing\n\nContributions are welcome! See [./docs/CONTRIBUTING.md](./docs/CONTRIBUTING.md).\n\n## License\n\nOpen sourced under the Mozilla Public License 2.0. See [./LICENSE.txt](./LICENSE.txt).\n\n## Related\n\nWe are constantly working on new plugins, integrations, extensions. Contributions are\nwelcome in any official or community plugins. If you have somewhere in your workflow that\nyou want to use D2, feel free to open a discussion. We have limited bandwidth and usually\nchoose the most high-demand ones to work on. If you make something cool with D2 yourself,\nlet us know and we'll be happy to include it here!\n\n### Official plugins\n\n- **VSCode extension**: [https://github.com/terrastruct/d2-vscode](https://github.com/terrastruct/d2-vscode)\n- **Vim extension**: [https://github.com/terrastruct/d2-vim](https://github.com/terrastruct/d2-vim)\n- **Obsidian plugin**: [https://github.com/terrastruct/d2-obsidian](https://github.com/terrastruct/d2-obsidian)\n- **Slack app**: [https://d2lang.com/tour/slack](https://d2lang.com/tour/slack)\n- **Discord plugin**: [https://d2lang.com/tour/discord](https://d2lang.com/tour/discord)\n\n### Community plugins\n\n- **Tree-sitter grammar**: [https://github.com/ravsii/tree-sitter-d2](https://github.com/ravsii/tree-sitter-d2)\n- **Emacs major mode**: [https://github.com/andorsk/d2-mode](https://github.com/andorsk/d2-mode)\n- **Goldmark extension**: [https://github.com/FurqanSoftware/goldmark-d2](https://github.com/FurqanSoftware/goldmark-d2)\n- **Telegram bot**: [https://github.com/meinside/telegram-d2-bot](https://github.com/meinside/telegram-d2-bot)\n- **Postgres importer**: [https://github.com/zekenie/d2-erd-from-postgres](https://github.com/zekenie/d2-erd-from-postgres)\n- **Structurizr to D2 exporter**: [https://github.com/goto1134/structurizr-d2-exporter](https://github.com/goto1134/structurizr-d2-exporter)\n- **MdBook preprocessor**: [https://github.com/danieleades/mdbook-d2](https://github.com/danieleades/mdbook-d2)\n- **ROS2 D2 Exporter**: [https://github.com/Greenroom-Robotics/ros-d2](https://github.com/Greenroom-Robotics/ros-d2)\n- **D2 org-mode support**: [https://github.com/xcapaldi/ob-d2](https://github.com/xcapaldi/ob-d2)\n- **Python D2 diagram builder**: [https://github.com/MrBlenny/py-d2](https://github.com/MrBlenny/py-d2)\n- **Clojure D2 transpiler**: [https://github.com/judepayne/dictim](https://github.com/judepayne/dictim)\n- **JavaScript D2 diagram builder**: [https://github.com/Kreshnik/d2lang-js](https://github.com/Kreshnik/d2lang-js)\n- **C# & dotnet SDK**: [https://github.com/Stephanvs/d2lang-cs](https://github.com/Stephanvs/d2lang-cs)\n- **Maven plugin**: [https://github.com/andrinmeier/unofficial-d2lang-maven-plugin](https://github.com/andrinmeier/unofficial-d2lang-maven-plugin)\n- **Confluence plugin**: [https://github.com/andrinmeier/unofficial-d2lang-confluence-plugin](https://github.com/andrinmeier/unofficial-d2lang-confluence-plugin)\n- **CIL (C#, Visual Basic, F#, C++ CLR) to D2**: [https://github.com/HugoVG/AppDiagram](https://github.com/HugoVG/AppDiagram)\n- **D2 Snippets (for text editors)**: [https://github.com/Paracelsus-Rose/D2-Language-Code-Snippets](https://github.com/Paracelsus-Rose/D2-Language-Code-Snippets)\n- **Mongo to D2**: [https://github.com/novuhq/mongo-to-D2](https://github.com/novuhq/mongo-to-D2)\n- **Pandoc filter**: [https://github.com/ram02z/d2-filter](https://github.com/ram02z/d2-filter)\n- **Logseq-D2**: [https://github.com/b-yp/logseq-d2](https://github.com/b-yp/logseq-d2)\n- **ent2d2**: [https://github.com/tmc/ent2d2](https://github.com/tmc/ent2d2)\n- **MkDocs Plugin**: [https://github.com/landmaj/mkdocs-d2-plugin](https://github.com/landmaj/mkdocs-d2-plugin)\n- **Remark Plugin**: [https://github.com/mech-a/remark-d2](https://github.com/mech-a/remark-d2)\n- **Zed extension**: [https://github.com/gabeidx/zed-d2](https://github.com/gabeidx/zed-d2)\n\n### Misc\n\n- **Comparison site**: [https://github.com/terrastruct/text-to-diagram-site](https://github.com/terrastruct/text-to-diagram-site)\n- **Playground**: [https://github.com/terrastruct/d2-playground](https://github.com/terrastruct/d2-playground)\n- **Language docs**: [https://github.com/terrastruct/d2-docs](https://github.com/terrastruct/d2-docs)\n- **Hosted icons**: [https://icons.terrastruct.com](https://icons.terrastruct.com)\n\n## FAQ\n\n- Does D2 collect telemetry?\n  - No, D2 does not use an internet connection after installation, except to check for\n    version updates from Github periodically.\n- Does D2 need a browser to run?\n  - No, D2 can run entirely server-side.\n- What's coming in the next release?\n  - See [./ci/release/changelogs/next.md](./ci/release/changelogs/next.md).\n- I have a question or need help.\n  - The best way to get help is to ask on [D2 Discord](https://discord.gg/NF6X8K4eDq)\n- I have a feature request, proposal, or bug report.\n  - Please open up a Github Issue.\n- I have a private inquiry.\n  - Please reach out at [hi@d2lang.com](hi@d2lang.com).\n\n## Notable open-source projects documenting with D2\n\nDo you have or see an open-source project with `.d2` files? Please submit a PR adding to\nthis selected list of featured projects using D2.\n\n- [ElasticSearch](https://github.com/elastic/beats/blob/main/libbeat/publisher/queue/proxy/diagrams/broker.d2)\n- [Sourcegraph](https://handbook.sourcegraph.com/departments/engineering/managed-services/telemetry-gateway/#dev-architecture-diagram)\n- [Temporal](https://github.com/temporalio/temporal/blob/0be2681c994470c7c61ea88e4fcef89bb4024e58/docs/_assets/matching-context.d2)\n- [Tauri](https://v2.tauri.app/concept/inter-process-communication/)\n    - Rust GUI framework (78.5k stars)\n- [Intellij](https://github.com/JetBrains/intellij-community/blob/45bcfc17a3f3e0d8548bc69e922d4ca97ac21b2b/platform/settings/docs/topics/overview.md)\n- [Coder](https://coder.com/blog/managing-templates-in-coder)\n- [UC\n  Berkeley](https://github.com/ucb-bar/hammer/blob/2b5c04d7b7d9ee3c73575efcd7ee0698bd5bfa88/doc/Hammer-Use/hier.d2)\n- [Coronacheck](https://github.com/minvws/nl-covid19-coronacheck-app-ios/blob/e1567e9d1633b3273c537a105bff0e7d3a57ecfe/Diagrams/client-side-datamodel.d2)\n  - Official app of the Netherlands for coronavirus entry passes.\n- [Block\n  Protocol](https://github.com/blockprotocol/blockprotocol/blob/db4cf8d422b881e52113aa52467d53115270e2b3/libs/%40blockprotocol/type-system/crate/assets/overview.d2)\n  - The Block Protocol is an open standard for building and using data-driven blocks (1.2k\n    stars).\n- [Dagger](https://github.com/dagger/dagger/tree/main/cmd/dagger-graph)\n  - A programmable CI/CD engine that runs your pipelines in containers (8k stars).\n- [Ivy\n  Wallet](https://github.com/Ivy-Apps/ivy-wallet/blob/8062624bfa65175ec143cdc4038de27a84d38b57/assets/calc_algo.d2)\n  - Open-source money manager app for Android (1.1k stars).\n- [LocalStack](https://docs.localstack.cloud/references/network-troubleshooting/)\n  - Cloud service emulator (46k stars)\n- [Queue Library](https://github.com/golang-queue/queue/tree/master/images)\n  - Queue is a Golang library for spawning and managing a Goroutine pool\n",
+        "releases": [
+            {
+                "name": "v0.6.8",
+                "date": "2024-11-07T21:49:37Z"
+            },
+            {
+                "name": "v0.6.7",
+                "date": "2024-09-28T23:27:22Z"
+            },
+            {
+                "name": "v0.6.6",
+                "date": "2024-08-02T04:02:22Z"
+            },
+            {
+                "name": "v0.6.5",
+                "date": "2024-04-18T05:18:40Z"
+            },
+            {
+                "name": "v0.6.4",
+                "date": "2024-04-11T06:03:25Z"
+            },
+            {
+                "name": "v0.6.3",
+                "date": "2023-12-16T23:27:58Z"
+            },
+            {
+                "name": "v0.6.2",
+                "date": "2023-12-07T00:19:59Z"
+            },
+            {
+                "name": "v0.6.1",
+                "date": "2023-09-26T18:45:33Z"
+            },
+            {
+                "name": "v0.6.0",
+                "date": "2023-07-31T05:41:48Z"
+            },
+            {
+                "name": "v0.5.1",
+                "date": "2023-06-10T03:35:04Z"
+            },
+            {
+                "name": "v0.5.0",
+                "date": "2023-06-09T04:28:35Z"
+            },
+            {
+                "name": "v0.4.2",
+                "date": "2023-05-02T18:34:06Z"
+            },
+            {
+                "name": "v0.4.1",
+                "date": "2023-04-18T02:05:34Z"
+            },
+            {
+                "name": "v0.4.0",
+                "date": "2023-04-09T02:44:36Z"
+            },
+            {
+                "name": "v0.3.0",
+                "date": "2023-03-30T05:13:01Z"
+            },
+            {
+                "name": "v0.2.6",
+                "date": "2023-03-18T22:52:02Z"
+            },
+            {
+                "name": "v0.2.5",
+                "date": "2023-03-16T22:49:41Z"
+            },
+            {
+                "name": "v0.2.4",
+                "date": "2023-03-07T19:18:17Z"
+            },
+            {
+                "name": "v0.2.3",
+                "date": "2023-03-04T20:00:37Z"
+            },
+            {
+                "name": "v0.2.2",
+                "date": "2023-02-28T05:36:42Z"
+            },
+            {
+                "name": "v0.2.1",
+                "date": "2023-02-24T03:57:47Z"
+            },
+            {
+                "name": "v0.2.0",
+                "date": "2023-02-13T20:10:41Z"
+            },
+            {
+                "name": "v0.1.6",
+                "date": "2023-01-20T05:46:58Z"
+            },
+            {
+                "name": "v0.1.5",
+                "date": "2023-01-08T00:11:07Z"
+            },
+            {
+                "name": "v0.1.4",
+                "date": "2022-12-31T06:00:57Z"
+            },
+            {
+                "name": "v0.1.3",
+                "date": "2022-12-26T19:39:58Z"
+            },
+            {
+                "name": "v0.1.2",
+                "date": "2022-12-19T06:53:18Z"
+            },
+            {
+                "name": "v0.1.1",
+                "date": "2022-12-08T11:01:44Z"
+            },
+            {
+                "name": "v0.1.0",
+                "date": "2022-12-06T17:33:14Z"
+            },
+            {
+                "name": "v0.0.13",
+                "date": "2022-11-21T22:23:43Z"
+            },
+            {
+                "name": "v0.0.12",
+                "date": "2022-11-15T02:37:56Z"
+            }
+        ]
+    }
+}

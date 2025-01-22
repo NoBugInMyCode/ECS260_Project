@@ -1,0 +1,279 @@
+{
+    "https://api.github.com/repos/oobabooga/text-generation-webui": {
+        "forks": 5428,
+        "watchers": 41708,
+        "stars": 41708,
+        "languages": {
+            "Python": 871435,
+            "CSS": 40012,
+            "JavaScript": 38819,
+            "Shell": 12275,
+            "Batchfile": 6787,
+            "Dockerfile": 4953,
+            "Jupyter Notebook": 4068
+        },
+        "commits": [
+            "2025-01-17T15:03:22Z",
+            "2025-01-16T13:22:49Z",
+            "2025-01-16T13:21:18Z",
+            "2025-01-15T03:28:48Z",
+            "2025-01-15T01:24:39Z",
+            "2025-01-15T01:23:44Z",
+            "2025-01-15T01:01:08Z",
+            "2025-01-15T00:59:36Z",
+            "2025-01-15T00:44:15Z",
+            "2025-01-14T16:12:51Z",
+            "2025-01-14T13:59:55Z",
+            "2025-01-13T21:01:50Z",
+            "2025-01-13T14:20:42Z",
+            "2025-01-12T04:57:28Z",
+            "2025-01-12T02:35:22Z",
+            "2025-01-12T00:14:10Z",
+            "2025-01-11T21:39:44Z",
+            "2025-01-11T20:41:41Z",
+            "2025-01-11T19:59:21Z",
+            "2025-01-11T15:59:49Z",
+            "2025-01-11T15:55:19Z",
+            "2025-01-10T23:05:08Z",
+            "2025-01-10T21:25:40Z",
+            "2025-01-10T21:22:18Z",
+            "2025-01-10T21:04:32Z",
+            "2025-01-10T15:22:25Z",
+            "2025-01-10T15:07:41Z",
+            "2025-01-10T00:11:46Z",
+            "2025-01-09T23:58:14Z",
+            "2025-01-09T21:46:28Z"
+        ],
+        "creation_date": "2022-12-21T04:17:37Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 332,
+        "readme": "# Text generation web UI\n\nA Gradio web UI for Large Language Models.\n\nIts goal is to become the [AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui) of text generation.\n\n|![Image1](https://github.com/oobabooga/screenshots/raw/main/AFTER-INSTRUCT.png) | ![Image2](https://github.com/oobabooga/screenshots/raw/main/AFTER-CHAT.png) |\n|:---:|:---:|\n|![Image1](https://github.com/oobabooga/screenshots/raw/main/AFTER-DEFAULT.png) | ![Image2](https://github.com/oobabooga/screenshots/raw/main/AFTER-PARAMETERS.png) |\n\n## Features\n\n- Supports multiple text generation backends in one UI/API, including [Transformers](https://github.com/huggingface/transformers), [llama.cpp](https://github.com/ggerganov/llama.cpp), and [ExLlamaV2](https://github.com/turboderp-org/exllamav2). [TensorRT-LLM](https://github.com/NVIDIA/TensorRT-LLM) is supported via its own [Dockerfile](https://github.com/oobabooga/text-generation-webui/blob/main/docker/TensorRT-LLM/Dockerfile), and the Transformers loader is compatible with libraries like [AutoGPTQ](https://github.com/PanQiWei/AutoGPTQ), [AutoAWQ](https://github.com/casper-hansen/AutoAWQ), [HQQ](https://github.com/mobiusml/hqq), and [AQLM](https://github.com/Vahe1994/AQLM), but they must be installed manually.\n- OpenAI-compatible API with Chat and Completions endpoints \u2013 see [examples](https://github.com/oobabooga/text-generation-webui/wiki/12-%E2%80%90-OpenAI-API#examples).\n- Automatic prompt formatting using Jinja2 templates.\n- Three chat modes: `instruct`, `chat-instruct`, and `chat`, with automatic prompt templates in `chat-instruct`.\n- \"Past chats\" menu to quickly switch between conversations.\n- Free-form text generation in the Default/Notebook tabs without being limited to chat turns. You can send formatted conversations from the Chat tab to these.\n- Multiple sampling parameters and generation options for sophisticated text generation control.\n- Switch between different models easily in the UI without restarting.\n- Simple LoRA fine-tuning tool.\n- Requirements installed in a self-contained `installer_files` directory that doesn't interfere with the system environment.\n- Extension support, with numerous built-in and user-contributed extensions available. See the [wiki](https://github.com/oobabooga/text-generation-webui/wiki/07-%E2%80%90-Extensions) and [extensions directory](https://github.com/oobabooga/text-generation-webui-extensions) for details.\n\n## How to install\n\n1) Clone or [download the repository](https://github.com/oobabooga/text-generation-webui/archive/refs/heads/main.zip).\n2) Run the script that matches your OS: `start_linux.sh`, `start_windows.bat`, `start_macos.sh`, or `start_wsl.bat`.\n3) Select your GPU vendor when asked.\n4) Once the installation ends, browse to `http://localhost:7860`.\n5) Have fun!\n\nTo restart the web UI later, just run the same `start_` script. If you need to reinstall, delete the `installer_files` folder created during setup and run the script again.\n\nYou can use command-line flags, like `./start_linux.sh --help`, or add them to `CMD_FLAGS.txt` (such as `--api` to enable API use). To update the project, run `update_wizard_linux.sh`, `update_wizard_windows.bat`, `update_wizard_macos.sh`, or `update_wizard_wsl.bat`.\n\n<details>\n<summary>\nSetup details and information about installing manually\n</summary>\n\n### One-click-installer\n\nThe script uses Miniconda to set up a Conda environment in the `installer_files` folder.\n\nIf you ever need to install something manually in the `installer_files` environment, you can launch an interactive shell using the cmd script: `cmd_linux.sh`, `cmd_windows.bat`, `cmd_macos.sh`, or `cmd_wsl.bat`.\n\n* There is no need to run any of those scripts (`start_`, `update_wizard_`, or `cmd_`) as admin/root.\n* To install the requirements for extensions, you can use the `extensions_reqs` script for your OS. At the end, this script will install the main requirements for the project to make sure that they take precedence in case of version conflicts.\n* For additional instructions about AMD and WSL setup, consult [the documentation](https://github.com/oobabooga/text-generation-webui/wiki).\n* For automated installation, you can use the `GPU_CHOICE`, `USE_CUDA118`, `LAUNCH_AFTER_INSTALL`, and `INSTALL_EXTENSIONS` environment variables. For instance: `GPU_CHOICE=A USE_CUDA118=FALSE LAUNCH_AFTER_INSTALL=FALSE INSTALL_EXTENSIONS=TRUE ./start_linux.sh`.\n\n### Manual installation using Conda\n\nRecommended if you have some experience with the command-line.\n\n#### 0. Install Conda\n\nhttps://docs.conda.io/en/latest/miniconda.html\n\nOn Linux or WSL, it can be automatically installed with these two commands ([source](https://educe-ubc.github.io/conda.html)):\n\n```\ncurl -sL \"https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh\" > \"Miniconda3.sh\"\nbash Miniconda3.sh\n```\n\n#### 1. Create a new conda environment\n\n```\nconda create -n textgen python=3.11\nconda activate textgen\n```\n\n#### 2. Install Pytorch\n\n| System | GPU | Command |\n|--------|---------|---------|\n| Linux/WSL | NVIDIA | `pip3 install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cu121` |\n| Linux/WSL | CPU only | `pip3 install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cpu` |\n| Linux | AMD | `pip3 install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/rocm6.1` |\n| MacOS + MPS | Any | `pip3 install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1` |\n| Windows | NVIDIA | `pip3 install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cu121` |\n| Windows | CPU only | `pip3 install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1` |\n\nThe up-to-date commands can be found here: https://pytorch.org/get-started/locally/.\n\nFor NVIDIA, you also need to install the CUDA runtime libraries:\n\n```\nconda install -y -c \"nvidia/label/cuda-12.1.1\" cuda-runtime\n```\n\nIf you need `nvcc` to compile some library manually, replace the command above with\n\n```\nconda install -y -c \"nvidia/label/cuda-12.1.1\" cuda\n```\n\n#### 3. Install the web UI\n\n```\ngit clone https://github.com/oobabooga/text-generation-webui\ncd text-generation-webui\npip install -r <requirements file according to table below>\n```\n\nRequirements file to use:\n\n| GPU | CPU | requirements file to use |\n|--------|---------|---------|\n| NVIDIA | has AVX2 | `requirements.txt` |\n| NVIDIA | no AVX2 | `requirements_noavx2.txt` |\n| AMD | has AVX2 | `requirements_amd.txt` |\n| AMD | no AVX2 | `requirements_amd_noavx2.txt` |\n| CPU only | has AVX2 | `requirements_cpu_only.txt` |\n| CPU only | no AVX2 | `requirements_cpu_only_noavx2.txt` |\n| Apple | Intel | `requirements_apple_intel.txt` |\n| Apple | Apple Silicon | `requirements_apple_silicon.txt` |\n\n### Start the web UI\n\n```\nconda activate textgen\ncd text-generation-webui\npython server.py\n```\n\nThen browse to\n\n`http://localhost:7860/?__theme=dark`\n\n##### AMD GPU on Windows\n\n1) Use `requirements_cpu_only.txt` or `requirements_cpu_only_noavx2.txt` in the command above.\n\n2) Manually install llama-cpp-python using the appropriate command for your hardware: [Installation from PyPI](https://github.com/abetlen/llama-cpp-python#installation-with-hardware-acceleration).\n    * Use the `LLAMA_HIPBLAS=on` toggle.\n    * Note the [Windows remarks](https://github.com/abetlen/llama-cpp-python#windows-remarks).\n\n3) Manually install AutoGPTQ: [Installation](https://github.com/PanQiWei/AutoGPTQ#install-from-source).\n    * Perform the from-source installation - there are no prebuilt ROCm packages for Windows.\n\n##### Older NVIDIA GPUs\n\n1) For Kepler GPUs and older, you will need to install CUDA 11.8 instead of 12:\n\n```\npip3 install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cu118\nconda install -y -c \"nvidia/label/cuda-11.8.0\" cuda-runtime\n```\n\n2) bitsandbytes >= 0.39 may not work. In that case, to use `--load-in-8bit`, you may have to downgrade like this:\n    * Linux: `pip install bitsandbytes==0.38.1`\n    * Windows: `pip install https://github.com/jllllll/bitsandbytes-windows-webui/raw/main/bitsandbytes-0.38.1-py3-none-any.whl`\n\n##### Manual install\n\nThe `requirements*.txt` above contain various wheels precompiled through GitHub Actions. If you wish to compile things manually, or if you need to because no suitable wheels are available for your hardware, you can use `requirements_nowheels.txt` and then install your desired loaders manually.\n\n### Alternative: Docker\n\n```\nFor NVIDIA GPU:\nln -s docker/{nvidia/Dockerfile,nvidia/docker-compose.yml,.dockerignore} .\nFor AMD GPU: \nln -s docker/{amd/Dockerfile,intel/docker-compose.yml,.dockerignore} .\nFor Intel GPU:\nln -s docker/{intel/Dockerfile,amd/docker-compose.yml,.dockerignore} .\nFor CPU only\nln -s docker/{cpu/Dockerfile,cpu/docker-compose.yml,.dockerignore} .\ncp docker/.env.example .env\n#Create logs/cache dir : \nmkdir -p logs cache\n# Edit .env and set: \n#   TORCH_CUDA_ARCH_LIST based on your GPU model\n#   APP_RUNTIME_GID      your host user's group id (run `id -g` in a terminal)\n#   BUILD_EXTENIONS      optionally add comma separated list of extensions to build\n# Edit CMD_FLAGS.txt and add in it the options you want to execute (like --listen --cpu)\n# \ndocker compose up --build\n```\n\n* You need to have Docker Compose v2.17 or higher installed. See [this guide](https://github.com/oobabooga/text-generation-webui/wiki/09-%E2%80%90-Docker) for instructions.\n* For additional docker files, check out [this repository](https://github.com/Atinoda/text-generation-webui-docker).\n\n### Updating the requirements\n\nFrom time to time, the `requirements*.txt` change. To update, use these commands:\n\n```\nconda activate textgen\ncd text-generation-webui\npip install -r <requirements file that you have used> --upgrade\n```\n</details>\n\n<details>\n<summary>\nList of command-line flags\n</summary>\n\n```txt\nusage: server.py [-h] [--multi-user] [--character CHARACTER] [--model MODEL] [--lora LORA [LORA ...]] [--model-dir MODEL_DIR] [--lora-dir LORA_DIR] [--model-menu] [--settings SETTINGS]\n                 [--extensions EXTENSIONS [EXTENSIONS ...]] [--verbose] [--idle-timeout IDLE_TIMEOUT] [--loader LOADER] [--cpu] [--auto-devices] [--gpu-memory GPU_MEMORY [GPU_MEMORY ...]]\n                 [--cpu-memory CPU_MEMORY] [--disk] [--disk-cache-dir DISK_CACHE_DIR] [--load-in-8bit] [--bf16] [--no-cache] [--trust-remote-code] [--force-safetensors] [--no_use_fast]\n                 [--use_flash_attention_2] [--use_eager_attention] [--torch-compile] [--load-in-4bit] [--use_double_quant] [--compute_dtype COMPUTE_DTYPE] [--quant_type QUANT_TYPE] [--flash-attn]\n                 [--tensorcores] [--n_ctx N_CTX] [--threads THREADS] [--threads-batch THREADS_BATCH] [--no_mul_mat_q] [--n_batch N_BATCH] [--no-mmap] [--mlock] [--n-gpu-layers N_GPU_LAYERS]\n                 [--tensor_split TENSOR_SPLIT] [--numa] [--logits_all] [--no_offload_kqv] [--cache-capacity CACHE_CAPACITY] [--row_split] [--streaming-llm] [--attention-sink-size ATTENTION_SINK_SIZE]\n                 [--tokenizer-dir TOKENIZER_DIR] [--gpu-split GPU_SPLIT] [--autosplit] [--max_seq_len MAX_SEQ_LEN] [--cfg-cache] [--no_flash_attn] [--no_xformers] [--no_sdpa]\n                 [--num_experts_per_token NUM_EXPERTS_PER_TOKEN] [--enable_tp] [--hqq-backend HQQ_BACKEND] [--cpp-runner] [--cache_type CACHE_TYPE] [--deepspeed] [--nvme-offload-dir NVME_OFFLOAD_DIR]\n                 [--local_rank LOCAL_RANK] [--alpha_value ALPHA_VALUE] [--rope_freq_base ROPE_FREQ_BASE] [--compress_pos_emb COMPRESS_POS_EMB] [--listen] [--listen-port LISTEN_PORT]\n                 [--listen-host LISTEN_HOST] [--share] [--auto-launch] [--gradio-auth GRADIO_AUTH] [--gradio-auth-path GRADIO_AUTH_PATH] [--ssl-keyfile SSL_KEYFILE] [--ssl-certfile SSL_CERTFILE]\n                 [--subpath SUBPATH] [--old-colors] [--api] [--public-api] [--public-api-id PUBLIC_API_ID] [--api-port API_PORT] [--api-key API_KEY] [--admin-key ADMIN_KEY] [--api-enable-ipv6]\n                 [--api-disable-ipv4] [--nowebui] [--multimodal-pipeline MULTIMODAL_PIPELINE] [--cache_4bit] [--cache_8bit] [--chat-buttons] [--triton] [--no_inject_fused_mlp] [--no_use_cuda_fp16]\n                 [--desc_act] [--disable_exllama] [--disable_exllamav2] [--wbits WBITS] [--groupsize GROUPSIZE]\n\nText generation web UI\n\noptions:\n  -h, --help                                     show this help message and exit\n\nBasic settings:\n  --multi-user                                   Multi-user mode. Chat histories are not saved or automatically loaded. Warning: this is likely not safe for sharing publicly.\n  --character CHARACTER                          The name of the character to load in chat mode by default.\n  --model MODEL                                  Name of the model to load by default.\n  --lora LORA [LORA ...]                         The list of LoRAs to load. If you want to load more than one LoRA, write the names separated by spaces.\n  --model-dir MODEL_DIR                          Path to directory with all the models.\n  --lora-dir LORA_DIR                            Path to directory with all the loras.\n  --model-menu                                   Show a model menu in the terminal when the web UI is first launched.\n  --settings SETTINGS                            Load the default interface settings from this yaml file. See settings-template.yaml for an example. If you create a file called settings.yaml, this\n                                                 file will be loaded by default without the need to use the --settings flag.\n  --extensions EXTENSIONS [EXTENSIONS ...]       The list of extensions to load. If you want to load more than one extension, write the names separated by spaces.\n  --verbose                                      Print the prompts to the terminal.\n  --idle-timeout IDLE_TIMEOUT                    Unload model after this many minutes of inactivity. It will be automatically reloaded when you try to use it again.\n\nModel loader:\n  --loader LOADER                                Choose the model loader manually, otherwise, it will get autodetected. Valid options: Transformers, llama.cpp, llamacpp_HF, ExLlamav2_HF, ExLlamav2,\n                                                 HQQ, TensorRT-LLM.\n\nTransformers/Accelerate:\n  --cpu                                          Use the CPU to generate text. Warning: Training on CPU is extremely slow.\n  --auto-devices                                 Automatically split the model across the available GPU(s) and CPU.\n  --gpu-memory GPU_MEMORY [GPU_MEMORY ...]       Maximum GPU memory in GiB to be allocated per GPU. Example: --gpu-memory 10 for a single GPU, --gpu-memory 10 5 for two GPUs. You can also set values\n                                                 in MiB like --gpu-memory 3500MiB.\n  --cpu-memory CPU_MEMORY                        Maximum CPU memory in GiB to allocate for offloaded weights. Same as above.\n  --disk                                         If the model is too large for your GPU(s) and CPU combined, send the remaining layers to the disk.\n  --disk-cache-dir DISK_CACHE_DIR                Directory to save the disk cache to. Defaults to \"cache\".\n  --load-in-8bit                                 Load the model with 8-bit precision (using bitsandbytes).\n  --bf16                                         Load the model with bfloat16 precision. Requires NVIDIA Ampere GPU.\n  --no-cache                                     Set use_cache to False while generating text. This reduces VRAM usage slightly, but it comes at a performance cost.\n  --trust-remote-code                            Set trust_remote_code=True while loading the model. Necessary for some models.\n  --force-safetensors                            Set use_safetensors=True while loading the model. This prevents arbitrary code execution.\n  --no_use_fast                                  Set use_fast=False while loading the tokenizer (it's True by default). Use this if you have any problems related to use_fast.\n  --use_flash_attention_2                        Set use_flash_attention_2=True while loading the model.\n  --use_eager_attention                          Set attn_implementation= eager while loading the model.\n  --torch-compile                                Compile the model with torch.compile for improved performance.\n\nbitsandbytes 4-bit:\n  --load-in-4bit                                 Load the model with 4-bit precision (using bitsandbytes).\n  --use_double_quant                             use_double_quant for 4-bit.\n  --compute_dtype COMPUTE_DTYPE                  compute dtype for 4-bit. Valid options: bfloat16, float16, float32.\n  --quant_type QUANT_TYPE                        quant_type for 4-bit. Valid options: nf4, fp4.\n\nllama.cpp:\n  --flash-attn                                   Use flash-attention.\n  --tensorcores                                  NVIDIA only: use llama-cpp-python compiled without GGML_CUDA_FORCE_MMQ. This may improve performance on newer cards.\n  --n_ctx N_CTX                                  Size of the prompt context.\n  --threads THREADS                              Number of threads to use.\n  --threads-batch THREADS_BATCH                  Number of threads to use for batches/prompt processing.\n  --no_mul_mat_q                                 Disable the mulmat kernels.\n  --n_batch N_BATCH                              Maximum number of prompt tokens to batch together when calling llama_eval.\n  --no-mmap                                      Prevent mmap from being used.\n  --mlock                                        Force the system to keep the model in RAM.\n  --n-gpu-layers N_GPU_LAYERS                    Number of layers to offload to the GPU.\n  --tensor_split TENSOR_SPLIT                    Split the model across multiple GPUs. Comma-separated list of proportions. Example: 60,40.\n  --numa                                         Activate NUMA task allocation for llama.cpp.\n  --logits_all                                   Needs to be set for perplexity evaluation to work. Otherwise, ignore it, as it makes prompt processing slower.\n  --no_offload_kqv                               Do not offload the K, Q, V to the GPU. This saves VRAM but reduces the performance.\n  --cache-capacity CACHE_CAPACITY                Maximum cache capacity (llama-cpp-python). Examples: 2000MiB, 2GiB. When provided without units, bytes will be assumed.\n  --row_split                                    Split the model by rows across GPUs. This may improve multi-gpu performance.\n  --streaming-llm                                Activate StreamingLLM to avoid re-evaluating the entire prompt when old messages are removed.\n  --attention-sink-size ATTENTION_SINK_SIZE      StreamingLLM: number of sink tokens. Only used if the trimmed prompt does not share a prefix with the old prompt.\n  --tokenizer-dir TOKENIZER_DIR                  Load the tokenizer from this folder. Meant to be used with llamacpp_HF through the command-line.\n\nExLlamaV2:\n  --gpu-split GPU_SPLIT                          Comma-separated list of VRAM (in GB) to use per GPU device for model layers. Example: 20,7,7.\n  --autosplit                                    Autosplit the model tensors across the available GPUs. This causes --gpu-split to be ignored.\n  --max_seq_len MAX_SEQ_LEN                      Maximum sequence length.\n  --cfg-cache                                    ExLlamav2_HF: Create an additional cache for CFG negative prompts. Necessary to use CFG with that loader.\n  --no_flash_attn                                Force flash-attention to not be used.\n  --no_xformers                                  Force xformers to not be used.\n  --no_sdpa                                      Force Torch SDPA to not be used.\n  --num_experts_per_token NUM_EXPERTS_PER_TOKEN  Number of experts to use for generation. Applies to MoE models like Mixtral.\n  --enable_tp                                    Enable Tensor Parallelism (TP) in ExLlamaV2.\n\nHQQ:\n  --hqq-backend HQQ_BACKEND                      Backend for the HQQ loader. Valid options: PYTORCH, PYTORCH_COMPILE, ATEN.\n\nTensorRT-LLM:\n  --cpp-runner                                   Use the ModelRunnerCpp runner, which is faster than the default ModelRunner but doesn't support streaming yet.\n\nCache:\n  --cache_type CACHE_TYPE                        KV cache type; valid options: llama.cpp - fp16, q8_0, q4_0; ExLlamaV2 - fp16, fp8, q8, q6, q4.\n\nDeepSpeed:\n  --deepspeed                                    Enable the use of DeepSpeed ZeRO-3 for inference via the Transformers integration.\n  --nvme-offload-dir NVME_OFFLOAD_DIR            DeepSpeed: Directory to use for ZeRO-3 NVME offloading.\n  --local_rank LOCAL_RANK                        DeepSpeed: Optional argument for distributed setups.\n\nRoPE:\n  --alpha_value ALPHA_VALUE                      Positional embeddings alpha factor for NTK RoPE scaling. Use either this or compress_pos_emb, not both.\n  --rope_freq_base ROPE_FREQ_BASE                If greater than 0, will be used instead of alpha_value. Those two are related by rope_freq_base = 10000 * alpha_value ^ (64 / 63).\n  --compress_pos_emb COMPRESS_POS_EMB            Positional embeddings compression factor. Should be set to (context length) / (model's original context length). Equal to 1/rope_freq_scale.\n\nGradio:\n  --listen                                       Make the web UI reachable from your local network.\n  --listen-port LISTEN_PORT                      The listening port that the server will use.\n  --listen-host LISTEN_HOST                      The hostname that the server will use.\n  --share                                        Create a public URL. This is useful for running the web UI on Google Colab or similar.\n  --auto-launch                                  Open the web UI in the default browser upon launch.\n  --gradio-auth GRADIO_AUTH                      Set Gradio authentication password in the format \"username:password\". Multiple credentials can also be supplied with \"u1:p1,u2:p2,u3:p3\".\n  --gradio-auth-path GRADIO_AUTH_PATH            Set the Gradio authentication file path. The file should contain one or more user:password pairs in the same format as above.\n  --ssl-keyfile SSL_KEYFILE                      The path to the SSL certificate key file.\n  --ssl-certfile SSL_CERTFILE                    The path to the SSL certificate cert file.\n  --subpath SUBPATH                              Customize the subpath for gradio, use with reverse proxy\n  --old-colors                                   Use the legacy Gradio colors, before the December/2024 update.\n\nAPI:\n  --api                                          Enable the API extension.\n  --public-api                                   Create a public URL for the API using Cloudfare.\n  --public-api-id PUBLIC_API_ID                  Tunnel ID for named Cloudflare Tunnel. Use together with public-api option.\n  --api-port API_PORT                            The listening port for the API.\n  --api-key API_KEY                              API authentication key.\n  --admin-key ADMIN_KEY                          API authentication key for admin tasks like loading and unloading models. If not set, will be the same as --api-key.\n  --api-enable-ipv6                              Enable IPv6 for the API\n  --api-disable-ipv4                             Disable IPv4 for the API\n  --nowebui                                      Do not launch the Gradio UI. Useful for launching the API in standalone mode.\n\nMultimodal:\n  --multimodal-pipeline MULTIMODAL_PIPELINE      The multimodal pipeline to use. Examples: llava-7b, llava-13b.\n```\n\n</details>\n\n## Documentation\n\nhttps://github.com/oobabooga/text-generation-webui/wiki\n\n## Downloading models\n\nModels should be placed in the folder `text-generation-webui/models`. They are usually downloaded from [Hugging Face](https://huggingface.co/models?pipeline_tag=text-generation&sort=downloads).\n\n* GGUF models are a single file and should be placed directly into `models`. Example:\n\n```\ntext-generation-webui\n\u2514\u2500\u2500 models\n    \u2514\u2500\u2500 llama-2-13b-chat.Q4_K_M.gguf\n```\n\n* The remaining model types (like 16-bit Transformers models and EXL2 models) are made of several files and must be placed in a subfolder. Example:\n\n```\ntext-generation-webui\n\u251c\u2500\u2500 models\n\u2502\u00a0\u00a0 \u251c\u2500\u2500 lmsys_vicuna-33b-v1.3\n\u2502\u00a0\u00a0 \u2502\u00a0\u00a0 \u251c\u2500\u2500 config.json\n\u2502\u00a0\u00a0 \u2502\u00a0\u00a0 \u251c\u2500\u2500 generation_config.json\n\u2502\u00a0\u00a0 \u2502\u00a0\u00a0 \u251c\u2500\u2500 pytorch_model-00001-of-00007.bin\n\u2502\u00a0\u00a0 \u2502\u00a0\u00a0 \u251c\u2500\u2500 pytorch_model-00002-of-00007.bin\n\u2502\u00a0\u00a0 \u2502\u00a0\u00a0 \u251c\u2500\u2500 pytorch_model-00003-of-00007.bin\n\u2502\u00a0\u00a0 \u2502\u00a0\u00a0 \u251c\u2500\u2500 pytorch_model-00004-of-00007.bin\n\u2502\u00a0\u00a0 \u2502\u00a0\u00a0 \u251c\u2500\u2500 pytorch_model-00005-of-00007.bin\n\u2502\u00a0\u00a0 \u2502\u00a0\u00a0 \u251c\u2500\u2500 pytorch_model-00006-of-00007.bin\n\u2502\u00a0\u00a0 \u2502\u00a0\u00a0 \u251c\u2500\u2500 pytorch_model-00007-of-00007.bin\n\u2502\u00a0\u00a0 \u2502\u00a0\u00a0 \u251c\u2500\u2500 pytorch_model.bin.index.json\n\u2502\u00a0\u00a0 \u2502\u00a0\u00a0 \u251c\u2500\u2500 special_tokens_map.json\n\u2502\u00a0\u00a0 \u2502\u00a0\u00a0 \u251c\u2500\u2500 tokenizer_config.json\n\u2502\u00a0\u00a0 \u2502\u00a0\u00a0 \u2514\u2500\u2500 tokenizer.model\n```\n\nIn both cases, you can use the \"Model\" tab of the UI to download the model from Hugging Face automatically. It is also possible to download it via the command-line with \n\n```\npython download-model.py organization/model\n```\n\nRun `python download-model.py --help` to see all the options.\n\n## Google Colab notebook\n\nhttps://colab.research.google.com/github/oobabooga/text-generation-webui/blob/main/Colab-TextGen-GPU.ipynb\n\n## Community\n\n* Subreddit: https://www.reddit.com/r/Oobabooga/\n* Discord: https://discord.gg/jwZCF2dPQN\n\n## Acknowledgment\n\nIn August 2023, [Andreessen Horowitz](https://a16z.com/) (a16z) provided a generous grant to encourage and support my independent work on this project. I am **extremely** grateful for their trust and recognition.\n\n## \u2b50 Featured Patreon Supporters\n\n* [Become the first one!](https://www.patreon.com/oobabooga)\n",
+        "releases": [
+            {
+                "name": "v2.3",
+                "date": "2025-01-15T01:05:29Z"
+            },
+            {
+                "name": "v2.2",
+                "date": "2025-01-09T21:48:25Z"
+            },
+            {
+                "name": "v2.1",
+                "date": "2024-12-31T23:48:57Z"
+            },
+            {
+                "name": "v2.0",
+                "date": "2024-12-19T02:37:32Z"
+            },
+            {
+                "name": "v1.16",
+                "date": "2024-10-25T04:10:35Z"
+            },
+            {
+                "name": "v1.15",
+                "date": "2024-10-01T17:48:52Z"
+            },
+            {
+                "name": "v1.14",
+                "date": "2024-08-20T04:29:43Z"
+            },
+            {
+                "name": "v1.13",
+                "date": "2024-08-01T05:28:53Z"
+            },
+            {
+                "name": "v1.12",
+                "date": "2024-07-25T15:19:22Z"
+            },
+            {
+                "name": "v1.11",
+                "date": "2024-07-23T05:34:27Z"
+            },
+            {
+                "name": "v1.10.1",
+                "date": "2024-07-13T17:56:23Z"
+            },
+            {
+                "name": "v1.10",
+                "date": "2024-07-11T23:43:59Z"
+            },
+            {
+                "name": "v1.9.1",
+                "date": "2024-07-05T10:38:47Z"
+            },
+            {
+                "name": "v1.9",
+                "date": "2024-07-05T03:24:05Z"
+            },
+            {
+                "name": "v1.8",
+                "date": "2024-06-27T02:38:24Z"
+            },
+            {
+                "name": "snapshot-2024-04-28",
+                "date": "2024-04-28T20:20:07Z"
+            },
+            {
+                "name": "snapshot-2024-04-21",
+                "date": "2024-04-21T20:19:56Z"
+            },
+            {
+                "name": "snapshot-2024-04-14",
+                "date": "2024-04-14T22:22:11Z"
+            },
+            {
+                "name": "snapshot-2024-04-07",
+                "date": "2024-04-07T20:19:44Z"
+            },
+            {
+                "name": "snapshot-2024-03-31",
+                "date": "2024-03-31T20:20:47Z"
+            },
+            {
+                "name": "snapshot-2024-03-24",
+                "date": "2024-03-24T20:19:08Z"
+            },
+            {
+                "name": "snapshot-2024-03-17",
+                "date": "2024-03-17T20:19:14Z"
+            },
+            {
+                "name": "snapshot-2024-03-10",
+                "date": "2024-03-10T20:20:24Z"
+            },
+            {
+                "name": "snapshot-2024-03-03",
+                "date": "2024-03-03T20:24:50Z"
+            },
+            {
+                "name": "snapshot-2024-02-25",
+                "date": "2024-02-25T20:18:48Z"
+            },
+            {
+                "name": "snapshot-2024-02-18",
+                "date": "2024-02-18T20:19:24Z"
+            },
+            {
+                "name": "snapshot-2024-02-11",
+                "date": "2024-02-11T20:19:30Z"
+            },
+            {
+                "name": "snapshot-2024-02-04",
+                "date": "2024-02-04T20:19:08Z"
+            },
+            {
+                "name": "snapshot-2024-01-28",
+                "date": "2024-01-28T20:18:40Z"
+            },
+            {
+                "name": "snapshot-2024-01-21",
+                "date": "2024-01-21T20:20:18Z"
+            },
+            {
+                "name": "snapshot-2024-01-14",
+                "date": "2024-01-14T20:20:10Z"
+            },
+            {
+                "name": "snapshot-2024-01-07",
+                "date": "2024-01-07T20:19:53Z"
+            },
+            {
+                "name": "snapshot-2023-12-31",
+                "date": "2023-12-31T20:19:47Z"
+            },
+            {
+                "name": "snapshot-2023-12-24",
+                "date": "2023-12-24T20:19:40Z"
+            },
+            {
+                "name": "snapshot-2023-12-17",
+                "date": "2023-12-17T20:19:46Z"
+            },
+            {
+                "name": "snapshot-2023-12-10",
+                "date": "2023-12-10T20:19:46Z"
+            },
+            {
+                "name": "snapshot-2023-12-03",
+                "date": "2023-12-03T20:19:48Z"
+            },
+            {
+                "name": "snapshot-2023-11-26",
+                "date": "2023-11-26T20:19:39Z"
+            },
+            {
+                "name": "snapshot-2023-11-19",
+                "date": "2023-11-19T20:19:46Z"
+            },
+            {
+                "name": "snapshot-2023-11-12",
+                "date": "2023-11-12T20:19:20Z"
+            },
+            {
+                "name": "snapshot-2023-11-05",
+                "date": "2023-11-05T20:19:32Z"
+            },
+            {
+                "name": "snapshot-2023-10-29",
+                "date": "2023-10-29T20:19:20Z"
+            },
+            {
+                "name": "snapshot-2023-10-22",
+                "date": "2023-10-22T20:19:18Z"
+            },
+            {
+                "name": "snapshot-2023-10-15",
+                "date": "2023-10-15T20:27:48Z"
+            },
+            {
+                "name": "v1.7",
+                "date": "2023-10-08T20:26:50Z"
+            },
+            {
+                "name": "1.6.1",
+                "date": "2023-09-26T03:37:57Z"
+            },
+            {
+                "name": "v1.6",
+                "date": "2023-09-22T22:17:32Z"
+            },
+            {
+                "name": "v1.5",
+                "date": "2023-07-26T14:14:49Z"
+            },
+            {
+                "name": "v1.4",
+                "date": "2023-07-24T19:42:39Z"
+            },
+            {
+                "name": "v1.3.1",
+                "date": "2023-07-19T14:22:04Z"
+            },
+            {
+                "name": "v1.3",
+                "date": "2023-07-18T20:33:25Z"
+            },
+            {
+                "name": "v1.2",
+                "date": "2023-07-16T05:44:27Z"
+            },
+            {
+                "name": "v1.1.1",
+                "date": "2023-07-13T02:46:15Z"
+            },
+            {
+                "name": "v1.1",
+                "date": "2023-07-12T18:56:03Z"
+            },
+            {
+                "name": "v1.0",
+                "date": "2023-07-11T16:18:56Z"
+            },
+            {
+                "name": "Windows/Linux/MacOS installers",
+                "date": "2023-02-09T16:16:05Z"
+            }
+        ]
+    }
+}

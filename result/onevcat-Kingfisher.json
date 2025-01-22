@@ -1,0 +1,841 @@
+{
+    "https://api.github.com/repos/onevcat/Kingfisher": {
+        "forks": 2668,
+        "watchers": 23524,
+        "stars": 23524,
+        "languages": {
+            "Swift": 1088223,
+            "Objective-C": 43111,
+            "Ruby": 13455
+        },
+        "commits": [
+            "2025-01-06T06:45:32Z",
+            "2025-01-04T20:26:33Z",
+            "2024-12-20T14:00:15Z",
+            "2024-12-19T13:41:34Z",
+            "2024-12-19T08:46:00Z",
+            "2024-12-17T13:23:15Z",
+            "2024-12-17T13:07:20Z",
+            "2024-12-17T13:02:43Z",
+            "2024-12-17T11:33:42Z",
+            "2024-12-15T14:46:53Z",
+            "2024-12-15T14:44:41Z",
+            "2024-12-15T14:32:37Z",
+            "2024-12-14T15:35:59Z",
+            "2024-12-14T13:38:24Z",
+            "2024-12-06T15:27:36Z",
+            "2024-12-01T14:15:49Z",
+            "2024-12-01T13:19:28Z",
+            "2024-11-19T15:53:38Z",
+            "2024-11-19T15:36:25Z",
+            "2024-11-19T15:01:05Z",
+            "2024-11-19T14:55:54Z",
+            "2024-11-19T14:00:48Z",
+            "2024-11-19T13:45:58Z",
+            "2024-11-19T13:44:22Z",
+            "2024-11-19T13:38:52Z",
+            "2024-11-15T14:44:05Z",
+            "2024-11-09T12:44:46Z",
+            "2024-11-09T11:48:19Z",
+            "2024-11-09T11:42:00Z",
+            "2024-11-09T11:06:48Z"
+        ],
+        "creation_date": "2015-04-06T14:26:21Z",
+        "contributors": 30,
+        "topics": [
+            "cache",
+            "filters",
+            "image",
+            "image-processor",
+            "ios",
+            "kingfisher",
+            "macos",
+            "swift",
+            "xcode"
+        ],
+        "subscribers": 362,
+        "readme": "<p align=\"center\">\n<img src=\"https://raw.githubusercontent.com/onevcat/Kingfisher/master/images/logo.png\" alt=\"Kingfisher\" title=\"Kingfisher\" width=\"557\"/>\n</p>\n\n<p align=\"center\">\n<a href=\"https://github.com/onevcat/Kingfisher/actions?query=workflow%3Abuild\"><img src=\"https://github.com/onevcat/kingfisher/workflows/build/badge.svg?branch=master\"></a>\n<a href=\"https://swiftpackageindex.com/onevcat/Kingfisher/master/documentation/kingfisher\"><img src=\"https://img.shields.io/badge/Swift-Doc-DE5C43.svg?style=flat\"></a>\n<a href=\"https://cocoapods.org/pods/Kingfisher\"><img src=\"https://img.shields.io/github/v/tag/onevcat/Kingfisher.svg?color=blue&include_prereleases=&sort=semver\"></a>\n<a href=\"https://swift.org/package-manager/\"><img src=\"https://img.shields.io/badge/SPM-supported-DE5C43.svg?style=flat\"></a>\n<a href=\"https://raw.githubusercontent.com/onevcat/Kingfisher/master/LICENSE\"><img src=\"https://img.shields.io/badge/license-MIT-black\"></a>\n</p>\n\nKingfisher is a powerful, pure-Swift library for downloading and caching images from the web. It provides you a chance to use a pure-Swift way to work with remote images in your next app.\n\n## Features\n\n- [x] Asynchronous image downloading and caching.\n- [x] Loading image from either `URLSession`-based networking or local provided data.\n- [x] Useful image processors and filters provided.\n- [x] Multiple-layer hybrid cache for both memory and disk.\n- [x] Fine control on cache behavior. Customizable expiration date and size limit.\n- [x] Cancelable downloading and auto-reusing previous downloaded content to improve performance.\n- [x] Independent components. Use the downloader, caching system, and image processors separately as you need.\n- [x] Prefetching images and showing them from the cache to boost your app.\n- [x] Extensions for `UIImageView`, `NSImageView`, `NSButton`, `UIButton`, `NSTextAttachment`, `WKInterfaceImage`, `TVMonogramView` and `CPListItem` to directly set an image from a URL.\n- [x] Built-in transition animation when setting images.\n- [x] Customizable placeholder and indicator while loading images.\n- [x] Extensible image processing and image format easily.\n- [x] Low Data Mode support.\n- [x] SwiftUI support.\n- [x] Swift 6 & Swift Concurrency (strict mode) prepared.\n- [x] Load & cache for Live Photo.\n\n### Kingfisher 101\n\nThe simplest use-case is setting an image to an image view with the `UIImageView` extension:\n\n```swift\nimport Kingfisher\n\nlet url = URL(string: \"https://example.com/image.png\")\nimageView.kf.setImage(with: url)\n```\n\nKingfisher will download the image from `url`, send it to both memory cache and disk cache, and display it in `imageView`. \nWhen you set it with the same URL later, the image will be retrieved from the cache and shown immediately.\n\nIt also works if you use SwiftUI:\n\n```swift\nvar body: some View {\n    KFImage(URL(string: \"https://example.com/image.png\")!)\n}\n```\n\n### A More Advanced Example\n\nWith the powerful options, you can do hard tasks with Kingfisher in a simple way. For example, the code below: \n\n1. Downloads a high-resolution image.\n2. Downsamples it to match the image view size.\n3. Makes it round cornered with a given radius.\n4. Shows a system indicator and a placeholder image while downloading.\n5. When prepared, it animates the small thumbnail image with a \"fade in\" effect. \n6. The original large image is also cached to disk for later use, to get rid of downloading it again in a detail view.\n7. A console log is printed when the task finishes, either for success or failure.\n\n```swift\nlet url = URL(string: \"https://example.com/high_resolution_image.png\")\nlet processor = DownsamplingImageProcessor(size: imageView.bounds.size)\n             |> RoundCornerImageProcessor(cornerRadius: 20)\nimageView.kf.indicatorType = .activity\nimageView.kf.setImage(\n    with: url,\n    placeholder: UIImage(named: \"placeholderImage\"),\n    options: [\n        .processor(processor),\n        .scaleFactor(UIScreen.main.scale),\n        .transition(.fade(1)),\n        .cacheOriginalImage\n    ])\n{\n    result in\n    switch result {\n    case .success(let value):\n        print(\"Task done for: \\(value.source.url?.absoluteString ?? \"\")\")\n    case .failure(let error):\n        print(\"Job failed: \\(error.localizedDescription)\")\n    }\n}\n```\n\nIt is a common situation I can meet in my daily work. Think about how many lines you need to write without\nKingfisher!\n\n### Method Chaining\n\nIf you are not a fan of the `kf` extension, you can also prefer to use the `KF` builder and chained the method \ninvocations. The code below is doing the same thing:\n\n```swift\n// Use `kf` extension\nimageView.kf.setImage(\n    with: url,\n    placeholder: placeholderImage,\n    options: [\n        .processor(processor),\n        .loadDiskFileSynchronously,\n        .cacheOriginalImage,\n        .transition(.fade(0.25)),\n        .lowDataMode(.network(lowResolutionURL))\n    ],\n    progressBlock: { receivedSize, totalSize in\n        // Progress updated\n    },\n    completionHandler: { result in\n        // Done\n    }\n)\n\n// Use `KF` builder\nKF.url(url)\n  .placeholder(placeholderImage)\n  .setProcessor(processor)\n  .loadDiskFileSynchronously()\n  .cacheMemoryOnly()\n  .fade(duration: 0.25)\n  .lowDataModeSource(.network(lowResolutionURL))\n  .onProgress { receivedSize, totalSize in  }\n  .onSuccess { result in  }\n  .onFailure { error in }\n  .set(to: imageView)\n```\n\nAnd even better, if later you want to switch to SwiftUI, just change the `KF` above to `KFImage`, and you've done:\n\n```swift\nstruct ContentView: View {\n    var body: some View {\n        KFImage.url(url)\n          .placeholder(placeholderImage)\n          .setProcessor(processor)\n          .loadDiskFileSynchronously()\n          .cacheMemoryOnly()\n          .fade(duration: 0.25)\n          .lowDataModeSource(.network(lowResolutionURL))\n          .onProgress { receivedSize, totalSize in  }\n          .onSuccess { result in  }\n          .onFailure { error in }\n    }\n}\n```\n\n## Requirements\n\n### Kingfisher 8.0\n\n- (UIKit/AppKit) iOS 13.0+ / macOS 10.15+ / tvOS 13.0+ / watchOS 6.0+ / visionOS 1.0+\n- (SwiftUI) iOS 14.0+ / macOS 11.0+ / tvOS 14.0+ / watchOS 7.0+ / visionOS 1.0+\n- Swift 5.9+\n\n### Kingfisher 7.0\n\n- (UIKit/AppKit) iOS 12.0+ / macOS 10.14+ / tvOS 12.0+ / watchOS 5.0+ / visionOS 1.0+\n- (SwiftUI) iOS 14.0+ / macOS 11.0+ / tvOS 14.0+ / watchOS 7.0+ / visionOS 1.0+\n- Swift 5.0+\n\n### Installation\n\nRefer to one of the following tutorials to install and use the framework:\n\n- [UIKit Tutorial](https://swiftpackageindex.com/onevcat/kingfisher/master/tutorials/kingfisher/gettingstarteduikit)\n- [SwiftUI Tutorial](https://swiftpackageindex.com/onevcat/kingfisher/master/tutorials/kingfisher/gettingstartedswiftui)\n\nAlternatively, you can follow either of the methods below.\n\n#### Swift Package Manager\n\n- File > Swift Packages > Add Package Dependency\n- Add `https://github.com/onevcat/Kingfisher.git`\n- Select \"Up to Next Major\" with \"8.0.0\"\n\n#### CocoaPods\n\n```ruby\nsource 'https://github.com/CocoaPods/Specs.git'\nplatform :ios, '13.0'\nuse_frameworks!\n\ntarget 'MyApp' do\n  pod 'Kingfisher', '~> 8.0'\nend\n```\n\n#### Pre-built Framework\n\n1. Open the release page, download the latest version of Kingfisher from the assets section. \n2. Drag the `Kingfisher.xcframework` into your project and add it to the target (usually the app target).\n3. Select your target, in the \"General\" Tab, find the \"Frameworks, Libraries, and Embedded Content\" section, set the `Embed Without Signing` to Kingfisher.\n\n## Documentation\n\nCheck the documentation and tutorials:\n\n- [Documentation Home](https://swiftpackageindex.com/onevcat/kingfisher/master/documentation/kingfisher)\n- [Getting Started](https://swiftpackageindex.com/onevcat/kingfisher/master/documentation/kingfisher/gettingstarted)\n    - [UIKit Tutorial](https://swiftpackageindex.com/onevcat/kingfisher/master/tutorials/kingfisher/gettingstarteduikit)\n    - [SwiftUI Tutorial](https://swiftpackageindex.com/onevcat/kingfisher/master/tutorials/kingfisher/gettingstartedswiftui)\n- [Common Tasks - General](https://swiftpackageindex.com/onevcat/kingfisher/master/documentation/kingfisher/commontasks)\n    - [Common Tasks - Cache](https://swiftpackageindex.com/onevcat/kingfisher/master/documentation/kingfisher/commontasks_cache)\n    - [Common Tasks - Downloader](https://swiftpackageindex.com/onevcat/kingfisher/master/documentation/kingfisher/commontasks_downloader)\n    - [Common tasks - Processor](https://swiftpackageindex.com/onevcat/kingfisher/master/documentation/kingfisher/commontasks_processor)\n\n### Migrating\n\n- [Kingfisher 8.0 Migration](https://swiftpackageindex.com/onevcat/kingfisher/master/documentation/kingfisher/migration-to-8)\n- [Kingfisher 7.0 Migration](https://github.com/onevcat/Kingfisher/wiki/Kingfisher-7.0-Migration-Guide)\n\nIf you are using an even earlier version, see the guides below to know the steps for migrating.\n\n## Other\n\n### Future of Kingfisher\n\nI want to keep Kingfisher lightweight. This framework focuses on providing a simple solution for downloading and caching images. This doesn\u2019t mean the framework can\u2019t be improved. Kingfisher is far from perfect, so necessary and useful updates will be made to make it better.\n\n### Developments and Tests\n\nAny contributing and pull requests are warmly welcome. However, before you plan to implement some features or try to fix an uncertain issue, it is recommended to open a discussion first. It would be appreciated if your pull requests could build with all tests green. :)\n\n### About the logo\n\nThe logo of Kingfisher is inspired by [Tangram (\u4e03\u5de7\u677f)](http://en.wikipedia.org/wiki/Tangram), a dissection puzzle consisting of seven flat shapes from China. I believe she's a kingfisher bird instead of a swift, but someone insists that she is a pigeon. I guess I should give her a name. Hi, guys, do you have any suggestions?\n\n### Contact\n\nFollow and contact me on [Twitter](http://twitter.com/onevcat) or [Sina Weibo](http://weibo.com/onevcat). If you find an issue, [open a ticket](https://github.com/onevcat/Kingfisher/issues/new). Pull requests are warmly welcome as well.\n\n## Backers & Sponsors\n\nOpen-source projects cannot live long without your help. If you find Kingfisher to be useful, please consider supporting this \nproject by becoming a sponsor. Your user icon or company logo shows up [on my blog](https://onevcat.com/tabs/about/) with a link to your home page. \n\nBecome a sponsor through [GitHub Sponsors](https://github.com/sponsors/onevcat). :heart:\n\nSpecial thanks to:\n\n[![imgly](https://user-images.githubusercontent.com/1812216/106253726-271ed000-6218-11eb-98e0-c9c681925770.png)](https://img.ly/)\n\n[![emergetools](https://github-production-user-asset-6210df.s3.amazonaws.com/1019875/254794187-d44f6f50-993f-42e3-b79c-960f69c4adc1.png)](https://www.emergetools.com)\n\n\n\n### License\n\nKingfisher is released under the MIT license. See LICENSE for details.\n",
+        "releases": [
+            {
+                "name": "8.1.3 - Failing Size",
+                "date": "2024-12-17T13:09:25Z"
+            },
+            {
+                "name": "8.1.2 - Data Racing",
+                "date": "2024-12-06T15:29:51Z"
+            },
+            {
+                "name": "8.1.1 - Clean Completion",
+                "date": "2024-11-19T15:55:50Z"
+            },
+            {
+                "name": "8.1.0 - Live Photo",
+                "date": "2024-10-13T14:56:42Z"
+            },
+            {
+                "name": "8.0.3 - Animated Image Hitting",
+                "date": "2024-09-21T14:56:44Z"
+            },
+            {
+                "name": "8.0.2 - Blur Scale",
+                "date": "2024-09-20T16:29:23Z"
+            },
+            {
+                "name": "8.0.1 - Old Friends Matter",
+                "date": "2024-09-18T14:07:30Z"
+            },
+            {
+                "name": "8.0.0 - Version 8",
+                "date": "2024-09-17T14:54:48Z"
+            },
+            {
+                "name": "8.0.0-beta.1",
+                "date": "2024-09-08T02:17:42Z"
+            },
+            {
+                "name": "8.0.0-alpha.3",
+                "date": "2024-07-10T15:36:29Z"
+            },
+            {
+                "name": "8.0.0-alpha.2",
+                "date": "2024-06-26T12:37:43Z"
+            },
+            {
+                "name": "8.0.0-alpha.1",
+                "date": "2024-06-13T14:42:28Z"
+            },
+            {
+                "name": "7.12.0 - Lucky Seven",
+                "date": "2024-06-10T13:31:04Z"
+            },
+            {
+                "name": "7.11.0 - visionOS for CocoaPods",
+                "date": "2024-02-12T13:51:11Z"
+            },
+            {
+                "name": "7.10.2 - GIF crash fix",
+                "date": "2024-01-11T14:05:44Z"
+            },
+            {
+                "name": "7.10.1 - Compilation & Infinity",
+                "date": "2023-12-09T12:51:33Z"
+            },
+            {
+                "name": "7.10.0 - Privacy Manifest",
+                "date": "2023-10-29T14:07:15Z"
+            },
+            {
+                "name": "7.9.1 - Lastest Xcode 15 beta",
+                "date": "2023-08-26T04:51:16Z"
+            },
+            {
+                "name": "7.9.0 - visionOS & Xcode 15",
+                "date": "2023-07-29T01:33:12Z"
+            },
+            {
+                "name": "7.8.1 - Animated <3 Processor",
+                "date": "2023-06-19T13:56:52Z"
+            },
+            {
+                "name": "7.8.0 - ImageSource Protocol",
+                "date": "2023-06-13T13:12:50Z"
+            },
+            {
+                "name": "7.7.0 - The Last Chance",
+                "date": "2023-05-20T03:16:56Z"
+            },
+            {
+                "name": "7.6.2 - Fix Dead Loop",
+                "date": "2023-02-23T00:57:57Z"
+            },
+            {
+                "name": "7.6.1 - Strict for Compiling",
+                "date": "2023-02-13T11:23:38Z"
+            },
+            {
+                "name": "7.6.0 - Content Configuration",
+                "date": "2023-02-05T06:16:24Z"
+            },
+            {
+                "name": "7.5.0 - Aggressive New Year",
+                "date": "2023-01-08T06:57:24Z"
+            },
+            {
+                "name": "7.4.1 - Maple Days",
+                "date": "2022-10-25T15:51:50Z"
+            },
+            {
+                "name": "7.4.0 - Summer Ends",
+                "date": "2022-10-04T15:53:26Z"
+            },
+            {
+                "name": "7.3.2 - Align Layout",
+                "date": "2022-08-10T14:09:41Z"
+            },
+            {
+                "name": "7.3.1 - Empty Not Void",
+                "date": "2022-07-31T03:08:54Z"
+            },
+            {
+                "name": "7.3.0 - Progressive Progress",
+                "date": "2022-07-05T15:36:41Z"
+            },
+            {
+                "name": "7.2.4 - Removing DocC plugin",
+                "date": "2022-06-15T02:06:53Z"
+            },
+            {
+                "name": "7.2.3 - Track Transform",
+                "date": "2022-06-09T14:33:36Z"
+            },
+            {
+                "name": "7.2.2 - Rainy Season",
+                "date": "2022-05-08T12:41:22Z"
+            },
+            {
+                "name": "7.2.1 - Spring Earth",
+                "date": "2022-04-10T15:29:02Z"
+            },
+            {
+                "name": "7.2.0 - End of the tunnel",
+                "date": "2022-02-26T15:46:48Z"
+            },
+            {
+                "name": "7.1.2 - Cold Days",
+                "date": "2021-12-07T04:53:25Z"
+            },
+            {
+                "name": "7.1.1 - Double Ninth",
+                "date": "2021-10-15T16:10:56Z"
+            },
+            {
+                "name": "7.1.0 - Autumn Patch",
+                "date": "2021-10-11T16:09:07Z"
+            },
+            {
+                "name": "7.0.0 - Version 7",
+                "date": "2021-09-21T12:56:18Z"
+            },
+            {
+                "name": "7.0.0-beta.4 - Version 7",
+                "date": "2021-09-15T15:29:24Z"
+            },
+            {
+                "name": "7.0.0-beta.3 - Version 7",
+                "date": "2021-08-29T08:57:26Z"
+            },
+            {
+                "name": "6.3.1 - Published Wrapper",
+                "date": "2021-08-03T01:06:33Z"
+            },
+            {
+                "name": "7.0.0-beta.2 - Version 7",
+                "date": "2021-08-02T13:27:51Z"
+            },
+            {
+                "name": "7.0.0-beta.1 - Version 7",
+                "date": "2021-07-26T15:13:31Z"
+            },
+            {
+                "name": "6.3.0 - Open To Better",
+                "date": "2021-04-21T12:43:36Z"
+            },
+            {
+                "name": "6.2.1 - Spring Release Fix",
+                "date": "2021-03-09T03:06:51Z"
+            },
+            {
+                "name": "6.2.0 - Spring Release",
+                "date": "2021-03-08T12:28:36Z"
+            },
+            {
+                "name": "6.1.1 - SwiftUI Issues",
+                "date": "2021-02-16T15:20:34Z"
+            },
+            {
+                "name": "6.1.0 - SwiftUI Rework",
+                "date": "2021-02-01T12:44:28Z"
+            },
+            {
+                "name": "6.0.1 - Bind & Hug",
+                "date": "2021-01-05T13:08:52Z"
+            },
+            {
+                "name": "6.0.0 - New Year 2021",
+                "date": "2021-01-03T06:37:45Z"
+            },
+            {
+                "name": "5.15.8 - KFImage handler",
+                "date": "2020-11-27T14:38:43Z"
+            },
+            {
+                "name": "5.15.7 - Cancel Lock",
+                "date": "2020-10-29T12:45:17Z"
+            },
+            {
+                "name": "5.15.6 - ImageBinder Callback",
+                "date": "2020-10-11T02:30:57Z"
+            },
+            {
+                "name": "5.15.5 - Cancelling Fix",
+                "date": "2020-09-29T13:31:58Z"
+            },
+            {
+                "name": "5.15.4 - Farewell Objective-C (CocoaPods)",
+                "date": "2020-09-24T01:18:56Z"
+            },
+            {
+                "name": "5.15.3 - Farewell Objective-C",
+                "date": "2020-09-20T16:21:27Z"
+            },
+            {
+                "name": "5.15.2 - Xcode 11 Revived",
+                "date": "2020-09-19T09:06:03Z"
+            },
+            {
+                "name": "5.15.1 - SwiftUI Layout",
+                "date": "2020-09-16T14:54:29Z"
+            },
+            {
+                "name": "5.15.0 - Video and Text Attachment",
+                "date": "2020-08-17T13:35:43Z"
+            },
+            {
+                "name": "5.14.1 - Summer Fix",
+                "date": "2020-07-05T17:22:50Z"
+            },
+            {
+                "name": "5.14.0 - Retry Strategy",
+                "date": "2020-05-12T15:11:16Z"
+            },
+            {
+                "name": "5.13.4 - Build Configurations",
+                "date": "2020-04-11T01:28:53Z"
+            },
+            {
+                "name": "5.13.3 - Dynamic SPM",
+                "date": "2020-04-01T02:57:21Z"
+            },
+            {
+                "name": "5.13.2 - KFImage Orientation",
+                "date": "2020-02-27T15:51:00Z"
+            },
+            {
+                "name": "5.13.1 - Internal Warning",
+                "date": "2020-02-17T13:13:01Z"
+            },
+            {
+                "name": "5.13.0 - New Year 2020",
+                "date": "2020-01-17T14:28:52Z"
+            },
+            {
+                "name": "5.12.0 - White Overflow",
+                "date": "2019-12-13T14:32:29Z"
+            },
+            {
+                "name": "5.11.0 - macCatalyst",
+                "date": "2019-11-30T02:23:31Z"
+            },
+            {
+                "name": "5.10.1 - Repeat Count",
+                "date": "2019-11-19T15:20:20Z"
+            },
+            {
+                "name": "5.10.0 - Rex Rabbit",
+                "date": "2019-11-16T15:49:22Z"
+            },
+            {
+                "name": "5.9.0 - Combination",
+                "date": "2019-10-24T11:34:41Z"
+            },
+            {
+                "name": "5.8.3 - Carthage Cache",
+                "date": "2019-10-09T12:28:12Z"
+            },
+            {
+                "name": "5.8.2 - Game of Thrones",
+                "date": "2019-10-04T13:42:37Z"
+            },
+            {
+                "name": "5.8.1 - Borderless",
+                "date": "2019-09-26T15:45:03Z"
+            },
+            {
+                "name": "5.8.0 - Xcode 11 & SwiftUI",
+                "date": "2019-09-25T14:20:55Z"
+            },
+            {
+                "name": "5.7.1 - Thread Things",
+                "date": "2019-08-11T02:05:53Z"
+            },
+            {
+                "name": "5.7.0 - Summer Bird",
+                "date": "2019-07-03T13:47:15Z"
+            },
+            {
+                "name": "5.6.0 - The Sands of Time",
+                "date": "2019-06-10T15:27:10Z"
+            },
+            {
+                "name": "5.5.0 - Progressive JPEG",
+                "date": "2019-05-16T15:10:51Z"
+            },
+            {
+                "name": "5.4.0 - Accio Support",
+                "date": "2019-04-24T13:56:28Z"
+            },
+            {
+                "name": "5.3.1 - Prefetching Thread",
+                "date": "2019-03-28T14:34:03Z"
+            },
+            {
+                "name": "5.3.0 - Prefetching Sources",
+                "date": "2019-03-24T13:33:45Z"
+            },
+            {
+                "name": "5.2.0 - Swift 5.0",
+                "date": "2019-02-27T13:13:44Z"
+            },
+            {
+                "name": "5.1.1 - Racing",
+                "date": "2019-02-11T13:49:34Z"
+            },
+            {
+                "name": "5.1.0 - Redirecting & Racing",
+                "date": "2019-01-12T11:12:49Z"
+            },
+            {
+                "name": "5.0.1 - Interweave",
+                "date": "2018-12-17T14:50:04Z"
+            },
+            {
+                "name": "5.0.0 - Reborn",
+                "date": "2018-12-08T11:14:32Z"
+            },
+            {
+                "name": "4.10.1 - Time Machine",
+                "date": "2018-11-03T14:46:40Z"
+            },
+            {
+                "name": "4.10.0 - Swift 4.2",
+                "date": "2018-09-19T15:36:56Z"
+            },
+            {
+                "name": "4.9.0 - Patience is a Virtue",
+                "date": "2018-09-03T15:37:02Z"
+            },
+            {
+                "name": "4.8.1 - Prefetch Improvement",
+                "date": "2018-07-25T16:43:47Z"
+            },
+            {
+                "name": "4.8.0 - Watch & Watching",
+                "date": "2018-05-15T02:17:06Z"
+            },
+            {
+                "name": "4.7.0 - Cancel All",
+                "date": "2018-04-05T15:50:42Z"
+            },
+            {
+                "name": "4.6.4 - Customize Activity Indicator",
+                "date": "2018-03-20T12:17:41Z"
+            },
+            {
+                "name": "4.6.3 - Clean Demo",
+                "date": "2018-03-01T13:56:52Z"
+            },
+            {
+                "name": "4.6.2 - GIF frames",
+                "date": "2018-02-14T13:06:38Z"
+            },
+            {
+                "name": "4.6.1 - MD5",
+                "date": "2017-12-28T07:04:09Z"
+            },
+            {
+                "name": "4.6.0 - AniBird",
+                "date": "2017-12-27T11:49:44Z"
+            },
+            {
+                "name": "4.5.0 - Blending",
+                "date": "2017-12-05T02:14:18Z"
+            },
+            {
+                "name": "4.4.0 - Image Modifier",
+                "date": "2017-12-01T12:44:49Z"
+            },
+            {
+                "name": "4.3.1 - Cache Regression",
+                "date": "2017-11-21T01:58:17Z"
+            },
+            {
+                "name": "4.3.0 - Memory Or Refresh",
+                "date": "2017-11-17T14:31:23Z"
+            },
+            {
+                "name": "4.2.0 - A Tale of Two Caches",
+                "date": "2017-10-21T15:36:39Z"
+            },
+            {
+                "name": "4.1.1 - Love Barrier Again",
+                "date": "2017-10-17T01:38:18Z"
+            },
+            {
+                "name": "4.1.0 - Data in Hand",
+                "date": "2017-09-28T03:40:47Z"
+            },
+            {
+                "name": "4.0.1 - Swift 4",
+                "date": "2017-09-15T03:41:13Z"
+            },
+            {
+                "name": "4.0.0 - Swift 4",
+                "date": "2017-09-14T13:25:21Z"
+            },
+            {
+                "name": "3.13.1 - Evil Setting",
+                "date": "2017-09-14T11:07:54Z"
+            },
+            {
+                "name": "3.13.0 - Rum Bird",
+                "date": "2017-09-12T11:27:23Z"
+            },
+            {
+                "name": "3.12.2 - Scaling Background Decoding",
+                "date": "2017-09-02T04:38:40Z"
+            },
+            {
+                "name": "3.12.1 - Placeholder",
+                "date": "2017-08-30T11:47:08Z"
+            },
+            {
+                "name": "3.12.0 - Placeholder",
+                "date": "2017-08-30T11:24:11Z"
+            },
+            {
+                "name": "3.11.0 - Task Auth",
+                "date": "2017-08-16T13:59:20Z"
+            },
+            {
+                "name": "3.10.4 - Indicator Size",
+                "date": "2017-07-26T13:15:30Z"
+            },
+            {
+                "name": "3.10.3 - ProMotion",
+                "date": "2017-07-06T01:47:54Z"
+            },
+            {
+                "name": "3.10.2 - Missing Boys",
+                "date": "2017-06-16T12:48:11Z"
+            },
+            {
+                "name": "3.10.1 - Order, order!",
+                "date": "2017-06-04T12:20:50Z"
+            },
+            {
+                "name": "3.10.0 - Hot Bird",
+                "date": "2017-06-03T04:53:55Z"
+            },
+            {
+                "name": "3.9.1 - Compatibility",
+                "date": "2017-05-12T22:45:10Z"
+            },
+            {
+                "name": "3.9.0 - Follow the Rules",
+                "date": "2017-05-11T11:48:27Z"
+            },
+            {
+                "name": "3.8.0 - Prowess",
+                "date": "2017-05-10T07:49:14Z"
+            },
+            {
+                "name": "3.7.2 - Never Do Things by Halves",
+                "date": "2017-05-09T02:49:26Z"
+            },
+            {
+                "name": "3.7.1 - GIF is Animated",
+                "date": "2017-05-08T06:03:40Z"
+            },
+            {
+                "name": "3.7.0 - Summer Bird",
+                "date": "2017-05-04T00:55:30Z"
+            },
+            {
+                "name": "3.6.2 - Naughty CGImage",
+                "date": "2017-04-11T02:45:04Z"
+            },
+            {
+                "name": "3.6.1 - Some Optimization",
+                "date": "2017-04-01T08:55:52Z"
+            },
+            {
+                "name": "3.6.0 - Cropping",
+                "date": "2017-03-26T14:46:19Z"
+            },
+            {
+                "name": "3.5.2 - Bad Apple",
+                "date": "2017-03-09T13:58:17Z"
+            },
+            {
+                "name": "3.5.1 - Fast is better than slow",
+                "date": "2017-03-01T14:49:12Z"
+            },
+            {
+                "name": "3.5.0 - New age, new content",
+                "date": "2017-02-21T15:00:02Z"
+            },
+            {
+                "name": "3.4.0 - Spring is here",
+                "date": "2017-02-11T11:32:14Z"
+            },
+            {
+                "name": "3.3.4 - Cancellation means a new start!",
+                "date": "2017-02-04T07:22:41Z"
+            },
+            {
+                "name": "3.3.3 - Xcode 8.0 is not dead yet",
+                "date": "2017-01-30T02:57:37Z"
+            },
+            {
+                "name": "3.3.2 - Upside Down",
+                "date": "2017-01-23T08:19:21Z"
+            },
+            {
+                "name": "3.3.1 - Lunar Eve",
+                "date": "2017-01-21T13:21:17Z"
+            },
+            {
+                "name": "3.3.0 - Lunar Eve",
+                "date": "2017-01-21T12:11:18Z"
+            },
+            {
+                "name": "3.2.4 - Love SPM again",
+                "date": "2016-12-22T03:13:49Z"
+            },
+            {
+                "name": "3.2.3 - LI ZHENG",
+                "date": "2016-12-20T02:18:13Z"
+            },
+            {
+                "name": "3.2.2 - Faster GIF",
+                "date": "2016-12-02T01:24:25Z"
+            },
+            {
+                "name": "3.2.1 - Helper Helps",
+                "date": "2016-11-14T02:31:27Z"
+            },
+            {
+                "name": "3.2.0 - Quiet",
+                "date": "2016-11-07T03:59:40Z"
+            },
+            {
+                "name": "3.1.4 - CIImageProcessor with Data",
+                "date": "2016-10-19T01:50:55Z"
+            },
+            {
+                "name": "2.6.1 - Linking Fix",
+                "date": "2016-10-14T03:31:30Z"
+            },
+            {
+                "name": "3.1.3 - Collocalia",
+                "date": "2016-10-06T02:26:14Z"
+            },
+            {
+                "name": "3.1.1 - Kingfisher likes more",
+                "date": "2016-09-28T05:04:56Z"
+            },
+            {
+                "name": "3.1.0 - Namespace",
+                "date": "2016-09-21T03:46:10Z"
+            },
+            {
+                "name": "3.0.1 - New Age - Swift 3",
+                "date": "2016-09-14T03:56:28Z"
+            },
+            {
+                "name": "3.0.0 - New Age - Swift 3",
+                "date": "2016-09-14T03:31:47Z"
+            },
+            {
+                "name": "Swift 3 support beta 2",
+                "date": "2016-09-13T09:01:40Z"
+            },
+            {
+                "name": "2.6.0 - Indicator Customization",
+                "date": "2016-09-12T09:32:08Z"
+            },
+            {
+                "name": "Swift 3 support beta",
+                "date": "2016-09-07T03:43:37Z"
+            },
+            {
+                "name": "2.5.1 - Prefetcher Trap",
+                "date": "2016-09-06T03:10:21Z"
+            },
+            {
+                "name": "2.5.0 - Swift 2.3",
+                "date": "2016-08-29T02:14:05Z"
+            },
+            {
+                "name": "2.4.3 - Longer Cache",
+                "date": "2016-08-17T13:44:09Z"
+            },
+            {
+                "name": "2.4.2 - Optional Welcome",
+                "date": "2016-07-10T11:18:00Z"
+            },
+            {
+                "name": "2.4.1 - Force Transition",
+                "date": "2016-05-10T05:07:26Z"
+            },
+            {
+                "name": "2.4.0 - Animate Me",
+                "date": "2016-05-04T14:21:46Z"
+            },
+            {
+                "name": "2.3.1 - Pod Me up",
+                "date": "2016-04-22T01:35:08Z"
+            },
+            {
+                "name": "2.3.0 - Warmly Welcome",
+                "date": "2016-04-21T14:31:19Z"
+            },
+            {
+                "name": "2.2.2 - Spring Bird II",
+                "date": "2016-04-06T14:25:30Z"
+            },
+            {
+                "name": "2.2.1 - Spring Bird",
+                "date": "2016-04-06T13:41:47Z"
+            },
+            {
+                "name": "2.2.0 - Open Source Swift",
+                "date": "2016-03-24T02:43:11Z"
+            },
+            {
+                "name": "2.1.0 - Prefetching",
+                "date": "2016-03-10T14:26:37Z"
+            },
+            {
+                "name": "2.0.4 - Sorry Pipelining",
+                "date": "2016-02-27T13:06:20Z"
+            },
+            {
+                "name": "2.0.3 - Holiday Issues",
+                "date": "2016-02-17T14:10:21Z"
+            },
+            {
+                "name": "2.0.2 - Single Frame GIF",
+                "date": "2016-02-14T13:18:30Z"
+            },
+            {
+                "name": "2.0.1 - Disk is back",
+                "date": "2016-01-28T07:49:43Z"
+            },
+            {
+                "name": "2.0.0 - Kingfisher 2",
+                "date": "2016-01-23T14:59:55Z"
+            },
+            {
+                "name": "1.9.3",
+                "date": "2016-01-22T09:08:00Z"
+            },
+            {
+                "name": "1.9.2 - IOIOIO",
+                "date": "2016-01-14T13:46:10Z"
+            },
+            {
+                "name": "1.9.1 - You happy, I happy",
+                "date": "2016-01-05T01:39:16Z"
+            },
+            {
+                "name": "1.9.0 - What a Task",
+                "date": "2015-12-30T15:40:11Z"
+            },
+            {
+                "name": "1.8.5 - Single Dog",
+                "date": "2015-12-16T03:04:46Z"
+            },
+            {
+                "name": "1.8.4 - GIF is GIF",
+                "date": "2015-12-12T09:48:56Z"
+            },
+            {
+                "name": "1.8.3 - Internal beauty",
+                "date": "2015-12-12T09:47:39Z"
+            },
+            {
+                "name": "1.8.2 - Path matters",
+                "date": "2015-11-19T13:39:59Z"
+            },
+            {
+                "name": "1.8.1 - Transition needs rest",
+                "date": "2015-11-13T14:53:39Z"
+            },
+            {
+                "name": "1.8.0 - Bigger is Better",
+                "date": "2015-11-07T11:47:23Z"
+            },
+            {
+                "name": "1.7.1 - EXIF is JPEG!",
+                "date": "2015-10-27T14:56:50Z"
+            },
+            {
+                "name": "1.7.0 - Kingfisher with animation",
+                "date": "2015-10-25T06:33:01Z"
+            },
+            {
+                "name": "1.6.1 - No More Blinking",
+                "date": "2015-10-09T12:59:58Z"
+            },
+            {
+                "name": "1.6.0 - Transition",
+                "date": "2015-09-19T14:45:33Z"
+            },
+            {
+                "name": "1.5.0 - Swift 2.0",
+                "date": "2015-09-10T03:46:14Z"
+            },
+            {
+                "name": "1.4.5 - Key decoupling",
+                "date": "2015-08-14T09:06:01Z"
+            },
+            {
+                "name": "1.4.4 - Bug fix release",
+                "date": "2015-08-14T02:11:40Z"
+            },
+            {
+                "name": "1.4.2 - Scaling",
+                "date": "2015-07-09T05:58:07Z"
+            },
+            {
+                "name": "1.4.0 - Hello, Apple Watch",
+                "date": "2015-05-11T02:11:39Z"
+            },
+            {
+                "name": "1.3.0 - 304? What is 304?",
+                "date": "2015-05-01T07:39:08Z"
+            },
+            {
+                "name": "1.2.0 - More, I need more!",
+                "date": "2015-04-28T07:33:56Z"
+            },
+            {
+                "name": "1.1.3 - Internal is Important",
+                "date": "2015-04-28T07:28:24Z"
+            },
+            {
+                "name": "1.1.2 - Who cares disk size",
+                "date": "2015-04-28T07:26:27Z"
+            },
+            {
+                "name": "1.1.0 - Not only image",
+                "date": "2015-04-28T07:21:48Z"
+            },
+            {
+                "name": "1.0.0 - Kingfisher, take off",
+                "date": "2015-04-28T07:17:44Z"
+            }
+        ]
+    }
+}

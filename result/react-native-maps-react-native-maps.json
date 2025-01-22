@@ -1,0 +1,901 @@
+{
+    "https://api.github.com/repos/react-native-maps/react-native-maps": {
+        "forks": 4863,
+        "watchers": 15259,
+        "stars": 15259,
+        "languages": {
+            "Objective-C": 354992,
+            "TypeScript": 323614,
+            "Java": 227331,
+            "JavaScript": 7735,
+            "Ruby": 3203,
+            "Kotlin": 2621,
+            "Objective-C++": 936,
+            "Starlark": 602,
+            "Shell": 163
+        },
+        "commits": [
+            "2025-01-05T17:53:46Z",
+            "2024-12-03T08:24:20Z",
+            "2024-12-02T22:24:44Z",
+            "2024-11-22T16:25:30Z",
+            "2024-11-22T16:24:02Z",
+            "2024-11-18T12:07:05Z",
+            "2024-11-10T13:08:11Z",
+            "2024-11-10T13:07:21Z",
+            "2024-11-10T12:08:06Z",
+            "2024-11-10T12:07:18Z",
+            "2024-11-09T20:14:23Z",
+            "2024-11-09T19:35:39Z",
+            "2024-11-09T19:34:55Z",
+            "2024-11-09T18:54:07Z",
+            "2024-11-09T18:34:43Z",
+            "2024-11-09T18:34:01Z",
+            "2024-11-09T17:38:19Z",
+            "2024-11-09T17:37:31Z",
+            "2024-10-15T12:37:11Z",
+            "2024-10-14T20:01:28Z",
+            "2024-10-14T20:00:50Z",
+            "2024-10-14T19:33:06Z",
+            "2024-10-14T17:42:15Z",
+            "2024-10-13T06:54:56Z",
+            "2024-10-12T17:54:31Z",
+            "2024-10-12T17:53:44Z",
+            "2024-08-18T09:44:54Z",
+            "2024-08-18T09:44:08Z",
+            "2024-07-27T14:54:06Z",
+            "2024-07-27T14:53:27Z"
+        ],
+        "creation_date": "2015-12-29T19:54:20Z",
+        "contributors": 30,
+        "topics": [
+            "google-maps",
+            "maps",
+            "react-native"
+        ],
+        "subscribers": 219,
+        "readme": "# react-native-maps [![npm version](https://img.shields.io/npm/v/react-native-maps.svg?style=flat)](https://www.npmjs.com/package/react-native-maps)\n\nReact Native Map components for iOS + Android\n\n## Contributing\n\nThis project is being maintained by a small group of people, and any help with issues and pull requests are always appreciated. If you are able and willing to contribute, please read the [guidelines](./CONTRIBUTING.md).\n\n## Installation\n\nSee [Installation Instructions](docs/installation.md).\n\nSee [Setup Instructions for the Included Example Project](docs/examples-setup.md).\n\n## Compatibility\n\n## React Native Compatibility\n\n### Important Notes:\n\n- **Fabric is not yet supported**:  \n  This feature is currently under development. Fabric is enabled by default in React Native `0.76` and above, so **please disable it** for now.  \n  Follow updates on this issue here: [react-native-maps/issues/5206](https://github.com/react-native-maps/react-native-maps/issues/5206).  \n  Kindly refrain from opening duplicate tickets regarding this matter.\n\n### Version Requirements:\n\n- **Version `1.14.0` and above**: Requires **React Native `>= 0.74`**.\n- **Versions below `1.14.0`**: Require **React Native `>= 0.64.3`**.\n\n## Component API\n\n[`<MapView />` Component API](docs/mapview.md)\n\n[`<Marker />` Component API](docs/marker.md)\n\n[`<Callout />` Component API](docs/callout.md)\n\n[`<Polygon />` Component API](docs/polygon.md)\n\n[`<Polyline />` Component API](docs/polyline.md)\n\n[`<Circle />` Component API](docs/circle.md)\n\n[`<Overlay />` Component API](docs/overlay.md)\n\n[`<Heatmap />` Component API](docs/heatmap.md)\n\n[`<Geojson />` Component API](docs/geojson.md)\n\n## General Usage\n\n```js\nimport MapView from 'react-native-maps';\n```\n\nor\n\n```js\nvar MapView = require('react-native-maps');\n```\n\nThis MapView component is built so that features on the map (such as Markers, Polygons, etc.) are\nspecified as children of the MapView itself. This provides an intuitive and react-like API for\ndeclaratively controlling features on the map.\n\n### Rendering a Map with an initial region\n\n## MapView\n\n```jsx\n<MapView\n  initialRegion={{\n    latitude: 37.78825,\n    longitude: -122.4324,\n    latitudeDelta: 0.0922,\n    longitudeDelta: 0.0421,\n  }}\n/>\n```\n\n### Using a MapView while controlling the region as state\n\n```jsx\ngetInitialState() {\n  return {\n    region: {\n      latitude: 37.78825,\n      longitude: -122.4324,\n      latitudeDelta: 0.0922,\n      longitudeDelta: 0.0421,\n    },\n  };\n}\n\nonRegionChange(region) {\n  this.setState({ region });\n}\n\nrender() {\n  return (\n    <MapView\n      region={this.state.region}\n      onRegionChange={this.onRegionChange}\n    />\n  );\n}\n```\n\n### Rendering a list of markers on a map\n\n```jsx\nimport {Marker} from 'react-native-maps';\n\n<MapView region={this.state.region} onRegionChange={this.onRegionChange}>\n  {this.state.markers.map((marker, index) => (\n    <Marker\n      key={index}\n      coordinate={marker.latlng}\n      title={marker.title}\n      description={marker.description}\n    />\n  ))}\n</MapView>;\n```\n\n### Rendering a Marker with a custom image\n\n1. You need to generate an `png` image with various resolution (lets call them `custom_pin`) - for more information go to [Android](https://developer.android.com/studio/write/resource-manager#import), [iOS](https://developer.apple.com/documentation/xcode/adding-images-to-your-xcode-project)\n2. put all images in Android drawables and iOS assets dir\n3. Now you can use the following code:\n\n```jsx\n<Marker\n  coordinate={{latitude: latitude, longitude: longitude}}\n  image={{uri: 'custom_pin'}}\n/>\n```\n\nNote: You can also pass the image binary data like `image={require('custom_pin.png')}`, but this will not scale good with the different screen sizes.\n\n### Rendering a Marker with a custom view\n\nNote: This has performance implications, if you wish for a simpler solution go with a custom image (save your self the headache)\n\n```jsx\n<Marker coordinate={{latitude: latitude, longitude: longitude}}>\n  <MyCustomMarkerView {...marker} />\n</Marker>\n```\n\n### Rendering a custom Marker with a custom Callout\n\n```jsx\nimport {Callout} from 'react-native-maps';\n\n<Marker coordinate={marker.latlng}>\n  <MyCustomMarkerView {...marker} />\n  <Callout>\n    <MyCustomCalloutView {...marker} />\n  </Callout>\n</Marker>;\n```\n\n### Draggable Markers\n\n```jsx\n<MapView initialRegion={...}>\n  <Marker draggable\n    coordinate={this.state.x}\n    onDragEnd={(e) => this.setState({ x: e.nativeEvent.coordinate })}\n  />\n</MapView>\n```\n\n### Using a custom Tile Overlay\n\n#### Tile Overlay using tile server\n\n```jsx\nimport {UrlTile} from 'react-native-maps';\n\n<MapView region={this.state.region} onRegionChange={this.onRegionChange}>\n  <UrlTile\n    /**\n     * The url template of the tile server. The patterns {x} {y} {z} will be replaced at runtime\n     * For example, http://c.tile.openstreetmap.org/{z}/{x}/{y}.png\n     */\n    urlTemplate={this.state.urlTemplate}\n    /**\n     * The maximum zoom level for this tile overlay. Corresponds to the maximumZ setting in\n     * MKTileOverlay. iOS only.\n     */\n    maximumZ={19}\n    /**\n     * flipY allows tiles with inverted y coordinates (origin at bottom left of map)\n     * to be used. Its default value is false.\n     */\n    flipY={false}\n  />\n</MapView>;\n```\n\nFor Android: add the following line in your AndroidManifest.xml\n\n```xml\n<uses-permission android:name=\"android.permission.INTERNET\" />\n```\n\nFor IOS: configure [App Transport Security](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW33) in your app\n\n## React Native Configuration for Fabric / New Architecture\n\nThis library works with Fabric using the [New Renderer Interop Layer](https://github.com/reactwg/react-native-new-architecture/discussions/135)\n\nThere is a warning message that those steps are not necessary; but we couldn't get the example working without them so far.\n\n### Configuration Steps\n\n1. **Open your configuration file**: Locate the `react-native-config` file in your project directory.\n\n2. **Add the following configuration**: Include the `unstable_reactLegacyComponentNames` array for both Android and iOS platforms as shown below:\n\n```javascript\nmodule.exports = {\n  project: {\n    android: {\n      unstable_reactLegacyComponentNames: [\n        'AIRMap',\n        'AIRMapCallout',\n        'AIRMapCalloutSubview',\n        'AIRMapCircle',\n        'AIRMapHeatmap',\n        'AIRMapLocalTile',\n        'AIRMapMarker',\n        'AIRMapOverlay',\n        'AIRMapPolygon',\n        'AIRMapPolyline',\n        'AIRMapUrlTile',\n        'AIRMapWMSTile',\n      ],\n    },\n    ios: {\n      unstable_reactLegacyComponentNames: [\n        'AIRMap',\n        'AIRMapCallout',\n        'AIRMapCalloutSubview',\n        'AIRMapCircle',\n        'AIRMapHeatmap',\n        'AIRMapLocalTile',\n        'AIRMapMarker',\n        'AIRMapOverlay',\n        'AIRMapPolygon',\n        'AIRMapPolyline',\n        'AIRMapUrlTile',\n        'AIRMapWMSTile',\n      ],\n    },\n  },\n};\n```\n\ncheckout the example project to see it in action.\n\n#### Tile Overlay using local tiles\n\nTiles can be stored locally within device using xyz tiling scheme and displayed as tile overlay as well. This is usefull especially for offline map usage when tiles are available for selected map region within device storage.\n\n```jsx\nimport {LocalTile} from 'react-native-maps';\n\n<MapView region={this.state.region} onRegionChange={this.onRegionChange}>\n  <LocalTile\n    /**\n     * The path template of the locally stored tiles. The patterns {x} {y} {z} will be replaced at runtime\n     * For example, /storage/emulated/0/mytiles/{z}/{x}/{y}.png\n     */\n    pathTemplate={this.state.pathTemplate}\n    /**\n     * The size of provided local tiles (usually 256 or 512).\n     */\n    tileSize={256}\n  />\n</MapView>;\n```\n\nFor Android: LocalTile is still just overlay over original map tiles. It means that if device is online, underlying tiles will be still downloaded. If original tiles download/display is not desirable set mapType to 'none'. For example:\n\n```\n<MapView\n  mapType={Platform.OS == \"android\" ? \"none\" : \"standard\"}\n>\n```\n\nSee [OSM Wiki](https://wiki.openstreetmap.org/wiki/Category:Tile_downloading) for how to download tiles for offline usage.\n\n### Overlaying other components on the map\n\nPlace components that you wish to overlay `MapView` underneath the `MapView` closing tag. Absolutely position these elements.\n\n```jsx\nrender() {\n  return (\n    <MapView\n      region={this.state.region}\n    />\n    <OverlayComponent\n      style={{position: \"absolute\", bottom: 50}}\n    />\n  );\n}\n```\n\n### Customizing the map style (Google Maps Only)\n\nThe `<MapView provider=\"google\" googleMapId=\"yourStyledMapId\" />` Google Maps on iOS and Android supports styling via google cloud platform, the styled maps are published under a googleMapId, by simply setting the property googleMapId to the MapView you can use that styled map\nmore info here: [google map id](https://developers.google.com/maps/documentation/get-map-id)\n\n### MapView Events\n\nThe `<MapView />` component and its child components have several events that you can subscribe to.\nThis example displays some of them in a log as a demonstration.\n\n![](http://i.giphy.com/3o6UBpncYQASu2WTW8.gif) ![](http://i.giphy.com/xT77YdviLqtjaecRYA.gif)\n\n### Tracking Region / Location\n\n![](http://i.giphy.com/3o6UBoPSLlIKQ2dv7q.gif) ![](http://i.giphy.com/xT77XWjqECvdgjx9oA.gif)\n\n### Programmatically Changing Region\n\nOne can change the mapview's position using refs and component methods, or by passing in an updated\n`region` prop. The component methods will allow one to animate to a given position like the native\nAPI could.\n\n![](http://i.giphy.com/3o6UB7poyB6YJ0KPWU.gif) ![](http://i.giphy.com/xT77Yc4wK3pzZusEbm.gif)\n\n### Changing the style of the map\n\n![](http://i.imgur.com/a9WqCL6.png)\n\n### Arbitrary React Views as Markers\n\n![](http://i.giphy.com/3o6UBcsCLoLQtksJxe.gif) ![](http://i.giphy.com/3o6UB1qGEM9jYni3KM.gif)\n\n### Using the MapView with the Animated API\n\nThe `<MapView />` component can be made to work with the Animated API, having the entire `region` prop\nbe declared as an animated value. This allows one to animate the zoom and position of the MapView along\nwith other gestures, giving a nice feel.\n\nFurther, Marker views can use the animated API to enhance the effect.\n\n![](http://i.giphy.com/xT77XMw9IwS6QAv0nC.gif) ![](http://i.giphy.com/3o6UBdGQdM1GmVoIdq.gif)\n\nIssue: Since android needs to render its marker views as a bitmap, the animations APIs may not be\ncompatible with the Marker views. Not sure if this can be worked around yet or not.\n\nMarkers' coordinates can also be animated, as shown in this example:\n\n![](http://i.giphy.com/xTcnTelp1OwGPu1Wh2.gif) ![](http://i.giphy.com/xTcnT6WVpwlCiQnFW8.gif)\n\n### Polygon Creator\n\n![](http://i.giphy.com/3o6UAZWqQBkOzs8HE4.gif) ![](http://i.giphy.com/xT77XVBRErNZl3zyWQ.gif)\n\n### Other Overlays\n\nSo far, `<Circle />`, `<Polygon />`, and `<Polyline />` are available to pass in as children to the\n`<MapView />` component.\n\n![](http://i.giphy.com/xT77XZCH8JpEhzVcNG.gif) ![](http://i.giphy.com/xT77XZyA0aYeOX5jsA.gif)\n\n### Gradient Polylines (iOS MapKit only)\n\nGradient polylines can be created using the `strokeColors` prop of the `<Polyline>` component.\n\n![](https://i.imgur.com/P7UeqAm.png?1)\n\n### Default Markers\n\nDefault markers will be rendered unless a custom marker is specified. One can optionally adjust the\ncolor of the default marker by using the `pinColor` prop.\n\n![](http://i.giphy.com/xT77Y0pWKmUUnguHK0.gif) ![](http://i.giphy.com/3o6UBfk3I58VIwZjVe.gif)\n\n### Custom Callouts\n\nCallouts to markers can be completely arbitrary react views, similar to markers. As a result, they\ncan be interacted with like any other view.\n\nAdditionally, you can fall back to the standard behavior of just having a title/description through\nthe `<Marker />`'s `title` and `description` props.\n\nCustom callout views can be the entire tooltip bubble, or just the content inside of the system\ndefault bubble.\n\nTo handle press on specific subview of callout use `<CalloutSubview />` with `onPress`.\nSee `Callouts.js` example.\n\n![](http://i.giphy.com/xT77XNePGnMIIDpbnq.gif) ![](http://i.giphy.com/xT77YdU0HXryvoRqaQ.gif)\n\n### Image-based Markers\n\nMarkers can be customized by just using images, and specified using the `image` prop.\n\n![](http://i.imgur.com/mzrOjTR.png)\n\n### Draggable Markers\n\nMarkers are draggable, and emit continuous drag events to update other UI during drags.\n\n![](http://i.giphy.com/l2JImnZxdv1WbpQfC.gif) ![](http://i.giphy.com/l2JIhv4Jx6Ugx1EGI.gif)\n\n### Lite Mode ( Android )\n\nEnable lite mode on Android with `liteMode` prop. Ideal when having multiple maps in a View or ScrollView.\n\n![](http://i.giphy.com/qZ2lAf18s89na.gif)\n\n### On Poi Click (Google Maps Only)\n\nPoi are clickable, you can catch the event to get its information (usually to get the full detail from Google Place using the placeId).\n\n![](https://media.giphy.com/media/3480VsCKnHr31uCLU3/giphy.gif)\n\n### Animated Region\n\nThe MapView can accept an `AnimatedRegion` value as its `region` prop. This allows you to utilize the Animated API to control the map's center and zoom.\n\n```jsx\nimport MapView, { AnimatedRegion, Animated } from 'react-native-maps';\n\ngetInitialState() {\n  return {\n    region: new AnimatedRegion({\n      latitude: LATITUDE,\n      longitude: LONGITUDE,\n      latitudeDelta: LATITUDE_DELTA,\n      longitudeDelta: LONGITUDE_DELTA,\n    }),\n  };\n}\n\nonRegionChange(region) {\n  this.state.region.setValue(region);\n}\n\nrender() {\n  return (\n    <Animated\n      region={this.state.region}\n      onRegionChange={this.onRegionChange}\n    />\n  );\n}\n```\n\n### Animated Marker Position\n\nMarkers can also accept an `AnimatedRegion` value as a coordinate.\n\n```jsx\nimport MapView, { AnimatedRegion, MarkerAnimated } from 'react-native-maps';\n\ngetInitialState() {\n  return {\n    coordinate: new AnimatedRegion({\n      latitude: LATITUDE,\n      longitude: LONGITUDE,\n    }),\n  };\n}\n\ncomponentWillReceiveProps(nextProps) {\n  const duration = 500\n\n  if (this.props.coordinate !== nextProps.coordinate) {\n    if (Platform.OS === 'android') {\n      if (this.marker) {\n        this.marker.animateMarkerToCoordinate(\n          nextProps.coordinate,\n          duration\n        );\n      }\n    } else {\n      this.state.coordinate.timing({\n        ...nextProps.coordinate,\n        useNativeDriver: true, // defaults to false if not passed explicitly\n        duration\n      }).start();\n    }\n  }\n}\n\nrender() {\n  return (\n    <MapView initialRegion={...}>\n      <MarkerAnimated\n        ref={marker => { this.marker = marker }}\n        coordinate={this.state.coordinate}\n      />\n    </MapView>\n  );\n}\n```\n\n### Take Snapshot of map\n\n```jsx\nimport MapView, { Marker } from 'react-native-maps';\n\ngetInitialState() {\n  return {\n    coordinate: {\n      latitude: LATITUDE,\n      longitude: LONGITUDE,\n    },\n  };\n}\n\ntakeSnapshot () {\n  // 'takeSnapshot' takes a config object with the\n  // following options\n  const snapshot = this.map.takeSnapshot({\n    width: 300,      // optional, when omitted the view-width is used\n    height: 300,     // optional, when omitted the view-height is used\n    region: {..},    // iOS only, optional region to render\n    format: 'png',   // image formats: 'png', 'jpg' (default: 'png')\n    quality: 0.8,    // image quality: 0..1 (only relevant for jpg, default: 1)\n    result: 'file'   // result types: 'file', 'base64' (default: 'file')\n  });\n  snapshot.then((uri) => {\n    this.setState({ mapSnapshot: uri });\n  });\n}\n\nrender() {\n  return (\n    <View>\n      <MapView initialRegion={...} ref={map => { this.map = map }}>\n        <Marker coordinate={this.state.coordinate} />\n      </MapView>\n      <Image source={{ uri: this.state.mapSnapshot.uri }} />\n      <TouchableOpacity onPress={this.takeSnapshot}>\n        Take Snapshot\n      </TouchableOpacity>\n    </View>\n  );\n}\n```\n\n### Zoom to Specified Markers\n\nPass an array of marker identifiers to have the map re-focus.\n\n![](http://i.giphy.com/3o7qEbOQnO0yoXqKJ2.gif) ![](http://i.giphy.com/l41YdrQZ7m6Dz4h0c.gif)\n\n### Zoom to Specified Coordinates\n\nPass an array of coordinates to focus a map region on said coordinates.\n\n![](https://cloud.githubusercontent.com/assets/1627824/18609960/da5d9e06-7cdc-11e6-811e-34e255093df9.gif)\n\n### Troubleshooting\n\n#### My map is blank\n\n- Make sure that you have [properly installed](docs/installation.md) react-native-maps.\n- Check in the logs if there is more informations about the issue.\n- Try setting the style of the MapView to an absolute position with top, left, right and bottom values set.\n- Make sure you have enabled Google Maps API in [Google developer console](https://console.developers.google.com/apis/library)\n\n```javascript\nconst styles = StyleSheet.create({\n  map: {\n    ...StyleSheet.absoluteFillObject,\n  },\n});\n```\n\n```jsx\n<MapView\n  style={styles.map}\n  // other props\n/>\n```\n\n#### Inputs don't focus\n\n- When inputs don't focus or elements don't respond to tap, look at the order of the view hierarchy, sometimes the issue could be due to ordering of rendered components, prefer putting MapView as the first component.\n\nBad:\n\n```jsx\n<View>\n  <TextInput />\n  <MapView />\n</View>\n```\n\nGood:\n\n```jsx\n<View>\n  <MapView />\n  <TextInput />\n</View>\n```\n\n#### Children Components Not Re-Rendering\n\nComponents that aren't declared by this library (Ex: Markers, Polyline) must not be children of the MapView component due to MapView's unique rendering methodology. Have your custom components / views outside the MapView component and position absolute to ensure they only re-render as needed.\nExample:\nBad:\n\n```jsx\n<View style={StyleSheet.absoluteFillObject}>\n  <MapView style={StyleSheet.absoluteFillObject}>\n    <View style={{position: 'absolute', top: 100, left: 50}} />\n  </MapView>\n</View>\n```\n\nGood:\n\n```jsx\n<View style={StyleSheet.absoluteFillObject}>\n  <MapView style={StyleSheet.absoluteFillObject} />\n  <View style={{position: 'absolute', top: 100, left: 50}} />\n</View>\n```\n\nSource: https://github.com/react-native-maps/react-native-maps/issues/1901\n\n#### Crashing with EXC_BAD_ACCESS on iOS when switching apps\n\n`<MapView>` using Apple Maps in `mapType: \"standard\"` will sometimes crash when you background the app or switch into another app. This is only an issue in XCode using Metal API Validation, and won't happen in production. To eliminate this problem even while debugging in XCode, go to `Edit Scheme... -> Run (Debug) -> Diagnostics` and uncheck `Metal -> API Validation`. (h/t [@Simon-TechForm](https://github.com/Simon-TechForm)).\n\nSource: https://github.com/react-native-maps/react-native-maps/issues/3957#issuecomment-924161121\n\n#### onRegionChangeComplete() callback is called infinitely\n\nIf changing the state in `onRegionChangeComplete` is called infinitely, add a condition to limit these calls to occur only when the region change was done as a result of a user's action.\n\n```javascript\nonRegionChangeComplete={ (region, gesture) => {\n\t// This fix only works on Google Maps because isGesture is NOT available on Apple Maps\n\tif (!gesture.isGesture) {\n    return;\n  }\n\n  // You can use\n  dispatch({ type: \"map_region\", payload: { mapRegion: region }}); // if using useReducer\n\t// setMapRegionState(region); // if using useState\n}}\n```\n\nSource: https://github.com/react-native-maps/react-native-maps/issues/846#issuecomment-1210079461\n\n## License\n\n     Copyright (c) 2017 Airbnb\n\n     Licensed under the The MIT License (MIT) (the \"License\");\n     you may not use this file except in compliance with the License.\n     You may obtain a copy of the License at\n\n        https://raw.githubusercontent.com/airbnb/react-native-maps/master/LICENSE\n\n     Unless required by applicable law or agreed to in writing, software\n     distributed under the License is distributed on an \"AS IS\" BASIS,\n     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n     See the License for the specific language governing permissions and\n     limitations under the License.\n",
+        "releases": [
+            {
+                "name": "v1.21.0-alpha.49",
+                "date": "2025-01-18T21:35:35Z"
+            },
+            {
+                "name": "v1.21.0-alpha.48",
+                "date": "2025-01-18T21:32:02Z"
+            },
+            {
+                "name": "v1.21.0-alpha.47",
+                "date": "2025-01-18T14:32:52Z"
+            },
+            {
+                "name": "v1.21.0-alpha.46",
+                "date": "2025-01-18T14:05:30Z"
+            },
+            {
+                "name": "v1.21.0-alpha.45",
+                "date": "2025-01-18T13:45:33Z"
+            },
+            {
+                "name": "v1.21.0-alpha.44",
+                "date": "2025-01-17T20:55:36Z"
+            },
+            {
+                "name": "v1.21.0-alpha.43",
+                "date": "2025-01-17T20:28:36Z"
+            },
+            {
+                "name": "v1.21.0-alpha.42",
+                "date": "2025-01-17T20:08:10Z"
+            },
+            {
+                "name": "v1.21.0-alpha.41",
+                "date": "2025-01-17T20:02:09Z"
+            },
+            {
+                "name": "v1.21.0-alpha.40",
+                "date": "2025-01-17T19:57:49Z"
+            },
+            {
+                "name": "v1.21.0-alpha.39",
+                "date": "2025-01-17T19:47:32Z"
+            },
+            {
+                "name": "v1.21.0-alpha.38",
+                "date": "2025-01-12T19:36:25Z"
+            },
+            {
+                "name": "v1.21.0-alpha.37",
+                "date": "2025-01-12T19:18:52Z"
+            },
+            {
+                "name": "v1.21.0-alpha.36",
+                "date": "2025-01-12T19:06:05Z"
+            },
+            {
+                "name": "v1.21.0-alpha.35",
+                "date": "2025-01-12T18:51:34Z"
+            },
+            {
+                "name": "v1.21.0-alpha.34",
+                "date": "2025-01-12T17:50:16Z"
+            },
+            {
+                "name": "v1.21.0-alpha.33",
+                "date": "2025-01-11T16:59:17Z"
+            },
+            {
+                "name": "v1.21.0-alpha.32",
+                "date": "2025-01-11T16:13:51Z"
+            },
+            {
+                "name": "v1.21.0-alpha.31",
+                "date": "2025-01-11T16:00:50Z"
+            },
+            {
+                "name": "v1.21.0-alpha.30",
+                "date": "2025-01-11T15:37:39Z"
+            },
+            {
+                "name": "v1.21.0-alpha.29",
+                "date": "2025-01-11T15:01:09Z"
+            },
+            {
+                "name": "v1.21.0-alpha.28",
+                "date": "2025-01-10T21:59:02Z"
+            },
+            {
+                "name": "v1.21.0-alpha.27",
+                "date": "2025-01-10T21:48:04Z"
+            },
+            {
+                "name": "v1.21.0-alpha.26",
+                "date": "2025-01-10T21:24:13Z"
+            },
+            {
+                "name": "v1.21.0-alpha.25",
+                "date": "2025-01-10T20:34:57Z"
+            },
+            {
+                "name": "v1.21.0-alpha.24",
+                "date": "2025-01-10T20:08:38Z"
+            },
+            {
+                "name": "v1.21.0-alpha.23",
+                "date": "2025-01-10T19:46:28Z"
+            },
+            {
+                "name": "v1.21.0-alpha.22",
+                "date": "2025-01-05T14:17:32Z"
+            },
+            {
+                "name": "v1.21.0-alpha.21",
+                "date": "2025-01-05T13:52:37Z"
+            },
+            {
+                "name": "v1.21.0-alpha.20",
+                "date": "2025-01-04T21:44:18Z"
+            },
+            {
+                "name": "v1.21.0-alpha.19",
+                "date": "2025-01-04T14:36:12Z"
+            },
+            {
+                "name": "v1.21.0-alpha.18",
+                "date": "2025-01-03T19:58:08Z"
+            },
+            {
+                "name": "v1.21.0-alpha.17",
+                "date": "2025-01-03T18:53:18Z"
+            },
+            {
+                "name": "v1.21.0-alpha.16",
+                "date": "2025-01-03T18:46:02Z"
+            },
+            {
+                "name": "v1.21.0-alpha.15",
+                "date": "2025-01-02T21:10:15Z"
+            },
+            {
+                "name": "v1.21.0-alpha.14",
+                "date": "2025-01-01T21:45:30Z"
+            },
+            {
+                "name": "v1.21.0-alpha.13",
+                "date": "2025-01-01T21:41:32Z"
+            },
+            {
+                "name": "v1.21.0-alpha.12",
+                "date": "2024-12-31T20:54:53Z"
+            },
+            {
+                "name": "v1.21.0-alpha.9",
+                "date": "2024-12-29T12:54:02Z"
+            },
+            {
+                "name": "v1.21.0-alpha.11",
+                "date": "2024-12-29T21:12:16Z"
+            },
+            {
+                "name": "v1.21.0-alpha.10",
+                "date": "2024-12-29T19:46:35Z"
+            },
+            {
+                "name": "v1.21.0-alpha.8",
+                "date": "2024-12-28T21:14:52Z"
+            },
+            {
+                "name": "v1.21.0-alpha.7",
+                "date": "2024-12-28T19:04:58Z"
+            },
+            {
+                "name": "v1.21.0-alpha.6",
+                "date": "2024-12-26T14:15:14Z"
+            },
+            {
+                "name": "v1.21.0-alpha.5",
+                "date": "2024-12-25T18:02:04Z"
+            },
+            {
+                "name": "v1.21.0-alpha.4",
+                "date": "2024-12-25T17:13:18Z"
+            },
+            {
+                "name": "v1.21.0-alpha.3",
+                "date": "2024-12-25T16:09:04Z"
+            },
+            {
+                "name": "v1.21.0-alpha.2",
+                "date": "2024-12-25T13:39:47Z"
+            },
+            {
+                "name": "v1.21.0-alpha.1",
+                "date": "2024-12-21T18:51:34Z"
+            },
+            {
+                "name": "v1.20.1",
+                "date": "2024-11-22T16:25:37Z"
+            },
+            {
+                "name": "v1.20.0",
+                "date": "2024-11-10T13:08:18Z"
+            },
+            {
+                "name": "v1.19.1",
+                "date": "2024-11-10T12:08:13Z"
+            },
+            {
+                "name": "v1.19.0",
+                "date": "2024-11-09T19:35:48Z"
+            },
+            {
+                "name": "v1.18.4",
+                "date": "2024-11-09T18:34:50Z"
+            },
+            {
+                "name": "v1.18.3",
+                "date": "2024-11-09T17:38:27Z"
+            },
+            {
+                "name": "v1.18.2",
+                "date": "2024-10-14T20:01:34Z"
+            },
+            {
+                "name": "v1.18.1",
+                "date": "2024-10-12T17:54:39Z"
+            },
+            {
+                "name": "v1.18.0",
+                "date": "2024-08-18T09:45:00Z"
+            },
+            {
+                "name": "v1.17.3",
+                "date": "2024-07-27T14:54:13Z"
+            },
+            {
+                "name": "v1.17.2",
+                "date": "2024-07-27T14:22:02Z"
+            },
+            {
+                "name": "v1.17.1",
+                "date": "2024-07-21T15:43:58Z"
+            },
+            {
+                "name": "v1.17.0",
+                "date": "2024-07-21T15:19:26Z"
+            },
+            {
+                "name": "v1.16.0",
+                "date": "2024-07-20T12:52:54Z"
+            },
+            {
+                "name": "v1.15.7",
+                "date": "2024-07-20T11:07:04Z"
+            },
+            {
+                "name": "v1.15.6",
+                "date": "2024-05-30T16:01:52Z"
+            },
+            {
+                "name": "v1.15.5",
+                "date": "2024-05-30T15:22:33Z"
+            },
+            {
+                "name": "v1.15.4",
+                "date": "2024-05-25T17:44:07Z"
+            },
+            {
+                "name": "v1.15.3",
+                "date": "2024-05-24T10:07:40Z"
+            },
+            {
+                "name": "v1.15.2",
+                "date": "2024-05-20T13:48:35Z"
+            },
+            {
+                "name": "v1.15.1",
+                "date": "2024-05-05T19:58:43Z"
+            },
+            {
+                "name": "v2.0.0-beta.15",
+                "date": "2024-05-04T10:04:14Z"
+            },
+            {
+                "name": "v1.15.0",
+                "date": "2024-05-04T10:07:33Z"
+            },
+            {
+                "name": "v1.14.0",
+                "date": "2024-04-14T14:03:42Z"
+            },
+            {
+                "name": "v1.13.2",
+                "date": "2024-04-13T17:11:42Z"
+            },
+            {
+                "name": "v1.13.1",
+                "date": "2024-04-13T15:47:35Z"
+            },
+            {
+                "name": "v1.13.0",
+                "date": "2024-04-01T16:18:02Z"
+            },
+            {
+                "name": "v1.12.0",
+                "date": "2024-03-29T16:52:22Z"
+            },
+            {
+                "name": "v1.11.3",
+                "date": "2024-03-11T17:25:18Z"
+            },
+            {
+                "name": "v1.11.2",
+                "date": "2024-03-11T09:22:40Z"
+            },
+            {
+                "name": "v1.11.1",
+                "date": "2024-03-10T20:35:11Z"
+            },
+            {
+                "name": "v1.11.0",
+                "date": "2024-03-10T19:52:11Z"
+            },
+            {
+                "name": "v1.10.4",
+                "date": "2024-03-10T19:08:45Z"
+            },
+            {
+                "name": "v1.10.3",
+                "date": "2024-02-18T17:42:25Z"
+            },
+            {
+                "name": "v1.10.2",
+                "date": "2024-02-10T14:25:38Z"
+            },
+            {
+                "name": "v1.10.1",
+                "date": "2024-02-04T18:14:36Z"
+            },
+            {
+                "name": "v1.10.0",
+                "date": "2024-01-21T11:30:17Z"
+            },
+            {
+                "name": "v1.9.1",
+                "date": "2024-01-05T10:53:33Z"
+            },
+            {
+                "name": "v1.9.0",
+                "date": "2024-01-02T11:55:12Z"
+            },
+            {
+                "name": "v1.8.4",
+                "date": "2023-12-15T13:50:37Z"
+            },
+            {
+                "name": "v1.8.3",
+                "date": "2023-12-07T19:50:38Z"
+            },
+            {
+                "name": "v1.8.2",
+                "date": "2023-12-07T13:27:00Z"
+            },
+            {
+                "name": "v1.8.1",
+                "date": "2023-12-06T19:32:04Z"
+            },
+            {
+                "name": "v1.8.0",
+                "date": "2023-10-09T22:24:34Z"
+            },
+            {
+                "name": "v2.0.0-beta.14",
+                "date": "2023-05-26T20:00:43Z"
+            },
+            {
+                "name": "v2.0.0-beta.13",
+                "date": "2023-05-10T20:43:55Z"
+            },
+            {
+                "name": "v2.0.0-beta.12",
+                "date": "2023-05-10T19:10:22Z"
+            },
+            {
+                "name": "v2.0.0-beta.11",
+                "date": "2023-05-06T19:26:33Z"
+            },
+            {
+                "name": "v2.0.0-beta.10",
+                "date": "2023-04-30T20:09:43Z"
+            },
+            {
+                "name": "v2.0.0-beta.9",
+                "date": "2023-04-29T21:36:03Z"
+            },
+            {
+                "name": "v2.0.0-beta.8",
+                "date": "2023-04-28T19:56:29Z"
+            },
+            {
+                "name": "v2.0.0-beta.7",
+                "date": "2023-04-28T19:43:35Z"
+            },
+            {
+                "name": "v2.0.0-beta.6",
+                "date": "2023-04-27T19:12:28Z"
+            },
+            {
+                "name": "v2.0.0-beta.5",
+                "date": "2023-04-25T20:40:28Z"
+            },
+            {
+                "name": "v2.0.0-beta.4",
+                "date": "2023-04-23T13:59:55Z"
+            },
+            {
+                "name": "v2.0.0-beta.3",
+                "date": "2023-04-23T11:45:08Z"
+            },
+            {
+                "name": "v2.0.0-beta.2",
+                "date": "2023-04-23T11:13:40Z"
+            },
+            {
+                "name": "v2.0.0-beta.1",
+                "date": "2023-04-23T10:42:22Z"
+            },
+            {
+                "name": "v1.7.1",
+                "date": "2023-04-23T13:51:39Z"
+            },
+            {
+                "name": "v1.7.0",
+                "date": "2023-04-23T10:03:41Z"
+            },
+            {
+                "name": "v1.7.0-beta.1",
+                "date": "2023-04-21T21:45:56Z"
+            },
+            {
+                "name": "v1.6.1-beta.1",
+                "date": "2023-04-21T13:14:33Z"
+            },
+            {
+                "name": "v1.6.0",
+                "date": "2023-04-20T21:30:47Z"
+            },
+            {
+                "name": "v1.6.0-beta.3",
+                "date": "2023-04-20T20:13:07Z"
+            },
+            {
+                "name": "v1.6.0-beta.2",
+                "date": "2023-04-18T22:48:11Z"
+            },
+            {
+                "name": "v1.6.0-beta.1",
+                "date": "2023-04-18T22:21:41Z"
+            },
+            {
+                "name": "v1.5.1-beta.3",
+                "date": "2023-04-18T21:59:26Z"
+            },
+            {
+                "name": "v1.5.1-beta.2",
+                "date": "2023-04-16T12:57:34Z"
+            },
+            {
+                "name": "v1.5.1-beta.1",
+                "date": "2023-04-16T12:50:30Z"
+            },
+            {
+                "name": "v1.5.0",
+                "date": "2023-04-15T21:17:37Z"
+            },
+            {
+                "name": "v1.5.0-beta.1",
+                "date": "2023-04-15T21:05:44Z"
+            },
+            {
+                "name": "v1.4.0",
+                "date": "2023-01-25T21:29:23Z"
+            },
+            {
+                "name": "v1.4.0-beta.1",
+                "date": "2022-10-10T18:05:48Z"
+            },
+            {
+                "name": "v1.3.2",
+                "date": "2022-09-26T15:15:44Z"
+            },
+            {
+                "name": "v1.3.2-beta.2",
+                "date": "2022-09-21T19:48:11Z"
+            },
+            {
+                "name": "v1.3.2-beta.1",
+                "date": "2022-09-18T16:11:53Z"
+            },
+            {
+                "name": "v1.3.1",
+                "date": "2022-08-29T18:04:59Z"
+            },
+            {
+                "name": "v1.3.0",
+                "date": "2022-08-22T15:05:39Z"
+            },
+            {
+                "name": "v1.3.0-beta.3",
+                "date": "2022-08-18T19:07:05Z"
+            },
+            {
+                "name": "v1.3.0-beta.2",
+                "date": "2022-08-12T21:17:18Z"
+            },
+            {
+                "name": "v1.3.0-beta.1",
+                "date": "2022-08-11T20:22:18Z"
+            },
+            {
+                "name": "v1.2.0",
+                "date": "2022-08-05T21:16:39Z"
+            },
+            {
+                "name": "v1.2.0-beta.2",
+                "date": "2022-08-05T10:23:00Z"
+            },
+            {
+                "name": "v1.2.0-beta.1",
+                "date": "2022-07-24T21:38:03Z"
+            },
+            {
+                "name": "v1.1.1-beta.1",
+                "date": "2022-07-22T13:24:25Z"
+            },
+            {
+                "name": "v1.1.0",
+                "date": "2022-07-20T22:02:49Z"
+            },
+            {
+                "name": "v1.1.0-beta.6",
+                "date": "2022-07-20T10:57:46Z"
+            },
+            {
+                "name": "v1.1.0-beta.5",
+                "date": "2022-07-19T18:53:06Z"
+            },
+            {
+                "name": "v1.0.3",
+                "date": "2022-07-19T18:47:25Z"
+            },
+            {
+                "name": "v1.1.0-beta.4",
+                "date": "2022-07-15T21:01:29Z"
+            },
+            {
+                "name": "v1.1.0-beta.3",
+                "date": "2022-07-15T20:44:13Z"
+            },
+            {
+                "name": "v1.0.2",
+                "date": "2022-07-15T20:58:29Z"
+            },
+            {
+                "name": "v1.0.1",
+                "date": "2022-07-15T20:39:24Z"
+            },
+            {
+                "name": "v1.1.0-beta.2",
+                "date": "2022-07-12T21:38:41Z"
+            },
+            {
+                "name": "v1.1.0-beta.1",
+                "date": "2022-07-12T21:35:21Z"
+            },
+            {
+                "name": "v1.0.0",
+                "date": "2022-07-07T18:04:08Z"
+            },
+            {
+                "name": "v1.0.0-beta.9",
+                "date": "2022-07-07T12:21:58Z"
+            },
+            {
+                "name": "v1.0.0-beta.8",
+                "date": "2022-07-07T11:39:17Z"
+            },
+            {
+                "name": "v1.0.0-beta.10",
+                "date": "2022-07-07T17:44:44Z"
+            },
+            {
+                "name": "v1.0.0-beta.7",
+                "date": "2022-07-06T19:29:17Z"
+            },
+            {
+                "name": "v1.0.0-beta.6",
+                "date": "2022-07-01T20:22:56Z"
+            },
+            {
+                "name": "v1.0.0-beta.5",
+                "date": "2022-06-22T18:49:13Z"
+            },
+            {
+                "name": "v1.0.0-beta.4",
+                "date": "2022-06-21T23:11:39Z"
+            },
+            {
+                "name": "v1.0.0-beta.3",
+                "date": "2022-06-21T22:25:55Z"
+            },
+            {
+                "name": "v1.0.0-beta.2",
+                "date": "2022-06-21T21:02:19Z"
+            },
+            {
+                "name": "v1.0.0-beta.1",
+                "date": "2022-06-07T19:50:28Z"
+            },
+            {
+                "name": "v0.30.2",
+                "date": "2022-05-17T16:14:20Z"
+            },
+            {
+                "name": "v0.31.1",
+                "date": "2022-04-30T16:42:06Z"
+            },
+            {
+                "name": "v0.31.0",
+                "date": "2022-04-24T20:12:12Z"
+            },
+            {
+                "name": "v0.31.0-beta.6",
+                "date": "2022-04-15T10:33:00Z"
+            },
+            {
+                "name": "v0.31.0-beta.5",
+                "date": "2022-04-11T14:20:35Z"
+            },
+            {
+                "name": "v0.31.0-beta.4",
+                "date": "2022-04-11T14:16:15Z"
+            },
+            {
+                "name": "v0.31.0-beta.3",
+                "date": "2022-03-25T21:42:05Z"
+            },
+            {
+                "name": "v0.31.0-beta.2",
+                "date": "2022-03-25T20:58:00Z"
+            },
+            {
+                "name": "v0.31.0-beta.1",
+                "date": "2022-03-19T15:55:28Z"
+            },
+            {
+                "name": "v0.30.1",
+                "date": "2022-01-03T18:50:03Z"
+            },
+            {
+                "name": "",
+                "date": "2021-11-11T23:52:19Z"
+            },
+            {
+                "name": "",
+                "date": "2021-08-29T17:48:32Z"
+            },
+            {
+                "name": "",
+                "date": "2021-07-05T23:10:45Z"
+            },
+            {
+                "name": "",
+                "date": "2021-07-05T22:36:54Z"
+            },
+            {
+                "name": "",
+                "date": "2021-06-08T18:56:46Z"
+            },
+            {
+                "name": "",
+                "date": "2021-02-15T00:15:37Z"
+            },
+            {
+                "name": "",
+                "date": "2020-03-19T16:39:43Z"
+            },
+            {
+                "name": "",
+                "date": "2020-03-13T16:16:47Z"
+            },
+            {
+                "name": "",
+                "date": "2019-10-03T15:50:43Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-30T22:00:54Z"
+            },
+            {
+                "name": "",
+                "date": "2019-07-11T17:21:10Z"
+            },
+            {
+                "name": "",
+                "date": "2019-04-17T15:19:47Z"
+            },
+            {
+                "name": "",
+                "date": "2019-04-16T20:39:58Z"
+            },
+            {
+                "name": "",
+                "date": "2019-04-12T00:40:29Z"
+            },
+            {
+                "name": "",
+                "date": "2019-01-17T09:03:27Z"
+            },
+            {
+                "name": "",
+                "date": "2018-11-08T18:00:13Z"
+            },
+            {
+                "name": "",
+                "date": "2018-10-11T15:47:31Z"
+            },
+            {
+                "name": "",
+                "date": "2018-04-01T17:08:07Z"
+            },
+            {
+                "name": "",
+                "date": "2018-02-13T15:49:18Z"
+            },
+            {
+                "name": "",
+                "date": "2018-02-09T10:16:46Z"
+            },
+            {
+                "name": "",
+                "date": "2017-12-14T22:34:14Z"
+            },
+            {
+                "name": "",
+                "date": "2017-12-01T00:12:45Z"
+            },
+            {
+                "name": "",
+                "date": "2017-11-29T18:09:28Z"
+            },
+            {
+                "name": "",
+                "date": "2017-11-29T02:06:25Z"
+            },
+            {
+                "name": "",
+                "date": "2017-11-28T23:12:05Z"
+            },
+            {
+                "name": "",
+                "date": "2017-10-11T18:44:00Z"
+            },
+            {
+                "name": "",
+                "date": "2017-09-14T01:27:57Z"
+            },
+            {
+                "name": "",
+                "date": "2017-09-03T00:29:10Z"
+            },
+            {
+                "name": "",
+                "date": "2017-08-17T16:55:41Z"
+            },
+            {
+                "name": "",
+                "date": "2017-08-15T18:48:13Z"
+            },
+            {
+                "name": "",
+                "date": "2017-08-09T22:09:01Z"
+            },
+            {
+                "name": "v0.12.4",
+                "date": "2017-01-13T00:52:22Z"
+            },
+            {
+                "name": "v0.13.0",
+                "date": "2017-01-07T01:50:58Z"
+            },
+            {
+                "name": "v0.12.3 (DEPRECATED)",
+                "date": "2017-01-07T01:50:44Z"
+            },
+            {
+                "name": "v0.12.2",
+                "date": "2016-12-10T00:13:31Z"
+            },
+            {
+                "name": "v0.12.1",
+                "date": "2016-12-09T23:54:00Z"
+            },
+            {
+                "name": "v0.10.4",
+                "date": "2016-12-09T23:53:19Z"
+            },
+            {
+                "name": "v0.10.2",
+                "date": "2016-10-20T00:48:03Z"
+            },
+            {
+                "name": "v0.11.0",
+                "date": "2016-10-16T22:16:33Z"
+            },
+            {
+                "name": "v0.10.1",
+                "date": "2016-10-16T22:18:18Z"
+            },
+            {
+                "name": "v0.10.0",
+                "date": "2016-10-16T22:17:00Z"
+            },
+            {
+                "name": "v0.9.0",
+                "date": "2016-10-16T22:18:57Z"
+            },
+            {
+                "name": "0.8.2",
+                "date": "2016-09-08T21:51:15Z"
+            },
+            {
+                "name": "0.8.1",
+                "date": "2016-09-08T21:15:34Z"
+            },
+            {
+                "name": "0.8.0",
+                "date": "2016-08-31T02:56:40Z"
+            }
+        ]
+    }
+}

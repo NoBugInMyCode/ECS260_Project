@@ -1,0 +1,58 @@
+{
+    "https://api.github.com/repos/vurtun/nuklear": {
+        "forks": 1110,
+        "watchers": 13709,
+        "stars": 13709,
+        "languages": {
+            "C": 2287874,
+            "Python": 3852,
+            "Makefile": 924,
+            "Shell": 816
+        },
+        "commits": [
+            "2019-12-01T23:01:55Z",
+            "2019-10-01T13:10:14Z",
+            "2019-10-01T09:30:30Z",
+            "2019-10-01T09:29:34Z",
+            "2019-09-30T22:58:37Z",
+            "2019-09-22T22:39:16Z",
+            "2019-09-22T21:42:29Z",
+            "2019-09-22T17:53:02Z",
+            "2019-09-20T20:55:58Z",
+            "2019-09-20T16:51:30Z",
+            "2019-09-20T16:47:27Z",
+            "2019-09-20T16:44:07Z",
+            "2019-09-20T16:04:41Z",
+            "2019-09-20T15:50:44Z",
+            "2019-09-20T15:12:07Z",
+            "2019-09-20T02:22:45Z",
+            "2019-09-20T01:45:06Z",
+            "2019-09-20T01:44:40Z",
+            "2019-09-20T01:25:19Z",
+            "2019-09-18T16:42:55Z",
+            "2019-09-18T16:27:25Z",
+            "2019-09-13T11:57:23Z",
+            "2019-09-13T11:04:41Z",
+            "2019-09-10T09:40:06Z",
+            "2019-09-10T08:54:35Z",
+            "2019-09-08T08:22:52Z",
+            "2019-09-08T08:10:42Z",
+            "2019-09-08T03:41:58Z",
+            "2019-08-19T21:10:45Z",
+            "2019-08-16T20:20:22Z"
+        ],
+        "creation_date": "2015-03-25T13:32:06Z",
+        "contributors": 30,
+        "topics": [
+            "c",
+            "c89",
+            "gui",
+            "imgui",
+            "nuklear",
+            "single-header-lib"
+        ],
+        "subscribers": 547,
+        "readme": "# Nuklear\n\n## ALL DEVELOPMENT MOVED ELSEWHERE\n\nDear visitor,\n\nthis repository, issue tracker, etc. is abandoned in favor of https://github.com/Immediate-Mode-UI/Nuklear . Any activity in this issue tracker, any pull requests, etc. will be ignored.\n\nLooking forward to hearing from you in https://github.com/Immediate-Mode-UI/Nuklear\n\n*Nuklear community*\n\n[![Build Status](https://travis-ci.org/vurtun/nuklear.svg)](https://travis-ci.org/vurtun/nuklear)\n\nThis is a minimal state immediate mode graphical user interface toolkit\nwritten in ANSI C and licensed under public domain. It was designed as a simple\nembeddable user interface for application and does not have any dependencies,\na default render backend or OS window and input handling but instead provides a very modular\nlibrary approach by using simple input state for input and draw\ncommands describing primitive shapes as output. So instead of providing a\nlayered library that tries to abstract over a number of platform and\nrender backends it only focuses on the actual UI.\n\n## Features\n\n- Immediate mode graphical user interface toolkit\n- Single header library\n- Written in C89 (ANSI C)\n- Small codebase (~18kLOC)\n- Focus on portability, efficiency and simplicity\n- No dependencies (not even the standard library if not wanted)\n- Fully skinnable and customizable\n- Low memory footprint with total memory control if needed or wanted\n- UTF-8 support\n- No global or hidden state\n- Customizable library modules (you can compile and use only what you need)\n- Optional font baker and vertex buffer output\n- [Documentation](https://cdn.statically.io/gh/vurtun/nuklear/master/doc/nuklear.html)\n\n## Building\n\nThis library is self contained in one single header file and can be used either\nin header only mode or in implementation mode. The header only mode is used\nby default when included and allows including this header in other headers\nand does not contain the actual implementation.\n\nThe implementation mode requires to define  the preprocessor macro\n`NK_IMPLEMENTATION` in *one* .c/.cpp file before `#include`ing this file, e.g.:\n```c\n#define NK_IMPLEMENTATION\n#include \"nuklear.h\"\n```\nIMPORTANT: Every time you include \"nuklear.h\" you have to define the same optional flags.\nThis is very important not doing it either leads to compiler errors or even worse stack corruptions.\n\n## Gallery\n\n![screenshot](https://cloud.githubusercontent.com/assets/8057201/11761525/ae06f0ca-a0c6-11e5-819d-5610b25f6ef4.gif)\n![screen](https://cloud.githubusercontent.com/assets/8057201/13538240/acd96876-e249-11e5-9547-5ac0b19667a0.png)\n![screen2](https://cloud.githubusercontent.com/assets/8057201/13538243/b04acd4c-e249-11e5-8fd2-ad7744a5b446.png)\n![node](https://cloud.githubusercontent.com/assets/8057201/9976995/e81ac04a-5ef7-11e5-872b-acd54fbeee03.gif)\n![skinning](https://cloud.githubusercontent.com/assets/8057201/15991632/76494854-30b8-11e6-9555-a69840d0d50b.png)\n![gamepad](https://cloud.githubusercontent.com/assets/8057201/14902576/339926a8-0d9c-11e6-9fee-a8b73af04473.png)\n\n## Example\n\n```c\n/* init gui state */\nstruct nk_context ctx;\nnk_init_fixed(&ctx, calloc(1, MAX_MEMORY), MAX_MEMORY, &font);\n\nenum {EASY, HARD};\nstatic int op = EASY;\nstatic float value = 0.6f;\nstatic int i =  20;\n\nif (nk_begin(&ctx, \"Show\", nk_rect(50, 50, 220, 220),\n    NK_WINDOW_BORDER|NK_WINDOW_MOVABLE|NK_WINDOW_CLOSABLE)) {\n    /* fixed widget pixel width */\n    nk_layout_row_static(&ctx, 30, 80, 1);\n    if (nk_button_label(&ctx, \"button\")) {\n        /* event handling */\n    }\n\n    /* fixed widget window ratio width */\n    nk_layout_row_dynamic(&ctx, 30, 2);\n    if (nk_option_label(&ctx, \"easy\", op == EASY)) op = EASY;\n    if (nk_option_label(&ctx, \"hard\", op == HARD)) op = HARD;\n\n    /* custom widget pixel width */\n    nk_layout_row_begin(&ctx, NK_STATIC, 30, 2);\n    {\n        nk_layout_row_push(&ctx, 50);\n        nk_label(&ctx, \"Volume:\", NK_TEXT_LEFT);\n        nk_layout_row_push(&ctx, 110);\n        nk_slider_float(&ctx, 0, &value, 1.0f, 0.1f);\n    }\n    nk_layout_row_end(&ctx);\n}\nnk_end(&ctx);\n```\n![example](https://cloud.githubusercontent.com/assets/8057201/10187981/584ecd68-675c-11e5-897c-822ef534a876.png)\n\n## Bindings\nThere are a number of nuklear bindings for different languges created by other authors.\nI cannot atest for their quality since I am not necessarily proficient in either of these\nlanguages. Furthermore there are no guarantee that all bindings will always be kept up to date:\n\n- [Java](https://github.com/glegris/nuklear4j) by Guillaume Legris\n- [D](https://github.com/Timu5/bindbc-nuklear) by Mateusz Muszy\u0144ski\n- [Golang](https://github.com/golang-ui/nuklear) by golang-ui@github.com\n- [Rust](https://github.com/snuk182/nuklear-rust) by snuk182@github.com\n- [Chicken](https://github.com/wasamasa/nuklear) by wasamasa@github.com\n- [Nim](https://github.com/zacharycarter/nuklear-nim) by zacharycarter@github.com\n- Lua\n  - [L\u00d6VE-Nuklear](https://github.com/keharriso/love-nuklear) by Kevin Harrison\n  - [MoonNuklear](https://github.com/stetre/moonnuklear) by Stefano Trettel\n- Python\n  - [pyNuklear](https://github.com/billsix/pyNuklear) by William Emerison Six (ctypes-based wrapper)\n  - [pynk](https://github.com/nathanrw/nuklear-cffi) by nathanrw@github.com (cffi binding)\n- [CSharp/.NET](https://github.com/cartman300/NuklearDotNet) by cartman300@github.com\n\n## Credits\nDeveloped by Micha Mettke and every direct or indirect contributor to the GitHub.\n\n\nEmbeds `stb_texedit`, `stb_truetype` and `stb_rectpack` by Sean Barrett (public domain)\nEmbeds `ProggyClean.ttf` font by Tristan Grimmer (MIT license).\n\n\nBig thank you to Omar Cornut (ocornut@github) for his [imgui](https://github.com/ocornut/imgui) library and\ngiving me the inspiration for this library, Casey Muratori for handmade hero\nand his original immediate mode graphical user interface idea and Sean\nBarrett for his amazing single header [libraries](https://github.com/nothings/stb) which restored my faith\nin libraries and brought me to create some of my own. Finally Apoorva Joshi for his singe-header [file packer](http://apoorvaj.io/single-header-packer.html).\n\n## License\n```\n------------------------------------------------------------------------------\nThis software is available under 2 licenses -- choose whichever you prefer.\n------------------------------------------------------------------------------\nALTERNATIVE A - MIT License\nCopyright (c) 2017 Micha Mettke\nPermission is hereby granted, free of charge, to any person obtaining a copy of\nthis software and associated documentation files (the \"Software\"), to deal in\nthe Software without restriction, including without limitation the rights to\nuse, copy, modify, merge, publish, distribute, sublicense, and/or sell copies\nof the Software, and to permit persons to whom the Software is furnished to do\nso, subject to the following conditions:\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n------------------------------------------------------------------------------\nALTERNATIVE B - Public Domain (www.unlicense.org)\nThis is free and unencumbered software released into the public domain.\nAnyone is free to copy, modify, publish, use, compile, sell, or distribute this\nsoftware, either in source code form or as a compiled binary, for any purpose,\ncommercial or non-commercial, and by any means.\nIn jurisdictions that recognize copyright laws, the author or authors of this\nsoftware dedicate any and all copyright interest in the software to the public\ndomain. We make this dedication for the benefit of the public at large and to\nthe detriment of our heirs and successors. We intend this dedication to be an\novert act of relinquishment in perpetuity of all present and future rights to\nthis software under copyright law.\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN\nACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION\nWITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n-----------------------------------------------------------------------------\n```\n",
+        "releases": []
+    }
+}

@@ -1,0 +1,224 @@
+{
+    "https://api.github.com/repos/vercel/pkg": {
+        "forks": 1028,
+        "watchers": 24336,
+        "stars": 24336,
+        "languages": {
+            "JavaScript": 354095,
+            "TypeScript": 95592,
+            "CSS": 2682,
+            "HTML": 1703,
+            "Pug": 174,
+            "CoffeeScript": 80,
+            "Batchfile": 24
+        },
+        "commits": [
+            "2024-01-03T01:35:22Z",
+            "2023-07-19T07:34:57Z",
+            "2023-07-19T06:56:32Z",
+            "2023-06-21T07:30:08Z",
+            "2023-05-06T23:54:53Z",
+            "2023-05-02T08:35:27Z",
+            "2023-04-28T07:02:17Z",
+            "2023-03-28T06:29:35Z",
+            "2023-03-22T07:45:32Z",
+            "2023-03-21T10:08:27Z",
+            "2023-03-20T10:32:41Z",
+            "2023-03-18T11:04:54Z",
+            "2023-03-17T19:55:58Z",
+            "2023-03-08T01:19:28Z",
+            "2023-03-06T09:12:39Z",
+            "2022-11-08T13:32:42Z",
+            "2022-10-31T10:13:10Z",
+            "2022-09-21T08:09:45Z",
+            "2022-09-21T06:07:17Z",
+            "2022-09-20T09:29:52Z",
+            "2022-09-20T07:58:07Z",
+            "2022-09-20T06:18:29Z",
+            "2022-09-19T16:24:48Z",
+            "2022-07-19T05:32:47Z",
+            "2022-07-13T03:33:29Z",
+            "2022-07-11T20:04:17Z",
+            "2022-06-21T18:34:48Z",
+            "2022-06-01T07:40:33Z",
+            "2022-06-01T07:30:30Z",
+            "2022-06-01T22:22:16Z"
+        ],
+        "creation_date": "2016-08-08T19:41:59Z",
+        "contributors": 30,
+        "topics": [
+            "binaries",
+            "cli",
+            "compiler",
+            "nodejs"
+        ],
+        "subscribers": 279,
+        "readme": "# `pkg`\n\n> [!IMPORTANT]  \n> `pkg` has been deprecated with `5.8.1` as the last release. There are a number of successful forked versions of `pkg` already with various feature additions. Further, we\u2019re excited about Node.js 21\u2019s support for [single executable applications](https://nodejs.org/api/single-executable-applications.html). Thank you for the support and contributions over the years. The repository will remain open and archived.\n\nThis command line interface enables you to package your Node.js project into an executable that can be run even on devices without Node.js installed.\n\n## Use Cases\n\n- Make a commercial version of your application without sources\n- Make a demo/evaluation/trial version of your app without sources\n- Instantly make executables for other platforms (cross-compilation)\n- Make some kind of self-extracting archive or installer\n- No need to install Node.js and npm to run the packaged application\n- No need to download hundreds of files via `npm install` to deploy\n  your application. Deploy it as a single file\n- Put your assets inside the executable to make it even more portable\n- Test your app against new Node.js version without installing it\n\n## Usage\n\n```sh\nnpm install -g pkg\n```\n\nAfter installing it, run `pkg --help` without arguments to see list of options:\n\n```console\npkg [options] <input>\n\n  Options:\n\n    -h, --help           output usage information\n    -v, --version        output pkg version\n    -t, --targets        comma-separated list of targets (see examples)\n    -c, --config         package.json or any json file with top-level config\n    --options            bake v8 options into executable to run with them on\n    -o, --output         output file name or template for several files\n    --out-path           path to save output one or more executables\n    -d, --debug          show more information during packaging process [off]\n    -b, --build          don't download prebuilt base binaries, build them\n    --public             speed up and disclose the sources of top-level project\n    --public-packages    force specified packages to be considered public\n    --no-bytecode        skip bytecode generation and include source files as plain js\n    --no-native-build    skip native addons build\n    --no-signature       skip signature of the final executable on macos\n    --no-dict            comma-separated list of packages names to ignore dictionaries. Use --no-dict * to disable all dictionaries\n    -C, --compress       [default=None] compression algorithm = Brotli or GZip\n\n  Examples:\n\n  \u2013 Makes executables for Linux, macOS and Windows\n    $ pkg index.js\n  \u2013 Takes package.json from cwd and follows 'bin' entry\n    $ pkg .\n  \u2013 Makes executable for particular target machine\n    $ pkg -t node16-win-arm64 index.js\n  \u2013 Makes executables for target machines of your choice\n    $ pkg -t node16-linux,node18-linux,node16-win index.js\n  \u2013 Bakes '--expose-gc' and '--max-heap-size=34' into executable\n    $ pkg --options \"expose-gc,max-heap-size=34\" index.js\n  \u2013 Consider packageA and packageB to be public\n    $ pkg --public-packages \"packageA,packageB\" index.js\n  \u2013 Consider all packages to be public\n    $ pkg --public-packages \"*\" index.js\n  \u2013 Bakes '--expose-gc' into executable\n    $ pkg --options expose-gc index.js\n  \u2013 reduce size of the data packed inside the executable with GZip\n    $ pkg --compress GZip index.js\n```\n\nThe entrypoint of your project is a mandatory CLI argument. It may be:\n\n- Path to entry file. Suppose it is `/path/app.js`, then\n  packaged app will work the same way as `node /path/app.js`\n- Path to `package.json`. `Pkg` will follow `bin` property of\n  the specified `package.json` and use it as entry file.\n- Path to directory. `Pkg` will look for `package.json` in\n  the specified directory. See above.\n\n### Targets\n\n`pkg` can generate executables for several target machines at a\ntime. You can specify a comma-separated list of targets via `--targets`\noption. A canonical target consists of 3 elements, separated by\ndashes, for example `node18-macos-x64` or `node14-linux-arm64`:\n\n- **nodeRange** (node8), node10, node12, node14, node16 or latest\n- **platform** alpine, linux, linuxstatic, win, macos, (freebsd)\n- **arch** x64, arm64, (armv6, armv7)\n\n(element) is unsupported, but you may try to compile yourself.\n\nYou may omit any element (and specify just `node14` for example).\nThe omitted elements will be taken from current platform or\nsystem-wide Node.js installation (its version and arch).\nThere is also an alias `host`, that means that all 3 elements\nare taken from current platform/Node.js. By default targets are\n`linux,macos,win` for current Node.js version and arch.\n\nIf you want to generate executable for different architectures,\nnote that by default `pkg` has to run the executable of the\n**target** arch to generate bytecodes:\n\n- Linux: configure binfmt with [QEMU](https://wiki.debian.org/QemuUserEmulation).\n- macOS: possible to build `x64` on `arm64` with `Rosetta 2` but not opposite.\n- Windows: possible to build `x64` on `arm64` with `x64 emulation` but not opposite.\n- or, disable bytecode generation with `--no-bytecode --public-packages \"*\" --public`.\n\n`macos-arm64` is experimental. Be careful about the [mandatory code signing requirement](https://developer.apple.com/documentation/macos-release-notes/macos-big-sur-11_0_1-universal-apps-release-notes).\nThe final executable has to be signed (ad-hoc signature is sufficient) with `codesign`\nutility of macOS (or `ldid` utility on Linux). Otherwise, the executable will be killed\nby kernel and the end-user has no way to permit it to run at all. `pkg` tries to ad-hoc\nsign the final executable. If necessary, you can replace this signature with your own\ntrusted Apple Developer ID.\n\nTo be able to generate executables for all supported architectures and platforms, run\n`pkg` on a Linux host with binfmt (`QEMU` emulation) configured and `ldid` installed.\n\n### Config\n\nDuring packaging process `pkg` parses your sources, detects\ncalls to `require`, traverses the dependencies of your project\nand includes them into executable. In most cases you\ndon't need to specify anything manually.\n\nHowever your code may have `require(variable)` calls (so called non-literal\nargument to `require`) or use non-javascript files (for\nexample views, css, images etc).\n\n```js\nrequire('./build/' + cmd + '.js');\npath.join(__dirname, 'views/' + viewName);\n```\n\nSuch cases are not handled by `pkg`. So you must specify the\nfiles - scripts and assets - manually in `pkg` property of\nyour `package.json` file.\n\n```json\n  \"pkg\": {\n    \"scripts\": \"build/**/*.js\",\n    \"assets\": \"views/**/*\",\n    \"targets\": [ \"node14-linux-arm64\" ],\n    \"outputPath\": \"dist\"\n  }\n```\n\nThe above example will include everything in `assets/` and\nevery .js file in `build/`, build only for `node14-linux-arm64`,\nand place the executable inside `dist/`.\n\nYou may also specify arrays of globs:\n\n```\n    \"assets\": [ \"assets/**/*\", \"images/**/*\" ]\n```\n\nJust be sure to call `pkg package.json` or `pkg .` to make\nuse of `package.json` configuration.\n\n### Scripts\n\n`scripts` is a [glob](https://github.com/sindresorhus/globby)\nor list of globs. Files specified as `scripts` will be compiled\nusing `v8::ScriptCompiler` and placed into executable without\nsources. They must conform to the JS standards of those Node.js versions\nyou target (see [Targets](#targets)), i.e. be already transpiled.\n\n### Assets\n\n`assets` is a [glob](https://github.com/sindresorhus/globby)\nor list of globs. Files specified as `assets` will be packaged\ninto executable as raw content without modifications. Javascript\nfiles may also be specified as `assets`. Their sources will\nnot be stripped as it improves execution performance of the\nfiles and simplifies debugging.\n\nSee also\n[Detecting assets in source code](#detecting-assets-in-source-code) and\n[Snapshot filesystem](#snapshot-filesystem).\n\n### Options\n\nNode.js application can be called with runtime options\n(belonging to Node.js or V8). To list them type `node --help` or `node --v8-options`.\n\nYou can \"bake\" these runtime options into packaged application. The app will always run with the options\nturned on. Just remove `--` from option name.\n\nYou can specify multiple options by joining them in a single string, comma (`,`) separated:\n\n```sh\npkg app.js --options expose-gc\npkg app.js --options max_old_space_size=4096\npkg app.js --options max-old-space-size=1024,tls-min-v1.0,expose-gc\n```\n\n### Output\n\nYou may specify `--output` if you create only one executable\nor `--out-path` to place executables for multiple targets.\n\n### Debug\n\nPass `--debug` to `pkg` to get a log of packaging process.\nIf you have issues with some particular file (seems not packaged\ninto executable), it may be useful to look through the log.\n\n### Bytecode (reproducibility)\n\nBy default, your source code is precompiled to v8 bytecode before being written\nto the output file. To disable this feature, pass `--no-bytecode` to `pkg`.\n\n#### Why would you want to do this?\n\nIf you need a reproducible build\nprocess where your executable hashes (e.g. md5, sha1, sha256, etc.) are the\nsame value between builds. Because compiling bytecode is not deterministic\n(see [here](https://ui.adsabs.harvard.edu/abs/2019arXiv191003478C/abstract) or\n[here](https://medium.com/dailyjs/understanding-v8s-bytecode-317d46c94775)) it\nresults in executables with differing hashed values. Disabling bytecode\ncompilation allows a given input to always have the same output.\n\n#### Why would you NOT want to do this?\n\nWhile compiling to bytecode does not make your source code 100% secure, it does\nadd a small layer of security/privacy/obscurity to your source code. Turning\noff bytecode compilation causes the raw source code to be written directly to\nthe executable file. If you're on \\*nix machine and would like an example, run\n`pkg` with the `--no-bytecode` flag, and use the GNU strings tool on the\noutput. You then should be able to grep your source code.\n\n#### Other considerations\n\nSpecifying `--no-bytecode` will fail if there are any packages in your project that aren't explicitly marked\nas public by the `license` in their `package.json`.\nBy default, `pkg` will check the license of each package and make sure that stuff that isn't meant for the public will\nonly be included as bytecode.\n\nIf you do require building pkg binaries for other architectures and/or depend on a package with a broken\n`license` in its `package.json`, you can override this behaviour by either explicitly whitelisting packages to be public\nusing `--public-packages \"packageA,packageB\"` or setting all packages to public using `--public-packages \"*\"`\n\n### Build\n\n`pkg` has so called \"base binaries\" - they are actually same\n`node` executables but with some patches applied. They are\nused as a base for every executable `pkg` creates. `pkg`\ndownloads precompiled base binaries before packaging your\napplication. If you prefer to compile base binaries from\nsource instead of downloading them, you may pass `--build`\noption to `pkg`. First ensure your computer meets the\nrequirements to compile original Node.js:\n[BUILDING.md](https://github.com/nodejs/node/blob/HEAD/BUILDING.md)\n\nSee [pkg-fetch](https://github.com/vercel/pkg-fetch) for more info.\n\n### Compression\n\nPass `--compress Brotli` or `--compress GZip` to `pkg` to compress further the content of the files store in the exectable.\n\nThis option can reduce the size of the embedded file system by up to 60%.\n\nThe startup time of the application might be reduced slightly.\n\n`-C` can be used as a shortcut for `--compress `.\n\n### Environment\n\n| Var            | Description                                                                               |\n| -------------- | ----------------------------------------------------------------------------------------- |\n| PKG_CACHE_PATH | Used to specify a custom path for node binaries cache folder. Default is `~/.pkg-cache`   |\n| PKG_IGNORE_TAG | Allows to ignore additional folder created on `PKG_CACHE_PATH` matching pkg-fetch version |\n| MAKE_JOB_COUNT | Allow configuring number of processes used for compiling                                  |\n\nExamples\n\n```bash\n# 1 - Using export\nexport PKG_CACHE_PATH=/my/cache\npkg app.js\n\n# 2 - Passing it before the script\nPKG_CACHE_PATH=/my/cache pkg app.js\n```\n\n## Usage of packaged app\n\nCommand line call to packaged app `./app a b` is equivalent\nto `node app.js a b`\n\n## Snapshot filesystem\n\nDuring packaging process `pkg` collects project files and places\nthem into executable. It is called a snapshot. At run time the\npackaged application has access to snapshot filesystem where all\nthat files reside.\n\nPackaged files have `/snapshot/` prefix in their paths (or\n`C:\\snapshot\\` in Windows). If you used `pkg /path/app.js` command line,\nthen `__filename` value will be likely `/snapshot/path/app.js`\nat run time. `__dirname` will be `/snapshot/path` as well. Here is\nthe comparison table of path-related values:\n\n| value                         | with `node`     | packaged                 | comments                       |\n| ----------------------------- | --------------- | ------------------------ | ------------------------------ |\n| \\_\\_filename                  | /project/app.js | /snapshot/project/app.js |\n| \\_\\_dirname                   | /project        | /snapshot/project        |\n| process.cwd()                 | /project        | /deploy                  | suppose the app is called ...  |\n| process.execPath              | /usr/bin/nodejs | /deploy/app-x64          | `app-x64` and run in `/deploy` |\n| process.argv[0]               | /usr/bin/nodejs | /deploy/app-x64          |\n| process.argv[1]               | /project/app.js | /snapshot/project/app.js |\n| process.pkg.entrypoint        | undefined       | /snapshot/project/app.js |\n| process.pkg.defaultEntrypoint | undefined       | /snapshot/project/app.js |\n| require.main.filename         | /project/app.js | /snapshot/project/app.js |\n\nHence, in order to make use of a file collected at packaging\ntime (`require` a javascript file or serve an asset) you should\ntake `__filename`, `__dirname`, `process.pkg.defaultEntrypoint`\nor `require.main.filename` as a base for your path calculations.\nFor javascript files you can just `require` or `require.resolve`\nbecause they use current `__dirname` by default. For assets use\n`path.join(__dirname, '../path/to/asset')`. Learn more about\n`path.join` in\n[Detecting assets in source code](#detecting-assets-in-source-code).\n\nOn the other hand, in order to access real file system at run time\n(pick up a user's external javascript plugin, json configuration or\neven get a list of user's directory) you should take `process.cwd()`\nor `path.dirname(process.execPath)`.\n\n## Detecting assets in source code\n\nWhen `pkg` encounters `path.join(__dirname, '../path/to/asset')`,\nit automatically packages the file specified as an asset. See\n[Assets](#assets). Pay attention that `path.join` must have two\narguments and the last one must be a string literal.\n\nThis way you may even avoid creating `pkg` config for your project.\n\n## Native addons\n\nNative addons (`.node` files) use is supported. When `pkg` encounters\na `.node` file in a `require` call, it will package this like an asset.\nIn some cases (like with the `bindings` package), the module path is generated\ndynamicaly and `pkg` won't be able to detect it. In this case, you should\nadd the `.node` file directly in the `assets` field in `package.json`.\n\nThe way Node.js requires native addon is different from a classic JS\nfile. It needs to have a file on disk to load it, but `pkg` only generates\none file. To circumvent this, `pkg` will create a temporary file on the\ndisk. These files will stay on the disk after the process has exited\nand will be used again on the next process launch.\n\nWhen a package, that contains a native module, is being installed,\nthe native module is compiled against current system-wide Node.js\nversion. Then, when you compile your project with `pkg`, pay attention\nto `--target` option. You should specify the same Node.js version\nas your system-wide Node.js to make compiled executable compatible\nwith `.node` files.\n\nNote that fully static Node binaries are not capable of loading native\nbindings, so you may not use Node bindings with `linuxstatic`.\n\n## API\n\n`const { exec } = require('pkg')`\n\n`exec(args)` takes an array of command line arguments and returns\na promise. For example:\n\n```js\nawait exec(['app.js', '--target', 'host', '--output', 'app.exe']);\n// do something with app.exe, run, test, upload, deploy, etc\n```\n\n## Troubleshooting\n\n### Error: ENOENT: no such file or directory, uv_chdir\n\nThis error can be caused by deleting the directory the application is\nrun from. Or, generally, deleting `process.cwd()` directory when the\napplication is running.\n\n### Error: ERR_INSPECTOR_NOT_AVAILABLE\n\nThis error can be caused by using `NODE_OPTIONS` variable to force to\nrun `node` with the debug mode enabled. Debugging options are disallowed\n, as **pkg** executables are usually used for production environments.\nIf you do need to use inspector, you can [build a debuggable Node.js](https://github.com/vercel/pkg/issues/93#issuecomment-301210543) yourself.\n\n### Error: require(...).internalModuleStat is not a function\n\nThis error can be caused by using `NODE_OPTIONS` variable with some\nbootstrap or `node` options causing conflicts with **pkg**. Some\nIDEs, such as **VS Code**, may add this env variable automatically.\n\nYou could check on **Unix systems** (Linux/macOS) in `bash`:\n\n```bash\n$ printenv | grep NODE\n```\n\n## Advanced\n\n### exploring virtual file system embedded in debug mode\n\nWhen you are using the `--debug` flag when building your executable,\n`pkg` add the ability to display the content of the virtual file system\nand the symlink table on the console, when the application starts,\nproviding that the environement variable DEBUG_PKG is set.\nThis feature can be useful to inspect if symlinks are correctly handled,\nand check that all the required files for your application are properly\nincorporated to the final executable.\n\n    $ pkg --debug app.js -o output\n    $ DEBUG_PKG=1 output\n\nor\n\n    C:\\> pkg --debug app.js -o output.exe\n    C:\\> set DEBUG_PKG=1\n    C:\\> output.exe\n\nNote: make sure not to use --debug flag in production.\n",
+        "releases": [
+            {
+                "name": "",
+                "date": "2023-03-08T01:19:58Z"
+            },
+            {
+                "name": "5.8.0",
+                "date": "2022-07-13T03:34:04Z"
+            },
+            {
+                "name": "5.7.0",
+                "date": "2022-05-18T02:52:52Z"
+            },
+            {
+                "name": "5.6.0",
+                "date": "2022-04-05T17:48:17Z"
+            },
+            {
+                "name": "",
+                "date": "2022-01-13T20:01:23Z"
+            },
+            {
+                "name": "",
+                "date": "2021-11-29T02:40:13Z"
+            },
+            {
+                "name": "",
+                "date": "2021-11-29T00:49:55Z"
+            },
+            {
+                "name": "",
+                "date": "2021-10-30T16:00:52Z"
+            },
+            {
+                "name": "",
+                "date": "2021-10-26T06:29:46Z"
+            },
+            {
+                "name": "",
+                "date": "2021-10-01T13:51:21Z"
+            },
+            {
+                "name": "",
+                "date": "2021-09-11T01:44:37Z"
+            },
+            {
+                "name": "",
+                "date": "2021-07-21T23:42:56Z"
+            },
+            {
+                "name": "",
+                "date": "2021-06-24T00:30:09Z"
+            },
+            {
+                "name": "",
+                "date": "2021-05-24T15:28:20Z"
+            },
+            {
+                "name": "",
+                "date": "2021-05-20T14:30:06Z"
+            },
+            {
+                "name": "",
+                "date": "2021-04-27T13:09:00Z"
+            },
+            {
+                "name": "",
+                "date": "2021-04-22T17:21:59Z"
+            },
+            {
+                "name": "",
+                "date": "2021-03-26T15:25:09Z"
+            },
+            {
+                "name": "",
+                "date": "2021-03-22T15:25:29Z"
+            },
+            {
+                "name": null,
+                "date": "2018-08-09T10:02:08Z"
+            },
+            {
+                "name": "",
+                "date": "2018-06-21T22:06:04Z"
+            },
+            {
+                "name": "",
+                "date": "2018-06-21T10:26:06Z"
+            },
+            {
+                "name": "",
+                "date": "2018-06-21T10:29:53Z"
+            },
+            {
+                "name": "",
+                "date": "2018-06-21T10:32:12Z"
+            },
+            {
+                "name": "",
+                "date": "2017-10-06T08:53:52Z"
+            },
+            {
+                "name": "",
+                "date": "2017-08-15T16:17:29Z"
+            },
+            {
+                "name": "",
+                "date": "2017-08-06T10:52:27Z"
+            },
+            {
+                "name": "",
+                "date": "2017-08-04T09:49:25Z"
+            },
+            {
+                "name": "",
+                "date": "2017-08-03T17:44:45Z"
+            },
+            {
+                "name": "",
+                "date": "2017-07-28T15:57:26Z"
+            },
+            {
+                "name": "",
+                "date": "2017-07-21T14:37:13Z"
+            },
+            {
+                "name": "",
+                "date": "2017-07-15T08:39:19Z"
+            },
+            {
+                "name": "",
+                "date": "2017-06-26T18:15:46Z"
+            },
+            {
+                "name": "",
+                "date": "2017-06-13T09:32:45Z"
+            },
+            {
+                "name": "",
+                "date": "2017-06-04T18:35:05Z"
+            },
+            {
+                "name": "",
+                "date": "2017-05-24T10:29:33Z"
+            },
+            {
+                "name": "",
+                "date": "2017-05-13T23:17:10Z"
+            },
+            {
+                "name": "",
+                "date": "2017-05-05T21:12:17Z"
+            },
+            {
+                "name": "",
+                "date": "2017-05-04T03:05:05Z"
+            },
+            {
+                "name": "",
+                "date": "2017-05-02T09:19:45Z"
+            },
+            {
+                "name": "",
+                "date": "2017-05-01T12:04:32Z"
+            }
+        ]
+    }
+}

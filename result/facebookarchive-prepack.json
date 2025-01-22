@@ -1,0 +1,227 @@
+{
+    "https://api.github.com/repos/facebookarchive/prepack": {
+        "forks": 422,
+        "watchers": 14211,
+        "stars": 14211,
+        "languages": {
+            "JavaScript": 4006476,
+            "HTML": 40656,
+            "CSS": 14293,
+            "Shell": 8648
+        },
+        "commits": [
+            "2021-01-21T17:51:21Z",
+            "2019-05-15T18:28:39Z",
+            "2019-05-07T17:18:05Z",
+            "2019-03-22T16:20:05Z",
+            "2019-03-14T13:55:56Z",
+            "2019-01-29T21:51:25Z",
+            "2019-01-15T21:07:54Z",
+            "2018-12-27T19:00:32Z",
+            "2018-12-18T12:06:47Z",
+            "2018-11-12T18:02:47Z",
+            "2018-11-07T06:17:37Z",
+            "2018-10-23T21:34:48Z",
+            "2018-10-23T19:06:37Z",
+            "2018-10-23T00:34:09Z",
+            "2018-10-22T20:39:29Z",
+            "2018-10-22T17:33:32Z",
+            "2018-10-17T19:54:20Z",
+            "2018-10-16T20:42:45Z",
+            "2018-10-16T15:01:12Z",
+            "2018-10-12T22:42:44Z",
+            "2018-10-10T13:44:52Z",
+            "2018-10-09T22:27:34Z",
+            "2018-10-09T19:52:45Z",
+            "2018-10-06T00:23:15Z",
+            "2018-10-05T23:53:25Z",
+            "2018-10-04T21:02:03Z",
+            "2018-10-04T15:03:41Z",
+            "2018-10-04T15:03:39Z",
+            "2018-10-04T13:31:26Z",
+            "2018-10-03T18:17:49Z"
+        ],
+        "creation_date": "2015-10-28T23:25:08Z",
+        "contributors": 30,
+        "topics": [
+            "javascript",
+            "optimization"
+        ],
+        "subscribers": 261,
+        "readme": "# Prepack [![Circle CI](https://circleci.com/gh/facebook/prepack.png?style=shield&circle-token=1109197a81e634fd06e162c25d309a420585acd5)](https://circleci.com/gh/facebook/prepack)\n\n<img src=\"assets/PrepackLogo.png\" width=150 align=right>\n\nPrepack is a partial evaluator for JavaScript. Prepack rewrites a JavaScript bundle, resulting in JavaScript code that executes more efficiently.\nFor initialization-heavy code, Prepack works best in an environment where JavaScript parsing is effectively cached.\n\nSee the official [prepack.io](https://prepack.io) website for an introduction and an [interactive REPL playground](https://prepack.io/repl.html).\n\n## Status\n\n**We, the Prepack team at Facebook, have temporarily set down work on Prepack including the React compiler project. You won't see many Prepack PRs while we are currently prioritizing some other projects.**\n\n## How to use Prepack\n\nInstall the CLI via npm,\n\n```bash\n$ npm install -g prepack\n```\n\nOr if you prefer yarn, make sure you get yarn first,\n```bash\n$ npm install -g yarn\n```\nand then install the Prepack CLI via yarn:\n\n```bash\n$ yarn global add prepack\n```\nYou may need to `prepend` (pun intended!) the command with `sudo` in some cases.\n\n### Let the party begin\n\nTo compile a file and print the output to the console:\n\n```bash\n$ prepack script.js\n```\n\nIf you want to compile a file and output to another file:\n\n```bash\n$ prepack script.js --out script-processed.js\n```\n\nDetailed instructions and the API can be found at [Prepack CLI: Getting Started](https://prepack.io/getting-started.html)\n\n### Plugins to other tools\nThe following are a few plugins to other tools. They have been created and are maintained separately from Prepack itself. If you run into any issues with those plugins, please ask the plugin maintainers for support.\n\n- [A Rollup plugin for Prepack](https://www.npmjs.com/package/rollup-plugin-prepack)\n- [A Webpack plugin for Prepack](https://www.npmjs.com/package/prepack-webpack-plugin)\n- [A Parcel plugin for Prepack](https://www.npmjs.com/package/parcel-plugin-prepack)\n- [A Visual Studio code plugin for Prepack](https://marketplace.visualstudio.com/items?itemName=RobinMalfait.prepack-vscode)\n- [A babel plugin which transforms Flow annotations into prepack model declarations](https://www.npmjs.com/package/babel-plugin-flow-prepack).\n\n## Test Results and Code Coverage\n\n- [test262 status on master branch](https://circleci.com/api/v1/project/facebook/prepack/latest/artifacts/0/$CIRCLE_ARTIFACTS/test262-status.txt?branch=master)\n- [code coverage report for serialization tests](https://circleci.com/api/v1/project/facebook/prepack/latest/artifacts/0/$CIRCLE_ARTIFACTS/coverage-report-sourcemapped/index.html?branch=master)\n- To see the status for a pull request, look for the message *All checks have passed* or *All checks have failed*. Click on *Show all checks*, *Details*, *Artifacts*, and then *test262-status.txt* or *coverage-report-sourcemapped/index.html*.\n\n## How to get the code\n\n0. Clone repository and make it your current directory.\n1. `git submodule init`\n2. `git submodule update --init`\n3. Get yarn and node, then do\n   `yarn`\n\nNote: For development work you really need `yarn`, as many scripts require it.\n\n### How to build, lint, type check\n\n0. Get the code\n1. `yarn build`  \n   You can later run `yarn watch` in the background to just compile changed files on the fly.\n2. `yarn lint`\n3. `yarn flow`\n\n### How to run tests\n\n0. Get the code\n1. Make sure the code is built, either by running `yarn build` or `yarn watch`\n2. `yarn test`\n\nYou can run individual test suites as follows:\n- `yarn test-serializer`  \n  This tests the interpreter and serializer. All tests should pass.\n- `yarn test-test262`  \n  This tests conformance against the test262 suite. Not all will pass, increasing conformance is work in progress.\n\n## How to run the interpreter\n\n0. Get the code\n1. Make sure the code is built, either by running `yarn build` or `yarn watch`\n2. `yarn repl`  \n   This starts an interactive interpreter session.\n\n## How to run Prepack\n\n0. Get the code\n1. Make sure the code is built, either by running `yarn build` or `yarn watch`.\n2. Have a JavaScript file handy that you want to prepack, for example:  \n   `echo \"function hello() { return 'hello'; } function world() { return 'world'; } s = hello() + ' ' + world();\" >/tmp/sample.js`\n\n3. `cat /tmp/sample.js | yarn prepack-cli`  \n   Try `--help` for more options.\n\n## How to validate changes\n\nInstead of building, linting, type checking, testing separately, the following does everything together:  \n`yarn validate`\n\n## How to edit the website\n\nThe content for [prepack.io](https://prepack.io) resides in the [website directory](https://github.com/facebook/prepack/tree/master/website) of this repository. To make changes, submit a pull request, just like for any code changes.\n\nIn order to run the website locally at [localhost:8000](http://localhost:8000):\n1. Build prepack into the website: `yarn build && mv prepack.min.js website/js`\n2. Run `python -m SimpleHTTPServer` (Python 2) or `python -m http.server` (Python 3) from the `website/` directory\n\n## How to contribute\n\nTo read more about the project, check out this [suggested reading wiki](https://github.com/facebook/prepack/wiki/Suggested-reading)\n\nFor more information about contributing pull requests and issues, see our [Contribution Guidelines](./CONTRIBUTING.md).\n\n## License\n\nPrepack is BSD-licensed. We also provide an additional patent grant.\n",
+        "releases": [
+            {
+                "name": "v0.2.54",
+                "date": "2018-10-08T17:02:54Z"
+            },
+            {
+                "name": "v0.2.52",
+                "date": "2018-09-20T16:49:54Z"
+            },
+            {
+                "name": "v0.2.51",
+                "date": "2018-09-05T20:48:46Z"
+            },
+            {
+                "name": "v0.2.50",
+                "date": "2018-08-31T00:40:58Z"
+            },
+            {
+                "name": "v0.2.49",
+                "date": "2018-08-23T14:28:46Z"
+            },
+            {
+                "name": "v0.2.48",
+                "date": "2018-08-16T02:07:51Z"
+            },
+            {
+                "name": "v0.2.47",
+                "date": "2018-08-10T17:10:58Z"
+            },
+            {
+                "name": "v0.2.46",
+                "date": "2018-08-01T16:40:10Z"
+            },
+            {
+                "name": "v0.2.45",
+                "date": "2018-07-27T00:54:50Z"
+            },
+            {
+                "name": "v0.2.44",
+                "date": "2018-07-18T15:17:56Z"
+            },
+            {
+                "name": "v0.2.43",
+                "date": "2018-07-13T17:55:37Z"
+            },
+            {
+                "name": "v0.2.42",
+                "date": "2018-07-05T22:11:31Z"
+            },
+            {
+                "name": "v0.2.41",
+                "date": "2018-06-29T15:52:20Z"
+            },
+            {
+                "name": "v0.2.40",
+                "date": "2018-06-21T16:18:12Z"
+            },
+            {
+                "name": "v0.2.39",
+                "date": "2018-06-14T17:14:37Z"
+            },
+            {
+                "name": "v0.2.38",
+                "date": "2018-06-07T22:08:42Z"
+            },
+            {
+                "name": "v0.2.36",
+                "date": "2018-05-25T17:48:55Z"
+            },
+            {
+                "name": "v0.2.35",
+                "date": "2018-05-21T18:07:00Z"
+            },
+            {
+                "name": "v0.2.34",
+                "date": "2018-05-03T17:57:16Z"
+            },
+            {
+                "name": "0.2.33",
+                "date": "2018-04-27T21:35:54Z"
+            },
+            {
+                "name": "0.2.32",
+                "date": "2018-04-19T16:29:35Z"
+            },
+            {
+                "name": "0.2.31",
+                "date": "2018-04-11T21:30:44Z"
+            },
+            {
+                "name": "v0.2.30",
+                "date": "2018-04-04T21:28:54Z"
+            },
+            {
+                "name": "v0.2.29",
+                "date": "2018-03-27T20:30:17Z"
+            },
+            {
+                "name": "0.2.27",
+                "date": "2018-03-19T04:07:16Z"
+            },
+            {
+                "name": "v0.2.25",
+                "date": "2018-03-09T00:41:12Z"
+            },
+            {
+                "name": "v0.2.24",
+                "date": "2018-03-01T18:45:37Z"
+            },
+            {
+                "name": "v0.2.23",
+                "date": "2018-02-09T19:23:11Z"
+            },
+            {
+                "name": "v0.2.22",
+                "date": "2018-01-30T03:01:25Z"
+            },
+            {
+                "name": "v0.2.20",
+                "date": "2018-01-24T22:10:33Z"
+            },
+            {
+                "name": "v0.2.19",
+                "date": "2018-01-19T21:44:09Z"
+            },
+            {
+                "name": "v0.2.18",
+                "date": "2018-01-05T19:02:38Z"
+            },
+            {
+                "name": "v0.2.16",
+                "date": "2017-12-20T19:55:26Z"
+            },
+            {
+                "name": "v0.2.15",
+                "date": "2017-12-12T17:50:40Z"
+            },
+            {
+                "name": "v0.2.14",
+                "date": "2017-12-05T00:54:33Z"
+            },
+            {
+                "name": "v0.2.13",
+                "date": "2017-11-30T20:43:12Z"
+            },
+            {
+                "name": "v0.2.12",
+                "date": "2017-11-18T00:06:24Z"
+            },
+            {
+                "name": "v0.2.11",
+                "date": "2017-11-07T18:04:07Z"
+            },
+            {
+                "name": "v0.2.10",
+                "date": "2017-10-18T17:38:33Z"
+            },
+            {
+                "name": "v0.2.9",
+                "date": "2017-10-11T20:58:53Z"
+            },
+            {
+                "name": "v0.2.8",
+                "date": "2017-10-03T23:15:05Z"
+            },
+            {
+                "name": "v0.2.7",
+                "date": "2017-09-27T00:20:34Z"
+            },
+            {
+                "name": "v0.2.6",
+                "date": "2017-08-25T20:32:02Z"
+            }
+        ]
+    }
+}

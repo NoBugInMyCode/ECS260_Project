@@ -1,0 +1,881 @@
+{
+    "https://api.github.com/repos/webtorrent/webtorrent": {
+        "forks": 2738,
+        "watchers": 29853,
+        "stars": 29853,
+        "languages": {
+            "JavaScript": 270274,
+            "Shell": 610
+        },
+        "commits": [
+            "2025-01-21T21:33:47Z",
+            "2025-01-21T21:29:58Z",
+            "2025-01-20T02:13:24Z",
+            "2025-01-20T02:09:32Z",
+            "2025-01-11T17:32:38Z",
+            "2025-01-04T20:07:23Z",
+            "2025-01-04T20:03:51Z",
+            "2024-12-28T16:41:53Z",
+            "2024-12-28T16:38:18Z",
+            "2024-12-28T13:43:09Z",
+            "2024-12-07T18:43:18Z",
+            "2024-12-07T18:39:39Z",
+            "2024-12-07T15:37:05Z",
+            "2024-12-07T15:33:23Z",
+            "2024-12-07T13:17:44Z",
+            "2024-12-07T13:14:10Z",
+            "2024-11-23T01:44:55Z",
+            "2024-11-23T01:41:09Z",
+            "2024-11-17T15:55:44Z",
+            "2024-11-17T15:51:57Z",
+            "2024-11-06T10:01:15Z",
+            "2024-11-06T09:57:32Z",
+            "2024-11-06T08:41:42Z",
+            "2024-11-06T05:46:19Z",
+            "2024-11-06T05:38:19Z",
+            "2024-11-06T05:30:03Z",
+            "2024-11-06T05:21:43Z",
+            "2024-11-06T00:17:37Z",
+            "2024-11-06T00:17:11Z",
+            "2024-11-06T00:08:46Z"
+        ],
+        "creation_date": "2013-10-15T08:16:40Z",
+        "contributors": 30,
+        "topics": [
+            "bittorrent",
+            "browser",
+            "hacktoberfest",
+            "javascript",
+            "nodejs",
+            "p2p",
+            "streaming",
+            "torrent",
+            "webrtc",
+            "webtorrent"
+        ],
+        "subscribers": 676,
+        "readme": "<h1 align=\"center\">\n  <br>\n  <a href=\"https://webtorrent.io\"><img src=\"https://webtorrent.io/img/WebTorrent.png\" alt=\"WebTorrent\" width=\"200\"></a>\n  <br>\n  WebTorrent\n  <br>\n  <br>\n</h1>\n\n<h4 align=\"center\">The streaming torrent client. For node.js and the web.</h4>\n\n<p align=\"center\">\n  <a href=\"https://discord.gg/cnXkm4Z\"><img src=\"https://img.shields.io/discord/612575111718895616\" alt=\"discord\"></a>\n  <a href=\"https://github.com/webtorrent/webtorrent/actions\"><img src=\"https://img.shields.io/github/actions/workflow/status/webtorrent/webtorrent/ci.yml?branch=master\" alt=\"ci\"></a>\n  <a href=\"https://www.npmjs.com/package/webtorrent\"><img src=\"https://img.shields.io/npm/v/webtorrent.svg\" alt=\"npm version\"></a>\n  <a href=\"https://www.npmjs.com/package/webtorrent\"><img src=\"https://img.shields.io/npm/dm/webtorrent.svg\" alt=\"npm downloads\"></a>\n  <a href=\"https://standardjs.com\"><img src=\"https://img.shields.io/badge/code_style-standard-brightgreen.svg\" alt=\"Standard - JavaScript Style Guide\"></a>\n</p>\n\n<h5 align=\"center\">\n  Sponsored by&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"https://socket.dev\"><img src=\"https://webtorrent.io/img/supporters/socket.png\" alt=\"Socket - JavaScript open source supply chain security\" height=35 valign=\"middle\"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"https://www.wormhole.app/?utm_medium=sponsorship&utm_source=webtorrent&utm_campaign=feross\"><img src=\"https://webtorrent.io/img/supporters/wormhole.png\" alt=\"Wormhole\" height=30 valign=\"middle\"></a>\n</h5>\n<br>\n\n**WebTorrent** is a streaming torrent client for **node.js** and the **browser**. YEP,\nTHAT'S RIGHT. THE BROWSER. It's written completely in JavaScript \u2013 the language of the web\n\u2013 so the same code works in both runtimes.\n\nIn node.js, this module is a simple torrent client, using TCP and UDP to talk to\nother torrent clients.\n\nIn the browser, WebTorrent uses **WebRTC** (data channels) for peer-to-peer transport.\nIt can be used **without** browser plugins, extensions, or installations. It's Just\nJavaScript&trade;. Note: WebTorrent does **not** support UDP/TCP peers in browser.\n\nSimply include the\n[`webtorrent.min.js`](https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js) script\non your page to start fetching files over WebRTC using the BitTorrent protocol, or\n`import WebTorrent from 'webtorrent'` with [browserify](http://browserify.org/) or [webpack](https://webpack.js.org/). See [demo apps\n](#who-is-using-webtorrent-today) and [code examples](#usage) below.\n\n[![jsdelivr download count](https://data.jsdelivr.com/v1/package/npm/webtorrent/badge)](https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js)\n\nTo make BitTorrent work over WebRTC (which is the only P2P transport that works on the\nweb) we made some protocol changes. Therefore, a browser-based WebTorrent client or **\"web\npeer\"** can only connect to other clients that support WebTorrent/WebRTC.\n\nTo seed files to web peers, use a client that supports WebTorrent, e.g.\n[WebTorrent Desktop][webtorrent-desktop], a desktop client with a\nfamiliar UI that can connect to web peers,\n[webtorrent-hybrid](https://github.com/webtorrent/webtorrent-hybrid), a command line program,\nor [Instant.io](https://instant.io/), a website. Established torrent clients like\n**Vuze** have [already added WebTorrent support](https://wiki.vuze.com/w/WebTorrent) so\nthey can connect to both normal *and* web peers. We hope other clients will follow.\n\n![Network](https://webtorrent.io/img/network.png)\n\n### Features\n\n- **Torrent client for node.js & the browser** (same npm package!)\n- **Insanely fast**\n- Download **multiple torrents** simultaneously, efficiently\n- **Pure Javascript** (no native dependencies)\n- Exposes files as **streams**\n  - Fetches pieces from the network on-demand so seeking is supported (even before torrent is finished)\n  - Seamlessly switches between sequential and rarest-first piece selection strategy\n- Supports advanced torrent client features\n  - **magnet uri** support via **[ut_metadata](https://github.com/webtorrent/ut_metadata)**\n  - **peer discovery** via **[dht](https://github.com/webtorrent/bittorrent-dht)**,\n    **[tracker](https://github.com/webtorrent/bittorrent-tracker)**,\n    **[lsd](https://github.com/webtorrent/bittorrent-lsd)**, and\n    **[ut_pex](https://github.com/webtorrent/ut_pex)**\n  - **[protocol extension api](https://github.com/webtorrent/bittorrent-protocol#extension-api)**\n    for adding new extensions\n- **Comprehensive test suite** (runs completely offline, so it's reliable and fast)\n- Check all the **[supported BEPs here](docs/bep_support.md)**\n\n#### Browser/WebRTC environment features\n\n- **WebRTC data channels** for lightweight peer-to-peer communication with **no plugins**\n- **No silos.** WebTorrent is a P2P network for the **entire web.** WebTorrent clients\n  running on one domain can connect to clients on any other domain.\n- Stream video torrents into a `<video>` tag (`webm, mkv, mp4, ogv, mov, etc (AV1, H264, HEVC*, VP8, VP9, AAC, FLAC, MP3, OPUS, Vorbis, etc)`)\n- Supports Chrome, Firefox, Opera and Safari.\n\n<!-- <p align=\"center\">\n  <a href=\"https://saucelabs.com/u/webtorrent\">\n    <img src=\"https://saucelabs.com/browser-matrix/webtorrent.svg\" alt=\"Sauce Labs\">\n  </a>\n</p> -->\n\n### Install\n\nTo install WebTorrent for use in node or the browser with `import WebTorrent from 'webtorrent'`, run:\n\n```bash\nnpm install webtorrent\n```\n\nTo install a `webtorrent`\n[command line program](https://github.com/webtorrent/webtorrent-cli), run:\n\n```bash\nnpm install webtorrent-cli -g\n```\n\nTo install a WebTorrent desktop application for Mac, Windows, or Linux, see\n[WebTorrent Desktop][webtorrent-desktop].\n\n### Ways to help\n\n- **Join us in [Gitter][webtorrent-gitter-url]** or on freenode at `#webtorrent` to help\n  with development or to hang out with some mad science hackers :)\n- **[Create a new issue](https://github.com/webtorrent/webtorrent/issues/new)** to report bugs\n- **[Fix an issue](https://github.com/webtorrent/webtorrent/issues?state=open)**. WebTorrent\n  is an [OPEN Open Source Project](https://github.com/webtorrent/.github/blob/master/CONTRIBUTING.md)!\n\n### Who is using WebTorrent today?\n\n**[Lots of folks!](docs/faq.md#who-is-using-webtorrent-today)**\n\n### WebTorrent API Documentation\n\n**[Read the full API Documentation](docs/api.md).**\n\n### Usage\n\nWebTorrent is the first BitTorrent client that works in the browser, using open web\nstandards (no plugins, just HTML5 and WebRTC)! It's easy to get started!\n\n#### In the browser\n\n##### Downloading a file is simple:\n\n```js\nimport WebTorrent from 'webtorrent'\n\nconst client = new WebTorrent()\nconst magnetURI = '...'\n\nclient.add(magnetURI, torrent => {\n  // Got torrent metadata!\n  console.log('Client is downloading:', torrent.infoHash)\n\n  for (const file of torrent.files) {\n    document.body.append(file.name)\n  }\n})\n```\n\n##### Seeding a file is simple, too:\n\n```js\nimport dragDrop from 'drag-drop'\nimport WebTorrent from 'webtorrent'\n\nconst client = new WebTorrent()\n\n// When user drops files on the browser, create a new torrent and start seeding it!\ndragDrop('body', files => {\n  client.seed(files, torrent => {\n    console.log('Client is seeding:', torrent.infoHash)\n  })\n})\n```\n\nThere are more examples in [docs/get-started.md](docs/get-started.md).\n\n##### Browserify\n\nWebTorrent works great with [browserify](http://browserify.org/), an npm package that lets\nyou use [node](http://nodejs.org/)-style require() to organize your browser code and load modules installed by [npm](https://www.npmjs.com/) (as seen in the previous examples).\n\n##### Webpack\n\nWebTorrent also works with [webpack](https://webpack.js.org/), another module\nbundler. However, webpack requires extra configuration which you can find in [the webpack bundle config used by webtorrent](/scripts/browser.webpack.js).\n\n\nOr, you can just use the pre-built version via\n`import WebTorrent from 'webtorrent/dist/webtorrent.min.js'` and skip the webpack configuration.\n\n##### Script tag\n\nWebTorrent is also available as a standalone script\n([`webtorrent.min.js`](webtorrent.min.js)) which exposes `WebTorrent` on the `window`\nobject, so it can be used with just a script tag:\n\n```html\n<script type='module'>\n  import WebTorrent from 'webtorrent.min.js'\n</script>\n```\n\nThe WebTorrent script is also hosted on fast, reliable CDN infrastructure (Cloudflare and\nMaxCDN) for easy inclusion on your site:\n\n```html\n<script type='module'>\n  import WebTorrent from 'https://esm.sh/webtorrent'\n</script>\n```\n\n##### Chrome App\n\nIf you want to use WebTorrent in a\n[Chrome App](https://developer.chrome.com/apps/about_apps), you can include the\nfollowing script:\n\n```html\n<script type='module'>\n  import WebTorrent from 'webtorrent.chromeapp.js'\n</script>\n```\n\nBe sure to enable the `chrome.sockets.udp` and `chrome.sockets.tcp` permissions!\n\n#### In Node.js\n\nWebTorrent also works in node.js, using the *same npm package!* It's mad science!\n\n**NOTE**: To connect to \"web peers\" (browsers) in addition to normal BitTorrent peers, use\n[webtorrent-hybrid](https://github.com/webtorrent/webtorrent-hybrid) which includes WebRTC\nsupport for node.\n\n#### As a command line app\n\nWebTorrent is also available as a\n[command line app](https://github.com/webtorrent/webtorrent-cli). Here's how to use it:\n\n```bash\n$ npm install webtorrent-cli -g\n$ webtorrent --help\n```\n\nTo download a torrent:\n\n```bash\n$ webtorrent magnet_uri\n```\n\nTo stream a torrent to a device like **AirPlay** or **Chromecast**, just pass a flag:\n\n```bash\n$ webtorrent magnet_uri --airplay\n```\n\nThere are many supported streaming options:\n\n```bash\n--airplay               Apple TV\n--chromecast            Chromecast\n--mplayer               MPlayer\n--mpv                   MPV\n--omx [jack]            omx [default: hdmi]\n--vlc                   VLC\n--xbmc                  XBMC\n--stdout                standard out [implies --quiet]\n```\n\nIn addition to magnet uris, WebTorrent supports [many ways](docs/api.md#clientaddtorrentid-opts-function-ontorrent-torrent-) to specify a torrent.\n\n### Talks about WebTorrent\n\n- Sep 2017 - Nordic JS - [Get Rich Quick With P2P Crypto Currency](https://www.youtube.com/watch?v=8N_4Furztjo)\n- May 2017 - Char.la - [WebTorrent and Peerify](https://youtu.be/D-04vg5hvEQ?t=54m20s) (Spanish)\n- Nov 2016 - NodeConf Argentina - [Real world Electron: Building Cross-platform desktop apps with JavaScript](https://www.youtube.com/watch?v=YLExGgEnbFY)\n- May 2016 - SIGNAL Conference - [BitTorrent in the Browser](https://www.youtube.com/watch?v=2qrUx-C5Np4)\n- May 2015 - Data Terra Nemo - [WebTorrent: Mother of all demos](https://www.youtube.com/watch?v=RRtNEcAaUO8)\n- May 2015 - Data Terra Nemo - [WebRTC Everywhere](https://www.youtube.com/watch?v=RRtNEcAaUO8)\n- Nov 2014 - JSConf Asia - [How WebTorrent Works](https://www.youtube.com/watch?v=kxHRATfvnlw)\n- Sep 2014 - NodeConf EU - [WebRTC Mad Science](https://www.youtube.com/watch?v=BVBXkzVjvPc) (first working WebTorrent demo)\n- Apr 2014 - CraftConf - [Bringing BitTorrent to the Web](https://www.youtube.com/watch?v=PT8s_IVWDgw)\n- May 2014 - JS.LA - [How I Built a BitTorrent Client in the Browser](https://vimeo.com/97324247) (progress update; node client working)\n- Oct 2013 - RealtimeConf - [WebRTC Black Magic](https://vimeo.com/77265280) (first mention of idea for WebTorrent)\n\n### Modules\n\nMost of the active development is happening inside of small npm packages which are used by WebTorrent.\n\n#### The Node Way&trade;\n\n> \"When applications are done well, they are just the really application-specific, brackish residue that can't be so easily abstracted away. All the nice, reusable components sublimate away onto github and npm where everybody can collaborate to advance the commons.\" \u2014 substack from [\"how I write modules\"](https://gist.github.com/substack/5075355)\n\n![node.js is shiny](https://feross.net/x/node2.gif)\n\n#### Modules\n\nThese are the main modules that make up WebTorrent:\n\n| module | tests | version | description |\n|---|---|---|---|\n| **[webtorrent][webtorrent]** | [![][webtorrent-ti]][webtorrent-tu] | [![][webtorrent-ni]][webtorrent-nu] | **torrent client (this module)**\n| [bittorrent-dht][bittorrent-dht] | [![][bittorrent-dht-ti]][bittorrent-dht-tu] | [![][bittorrent-dht-ni]][bittorrent-dht-nu] | distributed hash table client\n| [bittorrent-peerid][bittorrent-peerid] | [![][bittorrent-peerid-ti]][bittorrent-peerid-tu] | [![][bittorrent-peerid-ni]][bittorrent-peerid-nu] | identify client name/version\n| [bittorrent-protocol][bittorrent-protocol] | [![][bittorrent-protocol-ti]][bittorrent-protocol-tu] | [![][bittorrent-protocol-ni]][bittorrent-protocol-nu] | bittorrent protocol stream\n| [bittorrent-tracker][bittorrent-tracker] | [![][bittorrent-tracker-ti]][bittorrent-tracker-tu] | [![][bittorrent-tracker-ni]][bittorrent-tracker-nu] | bittorrent tracker server/client\n| [bittorrent-lsd][bittorrent-lsd] | [![][bittorrent-lsd-ti]][bittorrent-lsd-tu] | [![][bittorrent-lsd-ni]][bittorrent-lsd-nu] | bittorrent local service discovery\n| [create-torrent][create-torrent] | [![][create-torrent-ti]][create-torrent-tu] | [![][create-torrent-ni]][create-torrent-nu] | create .torrent files\n| [magnet-uri][magnet-uri] | [![][magnet-uri-ti]][magnet-uri-tu] | [![][magnet-uri-ni]][magnet-uri-nu] | parse magnet uris\n| [parse-torrent][parse-torrent] | [![][parse-torrent-ti]][parse-torrent-tu] | [![][parse-torrent-ni]][parse-torrent-nu] | parse torrent identifiers\n| [torrent-discovery][torrent-discovery] | [![][torrent-discovery-ti]][torrent-discovery-tu] | [![][torrent-discovery-ni]][torrent-discovery-nu] | find peers via dht, tracker, and lsd\n| [ut_metadata][ut_metadata] | [![][ut_metadata-ti]][ut_metadata-tu] | [![][ut_metadata-ni]][ut_metadata-nu] | metadata for magnet uris (protocol extension)\n| [ut_pex][ut_pex] | [![][ut_pex-ti]][ut_pex-tu] | [![][ut_pex-ni]][ut_pex-nu] | peer discovery (protocol extension)\n\n[webtorrent]: https://github.com/webtorrent/webtorrent\n[webtorrent-gitter-url]: https://gitter.im/webtorrent/webtorrent\n\n[webtorrent-ti]: https://img.shields.io/github/actions/workflow/status/webtorrent/webtorrent/ci.yml\n[webtorrent-tu]: https://github.com/webtorrent/webtorrent/actions\n[webtorrent-ni]: https://img.shields.io/npm/v/webtorrent.svg\n[webtorrent-nu]: https://www.npmjs.com/package/webtorrent\n[webtorrent-desktop]: https://webtorrent.io/desktop\n\n[bittorrent-dht]: https://github.com/webtorrent/bittorrent-dht\n[bittorrent-dht-ti]: https://img.shields.io/github/actions/workflow/status/webtorrent/bittorrent-dht/ci.yml?branch=master\n[bittorrent-dht-tu]: https://github.com/webtorrent/bittorrent-dht/actions\n[bittorrent-dht-ni]: https://img.shields.io/npm/v/bittorrent-dht.svg\n[bittorrent-dht-nu]: https://www.npmjs.com/package/bittorrent-dht\n\n[bittorrent-peerid]: https://github.com/webtorrent/bittorrent-peerid\n[bittorrent-peerid-ti]: https://img.shields.io/github/actions/workflow/status/webtorrent/bittorrent-peerid/ci.yml?branch=master\n[bittorrent-peerid-tu]: https://github.com/webtorrent/bittorrent-peerid/actions\n[bittorrent-peerid-ni]: https://img.shields.io/npm/v/bittorrent-peerid.svg\n[bittorrent-peerid-nu]: https://www.npmjs.com/package/bittorrent-peerid\n\n[bittorrent-protocol]: https://github.com/webtorrent/bittorrent-protocol\n[bittorrent-protocol-ti]: https://img.shields.io/github/actions/workflow/status/webtorrent/bittorrent-protocol/ci.yml?branch=master\n[bittorrent-protocol-tu]: https://github.com/webtorrent/bittorrent-protocol/actions\n[bittorrent-protocol-ni]: https://img.shields.io/npm/v/bittorrent-protocol.svg\n[bittorrent-protocol-nu]: https://www.npmjs.com/package/bittorrent-protocol\n\n[bittorrent-tracker]: https://github.com/webtorrent/bittorrent-tracker\n[bittorrent-tracker-ti]: https://img.shields.io/github/actions/workflow/status/webtorrent/bittorrent-tracker/ci.yml?branch=master\n[bittorrent-tracker-tu]: https://github.com/webtorrent/bittorrent-tracker/actions\n[bittorrent-tracker-ni]: https://img.shields.io/npm/v/bittorrent-tracker.svg\n[bittorrent-tracker-nu]: https://www.npmjs.com/package/bittorrent-tracker\n\n[bittorrent-lsd]: https://github.com/webtorrent/bittorrent-lsd\n[bittorrent-lsd-ti]: https://img.shields.io/github/actions/workflow/status/webtorrent/bittorrent-lsd/ci.yml?branch=master\n[bittorrent-lsd-tu]: https://github.com/webtorrent/bittorrent-lsd/actions\n[bittorrent-lsd-ni]: https://img.shields.io/npm/v/bittorrent-lsd.svg\n[bittorrent-lsd-nu]: https://www.npmjs.com/package/bittorrent-lsd\n\n[create-torrent]: https://github.com/webtorrent/create-torrent\n[create-torrent-ti]: https://img.shields.io/github/actions/workflow/status/webtorrent/create-torrent/ci.yml?branch=master\n[create-torrent-tu]: https://github.com/webtorrent/create-torrent/actions\n[create-torrent-ni]: https://img.shields.io/npm/v/create-torrent.svg\n[create-torrent-nu]: https://www.npmjs.com/package/create-torrent\n\n[magnet-uri]: https://github.com/webtorrent/magnet-uri\n[magnet-uri-ti]: https://img.shields.io/github/actions/workflow/status/webtorrent/magnet-uri/ci.yml?branch=master\n[magnet-uri-tu]: https://github.com/webtorrent/magnet-uri/actions\n[magnet-uri-ni]: https://img.shields.io/npm/v/magnet-uri.svg\n[magnet-uri-nu]: https://www.npmjs.com/package/magnet-uri\n\n[parse-torrent]: https://github.com/webtorrent/parse-torrent\n[parse-torrent-ti]: https://img.shields.io/github/actions/workflow/status/webtorrent/parse-torrent/ci.yml?branch=master\n[parse-torrent-tu]: https://github.com/webtorrent/parse-torrent/actions\n[parse-torrent-ni]: https://img.shields.io/npm/v/parse-torrent.svg\n[parse-torrent-nu]: https://www.npmjs.com/package/parse-torrent\n\n[torrent-discovery]: https://github.com/webtorrent/torrent-discovery\n[torrent-discovery-ti]: https://img.shields.io/github/actions/workflow/status/webtorrent/torrent-discovery/ci.yml?branch=master\n[torrent-discovery-tu]: https://github.com/webtorrent/torrent-discovery/actions\n[torrent-discovery-ni]: https://img.shields.io/npm/v/torrent-discovery.svg\n[torrent-discovery-nu]: https://www.npmjs.com/package/torrent-discovery\n\n[ut_metadata]: https://github.com/webtorrent/ut_metadata\n[ut_metadata-ti]: https://img.shields.io/github/actions/workflow/status/webtorrent/ut_metadata/ci.yml?branch=master\n[ut_metadata-tu]: https://github.com/webtorrent/ut_metadata/actions\n[ut_metadata-ni]: https://img.shields.io/npm/v/ut_metadata.svg\n[ut_metadata-nu]: https://www.npmjs.com/package/ut_metadata\n\n[ut_pex]: https://github.com/webtorrent/ut_pex\n[ut_pex-ti]: https://img.shields.io/github/actions/workflow/status/webtorrent/ut_pex/ci.yml?branch=master\n[ut_pex-tu]: https://github.com/webtorrent/ut_pex/actions\n[ut_pex-ni]: https://img.shields.io/npm/v/ut_pex.svg\n[ut_pex-nu]: https://www.npmjs.com/package/ut_pex\n\n#### Enable debug logs\n\nIn **node**, enable debug logs by setting the `DEBUG` environment variable to the name of the\nmodule you want to debug (e.g. `bittorrent-protocol`, or `*` to print **all logs**).\n\n```bash\nDEBUG=* webtorrent\n```\n\nIn the **browser**, enable debug logs by running this in the developer console:\n\n```js\nlocalStorage.setItem('debug', '*')\n```\n\nDisable by running this:\n\n```js\nlocalStorage.removeItem('debug')\n```\n\n### License\n\nMIT. Copyright (c) [Feross Aboukhadijeh](https://feross.org) and [WebTorrent, LLC](https://webtorrent.io).\n",
+        "releases": [
+            {
+                "name": "v2.5.14",
+                "date": "2025-01-21T21:34:09Z"
+            },
+            {
+                "name": "v2.5.13",
+                "date": "2025-01-20T02:13:47Z"
+            },
+            {
+                "name": "v2.5.12",
+                "date": "2025-01-04T20:07:45Z"
+            },
+            {
+                "name": "v2.5.11",
+                "date": "2024-12-28T16:42:15Z"
+            },
+            {
+                "name": "v2.5.10",
+                "date": "2024-12-07T18:43:39Z"
+            },
+            {
+                "name": "v2.5.9",
+                "date": "2024-12-07T15:37:25Z"
+            },
+            {
+                "name": "v2.5.8",
+                "date": "2024-12-07T13:18:07Z"
+            },
+            {
+                "name": "v2.5.7",
+                "date": "2024-11-23T01:45:27Z"
+            },
+            {
+                "name": "v2.5.6",
+                "date": "2024-11-17T15:56:05Z"
+            },
+            {
+                "name": "v2.5.5",
+                "date": "2024-11-06T10:01:37Z"
+            },
+            {
+                "name": "v2.5.4",
+                "date": "2024-11-06T00:09:08Z"
+            },
+            {
+                "name": "v2.5.3",
+                "date": "2024-11-05T23:56:50Z"
+            },
+            {
+                "name": "v2.5.2",
+                "date": "2024-11-05T23:25:16Z"
+            },
+            {
+                "name": "v2.5.1",
+                "date": "2024-09-07T05:22:33Z"
+            },
+            {
+                "name": "v2.5.0",
+                "date": "2024-08-04T14:07:48Z"
+            },
+            {
+                "name": "v2.4.15",
+                "date": "2024-08-03T10:43:10Z"
+            },
+            {
+                "name": "v2.4.14",
+                "date": "2024-07-28T14:01:21Z"
+            },
+            {
+                "name": "v2.4.13",
+                "date": "2024-07-28T13:51:03Z"
+            },
+            {
+                "name": "v2.4.12",
+                "date": "2024-07-17T16:20:44Z"
+            },
+            {
+                "name": "v2.4.11",
+                "date": "2024-06-29T20:51:11Z"
+            },
+            {
+                "name": "v2.4.10",
+                "date": "2024-06-29T18:06:25Z"
+            },
+            {
+                "name": "v2.4.9",
+                "date": "2024-06-29T12:26:22Z"
+            },
+            {
+                "name": "v2.4.8",
+                "date": "2024-06-29T12:08:36Z"
+            },
+            {
+                "name": "v2.4.7",
+                "date": "2024-06-29T11:36:02Z"
+            },
+            {
+                "name": "v2.4.6",
+                "date": "2024-06-29T11:25:19Z"
+            },
+            {
+                "name": "v2.4.5",
+                "date": "2024-06-29T01:51:33Z"
+            },
+            {
+                "name": "v2.4.4",
+                "date": "2024-06-28T21:49:43Z"
+            },
+            {
+                "name": "v2.4.3",
+                "date": "2024-06-28T21:39:21Z"
+            },
+            {
+                "name": "v2.4.2",
+                "date": "2024-06-22T14:57:46Z"
+            },
+            {
+                "name": "v2.4.1",
+                "date": "2024-06-13T20:52:34Z"
+            },
+            {
+                "name": "v2.4.0",
+                "date": "2024-06-06T18:05:17Z"
+            },
+            {
+                "name": "v2.3.6",
+                "date": "2024-06-02T01:24:17Z"
+            },
+            {
+                "name": "v2.3.5",
+                "date": "2024-06-01T16:50:32Z"
+            },
+            {
+                "name": "v2.3.4",
+                "date": "2024-06-01T13:59:27Z"
+            },
+            {
+                "name": "v2.3.3",
+                "date": "2024-06-01T13:49:11Z"
+            },
+            {
+                "name": "v2.3.2",
+                "date": "2024-05-25T19:59:13Z"
+            },
+            {
+                "name": "v2.3.1",
+                "date": "2024-05-23T22:04:53Z"
+            },
+            {
+                "name": "v2.3.0",
+                "date": "2024-05-23T21:49:33Z"
+            },
+            {
+                "name": "v2.2.2",
+                "date": "2024-05-23T00:49:32Z"
+            },
+            {
+                "name": "v2.2.1",
+                "date": "2024-03-26T22:56:40Z"
+            },
+            {
+                "name": "v2.2.0",
+                "date": "2024-03-26T14:38:46Z"
+            },
+            {
+                "name": "v2.1.37",
+                "date": "2024-03-04T18:55:43Z"
+            },
+            {
+                "name": "v2.1.36",
+                "date": "2024-02-09T17:03:24Z"
+            },
+            {
+                "name": "v2.1.35",
+                "date": "2024-02-04T23:42:16Z"
+            },
+            {
+                "name": "v2.1.34",
+                "date": "2024-01-16T15:50:49Z"
+            },
+            {
+                "name": "v2.1.33",
+                "date": "2024-01-12T17:42:04Z"
+            },
+            {
+                "name": "v2.1.32",
+                "date": "2023-12-12T10:31:35Z"
+            },
+            {
+                "name": "v2.1.31",
+                "date": "2023-12-11T22:54:07Z"
+            },
+            {
+                "name": "v2.1.30",
+                "date": "2023-11-30T14:14:49Z"
+            },
+            {
+                "name": "v2.1.29",
+                "date": "2023-11-12T12:54:26Z"
+            },
+            {
+                "name": "v2.1.28",
+                "date": "2023-11-09T23:23:43Z"
+            },
+            {
+                "name": "v2.1.27",
+                "date": "2023-10-03T14:30:50Z"
+            },
+            {
+                "name": "v2.1.26",
+                "date": "2023-10-02T13:49:59Z"
+            },
+            {
+                "name": "v2.1.25",
+                "date": "2023-08-11T22:52:28Z"
+            },
+            {
+                "name": "v2.1.24",
+                "date": "2023-08-11T12:32:50Z"
+            },
+            {
+                "name": "v2.1.23",
+                "date": "2023-08-10T17:19:33Z"
+            },
+            {
+                "name": "v2.1.22",
+                "date": "2023-08-10T13:54:09Z"
+            },
+            {
+                "name": "v2.1.21",
+                "date": "2023-08-10T09:19:43Z"
+            },
+            {
+                "name": "v2.1.20",
+                "date": "2023-08-10T09:09:45Z"
+            },
+            {
+                "name": "v2.1.19",
+                "date": "2023-08-10T08:39:11Z"
+            },
+            {
+                "name": "v2.1.18",
+                "date": "2023-08-09T13:48:08Z"
+            },
+            {
+                "name": "v2.1.17",
+                "date": "2023-08-06T18:25:04Z"
+            },
+            {
+                "name": "v2.1.16",
+                "date": "2023-07-30T09:13:31Z"
+            },
+            {
+                "name": "v2.1.15",
+                "date": "2023-07-24T01:25:34Z"
+            },
+            {
+                "name": "v2.1.14",
+                "date": "2023-07-23T11:54:46Z"
+            },
+            {
+                "name": "v2.1.13",
+                "date": "2023-07-19T16:21:16Z"
+            },
+            {
+                "name": "v2.1.12",
+                "date": "2023-07-05T12:54:16Z"
+            },
+            {
+                "name": "v2.1.11",
+                "date": "2023-06-17T21:35:41Z"
+            },
+            {
+                "name": "v2.1.10",
+                "date": "2023-06-17T21:21:11Z"
+            },
+            {
+                "name": "v2.1.9",
+                "date": "2023-06-17T07:25:33Z"
+            },
+            {
+                "name": "v2.1.8",
+                "date": "2023-06-16T21:57:11Z"
+            },
+            {
+                "name": "v2.1.7",
+                "date": "2023-06-16T21:36:53Z"
+            },
+            {
+                "name": "v2.1.6",
+                "date": "2023-06-16T21:09:51Z"
+            },
+            {
+                "name": "v2.1.5",
+                "date": "2023-06-16T11:54:29Z"
+            },
+            {
+                "name": "v2.1.4",
+                "date": "2023-06-16T11:45:16Z"
+            },
+            {
+                "name": "v2.1.3",
+                "date": "2023-06-16T06:59:04Z"
+            },
+            {
+                "name": "v2.1.2",
+                "date": "2023-06-16T02:29:46Z"
+            },
+            {
+                "name": "v2.1.1",
+                "date": "2023-06-15T19:54:09Z"
+            },
+            {
+                "name": "v2.1.0",
+                "date": "2023-06-13T21:04:53Z"
+            },
+            {
+                "name": "v2.0.37",
+                "date": "2023-06-08T15:00:42Z"
+            },
+            {
+                "name": "v2.0.36",
+                "date": "2023-06-08T02:58:23Z"
+            },
+            {
+                "name": "v2.0.35",
+                "date": "2023-06-07T18:53:24Z"
+            },
+            {
+                "name": "v2.0.34",
+                "date": "2023-06-05T22:47:57Z"
+            },
+            {
+                "name": "v2.0.33",
+                "date": "2023-06-05T22:32:50Z"
+            },
+            {
+                "name": "v2.0.32",
+                "date": "2023-06-05T20:21:22Z"
+            },
+            {
+                "name": "v2.0.31",
+                "date": "2023-06-05T20:06:25Z"
+            },
+            {
+                "name": "v2.0.30",
+                "date": "2023-06-05T15:33:38Z"
+            },
+            {
+                "name": "v2.0.29",
+                "date": "2023-06-04T17:36:57Z"
+            },
+            {
+                "name": "v2.0.28",
+                "date": "2023-06-03T23:20:53Z"
+            },
+            {
+                "name": "v2.0.27",
+                "date": "2023-05-31T11:52:58Z"
+            },
+            {
+                "name": "v2.0.26",
+                "date": "2023-05-31T03:42:04Z"
+            },
+            {
+                "name": "v2.0.25",
+                "date": "2023-05-30T21:05:07Z"
+            },
+            {
+                "name": "v2.0.24",
+                "date": "2023-05-30T19:18:20Z"
+            },
+            {
+                "name": "v2.0.23",
+                "date": "2023-05-28T11:25:45Z"
+            },
+            {
+                "name": "v2.0.22",
+                "date": "2023-05-27T19:59:48Z"
+            },
+            {
+                "name": "v2.0.21",
+                "date": "2023-05-27T17:46:01Z"
+            },
+            {
+                "name": "v2.0.20",
+                "date": "2023-05-27T17:20:10Z"
+            },
+            {
+                "name": "v2.0.19",
+                "date": "2023-05-27T04:48:56Z"
+            },
+            {
+                "name": "v2.0.18",
+                "date": "2023-05-07T09:08:35Z"
+            },
+            {
+                "name": "v2.0.17",
+                "date": "2023-05-04T13:09:19Z"
+            },
+            {
+                "name": "v2.0.16",
+                "date": "2023-04-03T11:22:10Z"
+            },
+            {
+                "name": "v2.0.15",
+                "date": "2023-03-20T10:52:01Z"
+            },
+            {
+                "name": "v2.0.14",
+                "date": "2023-02-22T07:43:57Z"
+            },
+            {
+                "name": "v2.0.13",
+                "date": "2023-02-13T13:31:35Z"
+            },
+            {
+                "name": "v2.0.12",
+                "date": "2023-02-06T01:38:18Z"
+            },
+            {
+                "name": "v2.0.11",
+                "date": "2023-02-01T15:22:00Z"
+            },
+            {
+                "name": "v2.0.10",
+                "date": "2023-02-01T15:13:30Z"
+            },
+            {
+                "name": "v2.0.9",
+                "date": "2023-02-01T15:05:53Z"
+            },
+            {
+                "name": "v2.0.8",
+                "date": "2023-01-31T23:53:35Z"
+            },
+            {
+                "name": "v2.0.7",
+                "date": "2023-01-31T15:59:05Z"
+            },
+            {
+                "name": "v2.0.6",
+                "date": "2023-01-30T23:51:18Z"
+            },
+            {
+                "name": "v2.0.5",
+                "date": "2023-01-30T23:03:02Z"
+            },
+            {
+                "name": "v2.0.4",
+                "date": "2023-01-28T13:21:13Z"
+            },
+            {
+                "name": "v2.0.3",
+                "date": "2023-01-28T13:13:32Z"
+            },
+            {
+                "name": "v2.0.2",
+                "date": "2023-01-28T12:55:38Z"
+            },
+            {
+                "name": "v2.0.1",
+                "date": "2023-01-25T01:56:52Z"
+            },
+            {
+                "name": "v2.0.0",
+                "date": "2023-01-23T17:05:41Z"
+            },
+            {
+                "name": "v1.9.7",
+                "date": "2023-01-12T21:57:14Z"
+            },
+            {
+                "name": "v1.9.6",
+                "date": "2022-12-03T19:41:27Z"
+            },
+            {
+                "name": "v1.9.5",
+                "date": "2022-12-03T17:25:23Z"
+            },
+            {
+                "name": "v1.9.4",
+                "date": "2022-11-21T10:44:02Z"
+            },
+            {
+                "name": "v1.9.3",
+                "date": "2022-11-18T19:25:56Z"
+            },
+            {
+                "name": "v1.9.2",
+                "date": "2022-11-11T00:17:47Z"
+            },
+            {
+                "name": "v1.9.1",
+                "date": "2022-10-28T12:56:39Z"
+            },
+            {
+                "name": "v1.9.0",
+                "date": "2022-10-28T12:32:38Z"
+            },
+            {
+                "name": "v1.8.32",
+                "date": "2022-10-09T03:14:42Z"
+            },
+            {
+                "name": "v1.8.31",
+                "date": "2022-10-08T23:01:07Z"
+            },
+            {
+                "name": "v1.8.30",
+                "date": "2022-09-12T16:00:14Z"
+            },
+            {
+                "name": "v1.8.29",
+                "date": "2022-09-03T04:40:21Z"
+            },
+            {
+                "name": "v1.8.28",
+                "date": "2022-09-02T20:32:40Z"
+            },
+            {
+                "name": "v1.8.27",
+                "date": "2022-09-02T20:26:51Z"
+            },
+            {
+                "name": "v1.8.26",
+                "date": "2022-07-04T02:32:10Z"
+            },
+            {
+                "name": "v1.8.25",
+                "date": "2022-07-03T20:25:53Z"
+            },
+            {
+                "name": "v1.8.24",
+                "date": "2022-06-23T19:07:49Z"
+            },
+            {
+                "name": "v1.8.23",
+                "date": "2022-06-23T01:15:43Z"
+            },
+            {
+                "name": "v1.8.22",
+                "date": "2022-05-24T00:16:45Z"
+            },
+            {
+                "name": "v1.8.21",
+                "date": "2022-05-23T21:18:00Z"
+            },
+            {
+                "name": "v1.8.20",
+                "date": "2022-05-14T00:39:54Z"
+            },
+            {
+                "name": "v1.8.19",
+                "date": "2022-05-11T21:50:47Z"
+            },
+            {
+                "name": "v1.8.18",
+                "date": "2022-05-11T04:04:40Z"
+            },
+            {
+                "name": "v1.8.17",
+                "date": "2022-05-11T00:51:02Z"
+            },
+            {
+                "name": "v1.8.16",
+                "date": "2022-04-28T14:05:01Z"
+            },
+            {
+                "name": "v1.8.15",
+                "date": "2022-04-26T15:42:03Z"
+            },
+            {
+                "name": "v1.8.14",
+                "date": "2022-04-22T11:51:21Z"
+            },
+            {
+                "name": "v1.8.13",
+                "date": "2022-03-30T22:30:17Z"
+            },
+            {
+                "name": "v1.8.12",
+                "date": "2022-03-28T02:52:59Z"
+            },
+            {
+                "name": "v1.8.11",
+                "date": "2022-03-27T20:12:37Z"
+            },
+            {
+                "name": "v1.8.10",
+                "date": "2022-03-27T19:43:24Z"
+            },
+            {
+                "name": "v1.8.9",
+                "date": "2022-03-26T19:51:34Z"
+            },
+            {
+                "name": "v1.8.8",
+                "date": "2022-03-25T01:29:09Z"
+            },
+            {
+                "name": "v1.8.7",
+                "date": "2022-03-24T22:25:08Z"
+            },
+            {
+                "name": "v1.8.6",
+                "date": "2022-03-11T15:11:40Z"
+            },
+            {
+                "name": "v1.8.5",
+                "date": "2022-03-06T09:30:54Z"
+            },
+            {
+                "name": "v1.8.4",
+                "date": "2022-03-03T11:32:27Z"
+            },
+            {
+                "name": "v1.8.3",
+                "date": "2022-02-21T20:12:55Z"
+            },
+            {
+                "name": "v1.8.2",
+                "date": "2022-02-17T22:08:17Z"
+            },
+            {
+                "name": "v1.8.1",
+                "date": "2022-02-03T21:18:29Z"
+            },
+            {
+                "name": "v1.7.4",
+                "date": "2022-02-03T21:08:47Z"
+            },
+            {
+                "name": "v1.7.3",
+                "date": "2022-02-03T20:35:46Z"
+            },
+            {
+                "name": "v1.7.2",
+                "date": "2022-01-27T22:00:40Z"
+            },
+            {
+                "name": "v1.7.1",
+                "date": "2022-01-20T15:55:13Z"
+            },
+            {
+                "name": "v1.7.0",
+                "date": "2022-01-20T14:58:09Z"
+            },
+            {
+                "name": "v1.6.0",
+                "date": "2022-01-17T21:06:07Z"
+            },
+            {
+                "name": "v1.5.11",
+                "date": "2022-01-14T00:28:45Z"
+            },
+            {
+                "name": "v1.5.10",
+                "date": "2022-01-14T00:22:57Z"
+            },
+            {
+                "name": "v1.5.9",
+                "date": "2022-01-12T16:02:13Z"
+            },
+            {
+                "name": "v1.5.8",
+                "date": "2021-10-26T16:30:53Z"
+            },
+            {
+                "name": "v1.5.7",
+                "date": "2021-10-25T15:21:35Z"
+            },
+            {
+                "name": "v1.5.6",
+                "date": "2021-10-05T13:04:01Z"
+            },
+            {
+                "name": "v1.5.5",
+                "date": "2021-09-02T11:36:11Z"
+            },
+            {
+                "name": "v1.5.4",
+                "date": "2021-08-25T21:16:54Z"
+            },
+            {
+                "name": "v1.5.3",
+                "date": "2021-08-20T16:05:35Z"
+            },
+            {
+                "name": "v1.5.2",
+                "date": "2021-08-20T14:48:08Z"
+            },
+            {
+                "name": "v1.5.1",
+                "date": "2021-08-20T00:15:17Z"
+            },
+            {
+                "name": "v1.5.0",
+                "date": "2021-08-19T21:43:30Z"
+            },
+            {
+                "name": "v1.4.0",
+                "date": "2021-08-17T18:18:43Z"
+            },
+            {
+                "name": "v1.3.10",
+                "date": "2021-08-16T11:28:35Z"
+            },
+            {
+                "name": "v1.3.9",
+                "date": "2021-08-06T23:20:33Z"
+            },
+            {
+                "name": "v1.3.8",
+                "date": "2021-08-06T02:05:28Z"
+            },
+            {
+                "name": "v1.3.7",
+                "date": "2021-08-05T04:08:56Z"
+            },
+            {
+                "name": "v1.3.6",
+                "date": "2021-08-05T00:10:16Z"
+            },
+            {
+                "name": "v1.3.5",
+                "date": "2021-08-04T23:10:36Z"
+            },
+            {
+                "name": "v1.3.4",
+                "date": "2021-07-30T16:23:01Z"
+            },
+            {
+                "name": "v1.3.3",
+                "date": "2021-07-25T00:30:04Z"
+            },
+            {
+                "name": "v1.3.2",
+                "date": "2021-07-24T17:35:53Z"
+            },
+            {
+                "name": "v1.3.1",
+                "date": "2021-07-24T15:14:18Z"
+            },
+            {
+                "name": "v1.3.0",
+                "date": "2021-07-23T22:07:18Z"
+            },
+            {
+                "name": "v1.2.6",
+                "date": "2021-07-23T17:38:21Z"
+            },
+            {
+                "name": "v1.2.5",
+                "date": "2021-07-19T15:21:26Z"
+            },
+            {
+                "name": "v1.2.4",
+                "date": "2021-07-13T21:06:41Z"
+            },
+            {
+                "name": "v1.2.3",
+                "date": "2021-07-13T18:43:01Z"
+            },
+            {
+                "name": "v1.2.2",
+                "date": "2021-07-11T01:32:32Z"
+            },
+            {
+                "name": "v1.2.1",
+                "date": "2021-07-11T01:29:37Z"
+            },
+            {
+                "name": "v1.2.0",
+                "date": "2021-07-09T22:02:16Z"
+            },
+            {
+                "name": "v1.1.6",
+                "date": "2021-07-08T21:14:34Z"
+            },
+            {
+                "name": "v1.1.5",
+                "date": "2021-07-06T16:53:27Z"
+            },
+            {
+                "name": "v1.1.4",
+                "date": "2021-07-03T04:03:53Z"
+            },
+            {
+                "name": "v1.1.3",
+                "date": "2021-07-02T23:09:17Z"
+            },
+            {
+                "name": "v1.1.2",
+                "date": "2021-07-02T22:37:16Z"
+            },
+            {
+                "name": "v1.1.1",
+                "date": "2021-07-02T22:35:26Z"
+            },
+            {
+                "name": "v1.1.0",
+                "date": "2021-06-30T20:21:05Z"
+            },
+            {
+                "name": "v1.0.4",
+                "date": "2021-06-30T04:00:54Z"
+            },
+            {
+                "name": "v1.0.3",
+                "date": "2021-06-30T03:26:05Z"
+            },
+            {
+                "name": "v1.0.2",
+                "date": "2021-06-23T18:20:56Z"
+            },
+            {
+                "name": "v1.0.1",
+                "date": "2021-06-17T04:17:25Z"
+            }
+        ]
+    }
+}

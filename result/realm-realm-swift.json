@@ -1,0 +1,1249 @@
+{
+    "https://api.github.com/repos/realm/realm-swift": {
+        "forks": 2152,
+        "watchers": 16376,
+        "stars": 16376,
+        "languages": {
+            "Objective-C": 5405574,
+            "Swift": 4442960,
+            "C++": 93757,
+            "Python": 52227,
+            "Shell": 50414,
+            "Ruby": 35237,
+            "Emacs Lisp": 227
+        },
+        "commits": [
+            "2024-12-17T22:20:09Z",
+            "2024-12-17T20:48:55Z",
+            "2024-12-17T20:47:54Z",
+            "2024-12-17T19:12:05Z",
+            "2024-12-17T17:18:24Z",
+            "2024-12-17T17:17:22Z",
+            "2024-12-17T16:56:44Z",
+            "2024-12-17T16:52:31Z",
+            "2024-10-22T15:14:52Z",
+            "2024-10-22T15:11:32Z",
+            "2024-10-18T22:28:39Z",
+            "2024-10-18T19:07:38Z",
+            "2024-10-18T18:37:49Z",
+            "2024-10-18T17:14:27Z",
+            "2024-07-19T16:43:31Z",
+            "2024-09-21T18:25:03Z",
+            "2024-09-21T00:18:12Z",
+            "2024-09-21T00:17:28Z",
+            "2024-09-18T21:43:32Z",
+            "2024-09-17T15:10:32Z",
+            "2024-09-13T13:47:43Z",
+            "2024-09-09T18:26:58Z",
+            "2024-09-09T13:34:34Z",
+            "2024-09-05T20:44:57Z",
+            "2024-09-05T19:23:54Z",
+            "2024-09-05T17:37:53Z",
+            "2024-08-20T23:22:29Z",
+            "2024-08-20T22:13:45Z",
+            "2024-08-20T18:33:26Z",
+            "2024-08-20T18:32:38Z"
+        ],
+        "creation_date": "2012-04-16T20:06:56Z",
+        "contributors": 30,
+        "topics": [
+            "database",
+            "ios",
+            "mobile",
+            "mobile-database",
+            "objective-c",
+            "realtime",
+            "swift",
+            "sync",
+            "threadsafe"
+        ],
+        "subscribers": 373,
+        "readme": "> [!WARNING]\n> We announced the deprecation of Atlas Device Sync + Realm SDKs in September 2024. For more information please see:\n> - [SDK Deprecation](https://www.mongodb.com/docs/atlas/device-sdks/deprecation)\n> - [Device Sync Deprecation](https://www.mongodb.com/docs/atlas/app-services/sync/device-sync-deprecation)\n>\n> For a version of `realm-swift` without sync features, install version 20 or see the `community` branch.\n\n<picture>\n    <source srcset=\"./media/logo-dark.svg\" media=\"(prefers-color-scheme: dark)\" alt=\"realm by MongoDB\">\n    <img src=\"./media/logo.svg\" alt=\"realm by MongoDB\">\n</picture>\n\n# About Realm Database\n\nRealm is a mobile database that runs directly inside phones, tablets or wearables.\nThis repository holds the source code for the iOS, macOS, tvOS & watchOS versions of Realm Swift & Realm Objective-C.\n\n## Why Use Realm\n\n* **Intuitive to Developers:** Realm\u2019s object-oriented data model is simple to learn, doesn\u2019t need an ORM, and lets you write less code.\n* **Built for Mobile:** Realm is fully-featured, lightweight, and efficiently uses memory, disk space, and battery life.\n* **Designed for Offline Use:** Realm\u2019s local database persists data on-disk, so apps work as well offline as they do online.\n* **[MongoDB Atlas Device Sync](https://www.mongodb.com/docs/atlas/app-services/sync/)**: Makes it simple to keep data in sync across users, devices, and your backend in real-time. Get started for free with [a template application](https://github.com/mongodb/template-app-swiftui-todo) and [create the cloud backend](http://mongodb.com/realm/register?utm_medium=github_atlas_CTA&utm_source=realm_swift_github).\n\n## Object-Oriented: Streamline Your Code\n\nRealm was built for mobile developers, with simplicity in mind. The idiomatic, object-oriented data model can save you thousands of lines of code.\n\n```swift\n// Define your models like regular Swift classes\nclass Dog: Object {\n    @Persisted var name: String\n    @Persisted var age: Int\n}\nclass Person: Object {\n    @Persisted(primaryKey: true) var _id: String\n    @Persisted var name: String\n    @Persisted var age: Int\n    // Create relationships by pointing an Object field to another Class\n    @Persisted var dogs: List<Dog>\n}\n// Use them like regular Swift objects\nlet dog = Dog()\ndog.name = \"Rex\"\ndog.age = 1\nprint(\"name of dog: \\(dog.name)\")\n\n// Get the default Realm\nlet realm = try! Realm()\n// Persist your data easily with a write transaction\ntry! realm.write {\n    realm.add(dog)\n}\n```\n## Live Objects: Build Reactive Apps\nRealm\u2019s live objects mean data updated anywhere is automatically updated everywhere.\n```swift\n// Open the default realm.\nlet realm = try! Realm()\n\nvar token: NotificationToken?\n\nlet dog = Dog()\ndog.name = \"Max\"\n\n// Create a dog in the realm.\ntry! realm.write {\n    realm.add(dog)\n}\n\n//  Set up the listener & observe object notifications.\ntoken = dog.observe { change in\n    switch change {\n    case .change(let properties):\n        for property in properties {\n            print(\"Property '\\(property.name)' changed to '\\(property.newValue!)'\");\n        }\n    case .error(let error):\n        print(\"An error occurred: (error)\")\n    case .deleted:\n        print(\"The object was deleted.\")\n    }\n}\n\n// Update the dog's name to see the effect.\ntry! realm.write {\n    dog.name = \"Wolfie\"\n}\n```\n### SwiftUI\nRealm integrates directly with SwiftUI, updating your views so you don't have to.\n```swift\nstruct ContactsView: View {\n    @ObservedResults(Person.self) var persons\n\n    var body: some View {\n        List {\n            ForEach(persons) { person in\n                Text(person.name)\n            }\n            .onMove(perform: $persons.move)\n            .onDelete(perform: $persons.remove)\n        }.navigationBarItems(trailing:\n            Button(\"Add\") {\n                $persons.append(Person())\n            }\n        )\n    }\n}\n```\n\n## Fully Encrypted\nData can be encrypted in-flight and at-rest, keeping even the most sensitive data secure.\n```swift\n// Generate a random encryption key\nvar key = Data(count: 64)\n_ = key.withUnsafeMutableBytes { (pointer: UnsafeMutableRawBufferPointer) in\n    guard let baseAddress = pointer.baseAddress else {\n        fatalError(\"Failed to obtain base address\")\n    }\n    SecRandomCopyBytes(kSecRandomDefault, 64, baseAddress)\n}\n\n// Add the encryption key to the config and open the realm\nlet config = Realm.Configuration(encryptionKey: key)\nlet realm = try Realm(configuration: config)\n\n// Use the Realm as normal\nlet dogs = realm.objects(Dog.self).filter(\"name contains 'Fido'\")\n```\n\n## Getting Started\n\nWe support installing Realm via Swift Package Manager, CocoaPods, Carthage, or by importing a dynamic XCFramework.\n\nFor more information, see the detailed instructions in our [docs](https://www.mongodb.com/docs/atlas/device-sdks/sdk/swift/install/).\n\nInterested in getting started for free with [a template application](https://github.com/mongodb/template-app-swiftui-todo) that includes a cloud backend and Sync? [Create a MongoDB Atlas Account](http://mongodb.com/realm/register?utm_medium=github_atlas_CTA&utm_source=realm_swift_github).\n\n## Documentation\n\nThe documentation can be found at [mongodb.com/docs/atlas/device-sdks/sdk/swift/](https://www.mongodb.com/docs/atlas/device-sdks/sdk/swift/).\nThe API reference is located at [mongodb.com/docs/realm-sdks/swift/latest/](https://www.mongodb.com/docs/realm-sdks/swift/latest/)\n\n## Getting Help\n\n- **Need help with your code?**: Look for previous questions with the[`realm` tag](https://stackoverflow.com/questions/tagged/realm?sort=newest) on Stack Overflow or [ask a new question](https://stackoverflow.com/questions/ask?tags=realm). For general discussion that might be considered too broad for Stack Overflow, use the [Community Forum](https://developer.mongodb.com/community/forums/tags/c/realm-sdks/58/swift/).\n- **Have a bug to report?** [Open a GitHub issue](https://github.com/realm/realm-swift/issues/new). If possible, include the version of Realm, a full log, the Realm file, and a project that shows the issue.\n- **Have a feature request?** [Open a GitHub issue](https://github.com/realm/realm-swift/issues/new). Tell us what the feature should do and why you want the feature.\n\n## Building Realm\n\nIn case you don't want to use the precompiled version, you can build Realm yourself from source.\n\nPrerequisites:\n\n* Building Realm requires Xcode 14.1 or newer.\n* Building Realm documentation requires [jazzy](https://github.com/realm/jazzy)\n\nOnce you have all the necessary prerequisites, building Realm just takes a single command: `sh build.sh build`.\nYou'll need an internet connection the first time you build Realm to download the core binary.\nThis will produce Realm.xcframework and RealmSwift.xcframework in `build/Release/`.\n\nRun `sh build.sh help` to see all the actions you can perform (build ios/osx, generate docs, test, etc.).\n\n## Contributing\n\nSee [CONTRIBUTING.md](CONTRIBUTING.md) for more details!\n\n## Code of Conduct\n\nThis project adheres to the [MongoDB Code of Conduct](https://www.mongodb.com/community-code-of-conduct).\nBy participating, you are expected to uphold this code. Please report\nunacceptable behavior to [community-conduct@mongodb.com](mailto:community-conduct@mongodb.com).\n\n## License\n\nRealm Objective-C & Realm Swift are published under the Apache 2.0 license.\nRealm Core is also published under the Apache 2.0 license and is available\n[here](https://github.com/realm/realm-core).\n\n## Feedback\n\n**_If you use Realm and are happy with it, please consider sending out a tweet mentioning [@realm](https://twitter.com/realm) to share your thoughts!_**\n\n**_And if you don't like it, please let us know what you would like improved, so we can fix it!_**\n\n<img style=\"width: 0px; height: 0px;\" src=\"https://3eaz4mshcd.execute-api.us-east-1.amazonaws.com/prod?s=https://github.com/realm/realm-swift#README.md\">\n",
+        "releases": [
+            {
+                "name": "v20.0.1",
+                "date": "2024-12-27T20:42:00Z"
+            },
+            {
+                "name": "v10.54.2",
+                "date": "2024-12-17T21:54:38Z"
+            },
+            {
+                "name": "v10.54.1",
+                "date": "2024-10-22T18:32:52Z"
+            },
+            {
+                "name": "v10.54.0",
+                "date": "2024-09-21T17:54:58Z"
+            },
+            {
+                "name": "v20.0.0",
+                "date": "2024-09-09T17:18:29Z"
+            },
+            {
+                "name": "v10.53.1",
+                "date": "2024-09-05T20:17:36Z"
+            },
+            {
+                "name": "v10.53.0",
+                "date": "2024-08-20T21:41:03Z"
+            },
+            {
+                "name": "v10.52.3",
+                "date": "2024-08-10T03:03:57Z"
+            },
+            {
+                "name": "v10.52.2",
+                "date": "2024-07-19T19:29:25Z"
+            },
+            {
+                "name": "v10.52.1",
+                "date": "2024-06-28T20:20:12Z"
+            },
+            {
+                "name": "v10.52.0",
+                "date": "2024-06-18T23:26:04Z"
+            },
+            {
+                "name": "v10.51.0",
+                "date": "2024-06-06T21:04:54Z"
+            },
+            {
+                "name": "v10.50.1",
+                "date": "2024-05-22T00:56:37Z"
+            },
+            {
+                "name": "v10.50.0",
+                "date": "2024-05-02T23:27:48Z"
+            },
+            {
+                "name": "v10.49.3",
+                "date": "2024-05-01T01:49:41Z"
+            },
+            {
+                "name": "v10.49.2",
+                "date": "2024-04-17T19:44:22Z"
+            },
+            {
+                "name": "v10.49.1",
+                "date": "2024-03-23T03:20:14Z"
+            },
+            {
+                "name": "v10.49.0",
+                "date": "2024-03-22T17:56:16Z"
+            },
+            {
+                "name": "v10.48.1",
+                "date": "2024-03-15T20:14:55Z"
+            },
+            {
+                "name": "v10.48.0",
+                "date": "2024-03-07T21:24:07Z"
+            },
+            {
+                "name": "v10.47.0",
+                "date": "2024-02-13T15:34:57Z"
+            },
+            {
+                "name": "v10.46.0",
+                "date": "2024-01-24T02:57:26Z"
+            },
+            {
+                "name": "v10.45.3",
+                "date": "2024-01-09T04:41:34Z"
+            },
+            {
+                "name": "v10.45.2",
+                "date": "2023-12-22T21:57:56Z"
+            },
+            {
+                "name": "v10.46.0-beta1",
+                "date": "2023-12-21T12:17:56Z"
+            },
+            {
+                "name": "v10.45.1",
+                "date": "2023-12-19T03:57:21Z"
+            },
+            {
+                "name": "v10.45.0",
+                "date": "2023-12-16T03:01:02Z"
+            },
+            {
+                "name": "v10.44.0",
+                "date": "2023-10-30T02:55:50Z"
+            },
+            {
+                "name": "v10.43.1",
+                "date": "2023-10-16T02:53:51Z"
+            },
+            {
+                "name": "v10.43.0",
+                "date": "2023-09-29T23:11:13Z"
+            },
+            {
+                "name": "v10.42.4",
+                "date": "2023-09-25T20:36:04Z"
+            },
+            {
+                "name": "v10.42.3",
+                "date": "2023-09-19T03:49:50Z"
+            },
+            {
+                "name": "v10.42.2",
+                "date": "2023-09-13T22:41:00Z"
+            },
+            {
+                "name": "v10.42.1",
+                "date": "2023-08-28T22:53:33Z"
+            },
+            {
+                "name": "v10.42.0",
+                "date": "2023-07-30T22:30:19Z"
+            },
+            {
+                "name": "v10.41.1",
+                "date": "2023-07-17T23:00:45Z"
+            },
+            {
+                "name": "v10.41.0",
+                "date": "2023-06-26T19:12:47Z"
+            },
+            {
+                "name": "v10.40.2",
+                "date": "2023-06-09T23:48:49Z"
+            },
+            {
+                "name": "v10.40.1",
+                "date": "2023-06-07T05:27:39Z"
+            },
+            {
+                "name": "v10.40.0",
+                "date": "2023-05-26T22:08:33Z"
+            },
+            {
+                "name": "v10.39.1",
+                "date": "2023-05-05T17:43:26Z"
+            },
+            {
+                "name": "v10.39.0",
+                "date": "2023-05-03T20:21:28Z"
+            },
+            {
+                "name": "v10.38.3",
+                "date": "2023-04-28T18:10:23Z"
+            },
+            {
+                "name": "v10.38.2",
+                "date": "2023-04-26T05:30:58Z"
+            },
+            {
+                "name": "v10.38.1",
+                "date": "2023-04-25T20:33:48Z"
+            },
+            {
+                "name": "v10.38.0",
+                "date": "2023-04-01T03:51:51Z"
+            },
+            {
+                "name": "v10.37.2",
+                "date": "2023-03-30T00:18:16Z"
+            },
+            {
+                "name": "v10.37.1",
+                "date": "2023-03-28T00:44:54Z"
+            },
+            {
+                "name": "v10.37.0",
+                "date": "2023-03-10T03:23:12Z"
+            },
+            {
+                "name": "v10.36.0",
+                "date": "2023-02-15T23:58:32Z"
+            },
+            {
+                "name": "v10.35.1",
+                "date": "2023-02-10T23:29:49Z"
+            },
+            {
+                "name": "v10.35.0",
+                "date": "2023-02-07T20:29:10Z"
+            },
+            {
+                "name": "v10.34.1",
+                "date": "2023-01-20T22:10:12Z"
+            },
+            {
+                "name": "v10.34.0",
+                "date": "2023-01-14T00:21:07Z"
+            },
+            {
+                "name": "v10.33.0",
+                "date": "2022-12-01T23:17:30Z"
+            },
+            {
+                "name": "v10.32.3",
+                "date": "2022-11-11T00:59:15Z"
+            },
+            {
+                "name": "v10.32.2",
+                "date": "2022-11-03T02:01:08Z"
+            },
+            {
+                "name": "v10.32.1",
+                "date": "2022-10-26T04:32:04Z"
+            },
+            {
+                "name": "v10.32.0",
+                "date": "2022-10-10T17:45:18Z"
+            },
+            {
+                "name": "v10.31.0",
+                "date": "2022-10-05T20:14:13Z"
+            },
+            {
+                "name": "v10.30.0",
+                "date": "2022-09-20T21:09:29Z"
+            },
+            {
+                "name": "v10.29.0",
+                "date": "2022-09-10T01:45:43Z"
+            },
+            {
+                "name": "v10.28.7",
+                "date": "2022-09-02T19:29:23Z"
+            },
+            {
+                "name": "v10.28.6",
+                "date": "2022-08-19T10:50:56Z"
+            },
+            {
+                "name": "v10.28.5",
+                "date": "2022-08-09T22:03:31Z"
+            },
+            {
+                "name": "v10.28.4",
+                "date": "2022-08-03T21:51:50Z"
+            },
+            {
+                "name": "v10.28.3",
+                "date": "2022-07-27T19:27:56Z"
+            },
+            {
+                "name": "v10.28.2",
+                "date": "2022-06-30T17:12:05Z"
+            },
+            {
+                "name": "v10.28.1",
+                "date": "2022-06-10T18:18:09Z"
+            },
+            {
+                "name": "v10.28.0",
+                "date": "2022-06-03T19:14:05Z"
+            },
+            {
+                "name": "v10.27.0",
+                "date": "2022-05-27T03:50:15Z"
+            },
+            {
+                "name": "v10.26.0",
+                "date": "2022-05-19T23:10:25Z"
+            },
+            {
+                "name": "v10.25.2",
+                "date": "2022-04-27T22:08:34Z"
+            },
+            {
+                "name": "v10.25.1",
+                "date": "2022-04-12T02:37:02Z"
+            },
+            {
+                "name": "v10.25.0",
+                "date": "2022-03-30T01:41:56Z"
+            },
+            {
+                "name": "v10.24.2",
+                "date": "2022-03-19T02:17:34Z"
+            },
+            {
+                "name": "v10.24.1",
+                "date": "2022-03-14T23:51:51Z"
+            },
+            {
+                "name": "v10.24.0",
+                "date": "2022-03-06T02:24:32Z"
+            },
+            {
+                "name": "v10.23.0",
+                "date": "2022-03-01T03:18:02Z"
+            },
+            {
+                "name": "v10.22.0",
+                "date": "2022-01-25T02:34:34Z"
+            },
+            {
+                "name": "v10.21.1",
+                "date": "2022-01-12T20:41:22Z"
+            },
+            {
+                "name": "v10.21.0",
+                "date": "2022-01-11T00:03:26Z"
+            },
+            {
+                "name": "v10.20.2",
+                "date": "2021-12-20T18:41:32Z"
+            },
+            {
+                "name": "v10.20.1",
+                "date": "2021-12-14T17:16:02Z"
+            },
+            {
+                "name": "v10.20.0",
+                "date": "2021-11-16T23:41:45Z"
+            },
+            {
+                "name": "v10.19.0",
+                "date": "2021-11-05T04:18:13Z"
+            },
+            {
+                "name": "v10.18.0",
+                "date": "2021-10-25T19:45:07Z"
+            },
+            {
+                "name": "v10.17.0",
+                "date": "2021-10-06T19:44:10Z"
+            },
+            {
+                "name": "v10.16.0",
+                "date": "2021-09-29T23:31:46Z"
+            },
+            {
+                "name": "v10.15.1",
+                "date": "2021-09-15T20:22:33Z"
+            },
+            {
+                "name": "v10.15.0",
+                "date": "2021-09-10T21:09:42Z"
+            },
+            {
+                "name": "v10.14.0",
+                "date": "2021-09-03T22:15:30Z"
+            },
+            {
+                "name": "v10.13.0",
+                "date": "2021-08-26T12:45:15Z"
+            },
+            {
+                "name": "v10.12.0",
+                "date": "2021-08-04T02:04:40Z"
+            },
+            {
+                "name": "v10.11.0",
+                "date": "2021-07-23T00:31:34Z"
+            },
+            {
+                "name": "v10.10.0",
+                "date": "2021-07-07T23:51:00Z"
+            },
+            {
+                "name": "v10.9.0",
+                "date": "2021-07-02T03:32:45Z"
+            },
+            {
+                "name": "v10.8.1",
+                "date": "2021-06-22T22:16:03Z"
+            },
+            {
+                "name": "v10.8.0",
+                "date": "2021-06-15T00:20:10Z"
+            },
+            {
+                "name": "v10.7.7",
+                "date": "2021-06-10T16:08:05Z"
+            },
+            {
+                "name": "v10.8.0-beta.2",
+                "date": "2021-06-02T01:35:25Z"
+            },
+            {
+                "name": "v10.7.6",
+                "date": "2021-05-14T00:57:55Z"
+            },
+            {
+                "name": "v10.7.5",
+                "date": "2021-05-07T22:55:12Z"
+            },
+            {
+                "name": "v5.5.2",
+                "date": "2021-05-03T21:57:22Z"
+            },
+            {
+                "name": "v10.7.4",
+                "date": "2021-04-27T01:19:46Z"
+            },
+            {
+                "name": "v10.7.3",
+                "date": "2021-04-22T22:16:38Z"
+            },
+            {
+                "name": "v5.5.1",
+                "date": "2021-03-18T04:12:20Z"
+            },
+            {
+                "name": "v10.7.2",
+                "date": "2021-03-08T23:19:30Z"
+            },
+            {
+                "name": "v10.7.1",
+                "date": "2021-03-05T19:23:02Z"
+            },
+            {
+                "name": "v10.7.0",
+                "date": "2021-02-23T23:38:53Z"
+            },
+            {
+                "name": "v10.6.0",
+                "date": "2021-02-15T22:41:45Z"
+            },
+            {
+                "name": "v10.5.2",
+                "date": "2021-02-09T15:58:35Z"
+            },
+            {
+                "name": "v10.5.1",
+                "date": "2021-01-15T19:40:04Z"
+            },
+            {
+                "name": "v10.5.0",
+                "date": "2020-12-15T03:57:32Z"
+            },
+            {
+                "name": "v10.4.0",
+                "date": "2020-12-11T01:22:08Z"
+            },
+            {
+                "name": "v10.3.0",
+                "date": "2020-12-09T00:05:48Z"
+            },
+            {
+                "name": "v10.2.0",
+                "date": "2020-12-02T21:35:34Z"
+            },
+            {
+                "name": "v10.1.4",
+                "date": "2020-11-17T04:06:16Z"
+            },
+            {
+                "name": "v10.1.3",
+                "date": "2020-11-14T03:16:57Z"
+            },
+            {
+                "name": "v10.1.2",
+                "date": "2020-11-07T04:19:23Z"
+            },
+            {
+                "name": "v10.1.1",
+                "date": "2020-10-27T21:59:35Z"
+            },
+            {
+                "name": "v10.1.0",
+                "date": "2020-10-22T23:31:09Z"
+            },
+            {
+                "name": "v10.0.0",
+                "date": "2020-10-17T01:21:47Z"
+            },
+            {
+                "name": "v10.0.0-rc.2",
+                "date": "2020-10-16T01:30:09Z"
+            },
+            {
+                "name": "v5.5.0",
+                "date": "2020-10-12T18:10:46Z"
+            },
+            {
+                "name": "v5.4.8",
+                "date": "2020-10-05T19:22:54Z"
+            },
+            {
+                "name": "v10.0.0-rc.1",
+                "date": "2020-10-02T04:34:11Z"
+            },
+            {
+                "name": "v10.0.0-beta.6",
+                "date": "2020-10-01T01:38:27Z"
+            },
+            {
+                "name": "v5.4.7",
+                "date": "2020-10-01T04:12:39Z"
+            },
+            {
+                "name": "v5.4.6",
+                "date": "2020-09-30T00:02:15Z"
+            },
+            {
+                "name": "v5.4.5",
+                "date": "2020-09-29T02:26:06Z"
+            },
+            {
+                "name": "v5.4.4",
+                "date": "2020-09-25T18:25:17Z"
+            },
+            {
+                "name": "v5.4.3",
+                "date": "2020-09-21T23:18:08Z"
+            },
+            {
+                "name": "v5.4.2",
+                "date": "2020-09-18T00:57:23Z"
+            },
+            {
+                "name": "v10.0.0-beta.5",
+                "date": "2020-09-16T02:15:12Z"
+            },
+            {
+                "name": "v5.4.1",
+                "date": "2020-09-16T18:49:52Z"
+            },
+            {
+                "name": "v5.4.0",
+                "date": "2020-09-10T00:45:20Z"
+            },
+            {
+                "name": "v10.0.0-beta.4",
+                "date": "2020-09-03T19:49:50Z"
+            },
+            {
+                "name": "v5.3.6",
+                "date": "2020-09-03T01:02:36Z"
+            },
+            {
+                "name": "v5.3.5",
+                "date": "2020-08-21T00:29:54Z"
+            },
+            {
+                "name": "v5.3.4",
+                "date": "2020-08-17T23:34:25Z"
+            },
+            {
+                "name": "v5.3.3",
+                "date": "2020-07-31T04:39:12Z"
+            },
+            {
+                "name": "v5.3.2",
+                "date": "2020-07-21T21:20:12Z"
+            },
+            {
+                "name": "v5.3.1",
+                "date": "2020-07-18T04:49:53Z"
+            },
+            {
+                "name": "v5.3.0",
+                "date": "2020-07-15T01:48:27Z"
+            },
+            {
+                "name": "v5.2.0",
+                "date": "2020-07-01T01:25:18Z"
+            },
+            {
+                "name": "v5.1.0",
+                "date": "2020-06-22T17:58:09Z"
+            },
+            {
+                "name": "v5.0.3",
+                "date": "2020-06-11T03:44:33Z"
+            },
+            {
+                "name": "v10.0.0-beta.2",
+                "date": "2020-06-09T16:21:07Z"
+            },
+            {
+                "name": "v10.0.0-beta.1",
+                "date": "2020-06-09T01:01:15Z"
+            },
+            {
+                "name": "v5.0.2",
+                "date": "2020-06-02T22:09:05Z"
+            },
+            {
+                "name": "v5.0.1",
+                "date": "2020-05-29T03:23:38Z"
+            },
+            {
+                "name": "v5.0.0",
+                "date": "2020-05-15T22:35:01Z"
+            },
+            {
+                "name": "v5.0.0-beta.6",
+                "date": "2020-05-10T19:42:50Z"
+            },
+            {
+                "name": "v4.4.1",
+                "date": "2020-04-17T04:42:22Z"
+            },
+            {
+                "name": "v4.4.0",
+                "date": "2020-03-26T21:24:10Z"
+            },
+            {
+                "name": "v5.0.0-beta.3",
+                "date": "2020-02-27T05:44:20Z"
+            },
+            {
+                "name": "v4.3.2",
+                "date": "2020-02-06T20:36:43Z"
+            },
+            {
+                "name": "v4.3.1",
+                "date": "2020-01-17T01:22:57Z"
+            },
+            {
+                "name": "v5.0.0-beta.2",
+                "date": "2020-01-14T22:43:30Z"
+            },
+            {
+                "name": "v4.3.0",
+                "date": "2019-12-20T02:54:39Z"
+            },
+            {
+                "name": "v4.2.0",
+                "date": "2019-12-17T01:29:12Z"
+            },
+            {
+                "name": "v5.0.0-beta.1",
+                "date": "2019-12-14T01:11:15Z"
+            },
+            {
+                "name": "v4.1.1",
+                "date": "2019-11-19T02:16:33Z"
+            },
+            {
+                "name": "v5.0.0-alpha.1",
+                "date": "2019-11-18T20:58:09Z"
+            },
+            {
+                "name": "v4.1.0",
+                "date": "2019-11-13T21:40:40Z"
+            },
+            {
+                "name": "v4.0.0",
+                "date": "2019-11-08T23:03:08Z"
+            },
+            {
+                "name": "v3.21.0",
+                "date": "2019-11-05T01:17:36Z"
+            },
+            {
+                "name": "v3.20.0",
+                "date": "2019-10-21T22:47:35Z"
+            },
+            {
+                "name": "v3.19.1",
+                "date": "2019-10-18T05:26:37Z"
+            },
+            {
+                "name": "v3.19.0",
+                "date": "2019-09-27T23:53:15Z"
+            },
+            {
+                "name": "v3.18.0",
+                "date": "2019-09-14T03:21:30Z"
+            },
+            {
+                "name": "v3.17.3",
+                "date": "2019-07-25T00:13:08Z"
+            },
+            {
+                "name": "v3.17.1",
+                "date": "2019-07-11T01:17:57Z"
+            },
+            {
+                "name": "v3.17.0",
+                "date": "2019-06-29T01:53:00Z"
+            },
+            {
+                "name": "v3.16.2",
+                "date": "2019-06-15T01:30:26Z"
+            },
+            {
+                "name": "v3.16.1",
+                "date": "2019-06-01T00:35:52Z"
+            },
+            {
+                "name": "v3.16.0",
+                "date": "2019-05-29T18:59:30Z"
+            },
+            {
+                "name": "v3.15.0",
+                "date": "2019-05-06T23:56:53Z"
+            },
+            {
+                "name": "v3.14.2",
+                "date": "2019-04-26T00:59:50Z"
+            },
+            {
+                "name": "v3.15.0-beta.2",
+                "date": "2019-04-05T20:59:32Z"
+            },
+            {
+                "name": "v3.14.1",
+                "date": "2019-04-05T20:54:36Z"
+            },
+            {
+                "name": "3.15.0-beta.1",
+                "date": "2019-04-02T18:44:41Z"
+            },
+            {
+                "name": "v3.14.0",
+                "date": "2019-03-28T00:13:12Z"
+            },
+            {
+                "name": "v3.13.1",
+                "date": "2019-01-03T21:23:31Z"
+            },
+            {
+                "name": "v3.13.0",
+                "date": "2018-12-14T22:50:42Z"
+            },
+            {
+                "name": "v3.12.0",
+                "date": "2018-11-26T23:02:38Z"
+            },
+            {
+                "name": "v3.11.2",
+                "date": "2018-11-15T21:45:50Z"
+            },
+            {
+                "name": "v3.11.1",
+                "date": "2018-10-19T22:47:58Z"
+            },
+            {
+                "name": "v3.11.0",
+                "date": "2018-10-05T02:16:37Z"
+            },
+            {
+                "name": "v3.10.0",
+                "date": "2018-09-19T23:50:04Z"
+            },
+            {
+                "name": "v3.9.0",
+                "date": "2018-09-10T22:52:47Z"
+            },
+            {
+                "name": "Watch Series 4 Test Build",
+                "date": "2018-09-14T21:26:17Z"
+            },
+            {
+                "name": "v3.8.0",
+                "date": "2018-09-05T22:07:33Z"
+            },
+            {
+                "name": "v3.7.6",
+                "date": "2018-08-09T01:53:30Z"
+            },
+            {
+                "name": "v3.7.5",
+                "date": "2018-07-23T20:25:37Z"
+            },
+            {
+                "name": "v3.7.4",
+                "date": "2018-06-19T18:44:28Z"
+            },
+            {
+                "name": "v3.7.3",
+                "date": "2018-06-18T23:42:07Z"
+            },
+            {
+                "name": "v3.7.2",
+                "date": "2018-06-14T01:01:12Z"
+            },
+            {
+                "name": "v3.7.1",
+                "date": "2018-06-07T18:44:37Z"
+            },
+            {
+                "name": "v3.7.0",
+                "date": "2018-06-06T18:03:58Z"
+            },
+            {
+                "name": "v3.6.0",
+                "date": "2018-05-29T11:54:41Z"
+            },
+            {
+                "name": "v3.5.0",
+                "date": "2018-04-25T23:20:00Z"
+            },
+            {
+                "name": "v3.4.0",
+                "date": "2018-04-20T01:37:02Z"
+            },
+            {
+                "name": "v3.3.2",
+                "date": "2018-04-03T21:06:10Z"
+            },
+            {
+                "name": "v3.3.1",
+                "date": "2018-03-28T21:32:19Z"
+            },
+            {
+                "name": "v3.3.0",
+                "date": "2018-03-20T02:43:12Z"
+            },
+            {
+                "name": "v3.2.0",
+                "date": "2018-03-15T14:58:04Z"
+            },
+            {
+                "name": "v3.2.0-rc.1",
+                "date": "2018-03-15T01:21:30Z"
+            },
+            {
+                "name": "v3.2.0-beta.3",
+                "date": "2018-03-02T05:04:04Z"
+            },
+            {
+                "name": "v3.2.0-beta.2",
+                "date": "2018-03-01T04:52:28Z"
+            },
+            {
+                "name": "v3.2.0-beta.1",
+                "date": "2018-02-20T04:19:32Z"
+            },
+            {
+                "name": "v3.1.1",
+                "date": "2018-02-04T03:23:31Z"
+            },
+            {
+                "name": "v3.1.0",
+                "date": "2018-01-17T03:40:44Z"
+            },
+            {
+                "name": "v3.0.2",
+                "date": "2017-11-09T02:34:35Z"
+            },
+            {
+                "name": "v3.0.1",
+                "date": "2017-10-25T21:04:32Z"
+            },
+            {
+                "name": "v3.0.0",
+                "date": "2017-10-16T21:19:34Z"
+            },
+            {
+                "name": "v3.0.0-rc.2",
+                "date": "2017-10-14T22:11:01Z"
+            },
+            {
+                "name": "v3.0.0-rc.1",
+                "date": "2017-10-03T23:50:46Z"
+            },
+            {
+                "name": "v2.10.2",
+                "date": "2017-09-28T03:03:24Z"
+            },
+            {
+                "name": "v3.0.0-beta.4",
+                "date": "2017-09-23T06:54:37Z"
+            },
+            {
+                "name": "v2.10.1",
+                "date": "2017-09-15T00:27:33Z"
+            },
+            {
+                "name": "v3.0.0-beta.3",
+                "date": "2017-08-24T00:57:15Z"
+            },
+            {
+                "name": "v2.10.0",
+                "date": "2017-08-22T01:10:49Z"
+            },
+            {
+                "name": "v2.9.1",
+                "date": "2017-08-01T20:39:14Z"
+            },
+            {
+                "name": "v3.0.0-beta.2",
+                "date": "2017-07-27T18:09:54Z"
+            },
+            {
+                "name": "v2.9.0",
+                "date": "2017-07-26T20:41:19Z"
+            },
+            {
+                "name": "v3.0.0-beta",
+                "date": "2017-07-17T22:04:26Z"
+            },
+            {
+                "name": "v2.8.3",
+                "date": "2017-06-20T17:49:15Z"
+            },
+            {
+                "name": "v2.8.2",
+                "date": "2017-06-19T15:59:02Z"
+            },
+            {
+                "name": "v2.8.1",
+                "date": "2017-06-12T21:06:35Z"
+            },
+            {
+                "name": "v2.8.0",
+                "date": "2017-06-02T22:36:43Z"
+            },
+            {
+                "name": "v2.7.0",
+                "date": "2017-05-03T18:03:38Z"
+            },
+            {
+                "name": "v2.6.2",
+                "date": "2017-04-21T18:46:05Z"
+            },
+            {
+                "name": "v2.6.1",
+                "date": "2017-04-19T00:53:29Z"
+            },
+            {
+                "name": "v2.6.0",
+                "date": "2017-04-18T17:05:01Z"
+            },
+            {
+                "name": "v2.5.1",
+                "date": "2017-04-05T20:46:47Z"
+            },
+            {
+                "name": "v2.5.0",
+                "date": "2017-03-29T05:28:21Z"
+            },
+            {
+                "name": "v2.4.4",
+                "date": "2017-03-13T20:57:15Z"
+            },
+            {
+                "name": "v2.4.3",
+                "date": "2017-02-21T03:18:05Z"
+            },
+            {
+                "name": "v2.4.2",
+                "date": "2017-01-31T01:18:41Z"
+            },
+            {
+                "name": "v2.4.1",
+                "date": "2017-01-27T20:05:38Z"
+            },
+            {
+                "name": "v2.4.0",
+                "date": "2017-01-27T05:54:59Z"
+            },
+            {
+                "name": "v2.3.0",
+                "date": "2017-01-19T09:36:50Z"
+            },
+            {
+                "name": "v2.2.0",
+                "date": "2017-01-12T21:27:55Z"
+            },
+            {
+                "name": "v2.1.2",
+                "date": "2016-12-20T00:53:43Z"
+            },
+            {
+                "name": "v2.1.1",
+                "date": "2016-12-03T01:05:14Z"
+            },
+            {
+                "name": "v2.1.0",
+                "date": "2016-11-18T23:28:32Z"
+            },
+            {
+                "name": "v2.0.4",
+                "date": "2016-11-15T06:30:14Z"
+            },
+            {
+                "name": "v2.0.3",
+                "date": "2016-10-27T21:25:26Z"
+            },
+            {
+                "name": "v2.0.2",
+                "date": "2016-10-06T00:21:52Z"
+            },
+            {
+                "name": "v2.0.1",
+                "date": "2016-09-30T21:43:26Z"
+            },
+            {
+                "name": "v2.0.0",
+                "date": "2016-09-27T13:20:28Z"
+            },
+            {
+                "name": "v1.1.0",
+                "date": "2016-09-16T23:12:20Z"
+            },
+            {
+                "name": "v1.0.2",
+                "date": "2016-07-14T00:17:21Z"
+            },
+            {
+                "name": "v1.0.1",
+                "date": "2016-06-12T18:31:59Z"
+            },
+            {
+                "name": "v1.0.0",
+                "date": "2016-05-25T12:22:53Z"
+            },
+            {
+                "name": "v0.103.2",
+                "date": "2016-05-25T03:33:08Z"
+            },
+            {
+                "name": "v0.103.1",
+                "date": "2016-05-20T00:05:09Z"
+            },
+            {
+                "name": "v0.103.0",
+                "date": "2016-05-18T22:42:54Z"
+            },
+            {
+                "name": "v0.102.1",
+                "date": "2016-05-13T23:56:31Z"
+            },
+            {
+                "name": "v0.102.0",
+                "date": "2016-05-09T23:50:07Z"
+            },
+            {
+                "name": "v0.101.0",
+                "date": "2016-05-04T23:11:54Z"
+            },
+            {
+                "name": "v0.100.0",
+                "date": "2016-04-29T19:39:54Z"
+            },
+            {
+                "name": "v0.99.1",
+                "date": "2016-04-26T07:37:01Z"
+            },
+            {
+                "name": "v0.99.0",
+                "date": "2016-04-22T21:17:56Z"
+            },
+            {
+                "name": "v0.98.8",
+                "date": "2016-04-15T23:09:58Z"
+            },
+            {
+                "name": "v0.98.7",
+                "date": "2016-04-14T02:29:41Z"
+            },
+            {
+                "name": "v0.98.6",
+                "date": "2016-03-25T08:09:25Z"
+            },
+            {
+                "name": "v0.98.5",
+                "date": "2016-03-15T01:11:31Z"
+            },
+            {
+                "name": "v0.98.4",
+                "date": "2016-03-11T01:46:21Z"
+            },
+            {
+                "name": "v0.98.3",
+                "date": "2016-02-26T21:48:51Z"
+            },
+            {
+                "name": "v0.98.2",
+                "date": "2016-02-18T20:51:32Z"
+            },
+            {
+                "name": "v0.98.1",
+                "date": "2016-02-10T22:25:53Z"
+            },
+            {
+                "name": "v0.98.0",
+                "date": "2016-02-05T03:14:20Z"
+            },
+            {
+                "name": "v0.97.1",
+                "date": "2016-01-29T21:53:48Z"
+            },
+            {
+                "name": "v0.97.0",
+                "date": "2015-12-17T20:12:39Z"
+            },
+            {
+                "name": "v0.96.3",
+                "date": "2015-12-05T01:22:00Z"
+            },
+            {
+                "name": "v0.96.2",
+                "date": "2015-10-26T22:41:23Z"
+            },
+            {
+                "name": "v0.96.1",
+                "date": "2015-10-20T23:40:00Z"
+            },
+            {
+                "name": "v0.96.0",
+                "date": "2015-10-14T20:37:58Z"
+            },
+            {
+                "name": "v0.96.0-beta",
+                "date": "2015-10-07T00:00:39Z"
+            },
+            {
+                "name": "v0.95.3",
+                "date": "2015-10-06T01:08:52Z"
+            },
+            {
+                "name": "v0.95.2",
+                "date": "2015-09-25T01:02:02Z"
+            },
+            {
+                "name": "v0.95.1",
+                "date": "2015-09-23T23:29:32Z"
+            },
+            {
+                "name": "v0.95.0",
+                "date": "2015-08-25T18:42:48Z"
+            },
+            {
+                "name": "v0.94.1",
+                "date": "2015-08-10T23:44:16Z"
+            },
+            {
+                "name": "v0.94.0",
+                "date": "2015-07-29T22:16:42Z"
+            },
+            {
+                "name": "v0.93.2",
+                "date": "2015-06-12T22:07:12Z"
+            },
+            {
+                "name": "v0.93.1",
+                "date": "2015-05-29T18:24:30Z"
+            },
+            {
+                "name": "v0.93.0",
+                "date": "2015-05-27T19:06:57Z"
+            },
+            {
+                "name": "v0.92.4",
+                "date": "2015-05-26T21:13:38Z"
+            },
+            {
+                "name": "v0.92.3",
+                "date": "2015-05-13T21:59:26Z"
+            },
+            {
+                "name": "v0.92.2",
+                "date": "2015-05-09T00:14:46Z"
+            },
+            {
+                "name": "v0.92.1",
+                "date": "2015-05-07T03:34:41Z"
+            },
+            {
+                "name": "v0.92.0",
+                "date": "2015-05-06T01:00:59Z"
+            }
+        ]
+    }
+}

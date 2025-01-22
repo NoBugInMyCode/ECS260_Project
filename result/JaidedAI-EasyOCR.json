@@ -1,0 +1,164 @@
+{
+    "https://api.github.com/repos/JaidedAI/EasyOCR": {
+        "forks": 3222,
+        "watchers": 25266,
+        "stars": 25266,
+        "languages": {
+            "Python": 633819,
+            "C++": 112732,
+            "Cuda": 58253,
+            "Jupyter Notebook": 9351,
+            "C": 4548,
+            "Ruby": 1708,
+            "Dockerfile": 877,
+            "Shell": 334
+        },
+        "commits": [
+            "2024-09-24T11:18:06Z",
+            "2024-07-25T01:00:20Z",
+            "2024-07-20T19:24:14Z",
+            "2023-09-04T11:42:16Z",
+            "2023-09-04T11:29:43Z",
+            "2023-09-04T11:29:20Z",
+            "2023-09-04T11:28:39Z",
+            "2023-09-04T11:19:13Z",
+            "2023-09-04T11:12:43Z",
+            "2023-09-04T11:06:16Z",
+            "2023-09-04T11:05:33Z",
+            "2023-09-01T20:57:31Z",
+            "2023-08-08T00:21:31Z",
+            "2023-07-16T10:41:14Z",
+            "2023-07-04T12:44:09Z",
+            "2023-06-28T16:08:03Z",
+            "2023-06-13T12:59:04Z",
+            "2023-05-25T09:10:38Z",
+            "2023-05-25T09:10:19Z",
+            "2023-05-25T09:09:20Z",
+            "2023-05-25T09:08:43Z",
+            "2023-05-18T09:55:24Z",
+            "2023-05-18T09:52:48Z",
+            "2023-05-18T09:51:51Z",
+            "2023-05-18T09:48:19Z",
+            "2023-05-18T09:44:56Z",
+            "2023-05-18T09:43:37Z",
+            "2023-05-18T08:42:21Z",
+            "2023-05-01T14:56:31Z",
+            "2023-04-26T09:58:20Z"
+        ],
+        "creation_date": "2020-03-14T11:46:39Z",
+        "contributors": 30,
+        "topics": [
+            "cnn",
+            "crnn",
+            "data-mining",
+            "deep-learning",
+            "easyocr",
+            "image-processing",
+            "information-retrieval",
+            "lstm",
+            "machine-learning",
+            "ocr",
+            "optical-character-recognition",
+            "python",
+            "pytorch",
+            "scene-text",
+            "scene-text-recognition"
+        ],
+        "subscribers": 320,
+        "readme": "# EasyOCR\n\n[![PyPI Status](https://badge.fury.io/py/easyocr.svg)](https://badge.fury.io/py/easyocr)\n[![license](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/JaidedAI/EasyOCR/blob/master/LICENSE)\n[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.to/easyocr)\n[![Tweet](https://img.shields.io/twitter/url/https/github.com/JaidedAI/EasyOCR.svg?style=social)](https://twitter.com/intent/tweet?text=Check%20out%20this%20awesome%20library:%20EasyOCR%20https://github.com/JaidedAI/EasyOCR)\n[![Twitter](https://img.shields.io/badge/twitter-@JaidedAI-blue.svg?style=flat)](https://twitter.com/JaidedAI)\n\nReady-to-use OCR with 80+ [supported languages](https://www.jaided.ai/easyocr) and all popular writing scripts including: Latin, Chinese, Arabic, Devanagari, Cyrillic, etc.\n\n[Try Demo on our website](https://www.jaided.ai/easyocr)\n\nIntegrated into [Huggingface Spaces \ud83e\udd17](https://huggingface.co/spaces) using [Gradio](https://github.com/gradio-app/gradio). Try out the Web Demo: [![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/tomofi/EasyOCR)\n\n\n## What's new\n- 24 September 2024 - Version 1.7.2\n    - Fix several compatibilities\n\n- [Read all release notes](https://github.com/JaidedAI/EasyOCR/blob/master/releasenotes.md)\n\n## What's coming next\n- Handwritten text support\n\n## Examples\n\n![example](examples/example.png)\n\n![example2](examples/example2.png)\n\n![example3](examples/example3.png)\n\n\n## Installation\n\nInstall using `pip`\n\nFor the latest stable release:\n\n``` bash\npip install easyocr\n```\n\nFor the latest development release:\n\n``` bash\npip install git+https://github.com/JaidedAI/EasyOCR.git\n```\n\nNote 1: For Windows, please install torch and torchvision first by following the official instructions here https://pytorch.org. On the pytorch website, be sure to select the right CUDA version you have. If you intend to run on CPU mode only, select `CUDA = None`.\n\nNote 2: We also provide a Dockerfile [here](https://github.com/JaidedAI/EasyOCR/blob/master/Dockerfile).\n\n## Usage\n\n``` python\nimport easyocr\nreader = easyocr.Reader(['ch_sim','en']) # this needs to run only once to load the model into memory\nresult = reader.readtext('chinese.jpg')\n```\n\nThe output will be in a list format, each item represents a bounding box, the text detected and confident level, respectively.\n\n``` bash\n[([[189, 75], [469, 75], [469, 165], [189, 165]], '\u611a\u56ed\u8def', 0.3754989504814148),\n ([[86, 80], [134, 80], [134, 128], [86, 128]], '\u897f', 0.40452659130096436),\n ([[517, 81], [565, 81], [565, 123], [517, 123]], '\u4e1c', 0.9989598989486694),\n ([[78, 126], [136, 126], [136, 156], [78, 156]], '315', 0.8125889301300049),\n ([[514, 126], [574, 126], [574, 156], [514, 156]], '309', 0.4971577227115631),\n ([[226, 170], [414, 170], [414, 220], [226, 220]], 'Yuyuan Rd.', 0.8261902332305908),\n ([[79, 173], [125, 173], [125, 213], [79, 213]], 'W', 0.9848111271858215),\n ([[529, 173], [569, 173], [569, 213], [529, 213]], 'E', 0.8405593633651733)]\n```\nNote 1: `['ch_sim','en']` is the list of languages you want to read. You can pass\nseveral languages at once but not all languages can be used together.\nEnglish is compatible with every language and languages that share common characters are usually compatible with each other.\n\nNote 2: Instead of the filepath `chinese.jpg`, you can also pass an OpenCV image object (numpy array) or an image file as bytes. A URL to a raw image is also acceptable.\n\nNote 3: The line `reader = easyocr.Reader(['ch_sim','en'])` is for loading a model into memory. It takes some time but it needs to be run only once.\n\nYou can also set `detail=0` for simpler output.\n\n``` python\nreader.readtext('chinese.jpg', detail = 0)\n```\nResult:\n``` bash\n['\u611a\u56ed\u8def', '\u897f', '\u4e1c', '315', '309', 'Yuyuan Rd.', 'W', 'E']\n```\n\nModel weights for the chosen language will be automatically downloaded or you can\ndownload them manually from the [model hub](https://www.jaided.ai/easyocr/modelhub) and put them in the '~/.EasyOCR/model' folder\n\nIn case you do not have a GPU, or your GPU has low memory, you can run the model in CPU-only mode by adding `gpu=False`.\n\n``` python\nreader = easyocr.Reader(['ch_sim','en'], gpu=False)\n```\n\nFor more information, read the [tutorial](https://www.jaided.ai/easyocr/tutorial) and [API Documentation](https://www.jaided.ai/easyocr/documentation).\n\n#### Run on command line\n\n```shell\n$ easyocr -l ch_sim en -f chinese.jpg --detail=1 --gpu=True\n```\n\n## Train/use your own model\n\nFor recognition model, [Read here](https://github.com/JaidedAI/EasyOCR/blob/master/custom_model.md).\n\nFor detection model (CRAFT), [Read here](https://github.com/JaidedAI/EasyOCR/blob/master/trainer/craft/README.md).\n\n## Implementation Roadmap\n\n- Handwritten support\n- Restructure code to support swappable detection and recognition algorithms\nThe api should be as easy as\n``` python\nreader = easyocr.Reader(['en'], detection='DB', recognition = 'Transformer')\n```\nThe idea is to be able to plug in any state-of-the-art model into EasyOCR. There are a lot of geniuses trying to make better detection/recognition models, but we are not trying to be geniuses here. We just want to make their works quickly accessible to the public ... for free. (well, we believe most geniuses want their work to create a positive impact as fast/big as possible) The pipeline should be something like the below diagram. Grey slots are placeholders for changeable light blue modules.\n\n![plan](examples/easyocr_framework.jpeg)\n\n## Acknowledgement and References\n\nThis project is based on research and code from several papers and open-source repositories.\n\nAll deep learning execution is based on [Pytorch](https://pytorch.org). :heart:\n\nDetection execution uses the CRAFT algorithm from this [official repository](https://github.com/clovaai/CRAFT-pytorch) and their [paper](https://arxiv.org/abs/1904.01941) (Thanks @YoungminBaek from [@clovaai](https://github.com/clovaai)). We also use their pretrained model. Training script is provided by [@gmuffiness](https://github.com/gmuffiness).\n\nThe recognition model is a CRNN ([paper](https://arxiv.org/abs/1507.05717)). It is composed of 3 main components: feature extraction (we are currently using [Resnet](https://arxiv.org/abs/1512.03385)) and VGG, sequence labeling ([LSTM](https://www.bioinf.jku.at/publications/older/2604.pdf)) and decoding ([CTC](https://www.cs.toronto.edu/~graves/icml_2006.pdf)). The training pipeline for recognition execution is a modified version of the [deep-text-recognition-benchmark](https://github.com/clovaai/deep-text-recognition-benchmark) framework. (Thanks [@ku21fan](https://github.com/ku21fan) from [@clovaai](https://github.com/clovaai)) This repository is a gem that deserves more recognition.\n\nBeam search code is based on this [repository](https://github.com/githubharald/CTCDecoder) and his [blog](https://towardsdatascience.com/beam-search-decoding-in-ctc-trained-neural-networks-5a889a3d85a7). (Thanks [@githubharald](https://github.com/githubharald))\n\nData synthesis is based on [TextRecognitionDataGenerator](https://github.com/Belval/TextRecognitionDataGenerator). (Thanks [@Belval](https://github.com/Belval))\n\nAnd a good read about CTC from distill.pub [here](https://distill.pub/2017/ctc/).\n\n## Want To Contribute?\n\nLet's advance humanity together by making AI available to everyone!\n\n3 ways to contribute:\n\n**Coder:** Please send a PR for small bugs/improvements. For bigger ones, discuss with us by opening an issue first. There is a list of possible bug/improvement issues tagged with ['PR WELCOME'](https://github.com/JaidedAI/EasyOCR/issues?q=is%3Aissue+is%3Aopen+label%3A%22PR+WELCOME%22).\n\n**User:** Tell us how EasyOCR benefits you/your organization to encourage further development. Also post failure cases in [Issue  Section](https://github.com/JaidedAI/EasyOCR/issues) to help improve future models.\n\n**Tech leader/Guru:** If you found this library useful, please spread the word! (See [Yann Lecun's post](https://www.facebook.com/yann.lecun/posts/10157018122787143) about EasyOCR)\n\n## Guideline for new language request\n\nTo request a new language, we need you to send a PR with the 2 following files:\n\n1. In folder [easyocr/character](https://github.com/JaidedAI/EasyOCR/tree/master/easyocr/character),\nwe need 'yourlanguagecode_char.txt' that contains list of all characters. Please see format examples from other files in that folder.\n2. In folder [easyocr/dict](https://github.com/JaidedAI/EasyOCR/tree/master/easyocr/dict),\nwe need 'yourlanguagecode.txt' that contains list of words in your language.\nOn average, we have ~30000 words per language with more than 50000 words for more popular ones.\nMore is better in this file.\n\nIf your language has unique elements (such as 1. Arabic: characters change form when attached to each other + write from right to left 2. Thai: Some characters need to be above the line and some below), please educate us to the best of your ability and/or give useful links. It is important to take care of the detail to achieve a system that really works.\n\nLastly, please understand that our priority will have to go to popular languages or sets of languages that share large portions of their characters with each other (also tell us if this is the case for your language). It takes us at least a week to develop a new model, so you may have to wait a while for the new model to be released.\n\nSee [List of languages in development](https://github.com/JaidedAI/EasyOCR/issues/91)\n\n## Github Issues\n\nDue to limited resources, an issue older than 6 months will be automatically closed. Please open an issue again if it is critical.\n\n## Business Inquiries\n\nFor Enterprise Support, [Jaided AI](https://www.jaided.ai/) offers full service for custom OCR/AI systems from implementation, training/finetuning and deployment. Click [here](https://www.jaided.ai/contactus?ref=github) to contact us.\n",
+        "releases": [
+            {
+                "name": "v1.7.2",
+                "date": "2024-09-24T11:24:36Z"
+            },
+            {
+                "name": "v1.7.1",
+                "date": "2023-09-04T11:53:04Z"
+            },
+            {
+                "name": "v1.7.0",
+                "date": "2023-05-25T09:11:38Z"
+            },
+            {
+                "name": "v1.6.2",
+                "date": "2022-09-15T11:34:18Z"
+            },
+            {
+                "name": "v1.6.1",
+                "date": "2022-09-01T08:23:19Z"
+            },
+            {
+                "name": "v1.6.0",
+                "date": "2022-08-24T03:50:25Z"
+            },
+            {
+                "name": "v1.5.0",
+                "date": "2022-06-02T03:32:56Z"
+            },
+            {
+                "name": "v1.4.2",
+                "date": "2022-04-09T07:42:02Z"
+            },
+            {
+                "name": "v1.4.1",
+                "date": "2021-09-11T09:36:28Z"
+            },
+            {
+                "name": "v1.4",
+                "date": "2021-06-29T09:44:35Z"
+            },
+            {
+                "name": "v1.3.2",
+                "date": "2021-05-30T08:55:25Z"
+            },
+            {
+                "name": "v1.3.1",
+                "date": "2021-04-24T01:05:19Z"
+            },
+            {
+                "name": "v1.3",
+                "date": "2021-03-21T09:44:54Z"
+            },
+            {
+                "name": "v1.2.5",
+                "date": "2021-02-23T00:29:20Z"
+            },
+            {
+                "name": "v1.2.4",
+                "date": "2021-02-07T11:38:16Z"
+            },
+            {
+                "name": "1.2.3",
+                "date": "2021-02-01T02:26:39Z"
+            },
+            {
+                "name": "1.2.2",
+                "date": "2021-01-05T13:48:55Z"
+            },
+            {
+                "name": "v1.2",
+                "date": "2020-11-17T05:17:50Z"
+            },
+            {
+                "name": "1.1.10",
+                "date": "2020-10-14T06:14:54Z"
+            },
+            {
+                "name": "v1.1.8",
+                "date": "2020-08-23T04:44:29Z"
+            },
+            {
+                "name": "v1.1.7",
+                "date": "2020-08-10T10:05:38Z"
+            },
+            {
+                "name": "Model files",
+                "date": "2020-08-04T02:42:32Z"
+            },
+            {
+                "name": "Version 1.1",
+                "date": "2020-06-29T08:35:51Z"
+            }
+        ]
+    }
+}

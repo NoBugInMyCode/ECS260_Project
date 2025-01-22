@@ -1,0 +1,461 @@
+{
+    "https://api.github.com/repos/nikic/PHP-Parser": {
+        "forks": 1100,
+        "watchers": 17138,
+        "stars": 17138,
+        "languages": {
+            "PHP": 1222280,
+            "Yacc": 60149,
+            "Shell": 328,
+            "Makefile": 191
+        },
+        "commits": [
+            "2025-01-17T21:41:39Z",
+            "2025-01-16T19:48:25Z",
+            "2024-12-30T11:14:29Z",
+            "2024-12-30T11:07:19Z",
+            "2024-12-30T08:34:17Z",
+            "2024-12-30T08:26:37Z",
+            "2024-12-27T15:55:20Z",
+            "2024-12-27T15:33:38Z",
+            "2024-12-27T15:30:03Z",
+            "2024-12-11T10:34:55Z",
+            "2024-12-11T10:32:42Z",
+            "2024-11-24T17:41:55Z",
+            "2024-12-11T10:04:44Z",
+            "2024-12-11T10:04:32Z",
+            "2024-12-11T09:55:30Z",
+            "2024-12-11T08:37:29Z",
+            "2024-12-06T21:00:17Z",
+            "2024-11-24T00:37:31Z",
+            "2024-11-18T21:13:52Z",
+            "2024-11-18T21:47:37Z",
+            "2024-11-05T16:21:40Z",
+            "2024-10-08T18:51:32Z",
+            "2024-10-08T18:46:33Z",
+            "2024-10-07T07:35:46Z",
+            "2024-09-29T13:56:26Z",
+            "2024-09-29T13:34:59Z",
+            "2024-09-21T16:54:50Z",
+            "2024-09-21T14:03:21Z",
+            "2024-09-21T13:55:21Z",
+            "2024-09-17T19:33:51Z"
+        ],
+        "creation_date": "2011-04-18T17:03:47Z",
+        "contributors": 30,
+        "topics": [
+            "ast",
+            "parser",
+            "php",
+            "static-analysis"
+        ],
+        "subscribers": 226,
+        "readme": "PHP Parser\n==========\n\n[![Coverage Status](https://coveralls.io/repos/github/nikic/PHP-Parser/badge.svg?branch=master)](https://coveralls.io/github/nikic/PHP-Parser?branch=master)\n\nThis is a PHP parser written in PHP. Its purpose is to simplify static code analysis and\nmanipulation.\n\n[**Documentation for version 5.x**][doc_master] (current; for running on PHP >= 7.4; for parsing PHP 7.0 to PHP 8.4, with limited support for parsing PHP 5.x).\n\n[Documentation for version 4.x][doc_4_x] (supported; for running on PHP >= 7.0; for parsing PHP 5.2 to PHP 8.3).\n\nFeatures\n--------\n\nThe main features provided by this library are:\n\n * Parsing PHP 7, and PHP 8 code into an abstract syntax tree (AST).\n   * Invalid code can be parsed into a partial AST.\n   * The AST contains accurate location information.\n * Dumping the AST in human-readable form.\n * Converting an AST back to PHP code.\n   * Formatting can be preserved for partially changed ASTs.\n * Infrastructure to traverse and modify ASTs.\n * Resolution of namespaced names.\n * Evaluation of constant expressions.\n * Builders to simplify AST construction for code generation.\n * Converting an AST into JSON and back.\n\nQuick Start\n-----------\n\nInstall the library using [composer](https://getcomposer.org):\n\n    php composer.phar require nikic/php-parser\n\nParse some PHP code into an AST and dump the result in human-readable form:\n\n```php\n<?php\nuse PhpParser\\Error;\nuse PhpParser\\NodeDumper;\nuse PhpParser\\ParserFactory;\n\n$code = <<<'CODE'\n<?php\n\nfunction test($foo)\n{\n    var_dump($foo);\n}\nCODE;\n\n$parser = (new ParserFactory())->createForNewestSupportedVersion();\ntry {\n    $ast = $parser->parse($code);\n} catch (Error $error) {\n    echo \"Parse error: {$error->getMessage()}\\n\";\n    return;\n}\n\n$dumper = new NodeDumper;\necho $dumper->dump($ast) . \"\\n\";\n```\n\nThis dumps an AST looking something like this:\n\n```\narray(\n    0: Stmt_Function(\n        attrGroups: array(\n        )\n        byRef: false\n        name: Identifier(\n            name: test\n        )\n        params: array(\n            0: Param(\n                attrGroups: array(\n                )\n                flags: 0\n                type: null\n                byRef: false\n                variadic: false\n                var: Expr_Variable(\n                    name: foo\n                )\n                default: null\n            )\n        )\n        returnType: null\n        stmts: array(\n            0: Stmt_Expression(\n                expr: Expr_FuncCall(\n                    name: Name(\n                        name: var_dump\n                    )\n                    args: array(\n                        0: Arg(\n                            name: null\n                            value: Expr_Variable(\n                                name: foo\n                            )\n                            byRef: false\n                            unpack: false\n                        )\n                    )\n                )\n            )\n        )\n    )\n)\n```\n\nLet's traverse the AST and perform some kind of modification. For example, drop all function bodies:\n\n```php\nuse PhpParser\\Node;\nuse PhpParser\\Node\\Stmt\\Function_;\nuse PhpParser\\NodeTraverser;\nuse PhpParser\\NodeVisitorAbstract;\n\n$traverser = new NodeTraverser();\n$traverser->addVisitor(new class extends NodeVisitorAbstract {\n    public function enterNode(Node $node) {\n        if ($node instanceof Function_) {\n            // Clean out the function body\n            $node->stmts = [];\n        }\n    }\n});\n\n$ast = $traverser->traverse($ast);\necho $dumper->dump($ast) . \"\\n\";\n```\n\nThis gives us an AST where the `Function_::$stmts` are empty:\n\n```\narray(\n    0: Stmt_Function(\n        attrGroups: array(\n        )\n        byRef: false\n        name: Identifier(\n            name: test\n        )\n        params: array(\n            0: Param(\n                attrGroups: array(\n                )\n                type: null\n                byRef: false\n                variadic: false\n                var: Expr_Variable(\n                    name: foo\n                )\n                default: null\n            )\n        )\n        returnType: null\n        stmts: array(\n        )\n    )\n)\n```\n\nFinally, we can convert the new AST back to PHP code:\n\n```php\nuse PhpParser\\PrettyPrinter;\n\n$prettyPrinter = new PrettyPrinter\\Standard;\necho $prettyPrinter->prettyPrintFile($ast);\n```\n\nThis gives us our original code, minus the `var_dump()` call inside the function:\n\n```php\n<?php\n\nfunction test($foo)\n{\n}\n```\n\nFor a more comprehensive introduction, see the documentation.\n\nDocumentation\n-------------\n\n 1. [Introduction](doc/0_Introduction.markdown)\n 2. [Usage of basic components](doc/2_Usage_of_basic_components.markdown)\n\nComponent documentation:\n\n * [Walking the AST](doc/component/Walking_the_AST.markdown)\n   * Node visitors\n   * Modifying the AST from a visitor\n   * Short-circuiting traversals\n   * Interleaved visitors\n   * Simple node finding API\n   * Parent and sibling references\n * [Name resolution](doc/component/Name_resolution.markdown)\n   * Name resolver options\n   * Name resolution context\n * [Pretty printing](doc/component/Pretty_printing.markdown)\n   * Converting AST back to PHP code\n   * Customizing formatting\n   * Formatting-preserving code transformations\n * [AST builders](doc/component/AST_builders.markdown)\n   * Fluent builders for AST nodes\n * [Lexer](doc/component/Lexer.markdown)\n   * Emulation\n   * Tokens, positions and attributes\n * [Error handling](doc/component/Error_handling.markdown)\n   * Column information for errors\n   * Error recovery (parsing of syntactically incorrect code)\n * [Constant expression evaluation](doc/component/Constant_expression_evaluation.markdown)\n   * Evaluating constant/property/etc initializers\n   * Handling errors and unsupported expressions\n * [JSON representation](doc/component/JSON_representation.markdown)\n   * JSON encoding and decoding of ASTs\n * [Performance](doc/component/Performance.markdown)\n   * Disabling Xdebug\n   * Reusing objects\n   * Garbage collection impact\n * [Frequently asked questions](doc/component/FAQ.markdown)\n   * Parent and sibling references\n\n [doc_3_x]: https://github.com/nikic/PHP-Parser/tree/3.x/doc\n [doc_4_x]: https://github.com/nikic/PHP-Parser/tree/4.x/doc\n [doc_master]: https://github.com/nikic/PHP-Parser/tree/master/doc\n",
+        "releases": [
+            {
+                "name": "PHP-Parser 5.4.0",
+                "date": "2024-12-30T11:10:46Z"
+            },
+            {
+                "name": "PHP-Parser 5.3.1",
+                "date": "2024-10-08T18:52:31Z"
+            },
+            {
+                "name": "PHP-Parser 5.3.0",
+                "date": "2024-09-29T13:59:38Z"
+            },
+            {
+                "name": "PHP-Parser 4.19.4",
+                "date": "2024-09-29T15:03:25Z"
+            },
+            {
+                "name": "PHP-Parser 4.19.3",
+                "date": "2024-09-29T14:02:31Z"
+            },
+            {
+                "name": "PHP-Parser 4.19.2",
+                "date": "2024-09-17T19:39:00Z"
+            },
+            {
+                "name": "PHP-Parser 5.2.0",
+                "date": "2024-09-15T16:43:16Z"
+            },
+            {
+                "name": "PHP-Parser 5.1.0",
+                "date": "2024-07-01T20:05:47Z"
+            },
+            {
+                "name": "PHP-Parser 4.19.1",
+                "date": "2024-03-17T08:12:20Z"
+            },
+            {
+                "name": "PHP-Parser 4.19.0",
+                "date": "2024-03-16T14:51:50Z"
+            },
+            {
+                "name": "PHP-Parser 5.0.2",
+                "date": "2024-03-05T20:53:03Z"
+            },
+            {
+                "name": "PHP-Parser 5.0.1",
+                "date": "2024-02-21T19:25:43Z"
+            },
+            {
+                "name": "PHP-Parser 5.0.0",
+                "date": "2024-01-07T17:32:55Z"
+            },
+            {
+                "name": "PHP-Parser 5.0.0 Release Candidate 1",
+                "date": "2023-12-20T21:35:24Z"
+            },
+            {
+                "name": "PHP-Parser 4.18.0",
+                "date": "2023-12-10T21:06:32Z"
+            },
+            {
+                "name": "PHP-Parser 5.0.0 Beta 1",
+                "date": "2023-09-17T18:23:44Z"
+            },
+            {
+                "name": "PHP-Parser 4.17.1",
+                "date": "2023-08-13T19:55:15Z"
+            },
+            {
+                "name": "PHP-Parser 4.17.0",
+                "date": "2023-08-13T14:54:20Z"
+            },
+            {
+                "name": "PHP-Parser 4.16.0",
+                "date": "2023-06-25T14:54:09Z"
+            },
+            {
+                "name": "PHP-Parser 5.0.0-alpha3",
+                "date": "2023-06-24T15:52:06Z"
+            },
+            {
+                "name": "PHP-Parser 4.15.5",
+                "date": "2023-05-19T20:23:11Z"
+            },
+            {
+                "name": "PHP-Parser 5.0.0-alpha2",
+                "date": "2023-03-05T09:53:22Z"
+            },
+            {
+                "name": "PHP-Parser 4.15.4",
+                "date": "2023-03-05T19:50:13Z"
+            },
+            {
+                "name": "PHP-Parser 4.15.3",
+                "date": "2023-01-16T22:07:56Z"
+            },
+            {
+                "name": "PHP-Parser 4.15.2",
+                "date": "2022-11-12T15:39:59Z"
+            },
+            {
+                "name": "PHP-Parser 5.0.0-alpha1",
+                "date": "2022-09-04T17:02:59Z"
+            },
+            {
+                "name": "PHP-Parser 4.15.1",
+                "date": "2022-09-04T07:32:36Z"
+            },
+            {
+                "name": "PHP-Parser 4.15.0",
+                "date": "2022-09-03T19:56:46Z"
+            },
+            {
+                "name": "PHP-Parser 4.14.0",
+                "date": "2022-05-31T21:02:14Z"
+            },
+            {
+                "name": "PHP-Parser 4.13.2",
+                "date": "2021-11-30T19:40:18Z"
+            },
+            {
+                "name": "PHP-Parser 4.13.1",
+                "date": "2021-11-03T20:55:17Z"
+            },
+            {
+                "name": "PHP-Parser 4.13.0",
+                "date": "2021-09-20T12:25:18Z"
+            },
+            {
+                "name": "PHP-Parser 4.12.0",
+                "date": "2021-07-21T10:49:09Z"
+            },
+            {
+                "name": "PHP-Parser 4.11.0",
+                "date": "2021-07-03T13:38:59Z"
+            },
+            {
+                "name": "PHP-Parser 4.10.5",
+                "date": "2021-05-03T19:17:44Z"
+            },
+            {
+                "name": "PHP-Parser 4.10.4",
+                "date": "2020-12-20T10:02:41Z"
+            },
+            {
+                "name": "PHP-Parser 4.10.3",
+                "date": "2020-12-03T17:47:02Z"
+            },
+            {
+                "name": "PHP-Parser 4.10.2",
+                "date": "2020-09-26T10:38:15Z"
+            },
+            {
+                "name": "PHP-Parser 4.10.1",
+                "date": "2020-09-23T18:25:45Z"
+            },
+            {
+                "name": "PHP-Parser 4.10.0",
+                "date": "2020-09-19T14:54:16Z"
+            },
+            {
+                "name": "PHP-Parser 4.9.1",
+                "date": "2020-08-30T16:18:29Z"
+            },
+            {
+                "name": "PHP-Parser 4.9.0",
+                "date": "2020-08-18T19:51:35Z"
+            },
+            {
+                "name": "PHP-Parser 4.8.0",
+                "date": "2020-08-09T10:24:51Z"
+            },
+            {
+                "name": "PHP-Parser 4.7.0",
+                "date": "2020-07-25T13:23:24Z"
+            },
+            {
+                "name": "PHP-Parser 4.6.0",
+                "date": "2020-07-02T17:17:41Z"
+            },
+            {
+                "name": "PHP-Parser 4.5.0",
+                "date": "2020-06-03T07:26:33Z"
+            },
+            {
+                "name": "PHP-Parser 4.4.0",
+                "date": "2020-04-10T16:39:53Z"
+            },
+            {
+                "name": "PHP-Parser 4.3.0",
+                "date": "2020-04-10T16:38:35Z"
+            },
+            {
+                "name": "PHP-Parser 4.2.5",
+                "date": "2019-10-25T18:39:16Z"
+            },
+            {
+                "name": "PHP-Parser 4.2.4",
+                "date": "2019-09-01T08:35:19Z"
+            },
+            {
+                "name": "PHP-Parser 4.2.3",
+                "date": "2019-08-12T20:18:51Z"
+            },
+            {
+                "name": "PHP-Parser 4.2.2",
+                "date": "2019-05-25T20:08:47Z"
+            },
+            {
+                "name": "PHP-Parser 4.2.1",
+                "date": "2019-02-16T20:57:21Z"
+            },
+            {
+                "name": "PHP-Parser 4.2.0",
+                "date": "2019-01-12T16:34:11Z"
+            },
+            {
+                "name": "PHP-Parser 4.1.1",
+                "date": "2018-12-26T12:27:46Z"
+            },
+            {
+                "name": "PHP-Parser 4.1.0",
+                "date": "2018-10-10T09:26:44Z"
+            },
+            {
+                "name": "PHP-Parser 4.0.4",
+                "date": "2018-09-18T07:04:40Z"
+            },
+            {
+                "name": "PHP-Parser 4.0.3",
+                "date": "2018-07-15T17:26:05Z"
+            },
+            {
+                "name": "PHP-Parser 4.0.2",
+                "date": "2018-06-03T11:34:21Z"
+            },
+            {
+                "name": "PHP-Parser 4.0.1",
+                "date": "2018-03-25T17:36:36Z"
+            },
+            {
+                "name": "PHP-Parser 4.0.0",
+                "date": "2018-02-28T20:56:36Z"
+            },
+            {
+                "name": "PHP-Parser 3.1.5",
+                "date": "2018-02-28T20:33:25Z"
+            },
+            {
+                "name": "PHP-Parser 4.0.0 Beta 1",
+                "date": "2018-01-27T18:12:50Z"
+            },
+            {
+                "name": "PHP-Parser 3.1.4",
+                "date": "2018-01-25T21:33:35Z"
+            },
+            {
+                "name": "PHP-Parser 4.0.0 Alpha 3",
+                "date": "2017-12-26T16:30:49Z"
+            },
+            {
+                "name": "PHP-Parser 3.1.3",
+                "date": "2017-12-26T14:45:22Z"
+            },
+            {
+                "name": "PHP-Parser 4.0.0 Alpha 2",
+                "date": "2017-11-10T22:38:59Z"
+            },
+            {
+                "name": "PHP-Parser 3.1.2",
+                "date": "2017-11-04T11:51:09Z"
+            },
+            {
+                "name": "PHP-Parser 4.0.0 Alpha 1",
+                "date": "2017-10-18T16:59:44Z"
+            },
+            {
+                "name": "PHP-Parser 3.1.1",
+                "date": "2017-09-02T17:13:05Z"
+            },
+            {
+                "name": "PHP-Parser 3.1.0",
+                "date": "2017-07-28T14:47:20Z"
+            },
+            {
+                "name": "PHP-Parser 3.0.6",
+                "date": "2017-06-28T20:55:58Z"
+            },
+            {
+                "name": "PHP-Parser 3.0.5",
+                "date": "2017-03-05T18:26:00Z"
+            },
+            {
+                "name": "PHP-Parser 3.0.4",
+                "date": "2017-02-10T20:21:41Z"
+            },
+            {
+                "name": "PHP-Parser 3.0.3",
+                "date": "2017-02-03T22:00:20Z"
+            },
+            {
+                "name": "PHP-Parser 3.0.2",
+                "date": "2016-12-06T11:32:28Z"
+            },
+            {
+                "name": "PHP-Parser 3.0.1",
+                "date": "2016-12-01T12:40:06Z"
+            },
+            {
+                "name": "PHP-Parser 3.0.0",
+                "date": "2016-11-30T18:25:07Z"
+            },
+            {
+                "name": "PHP-Parser 3.0.0 Beta 2",
+                "date": "2016-10-29T11:42:32Z"
+            },
+            {
+                "name": "PHP-Parser 3.0.0 Beta 1",
+                "date": "2016-09-16T12:24:49Z"
+            },
+            {
+                "name": "PHP-Parser 2.1.1",
+                "date": "2016-09-16T12:06:34Z"
+            },
+            {
+                "name": "PHP-Parser 3.0.0 Alpha 1",
+                "date": "2016-07-25T13:21:13Z"
+            },
+            {
+                "name": "PHP-Parser 2.1.0",
+                "date": "2016-04-19T13:44:11Z"
+            },
+            {
+                "name": "PHP-Parser 2.0.1",
+                "date": "2016-02-28T19:50:24Z"
+            },
+            {
+                "name": "PHP-Parser 2.0.0",
+                "date": "2015-12-04T15:36:54Z"
+            },
+            {
+                "name": "PHP-Parser 2.0.0 Beta 1",
+                "date": "2015-10-21T18:33:51Z"
+            },
+            {
+                "name": "PHP-Parser 1.4.1",
+                "date": "2015-09-19T14:15:48Z"
+            },
+            {
+                "name": "PHP-Parser 2.0.0 Alpha 1",
+                "date": "2015-07-14T19:18:12Z"
+            },
+            {
+                "name": "PHP-Parser 1.4.0",
+                "date": "2015-07-14T17:39:17Z"
+            },
+            {
+                "name": "PHP-Parser 1.3.0",
+                "date": "2015-05-02T15:45:41Z"
+            },
+            {
+                "name": "PHP-Parser 1.2.2",
+                "date": "2015-04-03T14:37:13Z"
+            },
+            {
+                "name": "PHP-Parser 1.2.1",
+                "date": "2015-03-24T19:36:40Z"
+            },
+            {
+                "name": "PHP-Parser 1.2.0",
+                "date": "2015-03-22T16:32:38Z"
+            },
+            {
+                "name": "PHP-Parser 1.1.0",
+                "date": "2015-01-18T11:37:00Z"
+            },
+            {
+                "name": "PHP-Parser 1.0.2",
+                "date": "2014-11-04T22:16:55Z"
+            },
+            {
+                "name": "PHP-Parser 1.0.1",
+                "date": "2014-10-14T19:46:02Z"
+            },
+            {
+                "name": "PHP-Parser 1.0.0",
+                "date": "2014-09-12T13:04:37Z"
+            },
+            {
+                "name": "PHP-Parser 1.0.0 Beta 2",
+                "date": "2014-08-31T14:58:09Z"
+            },
+            {
+                "name": "PHP-Parser 0.9.5",
+                "date": "2014-07-23T18:44:18Z"
+            },
+            {
+                "name": "PHP-Parser 1.0.0 Beta 1",
+                "date": "2014-03-27T13:19:52Z"
+            },
+            {
+                "name": "PHP-Parser 0.9.4",
+                "date": "2013-08-27T10:13:06Z"
+            }
+        ]
+    }
+}

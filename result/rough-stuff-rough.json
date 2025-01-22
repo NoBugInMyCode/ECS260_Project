@@ -1,0 +1,118 @@
+{
+    "https://api.github.com/repos/rough-stuff/rough": {
+        "forks": 624,
+        "watchers": 20086,
+        "stars": 20086,
+        "languages": {
+            "HTML": 68819,
+            "TypeScript": 51109,
+            "JavaScript": 867
+        },
+        "commits": [
+            "2023-11-20T04:30:18Z",
+            "2023-11-19T21:06:11Z",
+            "2023-10-21T18:21:41Z",
+            "2023-10-21T18:20:02Z",
+            "2023-09-27T17:37:12Z",
+            "2023-09-27T01:05:51Z",
+            "2023-09-27T00:33:51Z",
+            "2023-09-25T23:17:27Z",
+            "2023-09-25T23:16:12Z",
+            "2023-09-25T23:15:31Z",
+            "2023-09-25T23:15:03Z",
+            "2023-09-25T23:07:09Z",
+            "2023-09-25T03:57:37Z",
+            "2023-09-23T19:32:48Z",
+            "2023-09-23T19:31:27Z",
+            "2023-09-23T19:09:16Z",
+            "2023-09-23T19:08:23Z",
+            "2023-09-23T19:07:55Z",
+            "2023-09-23T19:03:40Z",
+            "2023-09-23T19:01:35Z",
+            "2023-09-23T18:57:03Z",
+            "2023-09-23T18:31:16Z",
+            "2021-12-13T17:46:53Z",
+            "2021-12-13T17:46:16Z",
+            "2021-12-10T21:34:30Z",
+            "2021-12-10T21:33:26Z",
+            "2021-12-10T21:32:16Z",
+            "2021-12-10T19:48:52Z",
+            "2021-12-01T19:53:27Z",
+            "2021-12-01T19:52:26Z"
+        ],
+        "creation_date": "2016-12-13T09:12:55Z",
+        "contributors": 11,
+        "topics": [
+            "canvas",
+            "draw",
+            "graphics",
+            "html5-canvas",
+            "svg",
+            "svg-path"
+        ],
+        "subscribers": 171,
+        "readme": "# Rough.js\n\n<b>Rough.js</b> is a small (\\<9 kB) graphics library that lets you draw in a _sketchy_, _hand-drawn-like_, style.\nThe library defines primitives to draw lines, curves, arcs, polygons, circles, and ellipses. It also supports drawing [SVG paths](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths).\n\nRough.js works with both [Canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) and [SVG](https://developer.mozilla.org/en-US/docs/Web/SVG).\n\n![Rough.js sample](https://roughjs.com/images/cap_demo.png)\n\n[@RoughLib](https://twitter.com/RoughLib) on Twitter.\n\n## Install\n\nfrom npm:\n\n```\nnpm install --save roughjs\n```\n\nOr get the latest using unpkg: https://unpkg.com/roughjs@latest/bundled/rough.js\n\n\nIf you are looking for bundled version in different formats, the npm package will have these in the following locations:\n\nCommonJS: `roughjs/bundled/rough.cjs.js`\n\nESM: `roughjs/bundled/rough.esm.js`\n\nBrowser IIFE: `roughjs/bundled/rough.js`\n\n\n## Usage\n\n![Rough.js rectangle](https://roughjs.com/images/m1.png)\n\n```js\nconst rc = rough.canvas(document.getElementById('canvas'));\nrc.rectangle(10, 10, 200, 200); // x, y, width, height\n```\n\nor SVG\n\n```js\nconst rc = rough.svg(svg);\nlet node = rc.rectangle(10, 10, 200, 200); // x, y, width, height\nsvg.appendChild(node);\n```\n\n### Lines and Ellipses\n\n![Rough.js rectangle](https://roughjs.com/images/m2.png)\n\n```js\nrc.circle(80, 120, 50); // centerX, centerY, diameter\nrc.ellipse(300, 100, 150, 80); // centerX, centerY, width, height\nrc.line(80, 120, 300, 100); // x1, y1, x2, y2\n```\n\n### Filling\n\n![Rough.js rectangle](https://roughjs.com/images/m3.png)\n\n```js\nrc.circle(50, 50, 80, { fill: 'red' }); // fill with red hachure\nrc.rectangle(120, 15, 80, 80, { fill: 'red' });\nrc.circle(50, 150, 80, {\n  fill: \"rgb(10,150,10)\",\n  fillWeight: 3 // thicker lines for hachure\n});\nrc.rectangle(220, 15, 80, 80, {\n  fill: 'red',\n  hachureAngle: 60, // angle of hachure,\n  hachureGap: 8\n});\nrc.rectangle(120, 105, 80, 80, {\n  fill: 'rgba(255,0,200,0.2)',\n  fillStyle: 'solid' // solid fill\n});\n```\n\nFill styles can be: **hachure**(default), **solid**, **zigzag**, **cross-hatch**, **dots**, **dashed**, or **zigzag-line**\n\n![Rough.js fill examples](https://roughjs.com/images/m14.png)\n\n### Sketching style\n\n![Rough.js rectangle](https://roughjs.com/images/m4.png)\n\n```js\nrc.rectangle(15, 15, 80, 80, { roughness: 0.5, fill: 'red' });\nrc.rectangle(120, 15, 80, 80, { roughness: 2.8, fill: 'blue' });\nrc.rectangle(220, 15, 80, 80, { bowing: 6, stroke: 'green', strokeWidth: 3 });\n```\n\n### SVG Paths\n\n![Rough.js paths](https://roughjs.com/images/m5.png)\n\n```js\nrc.path('M80 80 A 45 45, 0, 0, 0, 125 125 L 125 80 Z', { fill: 'green' });\nrc.path('M230 80 A 45 45, 0, 1, 0, 275 125 L 275 80 Z', { fill: 'purple' });\nrc.path('M80 230 A 45 45, 0, 0, 1, 125 275 L 125 230 Z', { fill: 'red' });\nrc.path('M230 230 A 45 45, 0, 1, 1, 275 275 L 275 230 Z', { fill: 'blue' });\n```\n\nSVG Path with simplification:\n\n![Rough.js texas map](https://roughjs.com/images/m9.png) ![Rough.js texas map](https://roughjs.com/images/m10.png)\n\n## Examples\n\n![Rough.js US map](https://roughjs.com/images/m6.png)\n\n[View examples here](https://github.com/pshihn/rough/wiki/Examples)\n\n## API & Documentation\n\n[Full Rough.js API](https://github.com/pshihn/rough/wiki)\n\n## Credits\n\nSome of the core algorithms were adapted from [handy](https://www.gicentre.net/software/#/handy/) processing lib.\n\nAlgorithm to convert SVG arcs to Canvas [described here](https://www.w3.org/TR/SVG/implnote.html) was adapted from [Mozilla codebase](https://hg.mozilla.org/mozilla-central/file/17156fbebbc8/content/svg/content/src/nsSVGPathDataParser.cpp#l887)\n\n## Contributors\n\n### Financial Contributors\n\nBecome a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/rough/contribute)]\n\n#### Individuals\n\n<a href=\"https://opencollective.com/rough\"><img src=\"https://opencollective.com/rough/individuals.svg?width=890\"></a>\n\n#### Organizations\n\nSupport this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/rough/contribute)]\n\n<a href=\"https://excalidraw.com/\"><img src=\"https://avatars.githubusercontent.com/u/59452120?s=64&v=4\"></a>\n<a href=\"https://www.diagrams.net/\"><img src=\"https://avatars.githubusercontent.com/u/1769238?s=64&v=4\"></a>\n<a href=\"https://terrastruct.com/\"><img width=\"64\" height=\"64\" src=\"https://roughjs.com/images/sponsors/terrastruct.png\"></a>\n<a href=\"https://opencollective.com/rough/organization/0/website\"><img src=\"https://opencollective.com/rough/organization/0/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rough/organization/1/website\"><img src=\"https://opencollective.com/rough/organization/1/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rough/organization/2/website\"><img src=\"https://opencollective.com/rough/organization/2/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rough/organization/3/website\"><img src=\"https://opencollective.com/rough/organization/3/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rough/organization/4/website\"><img src=\"https://opencollective.com/rough/organization/4/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rough/organization/5/website\"><img src=\"https://opencollective.com/rough/organization/5/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rough/organization/6/website\"><img src=\"https://opencollective.com/rough/organization/6/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rough/organization/7/website\"><img src=\"https://opencollective.com/rough/organization/7/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rough/organization/8/website\"><img src=\"https://opencollective.com/rough/organization/8/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rough/organization/9/website\"><img src=\"https://opencollective.com/rough/organization/9/avatar.svg\"></a>\n\n## License\n[MIT License](https://github.com/pshihn/rough/blob/master/LICENSE) (c) [Preet Shihn](https://twitter.com/preetster)\n",
+        "releases": [
+            {
+                "name": "Three new fill styles: dashed, sunburst, zigzag-line",
+                "date": "2019-03-14T19:05:30Z"
+            },
+            {
+                "name": "Refactor to be more tree shakable",
+                "date": "2019-01-07T19:26:19Z"
+            },
+            {
+                "name": "",
+                "date": "2018-07-14T03:14:48Z"
+            },
+            {
+                "name": "",
+                "date": "2018-07-14T02:16:32Z"
+            },
+            {
+                "name": "",
+                "date": "2018-06-26T18:35:26Z"
+            },
+            {
+                "name": "2.2.1 TypeScript and More Fill Options",
+                "date": "2018-06-19T07:52:56Z"
+            },
+            {
+                "name": "Typescript port",
+                "date": "2018-06-18T22:42:10Z"
+            },
+            {
+                "name": "",
+                "date": "2018-05-12T22:03:39Z"
+            },
+            {
+                "name": "",
+                "date": "2018-04-16T02:27:51Z"
+            },
+            {
+                "name": "Support for toPath method in Generators",
+                "date": "2018-04-12T21:21:17Z"
+            },
+            {
+                "name": "SVG Support ",
+                "date": "2018-04-11T19:26:34Z"
+            },
+            {
+                "name": "Generators + Default sync execution",
+                "date": "2018-03-19T19:13:35Z"
+            },
+            {
+                "name": "",
+                "date": "2018-03-12T21:10:46Z"
+            },
+            {
+                "name": "",
+                "date": "2018-03-12T20:39:13Z"
+            },
+            {
+                "name": "",
+                "date": "2018-03-02T06:47:08Z"
+            }
+        ]
+    }
+}

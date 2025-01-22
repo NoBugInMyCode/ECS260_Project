@@ -1,0 +1,283 @@
+{
+    "https://api.github.com/repos/JedWatson/react-select": {
+        "forks": 4134,
+        "watchers": 27748,
+        "stars": 27748,
+        "languages": {
+            "TypeScript": 479977,
+            "JavaScript": 3304,
+            "CSS": 59
+        },
+        "commits": [
+            "2024-12-11T23:22:49Z",
+            "2024-12-11T23:04:21Z",
+            "2024-11-09T14:40:50Z",
+            "2024-11-09T14:32:35Z",
+            "2024-10-26T03:49:53Z",
+            "2024-10-26T03:43:19Z",
+            "2024-10-26T03:36:48Z",
+            "2024-09-19T13:47:13Z",
+            "2024-09-19T13:38:01Z",
+            "2023-11-10T13:49:42Z",
+            "2023-11-06T09:36:54Z",
+            "2023-11-06T09:28:16Z",
+            "2023-10-17T00:17:55Z",
+            "2023-10-02T03:56:14Z",
+            "2023-10-02T03:44:32Z",
+            "2023-10-02T03:09:37Z",
+            "2023-10-02T02:59:12Z",
+            "2023-09-20T23:30:59Z",
+            "2023-09-20T23:11:11Z",
+            "2023-07-13T13:56:58Z",
+            "2023-07-13T13:47:25Z",
+            "2023-05-03T04:13:59Z",
+            "2023-05-03T03:57:41Z",
+            "2023-03-22T17:15:17Z",
+            "2023-03-22T14:54:29Z",
+            "2023-03-20T11:18:59Z",
+            "2023-03-02T01:36:25Z",
+            "2022-12-01T02:08:49Z",
+            "2022-11-16T02:08:46Z",
+            "2022-11-16T02:07:23Z"
+        ],
+        "creation_date": "2014-08-26T04:27:45Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 219,
+        "readme": "[![NPM](https://img.shields.io/npm/v/react-select.svg)](https://www.npmjs.com/package/react-select)\n[![CircleCI](https://circleci.com/gh/JedWatson/react-select/tree/master.svg?style=shield)](https://circleci.com/gh/JedWatson/react-select/tree/master)\n[![Coverage Status](https://coveralls.io/repos/JedWatson/react-select/badge.svg?branch=master&service=github)](https://coveralls.io/github/JedWatson/react-select?branch=master)\n[![Supported by Thinkmill](https://thinkmill.github.io/badge/heart.svg)](http://thinkmill.com.au/?utm_source=github&utm_medium=badge&utm_campaign=react-select)\n\n# React-Select\n\nThe Select control for [React](https://reactjs.org). Initially built for use in [KeystoneJS](https://www.keystonejs.com).\n\nSee [react-select.com](https://www.react-select.com) for live demos and comprehensive docs.\n\n`react-select` is funded by [Thinkmill](https://www.thinkmill.com.au) and [Atlassian](https://atlaskit.atlassian.com).\nWe are an open source project that is continuously supported by the community.\n\nReact Select helps you develop powerful select components that _just work_ out of the box, without stopping you from customising the parts that are important to you.\n\nFor the story behind this component, watch Jed's talk at React Conf 2019 - [building React Select](https://youtu.be/yS0jUnmBujE)\n\nFeatures include:\n\n- Flexible approach to data, with customisable functions\n- Extensible styling API with [emotion](https://emotion.sh)\n- Component Injection API for complete control over the UI behaviour\n- Controllable state props and modular architecture\n- Long-requested features like option groups, portal support, animation, and more\n\n## Using an older version?\n\n- [v3, v4, and v5 upgrade guide](https://react-select.com/upgrade)\n- [v2 upgrade guide](https://react-select.com/upgrade-to-v2)\n- React Select v1 documentation and examples are available at [v1.react-select.com](https://v1.react-select.com)\n\n# Installation and usage\n\nThe easiest way to use react-select is to install it from npm and build it into your app with Webpack.\n\n```\nyarn add react-select\n```\n\nThen use it in your app:\n\n```js\nimport React, { useState } from 'react';\nimport Select from 'react-select';\n\nconst options = [\n  { value: 'chocolate', label: 'Chocolate' },\n  { value: 'strawberry', label: 'Strawberry' },\n  { value: 'vanilla', label: 'Vanilla' },\n];\n\nexport default function App() {\n  const [selectedOption, setSelectedOption] = useState(null);\n\n  return (\n    <div className=\"App\">\n      <Select\n        defaultValue={selectedOption}\n        onChange={setSelectedOption}\n        options={options}\n      />\n    </div>\n  );\n}\n```\n\n## Props\n\nCommon props you may want to specify include:\n\n- `autoFocus` - focus the control when it mounts\n- `className` - apply a className to the control\n- `classNamePrefix` - apply classNames to inner elements with the given prefix\n- `isDisabled` - disable the control\n- `isMulti` - allow the user to select multiple values\n- `isSearchable` - allow the user to search for matching options\n- `name` - generate an HTML input with this name, containing the current value\n- `onChange` - subscribe to change events\n- `options` - specify the options the user can select from\n- `placeholder` - change the text displayed when no option is selected\n- `noOptionsMessage` - ({ inputValue: string }) => string | null - Text to display when there are no options\n- `value` - control the current value\n\nSee the [props documentation](https://www.react-select.com/props) for complete documentation on the props react-select supports.\n\n## Controllable Props\n\nYou can control the following props by providing values for them. If you don't, react-select will manage them for you.\n\n- `value` / `onChange` - specify the current value of the control\n- `menuIsOpen` / `onMenuOpen` / `onMenuClose` - control whether the menu is open\n- `inputValue` / `onInputChange` - control the value of the search input (changing this will update the available options)\n\nIf you don't provide these props, you can set the initial value of the state they control:\n\n- `defaultValue` - set the initial value of the control\n- `defaultMenuIsOpen` - set the initial open value of the menu\n- `defaultInputValue` - set the initial value of the search input\n\n## Methods\n\nReact-select exposes two public methods:\n\n- `focus()` - focus the control programmatically\n- `blur()` - blur the control programmatically\n\n## Customisation\n\nCheck the docs for more information on:\n\n- [Customising the styles](https://www.react-select.com/styles)\n- [Using custom components](https://www.react-select.com/components)\n- [Using the built-in animated components](https://www.react-select.com/home#animated-components)\n- [Creating an async select](https://www.react-select.com/async)\n- [Allowing users to create new options](https://www.react-select.com/creatable)\n- [Advanced use-cases](https://www.react-select.com/advanced)\n- [TypeScript guide](https://www.react-select.com/typescript)\n\n## TypeScript\n\nThe v5 release represents a rewrite from JavaScript to TypeScript. The types for v4 and earlier releases are available at [@types](https://www.npmjs.com/package/@types/react-select). See the [TypeScript guide](https://www.react-select.com/typescript) for how to use the types starting with v5.\n\n# Thanks\n\nThank you to everyone who has contributed to this project. It's been a wild ride.\n\nIf you like React Select, you should [follow me on Twitter](https://twitter.com/jedwatson)!\n\nShout out to [Joss Mackison](https://github.com/jossmac), [Charles Lee](https://github.com/gwyneplaine), [Ben Conolly](https://github.com/Noviny), [Tom Walker](https://github.com/bladey), [Nathan Bierema](https://github.com/Methuselah96), [Eric Bonow](https://github.com/ebonow), [Emma Hamilton](https://github.com/emmatown), [Dave Brotherstone](https://github.com/bruderstein), [Brian Vaughn](https://github.com/bvaughn), and the [Atlassian Design System](https://atlassian.design) team who along with many other contributors have made this possible \u2764\ufe0f\n\n## License\n\nMIT Licensed. Copyright (c) Jed Watson 2022.\n",
+        "releases": [
+            {
+                "name": "react-select@5.9.0",
+                "date": "2024-12-11T23:24:16Z"
+            },
+            {
+                "name": "react-select@5.8.3",
+                "date": "2024-11-09T14:42:19Z"
+            },
+            {
+                "name": "react-select@5.8.2",
+                "date": "2024-10-26T03:51:23Z"
+            },
+            {
+                "name": "react-select@5.8.1",
+                "date": "2024-09-19T13:48:42Z"
+            },
+            {
+                "name": "react-select@5.8.0",
+                "date": "2023-11-06T09:38:41Z"
+            },
+            {
+                "name": "react-select@5.7.7",
+                "date": "2023-10-02T03:58:00Z"
+            },
+            {
+                "name": "react-select@5.7.6",
+                "date": "2023-10-02T03:11:15Z"
+            },
+            {
+                "name": "react-select@5.7.5",
+                "date": "2023-09-20T23:32:47Z"
+            },
+            {
+                "name": "react-select@5.7.4",
+                "date": "2023-07-13T13:58:35Z"
+            },
+            {
+                "name": "react-select@5.7.3",
+                "date": "2023-05-03T04:16:21Z"
+            },
+            {
+                "name": "react-select@5.7.2",
+                "date": "2023-03-22T17:17:14Z"
+            },
+            {
+                "name": "react-select@5.7.1",
+                "date": "2023-03-20T11:20:52Z"
+            },
+            {
+                "name": "react-select@5.7.0",
+                "date": "2022-12-01T02:10:52Z"
+            },
+            {
+                "name": "react-select@5.6.1",
+                "date": "2022-11-14T21:38:47Z"
+            },
+            {
+                "name": "react-select@5.6.0",
+                "date": "2022-11-02T21:25:51Z"
+            },
+            {
+                "name": "react-select@5.5.9",
+                "date": "2022-11-01T06:24:48Z"
+            },
+            {
+                "name": "react-select@5.5.8",
+                "date": "2022-10-31T03:11:02Z"
+            },
+            {
+                "name": "react-select@5.5.7",
+                "date": "2022-10-26T22:54:46Z"
+            },
+            {
+                "name": "react-select@5.5.6",
+                "date": "2022-10-25T04:00:12Z"
+            },
+            {
+                "name": "react-select@5.5.5",
+                "date": "2022-10-24T22:04:19Z"
+            },
+            {
+                "name": "react-select@5.5.4",
+                "date": "2022-10-20T12:56:56Z"
+            },
+            {
+                "name": "react-select@5.5.3",
+                "date": "2022-10-20T09:31:41Z"
+            },
+            {
+                "name": "react-select@5.5.2",
+                "date": "2022-10-18T02:43:33Z"
+            },
+            {
+                "name": "react-select@5.5.1",
+                "date": "2022-10-16T22:49:43Z"
+            },
+            {
+                "name": "react-select@5.5.0",
+                "date": "2022-10-12T23:23:57Z"
+            },
+            {
+                "name": "react-select@5.4.0",
+                "date": "2022-06-30T12:59:37Z"
+            },
+            {
+                "name": "react-select@5.3.2",
+                "date": "2022-05-08T16:55:34Z"
+            },
+            {
+                "name": "react-select@5.3.1",
+                "date": "2022-04-27T19:09:26Z"
+            },
+            {
+                "name": "react-select@5.3.0",
+                "date": "2022-04-10T18:28:40Z"
+            },
+            {
+                "name": "react-select@5.2.2",
+                "date": "2022-01-13T17:51:02Z"
+            },
+            {
+                "name": "react-select@5.2.1",
+                "date": "2021-11-05T22:17:45Z"
+            },
+            {
+                "name": "react-select@5.2.0",
+                "date": "2021-11-02T01:37:33Z"
+            },
+            {
+                "name": "react-select@5.1.0",
+                "date": "2021-10-05T03:26:21Z"
+            },
+            {
+                "name": "react-select@5.0.0",
+                "date": "2021-09-23T23:48:36Z"
+            },
+            {
+                "name": "react-select@5.0.0-beta.1",
+                "date": "2021-09-03T00:17:45Z"
+            },
+            {
+                "name": "react-select@5.0.0-beta.0",
+                "date": "2021-07-09T00:55:59Z"
+            },
+            {
+                "name": "",
+                "date": "2021-05-13T23:45:37Z"
+            },
+            {
+                "name": "",
+                "date": "2021-03-19T18:19:27Z"
+            },
+            {
+                "name": null,
+                "date": "2021-03-05T16:18:37Z"
+            },
+            {
+                "name": "",
+                "date": "2021-03-05T03:35:41Z"
+            },
+            {
+                "name": null,
+                "date": "2021-02-07T00:35:09Z"
+            },
+            {
+                "name": null,
+                "date": "2021-01-22T23:31:30Z"
+            },
+            {
+                "name": null,
+                "date": "2021-01-22T17:57:48Z"
+            },
+            {
+                "name": "",
+                "date": "2021-01-22T13:30:06Z"
+            },
+            {
+                "name": null,
+                "date": "2021-01-13T13:43:01Z"
+            },
+            {
+                "name": null,
+                "date": "2020-11-23T07:53:23Z"
+            },
+            {
+                "name": null,
+                "date": "2020-03-22T04:02:45Z"
+            },
+            {
+                "name": null,
+                "date": "2019-10-02T04:42:31Z"
+            },
+            {
+                "name": "v3.0.3",
+                "date": "2019-05-27T12:23:21Z"
+            },
+            {
+                "name": "v2.4.2 / 2019-03-11",
+                "date": "2019-03-11T23:21:17Z"
+            },
+            {
+                "name": "v2.4.1 / 2019-02-18",
+                "date": "2019-03-11T23:21:50Z"
+            },
+            {
+                "name": "v2.4.0 / 2019-02-15",
+                "date": "2019-02-15T05:24:00Z"
+            },
+            {
+                "name": "v2.3.0 / 2019-01-18",
+                "date": "2019-01-18T00:30:39Z"
+            },
+            {
+                "name": "v2.2.0 / 2018-12-28",
+                "date": "2018-12-28T05:25:05Z"
+            },
+            {
+                "name": "v2.1.1 ",
+                "date": "2018-10-24T04:00:02Z"
+            },
+            {
+                "name": "v2.1.0",
+                "date": "2018-10-17T02:44:36Z"
+            },
+            {
+                "name": "v2.0.0",
+                "date": "2018-09-21T06:01:05Z"
+            },
+            {
+                "name": "v2.0.0-beta.7",
+                "date": "2018-07-05T01:00:15Z"
+            }
+        ]
+    }
+}

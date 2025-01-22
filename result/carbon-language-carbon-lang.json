@@ -1,0 +1,871 @@
+{
+    "https://api.github.com/repos/carbon-language/carbon-lang": {
+        "forks": 1489,
+        "watchers": 32523,
+        "stars": 32523,
+        "languages": {
+            "C++": 4578217,
+            "Starlark": 225675,
+            "Python": 144269,
+            "Carbon": 37755,
+            "JavaScript": 29385,
+            "C": 14527,
+            "Shell": 8564,
+            "Vim Script": 5450,
+            "HTML": 3314,
+            "Dockerfile": 2548,
+            "Scheme": 2030,
+            "SCSS": 1523,
+            "Yacc": 1313,
+            "TypeScript": 1270,
+            "Lua": 739,
+            "Lex": 483,
+            "Ruby": 417,
+            "GDB": 393,
+            "Makefile": 363
+        },
+        "commits": [
+            "2025-01-22T07:22:07Z",
+            "2025-01-22T01:02:24Z",
+            "2025-01-21T22:04:13Z",
+            "2025-01-21T20:37:07Z",
+            "2025-01-21T20:15:19Z",
+            "2025-01-21T16:52:05Z",
+            "2025-01-21T16:50:25Z",
+            "2025-01-21T16:34:46Z",
+            "2025-01-21T16:27:00Z",
+            "2025-01-21T16:18:49Z",
+            "2025-01-20T15:44:14Z",
+            "2025-01-20T09:44:45Z",
+            "2025-01-18T01:11:44Z",
+            "2025-01-17T20:47:52Z",
+            "2025-01-17T17:51:34Z",
+            "2025-01-17T16:51:53Z",
+            "2025-01-16T23:23:57Z",
+            "2025-01-16T20:19:22Z",
+            "2025-01-16T01:27:42Z",
+            "2025-01-15T22:38:11Z",
+            "2025-01-15T22:13:19Z",
+            "2025-01-15T22:12:22Z",
+            "2025-01-15T21:49:14Z",
+            "2025-01-15T21:27:58Z",
+            "2025-01-15T17:32:42Z",
+            "2025-01-14T21:13:21Z",
+            "2025-01-14T20:45:50Z",
+            "2025-01-14T18:46:35Z",
+            "2025-01-14T17:34:33Z",
+            "2025-01-14T00:58:58Z"
+        ],
+        "creation_date": "2020-04-27T21:45:16Z",
+        "contributors": 30,
+        "topics": [
+            "carbon-lang",
+            "compiler",
+            "cpp",
+            "experimental",
+            "experimental-language",
+            "language",
+            "programming-language"
+        ],
+        "subscribers": 383,
+        "readme": "# Carbon Language: <br/> An experimental successor to C++\n\n<!--\nPart of the Carbon Language project, under the Apache License v2.0 with LLVM\nExceptions. See /LICENSE for license information.\nSPDX-License-Identifier: Apache-2.0 WITH LLVM-exception\n-->\n\n<p align=\"center\">\n  <a href=\"#why-build-carbon\">Why?</a> |\n  <a href=\"#language-goals\">Goals</a> |\n  <a href=\"#project-status\">Status</a> |\n  <a href=\"#getting-started\">Getting started</a> |\n  <a href=\"#join-us\">Join us</a>\n</p>\n\n**See our [announcement video](https://youtu.be/omrY53kbVoA) from\n[CppNorth](https://cppnorth.ca/).** Note that Carbon is\n[not ready for use](#project-status).\n\n<a href=\"docs/images/snippets.md#quicksort\">\n<!--\nEdit snippet in docs/images/snippets.md and:\nhttps://drive.google.com/drive/folders/1QrBXiy_X74YsOueeC0IYlgyolWIhvusB\n-->\n<img src=\"docs/images/quicksort_snippet.svg\" align=\"right\" width=\"575\"\n     alt=\"Quicksort code in Carbon. Follow the link to read more.\">\n</a>\n\n<!--\nDon't let the text wrap too narrowly to the left of the above image.\nThe `div` reduces the vertical height. The `picture` prevents autolinking.\n-->\n<div><picture><img src=\"docs/images/bumper.png\" alt=\"\"></picture></div>\n\n**Fast and works with C++**\n\n-   Performance matching C++ using LLVM, with low-level access to bits and\n    addresses\n-   Interoperate with your existing C++ code, from inheritance to templates\n-   Fast and scalable builds that work with your existing C++ build systems\n\n**Modern and evolving**\n\n-   Solid language foundations that are easy to learn, especially if you have\n    used C++\n-   Easy, tool-based upgrades between Carbon versions\n-   Safer fundamentals, and an incremental path towards a memory-safe subset\n\n**Welcoming open-source community**\n\n-   Clear goals and priorities with robust governance\n-   Community that works to be welcoming, inclusive, and friendly\n-   Batteries-included approach: compiler, libraries, docs, tools, package\n    manager, and more\n\n## Why build Carbon?\n\nC++ remains the dominant programming language for performance-critical software,\nwith massive and growing codebases and investments. However, it is struggling to\nimprove and meet developers' needs, as outlined above, in no small part due to\naccumulating decades of technical debt. Incrementally improving C++ is\n[extremely difficult](/docs/project/difficulties_improving_cpp.md), both due to\nthe technical debt itself and challenges with its evolution process. The best\nway to address these problems is to avoid inheriting the legacy of C or C++\ndirectly, and instead start with solid language foundations like\n[modern generics system](#generics), modular code organization, and consistent,\nsimple syntax.\n\nExisting modern languages already provide an excellent developer experience: Go,\nSwift, Kotlin, Rust, and many more. **Developers that _can_ use one of these\nexisting languages _should_.** Unfortunately, the designs of these languages\npresent significant barriers to adoption and migration from C++. These barriers\nrange from changes in the idiomatic design of software to performance overhead.\n\nCarbon is fundamentally **a successor language approach**, rather than an\nattempt to incrementally evolve C++. It is designed around interoperability with\nC++ as well as large-scale adoption and migration for existing C++ codebases and\ndevelopers. A successor language for C++ requires:\n\n-   **Performance matching C++**, an essential property for our developers.\n-   **Seamless, bidirectional interoperability with C++**, such that a library\n    anywhere in an existing C++ stack can adopt Carbon without porting the rest.\n-   **A gentle learning curve** with reasonable familiarity for C++ developers.\n-   **Comparable expressivity** and support for existing software's design and\n    architecture.\n-   **Scalable migration**, with some level of source-to-source translation for\n    idiomatic C++ code.\n\nWith this approach, we can build on top of C++'s existing ecosystem, and bring\nalong existing investments, codebases, and developer populations. There are a\nfew languages that have followed this model for other ecosystems, and Carbon\naims to fill an analogous role for C++:\n\n-   JavaScript \u2192 TypeScript\n-   Java \u2192 Kotlin\n-   C++ \u2192 **_Carbon_**\n\n## Language Goals\n\nWe are designing Carbon to support:\n\n-   Performance-critical software\n-   Software and language evolution\n-   Code that is easy to read, understand, and write\n-   Practical safety and testing mechanisms\n-   Fast and scalable development\n-   Modern OS platforms, hardware architectures, and environments\n-   Interoperability with and migration from existing C++ code\n\nWhile many languages share subsets of these goals, what distinguishes Carbon is\ntheir combination.\n\nWe also have explicit _non-goals_ for Carbon, notably including:\n\n-   A stable\n    [application binary interface](https://en.wikipedia.org/wiki/Application_binary_interface)\n    (ABI) for the entire language and library\n-   Perfect backwards or forwards compatibility\n\nOur detailed [goals](/docs/project/goals.md) document fleshes out these ideas\nand provides a deeper view into our goals for the Carbon project and language.\n\n## Project status\n\nCarbon Language is currently an experimental project. You can see the demo\ninterpreter for Carbon on\n[compiler-explorer.com](http://carbon.compiler-explorer.com/). We are also hard\nat work on a toolchain implementation with compiler and linker.\n\nWe want to better understand whether we can build a language that meets our\nsuccessor language criteria, and whether the resulting language can gather a\ncritical mass of interest within the larger C++ industry and community.\n\nCurrently, we have fleshed out several core aspects of both Carbon the project\nand the language:\n\n-   The strategy of the Carbon Language and project.\n-   An open-source project structure, governance model, and evolution process.\n-   Critical and foundational aspects of the language design informed by our\n    experience with C++ and the most difficult challenges we anticipate. This\n    includes designs for:\n    -   Generics\n    -   Class types\n    -   Inheritance\n    -   Operator overloading\n    -   Lexical and syntactic structure\n    -   Code organization and modular structure\n-   A prototype interpreter demo that can both run isolated examples and gives a\n    detailed analysis of the specific semantic model and abstract machine of\n    Carbon. We call this the [Carbon Explorer](/explorer/).\n-   An under-development [compiler and toolchain](/toolchain/) that will compile\n    Carbon (and eventually C++ code as well) into standard executable code. This\n    is where most of our current implementation efforts are directed.\n\nIf you're interested in contributing, we're currently focused on\n[developing the Carbon toolchain until it can support Carbon \u2194 C++ interop](/docs/project/roadmap.md#objective-for-2024-a-working-toolchain-that-supports-c-interop).\nBeyond that, we plan to continue developing the design and toolchain until we\ncan ship the\n[0.1 language](/docs/project/milestones.md#milestone-01-a-minimum-viable-product-mvp-for-evaluation)\nand support evaluating Carbon in more detail.\n\nYou can see our [full roadmap](/docs/project/roadmap.md) for more details.\n\n## Carbon and C++\n\nIf you're already a C++ developer, Carbon should have a gentle learning curve.\nIt is built out of a consistent set of language constructs that should feel\nfamiliar and be easy to read and understand.\n\nC++ code like this:\n\n<a href=\"docs/images/snippets.md#c\">\n<!--\nEdit snippet in docs/images/snippets.md and:\nhttps://drive.google.com/drive/folders/1QrBXiy_X74YsOueeC0IYlgyolWIhvusB\n-->\n<img src=\"docs/images/cpp_snippet.svg\" width=\"600\"\n     alt=\"A snippet of C++ code. Follow the link to read it.\">\n</a>\n\ncorresponds to this Carbon code:\n\n<a href=\"docs/images/snippets.md#carbon\">\n<!--\nEdit snippet in docs/images/snippets.md and:\nhttps://drive.google.com/drive/folders/1QrBXiy_X74YsOueeC0IYlgyolWIhvusB\n-->\n<img src=\"docs/images/carbon_snippet.svg\" width=\"600\"\n     alt=\"A snippet of converted Carbon code. Follow the link to read it.\">\n</a>\n\nYou can call Carbon from C++ without overhead and the other way around. This\nmeans you migrate a single C++ library to Carbon within an application, or write\nnew Carbon on top of your existing C++ investment. For example:\n\n<a href=\"docs/images/snippets.md#mixed\">\n<!--\nEdit snippet in docs/images/snippets.md and:\nhttps://drive.google.com/drive/folders/1QrBXiy_X74YsOueeC0IYlgyolWIhvusB\n-->\n<img src=\"docs/images/mixed_snippet.svg\" width=\"600\"\n     alt=\"A snippet of mixed Carbon and C++ code. Follow the link to read it.\">\n</a>\n\nRead more about\n[C++ interop in Carbon](/docs/design/interoperability/philosophy_and_goals.md).\n\nBeyond interoperability between Carbon and C++, we're also planning to support\nmigration tools that will mechanically translate idiomatic C++ code into Carbon\ncode to help you switch an existing C++ codebase to Carbon.\n\n## Generics\n\nCarbon provides a\n**[modern generics system](/docs/design/generics/overview.md#what-are-generics)**\nwith checked definitions, while still **supporting opt-in\n[templates](/docs/design/templates.md) for seamless C++ interop**. Checked\ngenerics provide several advantages compared to C++ templates:\n\n-   **Generic definitions are fully type-checked**, removing the need to\n    instantiate to check for errors and giving greater confidence in code.\n    -   Avoids the compile-time cost of re-checking the definition for every\n        instantiation.\n    -   When using a definition-checked generic, usage error messages are\n        clearer, directly showing which requirements are not met.\n-   **Enables automatic, opt-in type erasure and dynamic dispatch** without a\n    separate implementation. This can reduce the binary size and enables\n    constructs like heterogeneous containers.\n-   **Strong, checked interfaces** mean fewer accidental dependencies on\n    implementation details and a clearer contract for consumers.\n\nWithout sacrificing these advantages, **Carbon generics support\nspecialization**, ensuring it can fully address performance-critical use cases\nof C++ templates. For more details about Carbon's generics, see their\n[design](/docs/design/generics).\n\nIn addition to easy and powerful interop with C++, Carbon templates can be\nconstrained and incrementally migrated to checked generics at a fine granularity\nand with a smooth evolutionary path.\n\n## Memory safety\n\nSafety, and especially\n[memory safety](https://en.wikipedia.org/wiki/Memory_safety), remains a key\nchallenge for C++ and something a successor language needs to address. Our\ninitial priority and focus is on immediately addressing important, low-hanging\nfruit in the safety space:\n\n-   Tracking uninitialized states better, increased enforcement of\n    initialization, and systematically providing hardening against\n    initialization bugs when desired.\n-   Designing fundamental APIs and idioms to support dynamic bounds checks in\n    debug and hardened builds.\n-   Having a default debug build mode that is both cheaper and more\n    comprehensive than existing C++ build modes even when combined with\n    [Address Sanitizer](https://github.com/google/sanitizers/wiki/AddressSanitizer).\n\nOnce we can migrate code into Carbon, we will have a simplified language with\nroom in the design space to add any necessary annotations or features, and\ninfrastructure like [generics](#generics) to support safer design patterns.\nLonger term, we will build on this to introduce **a safe Carbon subset**. This\nwill be a large and complex undertaking, and won't be in the 0.1 design.\nMeanwhile, we are closely watching and learning from efforts to add memory safe\nsemantics onto C++ such as Rust-inspired\n[lifetime annotations](https://discourse.llvm.org/t/rfc-lifetime-annotations-for-c/61377).\n\n## Getting started\n\nTo try out Carbon immediately in your browser, you can use the demo interpreter\nfor Carbon on:\n[carbon.compiler-explorer.com](http://carbon.compiler-explorer.com/).\n\nWe are developing a traditional toolchain for Carbon that can compile and link\nprograms. However, Carbon is still an early, experimental project, and so we\nonly have very experimental nightly releases of the Carbon toolchain available\nto download, and only on limited platforms. If you are using a recent Ubuntu\nLinux or similar (Debian, WSL, etc.), you can try these out by going to our\n[releases](https://github.com/carbon-language/carbon-lang/releases) page and\ndownload the latest nightly toolchain tar file:\n`carbon_toolchain-0.0.0-0.nightly.YYYY.MM.DD.tar.gz`. Then you can try it out:\n\n```shell\n# A variable with the nightly version from yesterday:\nVERSION=\"$(date -d yesterday +0.0.0-0.nightly.%Y.%m.%d)\"\n\n# Get the release\nwget https://github.com/carbon-language/carbon-lang/releases/download/v${VERSION}/carbon_toolchain-${VERSION}.tar.gz\n\n# Unpack the toolchain:\ntar -xvf carbon_toolchain-${VERSION}.tar.gz\n\n# Create a simple Carbon source file:\necho \"import Core library \\\"io\\\"; fn Run() { Core.Print(42); }\" > forty_two.carbon\n\n# Compile to an object file:\n./carbon_toolchain-${VERSION}/bin/carbon compile \\\n  --output=forty_two.o forty_two.carbon\n\n# Install minimal system libraries used for linking. Note that installing `gcc`\n# or `g++` for compiling C/C++ code with GCC will also be sufficient, these are\n# just the specific system libraries Carbon linking still uses.\nsudo apt install libgcc-11-dev\n\n# Link to an executable:\n./carbon_toolchain-${VERSION}/bin/carbon link \\\n  --output=forty_two forty_two.o\n\n# Run it:\n./forty_two\n```\n\nAs a reminder, the toolchain is still very early and many things don't yet work.\nPlease hold off on filing lots of bugs: we know many parts of this don't work\nyet or may not work on all systems. We expect to have releases that are much\nmore robust and reliable that you can try out when we reach our\n[0.1 milestone](/docs/project/milestones.md#milestone-01-a-minimum-viable-product-mvp-for-evaluation).\n\nIf you want to build Carbon's toolchain yourself or are thinking about\ncontributing fixes or improvements to Carbon, you'll need to install our\n[build dependencies](/docs/project/contribution_tools.md#setup-commands) (Clang,\nLLD, libc++) and check out the Carbon repository. For example, on Debian or\nUbuntu:\n\n```shell\n# Update apt.\nsudo apt update\n\n# Install tools.\nsudo apt install \\\n  clang \\\n  libc++-dev \\\n  libc++abi-dev \\\n  lld\n\n# Download Carbon's code.\n$ git clone https://github.com/carbon-language/carbon-lang\n$ cd carbon-lang\n```\n\nThen you can try out our toolchain which has a very early-stage compiler for\nCarbon:\n\n```shell\n# Build and run the toolchain's help to get documentation on the command line.\n$ ./scripts/run_bazelisk.py run //toolchain -- help\n```\n\nFor complete instructions, including installing dependencies on various\ndifferent platforms, see our\n[contribution tools documentation](/docs/project/contribution_tools.md).\n\nLearn more about the Carbon project:\n\n-   [Project goals](/docs/project/goals.md)\n-   [Language design overview](/docs/design)\n-   [Carbon Explorer](/explorer)\n-   [Carbon Toolchain](/toolchain)\n-   [FAQ](/docs/project/faq.md)\n\n## Conference talks\n\nCarbon focused talks from the community:\n\n### 2024\n\n-   Generic implementation strategies in Carbon and Clang, LLVM Developers'\n    Meeting ([video](https://youtu.be/j0BL52NdjAU),\n    [slides](https://chandlerc.blog/slides/2024-llvm-generic-implementation/#/))\n-   The Carbon Language: Road to 0.1, NDC {TechTown}\n    ([video](https://youtu.be/bBvLmDJrzvI),\n    [slides](https://chandlerc.blog/slides/2024-ndc-techtown-carbon-road-to-0-dot-1))\n-   How designing Carbon with C++ interop taught me about C++ variadics and\n    overloads, CppNorth ([video](https://youtu.be/8SGMy9ENGz8),\n    [slides](https://chandlerc.blog/slides/2024-cppnorth-design-stories))\n-   Generic Arity: Definition-Checked Variadics in Carbon, C++Now\n    ([video](https://youtu.be/Y_px536l_80),\n    [slides](https://docs.google.com/presentation/d/10aM1mFMN6Cd5ZkE4OfeiZtSnkVNbo33N-V0et21umww/edit))\n-   Carbon: An experiment in different tradeoffs, panel session, EuroLLVM\n    ([video](https://youtu.be/Za_KWj5RMR8),\n    [slides](https://llvm.org/devmtg/2024-04/slides/LightningTalks/Smith-Carbons-high-level-semanticIR.pdf))\n    -   [Alex Bradbury's notes](https://muxup.com/2024q2/notes-from-the-carbon-panel-session-at-eurollvm)\n-   Carbon's high-level semantic IR lightning talk, EuroLLVM\n    ([video](https://youtu.be/vIWT4RhUcyw))\n\n### 2023\n\n-   Carbon\u2019s Successor Strategy: From C++ interop to memory safety, C++Now\n    ([video](https://youtu.be/1ZTJ9omXOQ0),\n    [slides](https://chandlerc.blog/slides/2023-cppnow-carbon-strategy/index.html#/))\n-   Definition-Checked Generics, C++Now\n    -   Part 1 ([video](https://youtu.be/FKC8WACSMP0),\n        [slides](https://chandlerc.blog/slides/2023-cppnow-generics-1/#/))\n    -   Part 2 ([video](https://youtu.be/VxQ3PwxiSzk),\n        [slides](https://chandlerc.blog/slides/2023-cppnow-generics-2/#/))\n-   Modernizing Compiler Design for Carbon\u2019s Toolchain, C++Now\n    ([video](https://youtu.be/ZI198eFghJk),\n    [slides](https://chandlerc.blog/slides/2023-cppnow-compiler/index.html#/))\n\n### 2022\n\n-   Carbon Language: Syntax and trade-offs, Core C++\n    ([video](https://youtu.be/9Y2ivB8VaIs),\n    [slides](https://docs.google.com/presentation/d/1znvL12xCuEfcsP6tpPdrQPnh-UoPFOLnC_RVXZteYaM/edit))\n-   Carbon Language: An experimental successor to C++, CppNorth\n    ([video](https://youtu.be/omrY53kbVoA),\n    [slides](https://chandlerc.blog/slides/2022-07-19-cppnorth-keynote/#/))\n\n## Join us\n\nWe'd love to have folks join us and contribute to the project. Carbon is\ncommitted to a welcoming and inclusive environment where everyone can\ncontribute.\n\n-   Most of Carbon's design discussions occur on\n    [Discord](https://discord.gg/ZjVdShJDAs).\n-   To watch for major release announcements, subscribe to our\n    [Carbon release post on GitHub](https://github.com/carbon-language/carbon-lang/discussions/1020)\n    and [star carbon-lang](https://github.com/carbon-language/carbon-lang).\n-   See our [code of conduct](CODE_OF_CONDUCT.md) and\n    [contributing guidelines](CONTRIBUTING.md) for information about the Carbon\n    development community.\n\n### Contributing\n\nYou can also directly:\n\n-   [Contribute to the language design](CONTRIBUTING.md#contributing-to-the-language-design):\n    feedback on design, new design proposal\n-   [Contribute to the language implementation](CONTRIBUTING.md#contributing-to-the-language-implementation)\n    -   [Carbon Toolchain](/toolchain/), and project infrastructure\n\nYou can **check out some\n[\"good first issues\"](https://github.com/carbon-language/carbon-lang/labels/good%20first%20issue)**,\nor join the `#contributing-help` channel on\n[Discord](https://discord.gg/ZjVdShJDAs). See our full\n[`CONTRIBUTING`](CONTRIBUTING.md) documentation for more details.\n",
+        "releases": [
+            {
+                "name": "Nightly build 2025.01.22",
+                "date": "2025-01-22T02:29:34Z"
+            },
+            {
+                "name": "Nightly build 2025.01.21",
+                "date": "2025-01-21T02:27:49Z"
+            },
+            {
+                "name": "Nightly build 2025.01.20",
+                "date": "2025-01-20T02:31:39Z"
+            },
+            {
+                "name": "Nightly build 2025.01.19",
+                "date": "2025-01-19T02:33:33Z"
+            },
+            {
+                "name": "Nightly build 2025.01.18",
+                "date": "2025-01-18T02:26:02Z"
+            },
+            {
+                "name": "Nightly build 2025.01.17",
+                "date": "2025-01-17T02:26:52Z"
+            },
+            {
+                "name": "Nightly build 2025.01.16",
+                "date": "2025-01-16T02:27:20Z"
+            },
+            {
+                "name": "Nightly build 2025.01.15",
+                "date": "2025-01-15T02:28:15Z"
+            },
+            {
+                "name": "Nightly build 2025.01.14",
+                "date": "2025-01-14T02:28:03Z"
+            },
+            {
+                "name": "Nightly build 2025.01.13",
+                "date": "2025-01-13T02:34:37Z"
+            },
+            {
+                "name": "Nightly build 2025.01.12",
+                "date": "2025-01-12T02:34:26Z"
+            },
+            {
+                "name": "Nightly build 2025.01.11",
+                "date": "2025-01-11T02:30:08Z"
+            },
+            {
+                "name": "Nightly build 2025.01.10",
+                "date": "2025-01-10T02:33:27Z"
+            },
+            {
+                "name": "Nightly build 2025.01.09",
+                "date": "2025-01-09T02:46:55Z"
+            },
+            {
+                "name": "Nightly build 2025.01.08",
+                "date": "2025-01-08T02:30:42Z"
+            },
+            {
+                "name": "Nightly build 2025.01.07",
+                "date": "2025-01-07T02:31:57Z"
+            },
+            {
+                "name": "Nightly build 2025.01.06",
+                "date": "2025-01-06T02:32:36Z"
+            },
+            {
+                "name": "Nightly build 2025.01.05",
+                "date": "2025-01-05T02:32:45Z"
+            },
+            {
+                "name": "Nightly build 2025.01.04",
+                "date": "2025-01-04T02:28:32Z"
+            },
+            {
+                "name": "Nightly build 2025.01.03",
+                "date": "2025-01-03T02:30:44Z"
+            },
+            {
+                "name": "Nightly build 2025.01.02",
+                "date": "2025-01-02T02:29:46Z"
+            },
+            {
+                "name": "Nightly build 2025.01.01",
+                "date": "2025-01-01T02:35:16Z"
+            },
+            {
+                "name": "Nightly build 2024.12.31",
+                "date": "2024-12-31T02:29:09Z"
+            },
+            {
+                "name": "Nightly build 2024.12.30",
+                "date": "2024-12-30T02:31:35Z"
+            },
+            {
+                "name": "Nightly build 2024.12.29",
+                "date": "2024-12-29T02:33:24Z"
+            },
+            {
+                "name": "Nightly build 2024.12.28",
+                "date": "2024-12-28T02:27:59Z"
+            },
+            {
+                "name": "Nightly build 2024.12.27",
+                "date": "2024-12-27T02:30:30Z"
+            },
+            {
+                "name": "Nightly build 2024.12.26",
+                "date": "2024-12-26T02:30:00Z"
+            },
+            {
+                "name": "Nightly build 2024.12.25",
+                "date": "2024-12-25T02:31:16Z"
+            },
+            {
+                "name": "Nightly build 2024.12.24",
+                "date": "2024-12-24T02:31:54Z"
+            },
+            {
+                "name": "Nightly build 2024.12.19",
+                "date": "2024-12-19T02:35:14Z"
+            },
+            {
+                "name": "Nightly build 2024.12.18",
+                "date": "2024-12-18T02:33:53Z"
+            },
+            {
+                "name": "Nightly build 2024.12.17",
+                "date": "2024-12-17T02:35:28Z"
+            },
+            {
+                "name": "Nightly build 2024.12.16",
+                "date": "2024-12-16T02:38:17Z"
+            },
+            {
+                "name": "Nightly build 2024.12.15",
+                "date": "2024-12-15T02:37:39Z"
+            },
+            {
+                "name": "Nightly build 2024.12.14",
+                "date": "2024-12-14T02:33:18Z"
+            },
+            {
+                "name": "Nightly build 2024.12.13",
+                "date": "2024-12-13T02:38:16Z"
+            },
+            {
+                "name": "Nightly build 2024.12.12",
+                "date": "2024-12-12T02:36:49Z"
+            },
+            {
+                "name": "Nightly build 2024.12.11",
+                "date": "2024-12-11T02:35:39Z"
+            },
+            {
+                "name": "Nightly build 2024.12.10",
+                "date": "2024-12-10T02:36:24Z"
+            },
+            {
+                "name": "Nightly build 2024.12.09",
+                "date": "2024-12-09T02:36:56Z"
+            },
+            {
+                "name": "Nightly build 2024.12.08",
+                "date": "2024-12-08T02:37:30Z"
+            },
+            {
+                "name": "Nightly build 2024.12.07",
+                "date": "2024-12-07T02:35:58Z"
+            },
+            {
+                "name": "Nightly build 2024.12.06",
+                "date": "2024-12-06T02:35:28Z"
+            },
+            {
+                "name": "Nightly build 2024.12.05",
+                "date": "2024-12-05T02:35:59Z"
+            },
+            {
+                "name": "Nightly build 2024.12.04",
+                "date": "2024-12-04T02:35:33Z"
+            },
+            {
+                "name": "Nightly build 2024.12.03",
+                "date": "2024-12-03T02:35:33Z"
+            },
+            {
+                "name": "Nightly build 2024.12.02",
+                "date": "2024-12-02T02:36:21Z"
+            },
+            {
+                "name": "Nightly build 2024.12.01",
+                "date": "2024-12-01T02:42:39Z"
+            },
+            {
+                "name": "Nightly build 2024.11.30",
+                "date": "2024-11-30T02:32:45Z"
+            },
+            {
+                "name": "Nightly build 2024.11.29",
+                "date": "2024-11-29T02:34:55Z"
+            },
+            {
+                "name": "Nightly build 2024.11.28",
+                "date": "2024-11-28T02:34:55Z"
+            },
+            {
+                "name": "Nightly build 2024.11.27",
+                "date": "2024-11-27T02:34:40Z"
+            },
+            {
+                "name": "Nightly build 2024.11.26",
+                "date": "2024-11-26T02:34:08Z"
+            },
+            {
+                "name": "Nightly build 2024.11.25",
+                "date": "2024-11-25T02:34:59Z"
+            },
+            {
+                "name": "Nightly build 2024.11.24",
+                "date": "2024-11-24T02:37:28Z"
+            },
+            {
+                "name": "Nightly build 2024.11.23",
+                "date": "2024-11-23T02:31:30Z"
+            },
+            {
+                "name": "Nightly build 2024.11.22",
+                "date": "2024-11-22T02:34:02Z"
+            },
+            {
+                "name": "Nightly build 2024.11.21",
+                "date": "2024-11-21T02:33:34Z"
+            },
+            {
+                "name": "Nightly build 2024.11.20",
+                "date": "2024-11-20T02:33:18Z"
+            },
+            {
+                "name": "Nightly build 2024.11.19",
+                "date": "2024-11-19T02:35:08Z"
+            },
+            {
+                "name": "Nightly build 2024.11.18",
+                "date": "2024-11-18T02:34:57Z"
+            },
+            {
+                "name": "Nightly build 2024.11.17",
+                "date": "2024-11-17T02:34:54Z"
+            },
+            {
+                "name": "Nightly build 2024.11.16",
+                "date": "2024-11-16T02:33:23Z"
+            },
+            {
+                "name": "Nightly build 2024.11.15",
+                "date": "2024-11-15T02:33:53Z"
+            },
+            {
+                "name": "Nightly build 2024.11.14",
+                "date": "2024-11-14T02:30:33Z"
+            },
+            {
+                "name": "Nightly build 2024.11.08",
+                "date": "2024-11-08T02:29:47Z"
+            },
+            {
+                "name": "Nightly build 2024.11.07",
+                "date": "2024-11-07T02:31:24Z"
+            },
+            {
+                "name": "Nightly build 2024.10.30",
+                "date": "2024-10-30T02:33:48Z"
+            },
+            {
+                "name": "Nightly build 2024.10.29",
+                "date": "2024-10-29T02:31:53Z"
+            },
+            {
+                "name": "Nightly build 2024.10.28",
+                "date": "2024-10-28T02:33:48Z"
+            },
+            {
+                "name": "Nightly build 2024.10.27",
+                "date": "2024-10-27T02:33:17Z"
+            },
+            {
+                "name": "Nightly build 2024.10.26",
+                "date": "2024-10-26T02:29:20Z"
+            },
+            {
+                "name": "Nightly build 2024.10.25",
+                "date": "2024-10-25T02:32:01Z"
+            },
+            {
+                "name": "Nightly build 2024.10.24",
+                "date": "2024-10-24T02:32:27Z"
+            },
+            {
+                "name": "Nightly build 2024.10.23",
+                "date": "2024-10-23T02:31:00Z"
+            },
+            {
+                "name": "Nightly build 2024.10.22",
+                "date": "2024-10-22T02:31:28Z"
+            },
+            {
+                "name": "Nightly build 2024.10.21",
+                "date": "2024-10-21T02:36:14Z"
+            },
+            {
+                "name": "Nightly build 2024.10.20",
+                "date": "2024-10-20T02:38:01Z"
+            },
+            {
+                "name": "Nightly build 2024.10.19",
+                "date": "2024-10-19T02:33:03Z"
+            },
+            {
+                "name": "Nightly build 2024.10.17",
+                "date": "2024-10-17T02:36:32Z"
+            },
+            {
+                "name": "Nightly build 2024.10.16",
+                "date": "2024-10-16T02:34:07Z"
+            },
+            {
+                "name": "Nightly build 2024.10.15",
+                "date": "2024-10-15T02:35:47Z"
+            },
+            {
+                "name": "Nightly build 2024.10.14",
+                "date": "2024-10-14T02:35:33Z"
+            },
+            {
+                "name": "Nightly build 2024.10.13",
+                "date": "2024-10-13T02:36:31Z"
+            },
+            {
+                "name": "Nightly build 2024.10.12",
+                "date": "2024-10-12T02:33:08Z"
+            },
+            {
+                "name": "Nightly build 2024.10.11",
+                "date": "2024-10-11T02:32:52Z"
+            },
+            {
+                "name": "Nightly build 2024.10.10",
+                "date": "2024-10-10T02:34:23Z"
+            },
+            {
+                "name": "Nightly build 2024.10.09",
+                "date": "2024-10-09T02:35:57Z"
+            },
+            {
+                "name": "Nightly build 2024.10.08",
+                "date": "2024-10-08T02:37:43Z"
+            },
+            {
+                "name": "Nightly build 2024.10.07",
+                "date": "2024-10-07T02:34:18Z"
+            },
+            {
+                "name": "Nightly build 2024.10.06",
+                "date": "2024-10-06T02:35:10Z"
+            },
+            {
+                "name": "Nightly build 2024.10.05",
+                "date": "2024-10-05T02:33:06Z"
+            },
+            {
+                "name": "Nightly build 2024.10.04",
+                "date": "2024-10-04T02:33:17Z"
+            },
+            {
+                "name": "Nightly build 2024.10.03",
+                "date": "2024-10-03T02:33:22Z"
+            },
+            {
+                "name": "Nightly build 2024.10.02",
+                "date": "2024-10-02T02:33:22Z"
+            },
+            {
+                "name": "Nightly build 2024.10.01",
+                "date": "2024-10-01T02:37:51Z"
+            },
+            {
+                "name": "Nightly build 2024.09.30",
+                "date": "2024-09-30T02:35:21Z"
+            },
+            {
+                "name": "Nightly build 2024.09.29",
+                "date": "2024-09-29T02:37:56Z"
+            },
+            {
+                "name": "Nightly build 2024.09.28",
+                "date": "2024-09-28T02:31:51Z"
+            },
+            {
+                "name": "Nightly build 2024.09.27",
+                "date": "2024-09-27T02:32:22Z"
+            },
+            {
+                "name": "Nightly build 2024.09.26",
+                "date": "2024-09-26T02:33:17Z"
+            },
+            {
+                "name": "Nightly build 2024.09.25",
+                "date": "2024-09-25T02:33:26Z"
+            },
+            {
+                "name": "Nightly build 2024.09.24",
+                "date": "2024-09-24T02:33:04Z"
+            },
+            {
+                "name": "Nightly build 2024.09.23",
+                "date": "2024-09-23T02:33:11Z"
+            },
+            {
+                "name": "Nightly build 2024.09.21",
+                "date": "2024-09-21T02:28:51Z"
+            },
+            {
+                "name": "Nightly build 2024.09.20",
+                "date": "2024-09-20T02:30:51Z"
+            },
+            {
+                "name": "Nightly build 2024.09.19",
+                "date": "2024-09-19T02:31:30Z"
+            },
+            {
+                "name": "Nightly build 2024.09.18",
+                "date": "2024-09-18T02:31:38Z"
+            },
+            {
+                "name": "Nightly build 2024.09.17",
+                "date": "2024-09-17T02:19:09Z"
+            },
+            {
+                "name": "Nightly build 2024.09.16",
+                "date": "2024-09-16T02:35:43Z"
+            },
+            {
+                "name": "Nightly build 2024.09.15",
+                "date": "2024-09-15T02:38:11Z"
+            },
+            {
+                "name": "Nightly build 2024.09.14",
+                "date": "2024-09-14T02:27:54Z"
+            },
+            {
+                "name": "Nightly build 2024.09.13",
+                "date": "2024-09-13T02:30:36Z"
+            },
+            {
+                "name": "Nightly build 2024.09.12",
+                "date": "2024-09-12T02:28:51Z"
+            },
+            {
+                "name": "Nightly build 2024.09.11",
+                "date": "2024-09-11T02:28:16Z"
+            },
+            {
+                "name": "Nightly build 2024.09.10",
+                "date": "2024-09-10T02:29:15Z"
+            },
+            {
+                "name": "Nightly build 2024.09.09",
+                "date": "2024-09-09T02:32:35Z"
+            },
+            {
+                "name": "Nightly build 2024.09.08",
+                "date": "2024-09-08T02:31:35Z"
+            },
+            {
+                "name": "Nightly build 2024.09.07",
+                "date": "2024-09-07T02:26:10Z"
+            },
+            {
+                "name": "Nightly build 2024.09.06",
+                "date": "2024-09-06T02:28:21Z"
+            },
+            {
+                "name": "Nightly build 2024.09.05",
+                "date": "2024-09-05T02:29:23Z"
+            },
+            {
+                "name": "Nightly build 2024.09.04",
+                "date": "2024-09-04T02:28:32Z"
+            },
+            {
+                "name": "Nightly build 2024.09.03",
+                "date": "2024-09-03T02:26:57Z"
+            },
+            {
+                "name": "Nightly build 2024.09.02",
+                "date": "2024-09-02T02:30:53Z"
+            },
+            {
+                "name": "Nightly build 2024.09.01",
+                "date": "2024-09-01T02:34:34Z"
+            },
+            {
+                "name": "Nightly build 2024.08.31",
+                "date": "2024-08-31T02:27:41Z"
+            },
+            {
+                "name": "Nightly build 2024.08.30",
+                "date": "2024-08-30T02:28:17Z"
+            },
+            {
+                "name": "Nightly build 2024.08.29",
+                "date": "2024-08-29T02:27:26Z"
+            },
+            {
+                "name": "Nightly build 2024.08.28",
+                "date": "2024-08-28T02:26:05Z"
+            },
+            {
+                "name": "Nightly build 2024.08.27",
+                "date": "2024-08-27T02:25:26Z"
+            },
+            {
+                "name": "Nightly build 2024.08.26",
+                "date": "2024-08-26T02:26:01Z"
+            },
+            {
+                "name": "Nightly build 2024.08.25",
+                "date": "2024-08-25T02:29:01Z"
+            },
+            {
+                "name": "Nightly build 2024.08.24",
+                "date": "2024-08-24T02:25:02Z"
+            },
+            {
+                "name": "Nightly build 2024.08.23",
+                "date": "2024-08-23T02:24:52Z"
+            },
+            {
+                "name": "Nightly build 2024.08.22",
+                "date": "2024-08-22T02:25:06Z"
+            },
+            {
+                "name": "Nightly build 2024.08.21",
+                "date": "2024-08-21T02:25:50Z"
+            },
+            {
+                "name": "Nightly build 2024.08.20",
+                "date": "2024-08-20T02:23:59Z"
+            },
+            {
+                "name": "Nightly build 2024.08.19",
+                "date": "2024-08-19T02:26:51Z"
+            },
+            {
+                "name": "Nightly build 2024.08.18",
+                "date": "2024-08-18T02:25:19Z"
+            },
+            {
+                "name": "Nightly build 2024.08.17",
+                "date": "2024-08-17T02:23:15Z"
+            },
+            {
+                "name": "Nightly build 2024.08.16",
+                "date": "2024-08-16T02:25:29Z"
+            },
+            {
+                "name": "Nightly build 2024.08.15",
+                "date": "2024-08-15T02:22:15Z"
+            },
+            {
+                "name": "Nightly build 2024.08.14",
+                "date": "2024-08-14T02:26:27Z"
+            },
+            {
+                "name": "Nightly build 2024.08.13",
+                "date": "2024-08-13T02:25:12Z"
+            },
+            {
+                "name": "Nightly build 2024.08.12",
+                "date": "2024-08-12T02:27:10Z"
+            },
+            {
+                "name": "Nightly build 2024.08.11",
+                "date": "2024-08-11T02:29:04Z"
+            },
+            {
+                "name": "Nightly build 2024.08.10",
+                "date": "2024-08-10T02:23:54Z"
+            },
+            {
+                "name": "Nightly build 2024.08.09",
+                "date": "2024-08-09T02:25:21Z"
+            },
+            {
+                "name": "Nightly build 2024.08.08",
+                "date": "2024-08-08T02:26:14Z"
+            },
+            {
+                "name": "Nightly build 2024.08.07",
+                "date": "2024-08-07T02:25:12Z"
+            },
+            {
+                "name": "Nightly build 2024.08.06",
+                "date": "2024-08-06T02:22:24Z"
+            },
+            {
+                "name": "Nightly build 2024.08.05",
+                "date": "2024-08-05T02:25:15Z"
+            },
+            {
+                "name": "Nightly build 2024.08.04",
+                "date": "2024-08-04T02:24:15Z"
+            },
+            {
+                "name": "Nightly build 2024.08.03",
+                "date": "2024-08-03T02:21:24Z"
+            },
+            {
+                "name": "Nightly build 2024.08.02",
+                "date": "2024-08-02T02:22:31Z"
+            },
+            {
+                "name": "Nightly build 2024.08.01",
+                "date": "2024-08-01T02:25:59Z"
+            },
+            {
+                "name": "Nightly build 2024.07.31",
+                "date": "2024-07-31T02:09:56Z"
+            },
+            {
+                "name": "Nightly build 2024.07.30",
+                "date": "2024-07-30T02:24:25Z"
+            },
+            {
+                "name": "Nightly build 2024.07.29",
+                "date": "2024-07-29T02:24:02Z"
+            },
+            {
+                "name": "Nightly build 2024.07.28",
+                "date": "2024-07-28T02:25:03Z"
+            },
+            {
+                "name": "Nightly build 2024.07.27",
+                "date": "2024-07-27T02:22:13Z"
+            },
+            {
+                "name": "Nightly build 2024.07.26",
+                "date": "2024-07-26T02:21:53Z"
+            },
+            {
+                "name": "Nightly build 2024.07.24",
+                "date": "2024-07-24T02:22:15Z"
+            },
+            {
+                "name": "Nightly build 2024.07.23",
+                "date": "2024-07-23T02:22:44Z"
+            },
+            {
+                "name": "Nightly build 2024.07.22",
+                "date": "2024-07-22T02:24:34Z"
+            },
+            {
+                "name": "Nightly build 2024.07.21",
+                "date": "2024-07-21T02:23:47Z"
+            },
+            {
+                "name": "Nightly build 2024.07.20",
+                "date": "2024-07-20T02:20:55Z"
+            },
+            {
+                "name": "Nightly build 2024.07.19",
+                "date": "2024-07-19T02:24:14Z"
+            },
+            {
+                "name": "Nightly build 2024.07.18",
+                "date": "2024-07-18T02:23:10Z"
+            },
+            {
+                "name": "Nightly build 2024.07.17",
+                "date": "2024-07-17T02:22:07Z"
+            },
+            {
+                "name": "Nightly build 2024.07.16",
+                "date": "2024-07-16T02:22:11Z"
+            },
+            {
+                "name": "Nightly build 2024.07.15",
+                "date": "2024-07-15T02:25:05Z"
+            },
+            {
+                "name": "Nightly build 2024.07.14",
+                "date": "2024-07-14T02:27:03Z"
+            },
+            {
+                "name": "Nightly build 2024.07.13",
+                "date": "2024-07-13T02:22:48Z"
+            },
+            {
+                "name": "Nightly build 2024.07.12",
+                "date": "2024-07-12T02:22:54Z"
+            },
+            {
+                "name": "Nightly build 2024.07.11",
+                "date": "2024-07-11T02:23:06Z"
+            },
+            {
+                "name": "Nightly build 2024.07.10",
+                "date": "2024-07-10T02:23:32Z"
+            },
+            {
+                "name": "Nightly build 2024.07.09",
+                "date": "2024-07-09T02:23:04Z"
+            },
+            {
+                "name": "Nightly build 2024.07.08",
+                "date": "2024-07-08T02:21:55Z"
+            },
+            {
+                "name": "Nightly build 2024.07.07",
+                "date": "2024-07-07T02:25:10Z"
+            },
+            {
+                "name": "Nightly build 2024.07.06",
+                "date": "2024-07-06T02:19:49Z"
+            },
+            {
+                "name": "Nightly build 2024.07.05",
+                "date": "2024-07-05T02:22:50Z"
+            },
+            {
+                "name": "Nightly build 2024.07.04",
+                "date": "2024-07-04T02:21:19Z"
+            },
+            {
+                "name": "Nightly build 2024.07.03",
+                "date": "2024-07-03T02:20:57Z"
+            },
+            {
+                "name": "Nightly build 2024.07.02",
+                "date": "2024-07-02T02:21:15Z"
+            },
+            {
+                "name": "Nightly build 2024.07.01",
+                "date": "2024-07-01T02:25:34Z"
+            },
+            {
+                "name": "Nightly build 2024.06.30",
+                "date": "2024-06-30T02:24:19Z"
+            },
+            {
+                "name": "Nightly build 2024.06.29",
+                "date": "2024-06-29T02:20:15Z"
+            },
+            {
+                "name": "Nightly build 2024.06.28",
+                "date": "2024-06-28T02:21:23Z"
+            },
+            {
+                "name": "Nightly build 2024.06.27",
+                "date": "2024-06-27T02:22:04Z"
+            },
+            {
+                "name": "Nightly build 2024.06.26",
+                "date": "2024-06-26T02:20:30Z"
+            },
+            {
+                "name": "Nightly build 2024.06.25",
+                "date": "2024-06-25T02:21:02Z"
+            },
+            {
+                "name": "Nightly build 2024.06.24",
+                "date": "2024-06-24T02:21:24Z"
+            },
+            {
+                "name": "Nightly build 2024.06.23",
+                "date": "2024-06-23T02:22:08Z"
+            },
+            {
+                "name": "Nightly build 2024.06.22",
+                "date": "2024-06-22T02:20:11Z"
+            },
+            {
+                "name": "Nightly build 2024.06.21",
+                "date": "2024-06-21T02:21:55Z"
+            },
+            {
+                "name": "Nightly build 2024.06.20",
+                "date": "2024-06-20T02:21:00Z"
+            },
+            {
+                "name": "Nightly build 2024.06.19",
+                "date": "2024-06-19T20:06:32Z"
+            }
+        ]
+    }
+}

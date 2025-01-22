@@ -1,0 +1,246 @@
+{
+    "https://api.github.com/repos/bumptech/glide": {
+        "forks": 6135,
+        "watchers": 34744,
+        "stars": 34744,
+        "languages": {
+            "Java": 3336327,
+            "Kotlin": 251209,
+            "Shell": 16464,
+            "CSS": 455
+        },
+        "commits": [
+            "2024-11-19T22:29:35Z",
+            "2024-10-14T14:56:01Z",
+            "2024-09-24T16:31:25Z",
+            "2024-04-27T00:34:32Z",
+            "2024-03-29T21:44:08Z",
+            "2024-03-20T17:38:31Z",
+            "2023-10-17T04:20:25Z",
+            "2023-12-28T15:40:11Z",
+            "2024-02-03T00:52:14Z",
+            "2024-02-02T19:39:37Z",
+            "2024-01-23T00:53:30Z",
+            "2024-01-11T20:46:05Z",
+            "2024-01-13T10:02:12Z",
+            "2024-01-13T10:07:38Z",
+            "2023-11-16T01:07:44Z",
+            "2023-11-07T01:16:52Z",
+            "2023-10-02T01:41:45Z",
+            "2023-10-10T20:24:33Z",
+            "2023-10-02T02:19:00Z",
+            "2023-09-30T04:12:02Z",
+            "2023-09-30T03:42:04Z",
+            "2023-09-26T16:33:53Z",
+            "2023-09-26T04:49:13Z",
+            "2023-09-26T04:16:43Z",
+            "2023-09-26T03:04:42Z",
+            "2023-09-24T21:33:25Z",
+            "2023-09-25T20:13:25Z",
+            "2023-09-25T17:03:28Z",
+            "2023-09-19T19:09:30Z",
+            "2023-09-19T04:11:04Z"
+        ],
+        "creation_date": "2013-07-08T22:52:33Z",
+        "contributors": 30,
+        "topics": [
+            "android",
+            "disk-cache",
+            "gif",
+            "glide",
+            "imageloader"
+        ],
+        "subscribers": 1038,
+        "readme": "Glide\n=====\n\n[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.bumptech.glide/glide/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.bumptech.glide/glide)\n| [View Glide's documentation][20] | [\u7b80\u4f53\u4e2d\u6587\u6587\u6863][22] | [Report an issue with Glide][5]\n\nGlide is a fast and efficient open source media management and image loading framework for Android that wraps media\ndecoding, memory and disk caching, and resource pooling into a simple and easy to use interface.\n\n![](static/glide_logo.png)\n\nGlide supports fetching, decoding, and displaying video stills, images, and animated GIFs. Glide includes a flexible API\nthat allows developers to plug in to almost any network stack. By default Glide uses a custom `HttpUrlConnection` based\nstack, but also includes utility libraries plug in to Google's Volley project or Square's OkHttp library instead.\n\nGlide's primary focus is on making scrolling any kind of a list of images as smooth and fast as possible, but Glide is\nalso effective for almost any case where you need to fetch, resize, and display a remote image.\n\nDownload\n--------\nFor detailed instructions and requirements, see Glide's [download and setup docs page][28].\n\nYou can download a jar from GitHub's [releases page][1].\n\nOr use Gradle:\n\n```gradle\nrepositories {\n \u00a0google()\n  mavenCentral()\n}\n\ndependencies {\n \u00a0implementation 'com.github.bumptech.glide:glide:4.16.0'\n}\n```\n\nOr Maven:\n\n```xml\n<dependency>\n  <groupId>com.github.bumptech.glide</groupId>\n  <artifactId>glide</artifactId>\n  <version>4.16.0</version>\n</dependency>\n```\n\nFor info on using the bleeding edge, see the [Snapshots][17] docs page.\n\nR8 / Proguard\n--------\nThe specific rules are [already bundled](library/proguard-rules.txt) into the aar which can be interpreted by R8 automatically\n\nHow do I use Glide?\n-------------------\nCheck out the [documentation][20] for pages on a variety of topics, and see the [javadocs][3].\n\nFor Glide v3, see the [wiki][2].\n\nSimple use cases will look something like this:\n\n```java\n// For a simple view:\n@Override public void onCreate(Bundle savedInstanceState) {\n  ...\n  ImageView imageView = (ImageView) findViewById(R.id.my_image_view);\n\n  Glide.with(this).load(\"https://goo.gl/gEgYUd\").into(imageView);\n}\n\n// For a simple image list:\n@Override public View getView(int position, View recycled, ViewGroup container) {\n  final ImageView myImageView;\n  if (recycled == null) {\n    myImageView = (ImageView) inflater.inflate(R.layout.my_image_view, container, false);\n  } else {\n    myImageView = (ImageView) recycled;\n  }\n\n  String url = myUrls.get(position);\n\n  Glide\n    .with(myFragment)\n    .load(url)\n    .centerCrop()\n    .placeholder(R.drawable.loading_spinner)\n    .into(myImageView);\n\n  return myImageView;\n}\n```\n\nStatus\n------\nVersion 4 is now released and stable. Updates are released periodically with new features and bug fixes.\n\nComments/bugs/questions/pull requests are always welcome! Please read [CONTRIBUTING.md][5] on how to report issues.\n\nCompatibility\n-------------\n\n * **Minimum Android SDK**: Glide v4 requires a minimum API level of 14.\n * **Compile Android SDK**: Glide v4 requires you to compile against API 26 or later.\n\n If you need to support older versions of Android, consider staying on [Glide v3][14], which works on API 10, but is not actively maintained.\n\n * **OkHttp 3.x**: There is an optional dependency available called `okhttp3-integration`, see the [docs page][23].\n * **Volley**: There is an optional dependency available called `volley-integration`, see the [docs page][24].\n * **Round Pictures**: `CircleImageView`/`CircularImageView`/`RoundedImageView` are known to have [issues][18] with `TransitionDrawable` (`.crossFade()` with `.thumbnail()` or `.placeholder()`) and animated GIFs, use a [`BitmapTransformation`][19] (`.circleCrop()` will be available in v4) or `.dontAnimate()` to fix the issue.\n * **Huge Images** (maps, comic strips): Glide can load huge images by downsampling them, but does not support zooming and panning `ImageView`s as they require special resource optimizations (such as tiling) to work without `OutOfMemoryError`s.\n\nBuild\n-----\nBuilding Glide with gradle is fairly straight forward:\n\n```shell\ngit clone https://github.com/bumptech/glide.git\ncd glide\n./gradlew jar\n```\n\n**Note**: Make sure your *Android SDK* has the *Android Support Repository* installed, and that your `$ANDROID_HOME` environment\nvariable is pointing at the SDK or add a `local.properties` file in the root project with a `sdk.dir=...` line.\n\nSamples\n-------\nFollow the steps in the [Build](#build) section to set up the project and then:\n\n```shell\n./gradlew :samples:flickr:run\n./gradlew :samples:giphy:run\n./gradlew :samples:svg:run\n./gradlew :samples:contacturi:run\n```\nYou may also find precompiled APKs on the [releases page][1].\n\nDevelopment\n-----------\nFollow the steps in the [Build](#build) section to setup the project and then edit the files however you wish.\n[Android Studio][26] cleanly imports both Glide's source and tests and is the recommended way to work with Glide.\n\nTo open the project in Android Studio:\n\n1. Go to *File* menu or the *Welcome Screen*\n2. Click on *Open...*\n3. Navigate to Glide's root directory.\n4. Select `setting.gradle`\n\nFor more details, see the [Contributing docs page][27].\n\nGetting Help\n------------\nTo report a specific problem or feature request, [open a new issue on Github][5]. For questions, suggestions, or\nanything else, email [Glide's discussion group][6], or join our IRC channel: [irc.freenode.net#glide-library][13].\n\nContributing\n------------\nBefore submitting pull requests, contributors must sign Google's [individual contributor license agreement][7].\n\nThanks\n------\n* The **Android team** and **Jake Wharton** for the [disk cache implementation][8] Glide's disk cache is based on.\n* **Dave Smith** for the [GIF decoder gist][9] Glide's GIF decoder is based on.\n* **Chris Banes** for his [gradle-mvn-push][10] script.\n* **Corey Hall** for Glide's [amazing logo][11].\n* Everyone who has contributed code and reported issues!\n\nAuthor\n------\nSam Judd - @sjudd on GitHub, @samajudd on Twitter\n\nLicense\n-------\nBSD, part MIT and Apache 2.0. See the [LICENSE][16] file for details.\n\nDisclaimer\n---------\nThis is not an official Google product.\n\n[1]: https://github.com/bumptech/glide/releases\n[2]: https://github.com/bumptech/glide/wiki\n[3]: https://bumptech.github.io/glide/ref/javadocs.html\n[4]: https://www.jetbrains.com/idea/download/\n[5]: https://github.com/bumptech/glide/blob/master/CONTRIBUTING.md\n[6]: https://groups.google.com/forum/#!forum/glidelibrary\n[7]: https://developers.google.com/open-source/cla/individual\n[8]: https://github.com/JakeWharton/DiskLruCache\n[9]: https://gist.github.com/devunwired/4479231\n[10]: https://github.com/chrisbanes/gradle-mvn-push\n[11]: static/glide_logo.png\n[12]: https://github.com/bumptech/glide/wiki/Integration-Libraries\n[13]: http://webchat.freenode.net/?channels=glide-library\n[14]: https://github.com/bumptech/glide/tree/3.0\n[15]: https://github.com/bumptech/glide/tree/master\n[16]: https://github.com/bumptech/glide/blob/master/LICENSE\n[17]: http://bumptech.github.io/glide/dev/snapshots.html\n[18]: https://github.com/bumptech/glide/issues?q=is%3Aissue+CircleImageView+OR+CircularImageView+OR+RoundedImageView\n[19]: https://github.com/wasabeef/glide-transformations\n[20]: https://bumptech.github.io/glide/\n[22]: https://muyangmin.github.io/glide-docs-cn/\n[23]: http://bumptech.github.io/glide/int/okhttp3.html\n[24]: http://bumptech.github.io/glide/int/volley.html\n[25]: http://bumptech.github.io/glide/doc/download-setup.html#proguard\n[26]: https://developer.android.com/studio/index.html\n[27]: http://bumptech.github.io/glide/dev/contributing.html\n[28]: http://bumptech.github.io/glide/doc/download-setup.html\n",
+        "releases": [
+            {
+                "name": "Glide 5.0.0-rc01, Compose 1.0.0-beta01",
+                "date": "2023-09-26T17:19:44Z"
+            },
+            {
+                "name": "Glide Compose alpha6",
+                "date": "2023-09-03T16:37:15Z"
+            },
+            {
+                "name": "Glide 4.16.0",
+                "date": "2023-08-21T07:07:23Z"
+            },
+            {
+                "name": "Glide v4.15.1",
+                "date": "2023-03-13T19:03:29Z"
+            },
+            {
+                "name": "Glide v4.15.0",
+                "date": "2023-02-24T18:45:40Z"
+            },
+            {
+                "name": "Glide v4.14.2",
+                "date": "2022-10-07T19:40:04Z"
+            },
+            {
+                "name": "Glide v4.14.1",
+                "date": "2022-09-30T00:25:13Z"
+            },
+            {
+                "name": "Glide v4.14.0",
+                "date": "2022-09-28T17:52:48Z"
+            },
+            {
+                "name": "Glide v4.13.2",
+                "date": "2022-05-04T21:10:52Z"
+            },
+            {
+                "name": "Glide v4.13.1",
+                "date": "2022-02-23T20:07:42Z"
+            },
+            {
+                "name": "Glide 4.13.0",
+                "date": "2022-02-08T00:43:25Z"
+            },
+            {
+                "name": "Glide 4.12.0",
+                "date": "2021-01-29T23:54:07Z"
+            },
+            {
+                "name": "Glide 4.11.0",
+                "date": "2020-01-08T23:50:21Z"
+            },
+            {
+                "name": "Glide 4.10.0",
+                "date": "2019-09-18T22:44:32Z"
+            },
+            {
+                "name": "Glide 4.9.0",
+                "date": "2019-02-14T20:53:02Z"
+            },
+            {
+                "name": "Glide 4.8.0",
+                "date": "2018-08-16T17:10:41Z"
+            },
+            {
+                "name": "Glide 4.7.0",
+                "date": "2018-04-10T22:21:40Z"
+            },
+            {
+                "name": "Glide 4.6.1",
+                "date": "2018-02-02T15:42:27Z"
+            },
+            {
+                "name": "Glide 4.6.0",
+                "date": "2018-02-01T16:59:08Z"
+            },
+            {
+                "name": "Glide 4.5.0",
+                "date": "2018-01-05T18:53:36Z"
+            },
+            {
+                "name": "Glide 4.4.0",
+                "date": "2017-12-04T16:51:57Z"
+            },
+            {
+                "name": "Glide 4.3.1",
+                "date": "2017-11-06T20:28:27Z"
+            },
+            {
+                "name": "Glide 4.3.0",
+                "date": "2017-10-31T14:57:52Z"
+            },
+            {
+                "name": "Glide 4.2.0",
+                "date": "2017-10-03T16:13:34Z"
+            },
+            {
+                "name": "Glide 4.1.1",
+                "date": "2017-09-05T14:50:38Z"
+            },
+            {
+                "name": "Glide 4.1.0",
+                "date": "2017-09-01T15:07:35Z"
+            },
+            {
+                "name": "Glide 4.0.0",
+                "date": "2017-08-01T16:11:21Z"
+            },
+            {
+                "name": "Glide 4.0.0 RC1",
+                "date": "2017-06-21T15:19:03Z"
+            },
+            {
+                "name": "Glide 4.0.0 RC0",
+                "date": "2017-05-17T18:07:50Z"
+            },
+            {
+                "name": "Glide 3.8.0",
+                "date": "2017-05-03T14:35:47Z"
+            },
+            {
+                "name": "Glide 3.7.0",
+                "date": "2016-01-24T21:44:29Z"
+            },
+            {
+                "name": "Glide 3.6.1",
+                "date": "2015-06-28T21:37:59Z"
+            },
+            {
+                "name": "Glide 3.6.0",
+                "date": "2015-05-01T20:24:11Z"
+            },
+            {
+                "name": "Glide 3.5.2",
+                "date": "2015-02-22T19:08:25Z"
+            },
+            {
+                "name": "Glide 3.5.1",
+                "date": "2015-01-30T16:19:11Z"
+            },
+            {
+                "name": "Glide 3.5.0",
+                "date": "2015-01-25T22:46:06Z"
+            },
+            {
+                "name": "Glide 3.4.0",
+                "date": "2014-11-07T17:20:30Z"
+            },
+            {
+                "name": "3.3.1 release",
+                "date": "2014-09-14T23:17:32Z"
+            },
+            {
+                "name": "3.3.0 Release",
+                "date": "2014-09-02T00:36:43Z"
+            },
+            {
+                "name": "2.0.5 Release",
+                "date": "2014-06-19T14:38:31Z"
+            },
+            {
+                "name": "2.0.4 Release",
+                "date": "2014-06-15T19:30:09Z"
+            },
+            {
+                "name": "v3.1.0a",
+                "date": "2014-04-15T14:28:37Z"
+            },
+            {
+                "name": "2.0.3",
+                "date": "2014-04-15T02:12:05Z"
+            },
+            {
+                "name": "v2.0.2",
+                "date": "2014-03-02T23:26:15Z"
+            },
+            {
+                "name": "2.0.1",
+                "date": "2013-09-05T19:36:28Z"
+            },
+            {
+                "name": "2.0 release",
+                "date": "2013-08-27T18:13:25Z"
+            },
+            {
+                "name": "2.0 Alpha",
+                "date": "2013-08-08T22:16:45Z"
+            }
+        ]
+    }
+}

@@ -1,0 +1,158 @@
+{
+    "https://api.github.com/repos/Kotlin/anko": {
+        "forks": 1290,
+        "watchers": 15873,
+        "stars": 15873,
+        "languages": {
+            "Kotlin": 2511422,
+            "Java": 8438,
+            "HTML": 7639
+        },
+        "commits": [
+            "2019-12-05T08:59:40Z",
+            "2019-12-01T18:14:10Z",
+            "2019-12-01T17:50:37Z",
+            "2019-12-01T17:48:15Z",
+            "2019-02-25T16:01:26Z",
+            "2018-12-25T11:00:02Z",
+            "2018-12-24T14:21:45Z",
+            "2018-12-19T18:04:09Z",
+            "2018-12-19T17:41:15Z",
+            "2018-12-19T17:14:38Z",
+            "2018-11-10T08:43:49Z",
+            "2018-11-08T18:41:53Z",
+            "2018-11-07T13:02:13Z",
+            "2018-11-07T10:40:27Z",
+            "2018-09-12T17:32:13Z",
+            "2018-10-15T21:49:51Z",
+            "2018-10-12T13:06:14Z",
+            "2018-10-10T16:14:05Z",
+            "2018-10-10T15:53:36Z",
+            "2018-10-10T15:09:01Z",
+            "2018-10-10T15:08:12Z",
+            "2018-10-10T15:06:44Z",
+            "2018-10-03T15:32:38Z",
+            "2018-10-03T12:46:15Z",
+            "2018-10-02T18:15:28Z",
+            "2018-10-02T17:49:47Z",
+            "2018-10-02T17:35:48Z",
+            "2018-10-02T17:02:50Z",
+            "2018-10-02T14:50:18Z",
+            "2018-10-01T12:47:55Z"
+        ],
+        "creation_date": "2014-09-18T12:12:23Z",
+        "contributors": 30,
+        "topics": [
+            "android",
+            "kotlin"
+        ],
+        "subscribers": 530,
+        "readme": "[![obsolete JetBrains project](https://jb.gg/badges/obsolete.svg)](https://confluence.jetbrains.com/display/ALL/JetBrains+on+GitHub)\n[![Download](https://api.bintray.com/packages/jetbrains/anko/anko/images/download.svg) ](https://bintray.com/jetbrains/anko/anko/_latestVersion)\n[![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)\n\n<img src=\"doc/logo.png\" alt=\"Anko logo\" height=\"101\" width=\"220\" />\n\n:warning: Anko is deprecated. Please see [this page](/GOODBYE.md) for more information.\n\n* * *\n\nAnko is a [Kotlin](https://www.kotlinlang.org/) library which makes Android application development faster and easier. It makes your code clean and easy to read, and lets you forget about rough edges of the Android SDK for Java.\n\nAnko consists of several parts:\n\n* *Anko Commons*: a lightweight library full of helpers for intents, dialogs, logging and so on;\n* *Anko Layouts*: a fast and type-safe way to write dynamic Android layouts;\n* *Anko SQLite*: a query DSL and parser collection for Android SQLite;\n* *Anko Coroutines*: utilities based on the [kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines) library.\n\n## Anko Commons\n\n*Anko Commons* is a \"toolbox\" for Kotlin Android developer. The library contains a lot of helpers for Android SDK, including, but not limited to:\n\n* Intents ([wiki](https://github.com/Kotlin/anko/wiki/Anko-Commons-\u2013-Intents));\n* Dialogs and toasts ([wiki](https://github.com/Kotlin/anko/wiki/Anko-Commons-\u2013-Dialogs));\n* Logging ([wiki](https://github.com/Kotlin/anko/wiki/Anko-Commons-\u2013-Logging));\n* Resources and dimensions ([wiki](https://github.com/Kotlin/anko/wiki/Anko-Commons-\u2013-Misc)).\n\n## Anko Layouts ([wiki](https://github.com/Kotlin/anko/wiki/Anko-Layouts))\n\n*Anko Layouts* is a DSL for writing dynamic Android layouts. Here is a simple UI written with Anko DSL:\n\n```kotlin\nverticalLayout {\n    val name = editText()\n    button(\"Say Hello\") {\n        onClick { toast(\"Hello, ${name.text}!\") }\n    }\n}\n```\n\nThe code above creates a button inside a `LinearLayout` and attaches an `OnClickListener` to that button. Moreover, `onClick` accepts a [`suspend` lambda](https://kotlinlang.org/docs/reference/coroutines.html), so you can write your asynchronous code right inside the listener!\n\nNote that this is the complete layout code. No XML is required!\n\nAnko has a [DSL for ConstraintLayout](https://github.com/Kotlin/anko/wiki/ConstraintLayout) since v0.10.4\n\n<img src=\"doc/helloworld.png\" alt=\"Hello world\" height=\"90\" width=\"373\" />\n\nThere is also a [plugin](https://github.com/Kotlin/anko/wiki/Anko-Layouts#anko-support-plugin) for Android Studio that supports previewing Anko DSL layouts.\n\n## Anko SQLite ([wiki](https://github.com/Kotlin/anko/wiki/Anko-SQLite))\n\nHave you ever been tired of parsing SQLite query results using Android cursors? *Anko SQLite* provides lots of helpers to simplify working with SQLite databases.\n\nFor example, here is how you can fetch the list of users with a particular name:\n\n```kotlin\nfun getUsers(db: ManagedSQLiteOpenHelper): List<User> = db.use {\n    db.select(\"Users\")\n            .whereSimple(\"family_name = ?\", \"John\")\n            .doExec()\n            .parseList(UserParser)\n}\n```\n\n## Anko Coroutines ([wiki](https://github.com/Kotlin/anko/wiki/Anko-Coroutines))\n\n*Anko Coroutines* is based on the [`kotlinx.coroutines`](https://github.com/kotlin/kotlinx.coroutines) library and provides:\n\n* [`bg()`](https://github.com/Kotlin/anko/wiki/Anko-Coroutines#bg) function that executes your code in a common pool.\n* [`asReference()`](https://github.com/Kotlin/anko/wiki/Anko-Coroutines#asreference) function which creates a weak reference wrapper. By default, a coroutine holds references to captured objects until it is finished or canceled. If your asynchronous framework does not support cancellation, the values you use inside the asynchronous block can be leaked. `asReference()` protects you from this.\n\n## Using Anko\n\n### Gradle-based project\n\nAnko has a meta-dependency which plugs in all available features (including Commons, Layouts, SQLite) into your project at once:\n\n```gradle\ndependencies {\n    implementation \"org.jetbrains.anko:anko:$anko_version\"\n}\n```\nMake sure that you have the ```$anko_version``` settled in your gradle file at the project level:\n\n```\next.anko_version='0.10.8'\n```\n\nIf you only need some of the features, you can reference any of Anko's parts:\n\n```gradle\ndependencies {\n    // Anko Commons\n    implementation \"org.jetbrains.anko:anko-commons:$anko_version\"\n\n    // Anko Layouts\n    implementation \"org.jetbrains.anko:anko-sdk25:$anko_version\" // sdk15, sdk19, sdk21, sdk23 are also available\n    implementation \"org.jetbrains.anko:anko-appcompat-v7:$anko_version\"\n\n    // Coroutine listeners for Anko Layouts\n    implementation \"org.jetbrains.anko:anko-sdk25-coroutines:$anko_version\"\n    implementation \"org.jetbrains.anko:anko-appcompat-v7-coroutines:$anko_version\"\n\n    // Anko SQLite\n    implementation \"org.jetbrains.anko:anko-sqlite:$anko_version\"\n}\n```\n\nThere are also a number of artifacts for the Android support libraries:\n\n```gradle\ndependencies {\n    // Appcompat-v7 (only Anko Commons)\n    implementation \"org.jetbrains.anko:anko-appcompat-v7-commons:$anko_version\"\n\n    // Appcompat-v7 (Anko Layouts)\n    implementation \"org.jetbrains.anko:anko-appcompat-v7:$anko_version\"\n    implementation \"org.jetbrains.anko:anko-coroutines:$anko_version\"\n\n    // CardView-v7\n    implementation \"org.jetbrains.anko:anko-cardview-v7:$anko_version\"\n\n    // Design\n    implementation \"org.jetbrains.anko:anko-design:$anko_version\"\n    implementation \"org.jetbrains.anko:anko-design-coroutines:$anko_version\"\n\n    // GridLayout-v7\n    implementation \"org.jetbrains.anko:anko-gridlayout-v7:$anko_version\"\n\n    // Percent\n    implementation \"org.jetbrains.anko:anko-percent:$anko_version\"\n\n    // RecyclerView-v7\n    implementation \"org.jetbrains.anko:anko-recyclerview-v7:$anko_version\"\n    implementation \"org.jetbrains.anko:anko-recyclerview-v7-coroutines:$anko_version\"\n\n    // Support-v4 (only Anko Commons)\n    implementation \"org.jetbrains.anko:anko-support-v4-commons:$anko_version\"\n\n    // Support-v4 (Anko Layouts)\n    implementation \"org.jetbrains.anko:anko-support-v4:$anko_version\"\n\n    // ConstraintLayout\n    implementation \"org.jetbrains.anko:anko-constraint-layout:$anko_version\"\n}\n```\n\nThere is an [example project](https://github.com/kotlin/anko-example) showing how to include Anko library into your Android Gradle project.\n\n### IntelliJ IDEA project\n\nIf your project is not based on Gradle, just attach the required JARs from the [jcenter repository](https://jcenter.bintray.com/org/jetbrains/anko/) as the library dependencies and that's it.\n\n## Contributing\n\nThe best way to submit a patch is to send us a [pull request](https://help.github.com/articles/about-pull-requests/). Before submitting the pull request, make sure all existing tests are passing, and add the new test if it is required.\n\nIf you want to add new functionality, please file a new *proposal* issue first to make sure that it is not in progress already. If you have any questions, feel free to create a *question* issue.\n\nInstructions for building Anko are available in the [Wiki](https://github.com/Kotlin/anko/wiki/Building-Anko).\n",
+        "releases": [
+            {
+                "name": "Anko 0.10.8",
+                "date": "2018-11-09T14:59:55Z"
+            },
+            {
+                "name": "Anko 0.10.7",
+                "date": "2018-10-03T15:29:27Z"
+            },
+            {
+                "name": "Anko 0.10.6",
+                "date": "2018-09-13T10:24:12Z"
+            },
+            {
+                "name": "Anko 0.10.5",
+                "date": "2018-04-28T14:58:36Z"
+            },
+            {
+                "name": "Anko 0.10.4",
+                "date": "2017-12-28T18:01:45Z"
+            },
+            {
+                "name": "Anko 0.10.3",
+                "date": "2017-11-22T14:31:15Z"
+            },
+            {
+                "name": "Anko 0.10.2",
+                "date": "2017-10-17T18:38:59Z"
+            },
+            {
+                "name": "Anko 0.10.1",
+                "date": "2017-05-31T13:44:25Z"
+            },
+            {
+                "name": "Anko 0.10",
+                "date": "2017-05-17T18:35:24Z"
+            },
+            {
+                "name": "0.10 Beta 2",
+                "date": "2017-03-22T13:34:08Z"
+            },
+            {
+                "name": "0.10 Beta 1",
+                "date": "2017-03-06T19:19:59Z"
+            },
+            {
+                "name": "Anko 0.9.1",
+                "date": "2017-02-15T20:27:16Z"
+            },
+            {
+                "name": "Anko 0.9",
+                "date": "2016-06-09T22:32:08Z"
+            },
+            {
+                "name": "Anko 0.8.3",
+                "date": "2016-03-02T18:28:52Z"
+            },
+            {
+                "name": "Anko 0.8.2",
+                "date": "2016-02-04T14:21:30Z"
+            },
+            {
+                "name": "Anko 0.8.1",
+                "date": "2015-12-10T12:31:41Z"
+            },
+            {
+                "name": "Anko 0.8",
+                "date": "2015-12-01T19:08:36Z"
+            },
+            {
+                "name": "Anko 0.7.3",
+                "date": "2015-11-03T13:10:50Z"
+            },
+            {
+                "name": "Anko 0.7.2",
+                "date": "2015-10-23T02:29:30Z"
+            },
+            {
+                "name": "Anko 0.7.1",
+                "date": "2015-10-02T09:07:42Z"
+            },
+            {
+                "name": "Anko 0.7",
+                "date": "2015-09-17T22:55:39Z"
+            },
+            {
+                "name": "Anko 0.6.3",
+                "date": "2015-07-10T18:53:02Z"
+            },
+            {
+                "name": "Anko 0.6.2",
+                "date": "2015-05-29T17:39:21Z"
+            },
+            {
+                "name": "Anko 0.6.1",
+                "date": "2015-05-06T16:56:03Z"
+            },
+            {
+                "name": "Anko 0.6",
+                "date": "2015-04-29T19:57:54Z"
+            },
+            {
+                "name": "Anko 0.5",
+                "date": "2015-04-02T18:06:47Z"
+            }
+        ]
+    }
+}

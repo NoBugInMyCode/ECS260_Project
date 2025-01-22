@@ -1,0 +1,156 @@
+{
+    "https://api.github.com/repos/iovisor/bcc": {
+        "forks": 3913,
+        "watchers": 20879,
+        "stars": 20879,
+        "languages": {
+            "C": 18132157,
+            "Python": 1551195,
+            "C++": 939231,
+            "Lua": 299473,
+            "CMake": 59483,
+            "Shell": 21840,
+            "Makefile": 6241,
+            "HTML": 2997
+        },
+        "commits": [
+            "2025-01-19T02:30:12Z",
+            "2025-01-19T01:11:21Z",
+            "2025-01-17T21:52:40Z",
+            "2025-01-12T17:07:54Z",
+            "2025-01-12T17:06:28Z",
+            "2025-01-09T04:29:58Z",
+            "2025-01-08T23:34:31Z",
+            "2025-01-08T23:19:00Z",
+            "2024-12-20T02:24:16Z",
+            "2024-12-20T02:02:26Z",
+            "2025-01-08T22:10:24Z",
+            "2024-12-18T16:48:43Z",
+            "2024-11-21T02:53:45Z",
+            "2024-12-13T05:40:48Z",
+            "2024-11-20T05:44:07Z",
+            "2024-12-18T04:24:24Z",
+            "2024-12-18T03:43:14Z",
+            "2024-12-17T23:52:09Z",
+            "2024-12-17T23:51:28Z",
+            "2024-12-01T16:54:04Z",
+            "2024-11-24T05:38:46Z",
+            "2024-11-24T04:31:11Z",
+            "2024-11-23T21:47:25Z",
+            "2024-11-23T18:44:28Z",
+            "2024-11-23T17:39:23Z",
+            "2024-11-22T19:54:33Z",
+            "2024-11-18T17:40:08Z",
+            "2024-11-18T17:28:03Z",
+            "2024-11-18T17:08:49Z",
+            "2024-11-14T05:04:06Z"
+        ],
+        "creation_date": "2015-05-01T19:52:32Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 560,
+        "readme": "![BCC Logo](images/logo2.png)\n# BPF Compiler Collection (BCC)\n\nBCC is a toolkit for creating efficient kernel tracing and manipulation\nprograms, and includes several useful tools and examples. It makes use of\nextended BPF (Berkeley Packet Filters), formally known as eBPF, a new feature\nthat was first added to Linux 3.15. Much of what BCC uses requires Linux 4.1\nand above.\n\neBPF was [described by](https://lkml.org/lkml/2015/4/14/232) Ingo Moln\u00e1r as:\n\n> One of the more interesting features in this cycle is the ability to attach eBPF programs (user-defined, sandboxed bytecode executed by the kernel) to kprobes. This allows user-defined instrumentation on a live kernel image that can never crash, hang or interfere with the kernel negatively.\n\nBCC makes BPF programs easier to write, with kernel instrumentation in C\n(and includes a C wrapper around LLVM), and front-ends in Python and lua.\nIt is suited for many tasks, including performance analysis and network\ntraffic control.\n\n## Screenshot\n\nThis example traces a disk I/O kernel function, and populates an in-kernel\npower-of-2 histogram of the I/O size. For efficiency, only the histogram\nsummary is returned to user-level.\n\n```Shell\n# ./bitehist.py\nTracing... Hit Ctrl-C to end.\n^C\n     kbytes          : count     distribution\n       0 -> 1        : 3        |                                      |\n       2 -> 3        : 0        |                                      |\n       4 -> 7        : 211      |**********                            |\n       8 -> 15       : 0        |                                      |\n      16 -> 31       : 0        |                                      |\n      32 -> 63       : 0        |                                      |\n      64 -> 127      : 1        |                                      |\n     128 -> 255      : 800      |**************************************|\n```\n\nThe above output shows a bimodal distribution, where the largest mode of\n800 I/O was between 128 and 255 Kbytes in size.\n\nSee the source: [bitehist.py](examples/tracing/bitehist.py). What this traces,\nwhat this stores, and how the data is presented, can be entirely customized.\nThis shows only some of many possible capabilities.\n\n## Installing\n\nSee [INSTALL.md](INSTALL.md) for installation steps on your platform.\n\n## FAQ\n\nSee [FAQ.txt](FAQ.txt) for the most common troubleshoot questions.\n\n## Reference guide\n\nSee [docs/reference_guide.md](docs/reference_guide.md) for the reference guide to the bcc and bcc/BPF APIs.\n\n## Contents\n\nSome of these are single files that contain both C and Python, others have a\npair of .c and .py files, and some are directories of files.\n\n### Tracing\n\n#### Examples\n\n- examples/tracing/[bitehist.py](examples/tracing/bitehist.py): Block I/O size histogram. [Examples](examples/tracing/bitehist_example.txt).\n- examples/tracing/[disksnoop.py](examples/tracing/disksnoop.py): Trace block device I/O latency. [Examples](examples/tracing/disksnoop_example.txt).\n- examples/[hello_world.py](examples/hello_world.py): Prints \"Hello, World!\" for new processes.\n- examples/tracing/[mysqld_query.py](examples/tracing/mysqld_query.py): Trace MySQL server queries using USDT probes. [Examples](examples/tracing/mysqld_query_example.txt).\n- examples/tracing/[nodejs_http_server.py](examples/tracing/nodejs_http_server.py): Trace Node.js HTTP server requests using USDT probes. [Examples](examples/tracing/nodejs_http_server_example.txt).\n- examples/tracing/[stacksnoop](examples/tracing/stacksnoop.py): Trace a kernel function and print all kernel stack traces. [Examples](examples/tracing/stacksnoop_example.txt).\n- tools/[statsnoop](tools/statsnoop.py): Trace stat() syscalls. [Examples](tools/statsnoop_example.txt).\n- examples/tracing/[task_switch.py](examples/tracing/task_switch.py): Count task switches with from and to PIDs.\n- examples/tracing/[tcpv4connect.py](examples/tracing/tcpv4connect.py): Trace TCP IPv4 active connections. [Examples](examples/tracing/tcpv4connect_example.txt).\n- examples/tracing/[trace_fields.py](examples/tracing/trace_fields.py): Simple example of printing fields from traced events.\n- examples/tracing/[undump.py](examples/tracing/undump.py): Dump UNIX socket packets. [Examples](examples/tracing/undump_example.txt)\n- examples/tracing/[urandomread.py](examples/tracing/urandomread.py): A kernel tracepoint example, which traces random:urandom_read. [Examples](examples/tracing/urandomread_example.txt).\n- examples/tracing/[vfsreadlat.py](examples/tracing/vfsreadlat.py) examples/tracing/[vfsreadlat.c](examples/tracing/vfsreadlat.c): VFS read latency distribution. [Examples](examples/tracing/vfsreadlat_example.txt).\n- examples/tracing/[kvm_hypercall.py](examples/tracing/kvm_hypercall.py): Conditional static kernel tracepoints for KVM entry, exit and hypercall [Examples](examples/tracing/kvm_hypercall.txt).\n\n#### Tools\n<center><a href=\"images/bcc_tracing_tools_2019.png\"><img src=\"images/bcc_tracing_tools_2019.png\" border=0 width=700></a></center>\n\n\n- tools/[argdist](tools/argdist.py): Display function parameter values as a histogram or frequency count. [Examples](tools/argdist_example.txt).\n- tools/[bashreadline](tools/bashreadline.py): Print entered bash commands system wide. [Examples](tools/bashreadline_example.txt).\n- tools/[bpflist](tools/bpflist.py): Display processes with active BPF programs and maps. [Examples](tools/bpflist_example.txt).\n- tools/[capable](tools/capable.py): Trace security capability checks. [Examples](tools/capable_example.txt).\n- tools/[compactsnoop](tools/compactsnoop.py): Trace compact zone events with PID and latency. [Examples](tools/compactsnoop_example.txt).\n- tools/[criticalstat](tools/criticalstat.py): Trace and report long atomic critical sections in the kernel. [Examples](tools/criticalstat_example.txt)\n- tools/[deadlock](tools/deadlock.py): Detect potential deadlocks on a running process. [Examples](tools/deadlock_example.txt).\n- tools/[drsnoop](tools/drsnoop.py): Trace direct reclaim events with PID and latency. [Examples](tools/drsnoop_example.txt).\n- tools/[funccount](tools/funccount.py): Count kernel function calls. [Examples](tools/funccount_example.txt).\n- tools/[inject](tools/inject.py): Targeted error injection with call chain and predicates [Examples](tools/inject_example.txt).\n- tools/[klockstat](tools/klockstat.py): Traces kernel mutex lock events and display locks statistics. [Examples](tools/klockstat_example.txt).\n- tools/[opensnoop](tools/opensnoop.py): Trace open() syscalls. [Examples](tools/opensnoop_example.txt).\n- tools/[readahead](tools/readahead.py): Show performance of read-ahead cache [Examples](tools/readahead_example.txt).\n- tools/[reset-trace](tools/reset-trace.sh): Reset the state of tracing. Maintenance tool only. [Examples](tools/reset-trace_example.txt).\n- tools/[stackcount](tools/stackcount.py): Count kernel function calls and their stack traces. [Examples](tools/stackcount_example.txt).\n- tools/[syncsnoop](tools/syncsnoop.py): Trace sync() syscall. [Examples](tools/syncsnoop_example.txt).\n- tools/[threadsnoop](tools/threadsnoop.py): List new thread creation. [Examples](tools/threadsnoop_example.txt).\n- tools/[tplist](tools/tplist.py): Display kernel tracepoints or USDT probes and their formats. [Examples](tools/tplist_example.txt).\n- tools/[trace](tools/trace.py): Trace arbitrary functions, with filters. [Examples](tools/trace_example.txt).\n- tools/[ttysnoop](tools/ttysnoop.py): Watch live output from a tty or pts device. [Examples](tools/ttysnoop_example.txt).\n- tools/[ucalls](tools/lib/ucalls.py): Summarize method calls or Linux syscalls in high-level languages. [Examples](tools/lib/ucalls_example.txt).\n- tools/[uflow](tools/lib/uflow.py): Print a method flow graph in high-level languages. [Examples](tools/lib/uflow_example.txt).\n- tools/[ugc](tools/lib/ugc.py): Trace garbage collection events in high-level languages. [Examples](tools/lib/ugc_example.txt).\n- tools/[uobjnew](tools/lib/uobjnew.py): Summarize object allocation events by object type and number of bytes allocated. [Examples](tools/lib/uobjnew_example.txt).\n- tools/[ustat](tools/lib/ustat.py): Collect events such as GCs, thread creations, object allocations, exceptions and more in high-level languages. [Examples](tools/lib/ustat_example.txt).\n- tools/[uthreads](tools/lib/uthreads.py): Trace thread creation events in Java and raw pthreads. [Examples](tools/lib/uthreads_example.txt).\n\n##### Memory and Process Tools\n\n- tools/[execsnoop](tools/execsnoop.py): Trace new processes via exec() syscalls. [Examples](tools/execsnoop_example.txt).\n- tools/[exitsnoop](tools/exitsnoop.py): Trace process termination (exit and fatal signals). [Examples](tools/exitsnoop_example.txt).\n- tools/[killsnoop](tools/killsnoop.py): Trace signals issued by the kill() syscall. [Examples](tools/killsnoop_example.txt).\n- tools/[kvmexit](tools/kvmexit.py): Display the exit_reason and its statistics of each vm exit. [Examples](tools/kvmexit_example.txt).\n- tools/[memleak](tools/memleak.py): Display outstanding memory allocations to find memory leaks. [Examples](tools/memleak_example.txt).\n- tools/[numasched](tools/numasched.py): Track the migration of processes between NUMAs. [Examples](tools/numasched_example.txt).\n- tools/[oomkill](tools/oomkill.py): Trace the out-of-memory (OOM) killer. [Examples](tools/oomkill_example.txt).\n- tools/[pidpersec](tools/pidpersec.py): Count new processes (via fork). [Examples](tools/pidpersec_example.txt).\n- tools/[rdmaucma](tools/rdmaucma.py): Trace RDMA Userspace Connection Manager Access events. [Examples](tools/rdmaucma_example.txt).\n- tools/[shmsnoop](tools/shmsnoop.py): Trace System V shared memory syscalls. [Examples](tools/shmsnoop_example.txt).\n- tools/[slabratetop](tools/slabratetop.py): Kernel SLAB/SLUB memory cache allocation rate top. [Examples](tools/slabratetop_example.txt).\n\n##### Performance and Time Tools\n\n- tools/[dbslower](tools/dbslower.py): Trace MySQL/PostgreSQL queries slower than a threshold. [Examples](tools/dbslower_example.txt).\n- tools/[dbstat](tools/dbstat.py): Summarize MySQL/PostgreSQL query latency as a histogram. [Examples](tools/dbstat_example.txt).\n- tools/[funcinterval](tools/funcinterval.py): Time interval between the same function as a histogram. [Examples](tools/funcinterval_example.txt).\n- tools/[funclatency](tools/funclatency.py): Time functions and show their latency distribution. [Examples](tools/funclatency_example.txt).\n- tools/[funcslower](tools/funcslower.py): Trace slow kernel or user function calls. [Examples](tools/funcslower_example.txt).\n- tools/[hardirqs](tools/hardirqs.py):  Measure hard IRQ (hard interrupt) event time. [Examples](tools/hardirqs_example.txt).\n- tools/[mysqld_qslower](tools/mysqld_qslower.py): Trace MySQL server queries slower than a threshold. [Examples](tools/mysqld_qslower_example.txt).\n- tools/[ppchcalls](tools/ppchcalls.py): Summarize ppc hcall counts and latencies. [Examples](tools/ppchcalls_example.txt).\n- tools/[softirqs](tools/softirqs.py):  Measure soft IRQ (soft interrupt) event time. [Examples](tools/softirqs_example.txt).\n- tools/[syscount](tools/syscount.py): Summarize syscall counts and latencies. [Examples](tools/syscount_example.txt).\n\n##### CPU and Scheduler Tools\n\n- tools/[cpudist](tools/cpudist.py): Summarize on- and off-CPU time per task as a histogram. [Examples](tools/cpudist_example.txt)\n- tools/[cpuunclaimed](tools/cpuunclaimed.py): Sample CPU run queues and calculate unclaimed idle CPU. [Examples](tools/cpuunclaimed_example.txt)\n- tools/[llcstat](tools/llcstat.py): Summarize CPU cache references and misses by process. [Examples](tools/llcstat_example.txt).\n- tools/[offcputime](tools/offcputime.py): Summarize off-CPU time by kernel stack trace. [Examples](tools/offcputime_example.txt).\n- tools/[offwaketime](tools/offwaketime.py): Summarize blocked time by kernel off-CPU stack and waker stack. [Examples](tools/offwaketime_example.txt).\n- tools/[profile](tools/profile.py): Profile CPU usage by sampling stack traces at a timed interval. [Examples](tools/profile_example.txt).\n- tools/[runqlat](tools/runqlat.py): Run queue (scheduler) latency as a histogram. [Examples](tools/runqlat_example.txt).\n- tools/[runqlen](tools/runqlen.py): Run queue length as a histogram. [Examples](tools/runqlen_example.txt).\n- tools/[runqslower](tools/runqslower.py): Trace long process scheduling delays. [Examples](tools/runqslower_example.txt).\n- tools/[wakeuptime](tools/wakeuptime.py): Summarize sleep to wakeup time by waker kernel stack. [Examples](tools/wakeuptime_example.txt).\n- tools/[wqlat](tools/wqlat.py): Summarize work waiting latency on workqueue. [Examples](tools/wqlat_example.txt).\n\n##### Network and Sockets Tools\n\n- tools/[gethostlatency](tools/gethostlatency.py): Show latency for getaddrinfo/gethostbyname[2] calls. [Examples](tools/gethostlatency_example.txt).\n- tools/[bindsnoop](tools/bindsnoop.py): Trace IPv4 and IPv6 bind() system calls (bind()). [Examples](tools/bindsnoop_example.txt).\n- tools/[netqtop](tools/netqtop.py) tools/[netqtop.c](tools/netqtop.c): Trace and display packets distribution on NIC queues. [Examples](tools/netqtop_example.txt).\n- tools/[sofdsnoop](tools/sofdsnoop.py): Trace FDs passed through unix sockets. [Examples](tools/sofdsnoop_example.txt).\n- tools/[solisten](tools/solisten.py): Trace TCP socket listen. [Examples](tools/solisten_example.txt).\n- tools/[sslsniff](tools/sslsniff.py): Sniff OpenSSL written and readed data. [Examples](tools/sslsniff_example.txt).\n- tools/[tcpaccept](tools/tcpaccept.py): Trace TCP passive connections (accept()). [Examples](tools/tcpaccept_example.txt).\n- tools/[tcpconnect](tools/tcpconnect.py): Trace TCP active connections (connect()). [Examples](tools/tcpconnect_example.txt).\n- tools/[tcpconnlat](tools/tcpconnlat.py): Trace TCP active connection latency (connect()). [Examples](tools/tcpconnlat_example.txt).\n- tools/[tcpdrop](tools/tcpdrop.py): Trace kernel-based TCP packet drops with details. [Examples](tools/tcpdrop_example.txt).\n- tools/[tcplife](tools/tcplife.py): Trace TCP sessions and summarize lifespan. [Examples](tools/tcplife_example.txt).\n- tools/[tcpretrans](tools/tcpretrans.py): Trace TCP retransmits and TLPs. [Examples](tools/tcpretrans_example.txt).\n- tools/[tcprtt](tools/tcprtt.py): Trace TCP round trip time. [Examples](tools/tcprtt_example.txt).\n- tools/[tcpstates](tools/tcpstates.py): Trace TCP session state changes with durations. [Examples](tools/tcpstates_example.txt).\n- tools/[tcpsubnet](tools/tcpsubnet.py): Summarize and aggregate TCP send by subnet. [Examples](tools/tcpsubnet_example.txt).\n- tools/[tcpsynbl](tools/tcpsynbl.py): Show TCP SYN backlog. [Examples](tools/tcpsynbl_example.txt).\n- tools/[tcptop](tools/tcptop.py): Summarize TCP send/recv throughput by host. Top for TCP. [Examples](tools/tcptop_example.txt).\n- tools/[tcptracer](tools/tcptracer.py): Trace TCP established connections (connect(), accept(), close()). [Examples](tools/tcptracer_example.txt).\n- tools/[tcpcong](tools/tcpcong.py): Trace TCP socket congestion control status duration. [Examples](tools/tcpcong_example.txt).\n\n##### Storage and Filesystems Tools\n\n- tools/[bitesize](tools/bitesize.py): Show per process I/O size histogram. [Examples](tools/bitesize_example.txt).\n- tools/[cachestat](tools/cachestat.py): Trace page cache hit/miss ratio. [Examples](tools/cachestat_example.txt).\n- tools/[cachetop](tools/cachetop.py): Trace page cache hit/miss ratio by processes. [Examples](tools/cachetop_example.txt).\n- tools/[dcsnoop](tools/dcsnoop.py): Trace directory entry cache (dcache) lookups. [Examples](tools/dcsnoop_example.txt).\n- tools/[dcstat](tools/dcstat.py): Directory entry cache (dcache) stats. [Examples](tools/dcstat_example.txt).\n- tools/[biolatency](tools/biolatency.py): Summarize block device I/O latency as a histogram. [Examples](tools/biolatency_example.txt).\n- tools/[biotop](tools/biotop.py): Top for disks: Summarize block device I/O by process. [Examples](tools/biotop_example.txt).\n- tools/[biopattern](tools/biopattern.py): Identify random/sequential disk access patterns. [Examples](tools/biopattern_example.txt).\n- tools/[biosnoop](tools/biosnoop.py): Trace block device I/O with PID and latency. [Examples](tools/biosnoop_example.txt).\n- tools/[dirtop](tools/dirtop.py): File reads and writes by directory. Top for directories. [Examples](tools/dirtop_example.txt).\n- tools/[filelife](tools/filelife.py): Trace the lifespan of short-lived files. [Examples](tools/filelife_example.txt).\n- tools/[filegone](tools/filegone.py): Trace why file gone (deleted or renamed). [Examples](tools/filegone_example.txt).\n- tools/[fileslower](tools/fileslower.py): Trace slow synchronous file reads and writes. [Examples](tools/fileslower_example.txt).\n- tools/[filetop](tools/filetop.py): File reads and writes by filename and process. Top for files. [Examples](tools/filetop_example.txt).\n- tools/[mdflush](tools/mdflush.py): Trace md flush events. [Examples](tools/mdflush_example.txt).\n- tools/[mountsnoop](tools/mountsnoop.py): Trace mount and umount syscalls system-wide. [Examples](tools/mountsnoop_example.txt).\n- tools/[virtiostat](tools/virtiostat.py): Show VIRTIO device IO statistics. [Examples](tools/virtiostat_example.txt).\n\n###### Filesystems Tools\n\n- tools/[btrfsdist](tools/btrfsdist.py): Summarize btrfs operation latency distribution as a histogram. [Examples](tools/btrfsdist_example.txt).\n- tools/[btrfsslower](tools/btrfsslower.py): Trace slow btrfs operations. [Examples](tools/btrfsslower_example.txt).\n- tools/[ext4dist](tools/ext4dist.py): Summarize ext4 operation latency distribution as a histogram. [Examples](tools/ext4dist_example.txt).\n- tools/[ext4slower](tools/ext4slower.py): Trace slow ext4 operations. [Examples](tools/ext4slower_example.txt).\n- tools/[nfsslower](tools/nfsslower.py): Trace slow NFS operations. [Examples](tools/nfsslower_example.txt).\n- tools/[nfsdist](tools/nfsdist.py): Summarize NFS operation latency distribution as a histogram. [Examples](tools/nfsdist_example.txt).\n- tools/[vfscount](tools/vfscount.py): Count VFS calls. [Examples](tools/vfscount_example.txt).\n- tools/[vfsstat](tools/vfsstat.py): Count some VFS calls, with column output. [Examples](tools/vfsstat_example.txt).\n- tools/[xfsdist](tools/xfsdist.py): Summarize XFS operation latency distribution as a histogram. [Examples](tools/xfsdist_example.txt).\n- tools/[xfsslower](tools/xfsslower.py): Trace slow XFS operations. [Examples](tools/xfsslower_example.txt).\n- tools/[zfsdist](tools/zfsdist.py): Summarize ZFS operation latency distribution as a histogram. [Examples](tools/zfsdist_example.txt).\n- tools/[zfsslower](tools/zfsslower.py): Trace slow ZFS operations. [Examples](tools/zfsslower_example.txt).\n\n### Networking\n\nExamples:\n\n- examples/networking/[distributed_bridge/](examples/networking/distributed_bridge): Distributed bridge example.\n- examples/networking/[http_filter/](examples/networking/http_filter): Simple HTTP filter example.\n- examples/networking/[simple_tc.py](examples/networking/simple_tc.py): Simple traffic control example.\n- examples/networking/[simulation.py](examples/networking/simulation.py): Simulation helper.\n- examples/networking/neighbor_sharing/[tc_neighbor_sharing.py](examples/networking/neighbor_sharing/tc_neighbor_sharing.py) examples/networking/neighbor_sharing/[tc_neighbor_sharing.c](examples/networking/neighbor_sharing/tc_neighbor_sharing.c): Per-IP classification and rate limiting.\n- examples/networking/[tunnel_monitor/](examples/networking/tunnel_monitor): Efficiently monitor traffic flows.\n- examples/networking/vlan_learning/[vlan_learning.py](examples/networking/vlan_learning/vlan_learning.py) examples/[vlan_learning.c](examples/networking/vlan_learning/vlan_learning.c): Demux Ethernet traffic into worker veth+namespaces.\n\n### BPF Introspection\n\nTools that help to introspect BPF programs.\n\n- introspection/[bps.c](introspection/bps.c): List all BPF programs loaded into the kernel. 'ps' for BPF programs. [Examples](introspection/bps_example.txt).\n\n## Motivation\n\nBPF guarantees that the programs loaded into the kernel cannot crash, and\ncannot run forever, but yet BPF is general purpose enough to perform many\narbitrary types of computation. Currently, it is possible to write a program in\nC that will compile into a valid BPF program, yet it is vastly easier to\nwrite a C program that will compile into invalid BPF (C is like that). The user\nwon't know until trying to run the program whether it was valid or not.\n\nWith a BPF-specific frontend, one should be able to write in a language and\nreceive feedback from the compiler on the validity as it pertains to a BPF\nbackend. This toolkit aims to provide a frontend that can only create valid BPF\nprograms while still harnessing its full flexibility.\n\nFurthermore, current integrations with BPF have a kludgy workflow, sometimes\ninvolving compiling directly in a linux kernel source tree. This toolchain aims\nto minimize the time that a developer spends getting BPF compiled, and instead\nfocus on the applications that can be written and the problems that can be\nsolved with BPF.\n\nThe features of this toolkit include:\n* End-to-end BPF workflow in a shared library\n  * A modified C language for BPF backends\n  * Integration with llvm-bpf backend for JIT\n  * Dynamic (un)loading of JITed programs\n  * Support for BPF kernel hooks: socket filters, tc classifiers,\n      tc actions, and kprobes\n* Bindings for Python\n* Examples for socket filters, tc classifiers, and kprobes\n* Self-contained tools for tracing a running system\n\nIn the future, more bindings besides python will likely be supported. Feel free\nto add support for the language of your choice and send a pull request!\n\n## Tutorials\n\n- [docs/tutorial.md](docs/tutorial.md): Using bcc tools to solve performance, troubleshooting, and networking issues.\n- [docs/tutorial_bcc_python_developer.md](docs/tutorial_bcc_python_developer.md): Developing new bcc programs using the Python interface.\n\n### Networking\n\nAt Red Hat Summit 2015, BCC was presented as part of a [session on BPF](http://www.devnation.org/#7784f1f7513e8542e4db519e79ff5eec).\nA multi-host vxlan environment is simulated and a BPF program used to monitor\none of the physical interfaces. The BPF program keeps statistics on the inner\nand outer IP addresses traversing the interface, and the userspace component\nturns those statistics into a graph showing the traffic distribution at\nmultiple granularities. See the code [here](examples/networking/tunnel_monitor).\n\n## Contributing\n\nAlready pumped up to commit some code? Here are some resources to join the\ndiscussions in the [IOVisor](https://www.iovisor.org/) community and see\nwhat you want to work on.\n\n* _Mailing List:_ https://lists.iovisor.org/mailman/listinfo/iovisor-dev\n* _IRC:_ #iovisor at irc.oftc.net\n* _BCC Issue Tracker:_ [Github Issues](https://github.com/iovisor/bcc/issues)\n* _A guide for contributing scripts:_ [CONTRIBUTING-SCRIPTS.md](CONTRIBUTING-SCRIPTS.md)\n\n## External links\n\nLooking for more information on BCC and how it's being used? You can find links to other BCC content on the web in [LINKS.md](LINKS.md).\n",
+        "releases": [
+            {
+                "name": "Update debian changelog for release v0.33.0",
+                "date": "2025-01-19T02:42:54Z"
+            },
+            {
+                "name": "Update debian changelog for release v0.32.0",
+                "date": "2024-11-24T05:55:03Z"
+            },
+            {
+                "name": "Update debian changelog for release v0.31.0",
+                "date": "2024-07-28T04:19:03Z"
+            },
+            {
+                "name": "bcc release v0.30.0",
+                "date": "2024-03-25T00:17:03Z"
+            },
+            {
+                "name": "bcc release v0.29.1",
+                "date": "2023-12-08T15:55:07Z"
+            },
+            {
+                "name": "bcc release v0.29.0",
+                "date": "2023-12-07T16:08:29Z"
+            },
+            {
+                "name": "bcc release v0.28.0",
+                "date": "2023-06-28T20:54:03Z"
+            },
+            {
+                "name": "bcc release v0.27.0",
+                "date": "2023-04-02T23:27:30Z"
+            },
+            {
+                "name": "bcc release v0.26.0 ",
+                "date": "2022-12-17T23:04:48Z"
+            },
+            {
+                "name": "bcc release v0.25.0",
+                "date": "2022-08-10T19:21:10Z"
+            },
+            {
+                "name": "bcc release v0.24.0",
+                "date": "2022-01-14T18:12:11Z"
+            },
+            {
+                "name": "bcc release v0.23.0",
+                "date": "2021-11-15T18:21:41Z"
+            },
+            {
+                "name": "bcc release v0.22.0",
+                "date": "2021-09-15T16:20:24Z"
+            },
+            {
+                "name": "bcc release v0.21.0",
+                "date": "2021-07-19T00:06:48Z"
+            },
+            {
+                "name": "bcc release v0.20.0",
+                "date": "2021-05-06T04:32:22Z"
+            },
+            {
+                "name": "bcc release v0.19.0",
+                "date": "2021-03-20T03:54:19Z"
+            },
+            {
+                "name": "bcc release v0.18.0",
+                "date": "2021-01-05T05:41:20Z"
+            },
+            {
+                "name": "bcc release v0.17.0",
+                "date": "2020-10-30T02:14:52Z"
+            },
+            {
+                "name": "bcc release v0.16.0",
+                "date": "2020-08-22T21:53:16Z"
+            },
+            {
+                "name": "bcc release v0.15.0",
+                "date": "2020-06-19T20:57:48Z"
+            },
+            {
+                "name": "bcc release v0.14.0",
+                "date": "2020-04-21T02:48:41Z"
+            },
+            {
+                "name": "bcc release v0.13.0",
+                "date": "2020-02-20T05:03:11Z"
+            },
+            {
+                "name": "bcc release v0.12.0",
+                "date": "2019-12-11T01:21:33Z"
+            },
+            {
+                "name": "bcc release v0.11.0",
+                "date": "2019-10-03T16:14:02Z"
+            },
+            {
+                "name": "Initial tag",
+                "date": "2015-06-08T05:38:36Z"
+            }
+        ]
+    }
+}

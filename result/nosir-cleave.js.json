@@ -1,0 +1,320 @@
+{
+    "https://api.github.com/repos/nosir/cleave.js": {
+        "forks": 1612,
+        "watchers": 17944,
+        "stars": 17944,
+        "languages": {
+            "JavaScript": 100392,
+            "HTML": 1098
+        },
+        "commits": [
+            "2023-11-25T10:40:41Z",
+            "2020-05-19T10:48:19Z",
+            "2020-05-19T10:43:47Z",
+            "2020-05-19T10:43:00Z",
+            "2020-05-19T10:42:42Z",
+            "2020-05-19T10:40:04Z",
+            "2020-05-19T09:58:11Z",
+            "2020-05-19T09:18:59Z",
+            "2020-05-13T02:46:44Z",
+            "2020-04-08T11:00:02Z",
+            "2020-04-01T10:18:56Z",
+            "2020-04-01T10:17:04Z",
+            "2020-04-01T10:14:48Z",
+            "2020-03-12T11:28:06Z",
+            "2020-03-07T06:23:14Z",
+            "2020-03-07T06:21:53Z",
+            "2020-03-07T06:21:35Z",
+            "2020-03-07T06:20:14Z",
+            "2020-03-04T10:49:14Z",
+            "2020-03-04T10:46:11Z",
+            "2020-03-03T12:03:08Z",
+            "2020-03-03T11:53:24Z",
+            "2020-03-03T11:52:31Z",
+            "2020-03-01T02:58:20Z",
+            "2020-03-01T02:57:55Z",
+            "2020-03-01T02:52:51Z",
+            "2020-02-29T02:41:06Z",
+            "2020-02-25T13:45:35Z",
+            "2020-02-25T13:27:43Z",
+            "2020-02-25T13:25:51Z"
+        ],
+        "creation_date": "2016-05-18T12:45:03Z",
+        "contributors": 30,
+        "topics": [
+            "credit-card",
+            "creditcard",
+            "input",
+            "input-mask",
+            "telephone-number"
+        ],
+        "subscribers": 181,
+        "readme": "# \u26a0\ufe0f Deprecated Message\n\n**Message:** Kindly note that this library has been deprecated. If you are still interested in using Cleave, please explore the new version available at: [cleave-zen](https://github.com/nosir/cleave-zen).\n\nAnd this is the message from author: https://github.com/nosir/cleave.js/issues/723\n\n# Cleave.js\n\n[![Travis](https://img.shields.io/travis/nosir/cleave.js.svg?maxAge=2592000)](https://travis-ci.org/nosir/cleave.js)\n[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b1c0b0da42fa418f887076a3f7352aea)](https://www.codacy.com/app/nosir/cleave-js?utm_source=github.com&utm_medium=referral&utm_content=nosir/cleave.js&utm_campaign=badger)\n[![npm version](https://badge.fury.io/js/cleave.js.svg)](https://badge.fury.io/js/cleave.js)\n[![npm downloads](https://img.shields.io/npm/dm/cleave.js.svg)](https://www.npmjs.com/package/cleave.js)\n[![Documents](https://img.shields.io/badge/documents-check-3362c2.svg)](https://github.com/nosir/cleave.js/blob/master/doc/doc.md)\n\nCleave.js has a simple purpose: to help you format input text content automatically.\n\n## Features\n\n- Credit card number formatting\n- Phone number formatting (i18n js lib separated for each country to reduce size)\n- Date formatting\n- Numeral formatting\n- Custom delimiter, prefix and blocks pattern\n- CommonJS / AMD mode\n- ReactJS component\n- AngularJS directive (1.x)\n- ES Module\n\n**TL;DR** [the demo page](http://nosir.github.io/cleave.js/)\n\n## Why?\n\nThe idea is to provide an easy way to increase input field readability by formatting your typed data. By using this library, you won't need to write any mind-blowing regular expressions or mask patterns to format input text.\n\nHowever, this isn't meant to replace any validation or mask library, you should still sanitize and validate your data in backend.\n\n## Installation\n\n#### npm\n\n```bash\nnpm install --save cleave.js\n```\n\n#### CDN\n\ncleave.js is available on [jsDelivr](https://www.jsdelivr.com/package/npm/cleave.js) and on [cdnjs.com](https://cdnjs.com/libraries/cleave.js)\n\n#### old school\n\nGrab file from [dist](https://github.com/nosir/cleave.js/tree/master/dist) directory\n\n## Usage\n\nSimply include\n\n```html\n<script src=\"cleave.min.js\"></script>\n<script src=\"cleave-phone.{country}.js\"></script>\n```\n\n> `cleave-phone.{country}.js` addon is only required when phone shortcut mode is enabled. See more in documentation: [phone lib addon](https://github.com/nosir/cleave.js/blob/master/doc/phone-lib-addon.md) section\n\nThen have a text field\n\n```html\n<input class=\"input-phone\" type=\"text\" />\n```\n\nNow in your JavaScript\n\n```js\nvar cleave = new Cleave('.input-phone', {\n  phone: true,\n  phoneRegionCode: '{country}',\n})\n```\n\n> `.input-element` here is a unique DOM element. If you want to apply Cleave for multiple elements, you need to give different CSS selectors and apply to each of them, effectively, you might want to create individual instance by a loop, e.g. [loop solution](https://github.com/nosir/cleave.js/issues/138#issuecomment-268024840)\n\nMore examples: [the demo page](http://nosir.github.io/cleave.js/)\n\n#### CommonJS\n\n```js\nvar Cleave = require('cleave.js');\nrequire('cleave.js/dist/addons/cleave-phone.{country}');\n\nvar cleave = new Cleave(...)\n```\n\n#### AMD\n\n```js\nrequire(['cleave.js/dist/cleave.min', 'cleave.js/dist/addons/cleave-phone.{country}'], function (Cleave) {\n    var cleave = new Cleave(...)\n});\n```\n\n#### ES Module\n\n```js\n// Rollup, WebPack\nimport Cleave from 'cleave.js';\nvar cleave = new Cleave(...)\n\n// Browser\nimport Cleave from 'node_modules/cleave.js/dist/cleave-esm.min.js';\nvar cleave = new Cleave(...)\n```\n\n#### TypeScript\n\nTypes are contributed by the community and are available via `npm install --save-dev @types/cleave.js`. Once installed, you can import Cleave like the following:\n\n```ts\nimport Cleave = require('cleave.js')\n```\n\nTypes for the React-component are also available and can be imported in the same way.\n\n```ts\nimport Cleave = require('cleave.js/react')\n```\n\n## ReactJS component usage\n\n```js\nimport React from 'react'\nimport ReactDOM from 'react-dom'\n\nimport Cleave from 'cleave.js/react'\n```\n\nThen in JSX:\n\n```js\nclass MyComponent extends React.Component {\n  constructor(props, context) {\n    super(props, context)\n    this.onCreditCardChange = this.onCreditCardChange.bind(this)\n    this.onCreditCardFocus = this.onCreditCardFocus.bind(this)\n  }\n\n  onCreditCardChange(event) {\n    // formatted pretty value\n    console.log(event.target.value)\n\n    // raw value\n    console.log(event.target.rawValue)\n  }\n\n  onCreditCardFocus(event) {\n    // update some state\n  }\n\n  render() {\n    return (\n      <Cleave\n        placeholder='Enter your credit card number'\n        options={{ creditCard: true }}\n        onFocus={this.onCreditCardFocus}\n        onChange={this.onCreditCardChange}\n      />\n    )\n  }\n}\n```\n\nAs you can see, here you simply use `<Cleave/>` as a normal `<input/>` field\n\n- Attach HTML `<input/>` attributes\n- Pass in the custom `options` prop\n- Add ReactJS `onChange` event listener\n\nAdvanced usage:\n\n- [How to pass default value](https://github.com/nosir/cleave.js/blob/master/doc/reactjs-component-usage.md#how-to-pass-default-value)\n- [How to get ref of cleave instance and call methods](https://github.com/nosir/cleave.js/blob/master/doc/reactjs-component-usage.md#how-to-call-public-methods)\n- [How to update raw value](https://github.com/nosir/cleave.js/blob/master/doc/reactjs-component-usage.md#how-to-update-raw-value)\n- [How to get ref of the input field](https://github.com/nosir/cleave.js/blob/master/doc/reactjs-component-usage.md#how-to-get-ref-of-the-input-field)\n- [How to use it with redux form](https://github.com/nosir/cleave.js/blob/master/doc/reactjs-component-usage.md#how-to-use-it-with-redux-form)\n\nUsage for `Webpack`, `Browserify` and more in documentation: [ReactJS component usage](https://github.com/nosir/cleave.js/blob/master/doc/reactjs-component-usage.md)\n\n## AngularJS directive usage\n\nFirst include the directive module:\n\n```html\n<script src=\"cleave.js/dist/cleave-angular.min.js\"></script>\n<script src=\"cleave.js/dist/addons/cleave-phone.{country}.js\"></script>\n```\n\nAnd in your model:\n\n```js\nangular\n  .module('app', ['cleave.js'])\n\n  .controller('AppController', function ($scope) {\n    $scope.onCreditCardTypeChanged = function (type) {\n      $scope.model.creditCardType = type\n    }\n\n    $scope.model = {\n      rawValue: '',\n    }\n\n    $scope.options = {\n      creditCard: {\n        creditCard: true,\n        onCreditCardTypeChanged: $scope.onCreditCardTypeChanged,\n      },\n    }\n  })\n```\n\nThen easily you can apply `cleave` directive to `input` field:\n\n```html\n<div ng-controller=\"AppController\">\n  <input\n    ng-model=\"model.rawValue\"\n    ng-whatever=\"...\"\n    type=\"text\"\n    placeholder=\"Enter credit card number\"\n    cleave=\"options.creditCard\"\n  />\n</div>\n```\n\nMore usage in documentation: [Angular directive usage](https://github.com/nosir/cleave.js/blob/master/doc/angularjs-directive-usage.md)\n\n## Use in VueJs\n\nWhile this package does not have an official support for use in VueJs. This can be done in few simple steps.\nPlease check [here](https://github.com/nosir/cleave.js/blob/master/doc/vue.md)\n\n## jQuery fn usage\n\nPlease check [here](https://github.com/nosir/cleave.js/issues/341)\n\n## Playground\n\n- [Plain JSFiddle (Basic usage)](https://jsfiddle.net/nosir/kbaxx64s/)\n- [Plain JSFiddle (More examples)](https://jsfiddle.net/nosir/aLnhdf3z/)\n- [React JSFiddle](https://jsfiddle.net/nosir/gLLsrxxf/)\n- [Angular JSFiddle](https://jsfiddle.net/nosir/q58sh22t/)\n\n## Documentation\n\n- [JavaScript API](https://github.com/nosir/cleave.js/blob/master/doc/js-api.md)\n  - [Constructor](https://github.com/nosir/cleave.js/blob/master/doc/constructor.md)\n  - [Options](https://github.com/nosir/cleave.js/blob/master/doc/options.md)\n  - [Public methods](https://github.com/nosir/cleave.js/blob/master/doc/public-methods.md)\n- [Phone lib addon](https://github.com/nosir/cleave.js/blob/master/doc/phone-lib-addon.md)\n- [ReactJS component usage](https://github.com/nosir/cleave.js/blob/master/doc/reactjs-component-usage.md)\n- [AngularJS directive usage](https://github.com/nosir/cleave.js/blob/master/doc/angularjs-directive-usage.md)\n\n## Run tasks\n\n```bash\nnpm install\n```\n\nBuild assets\n\n```bash\ngulp build\n```\n\nRun tests\n\n```bash\ngulp test\n```\n\nLint\n\n```bash\ngulp eslint\n```\n\nPublish (build, tests & lint)\n\n```bash\ngulp publish\n```\n\n> For contributors, please run `gulp publish` to ensure your PR passes tests and lint, also we have a [not in the plan](https://github.com/nosir/cleave.js/blob/master/doc/not-in-the-plan.md) list you may concern.\n\n## Get in touch\n\n- Twitter: [@rison](https://twitter.com/rison)\n\n## References\n\n- Payment credit card number IIN https://en.wikipedia.org/wiki/Payment_card_number#Issuer_identification_number_.28IIN.29\n- Google phone numbers formatting https://github.com/googlei18n/libphonenumber\n- Decimal mark and thousands separating style https://en.wikipedia.org/wiki/Decimal_mark#Examples_of_use\n\n## Licence\n\nCleave.js is licensed under the [Apache License Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)\n\n- Google [libphonenumber](https://github.com/googlei18n/libphonenumber) is included under its [Apache License Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)\n\n[![Analytics](https://ga-beacon.appspot.com/UA-79828599-1/cleave.js?pixel)](https://github.com/igrigorik/ga-beacon)\n",
+        "releases": [
+            {
+                "name": "Fix mobile keyboard issue and noImmediatePrefix broken issue",
+                "date": "2020-05-19T10:52:26Z"
+            },
+            {
+                "name": "Trigger prefix onFocus when noImmediatePrefix is passed in",
+                "date": "2020-04-08T11:04:35Z"
+            },
+            {
+                "name": "Add swapHiddenInput option to enable a hidden input holding raw value",
+                "date": "2020-04-01T10:21:54Z"
+            },
+            {
+                "name": "Fix on focus one character value prefix issue",
+                "date": "2020-03-12T11:31:29Z"
+            },
+            {
+                "name": "Fix signBeforePrefix issue in get prefix function",
+                "date": "2020-03-07T06:27:52Z"
+            },
+            {
+                "name": "Fix crashes with React default value prop passing in",
+                "date": "2020-03-04T10:50:54Z"
+            },
+            {
+                "name": "Add tailPrefix (postfix) option for numeral",
+                "date": "2020-03-03T12:05:13Z"
+            },
+            {
+                "name": "Fixes and PR",
+                "date": "2020-02-29T02:52:57Z"
+            },
+            {
+                "name": "Fix noImmediatePrefix broken issue",
+                "date": "2019-07-15T12:50:49Z"
+            },
+            {
+                "name": "Fix react component event register issue",
+                "date": "2019-06-29T13:49:16Z"
+            },
+            {
+                "name": "PR Merged for critical issue fixes",
+                "date": "2019-06-29T12:44:33Z"
+            },
+            {
+                "name": "Fixes and PR",
+                "date": "2019-05-25T12:55:31Z"
+            },
+            {
+                "name": "Add document and throw warning when multiple elements matched the selector",
+                "date": "2019-03-14T11:18:43Z"
+            },
+            {
+                "name": "Fix react component phone prefix not showing issue",
+                "date": "2019-03-10T11:24:03Z"
+            },
+            {
+                "name": "Fix typing in between prefix letters issue",
+                "date": "2019-03-10T06:04:08Z"
+            },
+            {
+                "name": "Fix multiple letters delimiter issue",
+                "date": "2018-12-18T12:33:52Z"
+            },
+            {
+                "name": "Regenerate google lib phone number packages",
+                "date": "2018-12-16T10:40:12Z"
+            },
+            {
+                "name": "Add 12 hours time format support",
+                "date": "2018-12-16T10:37:05Z"
+            },
+            {
+                "name": "Fix input on Chrome Android Mobile",
+                "date": "2018-08-22T13:44:18Z"
+            },
+            {
+                "name": "Fix shadow DOM cursor jumping issue",
+                "date": "2018-08-15T11:24:46Z"
+            },
+            {
+                "name": "Remove non-leading + in phone number input",
+                "date": "2018-07-19T13:30:17Z"
+            },
+            {
+                "name": "Add time input type",
+                "date": "2018-07-14T06:45:05Z"
+            },
+            {
+                "name": "Fix SSR document ref error",
+                "date": "2018-07-08T10:39:47Z"
+            },
+            {
+                "name": "Fix value change callback and some cursor jumping issue",
+                "date": "2018-06-03T10:11:18Z"
+            },
+            {
+                "name": "Add JCB 15 digi support",
+                "date": "2018-06-03T04:19:45Z"
+            },
+            {
+                "name": "May PR merging releasing",
+                "date": "2018-05-27T07:12:46Z"
+            },
+            {
+                "name": "Add angular component onValueChange callback support",
+                "date": "2018-04-10T11:39:46Z"
+            },
+            {
+                "name": "Fix AMD mode angular context issue",
+                "date": "2018-03-20T13:11:55Z"
+            },
+            {
+                "name": "Fix cursor jumping issue in editing",
+                "date": "2018-03-20T06:29:44Z"
+            },
+            {
+                "name": "Fix date type full year leading 0 issue",
+                "date": "2018-03-19T06:44:10Z"
+            },
+            {
+                "name": "Add 19 digits support for all credit card type with strict mode",
+                "date": "2018-03-16T07:22:54Z"
+            },
+            {
+                "name": "Fix prefix on focus cursor issue",
+                "date": "2018-03-14T07:44:22Z"
+            },
+            {
+                "name": "Fix React component autofocus js error",
+                "date": "2018-03-12T05:04:41Z"
+            },
+            {
+                "name": "Fix redux-form failing after setRawValue",
+                "date": "2018-03-03T11:09:07Z"
+            },
+            {
+                "name": "Add delimiter lazy show mode",
+                "date": "2018-01-14T06:14:29Z"
+            },
+            {
+                "name": "Fix Firefox input glow and snapshot tests failed issue",
+                "date": "2018-01-13T13:17:43Z"
+            },
+            {
+                "name": "Fixes to say goodbye to 2017",
+                "date": "2018-01-11T12:02:05Z"
+            },
+            {
+                "name": "Fixes from PR",
+                "date": "2017-10-24T11:16:33Z"
+            },
+            {
+                "name": "Fix cursor jumping to the end issue",
+                "date": "2017-08-26T06:34:01Z"
+            },
+            {
+                "name": "Add date validation fix & Add init flow for no options case",
+                "date": "2017-07-30T11:00:05Z"
+            },
+            {
+                "name": "Remove numeralIntegerScale default value",
+                "date": "2017-07-23T05:54:33Z"
+            },
+            {
+                "name": "Fix React component onBlur onFocus raw value issue",
+                "date": "2017-07-08T05:36:14Z"
+            },
+            {
+                "name": "Fix delimiter regular exp matching issue",
+                "date": "2017-07-02T12:39:41Z"
+            },
+            {
+                "name": "Fix Canada phone package",
+                "date": "2017-07-01T13:57:45Z"
+            },
+            {
+                "name": "Add numeralIntegerScale and fix multiple length delimiter issue and more PR merged",
+                "date": "2017-06-24T15:04:03Z"
+            },
+            {
+                "name": "Fix angular.js directive related issue",
+                "date": "2016-10-05T12:49:47Z"
+            },
+            {
+                "name": "Bug fixes",
+                "date": "2016-09-13T14:24:43Z"
+            },
+            {
+                "name": "Fix delimiter gets copied issue and SSR window context issue",
+                "date": "2016-08-28T09:36:12Z"
+            },
+            {
+                "name": "Fix prefix last letter gets pushed out issue and minor Angular change",
+                "date": "2016-08-20T13:42:29Z"
+            },
+            {
+                "name": "Use $formatter and $parser in Angular cleave directive",
+                "date": "2016-08-16T12:47:09Z"
+            },
+            {
+                "name": "Add Angular cleave directive (1.x)",
+                "date": "2016-08-15T12:08:36Z"
+            },
+            {
+                "name": "Fix numeral mode set raw value issue",
+                "date": "2016-08-13T03:40:07Z"
+            },
+            {
+                "name": "Fix ReactJS component preset value issue and Browserify build issue",
+                "date": "2016-08-06T03:06:02Z"
+            },
+            {
+                "name": "Fix vanilla js browserify build issue",
+                "date": "2016-08-04T13:43:10Z"
+            },
+            {
+                "name": "Add numeral negative support and fix react component event value issue",
+                "date": "2016-08-03T13:20:11Z"
+            },
+            {
+                "name": "Add multiple delimiters & SPDX fix",
+                "date": "2016-07-31T13:42:17Z"
+            },
+            {
+                "name": "Use webpack to build react bundled script",
+                "date": "2016-07-27T14:48:37Z"
+            },
+            {
+                "name": "Add webpack bundled react script",
+                "date": "2016-07-26T14:28:23Z"
+            },
+            {
+                "name": "Add Maestro credit card type support",
+                "date": "2016-07-23T07:24:20Z"
+            },
+            {
+                "name": "Fix numeralDecimalMark 0 doesn't work issue",
+                "date": "2016-07-22T13:55:20Z"
+            },
+            {
+                "name": "Fix date mode month and day auto correction issue",
+                "date": "2016-07-21T12:59:12Z"
+            },
+            {
+                "name": "Second round bug fix after launching",
+                "date": "2016-07-19T13:57:54Z"
+            },
+            {
+                "name": "First round bug fix after launching",
+                "date": "2016-07-16T06:43:22Z"
+            },
+            {
+                "name": "Add credit card type detection callback",
+                "date": "2016-07-10T06:37:23Z"
+            },
+            {
+                "name": "Major fix release",
+                "date": "2016-07-09T13:00:32Z"
+            },
+            {
+                "name": "Major feature release",
+                "date": "2016-06-25T13:38:51Z"
+            }
+        ]
+    }
+}
