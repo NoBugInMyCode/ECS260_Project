@@ -139,7 +139,7 @@ def process_file_parallel(file_list):
 
 if __name__ == "__main__":
     file_list = []
-    for i in range(11, 21):
+    for i in range(21, 51):
         file_list.append(f"jobs/{i}.txt")
     process_file_parallel(file_list)
 
