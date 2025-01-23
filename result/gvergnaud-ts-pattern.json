@@ -1,0 +1,295 @@
+{
+    "https://api.github.com/repos/gvergnaud/ts-pattern": {
+        "forks": 138,
+        "watchers": 12813,
+        "stars": 12813,
+        "languages": {
+            "TypeScript": 482331,
+            "Shell": 725,
+            "JavaScript": 70
+        },
+        "commits": [
+            "2025-01-21T02:48:23Z",
+            "2025-01-21T02:50:15Z",
+            "2025-01-21T02:47:34Z",
+            "2025-01-21T02:45:14Z",
+            "2025-01-19T15:40:13Z",
+            "2025-01-19T15:20:45Z",
+            "2025-01-19T15:14:50Z",
+            "2025-01-19T15:10:30Z",
+            "2025-01-19T14:55:17Z",
+            "2025-01-19T00:45:35Z",
+            "2025-01-19T00:33:07Z",
+            "2024-12-16T03:20:02Z",
+            "2024-12-16T03:12:26Z",
+            "2024-12-15T17:38:51Z",
+            "2024-12-15T17:38:30Z",
+            "2024-12-15T02:49:20Z",
+            "2024-12-15T02:48:57Z",
+            "2024-12-15T00:14:28Z",
+            "2024-12-14T23:53:20Z",
+            "2024-12-14T23:30:39Z",
+            "2024-10-19T01:56:17Z",
+            "2024-10-17T22:22:46Z",
+            "2024-10-14T03:03:21Z",
+            "2024-10-03T15:41:03Z",
+            "2024-10-03T14:51:51Z",
+            "2024-10-03T14:36:03Z",
+            "2024-10-03T14:23:35Z",
+            "2024-09-27T17:27:38Z",
+            "2024-09-26T13:25:55Z",
+            "2024-09-25T22:14:20Z"
+        ],
+        "creation_date": "2020-05-24T16:41:02Z",
+        "contributors": 23,
+        "topics": [
+            "branching",
+            "conditions",
+            "exhaustive",
+            "inference",
+            "javascript",
+            "matching",
+            "pattern",
+            "pattern-matching",
+            "ts",
+            "type-inference",
+            "typescript"
+        ],
+        "subscribers": 29,
+        "readme": "<h1 align=\"center\">TS-Pattern</h1>\n\n<p align=\"center\">\nThe exhaustive Pattern Matching library for <a href=\"https://github.com/microsoft/TypeScript\">TypeScript</a>\nwith smart type inference.\n</p>\n\n<p align=\"center\">\n  <a href=\"https://www.npmjs.com/package/ts-pattern\">\n    <img src=\"https://img.shields.io/npm/dm/ts-pattern.svg\" alt=\"downloads\" height=\"18\">\n  </a>\n  <a href=\"https://www.npmjs.com/package/ts-pattern\">\n    <img src=\"https://img.shields.io/npm/v/ts-pattern.svg\" alt=\"npm version\" height=\"18\">\n  </a>\n  <a href=\"https://github.com/gvergnaud/ts-pattern\">\n    <img src=\"https://img.shields.io/npm/l/ts-pattern.svg\" alt=\"MIT license\" height=\"18\">\n  </a>\n</p>\n\n```tsx\nimport { match, P } from 'ts-pattern';\n\ntype Data =\n  | { type: 'text'; content: string }\n  | { type: 'img'; src: string };\n\ntype Result =\n  | { type: 'ok'; data: Data }\n  | { type: 'error'; error: Error };\n\nconst result: Result = ...;\n\nconst html = match(result)\n  .with({ type: 'error' }, () => <p>Oups! An error occured</p>)\n  .with({ type: 'ok', data: { type: 'text' } }, (res) => <p>{res.data.content}</p>)\n  .with({ type: 'ok', data: { type: 'img', src: P.select() } }, (src) => <img src={src} />)\n  .exhaustive();\n```\n\n## About\n\nWrite **better** and **safer conditions**. Pattern matching lets you express complex conditions in a single, compact expression. Your code becomes **shorter** and **more readable**. Exhaustiveness checking ensures you haven\u2019t forgotten **any possible case**.\n\n![ts-pattern](https://user-images.githubusercontent.com/9265418/231688650-7cd957a9-8edc-4db8-a5fe-61e1c2179d91.gif)\n\n<p align=\"center\"><i>Animation by <a target=\"_blank\" href=\"https://twitter.com/nicoespeon/status/1644342570389061634?s=20\">@nicoespeon</a></i></p>\n\n## Features\n\n- Pattern-match on **any data structure**: nested [Objects](#objects), [Arrays](#tuples-arrays), [Tuples](#tuples-arrays), [Sets](#pset-patterns), [Maps](#pmap-patterns) and all primitive types.\n- **Typesafe**, with helpful [type inference](#type-inference).\n- **Exhaustiveness checking** support, enforcing that you are matching every possible case with [`.exhaustive()`](#exhaustive).\n- Use [patterns](#patterns) to **validate** the shape of your data with [`isMatching`](#ismatching).\n- **Expressive API**, with catch-all and type specific **wildcards**: [`P._`](#p_-wildcard), [`P.string`](#pstring-wildcard), [`P.number`](#pnumber-wildcard), etc.\n- Supports [**predicates**](#pwhen-patterns), [**unions**](#punion-patterns), [**intersections**](#pintersection-patterns) and [**exclusion**](#pnot-patterns) patterns for non-trivial cases.\n- Supports properties selection, via the [`P.select(name?)`](#pselect-patterns) function.\n- Tiny bundle footprint ([**only ~2kB**](https://bundlephobia.com/package/ts-pattern)).\n\n## What is Pattern Matching?\n\n[Pattern Matching](https://stackoverflow.com/questions/2502354/what-is-pattern-matching-in-functional-languages) is a code-branching technique coming from functional programming languages that's more powerful and often less verbose than imperative alternatives (if/else/switch statements), especially for complex conditions.\n\nPattern Matching is implemented in Haskell, Rust, Swift, Elixir, and many other languages. There is [a tc39 proposal](https://github.com/tc39/proposal-pattern-matching) to add Pattern Matching to EcmaScript, but it is still in stage 1 and isn't likely to land before several years. Luckily, pattern matching can be implemented in userland. `ts-pattern` Provides a typesafe pattern matching implementation that you can start using today.\n\nRead the introduction blog post: [Bringing Pattern Matching to TypeScript \ud83c\udfa8 Introducing TS-Pattern](https://dev.to/gvergnaud/bringing-pattern-matching-to-typescript-introducing-ts-pattern-v3-0-o1k)\n\n## Installation\n\nVia npm\n\n```\nnpm install ts-pattern\n```\n\nYou can also use your favorite package manager:\n\n```\npnpm add ts-pattern\n# OR\nyarn add ts-pattern\n# OR\nbun add ts-pattern\n# OR\nnpx jsr add @gabriel/ts-pattern\n```\n\n## Want to become a TypeScript Expert?\n\nCheck out \ud83d\udc49 [Type-Level TypeScript](https://type-level-typescript.com/), an online course teaching you how to unleash the full potential of TypeScript's Turing-complete type system. You already know how to code, and types are simply another programming language to master. This course bridges the gap, helping you apply your existing programming knowledge to TypeScript's type system, so you never again struggle with type errors or feel unable to type complex generic code correctly!\n\nType-Level TypeScript takes you on a deep dive into the most advanced features of the type system. By the end of this journey, you'll emerge as one of your company's best TypeScript developers. You'll know how to craft elegant code and create awesome libraries that your colleagues will love using!\n\n# Documentation\n\n- [Sandbox examples](#sandbox-examples)\n- [Getting Started](#getting-started)\n- [API Reference](#api-reference)\n  - [`match`](#match)\n  - [`.with`](#with)\n  - [`.when`](#when)\n  - [`.returnType`](#returntype)\n  - [`.exhaustive`](#exhaustive)\n  - [`.otherwise`](#otherwise)\n  - [`isMatching`](#ismatching)\n  - [Patterns](#patterns)\n    - [Literals](#literals)\n    - [Wildcards](#wildcards)\n    - [Objects](#objects)\n    - [Tuples (arrays)](#tuples-arrays)\n    - [Sets](#pset-patterns)\n    - [Maps](#pmap-patterns)\n    - [`P.array` patterns](#parray-patterns)\n    - [`P.when` patterns](#pwhen-patterns)\n    - [`P.not` patterns](#pnot-patterns)\n    - [`P.select` patterns](#pselect-patterns)\n    - [`P.optional` patterns](#poptional-patterns)\n    - [`P.instanceOf` patterns](#pinstanceof-patterns)\n    - [`P.union` patterns](#punion-patterns)\n    - [`P.intersection` patterns](#pintersection-patterns)\n    - [`P.string` predicates](#pstring-predicates)\n    - [`P.number` and `P.bigint` predicates](#pnumber-and-pbigint-predicates)\n  - [Types](#types)\n    - [`P.infer`](#pinfer)\n    - [`P.Pattern`](#pPattern)\n    - [Type inference](#type-inference)\n- [Inspirations](#inspirations)\n\n## Sandbox examples\n\n- [Basic Demo](https://stackblitz.com/edit/vitejs-vite-qrk8po?file=src%2Fexamples%2Fbasic.tsx)\n- [React gif fetcher app Demo](https://stackblitz.com/edit/ts-pattern-gifs?file=src%2FApp.tsx)\n- [React.useReducer Demo](https://stackblitz.com/edit/ts-pattern-reducer?file=src%2FApp.tsx)\n- [Handling untyped API response Demo](https://stackblitz.com/edit/vitejs-vite-qrk8po?file=src%2Fexamples%2Fapi.tsx)\n- [`P.when` Guard Demo](https://stackblitz.com/edit/vitejs-vite-qrk8po?file=src%2Fexamples%2Fwhen.tsx)\n- [`P.not` Pattern Demo](https://stackblitz.com/edit/vitejs-vite-qrk8po?file=src%2Fexamples%2Fnot.tsx)\n- [`P.select` Pattern Demo](https://stackblitz.com/edit/vitejs-vite-qrk8po?file=src%2Fexamples%2Fselect.tsx)\n- [`P.union` Pattern Demo](https://stackblitz.com/edit/vitejs-vite-qrk8po?file=src%2Fexamples%2Funion.tsx)\n\n## Getting Started\n\nAs an example, let's create a state reducer for a frontend application that fetches some data.\n\n### Example: a state reducer with ts-pattern\n\nOur application can be in four different states: `idle`, `loading`,\n`success` and `error`. Depending on which state we are in, some events\ncan occur. Here are all the possible types of event our application\ncan respond to: `fetch`, `success`, `error` and `cancel`.\n\nI use the word `event` but you can replace it with `action` if you are used\nto Redux's terminology.\n\n```ts\ntype State =\n  | { status: 'idle' }\n  | { status: 'loading'; startTime: number }\n  | { status: 'success'; data: string }\n  | { status: 'error'; error: Error };\n\ntype Event =\n  | { type: 'fetch' }\n  | { type: 'success'; data: string }\n  | { type: 'error'; error: Error }\n  | { type: 'cancel' };\n```\n\nEven though our application can handle 4 events, **only a subset** of these\nevents **make sense for each given state**. For instance we can only `cancel`\na request if we are currently in the `loading` state.\nTo avoid unwanted state changes that could lead to bugs, we want our state reducer function to branch on **both the state and the event**, and return a new state.\n\nThis is a case where `match` really shines. Instead of writing nested switch statements, we can use pattern matching to simultaneously check the state and the event object:\n\n<!-- prettier-ignore -->\n```ts\nimport { match, P } from 'ts-pattern';\n\nconst reducer = (state: State, event: Event) =>\n  match([state, event])\n    .returnType<State>()\n    .with(\n      [{ status: 'loading' }, { type: 'success' }],\n      ([_, event]) => ({ status: 'success', data: event.data })\n    )\n    .with(\n      [{ status: 'loading' }, { type: 'error', error: P.select() }],\n      (error) => ({ status: 'error', error })\n    )\n    .with(\n      [{ status: P.not('loading') }, { type: 'fetch' }],\n      () => ({ status: 'loading', startTime: Date.now() })\n    )\n    .with(\n      [\n        {\n          status: 'loading',\n          startTime: P.when((t) => t + 2000 < Date.now()),\n        },\n        { type: 'cancel' },\n      ],\n      () => ({ status: 'idle' })\n    )\n    .with(P._, () => state)\n    .exhaustive();\n```\n\nThere's a lot going on, so **let's go through this code bit by bit:**\n\n### match(value)\n\n`match` takes a value and returns a [_builder_](https://en.wikipedia.org/wiki/Builder_pattern) on which you can add your pattern matching cases.\n\n<!-- prettier-ignore -->\n```ts\nmatch([state, event])\n```\n\nIt's also possible to specify the input and output type explicitly with `match<Input, Output>(...)`, but this is usually unnecessary, as TS-Pattern is able to infer them.\n\n### .returnType\\<OutputType\\>()\n\n`.returnType` is an optional method that you can call if you want to force all following code-branches to return a value of a specific type. It takes a single type parameter, provided between `<AngleBrackets>`.\n\n```ts\n  .returnType<State>()\n```\n\nHere, we use this method to make sure all branches return a valid `State` object.\n\n### .with(pattern, handler)\n\nThen we add a first `with` clause:\n\n```ts\n  .with(\n    [{ status: 'loading' }, { type: 'success' }],\n    ([state, event]) => ({\n      // `state` is inferred as { status: 'loading' }\n      // `event` is inferred as { type: 'success', data: string }\n      status: 'success',\n      data: event.data,\n    })\n  )\n```\n\nThe first argument is the **pattern**: the **shape of value** you expect for this branch.\n\nThe second argument is the **handler function**: the code **branch** that will be called if the input value matches the pattern.\n\nThe handler function takes the input value as first parameter with its type **narrowed down** to what the pattern matches.\n\n### P.select(name?)\n\nIn the second `with` clause, we use the `P.select` function:\n\n```ts\n  .with(\n    [\n      { status: 'loading' },\n      { type: 'error', error: P.select() }\n    ],\n    (error) => ({ status: 'error', error })\n  )\n```\n\n`P.select()` lets you **extract** a piece of your input value and **inject** it into your handler. It is pretty useful when pattern matching on deep data structures because it avoids the hassle of destructuring your input in your handler.\n\nSince we didn't pass any name to `P.select()`, It will inject the `event.error` property as first argument to the handler function. Note that you can still access **the full input value** with its type narrowed by your pattern as **second argument** of the handler function:\n\n```ts\n  .with(\n    [\n      { status: 'loading' },\n      { type: 'error', error: P.select() }\n    ],\n    (error, stateAndEvent) => {\n      // error: Error\n      // stateAndEvent: [{ status: 'loading' }, { type: 'error', error: Error }]\n    }\n  )\n```\n\nIn a pattern, we can only have a **single** anonymous selection. If you need to select more properties on your input data structure, you will need to give them **names**:\n\n```ts\n.with(\n    [\n      { status: 'success', data: P.select('prevData') },\n      { type: 'error', error: P.select('err') }\n    ],\n    ({ prevData, err }) => {\n      // Do something with (prevData: string) and (err: Error).\n    }\n  )\n```\n\nEach named selection will be injected inside a `selections` object, passed as first argument to the handler function. Names can be any strings.\n\n### P.not(pattern)\n\nIf you need to match on everything **but** a specific value, you can use a `P.not(<pattern>)` pattern. it's a function taking a pattern and returning its opposite:\n\n```ts\n  .with(\n    [{ status: P.not('loading') }, { type: 'fetch' }],\n    () => ({ status: 'loading' })\n  )\n```\n\n### `P.when()` and guard functions\n\nSometimes, we need to make sure our input value respects a condition that can't be expressed by a pattern. For example, imagine you need to check that a number is positive. In these cases, we can use **guard functions**: functions taking a value and returning a `boolean`.\n\nWith TS-Pattern, there are two ways to use a guard function:\n\n- use `P.when(<guard function>)` inside one of your patterns\n- pass it as second parameter to `.with(...)`\n\n#### using P.when(predicate)\n\n```ts\n  .with(\n    [\n      {\n        status: 'loading',\n        startTime: P.when((t) => t + 2000 < Date.now()),\n      },\n      { type: 'cancel' },\n    ],\n    () => ({ status: 'idle' })\n  )\n```\n\n#### Passing a guard function to `.with(...)`\n\n`.with` optionally accepts a guard function as second parameter, between\nthe `pattern` and the `handler` callback:\n\n```ts\n  .with(\n    [{ status: 'loading' }, { type: 'cancel' }],\n    ([state, event]) => state.startTime + 2000 < Date.now(),\n    () => ({ status: 'idle' })\n  )\n```\n\nThis pattern will only match if the guard function returns `true`.\n\n### the `P._` wildcard\n\n`P._` will match any value. You can use it either at the top level, or within another pattern.\n\n```ts\n  .with(P._, () => state)\n\n  // You could also use it inside another pattern:\n  .with([P._, P._], () => state)\n\n  // at any level:\n  .with([P._, { type: P._ }], () => state)\n\n```\n\n### .exhaustive(), .otherwise() and .run()\n\n```ts\n  .exhaustive();\n```\n\n`.exhaustive()` **executes** the pattern matching expression, and **returns the result**. It also enables **exhaustiveness checking**, making sure we don't forget any possible case in our input value. This extra type safety is very nice because forgetting a case is an easy mistake to make, especially in an evolving code-base.\n\nNote that exhaustive pattern matching is **optional**. It comes with the trade-off of having slightly **longer compilation times** because the type checker has more work to do.\n\nAlternatively, you can use `.otherwise()`, which takes an handler function returning a default value. `.otherwise(handler)` is equivalent to `.with(P._, handler).exhaustive()`.\n\n```ts\n  .otherwise(() => state);\n```\n\n### Matching several patterns\n\nAs you may know, `switch` statements allow handling several cases with\nthe same code block:\n\n```ts\nswitch (type) {\n  case 'text':\n  case 'span':\n  case 'p':\n    return 'text';\n\n  case 'btn':\n  case 'button':\n    return 'button';\n}\n```\n\nSimilarly, ts-pattern lets you pass several patterns to `.with()` and if\none of these patterns matches your input, the handler function will be called:\n\n```ts\nconst sanitize = (name: string) =>\n  match(name)\n    .with('text', 'span', 'p', () => 'text')\n    .with('btn', 'button', () => 'button')\n    .otherwise(() => name);\n\nsanitize('span'); // 'text'\nsanitize('p'); // 'text'\nsanitize('button'); // 'button'\n```\n\nAs you might expect, this also works with more complex patterns than strings and exhaustiveness checking works as well.\n\n## API Reference\n\n### `match`\n\n```ts\nmatch(value);\n```\n\nCreate a `Match` object on which you can later call `.with`, `.when`, `.otherwise` and `.run`.\n\n#### Signature\n\n```ts\nfunction match<TInput, TOutput>(input: TInput): Match<TInput, TOutput>;\n```\n\n#### Arguments\n\n- `input`\n  - **Required**\n  - the input value your patterns will be tested against.\n\n### `.with`\n\n```ts\nmatch(...)\n  .with(pattern, [...patterns], handler)\n```\n\n#### Signature\n\n```ts\nfunction with(\n  pattern: Pattern<TInput>,\n  handler: (selections: Selections<TInput>, value: TInput) => TOutput\n): Match<TInput, TOutput>;\n\n// Overload for multiple patterns\nfunction with(\n  pattern1: Pattern<TInput>,\n  ...patterns: Pattern<TInput>[],\n  // no selection object is provided when using multiple patterns\n  handler: (value: TInput) => TOutput\n): Match<TInput, TOutput>;\n\n// Overload for guard functions\nfunction with(\n  pattern: Pattern<TInput>,\n  when: (value: TInput) => unknown,\n  handler: (\n    selection: Selection<TInput>,\n    value: TInput\n  ) => TOutput\n): Match<TInput, TOutput>;\n```\n\n#### Arguments\n\n- `pattern: Pattern<TInput>`\n  - **Required**\n  - The pattern your input must match for the handler to be called.\n  - [See all valid patterns below](#patterns)\n  - If you provide several patterns before providing the `handler`, the `with` clause will match if one of the patterns matches.\n- `when: (value: TInput) => unknown`\n  - Optional\n  - Additional condition the input must satisfy for the handler to be called.\n  - The input will match if your guard function returns a truthy value.\n  - `TInput` might be narrowed to a more precise type using the `pattern`.\n- `handler: (selections: Selections<TInput>, value: TInput) => TOutput`\n  - **Required**\n  - Function called when the match conditions are satisfied.\n  - All handlers on a single `match` case must return values of the same type, `TOutput`.\n  - `selections` is an object of properties selected from the input with the [`select` function](#select-patterns).\n  - `TInput` might be narrowed to a more precise type using the `pattern`.\n\n### `.when`\n\n```ts\nmatch(...)\n  .when(predicate, handler)\n```\n\n#### Signature\n\n```ts\nfunction when(\n  predicate: (value: TInput) => unknown,\n  handler: (value: TInput) => TOutput\n): Match<TInput, TOutput>;\n```\n\n#### Arguments\n\n- `predicate: (value: TInput) => unknown`\n  - **Required**\n  - Condition the input must satisfy for the handler to be called.\n- `handler: (value: TInput) => TOutput`\n  - **Required**\n  - Function called when the predicate condition is satisfied.\n  - All handlers on a single `match` case must return values of the same type, `TOutput`.\n\n### `.returnType`\n\n```ts\nmatch(...)\n  .returnType<string>()\n  .with(..., () => \"has to be a string\")\n  .with(..., () => \"Oops\".length)\n  //               ~~~~~~~~~~~~~ \u274c `number` isn't a string!\n```\n\nThe `.returnType<SomeType>()` method allows you to control the return type of all of your branches of code. It accepts a single type parameter that will be used as the return type of your `match` expression. All code branches must return values assignable to this type.\n\n#### Signature\n\n```ts\nfunction returnType<TOutputOverride>(): Match<TInput, TOutputOverride>;\n```\n\n#### Type arguments\n\n- `TOutputOverride`\n  - The type that your `match` expression will return. All branches must return values assignable to it.\n\n### `.exhaustive`\n\n```ts\nmatch(...)\n  .with(...)\n  .exhaustive()\n```\n\nRuns the pattern-matching expression and returns its result. It also enables exhaustiveness checking, making sure at compile time that we have handled all possible cases.\n\n#### Signature\n\n```ts\nfunction exhaustive(): TOutput;\n```\n\n#### Example\n\n```ts\ntype Permission = 'editor' | 'viewer';\ntype Plan = 'basic' | 'pro';\n\nconst fn = (org: Plan, user: Permission) =>\n  match([org, user])\n    .with(['basic', 'viewer'], () => {})\n    .with(['basic', 'editor'], () => {})\n    .with(['pro', 'viewer'], () => {})\n    // Fails with `NonExhaustiveError<['pro', 'editor']>`\n    // because the `['pro', 'editor']` case isn't handled.\n    .exhaustive();\n\nconst fn2 = (org: Plan, user: Permission) =>\n  match([org, user])\n    .with(['basic', 'viewer'], () => {})\n    .with(['basic', 'editor'], () => {})\n    .with(['pro', 'viewer'], () => {})\n    .with(['pro', 'editor'], () => {})\n    .exhaustive(); // Works!\n```\n\n### `.otherwise`\n\n```ts\nmatch(...)\n  .with(...)\n  .otherwise(defaultHandler)\n```\n\nRuns the pattern-matching expression with a default handler which will be called if no previous `.with()` clause match the input value, and returns the result.\n\n#### Signature\n\n```ts\nfunction otherwise(defaultHandler: (value: TInput) => TOutput): TOutput;\n```\n\n#### Arguments\n\n- `defaultHandler: (value: TInput) => TOutput`\n  - **Required**\n  - Function called if no pattern matched the input value.\n  - Think of it as the `default:` case of `switch` statements.\n  - All handlers on a single `match` case must return values of the same type, `TOutput`.\n\n### `.run`\n\n```ts\nmatch(...)\n  .with(...)\n  .run()\n```\n\nreturns the result of the pattern-matching expression, or **throws** if no pattern matched the input. `.run()` is similar to `.exhaustive()`, but is **unsafe** because exhaustiveness is not checked at compile time, so you have no guarantees that all cases are indeed covered. Use at your own risks.\n\n#### Signature\n\n```ts\nfunction run(): TOutput;\n```\n\n### `isMatching`\n\n```ts\nif (isMatching(pattern, value))  {\n  ...\n}\n```\n\n`isMatching` is a type guard function which checks if a pattern matches a given value. It is _curried_, which means it can be used in two ways.\n\nWith a single argument:\n\n```ts\nimport { isMatching, P } from 'ts-pattern';\n\nconst isBlogPost = isMatching({\n  type: 'blogpost',\n  title: P.string,\n  description: P.string,\n});\n\nif (isBlogPost(value)) {\n  // value: { type: 'blogpost', title: string, description: string }\n}\n```\n\nWith two arguments:\n\n```ts\nconst blogPostPattern = {\n  type: 'blogpost',\n  title: P.string,\n  description: P.string,\n} as const;\n\nif (isMatching(blogPostPattern, value)) {\n  // value: { type: 'blogpost', title: string, description: string }\n}\n```\n\n#### Signature\n\n```ts\nexport function isMatching<p extends Pattern<any>>(\n  pattern: p\n): (value: any) => value is InvertPattern<p>;\nexport function isMatching<p extends Pattern<any>>(\n  pattern: p,\n  value: any\n): value is InvertPattern<p>;\n```\n\n#### Arguments\n\n- `pattern: Pattern<any>`\n  - **Required**\n  - The pattern a value should match.\n- `value?: any`\n  - **Optional**\n  - if a value is given as second argument, `isMatching` will return a boolean telling us whether the pattern matches the value or not.\n  - if we only give the pattern to the function, `isMatching` will return another **type guard function** taking a value and returning a boolean which tells us whether the pattern matches the value or not.\n\n## Patterns\n\nA pattern is a description of the expected shape of your input value.\n\nPatterns can be regular JavaScript values (`\"some string\"`, `10`, `true`, ...), data structures ([objects](#objects), [arrays](#tuples-arrays), ...), wildcards ([`P._`](#p_-wildcard), [`P.string`](#pstring-wildcard), [`P.number`](#pnumber-wildcard), ...), or special matcher functions ([`P.not`](#pnot-patterns),\n[`P.when`](#pwhen-patterns), [`P.select`](#pselect-patterns), ...).\n\nAll wildcards and matcher functions can be imported either as `Pattern` or as `P` from the `ts-pattern` module.\n\n```ts\nimport { match, Pattern } from 'ts-pattern';\n\nconst toString = (value: unknown): string =>\n  match(value)\n    .with(Pattern.string, (str) => str)\n    .with(Pattern.number, (num) => num.toFixed(2))\n    .with(Pattern.boolean, (bool) => `${bool}`)\n    .otherwise(() => 'Unknown');\n```\n\nOr\n\n```ts\nimport { match, P } from 'ts-pattern';\n\nconst toString = (value: unknown): string =>\n  match(value)\n    .with(P.string, (str) => str)\n    .with(P.number, (num) => num.toFixed(2))\n    .with(P.boolean, (bool) => `${bool}`)\n    .otherwise(() => 'Unknown');\n```\n\nIf your input isn't typed, (if it's a `any` or a `unknown`), you are free to use any possible pattern. Your handler will infer the input type from the shape of your pattern.\n\n### Literals\n\nLiterals are primitive JavaScript values, like `numbers`, `strings`, `booleans`, `bigints`, `symbols`, `null`, `undefined`, or `NaN`.\n\n```ts\nimport { match } from 'ts-pattern';\n\nconst input: unknown = 2;\n\nconst output = match(input)\n  .with(2, () => 'number: two')\n  .with(true, () => 'boolean: true')\n  .with('hello', () => 'string: hello')\n  .with(undefined, () => 'undefined')\n  .with(null, () => 'null')\n  .with(NaN, () => 'number: NaN')\n  .with(20n, () => 'bigint: 20n')\n  .otherwise(() => 'something else');\n\nconsole.log(output);\n// => 'number: two'\n```\n\n### Objects\n\nPatterns can be objects containing sub-patterns. An object pattern will match\nIf and only if the input value **is an object**, contains **all properties** the pattern defines\nand each property **matches** the corresponding sub-pattern.\n\n```ts\nimport { match } from 'ts-pattern';\n\ntype Input =\n  | { type: 'user'; name: string }\n  | { type: 'image'; src: string }\n  | { type: 'video'; seconds: number };\n\nlet input: Input = { type: 'user', name: 'Gabriel' };\n\nconst output = match(input)\n  .with({ type: 'image' }, () => 'image')\n  .with({ type: 'video', seconds: 10 }, () => 'video of 10 seconds.')\n  .with({ type: 'user' }, ({ name }) => `user of name: ${name}`)\n  .otherwise(() => 'something else');\n\nconsole.log(output);\n// => 'user of name: Gabriel'\n```\n\n### Tuples (arrays)\n\nIn TypeScript, [Tuples](https://en.wikipedia.org/wiki/Tuple) are arrays with a fixed\nnumber of elements that can be of different types. You can pattern-match on tuples\nusing a tuple pattern. A tuple pattern will match if the input value **is an array of the same length**,\nand each item matches the corresponding sub-pattern.\n\n```ts\nimport { match, P } from 'ts-pattern';\n\ntype Input =\n  | [number, '+', number]\n  | [number, '-', number]\n  | [number, '*', number]\n  | ['-', number];\n\nconst input = [3, '*', 4] as Input;\n\nconst output = match(input)\n  .with([P._, '+', P._], ([x, , y]) => x + y)\n  .with([P._, '-', P._], ([x, , y]) => x - y)\n  .with([P._, '*', P._], ([x, , y]) => x * y)\n  .with(['-', P._], ([, x]) => -x)\n  .exhaustive();\n\nconsole.log(output);\n// => 12\n```\n\n### Wildcards\n\n#### `P._` wildcard\n\nThe `P._` pattern will match any value. You can also use `P.any`, which is an alias to `P._`.\n\n```ts\nimport { match, P } from 'ts-pattern';\n\nconst input = 'hello';\n\nconst output = match(input)\n  .with(P._, () => 'It will always match')\n  // OR\n  .with(P.any, () => 'It will always match')\n  .otherwise(() => 'This string will never be used');\n\nconsole.log(output);\n// => 'It will always match'\n```\n\n#### `P.string` wildcard\n\nThe `P.string` pattern will match any value of type `string`.\n\n```ts\nimport { match, P } from 'ts-pattern';\n\nconst input = 'hello';\n\nconst output = match(input)\n  .with('bonjour', () => 'Won\u2018t match')\n  .with(P.string, () => 'it is a string!')\n  .exhaustive();\n\nconsole.log(output);\n// => 'it is a string!'\n```\n\n#### `P.number` wildcard\n\nThe `P.number` pattern will match any value of type `number`.\n\n```ts\nimport { match, P } from 'ts-pattern';\n\nconst input = 2;\n\nconst output = match<number | string>(input)\n  .with(P.string, () => 'it is a string!')\n  .with(P.number, () => 'it is a number!')\n  .exhaustive();\n\nconsole.log(output);\n// => 'it is a number!'\n```\n\n#### `P.boolean` wildcard\n\nThe `P.boolean` pattern will match any value of type `boolean`.\n\n```ts\nimport { match, P } from 'ts-pattern';\n\nconst input = true;\n\nconst output = match<number | string | boolean>(input)\n  .with(P.string, () => 'it is a string!')\n  .with(P.number, () => 'it is a number!')\n  .with(P.boolean, () => 'it is a boolean!')\n  .exhaustive();\n\nconsole.log(output);\n// => 'it is a boolean!'\n```\n\n#### `P.nullish` wildcard\n\nThe `P.nullish` pattern will match any value of type `null` or `undefined`.\n\nEven though `null` and `undefined` can be used as literal patterns, sometimes they appear in a union together\n(e.g. `null | undefined | string`) and you may want to treat them as equivalent using `P.nullish`.\n\n```ts\nimport { match, P } from 'ts-pattern';\n\nconst input = null;\n\nconst output = match<number | null | undefined>(input)\n  .with(P.number, () => 'it is a number!')\n  .with(P.nullish, () => 'it is either null or undefined!')\n  .exhaustive();\n\nconsole.log(output);\n// => 'it is either null or undefined!'\n```\n\n#### `P.nonNullable` wildcard\n\nThe `P.nonNullable` pattern will match any value except `null` or `undefined`.\n\n```ts\nimport { match, P } from 'ts-pattern';\n\nconst input = null;\n\nconst output = match<number | null | undefined>(input)\n  .with(P.nonNullable, () => 'it is a number!')\n  .otherwise(() => 'it is either null or undefined!');\n\nconsole.log(output);\n// => 'it is either null or undefined!'\n```\n\n#### `P.bigint` wildcard\n\nThe `P.bigint` pattern will match any value of type `bigint`.\n\n```ts\nimport { match, P } from 'ts-pattern';\n\nconst input = 20000000n;\n\nconst output = match<bigint | null>(input)\n  .with(P.bigint, () => 'it is a bigint!')\n  .otherwise(() => '?');\n\nconsole.log(output);\n// => 'it is a bigint!'\n```\n\n#### `P.symbol` wildcard\n\nThe `P.symbol` pattern will match any value of type `symbol`.\n\n```ts\nimport { match, P } from 'ts-pattern';\n\nconst input = Symbol('some symbol');\n\nconst output = match<symbol | null>(input)\n  .with(P.symbol, () => 'it is a symbol!')\n  .otherwise(() => '?');\n\nconsole.log(output);\n// => 'it is a symbol!'\n```\n\n### `P.array` patterns\n\nTo match on arrays of unknown size, you can use `P.array(subpattern)`.\nIt takes a sub-pattern, and will match if **all elements** in the input\narray match this sub-pattern.\n\n```ts\nimport { match, P } from 'ts-pattern';\n\ntype Input = { title: string; content: string }[];\n\nlet input: Input = [\n  { title: 'Hello world!', content: 'This is a very interesting content' },\n  { title: 'Bonjour!', content: 'This is a very interesting content too' },\n];\n\nconst output = match(input)\n  .with(\n    P.array({ title: P.string, content: P.string }),\n    (posts) => 'a list of posts!'\n  )\n  .otherwise(() => 'something else');\n\nconsole.log(output);\n// => 'a list of posts!'\n```\n\n### Matching variadic tuples with `P.array`\n\nIn TypeScript, [Variadic Tuple Types](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-0.html#variadic-tuple-types) are array types created with the `...` spread operator, like `[string, ...string[]]`, `[number, ...boolean[], string]` etc. You can match against variadic tuple types using array literals containing `...P.array(subpattern)`:\n\n```ts\nimport { match, P } from 'ts-pattern';\n\ntype Input = (number | string)[];\n\ndeclare const input: Input;\n\nconst output = match(input)\n  // P.array's parameter is optional\n  .with([P.string, ...P.array()], (input) => input) // input: [string, ...(number | string)[]]\n  .with(['print', ...P.array(P.string)], (input) => input) // input: ['print', ...string[]]\n  // you can put patterns on either side of `...P.array()`:\n  .with([...P.array(P.string), 'end'], (input) => input) // input: [...string[], 'end']\n  .with(['start', ...P.array(P.string), 'end'], (input) => input) // input: ['start', ...string[], 'end']\n  .otherwise((input) => input);\n```\n\n### `P.set` patterns\n\nTo match a Set, you can use `P.set(subpattern)`.\nIt takes a sub-pattern, and will match if **all elements** inside the set\nmatch this sub-pattern.\n\n```ts\nimport { match, P } from 'ts-pattern';\n\ntype Input = Set<string | number>;\n\nconst input: Input = new Set([1, 2, 3]);\n\nconst output = match(input)\n  .with(P.set(1), (set) => `Set contains only 1`)\n  .with(P.set(P.string), (set) => `Set contains only strings`)\n  .with(P.set(P.number), (set) => `Set contains only numbers`)\n  .otherwise(() => '');\n\nconsole.log(output);\n// => \"Set contains only numbers\"\n```\n\n### `P.map` patterns\n\nTo match a Map, you can use `P.map(keyPattern, valuePattern)`.\nIt takes a subpattern to match against the key, a subpattern to match agains the value, and will match if **all elements** inside this map\nmatch these two sub-patterns.\n\n```ts\nimport { match, P } from 'ts-pattern';\n\ntype Input = Map<string, string | number>;\n\nconst input: Input = new Map([\n  ['a', 1],\n  ['b', 2],\n  ['c', 3],\n]);\n\nconst output = match(input)\n  .with(P.map(P.string, P.number), (map) => `map's type is Map<string, number>`)\n  .with(P.map(P.string, P.string), (map) => `map's type is Map<string, string>`)\n  .with(\n    P.map(P.union('a', 'c'), P.number),\n    (map) => `map's type is Map<'a' | 'c', number>`\n  )\n  .otherwise(() => '');\n\nconsole.log(output);\n// => \"map's type is Map<string, number>\"\n```\n\n### `P.when` patterns\n\n`P.when` lets you define your own logic to check if the pattern should match or not.\nIf the `predicate` function given to when returns a truthy value, then the pattern\nwill match for this input.\n\nNote that you can narrow down the type of your input by providing a\n[Type Guard function](https://www.typescriptlang.org/docs/handbook/advanced-types.html#user-defined-type-guards) to `P.when`.\n\n```ts\nimport { match, P } from 'ts-pattern';\n\ntype Input = { score: number };\n\nconst output = match<Input>({ score: 10 })\n  .with(\n    {\n      score: P.when((score): score is 5 => score === 5),\n    },\n    (input) => '\ud83d\ude10' // input is inferred as { score: 5 }\n  )\n  .with({ score: P.when((score) => score < 5) }, () => '\ud83d\ude1e')\n  .otherwise(() => '\ud83d\ude42');\n\nconsole.log(output);\n// => '\ud83d\ude42'\n```\n\n### `P.not` patterns\n\n`P.not` lets you match on everything **but** a specific value.\nit's a function taking a pattern and returning the opposite pattern.\n\n```ts\nimport { match, P } from 'ts-pattern';\n\ntype Input = boolean | number;\n\nconst toNumber = (input: Input) =>\n  match(input)\n    .with(P.not(P.boolean), (n) => n) // n: number\n    .with(true, () => 1)\n    .with(false, () => 0)\n    .exhaustive();\n\nconsole.log(toNumber(2));\n// => 2\nconsole.log(toNumber(true));\n// => 1\n```\n\n### `P.select` patterns\n\n`P.select` lets you pick a piece of your input data-structure\nand injects it in your handler function.\n\nIt's especially useful when pattern matching on deep data structure to\navoid the hassle of destructuring it in the handler function.\n\nSelections can be either named (with `P.select('someName')`) or anonymous (with `P.select()`).\n\nYou can have only one anonymous selection by pattern, and the selected value will be directly inject in your handler as first argument:\n\n```ts\nimport { match, P } from 'ts-pattern';\n\ntype Input =\n  | { type: 'post'; user: { name: string } }\n  | { ... };\n\nconst input: Input = { type: 'post', user: { name: 'Gabriel' } }\n\nconst output = match(input)\n    .with(\n      { type: 'post', user: { name: P.select() } },\n      username => username // username: string\n    )\n    .otherwise(() => 'anonymous');\n\nconsole.log(output);\n// => 'Gabriel'\n```\n\nIf you need to select several things inside your input data structure, you can name your selections by giving a string to `P.select(<name>)`. Each selection will be passed as first argument to your handler in an object.\n\n```ts\nimport { match, P } from 'ts-pattern';\n\ntype Input =\n  | { type: 'post'; user: { name: string }, content: string }\n  | { ... };\n\nconst input: Input = { type: 'post', user: { name: 'Gabriel' }, content: 'Hello!' }\n\nconst output = match(input)\n    .with(\n      { type: 'post', user: { name: P.select('name') }, content: P.select('body') },\n      ({ name, body }) => `${name} wrote \"${body}\"`\n    )\n    .otherwise(() => '');\n\nconsole.log(output);\n// => 'Gabriel wrote \"Hello!\"'\n```\n\nYou can also pass a sub-pattern to `P.select` if you want it to only\nselect values which match this sub-pattern:\n\n```ts\ntype User = { age: number; name: string };\ntype Post = { body: string };\ntype Input = { author: User; content: Post };\n\ndeclare const input: Input;\n\nconst output = match(input)\n  .with(\n    {\n      author: P.select({ age: P.number.gt(18) }),\n    },\n    (author) => author // author: User\n  )\n  .with(\n    {\n      author: P.select('author', { age: P.number.gt(18) }),\n      content: P.select(),\n    },\n    ({ author, content }) => author // author: User, content: Post\n  )\n  .otherwise(() => 'anonymous');\n```\n\n### `P.optional` patterns\n\n`P.optional(subpattern)` lets you annotate a key in an object pattern as being optional,\nbut if it is defined it should match a given sub-pattern.\n\n```ts\nimport { match, P } from 'ts-pattern';\n\ntype Input = { key?: string | number };\n\nconst output = match(input)\n  .with({ key: P.optional(P.string) }, (a) => {\n    return a.key; // string | undefined\n  })\n  .with({ key: P.optional(P.number) }, (a) => {\n    return a.key; // number | undefined\n  })\n  .exhaustive();\n```\n\n### `P.instanceOf` patterns\n\nThe `P.instanceOf` function lets you build a pattern to check if\na value is an instance of a class:\n\n```ts\nimport { match, P } from 'ts-pattern';\n\nclass A {\n  a = 'a';\n}\nclass B {\n  b = 'b';\n}\n\ntype Input = { value: A | B };\n\nconst input: Input = { value: new A() };\n\nconst output = match(input)\n  .with({ value: P.instanceOf(A) }, (a) => {\n    return 'instance of A!';\n  })\n  .with({ value: P.instanceOf(B) }, (b) => {\n    return 'instance of B!';\n  })\n  .exhaustive();\n\nconsole.log(output);\n// => 'instance of A!'\n```\n\n### `P.union` patterns\n\n`P.union(...subpatterns)` lets you test several patterns and will match if\none of these patterns do. It's particularly handy when you want to handle\nsome cases of a union type in the same code branch:\n\n```ts\nimport { match, P } from 'ts-pattern';\n\ntype Input =\n  | { type: 'user'; name: string }\n  | { type: 'org'; name: string }\n  | { type: 'text'; content: string }\n  | { type: 'img'; src: string };\n\ndeclare const input: Input;\n\nconst output = match(input)\n  .with({ type: P.union('user', 'org') }, (userOrOrg) => {\n    // userOrOrg: User | Org\n    return userOrOrg.name;\n  })\n  .otherwise(() => '');\n```\n\n### `P.intersection` patterns\n\n`P.intersection(...subpatterns)` lets you ensure that the input matches\n**all** sub-patterns passed as parameters.\n\n```ts\nclass A {\n  constructor(public foo: 'bar' | 'baz') {}\n}\n\nclass B {\n  constructor(public str: string) {}\n}\n\ntype Input = { prop: A | B };\n\ndeclare const input: Input;\n\nconst output = match(input)\n  .with(\n    { prop: P.intersection(P.instanceOf(A), { foo: 'bar' }) },\n    ({ prop }) => prop.foo // prop: A & { foo: 'bar' }\n  )\n  .with(\n    { prop: P.intersection(P.instanceOf(A), { foo: 'baz' }) },\n    ({ prop }) => prop.foo // prop: A & { foo: 'baz' }\n  )\n  .otherwise(() => '');\n```\n\n## `P.string` predicates\n\n`P.string` has a number of methods to help you match on specific strings.\n\n### `P.string.startsWith`\n\n`P.string.startsWith(str)` matches strings that start with the provided string.\n\n```ts\nconst fn = (input: string) =>\n  match(input)\n    .with(P.string.startsWith('TS'), () => '\ud83c\udf89')\n    .otherwise(() => '\u274c');\n\nconsole.log(fn('TS-Pattern')); // logs '\ud83c\udf89'\n```\n\n### `P.string.endsWith`\n\n`P.string.endsWith(str)` matches strings that end with the provided string.\n\n```ts\nconst fn = (input: string) =>\n  match(input)\n    .with(P.string.endsWith('!'), () => '\ud83c\udf89')\n    .otherwise(() => '\u274c');\n\nconsole.log(fn('Hola!')); // logs '\ud83c\udf89'\n```\n\n### `P.string.minLength`\n\n`P.string.minLength(min)` matches strings with at least `min` characters.\n\n```ts\nconst fn = (input: string) =>\n  match(input)\n    .with(P.string.minLength(2), () => '\ud83c\udf89')\n    .otherwise(() => '\u274c');\n\nconsole.log(fn('two')); // logs '\ud83c\udf89'\n```\n\n### `P.string.length`\n\n`P.string.length(len)` matches strings with exactly `len` characters.\n\n```ts\nconst fn = (input: string) =>\n  match(input)\n    .with(P.string.length(2), () => '\ud83c\udf89')\n    .otherwise(() => '\u274c');\n\nconsole.log(fn('ok')); // logs '\ud83c\udf89'\n```\n\n### `P.string.maxLength`\n\n`P.string.maxLength(max)` matches strings with at most `max` characters.\n\n```ts\nconst fn = (input: string) =>\n  match(input)\n    .with(P.string.maxLength(5), () => '\ud83c\udf89')\n    .otherwise(() => 'too long');\n\nconsole.log(fn('is this too long?')); // logs 'too long'\n```\n\n### `P.string.includes`\n\n`P.string.includes(str)` matches strings that contain the provided substring.\n\n```ts\nconst fn = (input: string) =>\n  match(input)\n    .with(P.string.includes('!'), () => '\u2705')\n    .otherwise(() => '\u274c');\n\nconsole.log(fn('Good job! \ud83c\udf89')); // logs '\u2705'\n```\n\n### `P.string.regex`\n\n`P.string.regex(RegExp)` matches strings if they match the provided regular expression.\n\n```ts\nconst fn = (input: string) =>\n  match(input)\n    .with(P.string.regex(/^[a-z]+$/), () => 'single word')\n    .otherwise(() => 'other strings');\n\nconsole.log(fn('gabriel')); // logs 'single word'\n```\n\n## `P.number` and `P.bigint` predicates\n\n`P.number` and `P.bigint` have several of methods to help you match on specific numbers and bigints.\n\n### `P.number.between`\n\n`P.number.between(min, max)` matches numbers between `min` and `max`.\n\n```ts\nconst fn = (input: number) =>\n  match(input)\n    .with(P.number.between(1, 5), () => '\u2705')\n    .otherwise(() => '\u274c');\n\nconsole.log(fn(3), fn(1), fn(5), fn(7)); // logs '\u2705 \u2705 \u2705 \u274c'\n```\n\n### `P.number.lt`\n\n`P.number.lt(max)` matches numbers smaller than `max`.\n\n```ts\nconst fn = (input: number) =>\n  match(input)\n    .with(P.number.lt(7), () => '\u2705')\n    .otherwise(() => '\u274c');\n\nconsole.log(fn(2), fn(7)); // logs '\u2705 \u274c'\n```\n\n### `P.number.gt`\n\n`P.number.gt(min)` matches numbers greater than `min`.\n\n```ts\nconst fn = (input: number) =>\n  match(input)\n    .with(P.number.gt(7), () => '\u2705')\n    .otherwise(() => '\u274c');\n\nconsole.log(fn(12), fn(7)); // logs '\u2705 \u274c'\n```\n\n### `P.number.lte`\n\n`P.number.lte(max)` matches numbers smaller than or equal to `max`.\n\n```ts\nconst fn = (input: number) =>\n  match(input)\n    .with(P.number.lte(7), () => '\u2705')\n    .otherwise(() => '\u274c');\n\nconsole.log(fn(7), fn(12)); // logs '\u2705 \u274c'\n```\n\n### `P.number.gte`\n\n`P.number.gte(min)` matches numbers greater than or equal to `min`.\n\n```ts\nconst fn = (input: number) =>\n  match(input)\n    .with(P.number.gte(7), () => '\u2705')\n    .otherwise(() => '\u274c');\n\nconsole.log(fn(7), fn(2)); // logs '\u2705 \u274c'\n```\n\n### `P.number.int`\n\n`P.number.int()` matches integers.\n\n```ts\nconst fn = (input: number) =>\n  match(input)\n    .with(P.number.int(), () => '\u2705')\n    .otherwise(() => '\u274c');\n\nconsole.log(fn(12), fn(-3.141592)); // logs '\u2705 \u274c'\n```\n\n### `P.number.finite`\n\n`P.number.finite()` matches all numbers except `Infinity` and `-Infinity`.\n\n```ts\nconst fn = (input: number) =>\n  match(input)\n    .with(P.number.finite(), () => '\u2705')\n    .otherwise(() => '\u274c');\n\nconsole.log(fn(-3.141592), fn(Infinity)); // logs '\u2705 \u274c'\n```\n\n### `P.number.positive`\n\n`P.number.positive()` matches positive numbers.\n\n```ts\nconst fn = (input: number) =>\n  match(input)\n    .with(P.number.positive(), () => '\u2705')\n    .otherwise(() => '\u274c');\n\nconsole.log(fn(7), fn(-3.141592)); // logs '\u2705 \u274c'\n```\n\n### `P.number.negative`\n\n`P.number.negative()` matches negative numbers.\n\n```ts\nconst fn = (input: number) =>\n  match(input)\n    .with(P.number.negative(), () => '\u2705')\n    .otherwise(() => '\u274c');\n\nconsole.log(fn(-3.141592), fn(7)); // logs '\u2705 \u274c'\n```\n\n## Types\n\n### `P.infer`\n\n`P.infer<typeof somePattern>` lets you infer a type of value from a type of pattern.\n\nIt's particularly useful when validating an API response.\n\n```ts\nconst postPattern = {\n  title: P.string,\n  content: P.string,\n  stars: P.number.between(1, 5).optional(),\n  author: {\n    firstName: P.string,\n    lastName: P.string.optional(),\n    followerCount: P.number,\n  },\n} as const;\n\ntype Post = P.infer<typeof postPattern>;\n\n// posts: Post[]\nconst posts = await fetch(someUrl)\n  .then((res) => res.json())\n  .then((res: unknown): Post[] =>\n    isMatching({ data: P.array(postPattern) }, res) ? res.data : []\n  );\n```\n\nAlthough not strictly necessary, using `as const` after the pattern definition ensures that TS-Pattern infers the most precise types possible.\n\n### `P.narrow`\n\n`P.narrow<Input, typeof Pattern>` will narrow the input type to only keep the set of values that are compatible with the provided pattern type.\n\n```ts\ntype Input = ['a' | 'b' | 'c', 'a' | 'b' | 'c'];\nconst Pattern = ['a', P.union('a', 'b')] as const;\n\ntype Narrowed = P.narrow<Input, typeof Pattern>;\n//     ^? ['a', 'a' | 'b']\n```\n\nNote that most of the time, the `match` and `isMatching` functions perform narrowing for you, and you do not need to narrow types yourself.\n\n### `P.Pattern`\n\n`P.Pattern<T>` is the type of all possible pattern for a generic type `T`.\n\n```ts\ntype User = { name: string; age: number };\n\nconst userPattern: Pattern<User> = {\n  name: 'Alice',\n};\n```\n\n### Type inference\n\nTS-Pattern takes advantage the most advanced features of TypeScript to perform type narrowing and accurate exhaustive matching, even when matching on complex data-structures.\n\nHere are some examples of TS-Pattern's type inference features.\n\n#### Type narrowing\n\nWhen pattern-matching on a input containing union types, TS-Pattern will infer the most precise type possible for the argument of your handler function using the pattern you provide.\n\n```ts\ntype Text = { type: 'text'; data: string };\ntype Img = { type: 'img'; data: { src: string; alt: string } };\ntype Video = { type: 'video'; data: { src: string; format: 'mp4' | 'webm' } };\ntype Content = Text | Img | Video;\n\nconst formatContent = (content: Content): string =>\n  match(content)\n    .with({ type: 'text' }, (text /* : Text */) => '<p>...</p>')\n    .with({ type: 'img' }, (img /* : Img */) => '<img ... />')\n    .with({ type: 'video' }, (video /* : Video */) => '<video ... />')\n    .with(\n      { type: 'img' },\n      { type: 'video' },\n      (video /* : Img | Video */) => 'img or video'\n    )\n    .with(\n      { type: P.union('img', 'video') },\n      (video /* : Img | Video */) => 'img or video'\n    )\n    .exhaustive();\n```\n\nWhen using `P.select` in a pattern, TS-Pattern will find and inject the selected value in your handler. The type of your handler's argument is inferred accordingly.\n\n```ts\nconst formatContent = (content: Content): string =>\n  match(content)\n    .with(\n      { type: 'text', data: P.select() },\n      (content /* : string */) => '<p>...</p>'\n    )\n    .with(\n      { type: 'video', data: { format: P.select() } },\n      (format /* : 'mp4' | 'webm' */) => '<video ... />'\n    )\n    .with(\n      { type: P.union('img', 'video'), data: P.select() },\n      (data /* : Img['data'] | Video['data'] */) => 'img or video'\n    )\n    .exhaustive();\n```\n\n#### Type guard function\n\nIf you pass a [type guard](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) function to `P.when`, TS-Pattern will use its return type to narrow the input.\n\n```ts\nconst isString = (x: unknown): x is string => typeof x === 'string';\n\nconst isNumber = (x: unknown): x is number => typeof x === 'number';\n\nconst fn = (input: { id: number | string }) =>\n  match(input)\n    .with({ id: P.when(isString) }, (narrowed /* : { id: string } */) => 'yes')\n    .with({ id: P.when(isNumber) }, (narrowed /* : { id: number } */) => 'yes')\n    .exhaustive();\n```\n\n#### Exhaustiveness checking\n\nTS-Pattern will keep track of handled and unhandled cases of your input type. Even when pattern-matching on several union types at once, you only need to call `.exhaustive()` to make sure that all possible cases are correctly handled.\n\n```ts\ntype Permission = 'editor' | 'viewer';\ntype Plan = 'basic' | 'pro';\n\nconst fn = (org: Plan, user: Permission): string =>\n  match([org, user])\n    .with(['basic', 'viewer'], () => {})\n    .with(['basic', 'editor'], () => {})\n    .with(['pro', 'viewer'], () => {})\n    // Fails with `NonExhaustiveError<['pro', 'editor']>`\n    // because the `['pro', 'editor']` case isn't handled.\n    .exhaustive();\n```\n\n## Inspirations\n\nThis library has been heavily inspired by this great article by Wim Jongeneel:\n[Pattern Matching in TypeScript with Record and Wildcard Patterns](https://medium.com/swlh/pattern-matching-in-typescript-with-record-and-wildcard-patterns-6097dd4e471d).\nIt made me realize pattern matching could be implemented in userland and we didn't have\nto wait for it to be added to the language itself. I'm really grateful for that \ud83d\ude4f\n",
+        "releases": [
+            {
+                "name": "v5.6.2",
+                "date": "2025-01-21T02:51:17Z"
+            },
+            {
+                "name": "v5.6.1",
+                "date": "2025-01-19T15:18:35Z"
+            },
+            {
+                "name": "v5.6.0",
+                "date": "2024-12-15T17:40:42Z"
+            },
+            {
+                "name": "v5.5.0",
+                "date": "2024-10-14T03:05:29Z"
+            },
+            {
+                "name": "v5.4.0",
+                "date": "2024-09-25T22:24:35Z"
+            },
+            {
+                "name": "v5.3.1",
+                "date": "2024-08-11T20:35:31Z"
+            },
+            {
+                "name": "v5.2.0",
+                "date": "2024-06-12T12:32:36Z"
+            },
+            {
+                "name": "v5.1.2",
+                "date": "2024-05-23T14:44:47Z"
+            },
+            {
+                "name": "v5.1.1",
+                "date": "2024-04-06T21:43:16Z"
+            },
+            {
+                "name": "v5.1.0",
+                "date": "2024-03-31T20:40:35Z"
+            },
+            {
+                "name": "v5.0.8",
+                "date": "2024-02-15T15:25:11Z"
+            },
+            {
+                "name": "v5.0.6",
+                "date": "2023-12-03T02:27:38Z"
+            },
+            {
+                "name": "v5.0.5",
+                "date": "2023-08-06T21:41:26Z"
+            },
+            {
+                "name": "v5.0.4",
+                "date": "2023-07-19T15:49:46Z"
+            },
+            {
+                "name": "v5.0.3",
+                "date": "2023-07-14T11:19:57Z"
+            },
+            {
+                "name": "v5.0.2",
+                "date": "2023-07-13T17:08:32Z"
+            },
+            {
+                "name": "v5.0.0 \u2764\ufe0f",
+                "date": "2023-06-13T12:40:49Z"
+            },
+            {
+                "name": "v4.3.0",
+                "date": "2023-05-08T22:31:02Z"
+            },
+            {
+                "name": "v4.2.2",
+                "date": "2023-03-23T17:42:01Z"
+            },
+            {
+                "name": "v4.2.1",
+                "date": "2023-02-22T10:11:04Z"
+            },
+            {
+                "name": "v4.2.0",
+                "date": "2023-02-19T18:26:04Z"
+            },
+            {
+                "name": "v4.1.4",
+                "date": "2023-02-06T23:34:10Z"
+            },
+            {
+                "name": "v4.1.3",
+                "date": "2023-01-12T09:11:19Z"
+            },
+            {
+                "name": "v4.1.2",
+                "date": "2023-01-08T21:25:04Z"
+            },
+            {
+                "name": "v4.0.6",
+                "date": "2022-11-16T10:04:30Z"
+            },
+            {
+                "name": "v4.0.5",
+                "date": "2022-11-16T09:58:35Z"
+            },
+            {
+                "name": "v4.0.4",
+                "date": "2022-07-06T13:33:04Z"
+            },
+            {
+                "name": "v4.0.2",
+                "date": "2022-04-17T17:16:15Z"
+            },
+            {
+                "name": "\u2728 v4.0.1 \u2728",
+                "date": "2022-03-26T10:53:15Z"
+            },
+            {
+                "name": "v3.3.5",
+                "date": "2022-01-23T20:45:21Z"
+            },
+            {
+                "name": "v3.3.4",
+                "date": "2021-12-20T10:35:27Z"
+            },
+            {
+                "name": "v3.3.2",
+                "date": "2021-09-23T20:26:51Z"
+            },
+            {
+                "name": "v3.3.1",
+                "date": "2021-09-17T17:03:16Z"
+            },
+            {
+                "name": "v3.2.5",
+                "date": "2021-08-21T10:30:44Z"
+            },
+            {
+                "name": "v3.2.4",
+                "date": "2021-08-01T12:28:36Z"
+            },
+            {
+                "name": "v3.2.2",
+                "date": "2021-07-21T13:28:12Z"
+            },
+            {
+                "name": "v3.2.1",
+                "date": "2021-07-01T20:25:51Z"
+            },
+            {
+                "name": "v3.1.5",
+                "date": "2021-05-12T09:03:49Z"
+            },
+            {
+                "name": "v3.1.4",
+                "date": "2021-05-10T12:55:11Z"
+            },
+            {
+                "name": "v3.1.2",
+                "date": "2021-04-06T09:20:50Z"
+            },
+            {
+                "name": "v3.1.1",
+                "date": "2021-03-25T09:08:51Z"
+            },
+            {
+                "name": "v3.0.6",
+                "date": "2021-03-17T10:18:10Z"
+            },
+            {
+                "name": "v3.0.4",
+                "date": "2021-03-16T18:17:44Z"
+            },
+            {
+                "name": "v3.0.3",
+                "date": "2021-03-16T08:30:33Z"
+            },
+            {
+                "name": "v3.0.2",
+                "date": "2021-03-14T21:17:40Z"
+            },
+            {
+                "name": "v3.0.1-next.6",
+                "date": "2021-03-12T10:15:04Z"
+            },
+            {
+                "name": "v2.4.0",
+                "date": "2021-03-09T21:10:20Z"
+            },
+            {
+                "name": "v2.2.3",
+                "date": "2021-03-08T18:44:23Z"
+            },
+            {
+                "name": "v2.2.2",
+                "date": "2021-03-03T08:47:27Z"
+            },
+            {
+                "name": "v2.1.4",
+                "date": "2021-02-24T18:43:29Z"
+            },
+            {
+                "name": "v2.1.3",
+                "date": "2021-02-23T08:17:25Z"
+            },
+            {
+                "name": "v2.1.3-next.0",
+                "date": "2021-02-22T10:06:11Z"
+            },
+            {
+                "name": "v2.1.2",
+                "date": "2021-02-08T09:04:00Z"
+            },
+            {
+                "name": "v2.1.1",
+                "date": "2021-02-04T08:57:20Z"
+            },
+            {
+                "name": "v2.1.0",
+                "date": "2021-01-30T09:46:20Z"
+            },
+            {
+                "name": "Exhaustive pattern matching RC",
+                "date": "2021-01-17T22:04:30Z"
+            },
+            {
+                "name": "v1.1.0",
+                "date": "2020-07-03T15:48:35Z"
+            },
+            {
+                "name": "v1.0.0",
+                "date": "2020-07-03T15:06:23Z"
+            }
+        ]
+    }
+}

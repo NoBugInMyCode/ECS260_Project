@@ -1,0 +1,61 @@
+{
+    "https://api.github.com/repos/attic-labs/noms": {
+        "forks": 266,
+        "watchers": 7431,
+        "stars": 7431,
+        "languages": {
+            "Go": 3755281,
+            "Python": 19054,
+            "JavaScript": 16497,
+            "Dockerfile": 434,
+            "Shell": 59
+        },
+        "commits": [
+            "2021-08-27T22:44:22Z",
+            "2021-04-06T04:15:09Z",
+            "2020-06-19T14:59:39Z",
+            "2020-06-19T14:57:17Z",
+            "2020-04-10T17:47:38Z",
+            "2020-03-31T21:28:36Z",
+            "2020-03-31T20:41:38Z",
+            "2020-03-31T20:32:08Z",
+            "2020-03-31T20:25:16Z",
+            "2020-03-31T10:57:33Z",
+            "2020-03-31T10:46:39Z",
+            "2020-03-31T10:45:54Z",
+            "2020-03-31T10:41:15Z",
+            "2020-03-31T10:40:21Z",
+            "2020-03-31T10:39:16Z",
+            "2020-03-31T10:37:23Z",
+            "2020-03-31T10:07:52Z",
+            "2020-03-31T09:58:46Z",
+            "2019-12-14T02:35:11Z",
+            "2019-12-14T02:07:40Z",
+            "2019-12-04T06:33:06Z",
+            "2019-12-04T05:40:05Z",
+            "2019-12-03T01:00:40Z",
+            "2019-12-02T18:43:28Z",
+            "2019-11-20T09:09:45Z",
+            "2019-11-20T08:55:16Z",
+            "2019-11-20T02:55:50Z",
+            "2019-11-20T02:49:46Z",
+            "2019-11-06T22:43:39Z",
+            "2019-10-30T20:08:31Z"
+        ],
+        "creation_date": "2015-06-03T03:44:49Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 196,
+        "readme": "# Warning - This project is not active\n\nNoms is not being maintained. You shouldn't use it, except maybe for fun or research.\n\nIf you are interested in something like Noms, you probably want Dolt (https://github.com/dolthub/dolt) which is a fork of this project and actively maintained.\n\nSend me (aaron at aaronboodman.com) a message if you have questions.\n\n<hr>\n\n\n<img src='doc/nommy_cropped_smaller.png' width='350' title='Nommy, the snacky otter'>\n\n[Use Cases](#use-cases)&nbsp; | &nbsp;[Setup](#setup)&nbsp; | &nbsp;[Status](#status)&nbsp; | &nbsp;[Documentation](./doc/intro.md)&nbsp; | &nbsp;[Contact](#contact-us)\n<br><br>\n\n[![Build Status](https://travis-ci.org/attic-labs/noms.svg?branch=master)](https://travis-ci.org/attic-labs/noms)\n[![Docker Build Status](https://img.shields.io/docker/build/noms/noms.svg)](https://hub.docker.com/r/noms/noms/)\n[![GoDoc](https://godoc.org/github.com/attic-labs/noms?status.svg)](https://godoc.org/github.com/attic-labs/noms)\n\n# Welcome\n\n*Noms* is a decentralized database philosophically descendant from the Git version control system.\n\nLike Git, Noms is:\n\n* **Versioned:** By default, all previous versions of the database are retained. You can trivially track how the database evolved to its current state, easily and efficiently compare any two versions, or even rewind and branch from any previous version.\n* **Synchronizable:** Instances of a single Noms database can be disconnected from each other for any amount of time, then later reconcile their changes efficiently and correctly.\n\nUnlike Git, Noms is a database, so it also:\n\n* Primarily **stores structured data**, not files and directories (see: [the Noms type system](https://github.com/attic-labs/noms/blob/master/doc/intro.md#types))\n* **Scales well** to large amounts of data and concurrent clients\n* Supports **atomic transactions** (a single instance of Noms is CP, but Noms is typically run in production backed by S3, in which case it is \"[effectively CA](https://cloud.google.com/spanner/docs/whitepapers/SpannerAndCap.pdf)\")\n* Supports **efficient indexes** (see: [Noms prolly-trees](https://github.com/attic-labs/noms/blob/master/doc/intro.md#prolly-trees-probabilistic-b-trees))\n* Features a **flexible query model** (see: [GraphQL](./go/ngql/README.md))\n\nA Noms database can reside within a file system or in the cloud:\n\n* The (built-in) [NBS](./go/nbs) `ChunkStore` implementation provides two back-ends which provide persistence for Noms databases: one for storage in a file system and one for storage in an S3 bucket.\n\nFinally, because Noms is content-addressed, it yields a very pleasant programming model.\n\nWorking with Noms is ***declarative***. You don't `INSERT` new data, `UPDATE` existing data, or `DELETE` old data. You simply *declare* what the data ought to be right now. If you commit the same data twice, it will be deduplicated because of content-addressing. If you commit _almost_ the same data, only the part that is different will be written.\n\n<br>\n\n## Use Cases\n\n#### [Decentralization](./doc/decent/about.md)\n\nBecause Noms is very good at sync, it makes a decent basis for rich, collaborative, fully-decentralized applications.\n\n#### Mobile Offline-First Database\n\nEmbed Noms into mobile applications, making it easier to build offline-first, fully synchronizing mobile applications.\n\n<br>\n\n## Install\n\n1. Download the latest release:\n - [**Linux**](https://github.com/attic-labs/noms/releases/download/latest/linux.zip)\n - [**Mac OS**](https://github.com/attic-labs/noms/releases/download/latest/osx.zip)\n2. Unzip the directory somewhere and add it to your `$PATH`\n3. Verify Noms is installed correctly:\n\n```\n$ noms version\nformat version: 7.18\nbuilt from <developer build>\n```\n\n<br>\n\n## Run\n\nImport some data:\n\n```shell\ngo install github.com/attic-labs/noms/samples/go/csv/csv-import\ncurl 'https://data.cityofnewyork.us/api/views/kku6-nxdu/rows.csv?accessType=DOWNLOAD' > /tmp/data.csv\ncsv-import /tmp/data.csv /tmp/noms::nycdemo\n```\n\nExplore:\n\n```shell\nnoms show /tmp/noms::nycdemo\n```\n\nShould show:\n\n```go\nstruct Commit {\n  meta: struct Meta {\n    date: \"2017-09-19T19:33:01Z\",\n    inputFile: \"/tmp/data.csv\",\n  },\n  parents: set {},\n  value: [  // 236 items\n    struct Row {\n      countAmericanIndian: \"0\",\n      countAsianNonHispanic: \"3\",\n      countBlackNonHispanic: \"21\",\n      countCitizenStatusTotal: \"44\",\n      countCitizenStatusUnknown: \"0\",\n      countEthnicityTotal: \"44\",\n...\n```\n\n<br>\n\n## Status\n\nNobody is working on this right now. You shouldn't rely on it unless you're willing to take over development yourself.\n\n### Major Open Issues\n\nThese are the major things you'd probably want to fix before relying on this for most systems.\n\n* Sync performance with long commit chains (https://github.com/attic-labs/noms/issues/2233)\n* Migration (https://github.com/attic-labs/noms/issues/3363)\n* Garbage Collection (https://github.com/attic-labs/noms/issues/3374)\n* Query language\n  * We started trying to hack in GraphQL but it's incomplete and maybe not the right thing. See: [ngql](./go/ngql/README.md)\n* [Various other smaller bugs and improvements](https://github.com/attic-labs/noms/issues?q=is%3Aissue+is%3Aopen+label%3AP0)\n\n<br>\n\n## Learn More About Noms\n\nFor the decentralized web: [The Decentralized Database](doc/decent/about.md)\n\nLearn the basics: [Technical Overview](doc/intro.md)\n\nTour the CLI: [Command-Line Interface Tour](doc/cli-tour.md)\n\nTour the Go API: [Go SDK Tour](doc/go-tour.md)\n\n<br>\n\n## Contact Us\n\nInterested in using Noms? Awesome! We would be happy to work with you to help understand whether Noms is a fit for your problem. Reach out at:\n\n- [Mailing List](https://groups.google.com/forum/#!forum/nomsdb)\n- [Twitter](https://twitter.com/nomsdb)\n\n## Licensing\n\nNoms is open source software, licensed by Attic Labs, Inc. under the Apache License, Version 2.0.\n",
+        "releases": [
+            {
+                "name": "",
+                "date": "2019-04-04T08:17:26Z"
+            },
+            {
+                "name": "Database version 7",
+                "date": "2017-01-10T01:15:39Z"
+            }
+        ]
+    }
+}

@@ -1,0 +1,80 @@
+{
+    "https://api.github.com/repos/PyMySQL/PyMySQL": {
+        "forks": 1427,
+        "watchers": 7707,
+        "stars": 7707,
+        "languages": {
+            "Python": 242739
+        },
+        "commits": [
+            "2025-01-15T02:43:46Z",
+            "2025-01-15T01:45:47Z",
+            "2025-01-14T10:44:46Z",
+            "2025-01-14T10:40:04Z",
+            "2025-01-14T10:36:35Z",
+            "2025-01-14T10:05:42Z",
+            "2025-01-14T07:51:25Z",
+            "2025-01-12T08:17:12Z",
+            "2024-12-02T09:37:23Z",
+            "2024-11-06T03:46:44Z",
+            "2024-10-08T09:30:20Z",
+            "2024-10-08T09:23:07Z",
+            "2024-09-18T07:51:03Z",
+            "2024-09-05T05:20:39Z",
+            "2024-09-04T04:40:43Z",
+            "2024-06-19T12:57:53Z",
+            "2024-05-21T11:09:01Z",
+            "2024-05-21T11:04:54Z",
+            "2024-05-21T11:01:22Z",
+            "2024-05-18T02:33:30Z",
+            "2024-05-20T04:25:18Z",
+            "2024-05-04T06:55:22Z",
+            "2024-03-26T07:02:41Z",
+            "2024-02-02T08:16:41Z",
+            "2024-02-02T06:42:24Z",
+            "2024-02-01T03:55:12Z",
+            "2023-12-14T07:04:49Z",
+            "2023-12-06T13:34:08Z",
+            "2023-11-29T04:31:03Z",
+            "2023-11-16T10:39:02Z"
+        ],
+        "creation_date": "2011-07-27T17:38:47Z",
+        "contributors": 30,
+        "topics": [
+            "mysql",
+            "python"
+        ],
+        "subscribers": 227,
+        "readme": "[![Documentation Status](https://readthedocs.org/projects/pymysql/badge/?version=latest)](https://pymysql.readthedocs.io/)\n[![codecov](https://codecov.io/gh/PyMySQL/PyMySQL/branch/main/graph/badge.svg?token=ppEuaNXBW4)](https://codecov.io/gh/PyMySQL/PyMySQL)\n\n# PyMySQL\n\nThis package contains a pure-Python MySQL and MariaDB client library, based on\n[PEP 249](https://www.python.org/dev/peps/pep-0249/).\n\n## Requirements\n\n- Python -- one of the following:\n  - [CPython](https://www.python.org/) : 3.7 and newer\n  - [PyPy](https://pypy.org/) : Latest 3.x version\n- MySQL Server -- one of the following:\n  - [MySQL](https://www.mysql.com/) \\>= 5.7\n  - [MariaDB](https://mariadb.org/) \\>= 10.4\n\n## Installation\n\nPackage is uploaded on [PyPI](https://pypi.org/project/PyMySQL).\n\nYou can install it with pip:\n\n    $ python3 -m pip install PyMySQL\n\nTo use \"sha256_password\" or \"caching_sha2_password\" for authenticate,\nyou need to install additional dependency:\n\n    $ python3 -m pip install PyMySQL[rsa]\n\nTo use MariaDB's \"ed25519\" authentication method, you need to install\nadditional dependency:\n\n    $ python3 -m pip install PyMySQL[ed25519]\n\n## Documentation\n\nDocumentation is available online: <https://pymysql.readthedocs.io/>\n\nFor support, please refer to the\n[StackOverflow](https://stackoverflow.com/questions/tagged/pymysql).\n\n## Example\n\nThe following examples make use of a simple table\n\n``` sql\nCREATE TABLE `users` (\n    `id` int(11) NOT NULL AUTO_INCREMENT,\n    `email` varchar(255) COLLATE utf8_bin NOT NULL,\n    `password` varchar(255) COLLATE utf8_bin NOT NULL,\n    PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin\nAUTO_INCREMENT=1 ;\n```\n\n``` python\nimport pymysql.cursors\n\n# Connect to the database\nconnection = pymysql.connect(host='localhost',\n                             user='user',\n                             password='passwd',\n                             database='db',\n                             cursorclass=pymysql.cursors.DictCursor)\n\nwith connection:\n    with connection.cursor() as cursor:\n        # Create a new record\n        sql = \"INSERT INTO `users` (`email`, `password`) VALUES (%s, %s)\"\n        cursor.execute(sql, ('webmaster@python.org', 'very-secret'))\n\n    # connection is not autocommit by default. So you must commit to save\n    # your changes.\n    connection.commit()\n\n    with connection.cursor() as cursor:\n        # Read a single record\n        sql = \"SELECT `id`, `password` FROM `users` WHERE `email`=%s\"\n        cursor.execute(sql, ('webmaster@python.org',))\n        result = cursor.fetchone()\n        print(result)\n```\n\nThis example will print:\n\n``` python\n{'password': 'very-secret', 'id': 1}\n```\n\n## Resources\n\n- DB-API 2.0: <https://www.python.org/dev/peps/pep-0249/>\n- MySQL Reference Manuals: <https://dev.mysql.com/doc/>\n- Getting Help With MariaDB <https://mariadb.com/kb/en/getting-help-with-mariadb/>\n- MySQL client/server protocol:\n  <https://dev.mysql.com/doc/internals/en/client-server-protocol.html>\n- \"Connector\" channel in MySQL Community Slack:\n  <https://lefred.be/mysql-community-on-slack/>\n- PyMySQL mailing list:\n  <https://groups.google.com/forum/#!forum/pymysql-users>\n\n## License\n\nPyMySQL is released under the MIT License. See LICENSE for more\ninformation.\n",
+        "releases": [
+            {
+                "name": "v1.1.1",
+                "date": "2024-05-21T11:07:36Z"
+            },
+            {
+                "name": "v1.1.0",
+                "date": "2023-06-26T05:34:54Z"
+            },
+            {
+                "name": "v1.1.0rc2",
+                "date": "2023-06-15T08:00:12Z"
+            },
+            {
+                "name": "v1.1.0rc1",
+                "date": "2023-05-25T06:28:30Z"
+            },
+            {
+                "name": "v1.0.3",
+                "date": "2023-03-28T03:56:56Z"
+            },
+            {
+                "name": "v1.0.3rc1",
+                "date": "2023-03-23T16:44:54Z"
+            },
+            {
+                "name": "v1.0.2",
+                "date": "2023-03-23T16:44:20Z"
+            }
+        ]
+    }
+}

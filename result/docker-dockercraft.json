@@ -1,0 +1,51 @@
+{
+    "https://api.github.com/repos/docker/dockercraft": {
+        "forks": 397,
+        "watchers": 7241,
+        "stars": 7241,
+        "languages": {
+            "Lua": 32487,
+            "Go": 18279,
+            "Makefile": 940,
+            "Shell": 473
+        },
+        "commits": [
+            "2018-06-18T12:15:20Z",
+            "2017-10-15T03:47:27Z",
+            "2017-10-15T02:41:48Z",
+            "2017-10-15T02:40:06Z",
+            "2017-10-10T16:29:59Z",
+            "2017-10-10T15:58:07Z",
+            "2017-10-10T15:58:07Z",
+            "2017-10-10T15:01:27Z",
+            "2017-08-31T10:26:29Z",
+            "2017-04-15T16:41:10Z",
+            "2017-07-28T08:41:49Z",
+            "2017-07-28T02:43:05Z",
+            "2017-05-23T19:04:37Z",
+            "2017-04-18T13:55:24Z",
+            "2017-04-18T13:55:06Z",
+            "2017-04-18T11:19:20Z",
+            "2017-03-07T10:34:01Z",
+            "2017-03-07T02:18:39Z",
+            "2017-03-01T13:22:15Z",
+            "2017-03-01T13:20:34Z",
+            "2017-02-08T04:37:11Z",
+            "2017-02-08T02:57:38Z",
+            "2016-12-08T20:52:44Z",
+            "2016-12-08T20:14:35Z",
+            "2016-12-08T20:05:59Z",
+            "2016-12-08T18:03:16Z",
+            "2016-12-08T12:14:37Z",
+            "2016-12-08T11:54:21Z",
+            "2016-09-28T00:59:07Z",
+            "2016-09-28T00:54:48Z"
+        ],
+        "creation_date": "2015-06-26T23:51:50Z",
+        "contributors": 12,
+        "topics": [],
+        "subscribers": 229,
+        "readme": "# Dockercraft\n\n![Dockercraft](https://github.com/docker/dockercraft/raw/master/docs/img/logo.png?raw=true)\n\nA simple Minecraft Docker client, to visualize and manage Docker containers.\n\n![Dockercraft](https://github.com/docker/dockercraft/raw/master/docs/img/dockercraft.gif?raw=true)\n\n[YouTube video](http://www.youtube.com/watch?v=eZDlJgJf55o)\n\n> WARNING: Please use Dockercraft on your local machine only.\n> It currently doesn't support authentication.\n> Every player should be considered a root user! \n\n## How to run Dockercraft\n\n1. **Install Minecraft: [minecraft.net](https://minecraft.net)**\n\n\tThe Minecraft client hasn't been modified, just get the official release.\n\n2. **Pull or build Dockercraft image:** (an official image will be available soon)\n\n\t```\n\tdocker pull gaetan/dockercraft\n\t```\n\tor\n\n\t```\n\tgit clone git@github.com:docker/dockercraft.git\n\tdocker build -t gaetan/dockercraft dockercraft\n\t```\n3. **Run Dockercraft container:**\n\n\t```\n\tdocker run -t -i -d -p 25565:25565 \\\n\t-v /var/run/docker.sock:/var/run/docker.sock \\\n\t--name dockercraft \\\n\tgaetan/dockercraft\n\t```\n\n\tMounting `/var/run/docker.sock` inside the container is necessary to send requests to the Docker remote API.\n\n\tThe default port for a Minecraft server is *25565*, if you prefer a different one: `-p <port>:25565`\n\n4. **Open Minecraft > Multiplayer > Add Server**\n\n\tThe server address is the IP of Docker host. No need to specify a port if you used the default one.\n\n\tIf you're using [Docker Machine](https://docs.docker.com/machine/install-machine/): `docker-machine ip <machine_name>`\n\n5. **Join Server!**\n\n\tYou should see at least one container in your world, which is the one hosting your Dockercraft server.\n\n\tYou can start, stop and remove containers interacting with levers and buttons. Some Docker commands are also supported directly via Minecraft's chat window, which is displayed by pressing the `T` key (default) or `/` key.\n\t\n> A command always starts with a `/`.\n> \n> If you open the prompt using the `/` key, it will be prefilled with a `/` character, but if you open it with the `T` key, it will not be prefilled and you will have to type a `/` yourself before typing your docker command.\n> \n> example: `/docker run redis`.\n\n![Dockercraft](https://github.com/docker/dockercraft/raw/master/docs/img/landscape.png?raw=true)\n\n## Customizing Dockercraft\n\nDo you find the plains too plain?\nIf so, you are in luck!\n\nDockercraft can be customised to use any of the [Biomes](https://github.com/cuberite/cuberite/blob/7f8a4eb7264a12ca2035b4e4d412485e01f309d4/src/BiomeDef.cpp#L17) and [Finishers](https://github.com/cuberite/cuberite/blob/7f8a4eb7264a12ca2035b4e4d412485e01f309d4/src/Generating/ComposableGenerator.cpp#L299) supported by Cuberite!\n\nYou can pass these additional arguments to your `docker run` command:\n```\ndocker run -t -i -d -p 25565:25565 \\\n    -v /var/run/docker.sock:/var/run/docker.sock \\\n    --name dockercraft \\\n    gaetan/dockercraft <biome> <groundlevel> <sealevel> <finishers>\n```\n\nHere are some examples:\n\n**Do you long for the calm of the oceans?**\n![oceans](https://github.com/docker/dockercraft/raw/master/docs/img/ocean.png?raw=true)\n\nTry `Ocean 50 63`, or for a more frozen alternative, `FrozenOcean 50 63 Ice`\n\n**Or perhaps the heat of the desert?**\n![desert](https://github.com/docker/dockercraft/raw/master/docs/img/desert.png?raw=true)\n\nThen `Desert 63 0 DeadBushes` is what you need\n\n**Are you pining for the... Pines?**\n![forest](https://github.com/docker/dockercraft/raw/master/docs/img/forest.png?raw=true)\nWe have you covered. Try `Forest 63 0 Trees`\n\n**Or maybe you are looking for fun and games?**\n![jungle](https://github.com/docker/dockercraft/raw/master/docs/img/jungle.png?raw=true)\nIf so, Welcome to the Jungle. `Jungle 63 0 Trees`\n\n## Upcoming features\n\nThis is just the beginning for Dockercraft! We should be able to support a lot more Docker features like:\n\n- List [Docker Machines](https://docs.docker.com/machine/) and use portals to see what's inside\n- Support more Docker commands\n- Display [logs](https://docs.docker.com/v1.8/reference/commandline/logs/) (for each container, pushing a simple button)\n- Represent links\n- Docker networking\n- Docker volumes\n- ...\n\nIf you're interested about Dockercraft's design, discussions happen in [that issue](https://github.com/docker/dockercraft/issues/19).\nAlso, we're using [Magicavoxel](https://ephtracy.github.io/) to do these nice prototypes:\n\n![Dockercraft](https://github.com/docker/dockercraft/raw/master/docs/img/voxelproto.jpg?raw=true)\n\nYou can find our Magicavoxel patterns in [that folder](![Dockercraft](https://github.com/docker/dockercraft/tree/master/docs/magicavoxel)).\n\nTo get fresh news, follow our Twitter account: [@dockercraft](https://twitter.com/dockercraft).\n\n## How it works\n\nThe Minecraft client itself remains unmodified. All operations are done server side.\n\nThe Minecraft server we use is [http://cuberite.org](http://cuberite.org). A custom Minecraft compatible game server written in C++. [github repo](https://github.com/cuberite/cuberite)\n\nThis server accepts plugins, scripts written in Lua. So we did one for Docker. (world/Plugins/Docker)\n\nUnfortunately, there's no nice API to communicate with these plugins. But there's a webadmin, and plugins can be responsible for \"webtabs\".\n\n```lua\nPlugin:AddWebTab(\"Docker\",HandleRequest_Docker)\n```\n\nBasically it means the plugin can catch POST requests sent to `http://127.0.0.1:8080/webadmin/Docker/Docker`.\n\n### Goproxy\n\nEvents from the Docker remote API are transmitted to the Lua plugin by a small daemon (written in Go). (go/src/goproxy)\n\n```go\nfunc MCServerRequest(data url.Values, client *http.Client) {\n\treq, _ := http.NewRequest(\"POST\", \"http://127.0.0.1:8080/webadmin/Docker/Docker\", strings.NewReader(data.Encode()))\n\treq.Header.Set(\"Content-Type\", \"application/x-www-form-urlencoded\")\n\treq.SetBasicAuth(\"admin\", \"admin\")\n\tclient.Do(req)\n}\n```\n\nThe goproxy binary can also be executed with parameters from the Lua plugin, to send requests to the daemon:\n\n```lua\nfunction PlayerJoined(Player)\n\t-- refresh containers\n\tr = os.execute(\"goproxy containers\")\nend\n```\n## Contributing\n\nWant to hack on Dockercraft? [Docker's contributions guidelines](https://github.com/docker/docker/blob/master/CONTRIBUTING.md) apply.\n\n![Dockercraft](https://github.com/docker/dockercraft/raw/master/docs/img/contribute.png?raw=true)\n",
+        "releases": []
+    }
+}

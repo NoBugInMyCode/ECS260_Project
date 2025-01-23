@@ -1,0 +1,53 @@
+{
+    "https://api.github.com/repos/sebastianbergmann/php-timer": {
+        "forks": 66,
+        "watchers": 7678,
+        "stars": 7678,
+        "languages": {
+            "PHP": 27708
+        },
+        "commits": [
+            "2025-01-16T08:10:48Z",
+            "2025-01-16T08:08:47Z",
+            "2025-01-01T09:42:21Z",
+            "2025-01-01T09:42:19Z",
+            "2024-12-13T08:10:03Z",
+            "2024-11-18T12:45:24Z",
+            "2024-11-18T12:45:12Z",
+            "2024-11-18T12:45:06Z",
+            "2024-09-29T07:05:01Z",
+            "2024-09-29T07:04:59Z",
+            "2024-09-07T13:07:55Z",
+            "2024-09-07T13:07:05Z",
+            "2024-09-07T13:07:03Z",
+            "2024-09-07T13:07:01Z",
+            "2024-08-13T09:36:07Z",
+            "2024-07-17T06:36:06Z",
+            "2024-07-17T06:36:03Z",
+            "2024-07-15T07:10:18Z",
+            "2024-07-03T05:09:35Z",
+            "2024-06-26T06:30:08Z",
+            "2024-03-22T13:52:26Z",
+            "2024-03-22T13:52:24Z",
+            "2024-03-11T06:14:27Z",
+            "2024-03-11T06:14:24Z",
+            "2024-03-11T06:14:23Z",
+            "2024-03-10T12:28:32Z",
+            "2024-03-10T12:28:29Z",
+            "2024-02-02T06:08:01Z",
+            "2024-01-30T14:05:28Z",
+            "2024-01-30T14:05:27Z"
+        ],
+        "creation_date": "2010-05-08T10:40:25Z",
+        "contributors": 11,
+        "topics": [],
+        "subscribers": 22,
+        "readme": "# phpunit/php-timer\n\n[![Latest Stable Version](https://poser.pugx.org/phpunit/php-timer/v)](https://packagist.org/packages/phpunit/php-timer)\n[![CI Status](https://github.com/sebastianbergmann/php-timer/workflows/CI/badge.svg)](https://github.com/sebastianbergmann/php-timer/actions)\n[![codecov](https://codecov.io/gh/sebastianbergmann/php-timer/branch/main/graph/badge.svg)](https://codecov.io/gh/sebastianbergmann/php-timer)\n\nUtility class for timing things, factored out of PHPUnit into a stand-alone component.\n\n## Installation\n\nYou can add this library as a local, per-project dependency to your project using [Composer](https://getcomposer.org/):\n\n```\ncomposer require phpunit/php-timer\n```\n\nIf you only need this library during development, for instance to run your project's test suite, then you should add it as a development-time dependency:\n\n```\ncomposer require --dev phpunit/php-timer\n```\n\n## Usage\n\n### Basic Timing\n\n```php\nrequire __DIR__ . '/vendor/autoload.php';\n\nuse SebastianBergmann\\Timer\\Timer;\n\n$timer = new Timer;\n\n$timer->start();\n\nforeach (\\range(0, 100000) as $i) {\n    // ...\n}\n\n$duration = $timer->stop();\n\nvar_dump(get_class($duration));\nvar_dump($duration->asString());\nvar_dump($duration->asSeconds());\nvar_dump($duration->asMilliseconds());\nvar_dump($duration->asMicroseconds());\nvar_dump($duration->asNanoseconds());\n```\n\nThe code above yields the output below:\n\n```\nstring(32) \"SebastianBergmann\\Timer\\Duration\"\nstring(9) \"00:00.002\"\nfloat(0.002851062)\nfloat(2.851062)\nfloat(2851.062)\nint(2851062)\n```\n\n### Resource Consumption\n\n#### Explicit duration\n\n```php\nrequire __DIR__ . '/vendor/autoload.php';\n\nuse SebastianBergmann\\Timer\\ResourceUsageFormatter;\nuse SebastianBergmann\\Timer\\Timer;\n\n$timer = new Timer;\n$timer->start();\n\nforeach (\\range(0, 100000) as $i) {\n    // ...\n}\n\nprint (new ResourceUsageFormatter)->resourceUsage($timer->stop());\n```\n\nThe code above yields the output below:\n\n```\nTime: 00:00.002, Memory: 6.00 MB\n```\n\n#### Duration since PHP Startup (using unreliable `$_SERVER['REQUEST_TIME_FLOAT']`)\n\n```php\nrequire __DIR__ . '/vendor/autoload.php';\n\nuse SebastianBergmann\\Timer\\ResourceUsageFormatter;\n\nforeach (\\range(0, 100000) as $i) {\n    // ...\n}\n\nprint (new ResourceUsageFormatter)->resourceUsageSinceStartOfRequest();\n```\n\nThe code above yields the output below:\n\n```\nTime: 00:00.002, Memory: 6.00 MB\n```\n",
+        "releases": [
+            {
+                "name": "phpunit/php-timer 7.0.1",
+                "date": "2024-07-03T05:10:06Z"
+            }
+        ]
+    }
+}

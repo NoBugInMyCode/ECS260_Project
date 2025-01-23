@@ -1,0 +1,48 @@
+{
+    "https://api.github.com/repos/robfig/cron": {
+        "forks": 1640,
+        "watchers": 13267,
+        "stars": 13267,
+        "languages": {
+            "Go": 86143
+        },
+        "commits": [
+            "2021-01-06T02:54:41Z",
+            "2020-05-18T08:58:33Z",
+            "2020-03-16T17:39:45Z",
+            "2020-01-04T01:47:08Z",
+            "2020-01-04T01:05:08Z",
+            "2019-12-17T03:18:34Z",
+            "2019-12-17T03:07:53Z",
+            "2019-11-25T21:07:56Z",
+            "2019-11-25T21:06:57Z",
+            "2019-11-21T03:17:56Z",
+            "2019-10-09T21:28:31Z",
+            "2019-07-16T00:23:18Z",
+            "2019-07-16T00:20:09Z",
+            "2019-07-12T11:25:36Z",
+            "2019-07-12T07:47:40Z",
+            "2019-07-11T16:53:50Z",
+            "2019-07-03T13:50:26Z",
+            "2019-06-16T21:37:20Z",
+            "2019-06-16T16:47:02Z",
+            "2019-06-16T02:24:46Z",
+            "2019-07-03T12:35:54Z",
+            "2019-07-11T15:56:04Z",
+            "2019-07-11T11:49:04Z",
+            "2019-06-17T02:11:50Z",
+            "2019-06-16T20:53:07Z",
+            "2019-06-16T12:03:54Z",
+            "2019-06-16T20:28:43Z",
+            "2019-05-03T01:55:19Z",
+            "2019-05-03T01:44:51Z",
+            "2019-05-03T01:40:14Z"
+        ],
+        "creation_date": "2012-07-06T14:06:34Z",
+        "contributors": 28,
+        "topics": [],
+        "subscribers": 205,
+        "readme": "[![GoDoc](http://godoc.org/github.com/robfig/cron?status.png)](http://godoc.org/github.com/robfig/cron)\n[![Build Status](https://travis-ci.org/robfig/cron.svg?branch=master)](https://travis-ci.org/robfig/cron)\n\n# cron\n\nCron V3 has been released!\n\nTo download the specific tagged release, run:\n```bash\ngo get github.com/robfig/cron/v3@v3.0.0\n```\nImport it in your program as:\n```go\nimport \"github.com/robfig/cron/v3\"\n```\nIt requires Go 1.11 or later due to usage of Go Modules.\n\nRefer to the documentation here:\nhttp://godoc.org/github.com/robfig/cron\n\nThe rest of this document describes the the advances in v3 and a list of\nbreaking changes for users that wish to upgrade from an earlier version.\n\n## Upgrading to v3 (June 2019)\n\ncron v3 is a major upgrade to the library that addresses all outstanding bugs,\nfeature requests, and rough edges. It is based on a merge of master which\ncontains various fixes to issues found over the years and the v2 branch which\ncontains some backwards-incompatible features like the ability to remove cron\njobs. In addition, v3 adds support for Go Modules, cleans up rough edges like\nthe timezone support, and fixes a number of bugs.\n\nNew features:\n\n- Support for Go modules. Callers must now import this library as\n  `github.com/robfig/cron/v3`, instead of `gopkg.in/...`\n\n- Fixed bugs:\n  - 0f01e6b parser: fix combining of Dow and Dom (#70)\n  - dbf3220 adjust times when rolling the clock forward to handle non-existent midnight (#157)\n  - eeecf15 spec_test.go: ensure an error is returned on 0 increment (#144)\n  - 70971dc cron.Entries(): update request for snapshot to include a reply channel (#97)\n  - 1cba5e6 cron: fix: removing a job causes the next scheduled job to run too late (#206)\n\n- Standard cron spec parsing by default (first field is \"minute\"), with an easy\n  way to opt into the seconds field (quartz-compatible). Although, note that the\n  year field (optional in Quartz) is not supported.\n\n- Extensible, key/value logging via an interface that complies with\n  the https://github.com/go-logr/logr project.\n\n- The new Chain & JobWrapper types allow you to install \"interceptors\" to add\n  cross-cutting behavior like the following:\n  - Recover any panics from jobs\n  - Delay a job's execution if the previous run hasn't completed yet\n  - Skip a job's execution if the previous run hasn't completed yet\n  - Log each job's invocations\n  - Notification when jobs are completed\n\nIt is backwards incompatible with both v1 and v2. These updates are required:\n\n- The v1 branch accepted an optional seconds field at the beginning of the cron\n  spec. This is non-standard and has led to a lot of confusion. The new default\n  parser conforms to the standard as described by [the Cron wikipedia page].\n\n  UPDATING: To retain the old behavior, construct your Cron with a custom\n  parser:\n```go\n// Seconds field, required\ncron.New(cron.WithSeconds())\n\n// Seconds field, optional\ncron.New(cron.WithParser(cron.NewParser(\n\tcron.SecondOptional | cron.Minute | cron.Hour | cron.Dom | cron.Month | cron.Dow | cron.Descriptor,\n)))\n```\n- The Cron type now accepts functional options on construction rather than the\n  previous ad-hoc behavior modification mechanisms (setting a field, calling a setter).\n\n  UPDATING: Code that sets Cron.ErrorLogger or calls Cron.SetLocation must be\n  updated to provide those values on construction.\n\n- CRON_TZ is now the recommended way to specify the timezone of a single\n  schedule, which is sanctioned by the specification. The legacy \"TZ=\" prefix\n  will continue to be supported since it is unambiguous and easy to do so.\n\n  UPDATING: No update is required.\n\n- By default, cron will no longer recover panics in jobs that it runs.\n  Recovering can be surprising (see issue #192) and seems to be at odds with\n  typical behavior of libraries. Relatedly, the `cron.WithPanicLogger` option\n  has been removed to accommodate the more general JobWrapper type.\n\n  UPDATING: To opt into panic recovery and configure the panic logger:\n```go\ncron.New(cron.WithChain(\n  cron.Recover(logger),  // or use cron.DefaultLogger\n))\n```\n- In adding support for https://github.com/go-logr/logr, `cron.WithVerboseLogger` was\n  removed, since it is duplicative with the leveled logging.\n\n  UPDATING: Callers should use `WithLogger` and specify a logger that does not\n  discard `Info` logs. For convenience, one is provided that wraps `*log.Logger`:\n```go\ncron.New(\n  cron.WithLogger(cron.VerbosePrintfLogger(logger)))\n```\n\n### Background - Cron spec format\n\nThere are two cron spec formats in common usage:\n\n- The \"standard\" cron format, described on [the Cron wikipedia page] and used by\n  the cron Linux system utility.\n\n- The cron format used by [the Quartz Scheduler], commonly used for scheduled\n  jobs in Java software\n\n[the Cron wikipedia page]: https://en.wikipedia.org/wiki/Cron\n[the Quartz Scheduler]: http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/tutorial-lesson-06.html\n\nThe original version of this package included an optional \"seconds\" field, which\nmade it incompatible with both of these formats. Now, the \"standard\" format is\nthe default format accepted, and the Quartz format is opt-in.\n",
+        "releases": []
+    }
+}

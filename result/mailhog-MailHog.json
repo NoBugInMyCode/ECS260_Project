@@ -1,0 +1,143 @@
+{
+    "https://api.github.com/repos/mailhog/MailHog": {
+        "forks": 1082,
+        "watchers": 14412,
+        "stars": 14412,
+        "languages": {
+            "Go": 3712,
+            "Makefile": 1067,
+            "Dockerfile": 634
+        },
+        "commits": [
+            "2022-08-02T11:00:45Z",
+            "2022-08-02T11:00:11Z",
+            "2022-08-02T10:58:20Z",
+            "2022-07-09T16:04:15Z",
+            "2022-03-17T19:15:45Z",
+            "2021-11-28T13:17:30Z",
+            "2021-09-29T22:14:09Z",
+            "2021-09-29T22:11:12Z",
+            "2021-09-29T22:02:57Z",
+            "2021-09-29T21:51:20Z",
+            "2021-09-29T21:22:38Z",
+            "2018-11-23T23:17:13Z",
+            "2021-09-29T21:12:20Z",
+            "2020-10-11T12:06:18Z",
+            "2020-10-11T12:00:09Z",
+            "2020-09-30T14:49:03Z",
+            "2020-09-14T18:15:30Z",
+            "2020-06-17T19:27:15Z",
+            "2020-05-12T11:55:40Z",
+            "2020-05-04T08:27:55Z",
+            "2020-05-04T08:26:31Z",
+            "2018-02-06T11:01:50Z",
+            "2019-12-23T17:44:00Z",
+            "2019-12-14T01:09:05Z",
+            "2019-10-15T08:40:30Z",
+            "2019-10-07T13:33:32Z",
+            "2019-05-27T20:33:08Z",
+            "2019-03-01T17:44:59Z",
+            "2018-10-17T08:07:42Z",
+            "2018-09-14T11:51:17Z"
+        ],
+        "creation_date": "2014-04-16T22:28:49Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 156,
+        "readme": "MailHog [ ![Download](https://img.shields.io/github/release/mailhog/MailHog.svg) ](https://github.com/mailhog/MailHog/releases/tag/v1.0.0) [![GoDoc](https://godoc.org/github.com/mailhog/MailHog?status.svg)](https://godoc.org/github.com/mailhog/MailHog) [![Build Status](https://travis-ci.org/mailhog/MailHog.svg?branch=master)](https://travis-ci.org/mailhog/MailHog)\n=========\n\nInspired by [MailCatcher](https://mailcatcher.me/), easier to install.\n\n* Download and run MailHog\n* Configure your outgoing SMTP server\n* View your outgoing email in a web UI\n* Release it to a real mail server\n\nBuilt with Go - MailHog runs without installation on multiple platforms.\n\n### Overview\n\nMailHog is an email testing tool for developers:\n\n* Configure your application to use MailHog for SMTP delivery\n* View messages in the web UI, or retrieve them with the JSON API\n* Optionally release messages to real SMTP servers for delivery\n\n### Installation\n\n#### Manual installation\n[Download the latest release for your platform](/docs/RELEASES.md). Then\n[read the deployment guide](/docs/DEPLOY.md) for deployment options.\n\n#### MacOS\n```bash\nbrew update && brew install mailhog\n```\n\nThen, start MailHog by running `mailhog` in the command line.\n\n#### Debian / Ubuntu Go < v1.18\n```bash\nsudo apt-get -y install golang-go\ngo get github.com/mailhog/MailHog\n```\n\n#### Go >= v1.17 (Debian Bookworm) \n```bash\nsudo apt-get -y install golang-go\ngo install github.com/mailhog/MailHog@latest\n```\n\nThen, start MailHog by running `/path/to/MailHog` in the command line.\n\nE.g. the path to Go's bin files on Ubuntu is `~/go/bin/`, so to start the MailHog run:\n\n```bash\n~/go/bin/MailHog\n```\n\n#### FreeBSD\n```bash\npkg install mailhog\nsysrc mailhog_enable=\"YES\"\nservice mailhog start\n```\n\n#### Docker\n[Run it from Docker Hub](https://registry.hub.docker.com/r/mailhog/mailhog/) or using the provided [Dockerfile](Dockerfile)\n\n### Configuration\n\nCheck out how to [configure MailHog](/docs/CONFIG.md), or use the default settings:\n  * the SMTP server starts on port 1025\n  * the HTTP server starts on port 8025\n  * in-memory message storage\n\n### Features\n\nSee [MailHog libraries](docs/LIBRARIES.md) for a list of MailHog client libraries.\n\n* ESMTP server implementing RFC5321\n* Support for SMTP AUTH (RFC4954) and PIPELINING (RFC2920)\n* Web interface to view messages (plain text, HTML or source)\n  * Supports RFC2047 encoded headers\n* Real-time updates using EventSource\n* Release messages to real SMTP servers\n* Chaos Monkey for failure testing\n  * See [Introduction to Jim](/docs/JIM.md) for more information\n* HTTP API to list, retrieve and delete messages\n  * See [APIv1](/docs/APIv1.md) and [APIv2](/docs/APIv2.md) documentation for more information\n* [HTTP basic authentication](docs/Auth.md) for MailHog UI and API\n* Multipart MIME support\n* Download individual MIME parts\n* In-memory message storage\n* MongoDB and file based storage for message persistence\n* Lightweight and portable\n* No installation required\n\n#### sendmail\n\n[mhsendmail](https://github.com/mailhog/mhsendmail) is a sendmail replacement for MailHog.\n\nIt redirects mail to MailHog using SMTP.\n\nYou can also use `MailHog sendmail ...` instead of the separate mhsendmail binary.\n\nAlternatively, you can use your native `sendmail` command by providing `-S`, for example:\n\n```bash\n/usr/sbin/sendmail -S mail:1025\n```\n\nFor example, in PHP you could add either of these lines to `php.ini`:\n\n```\nsendmail_path = /usr/local/bin/mhsendmail\nsendmail_path = /usr/sbin/sendmail -S mail:1025\n```\n\n#### Web UI\n\n![Screenshot of MailHog web interface](/docs/MailHog.png \"MailHog web interface\")\n\n### Contributing\n\nMailHog is a rewritten version of [MailHog](https://github.com/ian-kent/MailHog), which was born out of [M3MTA](https://github.com/ian-kent/M3MTA).\n\nClone this repository to ```$GOPATH/src/github.com/mailhog/MailHog``` and type ```make deps```.\n\nSee the [Building MailHog](/docs/BUILD.md) guide.\n\nRequires Go 1.4+ to build.\n\nRun tests using ```make test``` or ```goconvey```.\n\nIf you make any changes, run ```go fmt ./...``` before submitting a pull request.\n\n### Licence\n\nCopyright \u00a9\u200e 2014 - 2017, Ian Kent (http://iankent.uk)\n\nReleased under MIT license, see [LICENSE](LICENSE.md) for details.\n",
+        "releases": [
+            {
+                "name": "Mailhog 1.0.1",
+                "date": "2020-08-11T18:04:41Z"
+            },
+            {
+                "name": "MailHog v1.0.0",
+                "date": "2017-04-16T23:36:18Z"
+            },
+            {
+                "name": "MailHog v0.2.1",
+                "date": "2016-09-04T18:31:48Z"
+            },
+            {
+                "name": "MailHog v0.2.0",
+                "date": "2016-03-20T17:23:21Z"
+            },
+            {
+                "name": "MailHog v0.1.9",
+                "date": "2016-03-13T19:24:01Z"
+            },
+            {
+                "name": "MailHog v0.1.8",
+                "date": "2015-10-06T20:29:59Z"
+            },
+            {
+                "name": "MailHog v0.1.7",
+                "date": "2015-05-20T20:03:57Z"
+            },
+            {
+                "name": "MailHog v0.1.6",
+                "date": "2015-03-14T10:01:38Z"
+            },
+            {
+                "name": "MailHog v0.1.5",
+                "date": "2015-02-12T21:30:55Z"
+            },
+            {
+                "name": "MailHog v0.1.4",
+                "date": "2015-02-12T20:57:47Z"
+            },
+            {
+                "name": "MailHog v0.1.3",
+                "date": "2015-01-08T22:36:13Z"
+            },
+            {
+                "name": "MailHog v0.1.2",
+                "date": "2015-01-08T21:17:03Z"
+            },
+            {
+                "name": "MailHog v0.1.1",
+                "date": "2015-01-04T12:54:33Z"
+            },
+            {
+                "name": "MailHog v0.1.0",
+                "date": "2014-12-27T13:50:55Z"
+            },
+            {
+                "name": "Go-MailHog v0.09",
+                "date": "2014-12-24T13:40:49Z"
+            },
+            {
+                "name": "Go-MailHog v0.08",
+                "date": "2014-12-21T09:34:14Z"
+            },
+            {
+                "name": "Go-MailHog v0.07",
+                "date": "2014-11-18T08:10:22Z"
+            },
+            {
+                "name": "Go-MailHog v0.06",
+                "date": "2014-11-13T18:23:01Z"
+            },
+            {
+                "name": "Go-MailHog v0.05",
+                "date": "2014-11-01T22:51:22Z"
+            },
+            {
+                "name": "Go-MailHog v0.04",
+                "date": "2014-10-29T18:53:09Z"
+            },
+            {
+                "name": "Web UI features and API clean-up",
+                "date": "2014-04-28T00:54:58Z"
+            },
+            {
+                "name": "In-memory storage and improved UI",
+                "date": "2014-04-24T19:04:03Z"
+            },
+            {
+                "name": "First release",
+                "date": "2014-04-20T16:19:59Z"
+            }
+        ]
+    }
+}

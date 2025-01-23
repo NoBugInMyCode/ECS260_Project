@@ -1,0 +1,267 @@
+{
+    "https://api.github.com/repos/cosmtrek/air": {
+        "forks": 828,
+        "watchers": 19058,
+        "stars": 19058,
+        "languages": {
+            "Go": 103074,
+            "Shell": 10566,
+            "JavaScript": 3165,
+            "Makefile": 1550,
+            "Dockerfile": 479,
+            "Python": 462
+        },
+        "commits": [
+            "2025-01-19T14:55:20Z",
+            "2025-01-19T08:28:51Z",
+            "2025-01-19T08:03:25Z",
+            "2025-01-17T15:38:28Z",
+            "2025-01-17T15:37:10Z",
+            "2024-12-17T02:53:05Z",
+            "2024-12-16T16:47:59Z",
+            "2024-12-16T16:42:17Z",
+            "2024-12-16T15:53:33Z",
+            "2024-12-16T15:47:13Z",
+            "2024-12-16T15:40:25Z",
+            "2024-12-16T14:57:54Z",
+            "2024-12-16T14:34:53Z",
+            "2024-11-21T07:19:56Z",
+            "2024-11-11T03:56:58Z",
+            "2024-11-07T02:27:45Z",
+            "2024-11-06T13:43:20Z",
+            "2024-11-06T13:39:21Z",
+            "2024-10-16T04:15:59Z",
+            "2024-10-09T14:29:44Z",
+            "2024-09-25T11:49:57Z",
+            "2024-09-22T03:59:12Z",
+            "2024-09-22T02:54:10Z",
+            "2024-09-22T00:50:41Z",
+            "2024-09-21T17:00:18Z",
+            "2024-09-21T16:47:34Z",
+            "2024-09-21T16:34:32Z",
+            "2024-09-21T16:26:02Z",
+            "2024-09-21T14:48:15Z",
+            "2024-09-21T14:38:40Z"
+        ],
+        "creation_date": "2017-10-12T14:31:40Z",
+        "contributors": 30,
+        "topics": [
+            "docker",
+            "file-watcher",
+            "gin",
+            "go",
+            "live-reload",
+            "task-runner",
+            "tools",
+            "watcher"
+        ],
+        "subscribers": 73,
+        "readme": "# :cloud: Air - Live reload for Go apps\n\n[![Go](https://github.com/air-verse/air/actions/workflows/release.yml/badge.svg)](https://github.com/air-verse/air/actions?query=workflow%3AGo+branch%3Amaster) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/dcb95264cc504cad9c2a3d8b0795a7f8)](https://www.codacy.com/gh/air-verse/air/dashboard?utm_source=github.com&utm_medium=referral&utm_content=air-verse/air&utm_campaign=Badge_Grade) [![Go Report Card](https://goreportcard.com/badge/github.com/air-verse/air)](https://goreportcard.com/report/github.com/air-verse/air) [![codecov](https://codecov.io/gh/air-verse/air/branch/master/graph/badge.svg)](https://codecov.io/gh/air-verse/air)\n\n![air](docs/air.png)\n\nEnglish | [\u7b80\u4f53\u4e2d\u6587](README-zh_cn.md) | [\u7e41\u9ad4\u4e2d\u6587](README-zh_tw.md)\n\n## Motivation\n\nWhen I started developing websites in Go and using [gin](https://github.com/gin-gonic/gin) framework, it was a pity\nthat gin lacked a live-reloading function. So I searched around and tried [fresh](https://github.com/pilu/fresh), it seems not much\nflexible, so I intended to rewrite it better. Finally, Air's born.\nIn addition, great thanks to [pilu](https://github.com/pilu), no fresh, no air :)\n\nAir is yet another live-reloading command line utility for developing Go applications. Run `air` in your project root directory, leave it alone,\nand focus on your code.\n\nNote: This tool has nothing to do with hot-deploy for production.\n\n## Features\n\n- Colorful log output\n- Customize build or any command\n- Support excluding subdirectories\n- Allow watching new directories after Air started\n- Better building process\n\n### Overwrite specify configuration from arguments\n\nSupport air config fields as arguments:\n\nYou can view the available command-line arguments by running the following commands:  \n\n```\nair -h\n```\nor  \n```\nair --help\n```\n\nIf you want to config build command and run command, you can use like the following command without the config file:\n\n```shell\nair --build.cmd \"go build -o bin/api cmd/run.go\" --build.bin \"./bin/api\"\n```\n\nUse a comma to separate items for arguments that take a list as input:\n\n```shell\nair --build.cmd \"go build -o bin/api cmd/run.go\" --build.bin \"./bin/api\" --build.exclude_dir \"templates,build\"\n```\n\n## Installation\n\n### Via `go install` (Recommended)\n\nWith go 1.23 or higher:\n\n```bash\ngo install github.com/air-verse/air@latest\n```\n\n### Via install.sh\n\n```shell\n# binary will be $(go env GOPATH)/bin/air\ncurl -sSfL https://raw.githubusercontent.com/air-verse/air/master/install.sh | sh -s -- -b $(go env GOPATH)/bin\n\n# or install it into ./bin/\ncurl -sSfL https://raw.githubusercontent.com/air-verse/air/master/install.sh | sh -s\n\nair -v\n```\n\n### Via [goblin.run](https://goblin.run)\n\n```shell\n# binary will be /usr/local/bin/air\ncurl -sSfL https://goblin.run/github.com/air-verse/air | sh\n\n# to put to a custom path\ncurl -sSfL https://goblin.run/github.com/air-verse/air | PREFIX=/tmp sh\n```\n\n### Docker/Podman\n\nPlease pull this Docker image [cosmtrek/air](https://hub.docker.com/r/cosmtrek/air).\n\n```shell\ndocker/podman run -it --rm \\\n    -w \"<PROJECT>\" \\\n    -e \"air_wd=<PROJECT>\" \\\n    -v $(pwd):<PROJECT> \\\n    -p <PORT>:<APP SERVER PORT> \\\n    cosmtrek/air\n    -c <CONF>\n```\n\n#### Docker/Podman .${SHELL}rc\n\nif you want to use air continuously like a normal app, you can create a function in your ${SHELL}rc (Bash, Zsh, etc\u2026)\n\n```shell\nair() {\n  podman/docker run -it --rm \\\n    -w \"$PWD\" -v \"$PWD\":\"$PWD\" \\\n    -p \"$AIR_PORT\":\"$AIR_PORT\" \\\n    docker.io/cosmtrek/air \"$@\"\n}\n```\n\n`<PROJECT>` is your project path in container, eg: /go/example\nif you want to enter the container, Please add --entrypoint=bash.\n\n<details>\n  <summary>For example</summary>\n\nOne of my project runs in Docker:\n\n```shell\ndocker run -it --rm \\\n  -w \"/go/src/github.com/cosmtrek/hub\" \\\n  -v $(pwd):/go/src/github.com/cosmtrek/hub \\\n  -p 9090:9090 \\\n  cosmtrek/air\n```\n\nAnother example:\n\n```shell\ncd /go/src/github.com/cosmtrek/hub\nAIR_PORT=8080 air -c \"config.toml\"\n```\n\nthis will replace `$PWD` with the current directory, `$AIR_PORT` is the port where to publish and `$@` is to accept arguments of the application itself for example -c\n\n</details>\n\n## Usage\n\nFor less typing, you could add `alias air='~/.air'` to your `.bashrc` or `.zshrc`.\n\nFirst enter into your project\n\n```shell\ncd /path/to/your_project\n```\n\nThe simplest usage is run\n\n```shell\n# firstly find `.air.toml` in current directory, if not found, use defaults\nair -c .air.toml\n```\n\nYou can initialize the `.air.toml` configuration file to the current directory with the default settings running the following command.\n\n```shell\nair init\n```\n\nAfter this, you can just run the `air` command without additional arguments, and it will use the `.air.toml` file for configuration.\n\n```shell\nair\n```\n\nFor modifying the configuration refer to the [air_example.toml](air_example.toml) file.\n\n### Runtime arguments\n\nYou can pass arguments for running the built binary by adding them after the air command.\n\n```shell\n# Will run ./tmp/main bench\nair bench\n\n# Will run ./tmp/main server --port 8080\nair server --port 8080\n```\n\nYou can separate the arguments passed for the air command and the built binary with `--` argument.\n\n```shell\n# Will run ./tmp/main -h\nair -- -h\n\n# Will run air with custom config and pass -h argument to the built binary\nair -c .air.toml -- -h\n```\n\n### Docker Compose\n\n```yaml\nservices:\n  my-project-with-air:\n    image: cosmtrek/air\n    # working_dir value has to be the same of mapped volume\n    working_dir: /project-package\n    ports:\n      - <any>:<any>\n    environment:\n      - ENV_A=${ENV_A}\n      - ENV_B=${ENV_B}\n      - ENV_C=${ENV_C}\n    volumes:\n      - ./project-relative-path/:/project-package/\n```\n\n### Debug\n\n`air -d` prints all logs.\n\n## Installation and Usage for Docker users who don't want to use air image\n\n`Dockerfile`\n\n```Dockerfile\n# Choose whatever you want, version >= 1.16\nFROM golang:1.23-alpine\n\nWORKDIR /app\n\nRUN go install github.com/air-verse/air@latest\n\nCOPY go.mod go.sum ./\nRUN go mod download\n\nCMD [\"air\", \"-c\", \".air.toml\"]\n```\n\n`docker-compose.yaml`\n\n```yaml\nversion: \"3.8\"\nservices:\n  web:\n    build:\n      context: .\n      # Correct the path to your Dockerfile\n      dockerfile: Dockerfile\n    ports:\n      - 8080:3000\n    # Important to bind/mount your codebase dir to /app dir for live reload\n    volumes:\n      - ./:/app\n```\n\n## Q&A\n\n### \"command not found: air\" or \"No such file or directory\"\n\n```shell\nexport GOPATH=$HOME/xxxxx\nexport PATH=$PATH:$GOROOT/bin:$GOPATH/bin\nexport PATH=$PATH:$(go env GOPATH)/bin #Confirm this line in your .profile and make sure to source the .profile if you add it!!!\n```\n\n### Error under wsl when ' is included in the bin\n\nShould use `\\` to escape the `'` in the bin. related issue: [#305](https://github.com/air-verse/air/issues/305)\n\n### Question: how to do hot compile only and do not run anything?\n\n[#365](https://github.com/air-verse/air/issues/365)\n\n```toml\n[build]\n  cmd = \"/usr/bin/true\"\n```\n\n### How to Reload the Browser Automatically on Static File Changes\n\nRefer to issue [#512](https://github.com/air-verse/air/issues/512) for additional details.\n\n- Ensure your static files in `include_dir`, `include_ext`, or `include_file`.\n- Ensure your HTML has a `</body>` tag\n- Activate the proxy by configuring the following config:\n\n```toml\n[proxy]\n  enabled = true\n  proxy_port = <air proxy port>\n  app_port = <your server port>\n```\n\n## Development\n\nPlease note that it requires Go 1.16+ since I use `go mod` to manage dependencies.\n\n```shell\n# Fork this project\n\n# Clone it\nmkdir -p $GOPATH/src/github.com/cosmtrek\ncd $GOPATH/src/github.com/cosmtrek\ngit clone git@github.com:<YOUR USERNAME>/air.git\n\n# Install dependencies\ncd air\nmake ci\n\n# Explore it and happy hacking!\nmake install\n```\n\nPull requests are welcome.\n\n### Release\n\n```shell\n# Checkout to master\ngit checkout master\n\n# Add the version that needs to be released\ngit tag v1.xx.x\n\n# Push to remote\ngit push origin v1.xx.x\n\n# The CI will process and release a new version. Wait about 5 min, and you can fetch the latest version\n```\n\n## Star History\n\n[![Star History Chart](https://api.star-history.com/svg?repos=air-verse/air&type=Date)](https://star-history.com/#air-verse/air&Date)\n\n## Sponsor\n\n[![Buy Me A Coffee](https://cdn.buymeacoffee.com/buttons/default-orange.png)](https://www.buymeacoffee.com/cosmtrek)\n\nGive huge thanks to lots of supporters. I've always been remembering your kindness.\n\n## License\n\n[GNU General Public License v3.0](LICENSE)\n",
+        "releases": [
+            {
+                "name": "v1.61.7",
+                "date": "2025-01-19T14:58:40Z"
+            },
+            {
+                "name": "v1.61.6",
+                "date": "2025-01-19T14:57:55Z"
+            },
+            {
+                "name": "v1.61.5",
+                "date": "2024-12-17T02:57:01Z"
+            },
+            {
+                "name": "v1.61.4",
+                "date": "2024-12-16T16:51:58Z"
+            },
+            {
+                "name": "v1.61.3",
+                "date": "2024-12-16T15:28:50Z"
+            },
+            {
+                "name": "v1.61.1",
+                "date": "2024-10-16T04:16:51Z"
+            },
+            {
+                "name": "v1.61.0",
+                "date": "2024-10-09T14:57:51Z"
+            },
+            {
+                "name": "v1.60.0",
+                "date": "2024-09-21T15:00:46Z"
+            },
+            {
+                "name": "v1.52.3",
+                "date": "2024-06-24T14:43:57Z"
+            },
+            {
+                "name": "v1.52.2",
+                "date": "2024-06-04T02:44:17Z"
+            },
+            {
+                "name": "v1.52.1",
+                "date": "2024-05-30T15:00:52Z"
+            },
+            {
+                "name": "v1.52.0",
+                "date": "2024-05-05T14:42:12Z"
+            },
+            {
+                "name": "v1.51.0",
+                "date": "2024-02-25T03:40:24Z"
+            },
+            {
+                "name": "v1.50.0",
+                "date": "2024-02-21T03:49:41Z"
+            },
+            {
+                "name": "v1.49.0",
+                "date": "2023-10-23T16:51:15Z"
+            },
+            {
+                "name": "v1.48.0",
+                "date": "2023-10-19T16:48:47Z"
+            },
+            {
+                "name": "v1.47.0",
+                "date": "2023-10-16T09:03:39Z"
+            },
+            {
+                "name": "v1.46.0",
+                "date": "2023-10-15T08:37:18Z"
+            },
+            {
+                "name": "v1.45.0",
+                "date": "2023-08-28T02:49:43Z"
+            },
+            {
+                "name": "v1.44.0",
+                "date": "2023-06-02T15:54:47Z"
+            },
+            {
+                "name": "v1.43.0",
+                "date": "2023-04-15T02:58:58Z"
+            },
+            {
+                "name": "v1.42.0",
+                "date": "2023-02-25T13:28:58Z"
+            },
+            {
+                "name": "v1.41.0",
+                "date": "2023-01-13T15:32:47Z"
+            },
+            {
+                "name": "v1.40.4",
+                "date": "2022-07-11T10:49:07Z"
+            },
+            {
+                "name": "v1.40.3",
+                "date": "2022-07-02T14:45:46Z"
+            },
+            {
+                "name": "v1.40.2",
+                "date": "2022-06-12T05:43:32Z"
+            },
+            {
+                "name": "v1.40.1",
+                "date": "2022-06-06T16:29:17Z"
+            },
+            {
+                "name": "v1.40.0",
+                "date": "2022-06-06T16:20:37Z"
+            },
+            {
+                "name": "v1.30.0",
+                "date": "2022-06-03T15:41:05Z"
+            },
+            {
+                "name": "v1.29.0",
+                "date": "2022-02-22T15:14:46Z"
+            },
+            {
+                "name": "v1.28.0",
+                "date": "2022-02-22T15:15:38Z"
+            },
+            {
+                "name": "v1.27.10",
+                "date": "2022-01-25T13:29:35Z"
+            },
+            {
+                "name": "v1.27.9",
+                "date": "2022-01-23T02:36:53Z"
+            },
+            {
+                "name": "v1.27.8",
+                "date": "2021-11-28T08:50:40Z"
+            },
+            {
+                "name": "v1.27.7",
+                "date": "2021-11-27T05:56:38Z"
+            },
+            {
+                "name": "v1.27.6",
+                "date": "2021-11-25T05:19:45Z"
+            },
+            {
+                "name": "v1.27.5",
+                "date": "2021-11-24T16:21:45Z"
+            },
+            {
+                "name": "v1.27.4",
+                "date": "2021-11-23T13:25:07Z"
+            },
+            {
+                "name": "v1.27.3",
+                "date": "2021-04-27T13:22:40Z"
+            },
+            {
+                "name": "v1.27.2",
+                "date": "2021-04-23T23:58:08Z"
+            },
+            {
+                "name": "v1.27.1",
+                "date": "2021-04-23T16:14:11Z"
+            },
+            {
+                "name": "v1.27.0",
+                "date": "2021-04-23T15:53:57Z"
+            },
+            {
+                "name": "v1.26.0",
+                "date": "2021-04-11T13:19:41Z"
+            },
+            {
+                "name": "v1.15.1",
+                "date": "2020-11-21T06:33:05Z"
+            },
+            {
+                "name": "v1.12.4",
+                "date": "2020-08-15T08:10:14Z"
+            },
+            {
+                "name": "v1.12.3",
+                "date": "2020-08-10T12:42:36Z"
+            },
+            {
+                "name": "v1.12.2",
+                "date": "2020-08-06T12:51:24Z"
+            },
+            {
+                "name": "v1.12.1: Go 1.14",
+                "date": "2020-03-21T05:09:10Z"
+            },
+            {
+                "name": "v1.12.0: Happy New Year!",
+                "date": "2020-01-01T12:25:57Z"
+            },
+            {
+                "name": "v1.11.1: Keep moving!",
+                "date": "2019-11-09T21:20:33Z"
+            },
+            {
+                "name": "v1.0.2",
+                "date": "2018-05-14T02:53:44Z"
+            }
+        ]
+    }
+}

@@ -1,0 +1,48 @@
+{
+    "https://api.github.com/repos/asweigart/pyautogui": {
+        "forks": 1285,
+        "watchers": 10747,
+        "stars": 10747,
+        "languages": {
+            "Python": 169112
+        },
+        "commits": [
+            "2023-06-07T11:16:23Z",
+            "2023-05-28T09:15:19Z",
+            "2023-05-25T14:14:54Z",
+            "2023-05-24T20:11:12Z",
+            "2023-05-09T19:56:39Z",
+            "2023-05-04T23:35:52Z",
+            "2021-09-14T17:41:07Z",
+            "2021-09-14T05:33:36Z",
+            "2021-09-14T05:32:19Z",
+            "2021-09-14T05:26:59Z",
+            "2021-09-14T04:55:50Z",
+            "2021-09-14T04:55:14Z",
+            "2021-09-01T21:25:43Z",
+            "2021-07-08T00:57:12Z",
+            "2021-07-07T17:03:47Z",
+            "2021-07-07T16:44:17Z",
+            "2021-07-07T15:26:08Z",
+            "2021-06-24T14:27:38Z",
+            "2021-04-18T05:05:11Z",
+            "2021-04-18T05:04:42Z",
+            "2021-04-18T05:02:42Z",
+            "2021-04-18T04:45:37Z",
+            "2021-04-18T04:20:44Z",
+            "2021-04-18T04:18:22Z",
+            "2021-04-18T02:59:26Z",
+            "2021-04-18T02:55:35Z",
+            "2021-04-18T02:50:00Z",
+            "2021-04-18T02:49:44Z",
+            "2021-04-18T02:37:24Z",
+            "2021-04-18T02:34:48Z"
+        ],
+        "creation_date": "2014-07-17T23:30:38Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 188,
+        "readme": "PyAutoGUI\n=========\n\nPyAutoGUI is a  cross-platform GUI automation Python module for human beings. Used to programmatically control the mouse & keyboard.\n\n`pip install pyautogui`\n\nFull documentation available at https://pyautogui.readthedocs.org\n\nSimplified Chinese documentation available at https://github.com/asweigart/pyautogui/blob/master/docs/simplified-chinese.ipynb\n\nSource code available at https://github.com/asweigart/pyautogui\n\nIf you need help installing Python, visit https://installpython3.com/\n\nDependencies\n============\n\nPyAutoGUI supports Python 2 and 3. If you are installing PyAutoGUI from PyPI using pip:\n\nWindows has no dependencies. The Win32 extensions do not need to be installed.\n\nmacOS needs the pyobjc-core and pyobjc module installed (in that order).\n\nLinux needs the python3-xlib (or python-xlib for Python 2) module installed.\n\nPillow needs to be installed, and on Linux you may need to install additional libraries to make sure Pillow's PNG/JPEG works correctly. See:\n\n    https://stackoverflow.com/questions/7648200/pip-install-pil-e-tickets-1-no-jpeg-png-support\n\n    http://ubuntuforums.org/showthread.php?t=1751455\n\nIf you want to do development and contribute to PyAutoGUI, you will need to install these modules from PyPI:\n\n* pyscreeze\n* pymsgbox\n* pytweening\n\nExample Usage\n=============\n\nKeyboard and Mouse Control\n--------------------------\n\nThe x, y coordinates used by PyAutoGUI has the 0, 0 origin coordinates in the top left corner of the screen. The x coordinates increase going to the right (just as in mathematics) but the y coordinates increase going down (the opposite of mathematics). On a screen that is 1920 x 1080 pixels in size, coordinates 0, 0 are for the top left while 1919, 1079 is for the bottom right.\n\nCurrently, PyAutoGUI only works on the primary monitor. PyAutoGUI isn't reliable for the screen of a second monitor (the mouse functions may or may not work on multi-monitor setups depending on your operating system and version).\n\nAll keyboard presses done by PyAutoGUI are sent to the window that currently has focus, as if you had pressed the physical keyboard key.\n\n```python\n    >>> import pyautogui\n    >>> screenWidth, screenHeight = pyautogui.size() # Returns two integers, the width and height of the screen. (The primary monitor, in multi-monitor setups.)\n    >>> currentMouseX, currentMouseY = pyautogui.position() # Returns two integers, the x and y of the mouse cursor's current position.\n    >>> pyautogui.moveTo(100, 150) # Move the mouse to the x, y coordinates 100, 150.\n    >>> pyautogui.click() # Click the mouse at its current location.\n    >>> pyautogui.click(200, 220) # Click the mouse at the x, y coordinates 200, 220.\n    >>> pyautogui.move(None, 10)  # Move mouse 10 pixels down, that is, move the mouse relative to its current position.\n    >>> pyautogui.doubleClick() # Double click the mouse at the\n    >>> pyautogui.moveTo(500, 500, duration=2, tween=pyautogui.easeInOutQuad) # Use tweening/easing function to move mouse over 2 seconds.\n    >>> pyautogui.write('Hello world!', interval=0.25)  # Type with quarter-second pause in between each key.\n    >>> pyautogui.press('esc') # Simulate pressing the Escape key.\n    >>> pyautogui.keyDown('shift')\n    >>> pyautogui.write(['left', 'left', 'left', 'left', 'left', 'left'])\n    >>> pyautogui.keyUp('shift')\n    >>> pyautogui.hotkey('ctrl', 'c')\n```\n\nDisplay Message Boxes\n---------------------\n```python\n    >>> import pyautogui\n    >>> pyautogui.alert('This is an alert box.')\n    'OK'\n    >>> pyautogui.confirm('Shall I proceed?')\n    'Cancel'\n    >>> pyautogui.confirm('Enter option.', buttons=['A', 'B', 'C'])\n    'B'\n    >>> pyautogui.prompt('What is your name?')\n    'Al'\n    >>> pyautogui.password('Enter password (text will be hidden)')\n    'swordfish'\n```\n\nScreenshot Functions\n--------------------\n\n(PyAutoGUI uses Pillow for image-related features.)\n```python\n    >>> import pyautogui\n    >>> im1 = pyautogui.screenshot()\n    >>> im1.save('my_screenshot.png')\n    >>> im2 = pyautogui.screenshot('my_screenshot2.png')\n```\nYou can also locate where an image is on the screen:\n```python\n    >>> import pyautogui\n    >>> button7location = pyautogui.locateOnScreen('button.png') # returns (left, top, width, height) of matching region\n    >>> button7location\n    (1416, 562, 50, 41)\n    >>> buttonx, buttony = pyautogui.center(button7location)\n    >>> buttonx, buttony\n    (1441, 582)\n    >>> pyautogui.click(buttonx, buttony)  # clicks the center of where the button was found\n```\nThe locateCenterOnScreen() function returns the center of this match region:\n```python\n    >>> import pyautogui\n    >>> buttonx, buttony = pyautogui.locateCenterOnScreen('button.png') # returns (x, y) of matching region\n    >>> buttonx, buttony\n    (1441, 582)\n    >>> pyautogui.click(buttonx, buttony)  # clicks the center of where the button was found\n```\n\nHow Does PyAutoGUI Work?\n========================\n\nThe three major operating systems (Windows, macOS, and Linux) each have different ways to programmatically control the mouse and keyboard. This can often involve confusing, obscure, and deeply technical details. The job of PyAutoGUI is to hide all of this complexity behind a simple API.\n\n* On Windows, PyAutoGUI accesses the Windows API (also called the WinAPI or win32 API) through the built-in `ctypes` module. The `nicewin` module at https://github.com/asweigart/nicewin provides a demonstration for how Windows API calls can be made through Python.\n\n* On macOS, PyAutoGUI uses the `rubicon-objc` module to access the Cocoa API.\n\n* On Linux, PyAutoGUI uses the `Xlib` module to access the X11 or X Window System.\n\n\nSupport\n-------\n\nIf you find this project helpful and would like to support its development, [consider donating to its creator on Patreon](https://www.patreon.com/AlSweigart).\n",
+        "releases": []
+    }
+}

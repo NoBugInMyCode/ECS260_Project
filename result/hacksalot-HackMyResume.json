@@ -1,0 +1,215 @@
+{
+    "https://api.github.com/repos/hacksalot/HackMyResume": {
+        "forks": 527,
+        "watchers": 9306,
+        "stars": 9306,
+        "languages": {
+            "JavaScript": 209072,
+            "HTML": 75198,
+            "CSS": 6013
+        },
+        "commits": [
+            "2018-02-14T16:23:51Z",
+            "2018-02-14T16:23:15Z",
+            "2018-02-14T15:13:48Z",
+            "2018-02-14T15:02:44Z",
+            "2018-02-14T01:43:42Z",
+            "2018-02-14T01:41:59Z",
+            "2018-02-14T01:39:12Z",
+            "2018-02-12T12:33:02Z",
+            "2018-02-12T12:11:28Z",
+            "2018-02-12T12:05:49Z",
+            "2018-02-12T11:48:26Z",
+            "2018-02-12T10:28:02Z",
+            "2018-02-12T09:01:00Z",
+            "2018-02-12T08:34:55Z",
+            "2018-02-12T07:47:03Z",
+            "2018-02-12T05:35:45Z",
+            "2018-02-12T05:16:51Z",
+            "2018-02-12T05:05:29Z",
+            "2018-02-11T13:13:13Z",
+            "2018-02-10T18:28:42Z",
+            "2018-02-10T18:03:52Z",
+            "2018-02-10T08:02:22Z",
+            "2018-02-10T06:10:20Z",
+            "2018-02-10T02:34:24Z",
+            "2018-02-10T02:32:44Z",
+            "2018-02-09T05:17:10Z",
+            "2018-02-09T05:08:41Z",
+            "2018-02-09T05:07:37Z",
+            "2018-02-09T05:06:07Z",
+            "2018-02-08T04:35:05Z"
+        ],
+        "creation_date": "2015-09-24T15:40:22Z",
+        "contributors": 13,
+        "topics": [],
+        "subscribers": 203,
+        "readme": "HackMyResume\n===\n\n[![Latest release][img-release]][latest-release]\n[![Build status (MASTER)][img-master]][travis-url-master]\n[![Build status (DEV)][img-dev]][travis-url-dev]\n[![Join the chat at https://gitter.im/hacksalot/HackMyResume][badge]][gh]\n\n*Create polished r\u00e9sum\u00e9s and CVs in multiple formats from your command line or\nshell. Author in clean Markdown and JSON, export to Word, HTML, PDF, LaTeX,\nplain text, and other arbitrary formats. Fight the power, save trees. Compatible\nwith [FRESH][fresca] and [JRS][6] resumes.*\n\n![](assets/hmr_build.png)\n\nHackMyResume is a dev-friendly, local-only Swiss Army knife for resumes and CVs.\nUse it to:\n\n1. **Generate** HTML, Markdown, LaTeX, MS Word, PDF, plain text, JSON, XML,\nYAML, print, smoke signal, carrier pigeon, and other arbitrary-format resumes\nand CVs, from a single source of truth&mdash;without violating DRY.\n2. **Analyze** your resume for keyword density, gaps/overlaps, and other\nmetrics.\n3. **Convert** resumes between [FRESH][fresca] and [JSON Resume][6] formats.\n4. **Validate** resumes against either format.\n\nHackMyResume is built with Node.js and runs on recent versions of OS X, Linux,\nor Windows. View the [FAQ](FAQ.md).\n\n![](assets/hmr_analyze.png)\n\n## Features\n\n- OS X, Linux, and Windows.\n- Choose from dozens of FRESH or JSON Resume themes.\n- Private, local-only resume authoring and analysis.\n- Analyze your resume for keywords, gaps, and other metrics.\n- Store your resume data as a durable, versionable JSON or YAML document.\n- Generate polished resumes in multiple formats without violating [DRY][dry].\n- Output to HTML, Markdown, LaTeX, PDF, MS Word, JSON, YAML, plain text, or XML.\n- Validate resumes against the FRESH or JSON Resume schema.\n- Support for multiple input and output resumes.\n- Convert between FRESH and JSON Resume resumes.\n- Use from your command line or [desktop][7].\n- Free and open-source through the MIT license.\n- Updated daily / weekly. Contributions are [welcome](CONTRIBUTING.md).\n\n## Install\n\nInstall the latest stable version of HackMyResume with NPM:\n\n```bash\n[sudo] npm install hackmyresume -g\n```\n\nAlternately, install the latest bleeding-edge version (updated daily):\n\n```bash\n[sudo] npm install hacksalot/hackmyresume#dev -g\n```\n\n## Installing PDF Support (optional)\n\nHackMyResume tries not to impose a specific PDF engine requirement on\nthe user, but will instead work with whatever PDF engines you have installed.\n\nCurrently, HackMyResume's PDF generation requires one of [Phantom.js][2],\n[wkhtmltopdf][3], or [WeasyPrint][11] to be installed on your system and the\ncorresponding binary to be accessible on your PATH. This is an optional\nrequirement for users who care about PDF formats. If you don't care about PDF\nformats, skip this step.\n\n## Installing Themes\n\nHackMyResume supports both [FRESH][fresh-themes] and [JSON Resume][jrst]-style\nr\u00e9sum\u00e9 themes.\n\n- FRESH themes currently come preinstalled with HackMyResume.\n- JSON Resume themes can be installed from NPM, GitHub, or manually.\n\nTo install a JSON Resume theme, just `cd` to the folder where you want to store\nyour themes and run one of:\n\n```bash\n# Install with NPM\nnpm install jsonresume-theme-[theme-name]\n\n# Install with GitHub\ngit clone https://github.com/[user-or-org]/[repo-name]\n```\n\nThen when you're ready to generate your resume, just reference the location of\nthe theme folder as you installed it:\n\n```bash\nhackmyresume build resume.json TO out/resume.all -t node_modules/jsonresume-theme-classy\n```\n\nNote: You can use install themes anywhere on your file system. You don't need a\npackage.json or other NPM/Node infrastructure.\n\n## Getting Started\n\nTo use HackMyResume you'll need to create a valid resume in either\n[FRESH][fresca] or [JSON Resume][6] format. Then you can start using the command\nline tool. There are five basic commands you should be aware of:\n\n- **build** generates resumes in HTML, Word, Markdown, PDF, and other formats.\nUse it when you need to submit, upload, print, or email resumes in specific\nformats.\n\n    ```bash\n    # hackmyresume build <INPUTS...> TO <OUTPUTS...> [-t THEME]\n    hackmyresume build resume.json TO out/resume.all\n    hackmyresume build r1.json r2.json TO out/rez.html out/rez.md foo/rez.all\n    ```\n\n- **new** creates a new resume in FRESH or JSON Resume format.\n\n    ```bash\n    # hackmyresume new <OUTPUTS...> [-f <FORMAT>]\n    hackmyresume new resume.json\n    hackmyresume new resume.json -f fresh\n    hackmyresume new r1.json r2.json -f jrs\n    ```\n\n- **analyze** inspects your resume for keywords, duration, and other metrics.\n\n    ```bash\n    # hackmyresume analyze <INPUTS...>\n    hackmyresume analyze resume.json\n    hackmyresume analyze r1.json r2.json\n    ```\n\n- **convert** converts your source resume between FRESH and JSON Resume\nformats. Use it to convert between the two formats to take advantage of tools\nand services.\n\n    ```bash\n    # hackmyresume convert <INPUTS...> TO <OUTPUTS...>\n    hackmyresume convert resume.json TO resume-jrs.json\n    hackmyresume convert 1.json 2.json 3.json TO out/1.json out/2.json out/3.json\n    ```\n\n- **validate** validates the specified resume against either the FRESH or JSON\nResume schema. Use it to make sure your resume data is sufficient and complete.\n\n    ```bash\n    # hackmyresume validate <INPUTS...>\n    hackmyresume validate resume.json\n    hackmyresume validate r1.json r2.json r3.json\n    ```\n\n- **peek** echoes your resume or any field, property, or object path on your\nresume to standard output.\n\n    ```bash\n    # hackmyresume peek <INPUTS...> [OBJECT-PATH]\n    hackmyresume peek rez.json # Echo the whole resume\n    hackmyresume peek rez.json info.brief # Echo the \"info.brief\" field\n    hackmyresume peek rez.json employment.history[1] # Echo the 1st job\n    hackmyresume peek rez.json rez2.json info.brief # Compare value\n    ```    \n\n## Supported Output Formats\n\nHackMyResume supports these output formats:\n\nOutput Format | Ext | Notes\n------------- | --- | -----\nHTML | .html | A standard HTML 5 + CSS resume format that can be viewed in a browser, deployed to a website, etc.\nMarkdown | .md | A structured Markdown document that can be used as-is or used to generate HTML.\nLaTeX | .tex | A structured LaTeX document (or collection of documents) that can be processed with pdflatex, xelatex, and similar tools.\nMS Word | .doc | A Microsoft Word office document (XML-driven; WordProcessingML).\nAdobe Acrobat (PDF) | .pdf | A binary PDF document driven by an HTML theme (through wkhtmltopdf).\nplain text | .txt | A formatted plain text document appropriate for emails or copy-paste.\nJSON | .json | A JSON representation of the resume.\nYAML | .yml | A YAML representation of the resume.\nRTF | .rtf | Forthcoming.\nTextile | .textile | Forthcoming.\nimage | .png, .bmp | Forthcoming.\n\n## Use\n\nAssuming you've got a JSON-formatted resume handy, generating resumes in\ndifferent formats and combinations is easy. Just run:\n\n```bash\nhackmyresume build <inputs> to <outputs> [-t theme].\n```\n\nWhere `<INPUTS>` is one or more .json resume files, separated by spaces;\n`<OUTPUTS>` is one or more destination resumes, and `<THEME>` is the desired\ntheme (default to Modern). For example:\n\n```bash\n# Generate all resume formats (HTML, PDF, DOC, TXT, YML, etc.)\nhackmyresume build resume.json TO out/resume.all -t modern\n\n# Generate a specific resume format\nhackmyresume build resume.json TO out/resume.html\nhackmyresume build resume.json TO out/resume.pdf\nhackmyresume build resume.json TO out/resume.md\nhackmyresume build resume.json TO out/resume.doc\nhackmyresume build resume.json TO out/resume.json\nhackmyresume build resume.json TO out/resume.txt\nhackmyresume build resume.json TO out/resume.yml\n\n# Specify 2 inputs and 3 outputs\nhackmyresume build in1.json in2.json TO out.html out.doc out.pdf\n```\n\nYou should see something to the effect of:\n\n```\n*** HackMyResume v1.4.0 ***\nReading JSON resume: foo/resume.json\nApplying MODERN Theme (7 formats)\nGenerating HTML resume: out/resume.html\nGenerating TXT resume: out/resume.txt\nGenerating DOC resume: out/resume.doc\nGenerating PDF resume: out/resume.pdf\nGenerating JSON resume: out/resume.json\nGenerating MARKDOWN resume: out/resume.md\nGenerating YAML resume: out/resume.yml\n```\n\n## Advanced\n\n### Applying a theme\n\nHackMyResume can work with any FRESH or JSON Resume theme (the latter must be\ninstalled first). To specify a theme when generating your resume, use the `-t`\nor `--theme` parameter:\n\n```bash\nhackmyresume build resume.json TO out/rez.all -t [theme]\n```\n\nThe `[theme]` parameter can be the name of a predefined theme OR the path to any\nFRESH or JSON Resume theme folder:\n\n```bash\nhackmyresume build resume.json TO out/rez.all -t modern\nhackmyresume build resume.json TO OUT.rez.all -t ../some-folder/my-custom-theme/\nhackmyresume build resume.json TO OUT.rez.all -t node_modules/jsonresume-theme-classy\n```\n\nFRESH themes are currently pre-installed with HackMyResume. JSON Resume themes\ncan be installed prior to use:\n\n```bash\n# Install a JSON Resume theme into a local node_modules subfolder:\nnpm install jsonresume-theme-[name]\n# Use it with HackMyResume\nhackmyresume build resume.json -t node_modules/jsonresume-theme-[name]\n```\n\nAs of v1.6.0, available predefined FRESH themes are `positive`, `modern`,\n`compact`, `minimist`, and `hello-world`. For a list of JSON Resume themes,\ncheck the [NPM Registry](https://www.npmjs.com/search?q=jsonresume-theme).\n\n### Merging resumes\n\nYou can **merge multiple resumes together** by specifying them in order from\nmost generic to most specific:\n\n```bash\n# Merge specific.json onto base.json and generate all formats\nhackmyresume build base.json specific.json TO resume.all\n```\n\nThis can be useful for overriding a base (generic) resume with information from\na specific (targeted) resume. For example, you might override your generic\ncatch-all \"software developer\" resume with specific details from your targeted\n\"game developer\" resume, or combine two partial resumes into a \"complete\"\nresume. Merging follows conventional [extend()][9]-style behavior and there's\nno arbitrary limit to how many resumes you can merge:\n\n```bash\nhackmyresume build in1.json in2.json in3.json in4.json TO out.html out.doc\nReading JSON resume: in1.json\nReading JSON resume: in2.json\nReading JSON resume: in3.json\nReading JSON resume: in4.json\nMerging in4.json onto in3.json onto in2.json onto in1.json\nGenerating HTML resume: out.html\nGenerating WORD resume: out.doc\n```\n\n### Multiple targets\n\nYou can specify **multiple output targets** and HackMyResume will build them:\n\n```bash\n# Generate out1.doc, out1.pdf, and foo.txt from me.json.\nhackmyresume build me.json TO out1.doc out1.pdf foo.txt\n```\n\n### Using .all\n\nThe special `.all` extension tells HackMyResume to generate all supported output\nformats for the given resume. For example, this...\n\n```bash\n# Generate all resume formats (HTML, PDF, DOC, TXT, etc.)\nhackmyresume build me.json TO out/resume.all\n```\n\n..tells HackMyResume to read `me.json` and generate `out/resume.md`,\n`out/resume.doc`, `out/resume.html`, `out/resume.txt`, `out/resume.pdf`, and\n`out/resume.json`.\n\n### Building PDFs\n\n*Users who don't care about PDFs can turn off PDF generation across all themes\nand formats with the `--pdf none` switch.*\n\nHackMyResume takes a unique approach to PDF generation. Instead of enforcing\na specific PDF engine on users, HackMyResume will attempt to work with whatever\nPDF engine you have installed through the engine's command-line interface (CLI).\nCurrently that means any of...\n\n- [wkhtmltopdf][3]\n- [Phantom.js][2]\n- [WeasyPrint][11]\n\n..with support for other engines planned in the future. But for now, **one or\nmore of these engines must be installed and accessible on your PATH in order\nto generate PDF resumes with HackMyResume**. That means you should be able to\ninvoke either of these tools directly from your shell or terminal without error:\n\n```bash\nwkhtmltopdf input.html output.pdf\nphantomjs script.js input.html output.pdf\nweasyprint input.html output.pdf\n```\n\nAssuming you've installed one or both of these engines on your system, you can\ntell HackMyResume which flavor of PDF generation to use via the `--pdf` option\n(`-p` for short):\n\n```bash\nhackmyresume build resume.json TO out.all --pdf phantom\nhackmyresume build resume.json TO out.all --pdf wkhtmltopdf\nhackmyresume build resume.json TO out.all --pdf weasyprint\nhackmyresume build resume.json TO out.all --pdf none\n```\n\n### Analyzing\n\nHackMyResume can analyze your resume for keywords, employment gaps, and other\nmetrics. Run:\n\n```bash\nhackmyresume analyze <my-resume>.json\n```\n\nDepending on the HackMyResume version, you should see output similar to:\n\n\n```\n*** HackMyResume v1.6.0 ***\nReading resume: resume.json\nAnalyzing FRESH resume: resume.json\n\nSECTIONS (10):\n\n        employment:    12\n         education:     2\n           service:     1\n            skills:     8\n           writing:     1\n       recognition:     0\n            social:     4\n         interests:     2\n        references:     1\n         languages:     2\n\nCOVERAGE (61.1%):\n\n        Total Days:  6034\n          Employed:  3688\n              Gaps:     8  [31, 1065, 273, 153, 671, 61, 61, 31]\n          Overlaps:     1  [243]\n\nKEYWORDS (61):\n\n           Node.js:     6 mentions\n        JavaScript:     9 mentions\n        SQL Server:     3 mentions\n     Visual Studio:     6 mentions\n           Web API:     1 mentions\n   N-tier / 3-tier:     1 mentions\n            HTML 5:     1 mentions\n        JavaScript:     6 mentions\n               CSS:     2 mentions\nSass / LESS / SCSS:     1 mentions\n              LAMP:     3 mentions\n              WISC:     1 mentions\n              HTTP:    21 mentions\n              JSON:     1 mentions\n               XML:     2 mentions\n              REST:     1 mentions\n        WebSockets:     2 mentions\n       Backbone.js:     3 mentions\n        Angular.js:     1 mentions\n           Node.js:     4 mentions\n               NPM:     1 mentions\n             Bower:     1 mentions\n             Grunt:     2 mentions\n              Gulp:     1 mentions\n            jQuery:     2 mentions\n         Bootstrap:     3 mentions\n     Underscore.js:     1 mentions\n         PhantomJS:     1 mentions\n      CoffeeScript:     1 mentions\n            Python:    11 mentions\n              Perl:     4 mentions\n               PHP:     7 mentions\n             MySQL:    12 mentions\n        PostgreSQL:     4 mentions\n             NoSQL:     2 mentions\n            Apache:     2 mentions\n               AWS:     2 mentions\n               EC2:     2 mentions\n               RDS:     3 mentions\n                S3:     1 mentions\n             Azure:     1 mentions\n         Rackspace:     1 mentions\n               C++:    23 mentions\n            C++ 11:     1 mentions\n             Boost:     1 mentions\n             Xcode:     2 mentions\n               gcc:     1 mentions\n             OO&AD:     1 mentions\n              .NET:    20 mentions\n           Unity 5:     2 mentions\n              Mono:     3 mentions\n       MonoDevelop:     1 mentions\n           Xamarin:     1 mentions\n             TOTAL:   180 mentions\n```\n\n### Validating\n\nHackMyResume can also validate your resumes against either the [FRESH /\nFRESCA][fresca] or [JSON Resume][6] formats. To validate one or more existing\nresumes, use the `validate` command:\n\n```bash\n# Validate myresume.json against either the FRESH or JSON Resume schema.\nhackmyresume validate resumeA.json resumeB.json\n```\n\nHackMyResume will validate each specified resume in turn:\n\n```bash\n*** HackMyResume v1.6.0 ***\nValidating JSON resume: resumeA.json (INVALID)\nValidating JSON resume: resumeB.json (VALID)\n```\n\n### Converting\n\nHackMyResume can convert between the [FRESH][fresca] and [JSON Resume][6]\nformats. Just run:\n\n```bash\nhackmyresume convert <INPUTS> <OUTPUTS>\n```\n\nwhere <INPUTS> is one or more resumes in FRESH or JSON Resume format, and\n<OUTPUTS> is a corresponding list of output file names. HackMyResume will\nautodetect the format (FRESH or JRS) of each input resume and convert it to the\nother format (JRS or FRESH).\n\n### File-based Options\n\nYou can pass options into HackMyResume via an external options or \".hackmyrc\"\nfile with the `--options` or `-o` switch:\n\n```bash\nhackmyresume build resume.json -o path/to/options.json\n```\n\nThe options file can contain any documented HackMyResume option, including\n`theme`, `silent`, `debug`, `pdf`, `css`, and other settings.\n\n```json\n{\n  \"theme\": \"compact\",\n\n  \"sectionTitles\": {\n    \"employment\": \"Work\"\n  },\n\n  \"wkhtmltopdf\": {\n    \"margin-top\": \"20mm\"\n  }\n}\n```\n\nIf an option is specified on both the command line and in an external options\nfile, the command-line option wins.\n\n```bash\n# path/to/options.json specifes the POSITIVE theme\n# -t parameter specifies the COMPACT theme\n# The -t parameter wins.\nhackmyresume build resume.json -o path/to/options.json -t compact\n> Reading resume: resume.json\n> Applying COMPACT theme (7 formats)\n```\n\n### Prettifying\n\nHackMyResume applies [js-beautify][10]-style HTML prettification by default to\nHTML-formatted resumes. To disable prettification, the `--no-prettify` or `-n`\nflag can be used:\n\n```bash\nhackmyresume build resume.json out.all --no-prettify\n```\n\n### Silent Mode\n\nUse `-s` or `--silent` to run in silent mode:\n\n```bash\nhackmyresume build resume.json -o someFile.all -s\nhackmyresume build resume.json -o someFile.all --silent\n```\n\n### Debug Mode\n\nUse `-d` or `--debug` to force HMR to emit a call stack when errors occur. In\nthe future, this option will emit detailed error logging.\n\n```bash\nhackmyresume build resume.json -d\nhackmyresume analyze resume.json --debug\n```\n\n### Disable Encoding\n\nUse the `--no-escape` option to disable encoding in Handlebars themes. Note:\nthis option has no effect for non-Handlebars themes.\n\n```bash\nhackmyresume build resume.json --no-escape\n```\n\n### Private Resume Fields\n\nHave a gig, education stint, membership, or other relevant history that you'd\nlike to hide from *most* (e.g. public) resumes but sometimes show on others? Tag it with\n`\"private\": true` to omit it from outbound generated resumes by default.\n\n\n```json\n\"employment\": {\n  \"history\": [\n    {\n      \"employer\": \"Acme Real Estate\"\n    },\n    {\n      \"employer\": \"Area 51 Alien Research Laboratory\",\n      \"private\": true\n    },\n    {\n      \"employer\": \"H&R Block\"\n    }\n  ]\n}\n```\n\nThen, when you want a copy of your resume that includes the private gig / stint\n/ etc., tell HackMyResume that it's OK to emit private fields. The way you do\nthat is with the `--private` switch.\n\n```bash\nhackmyresume build resume.json private-resume.all --private\n```\n\n\n### Custom theme helpers\n\nYou can attach your own custom Handlebars helpers to a FRESH theme with the\n`helpers` key of your theme's `theme.json` file.\n\n```js\n{\n  \"title\": \"my-cool-theme\",\n\n  // ...\n\n  \"helpers\": [\n    \"../path/to/helpers/*.js\",\n    \"some-other-helper.js\"\n  ]\n}\n```\n\nHackMyResume will attempt to load each path or glob and register any specified\nfiles with [Handlebars.registerHelper][hrh], making them available to your\ntheme.\n\n\n## Contributing\n\nHackMyResume is a community-driven free and open source project under the MIT\nLicense. Contributions are encouraged and we respond to all PRs and issues in\ntime. See [CONTRIBUTING.md][contribute] for details.\n\n## License\n\nMIT. Go crazy. See [LICENSE.md][1] for details.\n\n[1]: LICENSE.md\n[2]: http://phantomjs.org/\n[3]: http://wkhtmltopdf.org/\n[4]: https://nodejs.org/\n[5]: https://www.npmjs.com/\n[6]: http://jsonresume.org\n[7]: http://fluentcv.com\n[8]: https://youtu.be/N9wsjroVlu8\n[9]: https://api.jquery.com/jquery.extend/\n[10]: https://github.com/beautify-web/js-beautify\n[11]: http://weasyprint.org/\n[fresh]: https://github.com/fluentdesk/FRESH\n[fresca]: https://github.com/fresh-standard/fresh-resume-schema\n[dry]: https://en.wikipedia.org/wiki/Don%27t_repeat_yourself\n[img-release]: https://img.shields.io/github/release/hacksalot/HackMyResume.svg?label=version\n[img-master]: https://img.shields.io/travis/hacksalot/HackMyResume/master.svg\n[img-dev]: https://img.shields.io/travis/hacksalot/HackMyResume/dev.svg?label=dev\n[travis-url-master]: https://travis-ci.org/hacksalot/HackMyResume?branch=master\n[travis-url-dev]: https://travis-ci.org/hacksalot/HackMyResume?branch=dev\n[latest-release]: https://github.com/hacksalot/HackMyResume/releases/latest\n[contribute]: CONTRIBUTING.md\n[fresh-themes]: https://github.com/fluentdesk/fresh-themes\n[jrst]: https://www.npmjs.com/search?q=jsonresume-theme\n[gh]: https://gitter.im/hacksalot/HackMyResume?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge\n[badge]: https://badges.gitter.im/hacksalot/HackMyResume.svg\n[hrh]: http://handlebarsjs.com/reference.html#base-registerHelper\n",
+        "releases": [
+            {
+                "name": "v1.9.0-beta",
+                "date": "2018-02-12T12:36:14Z"
+            },
+            {
+                "name": "v1.8.0",
+                "date": "2016-02-14T10:25:06Z"
+            },
+            {
+                "name": "v1.7.4",
+                "date": "2016-01-31T17:55:08Z"
+            },
+            {
+                "name": "v1.7.3",
+                "date": "2016-01-29T21:10:26Z"
+            },
+            {
+                "name": "v1.7.2",
+                "date": "2016-01-28T12:17:40Z"
+            },
+            {
+                "name": "v1.7.1",
+                "date": "2016-01-26T19:41:18Z"
+            },
+            {
+                "name": "v1.7.0",
+                "date": "2016-01-24T22:18:12Z"
+            },
+            {
+                "name": "v1.6.0 \"Winter Storm\"",
+                "date": "2016-01-24T11:26:31Z"
+            },
+            {
+                "name": "v1.5.2",
+                "date": "2016-01-08T23:49:54Z"
+            },
+            {
+                "name": "v1.5.1",
+                "date": "2016-01-08T21:31:48Z"
+            },
+            {
+                "name": "v1.5.0",
+                "date": "2016-01-08T17:49:38Z"
+            },
+            {
+                "name": "v1.4.2",
+                "date": "2016-01-07T07:00:34Z"
+            },
+            {
+                "name": "v1.4.1",
+                "date": "2016-01-06T19:33:13Z"
+            },
+            {
+                "name": "v1.4.0",
+                "date": "2016-01-06T16:43:11Z"
+            },
+            {
+                "name": "v1.3.1",
+                "date": "2016-01-01T01:36:58Z"
+            },
+            {
+                "name": "v1.3.0",
+                "date": "2015-12-31T11:59:37Z"
+            },
+            {
+                "name": "v1.3.0-beta",
+                "date": "2015-12-31T02:54:38Z"
+            },
+            {
+                "name": "v1.2.2",
+                "date": "2015-12-24T22:45:32Z"
+            },
+            {
+                "name": "v1.2.1",
+                "date": "2015-12-24T12:45:09Z"
+            },
+            {
+                "name": "v1.2.0",
+                "date": "2015-12-21T07:58:24Z"
+            },
+            {
+                "name": "v1.1.0",
+                "date": "2015-12-21T01:52:07Z"
+            },
+            {
+                "name": "v1.0.1",
+                "date": "2015-12-20T20:58:09Z"
+            },
+            {
+                "name": "v1.0.0",
+                "date": "2015-12-19T17:38:14Z"
+            },
+            {
+                "name": "v0.11.0 believable ignition",
+                "date": "2015-12-19T14:00:07Z"
+            },
+            {
+                "name": "v0.10.3 turbulent fugue",
+                "date": "2015-12-17T17:14:27Z"
+            },
+            {
+                "name": "v0.10.2 tactical interrogation",
+                "date": "2015-12-17T12:54:26Z"
+            },
+            {
+                "name": "v0.10.1 waldensian traffic",
+                "date": "2015-12-12T03:31:18Z"
+            },
+            {
+                "name": "v0.10.0 aeronautical wonder",
+                "date": "2015-12-10T14:27:54Z"
+            },
+            {
+                "name": "v0.9.1 yearly racetrack",
+                "date": "2015-11-24T15:53:42Z"
+            },
+            {
+                "name": "v0.9.0 gallant stability",
+                "date": "2015-11-22T08:12:29Z"
+            },
+            {
+                "name": "v0.8.0 relativistic nutrition",
+                "date": "2015-11-18T09:57:50Z"
+            },
+            {
+                "name": "v0.7.2 beetling revelry",
+                "date": "2015-10-28T01:49:25Z"
+            },
+            {
+                "name": "v0.7.1 morphological brigade",
+                "date": "2015-10-27T11:37:49Z"
+            },
+            {
+                "name": "v0.7.0 giant thrill",
+                "date": "2015-10-27T07:54:56Z"
+            },
+            {
+                "name": "v0.6.0 schnabelian diction",
+                "date": "2015-10-26T17:46:58Z"
+            },
+            {
+                "name": "v0.5.0 accomplished du",
+                "date": "2015-10-26T14:15:48Z"
+            },
+            {
+                "name": "v0.4.0 youthful precision",
+                "date": "2015-10-25T12:21:14Z"
+            },
+            {
+                "name": "v0.3.1 limp dauphin",
+                "date": "2015-10-11T03:26:39Z"
+            },
+            {
+                "name": "v0.3.0 ideological abbot",
+                "date": "2015-10-11T03:20:30Z"
+            },
+            {
+                "name": "v0.2.0 revealing cup",
+                "date": "2015-10-09T10:21:04Z"
+            },
+            {
+                "name": "v0.1.0 biologic foregoing",
+                "date": "2015-10-07T09:23:26Z"
+            }
+        ]
+    }
+}

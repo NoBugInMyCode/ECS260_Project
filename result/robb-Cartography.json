@@ -1,0 +1,119 @@
+{
+    "https://api.github.com/repos/robb/Cartography": {
+        "forks": 525,
+        "watchers": 7335,
+        "stars": 7335,
+        "languages": {
+            "Swift": 137450,
+            "Ruby": 1132,
+            "Objective-C": 494
+        },
+        "commits": [
+            "2022-04-19T07:37:50Z",
+            "2022-04-18T18:57:28Z",
+            "2021-10-05T08:52:46Z",
+            "2021-10-05T08:49:44Z",
+            "2021-01-24T23:25:18Z",
+            "2021-01-24T23:23:55Z",
+            "2020-04-27T02:19:39Z",
+            "2019-10-24T16:21:48Z",
+            "2019-10-08T22:08:30Z",
+            "2019-08-06T13:05:41Z",
+            "2019-08-06T05:33:45Z",
+            "2019-08-06T05:31:46Z",
+            "2019-05-27T16:01:45Z",
+            "2019-05-10T11:17:40Z",
+            "2019-05-10T11:17:00Z",
+            "2019-05-10T11:13:55Z",
+            "2019-04-23T16:03:45Z",
+            "2019-04-18T22:04:45Z",
+            "2019-04-01T15:22:54Z",
+            "2019-04-01T13:39:32Z",
+            "2019-03-27T15:59:19Z",
+            "2019-02-08T22:42:33Z",
+            "2019-02-08T22:41:41Z",
+            "2019-02-08T22:40:29Z",
+            "2019-02-08T22:32:59Z",
+            "2019-02-08T16:50:22Z",
+            "2018-12-26T23:11:53Z",
+            "2018-04-05T14:16:31Z",
+            "2018-10-02T09:57:23Z",
+            "2018-09-06T14:50:09Z"
+        ],
+        "creation_date": "2014-06-17T21:54:48Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 187,
+        "readme": "# Cartography :iphone::triangular_ruler:\n\n<a href=\"https://travis-ci.org/robb/Cartography?branch=master\">\n    <img src=\"https://travis-ci.org/robb/Cartography.svg?branch=master\" hspace=\"6px\" align=\"right\" vspace=\"2px\">\n</a>\n\n<a href=\"https://github.com/Carthage/Carthage/issues/179\">\n    <img src=\"https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat\" align=\"right\" vspace=\"2px\">\n</a>\n\nUsing Cartography, you can set up your Auto Layout constraints in declarative code and without any stringly typing!\n\nIn short, it allows you to replace this:\n\n<img src=\"/images/pirates2.png\" align=\"right\" height=\"280px\" hspace=\"30px\" vspace=\"30px\">\n\n```Swift\naddConstraint(NSLayoutConstraint(\n    item: button1,\n    attribute: .Right,\n    relatedBy: .Equal,\n    toItem: button2,\n    attribute: .Left,\n    multiplier: 1.0,\n    constant: -12.0\n))\n```\n\nwith this\n\n```Swift\nconstrain(button1, button2) { button1, button2 in\n    button1.right == button2.left - 12\n}\n```\n\nIf you end up using Cartography in production, I'd love to hear from you. You can reach me through [Twitter] or [email].\n\n## Installation\n\n### CocoaPods\n\nTo integrate Cartography into your Xcode project using CocoaPods, specify it in your `Podfile`:\n\n```ruby\ntarget '<Your Target Name>' do\n  pod 'Cartography', '~> 3.0'\nend\n```\n\nThen, run the following command:\n\n```bash\n$ pod install\n```\n\n## Usage\n\nCall the `constrain`_*_ function with your `UIView` or `NSView` instances as well\nas a closure in which you declare the constraints between the different\nattributes of your views:\n\n```swift\nconstrain(view1, view2) { view1, view2 in\n    view1.width   == (view1.superview!.width - 50) * 0.5\n    view2.width   == view1.width - 50\n    view1.height  == 40\n    view2.height  == view1.height\n    view1.centerX == view1.superview!.centerX\n    view2.centerX == view1.centerX\n\n    view1.top >= view1.superview!.top + 20\n    view2.top == view1.bottom + 20\n}\n```\n\n<img src=\"/images/pirates1.png\" align=\"left\" height=\"220px\" hspace=\"20px\" vspace=\"10px\">\n\nFor every view on the left hand side of an equality or inequality operator,\nCartography will automatically set its\n`translatesAutoresizingMaskIntoConstraints` property to `false`.\n\nIf the view is\nnot controlled by you\u2013for example _if it belongs to a Apple-provided\n`UIViewController` class_\u2013you should take appropriate care when declaring its\nconstraints.\n\n<br><br>\n\n## Replacing constraints\n\nYou can capture multiple constraints in a group to then replace them with new\nconstraints at a later point.\n\n```swift\nconstrain(view) { view in\n    view.width  == 100\n    view.height == 100\n}\n\nlet group = ConstraintGroup()\n\n// Attach `view` to the top left corner of its superview\nconstrain(view, replace: group) { view in\n    view.top  == view.superview!.top\n    view.left == view.superview!.left\n}\n\n/* Later */\n\n// Move the view to the bottom right corner of its superview\nconstrain(view, replace: group) { view in\n    view.bottom == view.superview!.bottom\n    view.right  == view.superview!.right\n}\n\nUIView.animate(withDuration: 0.5, animations: view.layoutIfNeeded)\n```\n\nFor convenience, the `constrain` functions also returns `ConstraintGroup`\ninstances:\n\n```swift\nlet group = constrain(button) { button in\n    button.width  == 100\n    button.height == 400\n}\n```\n\n## Supported attributes\n\n\nCartography supports all built-in attributes as of iOS 8 and OS X 10.9, those are:\n\n<img src=\"/images/pirates3.png\" align=\"right\" height=\"400px\" hspace=\"20px\" vspace=\"100px\">\n\n- `width`\n- `height`\n- `top`\n- `right`\n- `bottom`\n- `left`\n- `leading`\n- `trailing`\n- `centerX`\n- `centerY`\n- `baseline`\n\nas well as the iOS specific\n\n- `firstBaseline`\n- `leftMargin`\n- `rightMargin`\n- `topMargin`\n- `bottomMargin`\n- `leadingMargin`\n- `trailingMargin`\n- `centerXWithinMargins`\n- `centerYWithinMargins`\n- `edgesWithinMargins`\n\nThese can be further refined using the following operators: `*`, `/`, `+` and\n`-`.\n\nAdditionally, it supports convenient compound attributes that allow you to\nassign multiple attributes at once:\n\n```swift\nconstrain(view) { view in\n    view.size   == view.superview!.size / 2\n    view.center == view.superview!.center\n}\n```\n\n```swift\nconstrain(view) { view in\n    view.edges == inset(view.superview!.edges, 20, 20, 40, 20)\n}\n```\n\n### Aligning multiple view\n\nIf you need to align multiple views by a common edge, you can use the `align`\nfunctions:\n\n```swift\nconstrain(view1, view2, view3) { view1, view2, view3 in\n    align(top: view1, view2, view3)\n}\n```\n\nWhich is equivalent to `view1.top == view2.top; view2.top == view3.top`. Similar\nvariants exist for `top`, `right` `bottom`, `left`, `leading`, `trailing`,\n`centerX`, `centerY` and `baseline`.\n\n### Distributing views evenly\n\nFor distributing multiple views, either horizontally or vertically, you can use\nthe `distribute` functions:\n\n```swift\nconstrain(view1, view2, view3) { view1, view2, view3 in\n    distribute(by: 10, horizontally: view1, view2, view3)\n}\n```\n\nWhich is equivalent to `view1.trailing == view2.leading - 10; view2.trailing == view3.leading - 10`.\n\n## Setting priorities\n\nYou can set the priorities of your constraints using the `~` operator:\n\n```swift\nconstrain(view) { view in\n    view.width  >= 200 ~ UILayoutPriority(100)\n    view.height >= 200 ~ .required\n}\n```\n\n## Capturing constraints\n\nSince the `==`, `>=`, `<=` and `~` emit `NSLayoutConstraint` instances, you can\ncapture their results if you need to refer to the layout constraints at a later\ntime:\n\n```swift\nvar width: NSLayoutConstraint?\n\nconstrain(view) { view in\n    width = (view.width == 200 ~ 100)\n}\n```\n\nNote that declaring compound attributes returns multiple constraints at once:\n\n```swift\nvar constraints: [NSLayoutConstraint]?\n\nconstrain(view) { view in\n    constraints = (view.size == view.superview!.size ~ .defaultLow)\n}\n```\n\n## Documentation\n\nRead the documentation [here](http://robb.github.io/Cartography/). For more information, see the [gh-pages](https://github.com/robb/Cartography/tree/gh-pages) branch.\n\n\n\\* Since Xcode 11 and swift 5.1 the keyword `constrain` conflicts with the ones used by the **CommonUISDK**... so, Calling the function with the module name is necessary to make it work properly\n\ne.g.: `Cartography.constrain`\n\nIf you're using it with Xcode 10.3 or earlier, you can still use it as it is, without the module name alongside the function.\n\n## Versioning\n\nFor *Swift 3.x*: Versions <= 1.1.0\n\nFor *Swift 4.x*: Versions >= 2.0.0\n\nFor *Swift 5.x*: Versions >= 4.0.0\n\n## Support\n\nPlease, don't hesitate to [file an\nissue](https://github.com/robb/Cartography/issues/new) if you have questions.\n\n## About Cartography\n\nCartography was built by [Robb B\u00f6hnke][me], is maintained by [Orta Therox][ot] and was inspired by the excellent\n[FLKAutoLayout] by [Florian Kugler][florian].\n\n[flkautolayout]: https://github.com/floriankugler/FLKAutoLayout\n[florian]:       https://github.com/floriankugler\n[me]:            http://robb.is\n[twitter]:       https://twitter.com/dlx\n[email]:         mailto:robb@robb.is\n[ot]:            https://github.com/orta\n",
+        "releases": [
+            {
+                "name": "Five ways to Swift",
+                "date": "2019-05-10T11:33:32Z"
+            },
+            {
+                "name": "Spit Shine",
+                "date": "2017-11-22T15:38:30Z"
+            },
+            {
+                "name": "Scrubbing the Decks",
+                "date": "2017-10-31T12:25:13Z"
+            },
+            {
+                "name": "Scrubbing up",
+                "date": "2017-10-18T01:37:06Z"
+            },
+            {
+                "name": "Clear Seas Ahead",
+                "date": "2016-10-03T06:41:42Z"
+            },
+            {
+                "name": "1.0.0 - Shippers Ahoy",
+                "date": "2016-09-25T09:34:32Z"
+            },
+            {
+                "name": "0.7",
+                "date": "2016-09-13T08:28:57Z"
+            },
+            {
+                "name": "0.6: Hard Choices",
+                "date": "2015-09-18T13:37:07Z"
+            },
+            {
+                "name": "0.6: Hard Choices \u03b21",
+                "date": "2015-09-10T11:28:15Z"
+            },
+            {
+                "name": "0.5: An Eternal Broken Build",
+                "date": "2015-04-10T23:35:22Z"
+            },
+            {
+                "name": "0.4: Marginal Update",
+                "date": "2015-04-03T11:53:15Z"
+            },
+            {
+                "name": "0.3: Lawful Neutral",
+                "date": "2015-03-28T20:10:23Z"
+            },
+            {
+                "name": "0.3: Lawful Neutral \u03b21",
+                "date": "2015-03-22T15:51:23Z"
+            },
+            {
+                "name": "0.2.1: When a good time turns around, you must flip it",
+                "date": "2015-02-11T10:04:45Z"
+            },
+            {
+                "name": "0.2: Whatever floats your boat",
+                "date": "2015-02-05T09:46:47Z"
+            },
+            {
+                "name": "0.1.1: CocoaPods compatible",
+                "date": "2015-01-04T13:01:13Z"
+            },
+            {
+                "name": "0.1: Put It on the Map ",
+                "date": "2015-01-03T13:22:19Z"
+            }
+        ]
+    }
+}

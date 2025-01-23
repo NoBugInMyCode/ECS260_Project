@@ -1,0 +1,882 @@
+{
+    "https://api.github.com/repos/Hacker0x01/react-datepicker": {
+        "forks": 2244,
+        "watchers": 8169,
+        "stars": 8169,
+        "languages": {
+            "TypeScript": 813343,
+            "JavaScript": 74305,
+            "SCSS": 23931,
+            "HTML": 1016,
+            "CSS": 492,
+            "Shell": 315
+        },
+        "commits": [
+            "2025-01-22T07:41:42Z",
+            "2025-01-22T07:41:33Z",
+            "2025-01-22T07:41:24Z",
+            "2025-01-22T07:41:10Z",
+            "2025-01-21T20:22:09Z",
+            "2025-01-21T20:21:51Z",
+            "2025-01-21T20:21:34Z",
+            "2025-01-21T20:21:20Z",
+            "2025-01-21T16:54:16Z",
+            "2025-01-21T16:51:44Z",
+            "2025-01-21T16:47:18Z",
+            "2025-01-21T16:45:41Z",
+            "2025-01-21T16:41:25Z",
+            "2025-01-21T16:40:18Z",
+            "2025-01-21T16:35:16Z",
+            "2025-01-21T16:34:33Z",
+            "2025-01-21T13:20:28Z",
+            "2025-01-21T13:19:34Z",
+            "2025-01-21T13:14:44Z",
+            "2025-01-21T13:14:03Z",
+            "2025-01-21T07:57:14Z",
+            "2025-01-21T07:50:07Z",
+            "2025-01-21T07:49:59Z",
+            "2025-01-21T07:49:50Z",
+            "2025-01-21T00:22:09Z",
+            "2025-01-20T23:16:02Z",
+            "2025-01-20T19:40:54Z",
+            "2025-01-20T19:20:11Z",
+            "2025-01-20T20:41:57Z",
+            "2025-01-20T20:41:42Z"
+        ],
+        "creation_date": "2014-06-22T07:40:48Z",
+        "contributors": 30,
+        "topics": [
+            "date-fns",
+            "datepicker-component",
+            "hacktoberfest",
+            "javascript",
+            "moment",
+            "picker",
+            "react"
+        ],
+        "subscribers": 84,
+        "readme": "# React Date Picker\n\n[![npm version](https://badge.fury.io/js/react-datepicker.svg)](https://badge.fury.io/js/react-datepicker)\n[![Test suite](https://github.com/Hacker0x01/react-datepicker/actions/workflows/test.yml/badge.svg)](https://github.com/Hacker0x01/react-datepicker/actions/workflows/test.yml)\n[![codecov](https://codecov.io/gh/Hacker0x01/react-datepicker/branch/main/graph/badge.svg)](https://codecov.io/gh/Hacker0x01/react-datepicker)\n[![Downloads](https://img.shields.io/npm/dm/react-datepicker.svg)](https://npmjs.org/package/react-datepicker)\n\nA simple and reusable Datepicker component for React ([Demo](https://reactdatepicker.com/))\n\n![](https://cloud.githubusercontent.com/assets/1412392/5339491/c40de124-7ee1-11e4-9f07-9276e2545f27.png)\n\n## Installation\n\nThe package can be installed via [npm](https://github.com/npm/cli):\n\n```\nnpm install react-datepicker --save\n```\n\nOr via [yarn](https://github.com/yarnpkg/yarn):\n\n```\nyarn add react-datepicker\n```\n\nYou\u2019ll need to install React and PropTypes separately since those dependencies aren\u2019t included in the package. If you need to use a locale other than the default en-US, you'll also need to import that into your project from date-fns (see Localization section below). Below is a simple example of how to use the Datepicker in a React view. You will also need to require the CSS file from this package (or provide your own). The example below shows how to include the CSS from this package if your build system supports requiring CSS files (Webpack is one that does).\n\n```js\nimport React, { useState } from \"react\";\nimport DatePicker from \"react-datepicker\";\n\nimport \"react-datepicker/dist/react-datepicker.css\";\n\n// CSS Modules, react-datepicker-cssmodules.css\n// import 'react-datepicker/dist/react-datepicker-cssmodules.css';\n\nconst Example = () => {\n  const [startDate, setStartDate] = useState(new Date());\n  return <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />;\n};\n```\n\n## Configuration\n\nThe most basic use of the DatePicker can be described with:\n\n```js\n<DatePicker selected={startdate} onChange={(date) => setStartDate(date)} />\n```\n\nYou can use `onSelect` event handler which fires each time some calendar date has been selected\n\n```js\n<DatePicker\n  selected={date}\n  onSelect={handleDateSelect} //when day is clicked\n  onChange={handleDateChange} //only when value has changed\n/>\n```\n\n`onClickOutside` handler may be useful to close datepicker in `inline` mode\n\nSee [here](https://github.com/Hacker0x01/react-datepicker/blob/main/docs/datepicker.md) for a full list of props that may be passed to the component. Examples are given on the [main website](https://hacker0x01.github.io/react-datepicker).\n\n### Time picker\n\nYou can also include a time picker by adding the showTimeSelect prop\n\n```js\n<DatePicker selected={date} onChange={handleDateChange} showTimeSelect dateFormat=\"Pp\" />\n```\n\nTimes will be displayed at 30-minute intervals by default (default configurable via timeIntervals prop)\n\nMore examples of how to use the time picker are given on the [main website](https://hacker0x01.github.io/react-datepicker)\n\n### Localization\n\nThe date picker relies on [date-fns internationalization](https://date-fns.org/v3.3.1/docs/I18n) to localize its display components. By default, the date picker will use the locale globally set, which is English. Provided are 3 helper methods to set the locale:\n\n- **registerLocale** (string, object): loads an imported locale object from date-fns\n- **setDefaultLocale** (string): sets a registered locale as the default for all datepicker instances\n- **getDefaultLocale**: returns a string showing the currently set default locale\n\n```js\nimport { registerLocale, setDefaultLocale } from  \"react-datepicker\";\nimport { es } from 'date-fns/locale/es';\nregisterLocale('es', es)\n\n<DatePicker\n  locale=\"es\"\n/>\n```\n\nLocales can be changed in the following way:\n\n- **Globally** - `setDefaultLocale('es');`\n\n## Compatibility\n\n### React\n\nWe're always trying to stay compatible with the latest version of React. We can't support all older versions of React.\n\nLatest compatible versions:\n\n- React 16 or newer: React-datepicker v2.9.4 and newer\n- React 15.5: React-datepicker v2.9.3\n- React 15.4.1: needs React-datepicker v0.40.0, newer won't work (due to react-onclickoutside dependencies)\n- React 0.14 or newer: All above React-datepicker v0.13.0\n- React 0.13: React-datepicker v0.13.0\n- pre React 0.13: React-datepicker v0.6.2\n\n### Moment.js\n\nUp until version 1.8.0, this package was using Moment.js. Starting v2.0.0, we switched to using `date-fns`, which uses native Date objects, to reduce the size of the package. If you're switching from 1.8.0 to 2.0.0 or higher, please see the updated example above of check out the [examples site](https://reactdatepicker.com) for up to date examples.\n\n### Browser Support\n\nThe date picker is compatible with the latest versions of Chrome, Firefox, and IE10+.\n\nUnfortunately, it is difficult to support legacy browsers while maintaining our ability to develop new features in the future. For IE9 support, it is known that the [classlist polyfill](https://www.npmjs.com/package/classlist-polyfill) is needed, but this may change or break at any point in the future.\n\n## Local Development\n\nThe `main` branch contains the latest version of the Datepicker component.\n\nTo begin local development:\n\n1. Run `yarn install` from project root\n2. Run `yarn build` from project root\n3. Run `yarn start` from project root\n\nThe last step starts documentation app as a simple webserver on http://localhost:5173.\n\nYou can run `yarn test` to execute the test suite and linters. To help you develop the component we\u2019ve set up some tests that cover the basic functionality (can be found in `/tests`). Even though we\u2019re big fans of testing, this only covers a small piece of the component. We highly recommend you add tests when you\u2019re adding new functionality.\n\nPlease refer to `CONTRIBUTING.md` file for more details about getting set up.\n\n### The examples\n\nThe examples are hosted within the docs folder and are ran in the simple app that loads the Datepicker. To extend the examples with a new example, you can simply duplicate one of the existing examples and change the unique properties of your example.\n\n## Accessibility\n\n### Keyboard support\n\n- _Left_: Move to the previous day.\n- _Right_: Move to the next day.\n- _Up_: Move to the previous week.\n- _Down_: Move to the next week.\n- _PgUp_: Move to the previous month.\n- _Shift+PgUp_: Move to the same day and month of the previous year. If that day does not exist, moves focus to the last day of the month.\n- _PgDn_: Move to the next month.\n- _Shift+PgDn_: Move to the same day and month of the next year. If that day does not exist, moves focus to the last day of the month.\n- _Home_: Move to the first day (e.g Sunday) of the current week.\n- _End_: Move to the last day (e.g. Saturday) of the current week.\n- _Enter/Esc/Tab_: close the calendar. (Enter & Esc calls preventDefault)\n\n#### For month picker\n\n- _Left_: Move to the previous month.\n- _Right_: Move to the next month.\n- _Enter_: Select date and close the calendar\n\n## License\n\nCopyright (c) 2014-2025 HackerOne Inc. and individual contributors. Licensed under MIT license, see [LICENSE](LICENSE) for the full license.\n",
+        "releases": [
+            {
+                "name": "7.6.0",
+                "date": "2025-01-05T19:26:06Z"
+            },
+            {
+                "name": "7.5.0",
+                "date": "2024-10-17T14:36:29Z"
+            },
+            {
+                "name": "7.4.0",
+                "date": "2024-09-22T18:14:16Z"
+            },
+            {
+                "name": "7.3.0",
+                "date": "2024-07-08T09:58:41Z"
+            },
+            {
+                "name": "7.2.0",
+                "date": "2024-06-26T10:09:43Z"
+            },
+            {
+                "name": "7.1.0",
+                "date": "2024-06-18T16:44:51Z"
+            },
+            {
+                "name": "7.0.0",
+                "date": "2024-06-13T18:12:17Z"
+            },
+            {
+                "name": "6.9.0",
+                "date": "2024-04-18T07:27:30Z"
+            },
+            {
+                "name": "6.8.0",
+                "date": "2024-04-15T18:12:52Z"
+            },
+            {
+                "name": "6.7.1",
+                "date": "2024-04-15T10:13:50Z"
+            },
+            {
+                "name": "6.7.0",
+                "date": "2024-04-14T16:49:18Z"
+            },
+            {
+                "name": "6.6.0",
+                "date": "2024-03-24T11:11:43Z"
+            },
+            {
+                "name": "6.5.0",
+                "date": "2024-03-20T20:41:57Z"
+            },
+            {
+                "name": "6.4.0",
+                "date": "2024-03-17T13:02:09Z"
+            },
+            {
+                "name": "6.3.0",
+                "date": "2024-03-11T13:07:50Z"
+            },
+            {
+                "name": "6.2.0",
+                "date": "2024-02-28T13:45:11Z"
+            },
+            {
+                "name": "6.1.0",
+                "date": "2024-02-02T18:32:07Z"
+            },
+            {
+                "name": "6.0.0",
+                "date": "2024-02-01T10:43:25Z"
+            },
+            {
+                "name": "5.1.0",
+                "date": "2024-01-30T20:24:17Z"
+            },
+            {
+                "name": "5.0.0",
+                "date": "2024-01-24T18:38:52Z"
+            },
+            {
+                "name": "4.25.0",
+                "date": "2023-12-19T07:43:06Z"
+            },
+            {
+                "name": "4.24.0",
+                "date": "2023-11-30T09:03:26Z"
+            },
+            {
+                "name": "4.23.0 (skipping 4.22.0)",
+                "date": "2023-11-21T09:42:13Z"
+            },
+            {
+                "name": "4.21.0",
+                "date": "2023-10-17T15:09:58Z"
+            },
+            {
+                "name": "4.20.0",
+                "date": "2023-10-09T17:57:17Z"
+            },
+            {
+                "name": "4.19.0",
+                "date": "2023-10-08T15:49:26Z"
+            },
+            {
+                "name": "4.18.0",
+                "date": "2023-09-15T09:16:47Z"
+            },
+            {
+                "name": "4.17.0",
+                "date": "2023-09-09T12:10:22Z"
+            },
+            {
+                "name": "4.16.0",
+                "date": "2023-07-11T10:15:10Z"
+            },
+            {
+                "name": "4.15.0",
+                "date": "2023-06-30T17:40:14Z"
+            },
+            {
+                "name": "4.14.1",
+                "date": "2023-06-20T13:14:13Z"
+            },
+            {
+                "name": "4.14.0",
+                "date": "2023-06-16T11:14:47Z"
+            },
+            {
+                "name": "4.13.0",
+                "date": "2023-06-11T10:46:55Z"
+            },
+            {
+                "name": "4.12.0",
+                "date": "2023-05-25T08:23:22Z"
+            },
+            {
+                "name": "4.11.0",
+                "date": "2023-03-29T11:23:18Z"
+            },
+            {
+                "name": "4.10.1",
+                "date": "2023-03-29T11:22:45Z"
+            },
+            {
+                "name": "4.10.0",
+                "date": "2023-01-30T21:03:49Z"
+            },
+            {
+                "name": "4.9.0",
+                "date": "2023-01-30T21:01:00Z"
+            },
+            {
+                "name": "4.8.0",
+                "date": "2022-05-17T17:52:11Z"
+            },
+            {
+                "name": "4.7.0",
+                "date": "2022-05-17T17:51:50Z"
+            },
+            {
+                "name": "4.6.0",
+                "date": "2022-01-08T12:50:00Z"
+            },
+            {
+                "name": "4.5.0",
+                "date": "2021-12-24T09:15:08Z"
+            },
+            {
+                "name": "4.4.0",
+                "date": "2021-12-24T09:14:51Z"
+            },
+            {
+                "name": "4.3.0",
+                "date": "2021-10-21T13:14:39Z"
+            },
+            {
+                "name": "4.2.1",
+                "date": "2021-08-19T07:15:15Z"
+            },
+            {
+                "name": "4.2.0",
+                "date": "2021-08-08T10:19:38Z"
+            },
+            {
+                "name": "4.1.1",
+                "date": "2021-08-08T10:16:21Z"
+            },
+            {
+                "name": "4.1.0",
+                "date": "2021-05-30T14:00:23Z"
+            },
+            {
+                "name": "4.0.0",
+                "date": "2021-05-29T09:14:06Z"
+            },
+            {
+                "name": "3.8.0",
+                "date": "2021-04-19T19:28:46Z"
+            },
+            {
+                "name": "3.7.0",
+                "date": "2021-03-31T12:50:00Z"
+            },
+            {
+                "name": "3.6.0",
+                "date": "2021-02-23T11:57:18Z"
+            },
+            {
+                "name": "3.5.0",
+                "date": "2021-02-17T14:30:55Z"
+            },
+            {
+                "name": "3.4.1",
+                "date": "2021-01-12T13:54:44Z"
+            },
+            {
+                "name": "3.4.0",
+                "date": "2021-01-10T13:44:12Z"
+            },
+            {
+                "name": "3.3.0",
+                "date": "2020-10-30T07:37:01Z"
+            },
+            {
+                "name": "3.2.2",
+                "date": "2020-09-26T17:14:40Z"
+            },
+            {
+                "name": "3.2.1",
+                "date": "2020-09-26T17:13:52Z"
+            },
+            {
+                "name": "3.2.0",
+                "date": "2020-09-26T17:13:24Z"
+            },
+            {
+                "name": "3.1.3",
+                "date": "2020-09-26T17:09:03Z"
+            },
+            {
+                "name": "3.1.2",
+                "date": "2020-09-26T17:08:39Z"
+            },
+            {
+                "name": "3.1.1",
+                "date": "2020-09-26T17:08:16Z"
+            },
+            {
+                "name": "3.1.0",
+                "date": "2020-09-26T17:07:53Z"
+            },
+            {
+                "name": "3.0.0",
+                "date": "2020-06-04T17:35:00Z"
+            },
+            {
+                "name": "2.16.0",
+                "date": "2020-06-04T17:35:48Z"
+            },
+            {
+                "name": "2.15.0",
+                "date": "2020-05-07T07:43:03Z"
+            },
+            {
+                "name": "2.14.1",
+                "date": "2020-04-23T20:05:25Z"
+            },
+            {
+                "name": "2.14.0",
+                "date": "2020-03-11T09:44:24Z"
+            },
+            {
+                "name": "2.13.0",
+                "date": "2020-03-11T09:43:44Z"
+            },
+            {
+                "name": "2.12.1",
+                "date": "2020-03-11T09:42:42Z"
+            },
+            {
+                "name": "2.12.0",
+                "date": "2020-03-11T09:42:17Z"
+            },
+            {
+                "name": "2.11.0",
+                "date": "2020-01-12T11:43:57Z"
+            },
+            {
+                "name": "2.10.1",
+                "date": "2020-01-12T11:44:46Z"
+            },
+            {
+                "name": "2.10.0",
+                "date": "2020-01-12T11:47:04Z"
+            },
+            {
+                "name": "2.9.6",
+                "date": "2019-09-05T10:22:30Z"
+            },
+            {
+                "name": "2.9.5",
+                "date": "2019-09-05T10:22:56Z"
+            },
+            {
+                "name": "2.9.4",
+                "date": "2019-09-02T20:23:48Z"
+            },
+            {
+                "name": "2.9.3",
+                "date": "2019-09-02T20:00:07Z"
+            },
+            {
+                "name": "2.9.2",
+                "date": "2019-09-02T20:00:35Z"
+            },
+            {
+                "name": "2.9.1",
+                "date": "2019-09-02T20:01:03Z"
+            },
+            {
+                "name": "2.9.0",
+                "date": "2019-08-29T09:03:16Z"
+            },
+            {
+                "name": "2.8.0",
+                "date": "2019-08-29T09:04:39Z"
+            },
+            {
+                "name": "2.7.0",
+                "date": "2019-08-29T09:05:27Z"
+            },
+            {
+                "name": "2.6.0",
+                "date": "2019-05-30T08:14:28Z"
+            },
+            {
+                "name": "2.5.0",
+                "date": "2019-05-30T08:14:58Z"
+            },
+            {
+                "name": "2.4.0",
+                "date": "2019-05-30T08:15:45Z"
+            },
+            {
+                "name": "2.3.0",
+                "date": "2019-03-25T12:26:49Z"
+            },
+            {
+                "name": "2.2.0",
+                "date": "2019-03-15T09:46:52Z"
+            },
+            {
+                "name": "2.1.0",
+                "date": "2019-03-15T09:46:09Z"
+            },
+            {
+                "name": "2.0.0",
+                "date": "2018-11-17T13:02:03Z"
+            },
+            {
+                "name": "1.8.0",
+                "date": "2018-11-03T11:27:21Z"
+            },
+            {
+                "name": "1.7.0",
+                "date": "2018-11-03T11:27:09Z"
+            },
+            {
+                "name": "1.6.0",
+                "date": "2018-11-03T11:26:59Z"
+            },
+            {
+                "name": "1.5.0",
+                "date": "2018-11-03T11:26:46Z"
+            },
+            {
+                "name": "1.4.1",
+                "date": "2018-04-06T18:13:35Z"
+            },
+            {
+                "name": "1.4.0",
+                "date": "2018-03-31T10:11:19Z"
+            },
+            {
+                "name": "1.3.0",
+                "date": "2018-03-23T12:08:23Z"
+            },
+            {
+                "name": "1.2.2",
+                "date": "2018-03-02T19:17:20Z"
+            },
+            {
+                "name": "1.2.1",
+                "date": "2018-02-16T18:21:22Z"
+            },
+            {
+                "name": "1.2.0",
+                "date": "2018-02-16T18:21:03Z"
+            },
+            {
+                "name": "1.1.0",
+                "date": "2018-01-28T10:04:03Z"
+            },
+            {
+                "name": "1.0.4",
+                "date": "2018-01-02T19:26:56Z"
+            },
+            {
+                "name": "1.0.3",
+                "date": "2017-12-31T12:51:31Z"
+            },
+            {
+                "name": "1.0.2",
+                "date": "2017-12-31T12:51:07Z"
+            },
+            {
+                "name": "1.0.1",
+                "date": "2017-12-31T12:50:35Z"
+            },
+            {
+                "name": "1.0.0",
+                "date": "2017-12-28T11:47:29Z"
+            },
+            {
+                "name": "0.64.0",
+                "date": "2017-12-17T16:06:06Z"
+            },
+            {
+                "name": "0.63.0",
+                "date": "2017-12-16T16:35:03Z"
+            },
+            {
+                "name": "0.62.0",
+                "date": "2017-12-16T16:35:41Z"
+            },
+            {
+                "name": "0.61.0",
+                "date": "2017-12-16T16:36:30Z"
+            },
+            {
+                "name": "0.60.2",
+                "date": "2017-11-07T10:55:07Z"
+            },
+            {
+                "name": "0.60.1",
+                "date": "2017-11-07T10:54:52Z"
+            },
+            {
+                "name": "0.60.0",
+                "date": "2017-11-04T11:37:28Z"
+            },
+            {
+                "name": "0.59.0",
+                "date": "2017-11-04T11:37:55Z"
+            },
+            {
+                "name": "0.58.0",
+                "date": "2017-11-04T11:39:35Z"
+            },
+            {
+                "name": "0.57.0",
+                "date": "2017-11-04T11:40:14Z"
+            },
+            {
+                "name": "0.56.0",
+                "date": "2017-10-17T08:29:02Z"
+            },
+            {
+                "name": "0.55.0",
+                "date": "2017-09-20T18:38:43Z"
+            },
+            {
+                "name": "0.54.0",
+                "date": "2017-09-20T18:39:31Z"
+            },
+            {
+                "name": "0.53.0",
+                "date": "2017-08-11T12:42:38Z"
+            },
+            {
+                "name": "0.52.0",
+                "date": "2017-07-15T08:26:02Z"
+            },
+            {
+                "name": "0.51.0",
+                "date": "2017-07-12T08:24:16Z"
+            },
+            {
+                "name": "0.50.0",
+                "date": "2017-07-12T08:23:39Z"
+            },
+            {
+                "name": "0.49.0",
+                "date": "2017-07-09T18:56:32Z"
+            },
+            {
+                "name": "0.48.0",
+                "date": "2017-06-20T10:24:27Z"
+            },
+            {
+                "name": "0.47.0",
+                "date": "2017-06-20T10:23:31Z"
+            },
+            {
+                "name": "0.46.0",
+                "date": "2017-04-17T10:09:36Z"
+            },
+            {
+                "name": "0.44.0",
+                "date": "2017-03-26T08:24:30Z"
+            },
+            {
+                "name": "0.43.0",
+                "date": "2017-03-19T19:24:46Z"
+            },
+            {
+                "name": "0.41.1",
+                "date": "2017-02-12T13:01:53Z"
+            },
+            {
+                "name": "0.41.0",
+                "date": "2017-02-12T12:59:26Z"
+            },
+            {
+                "name": "0.40.0",
+                "date": "2017-01-17T09:06:57Z"
+            },
+            {
+                "name": "0.39.0",
+                "date": "2016-12-10T10:50:16Z"
+            },
+            {
+                "name": "0.38.0",
+                "date": "2016-12-10T10:49:58Z"
+            },
+            {
+                "name": "0.37.0",
+                "date": "2016-12-02T09:25:14Z"
+            },
+            {
+                "name": "0.36.0",
+                "date": "2016-12-01T18:49:29Z"
+            },
+            {
+                "name": "0.35.0",
+                "date": "2016-12-01T15:52:41Z"
+            },
+            {
+                "name": "0.33.0",
+                "date": "2016-10-24T20:51:11Z"
+            },
+            {
+                "name": "0.32.0",
+                "date": "2016-10-19T17:15:28Z"
+            },
+            {
+                "name": "0.30.0",
+                "date": "2016-10-06T08:13:55Z"
+            },
+            {
+                "name": "0.29.0",
+                "date": "2016-08-06T19:21:39Z"
+            },
+            {
+                "name": "0.28.2",
+                "date": "2016-07-23T11:16:57Z"
+            },
+            {
+                "name": "0.28.1",
+                "date": "2016-07-08T18:52:52Z"
+            },
+            {
+                "name": "0.28.0",
+                "date": "2016-07-02T18:10:14Z"
+            },
+            {
+                "name": "0.27.0",
+                "date": "2016-04-30T08:03:21Z"
+            },
+            {
+                "name": "0.26.0",
+                "date": "2016-04-28T09:12:58Z"
+            },
+            {
+                "name": "0.25.0",
+                "date": "2016-03-22T12:29:05Z"
+            },
+            {
+                "name": "0.24.0",
+                "date": "2016-03-07T09:19:44Z"
+            },
+            {
+                "name": "0.23.1",
+                "date": "2016-02-16T12:18:47Z"
+            },
+            {
+                "name": "0.23.0",
+                "date": "2016-02-15T17:07:42Z"
+            },
+            {
+                "name": "0.22.0",
+                "date": "2016-02-15T17:06:56Z"
+            },
+            {
+                "name": "0.21.0",
+                "date": "2016-02-08T17:08:49Z"
+            },
+            {
+                "name": "0.20.0",
+                "date": "2016-02-02T22:41:49Z"
+            },
+            {
+                "name": "0.19.0",
+                "date": "2016-01-28T20:51:03Z"
+            },
+            {
+                "name": "0.18.0",
+                "date": "2016-01-07T09:36:30Z"
+            },
+            {
+                "name": "0.17.0",
+                "date": "2015-12-16T09:42:49Z"
+            },
+            {
+                "name": "0.16.1",
+                "date": "2015-12-11T20:19:08Z"
+            },
+            {
+                "name": "0.16.0",
+                "date": "2015-12-11T17:26:48Z"
+            },
+            {
+                "name": "0.15.2",
+                "date": "2015-10-30T09:09:15Z"
+            },
+            {
+                "name": "0.15.1",
+                "date": "2015-10-29T19:10:26Z"
+            },
+            {
+                "name": "0.15.0",
+                "date": "2015-10-29T13:54:21Z"
+            },
+            {
+                "name": "0.14.5",
+                "date": "2015-10-27T17:18:47Z"
+            },
+            {
+                "name": "0.14.2",
+                "date": "2015-10-09T09:28:07Z"
+            },
+            {
+                "name": "0.14.1",
+                "date": "2015-10-09T09:27:42Z"
+            },
+            {
+                "name": "0.14.0",
+                "date": "2015-10-09T09:01:10Z"
+            },
+            {
+                "name": "0.13.0",
+                "date": "2015-10-02T08:28:50Z"
+            },
+            {
+                "name": "0.12.0",
+                "date": "2015-08-23T22:36:36Z"
+            },
+            {
+                "name": "0.11.5",
+                "date": "2015-08-14T03:15:27Z"
+            },
+            {
+                "name": "0.11.4",
+                "date": "2015-08-12T17:05:53Z"
+            },
+            {
+                "name": "0.11.3",
+                "date": "2015-08-04T14:56:21Z"
+            },
+            {
+                "name": "0.11.2",
+                "date": "2015-07-29T10:16:06Z"
+            },
+            {
+                "name": "0.11.1",
+                "date": "2015-07-29T10:08:06Z"
+            },
+            {
+                "name": "0.11.0",
+                "date": "2015-07-28T09:56:45Z"
+            },
+            {
+                "name": "0.10.0",
+                "date": "2015-07-09T12:10:24Z"
+            },
+            {
+                "name": "0.9.0",
+                "date": "2015-07-07T17:05:01Z"
+            },
+            {
+                "name": "0.8.0",
+                "date": "2015-05-27T09:52:54Z"
+            },
+            {
+                "name": "0.7.0",
+                "date": "2015-05-13T21:39:50Z"
+            },
+            {
+                "name": "",
+                "date": "2015-04-08T03:32:38Z"
+            },
+            {
+                "name": "",
+                "date": "2015-04-08T02:54:45Z"
+            },
+            {
+                "name": "0.6.0",
+                "date": "2015-03-26T22:23:37Z"
+            },
+            {
+                "name": "0.5.1",
+                "date": "2015-02-12T13:01:14Z"
+            },
+            {
+                "name": "0.5.0",
+                "date": "2015-02-06T09:44:30Z"
+            },
+            {
+                "name": "0.4.3",
+                "date": "2015-02-05T09:42:10Z"
+            },
+            {
+                "name": "0.4.2",
+                "date": "2015-01-28T16:24:29Z"
+            },
+            {
+                "name": "0.4.1",
+                "date": "2015-01-28T16:07:11Z"
+            },
+            {
+                "name": "0.4.0",
+                "date": "2015-01-28T14:53:41Z"
+            },
+            {
+                "name": "0.3.1",
+                "date": "2015-01-28T11:02:37Z"
+            },
+            {
+                "name": "0.3.0",
+                "date": "2014-12-18T10:52:24Z"
+            },
+            {
+                "name": "0.2.10",
+                "date": "2014-10-17T19:49:35Z"
+            },
+            {
+                "name": "0.2.9",
+                "date": "2014-10-07T03:48:09Z"
+            },
+            {
+                "name": "0.2.8",
+                "date": "2014-09-22T18:20:11Z"
+            },
+            {
+                "name": "0.2.7",
+                "date": "2014-09-12T17:05:56Z"
+            },
+            {
+                "name": "0.2.6",
+                "date": "2014-09-12T17:05:16Z"
+            },
+            {
+                "name": "0.2.5",
+                "date": "2014-09-10T11:36:40Z"
+            },
+            {
+                "name": "0.2.4",
+                "date": "2014-09-04T09:51:22Z"
+            },
+            {
+                "name": "0.2.3",
+                "date": "2014-07-18T12:02:05Z"
+            },
+            {
+                "name": "0.2.2",
+                "date": "2014-07-08T07:24:15Z"
+            },
+            {
+                "name": "0.2.1",
+                "date": "2014-07-08T00:35:43Z"
+            },
+            {
+                "name": "0.2.0",
+                "date": "2014-07-08T00:33:26Z"
+            },
+            {
+                "name": "0.1.12",
+                "date": "2014-07-07T14:26:31Z"
+            },
+            {
+                "name": "0.1.11",
+                "date": "2014-07-04T13:12:28Z"
+            },
+            {
+                "name": "0.1.10",
+                "date": "2014-07-04T09:27:47Z"
+            },
+            {
+                "name": "0.1.9",
+                "date": "2014-07-04T08:27:39Z"
+            },
+            {
+                "name": "0.1.8",
+                "date": "2014-07-03T22:39:48Z"
+            },
+            {
+                "name": "Pre-release",
+                "date": "2014-07-03T08:59:30Z"
+            }
+        ]
+    }
+}

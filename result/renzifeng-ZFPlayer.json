@@ -1,0 +1,54 @@
+{
+    "https://api.github.com/repos/renzifeng/ZFPlayer": {
+        "forks": 1754,
+        "watchers": 7086,
+        "stars": 7086,
+        "languages": {
+            "Objective-C": 756572,
+            "C": 4596,
+            "Ruby": 2358
+        },
+        "commits": [
+            "2023-01-06T08:11:28Z",
+            "2022-11-19T14:12:21Z",
+            "2022-10-11T11:24:17Z",
+            "2022-10-09T07:27:17Z",
+            "2022-09-27T09:03:56Z",
+            "2022-09-26T14:07:36Z",
+            "2022-09-26T03:50:28Z",
+            "2022-09-21T12:55:35Z",
+            "2022-09-21T09:01:02Z",
+            "2022-09-20T11:46:48Z",
+            "2022-09-20T11:09:18Z",
+            "2022-09-19T14:29:39Z",
+            "2022-09-19T09:30:58Z",
+            "2022-09-19T01:42:56Z",
+            "2022-09-18T08:40:22Z",
+            "2022-09-18T08:09:56Z",
+            "2022-07-04T03:58:29Z",
+            "2022-02-22T06:55:41Z",
+            "2022-01-27T02:22:05Z",
+            "2022-01-19T03:05:34Z",
+            "2021-11-04T08:18:31Z",
+            "2021-10-13T07:18:12Z",
+            "2021-10-13T06:22:01Z",
+            "2021-10-12T07:12:11Z",
+            "2021-02-18T09:53:57Z",
+            "2021-02-18T08:20:35Z",
+            "2021-01-26T06:35:56Z",
+            "2020-12-09T11:12:03Z",
+            "2020-12-09T10:53:15Z",
+            "2020-12-09T10:06:12Z"
+        ],
+        "creation_date": "2016-03-03T03:32:48Z",
+        "contributors": 11,
+        "topics": [
+            "controlview",
+            "custom",
+            "player"
+        ],
+        "subscribers": 159,
+        "readme": "\n<p align=\"center\">\n<img src=\"https://upload-images.jianshu.io/upload_images/635942-092427e571756309.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240\" alt=\"ZFPlayer\" title=\"ZFPlayer\" width=\"557\"/>\n</p>\n\n<p align=\"center\">\n<a href=\"https://img.shields.io/cocoapods/v/ZFPlayer.svg\"><img src=\"https://img.shields.io/cocoapods/v/ZFPlayer.svg\"></a>\n<a href=\"https://img.shields.io/github/license/renzifeng/ZFPlayer.svg?style=flat\"><img src=\"https://img.shields.io/github/license/renzifeng/ZFPlayer.svg?style=flat\"></a>\n<a href=\"http://cocoadocs.org/docsets/ZFPlayer\"><img src=\"https://img.shields.io/cocoapods/p/ZFPlayer.svg?style=flat\"></a>\n<a href=\"http://weibo.com/zifeng1300\"><img src=\"https://img.shields.io/badge/weibo-@%E4%BB%BB%E5%AD%90%E4%B8%B0-yellow.svg?style=flat\"></a>\n</p>\n\n[\u4e2d\u6587\u8bf4\u660e](https://www.jianshu.com/p/90e55deb4d51)\n\n[ZFPlayer \u8f6c\u5c4f\u9002\u914d](https://github.com/renzifeng/ZFPlayer/wiki/%E8%BD%AC%E5%B1%8F%E9%80%82%E9%85%8D)\n\n\nBefore this, you used ZFPlayer, are you worried about encapsulating avplayer instead of using or modifying the source code to support other players, the control layer is not easy to customize, and so on? In order to solve these problems, I have wrote this player template, for player SDK you can conform the `ZFPlayerMediaPlayback` protocol, for control view you can conform the `ZFPlayerMediaControl` protocol, can custom the player and control view.\n\n\n![ZFPlayer\u601d\u7ef4\u5bfc\u56fe](https://upload-images.jianshu.io/upload_images/635942-e99d76498cb01afb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)\n\n## \ud83d\udd28 Requirements\n\n- iOS 7+\n- Xcode 8+\n\n## \ud83d\udcf2 Installation\n\nZFPlayer is available through [CocoaPods](https://cocoapods.org). To install it,use player template simply add the following line to your Podfile:\n\n```objc\npod 'ZFPlayer', '~> 4.0'\n```\n\nUse default controlView simply add the following line to your Podfile:\n\n```objc\npod 'ZFPlayer/ControlView', '~> 4.0'\n```\nUse AVPlayer simply add the following line to your Podfile:\n\n```objc\npod 'ZFPlayer/AVPlayer', '~> 4.0'\n```\n\nUse ijkplayer simply add the following line to your Podfile:\n\n```objc\npod 'ZFPlayer/ijkplayer', '~> 4.0'\n```\n[IJKMediaFramework SDK](https://gitee.com/renzifeng/IJKMediaFramework) support cocoapods\n\n\n## \ud83d\udc12 Usage\n\n####  ZFPlayerController\nMain classes,normal style initialization and list style initialization (tableView, collection,scrollView)\n\nNormal style initialization \n\n```objc\nZFPlayerController *player = [ZFPlayerController playerWithPlayerManager:playerManager containerView:containerView];\nZFPlayerController *player = [[ZFPlayerController alloc] initwithPlayerManager:playerManager containerView:containerView];\n```\n\nList style initialization\n\n```objc\nZFPlayerController *player = [ZFPlayerController playerWithScrollView:tableView playerManager:playerManager containerViewTag:containerViewTag];\nZFPlayerController *player = [ZFPlayerController alloc] initWithScrollView:tableView playerManager:playerManager containerViewTag:containerViewTag];\nZFPlayerController *player = [ZFPlayerController playerWithScrollView:scrollView playerManager:playerManager containerView:containerView];\nZFPlayerController *player = [ZFPlayerController alloc] initWithScrollView:tableView playerManager:playerManager containerView:containerView];\n```\n\n#### ZFPlayerMediaPlayback\nFor the playerMnager,you must conform `ZFPlayerMediaPlayback` protocol,custom playermanager can supports any player SDK\uff0csuch as `AVPlayer`,`MPMoviePlayerController`,`ijkplayer`,`vlc`,`PLPlayerKit`,`KSYMediaPlayer`and so on\uff0cyou can reference the `ZFAVPlayerManager`class.\n\n```objc\nClass<ZFPlayerMediaPlayback> *playerManager = ...;\n```\n\n#### ZFPlayerMediaControl\nThis class is used to display the control layer, and you must conform the ZFPlayerMediaControl protocol, you can reference the `ZFPlayerControlView` class.\n\n```objc\nUIView<ZFPlayerMediaControl> *controlView = ...;\nplayer.controlView = controlView;\n```\n\n## \ud83d\udcf7 Screenshots\n\n![Picture effect](https://upload-images.jianshu.io/upload_images/635942-1b0e23b7f5eabd9e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)\n\n## Reference\n- [ijkplayer](https://github.com/Bilibili/ijkplayer)\n- [SJVideoPlayer](https://github.com/changsanjiang/SJVideoPlayer)\n\n## \ud83d\udc68\ud83c\udffb\u200d\ud83d\udcbb Author\n\n- Weibo: [@\u4efb\u5b50\u4e30](https://weibo.com/zifeng1300)\n- Email: zifeng1300@gmail.com\n- QQ\u7fa4: 123449304\n\n\n## \ud83d\udc6e\ud83c\udffb License\n\nZFPlayer is available under the MIT license. See the LICENSE file for more info.\n\n\n\n",
+        "releases": []
+    }
+}

@@ -1,0 +1,298 @@
+{
+    "https://api.github.com/repos/egulias/EmailValidator": {
+        "forks": 214,
+        "watchers": 11492,
+        "stars": 11492,
+        "languages": {
+            "PHP": 140544
+        },
+        "commits": [
+            "2024-12-31T15:29:41Z",
+            "2024-12-31T15:25:45Z",
+            "2024-12-31T15:15:01Z",
+            "2024-12-31T14:41:19Z",
+            "2024-12-31T14:39:18Z",
+            "2024-12-27T22:41:39Z",
+            "2024-12-27T22:22:30Z",
+            "2024-12-27T22:09:59Z",
+            "2024-12-27T21:52:06Z",
+            "2024-12-27T19:13:05Z",
+            "2024-12-27T19:21:18Z",
+            "2024-12-27T00:36:43Z",
+            "2024-12-27T00:27:39Z",
+            "2024-12-27T00:17:25Z",
+            "2024-12-26T23:36:05Z",
+            "2024-12-26T23:31:08Z",
+            "2024-12-26T23:28:29Z",
+            "2024-10-16T21:10:38Z",
+            "2024-10-08T17:20:25Z",
+            "2024-09-15T20:03:00Z",
+            "2024-05-01T13:20:12Z",
+            "2023-10-22T21:56:40Z",
+            "2023-10-15T21:39:26Z",
+            "2023-10-06T06:47:41Z",
+            "2023-08-28T16:30:37Z",
+            "2023-07-28T18:33:18Z",
+            "2023-06-07T14:47:52Z",
+            "2023-05-23T20:25:38Z",
+            "2023-05-23T15:55:24Z",
+            "2023-05-22T14:53:31Z"
+        ],
+        "creation_date": "2013-05-19T15:23:00Z",
+        "contributors": 30,
+        "topics": [
+            "email",
+            "emailvalidator",
+            "php",
+            "validator"
+        ],
+        "subscribers": 34,
+        "readme": "# EmailValidator\n\n[![Build Status](https://github.com/egulias/EmailValidator/actions/workflows/tests.yml/badge.svg)](https://github.com/egulias/EmailValidator/actions/workflows/tests.yml)\n[![Quality Badge](https://app.codacy.com/project/badge/Grade/55d44898c7e44ebdb4e457523563ad63)](https://app.codacy.com/gh/egulias/EmailValidator/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)\n[![Test Coverage](https://app.codacy.com/project/badge/Coverage/55d44898c7e44ebdb4e457523563ad63)](https://app.codacy.com/gh/egulias/EmailValidator/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)\n![Latest Release](https://img.shields.io/github/v/release/egulias/EmailValidator)\n\nA library for validating emails against several RFC.\n\n## Supported RFCs\n\nThis library aims to support RFCs:\n\n* [5321](https://tools.ietf.org/html/rfc5321),\n* [5322](https://tools.ietf.org/html/rfc5322),\n* [6530](https://tools.ietf.org/html/rfc6530),\n* [6531](https://tools.ietf.org/html/rfc6531),\n* [6532](https://tools.ietf.org/html/rfc6532),\n* [1035](https://tools.ietf.org/html/rfc1035) \n\n## Supported versions\n\n| Version |  Released  | EOL | Only critical bug fixes | Full |\n|:-------:|:----------:|:---:|:-----------------------:|:----:|\n|**v4.x** |**2023/01/07** |  -  |            **X**        |**X** |\n|  v3.x   | 2020/12/29 | YES |                         |      |\n| v2.1.x  | 2016/05/16 | YES |                         |      |\n|  v1.2   | 2013/19/05 | YES |                         |      |\n\n## Requirements\n\n* PHP 8.1\n* [Composer](https://getcomposer.org) is required for installation\n* [Spoofchecking](/src/Validation/Extra/SpoofCheckValidation.php) and\n[DNSCheckValidation](/src/Validation/DNSCheckValidation.php) validation\nrequires that your PHP system has the\n[PHP Internationalization Libraries](https://php.net/manual/en/book.intl.php)\n(also known as PHP Intl)\n\n**Note**: `PHP version upgrades will happen to accomodate to the pace of major\nframeworks. Minor versions bumps will go via minor versions of this library\n(i.e: PHP7.3 -> v3.x+1). Major versions will go with major versions\nof the library`\n\n## Installation\n\nRun the command below to install via Composer\n\n```shell\ncomposer require egulias/email-validator\n```\n\n## Getting Started\n\n`EmailValidator` requires you to decide which (or combination of them)\nvalidation/s strategy/ies you'd like to follow for each\n[validation](#available-validations).\n\nA basic example with the RFC validation\n\n```php\n<?php\n\nuse Egulias\\EmailValidator\\EmailValidator;\nuse Egulias\\EmailValidator\\Validation\\RFCValidation;\n\n$validator = new EmailValidator();\n$validator->isValid(\"example@example.com\", new RFCValidation()); //true\n```\n\n### Available validations\n\n1. [RFCValidation](/src/Validation/RFCValidation.php): Standard RFC-like email validation.\n2. [NoRFCWarningsValidation](/src/Validation/NoRFCWarningsValidation.php):\nRFC-like validation that will fail when warnings* are found.\n3. [DNSCheckValidation](/src/Validation/DNSCheckValidation.php):\nWill check if there are DNS records that signal that the server accepts emails. This does not entail that the email exists.\n4. [MultipleValidationWithAnd](/src/Validation/MultipleValidationWithAnd.php):\nIt is a validation that operates over other validations performing a logical and (&&) over the result of each validation.\n5. [MessageIDValidation](/src/Validation/MessageIDValidation.php):\nFollows [RFC2822 for message-id](https://tools.ietf.org/html/rfc2822#section-3.6.4) to validate that field, that has some differences in the domain part.\n6. [Your own validation](#how-to-extend): You can extend the library behaviour\nby implementing your own validations.\n\n*warnings: Warnings are deviations from the RFC that in a broader interpretation\nare accepted.\n\n```php\n<?php\n\nuse Egulias\\EmailValidator\\EmailValidator;\nuse Egulias\\EmailValidator\\Validation\\DNSCheckValidation;\nuse Egulias\\EmailValidator\\Validation\\MultipleValidationWithAnd;\nuse Egulias\\EmailValidator\\Validation\\RFCValidation;\n\n$validator = new EmailValidator();\n$multipleValidations = new MultipleValidationWithAnd([\n    new RFCValidation(),\n    new DNSCheckValidation()\n]);\n//ietf.org has MX records signaling a server with email capabilities\n$validator->isValid(\"example@ietf.org\", $multipleValidations); //true\n```\n\n#### Additional validations\n\nValidations not present in the RFCs\n\n1. [SpoofCheckValidation](/src/Validation/Extra/SpoofCheckValidation.php): \nWill check for multi-utf-8 chars that can signal an erroneous email name.\n\n### How to extend\n\nIt's easy! You just need to implement\n[EmailValidation](/src/Validation/EmailValidation.php) and you can use your own\nvalidation.\n\n## Contributing\n\nPlease follow the [Contribution guide](CONTRIBUTING.md).\nIs short and simple and will help a lot.\n\n## Other Contributors\n\n(You can find current contributors\n[here](https://github.com/egulias/EmailValidator/graphs/contributors))\n\nAs this is a port from another library and work, here are other people related\nto the previous one:\n\n* Ricard Clau [@ricardclau](https://github.com/ricardclau):\nPerformance against PHP built-in filter_var (v2 and earlier)\n* Josepf Bielawski [@stloyd](https://github.com/stloyd):\nFor its first re-work of Dominic's lib\n* Dominic Sayers [@dominicsayers](https://github.com/dominicsayers):\nThe original `isemail` function\n\n## License\n\nReleased under the MIT License attached with this code.",
+        "releases": [
+            {
+                "name": "Code style and CI/CD updates",
+                "date": "2024-12-27T01:05:55Z"
+            },
+            {
+                "name": "Improve DNS check",
+                "date": "2023-10-06T06:49:38Z"
+            },
+            {
+                "name": "Prevent deprecation warnings",
+                "date": "2023-06-01T07:06:00Z"
+            },
+            {
+                "name": "DNScheck for multi-host domains",
+                "date": "2023-01-14T14:18:35Z"
+            },
+            {
+                "name": "v4 Release",
+                "date": "2023-01-07T11:15:53Z"
+            },
+            {
+                "name": "Replace Travis CI with Github Actions",
+                "date": "2023-01-02T17:34:36Z"
+            },
+            {
+                "name": "Use of Doctrine Lexer v2",
+                "date": "2022-12-30T14:12:14Z"
+            },
+            {
+                "name": "Fix broken 3.2.2",
+                "date": "2022-12-30T14:11:16Z"
+            },
+            {
+                "name": "Last update before major version bump",
+                "date": "2022-12-29T21:12:19Z"
+            },
+            {
+                "name": "Remove deprecated call in PHP 8.2",
+                "date": "2022-06-18T20:58:16Z"
+            },
+            {
+                "name": "PHP version increase and DNSCheck improvement",
+                "date": "2022-05-28T22:23:24Z"
+            },
+            {
+                "name": "Fix empty Reason for MultipleError",
+                "date": "2021-10-11T15:45:33Z"
+            },
+            {
+                "name": "Fix label length",
+                "date": "2021-04-01T18:40:47Z"
+            },
+            {
+                "name": "MessageID validator",
+                "date": "2021-03-07T14:51:17Z"
+            },
+            {
+                "name": "Improve dns_get_record error handling",
+                "date": "2021-03-06T16:53:03Z"
+            },
+            {
+                "name": "v3 Release",
+                "date": "2020-12-29T15:14:24Z"
+            },
+            {
+                "name": "Labels length",
+                "date": "2020-12-29T15:07:01Z"
+            },
+            {
+                "name": "Last release until v3",
+                "date": "2020-11-14T18:04:50Z"
+            },
+            {
+                "name": "Improve domain compliance",
+                "date": "2020-10-31T20:39:23Z"
+            },
+            {
+                "name": "Fix string afetr TLD",
+                "date": "2020-09-26T15:50:05Z"
+            },
+            {
+                "name": "Remove depredcated constant",
+                "date": "2020-09-20T13:25:08Z"
+            },
+            {
+                "name": "Fix unhandled exception",
+                "date": "2020-09-06T13:46:34Z"
+            },
+            {
+                "name": "Improved DNS validation",
+                "date": "2020-08-09T10:29:53Z"
+            },
+            {
+                "name": "Move files to src/ folder",
+                "date": "2020-06-17T06:28:03Z"
+            },
+            {
+                "name": ".gitignore improvements",
+                "date": "2020-04-11T13:00:51Z"
+            },
+            {
+                "name": "Fix LocalPart Length",
+                "date": "2020-02-13T22:37:56Z"
+            },
+            {
+                "name": "Fix PHP >7.4 BC break on array access",
+                "date": "2020-02-12T22:30:58Z"
+            },
+            {
+                "name": "Psalm and minor updates",
+                "date": "2020-01-20T21:42:44Z"
+            },
+            {
+                "name": "Cleanup",
+                "date": "2020-01-08T09:00:17Z"
+            },
+            {
+                "name": "Tests fixes",
+                "date": "2019-12-30T08:18:39Z"
+            },
+            {
+                "name": "",
+                "date": "2019-12-30T08:19:32Z"
+            },
+            {
+                "name": "composer.json update",
+                "date": "2019-12-20T12:52:48Z"
+            },
+            {
+                "name": "Return types annotations",
+                "date": "2019-08-13T17:34:29Z"
+            },
+            {
+                "name": "Support for PHP 7.4",
+                "date": "2019-07-19T20:53:02Z"
+            },
+            {
+                "name": "Improve empty domain checks",
+                "date": "2019-06-23T10:21:43Z"
+            },
+            {
+                "name": "README updates and style improvements",
+                "date": "2019-05-22T06:37:35Z"
+            },
+            {
+                "name": "Fix MultipleValidationWithAnd with ALLOW_ALL_ERRORS",
+                "date": "2018-12-04T23:02:22Z"
+            },
+            {
+                "name": "Dev mode Autoloader",
+                "date": "2018-09-25T21:01:27Z"
+            },
+            {
+                "name": "Fix isValid when strict = false",
+                "date": "2018-09-25T21:13:46Z"
+            },
+            {
+                "name": "INTL support checks",
+                "date": "2018-08-16T20:56:26Z"
+            },
+            {
+                "name": "Convert domains to unicode before checking DNS",
+                "date": "2018-04-11T21:02:34Z"
+            },
+            {
+                "name": "PHPUnit & test depencis upgrade",
+                "date": "2017-11-15T23:41:33Z"
+            },
+            {
+                "name": "Compatibility with RFC 2181",
+                "date": "2017-02-03T22:50:18Z"
+            },
+            {
+                "name": "Compatibility with RFC 2181",
+                "date": "2017-01-30T22:09:37Z"
+            },
+            {
+                "name": "Readme update & Bug fixing",
+                "date": "2016-08-07T21:23:12Z"
+            },
+            {
+                "name": "MultipleValidationWithAnd has new options",
+                "date": "2016-07-16T21:20:33Z"
+            },
+            {
+                "name": "DNSCheck bugs and poilshing",
+                "date": "2016-07-05T21:53:56Z"
+            },
+            {
+                "name": "EmailValidator interface",
+                "date": "2016-07-05T21:34:59Z"
+            },
+            {
+                "name": "New interface",
+                "date": "2016-05-16T17:24:22Z"
+            },
+            {
+                "name": "Backslash in domain bug fix",
+                "date": "2016-05-16T17:00:17Z"
+            },
+            {
+                "name": "Orphan brackets",
+                "date": "2015-11-11T03:29:15Z"
+            },
+            {
+                "name": "Unclosed parenthesis counting",
+                "date": "2015-10-11T22:37:07Z"
+            },
+            {
+                "name": "Improved UTF8 and domain validations",
+                "date": "2015-04-26T16:01:05Z"
+            },
+            {
+                "name": "Fix version of dependency",
+                "date": "2015-01-04T22:47:31Z"
+            },
+            {
+                "name": "UTF8 Character improvements",
+                "date": "2014-11-29T09:12:53Z"
+            },
+            {
+                "name": "Fix regression from 1.2.4",
+                "date": "2014-11-06T09:05:04Z"
+            },
+            {
+                "name": "Strict and DNS check bug fix",
+                "date": "2014-11-02T23:20:16Z"
+            },
+            {
+                "name": "Improved detection of invalid emails",
+                "date": "2014-10-26T22:16:44Z"
+            },
+            {
+                "name": "Quoted Part Improvements",
+                "date": "2014-09-01T22:45:43Z"
+            },
+            {
+                "name": "Remove dependency with checkDNS",
+                "date": "2014-08-22T16:21:40Z"
+            },
+            {
+                "name": "Code Improved",
+                "date": "2014-07-06T17:07:18Z"
+            }
+        ]
+    }
+}

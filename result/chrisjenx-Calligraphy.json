@@ -1,0 +1,65 @@
+{
+    "https://api.github.com/repos/chrisjenx/Calligraphy": {
+        "forks": 1092,
+        "watchers": 8582,
+        "stars": 8582,
+        "languages": {
+            "Java": 69334
+        },
+        "commits": [
+            "2018-05-22T16:22:54Z",
+            "2018-05-22T16:07:16Z",
+            "2018-05-14T16:22:49Z",
+            "2018-05-14T16:21:44Z",
+            "2018-05-14T16:21:09Z",
+            "2018-05-14T16:20:29Z",
+            "2018-04-16T09:57:40Z",
+            "2017-07-30T10:39:24Z",
+            "2017-07-17T15:10:36Z",
+            "2017-05-16T00:07:58Z",
+            "2017-05-14T00:05:48Z",
+            "2017-05-11T16:38:02Z",
+            "2017-05-11T16:33:14Z",
+            "2017-05-09T10:46:23Z",
+            "2017-04-12T19:23:38Z",
+            "2017-05-08T22:09:06Z",
+            "2017-05-08T21:52:05Z",
+            "2017-05-08T21:48:00Z",
+            "2017-05-08T20:43:04Z",
+            "2017-05-08T21:16:14Z",
+            "2017-05-08T21:13:00Z",
+            "2016-12-20T23:31:26Z",
+            "2016-12-13T22:59:49Z",
+            "2016-12-12T19:43:20Z",
+            "2016-09-19T19:30:43Z",
+            "2016-07-13T17:35:15Z",
+            "2016-07-13T01:48:25Z",
+            "2016-07-13T01:41:57Z",
+            "2016-07-13T01:30:44Z",
+            "2016-04-29T22:14:38Z"
+        ],
+        "creation_date": "2013-12-20T02:35:45Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 211,
+        "readme": "# This version of Calligraphy has reached its end-of-life and is no longer maintained. Please migrate to [Calligraphy 3](https://github.com/InflationX/Calligraphy)!\n\nCalligraphy\n===========\n\n[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Calligraphy-blue.svg?style=flat)](http://android-arsenal.com/details/1/163)\n\nCustom fonts in Android an OK way.\n\nAre you fed up of Custom Views to set fonts? Or traversing the ViewTree to find TextViews? Yeah me too.\n\n![alt text](https://github.com/chrisjenx/Calligraphy/raw/master/screenshot.png \"ScreenShot Of Font Samples\")\n\n## Getting started\n\n### Dependency\n\nInclude the dependency [Download (.aar)](http://search.maven.org/remotecontent?filepath=uk/co/chrisjenx/calligraphy/2.3.0/calligraphy-2.3.0.aar) :\n\n```groovy\ndependencies {\n    compile 'uk.co.chrisjenx:calligraphy:2.3.0'\n}\n```\n### Add Fonts\n\nAdd your custom fonts to `assets/`. All font definitions are relative to this path.\n\nAssuming that you are using Gradle you should create the assets directory under `src/main/` in your project directory if it does not already exist.\nAs it's popular to use multi-project build with Gradle the path is usually `app/src/main/assets/`, where `app` is the project name.\n\nYou might consider creating a `fonts/` subdirectory in the assets directory (as in examples).\n\n### Usage\n\n```xml\n<TextView fontPath=\"fonts/MyFont.ttf\"/>\n``` \n**Note: The missing namespace, this __IS__ intentional.**\n\n### Installation\n\nDefine your default font using `CalligraphyConfig`, in your `Application` class in the `#onCreate()` method.\n\n```java\n@Override\npublic void onCreate() {\n    super.onCreate();\n    CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()\n                            .setDefaultFontPath(\"fonts/Roboto-RobotoRegular.ttf\")\n                            .setFontAttrId(R.attr.fontPath)\n                            .build()\n            );\n    //....\n}\n```\n\n_Note: You don't need to define `CalligraphyConfig` but the library will apply\nno default font and use the default attribute of `R.attr.fontPath`._\n\n### Inject into Context\n\nWrap the `Activity` Context:\n\n```java\n@Override\nprotected void attachBaseContext(Context newBase) {\n    super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));\n}\n```\n\n_You're good to go!_\n\n\n## Usage\n\n### Custom font per TextView\n\n```xml\n<TextView\n    android:text=\"@string/hello_world\"\n    android:layout_width=\"wrap_content\"\n    android:layout_height=\"wrap_content\"\n    fontPath=\"fonts/Roboto-Bold.ttf\"/>\n```\n\n_Note: Popular IDE's (Android Studio, IntelliJ) will likely mark this as an error despite being correct. You may want to add `tools:ignore=\"MissingPrefix\"` to either the View itself or its parent ViewGroup to avoid this. You'll need to add the tools namespace to have access to this \"ignore\" attribute. `xmlns:tools=\"\nhttp://schemas.android.com/tools\"`. See https://code.google.com/p/android/issues/detail?id=65176._\n\n### Custom font in TextAppearance\n\n\n```xml\n<style name=\"TextAppearance.FontPath\" parent=\"android:TextAppearance\">\n    <!-- Custom Attr-->\n    <item name=\"fontPath\">fonts/RobotoCondensed-Regular.ttf</item>\n</style>\n```\n\n```xml\n<TextView\n    android:text=\"@string/hello_world\"\n    android:layout_width=\"wrap_content\"\n    android:layout_height=\"wrap_content\"\n    android:textAppearance=\"@style/TextAppearance.FontPath\"/>\n\n```\n\n### Custom font in Styles\n\n\n```xml\n<style name=\"TextViewCustomFont\">\n    <item name=\"fontPath\">fonts/RobotoCondensed-Regular.ttf</item>\n</style>\n```\n\n### Custom font defined in Theme\n\n```xml\n<style name=\"AppTheme\" parent=\"android:Theme.Holo.Light.DarkActionBar\">\n    <item name=\"android:textViewStyle\">@style/AppTheme.Widget.TextView</item>\n</style>\n\n<style name=\"AppTheme.Widget\"/>\n\n<style name=\"AppTheme.Widget.TextView\" parent=\"android:Widget.Holo.Light.TextView\">\n    <item name=\"fontPath\">fonts/Roboto-ThinItalic.ttf</item>\n</style>\n```\n\n\n# FAQ\n\n### Font Resolution \n\nThe `CalligraphyFactory` looks for the font in a pretty specific order, for the _most part_ it's\n very similar to how the Android framework resolves attributes.\n \n1. `View` xml - attr defined here will always take priority.\n2. `Style` xml - attr defined here is checked next.\n3. `TextAppearance` xml - attr is checked next, the only caveat to this is **IF** you have a font \n defined in the `Style` and a `TextAttribute` defined in the `View` the `Style` attribute is picked first!\n4. `Theme` - if defined this is used.\n5. `Default` - if defined in the `CalligraphyConfig` this is used of none of the above are found \n**OR** if one of the above returns an invalid font. \n\n### Why *not* piggyback off of fontFamily attribute?\n\nWe originally did, but it conflicted with users wanting to actually use that attribute, you now \nhave to define a custom attribute.\n\n### Why no jar?\n\nWe needed to ship a custom ID with Calligraphy to improve the Font Injection flow. This\nunfortunately means that it has to be an `aar`. But you're using Gradle now anyway right?\n\n### Multiple Typeface's per TextView / Spannables\n\nIt is possible to use multiple Typefaces inside a `TextView`, this isn't new concept to Android.\n\nThis _could_ be achieved using something like the following code.\n\n```java\nSpannableStringBuilder sBuilder = new SpannableStringBuilder();\nsBuilder.append(\"Hello!\") // Bold this\n        .append(\"I use Calligraphy\"); // Default TextView font.\n// Create the Typeface you want to apply to certain text\nCalligraphyTypefaceSpan typefaceSpan = new CalligraphyTypefaceSpan(TypefaceUtils.load(getAssets(), \"fonts/Roboto-Bold.ttf\"));\n// Apply typeface to the Spannable 0 - 6 \"Hello!\" This can of course by dynamic.\nsBuilder.setSpan(typefaceSpan, 0, 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);\nsetText(sBuilder, TextView.BufferType.SPANNABLE);\n```\nOf course this is just an example. Your mileage may vary.\n\n### Exceptions / Pitfalls\n\nTo our knowledge (try: `grep -r -e \"void set[^(]*(Typeface \" <android source dir>`) there are two standard Android widgets that have multiple methods to set typefaces. They are:\n\n - android.support.v7.widget.SwitchCompat\n - android.widget.Switch\n\nBoth have a method called `setSwitchTypeface` that sets the typeface within the switch (e.g. on/off, yes/no). `SetTypeface` sets the typeface of the label. You will need to create your own subclass that overrides `setTypeface` and calls both `super.setTypeface` and `super.setSwitchTypeface`.\n\n\n\n\n\n# Collaborators\n\n- [@mironov-nsk](https://github.com/mironov-nsk)\n- [@Roman Zhilich](https://github.com/RomanZhilich)\n- [@Smuldr](https://github.com/Smuldr)\n- [@Codebutler](https://github.com/codebutler)\n- [@loganj](https://github.com/loganj)\n- [@dlew](https://github.com/dlew)\n- [@ansman](https://github.com/ansman)\n\n# Note\n\nThis library was created because it is currently not possible to declare a custom font in XML files in Android.\n\nIf you feel this should be possible to do, please star [this issue](https://code.google.com/p/android/issues/detail?id=88945) on the official Android bug tracker.\n\n# Licence\n\n    Copyright 2013 Christopher Jenkins\n    \n    Licensed under the Apache License, Version 2.0 (the \"License\");\n    you may not use this file except in compliance with the License.\n    You may obtain a copy of the License at\n    \n        http://www.apache.org/licenses/LICENSE-2.0\n    \n    Unless required by applicable law or agreed to in writing, software\n    distributed under the License is distributed on an \"AS IS\" BASIS,\n    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n    See the License for the specific language governing permissions and\n    limitations under the License.\n\n[![Badge](http://www.libtastic.com/static/osbadges/79.png)](http://www.libtastic.com/technology/79/)\n",
+        "releases": [
+            {
+                "name": "v2.2.0",
+                "date": "2016-05-03T12:35:29Z"
+            },
+            {
+                "name": "v2.1.0",
+                "date": "2015-07-20T22:58:41Z"
+            },
+            {
+                "name": "v2.0.2",
+                "date": "2015-03-17T18:05:27Z"
+            },
+            {
+                "name": "Version 2.0.0",
+                "date": "2015-01-16T15:08:27Z"
+            }
+        ]
+    }
+}

@@ -1,0 +1,120 @@
+{
+    "https://api.github.com/repos/alexfoxy/lax.js": {
+        "forks": 489,
+        "watchers": 10461,
+        "stars": 10461,
+        "languages": {
+            "JavaScript": 43994
+        },
+        "commits": [
+            "2021-10-25T20:06:02Z",
+            "2021-10-21T19:06:57Z",
+            "2021-10-16T08:19:04Z",
+            "2021-10-16T08:18:27Z",
+            "2021-10-07T19:50:09Z",
+            "2021-10-07T19:05:59Z",
+            "2021-10-15T20:03:35Z",
+            "2021-10-15T20:03:21Z",
+            "2021-10-15T20:03:11Z",
+            "2021-10-15T20:01:45Z",
+            "2021-10-15T20:00:52Z",
+            "2021-10-15T19:32:11Z",
+            "2021-08-10T22:32:51Z",
+            "2021-07-14T06:38:44Z",
+            "2021-05-25T00:53:04Z",
+            "2021-05-08T07:55:31Z",
+            "2021-01-22T22:16:41Z",
+            "2020-12-28T19:11:22Z",
+            "2020-12-28T19:07:31Z",
+            "2020-12-28T19:07:16Z",
+            "2020-12-28T18:23:47Z",
+            "2020-12-28T18:20:32Z",
+            "2020-12-28T18:19:23Z",
+            "2020-12-28T18:12:49Z",
+            "2020-12-28T18:11:14Z",
+            "2020-12-28T18:09:40Z",
+            "2020-12-28T18:09:14Z",
+            "2020-12-28T18:07:50Z",
+            "2020-12-28T18:04:46Z",
+            "2020-12-28T18:02:52Z"
+        ],
+        "creation_date": "2019-03-12T09:21:03Z",
+        "contributors": 14,
+        "topics": [
+            "animation",
+            "css",
+            "effects",
+            "parallax",
+            "scroll",
+            "transitions"
+        ],
+        "subscribers": 97,
+        "readme": "# lax.js\n\nSimple & lightweight (<4kb gzipped) vanilla JavaScript library to create smooth & beautiful animations when you scroll. \n\n![Lax 2.0 Gif](https://i.imgur.com/XNvvAOv.gif)\n\n[>> DEMO <<](https://alexfox.dev/lax.js/)\n\n---\n## What's new with Lax.js 2.0\nLax.js 2.0 has been completely re-written with a focus on modularity and flexibility giving you more tools to create awesome animations.\n- New javascript animation syntax, allowing for more advanced effect combos\n- Use any value to drive animations, for example mouse position, time of day .. and of course scroll!\n- Animations can be given inertia when scrolling\n- Create custom CSS bindings \n- Animation easings\n- And much more..\n\n## Examples\n- [Scroll effect](https://alexfox.dev/lax.js/examples/scroll)\n- [Horizontal snap scroll](https://alexfox.dev/lax.js/examples/snap-scroll)\n- [Inertia](https://alexfox.dev/lax.js/examples/inertia)\n- [Video/Gif playback](https://alexfox.dev/lax.js/examples/sprite)\n- [Cursor position](https://alexfox.dev/lax.js/examples/cursor)\n- [Text input](https://alexfox.dev/lax.js/examples/input)\n- [Update HTML content](https://alexfox.dev/lax.js/examples/on-update)\n- [Preset Explorer](https://alexfox.dev/lax.js/preset-explorer)\n\n\n# Documentation\n\n### 1. Getting started\n\n- [Setup](#setup)\n- [Using presets](#using-presets)\n- [Usage with UI frameworks](#dom-behavior-and-usage-with-frameworks)\n- [Adding drivers](#adding-drivers)\n- [Adding elements](#adding-elements)\n\n### 2. Going deeper\n\n- [Custom animations](#custom-animations)\n- [Optimising performance](#optimising-performance)\n\n### 3. Glossary\n\n- [CSS properties](#css-properties)\n- [Special values](#special-values)\n- [Supported easings](#supported-easings)\n\n# Getting started\n\n### NPM Setup\n\n```bash\n# https://www.npmjs.com/package/lax.js\n\nnpm install lax.js\nyarn add lax.js\n```\n```js\nimport lax from 'lax.js'\n```\n\n### HTML setup\n\n```html\n<script src=\"path-to-lax.min.js\"></script>\n<!-- or via CDN -->\n<script src=\"https://cdn.jsdelivr.net/npm/lax.js\" ></script>\n```\n\n\n## Setup\n\nTo implement lax you need to create at least one _driver_, to provide values for animations, as well as the element animation bindings. Below is a simple example:\n\n```html\n<!-- JS -->\n<script>\n  window.onload = function () {\n    lax.init()\n\n    // Add a driver that we use to control our animations\n    lax.addDriver('scrollY', function () {\n      return window.scrollY\n    })\n\n    // Add animation bindings to elements\n    lax.addElements('.selector', {\n      scrollY: {\n        translateX: [\n          [\"elInY\", \"elCenterY\", \"elOutY\"],\n          [0, 'screenWidth/2', 'screenWidth'],\n        ]\n      }\n    })\n  }\n</script>\n\n<!-- HTML -->\n<div class=\"selector\">Hello</div>\n```\n\n## Using presets\n\nThe easiest way to get started is to use presets via html classes. For example: \n\n```html\n<div class=\"lax lax_preset_fadeIn:50:100 lax_preset_spin\"></div>\n```\n\nMultiple presets can be chained together and they can be customised to suit your needs. Use the [preset explorer](https://alexfox.dev/lax.js/preset-explorer) to explore effects and see a simple example [here](https://alexfox.dev/lax.js/examples/html-inline).\n\n## DOM behavior and usage with Frameworks \n\nTo increase performance, `lax.js` indexes the list of elements to animate when the page loads. If you're using a library like React, Vue or EmberJS, it is likely that you are adding elements after the initial window.onload. Because of this you will need to call `lax.addElements` when you add components to the DOM that you want to animate, and `lax.removeElements` when the component unmounts.\n\nPlease find a React example [here](https://codesandbox.io/s/laxjs-react-example-nc4h7). Other examples will be available soon for Vue.js and Angular.\n\n## Adding drivers\n\nDrivers provide the values that _drive_ your animations. To set up a driver just call `lax.addDriver` with a name and a function which returns a number. This method is called every frame to calculate the animations so keep the method as computationally _light_ as possible. The example below will be the most common use case for lax which returns the scrollY position of the window.\n\n```javascript\nlax.addDriver(\n  'scrollY',                          // Driver name\n  function(laxFrame) {                     \n    return window.scrollY    // Value method\n  },\n  { }                                 // Options\n)\n```\n\n### Driver options\n\n#### `inertiaEnabled: boolean = false`\n\nIf enabled, the driver will calculate the speed at which its value is changing. Used to add inertia to elements using the [inertia element option](#inertia-number).\n\nSee this in action in the [here](https://alexfox.dev/lax.js/examples/inertia).\n\n#### `frameStep: number = 1`\n\nBy default each driver updates its value every animation frame, around ~60 times per second. You can use the `frameStep` to reduce frequency of the driver value updating. For example a value of `2` would only update ~30 times per second and a value of `60` would only update about once per second.\n\n## Adding elements\n\nYou can add lax animations to an element using the `addElements` method:\n\n```javascript\nlax.addElements(\n  '.selector',  // Element selector rule\n  {             // Animation data\n    scrollY: {  \n      opacity: [\n        [0, 100],\n        [1, 0]\n      ]\n    }\n  },\n  {             \n    style: {}   // Element options\n  }\n)\n```\n\n### Element options\n\n#### `style: StyleObject`\n\nAdd static CSS to each element, for example:\n\n```css\n{\n  transform: '200ms scale ease-in-out';\n}\n```\n\n#### `elements: Array<DOM nodes>`\n\nPass references to raw DOM elements to allow for more flexible selection patterns. In this case, a unique `selector` must still be passed as the first argument, however it does _not_ need to be a valid DOM selector.\n\nThis allows the library to tag the elements for removal later. Example:\n\n```js\nconst myDomElements = $('.selector')\n\n{\n  elements: myDomElements\n}\n```\n\n#### `onUpdate: (driverValues: Object, domElement: DomElement) => void`\nA method called every frame with the current driverValues and domElement. This could be used to toggle classes on an element or set innerHTML. See it in action [here](https://alexfox.dev/lax.js/examples/on-update).\n\nThe driver values are formatted as follows:\n```js\n{\n  scrollY: [  // Driver name\n    100,      // Driver value\n    0         // Driver inertia\n  ]\n}\n```\n\n# Going deeper\n\n## Custom animations\nCustom animations are defined using an object.\n\n```javascript\n// Animation data\n{\n  scrollY: {                // Driver name\n    translateX: [           // CSS property\n      ['elInY', 'elOutY'],  // Driver value map\n      [0, 'screenWidth'],   // Animation value map\n      {\n        inertia: 10        // Options\n      }\n    ],\n    opacity: [\n      // etc\n    ]\n  }\n}\n```\n\n### Driver name\nThe name of the driver you want to use as a source of values to map to your animation, for example, the document's scrollY position. Read about adding drivers [here](#adding-drivers).\n\n### CSS property\nThe name of the CSS property you want to animate, for example `opacity` or `rotate`. See a list of supported properties [here](#css-properties).\n\n> Some CSS properties, for example `box-shadow`, require a custom function to build the style string. To do this use the [cssFn](#cssfn-value-number--string) element option.\n\n### Value maps\nThe value maps are used to interpolate the driver value and output a value for your CSS property. For example:\n\n```javascript\n[0, 200, 800]  // Driver value map\n[0, 10,  20]   // Animation value map\n\n// Result\n\n| In  | Out |\n| --- | --- |\n| 0   | 0   |\n| 100 | 5   |\n| 200 | 10  |\n| 500 | 15  |\n| 800 | 20  |\n```\n\nWithin the maps you can use strings for simple formulas as well as use special values. e.g:\n\n```javascript\n['elInY', 'elCenterY-200', 'elCenterY',\n```\n\nSee a list of available values [here](#special-values).\n\nYou can also use mobile breakpoints within driver value maps and animation maps for more flexibility.\n\n```javascript\nscrollY: {\n  translateX: [\n    ['elInY', 'elCenterY', 'elOutY'],\n    {\n      500: [10, 20, 50], // Screen width < 500\n      900: [30, 40, 60], // Screen width > 500 and < 900\n      1400: [30, 40, 60], // Screen width > 900\n    },\n  ];\n}\n```\n\n### Options\n\n#### `modValue: number | undefined`\nSet this option to modulus the value from the driver, for example if you want to loop the animation value as the driver value continues to increase.\n\n#### `frameStep: number = 1`\nBy default each animation updates its value every animation frame, around ~60 times per second. You can use the `frameStep` to reduce frequency of the animation updating. For example a value of `2` would only update ~30 times per second and a value of `60` would only update about once per second.\n\n#### `inertia: number`\nUse to add inertia to your animations. Use in combination with the [inertiaEnabled](#inertiaenabled-boolean--false) driver option.\n\nSee inertia in action [here](https://alexfox.dev/lax.js/examples/inertia).\n\n\n#### `inertiaMode: \"normal\" | \"absolute\"`\nUse in combination with `inertia`. If set to `absolute` the inertia value will always be a positive number via the `Math.abs` operator.\n\n#### `cssUnit: string = \"\"`\nDefine the unit to be appended to the end of the value, for example \nFor example `px` `deg`\n\n#### `cssFn: (value: number, domElement: DomElement) => number | string`\nSome CSS properties require more complex strings as values. For example, `box-shadow` has multiple values that could be modified by a lax animation.\n\n```javascript\n// Box-shadow example\n(val) => {\n  return `${val}px ${val}px ${val}px rgba(0,0,0,0.5)`;\n};\n```\n\n#### `easing: string`\nSee a list of available values [here](#supported-easings).\n\n## Optimising performance\nLax.js has been designed to be performant but there are a few things to bare in mind when creating your websites.\n- Smaller elements perform better. \n- Postion `fixed` and `absolute` elements perform best as they do not trigger a layout change when updated.\n- Off-screen elements do not need to be updated so consider that when creating your animation value maps.\n- The css properties `blur`, `hue-rotate` and `brightness` are graphically intensive and do not run as smoothly as the other available properties.\n\n# Glossary\n\n## CSS properties\n\n| name       |\n| ---------- |\n| opacity    |\n| scaleX     |\n| scaleY     |\n| scale      |\n| skewX      |\n| skewY      |\n| skew       |\n| rotateX    |\n| rotateY    |\n| rotate     |\n| translateX |\n| translateY |\n| translateZ |\n| blur       |\n| hue-rotate |\n| brightness |\n\n## Special values\n\n| key          | value                                                                            |\n| ------------ | -------------------------------------------------------------------------------- |\n| screenWidth  | current width of the screen                                                      |\n| screenHeight | current height of the screen                                                     |\n| pageWidth    | width of the document                                                            |\n| pageHeight   | height of the document                                                           |\n| elWidth      | width of the element                                                             |\n| elHeight     | height of the element                                                            |\n| elInY        | window scrollY position when element will appear at the bottom of the screen     |\n| elOutY       | window scrollY position when element will disappear at the top of the screen     |\n| elCenterY    | window scrollY position when element will be centered vertically on the screen   |\n| elInX        | window scrollX position when element will appear at the right of the screen      |\n| elOutX       | window scrollX position when element will disappear at the left of the screen    |\n| elCenterX    | window scrollX position when element will be centered horizontally on the screen |\n| index        | index of the element when added using `lax.addElements`                          |\n\n## Supported easings\n\n| name           |\n| -------------- |\n| easeInQuad     |\n| easeOutQuad    |\n| easeInOutQuad  |\n| easeInCubic    |\n| easeOutCubic   |\n| easeInOutCubic |\n| easeInQuart    |\n| easeOutQuart   |\n| easeInOutQuart |\n| easeInQuint    |\n| easeOutQuint   |\n| easeInOutQuint |\n| easeOutBounce  |\n| easeInBounce   |\n| easeOutBack    |\n| easeInBack     |\n",
+        "releases": [
+            {
+                "name": "v2.0.3",
+                "date": "2020-12-28T19:09:56Z"
+            },
+            {
+                "name": "v2.0.2",
+                "date": "2020-11-16T16:58:26Z"
+            },
+            {
+                "name": "v2.0.1",
+                "date": "2020-11-14T16:12:33Z"
+            },
+            {
+                "name": "1.2.5",
+                "date": "2019-10-15T14:55:10Z"
+            },
+            {
+                "name": "1.2.4",
+                "date": "2019-09-20T07:32:37Z"
+            },
+            {
+                "name": "1.2.3",
+                "date": "2019-04-04T21:38:17Z"
+            },
+            {
+                "name": "1.2.2",
+                "date": "2019-04-03T16:50:14Z"
+            },
+            {
+                "name": "1.2.1",
+                "date": "2019-04-03T06:19:43Z"
+            },
+            {
+                "name": "1.2.0",
+                "date": "2019-03-26T08:56:50Z"
+            },
+            {
+                "name": "Added new presets and background position key + optimisation",
+                "date": "2019-03-19T15:41:00Z"
+            },
+            {
+                "name": "Improved support for react, vue.js and DOM manipulation",
+                "date": "2019-03-18T16:47:53Z"
+            },
+            {
+                "name": "Added lax.populateElements() for use on DOM updates, window size change etc",
+                "date": "2019-03-17T11:50:19Z"
+            },
+            {
+                "name": "Fix for npm main path",
+                "date": "2019-03-16T14:13:58Z"
+            },
+            {
+                "name": "Fixed dependancies",
+                "date": "2019-03-16T13:49:37Z"
+            },
+            {
+                "name": "Tweaks for NPM",
+                "date": "2019-03-16T13:44:40Z"
+            },
+            {
+                "name": "",
+                "date": "2019-03-15T10:04:11Z"
+            }
+        ]
+    }
+}

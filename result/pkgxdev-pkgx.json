@@ -1,0 +1,911 @@
+{
+    "https://api.github.com/repos/teaxyz/cli": {
+        "forks": 1345,
+        "watchers": 9123,
+        "stars": 9123,
+        "languages": {
+            "Rust": 65146,
+            "Python": 1803,
+            "Shell": 1588
+        },
+        "commits": [
+            "2025-01-21T18:19:59Z",
+            "2025-01-21T04:49:23Z",
+            "2025-01-20T06:30:28Z",
+            "2025-01-18T18:27:12Z",
+            "2025-01-18T01:27:20Z",
+            "2025-01-18T00:36:18Z",
+            "2025-01-17T21:43:36Z",
+            "2025-01-17T21:21:10Z",
+            "2025-01-17T21:23:04Z",
+            "2025-01-17T18:59:57Z",
+            "2025-01-17T21:16:23Z",
+            "2025-01-17T21:04:34Z",
+            "2025-01-17T20:55:29Z",
+            "2025-01-17T17:21:43Z",
+            "2025-01-17T16:59:50Z",
+            "2025-01-17T16:59:38Z",
+            "2025-01-17T15:08:12Z",
+            "2025-01-17T15:07:47Z",
+            "2025-01-17T00:27:50Z",
+            "2025-01-16T19:47:57Z",
+            "2025-01-16T18:09:43Z",
+            "2025-01-16T15:56:46Z",
+            "2025-01-16T15:39:54Z",
+            "2025-01-16T01:59:19Z",
+            "2025-01-16T00:57:04Z",
+            "2025-01-15T19:48:46Z",
+            "2025-01-14T22:26:10Z",
+            "2025-01-14T20:10:42Z",
+            "2025-01-10T12:38:21Z",
+            "2025-01-08T03:07:52Z"
+        ],
+        "creation_date": "2021-11-20T18:44:53Z",
+        "contributors": 30,
+        "topics": [
+            "environment-manager",
+            "package-manager",
+            "package-runner"
+        ],
+        "subscribers": 78,
+        "readme": "![pkgx.dev](https://pkgx.dev/banner.png)\n\n`pkgx` is a 4 MiB, standalone binary that can *run anything*.\n\n[![coverage][]][coveralls] [![teaRank][]](https://tea.xyz)\n\n&nbsp;\n\n\n### Quickstart\n\n```sh\nbrew install pkgx || curl https://pkgx.sh | sh\n```\n\n> [docs.pkgx.sh/installing-w/out-brew]\n\n&nbsp;\n\n\n# Run Anything\n\n```sh\n$ deno\ncommand not found: deno\n\n$ pkgx deno\nDeno 2.1.4\n> ^D\n\n$ deno\ncommand not found: deno\n# ^^ nothing was installed; your wider system is untouched\n```\n\n\n## Run *Any Version* of Anything\n\n```sh\n$ pkgx node@14 --version\nNode.js v14.21.3\n\n$ pkgx python@2 --version\nPython 2.7.18\n```\n\n\n## Run Anywhere\n\n* <details><summary>macOS</summary><br>\n\n  * macOS >= 11\n  * 64 bit Intel & Apple Silicon\n\n  </details>\n* <details><summary>Linux</summary><br>\n\n  * glibc >=2.28 [repology](https://repology.org/project/glibc/versions)\n  * `x86_64` & `arm64`\n\n  </details>\n* <details><summary>Windows</summary><br>\n\n  WSL2; x86-64. *Native windows is planned.*\n\n  </details>\n* <details><summary>Docker</summary><br>\n\n  We provide an image with `pkgx` in it:\n\n  ```sh\n  $ pkgx docker run -it pkgxdev/pkgx\n\n  (docker) $ pkgx node@16\n  Welcome to Node.js v16.20.1.\n  Type \".help\" for more information.\n  >\n  ```\n\n  You can use this image to try out (pretty much) any version of any program:\n\n  ```sh\n  $ docker run pkgxdev/pkgx node@21.1 --version\n  v21.1.0\n  ```\n\n  Or in a `Dockerfile`:\n\n  ```Dockerfile\n  FROM pkgxdev/pkgx\n  RUN pkgx deno@1.35 task start\n  ```\n\n  Or in any image:\n\n  ```Dockerfile\n  FROM ubuntu\n  RUN curl https://pkgx.sh | sh\n  RUN pkgx python@3.10 -m http.server 8000\n  ```\n\n  </details>\n* <details><summary>CI/CD</summary><br>\n\n  ```yaml\n  - uses: pkgxdev/setup@v3\n  - run: pkgx shellcheck\n  ```\n\n  Or in other CI/CD providers:\n\n  ```sh\n  curl https://pkgx.sh | sh\n  pkgx shellcheck\n  ```\n\n  </details>\n* <details><summary>Scripts</summary><br>\n\n  ```sh\n  #!/usr/bin/env -S pkgx +git python@3.12\n\n  # python 3.12 runs the script and `git` is available during its execution\n  ```\n\n  > [docs.pkgx.sh/scripts]\n\n  </details>\n* <details><summary>Editors</summary><br>\n\n  Use [`dev`][dev]; a separate tool that uses the pkgx primitives to\n  automatically determine and utilize your dependencies based on your\n  project\u2019s keyfiles.\n\n  ```sh\n  $ cd myproj\n\n  myproj $ dev\n  +cargo +rust\n\n  myproj $ code .\n  ```\n\n  </details>\n\n&nbsp;\n\n# The `pkgx` Ecosystem\n\n`pkgx` is not just a package runner, it\u2019s a composable primitive that can be\nused to build a whole ecosystem of tools.\n\n## `dev`\n\n`dev` uses `pkgx` and shellcode to create \u201cvirtual environments\u201d consisting\nof the specific versions of tools and their dependencies you need for your\nprojects.\n\n```sh\n$ cd my-rust-proj && ls\nCargo.toml  src/\n\nmy-rust-proj $ cargo build\ncommand not found: cargo\n\nmy-rust-proj $ dev\n+rust +cargo\n\nmy-rust-proj $ cargo build\nCompiling my-rust-proj v0.1.0\n#\u2026\n```\n\n> [github.com/pkgxdev/dev][dev]\n\n\n## `pkgm`\n\n`pkgm` installs `pkgx` packages to `/usr/local`. It installs alongside `pkgx`.\n\n> [github.com/pkgxdev/pkgm][pkgm]\n\n\n## Scripting\n\nA powerful use of `pkgx` is scripting, eg. here\u2019s a script to release new\nversions to GitHub:\n\n```sh\n#!/usr/bin/env -S pkgx +gum +gh +npx +git bash>=4 -eo pipefail\n\ngum format \"# determining new version\"\n\nversions=\"$(git tag | grep '^v[0-9]\\+\\.[0-9]\\+\\.[0-9]\\+')\"\nv_latest=\"$(npx -- semver --include-prerelease $versions | tail -n1)\"\nv_new=$(npx -- semver bump $v_latest --increment $1)\n\ngum format \"# releasing v$v_new\"\n\ngh release create \\\n  $v_new \\\n  --title \"$v_new Released \ud83c\udf89\" \\\n  --generate-notes \\\n  --notes-start-tag=v$v_latest\n```\n\nAbove you can see how we \u201cloaded\u201d the shebang with `+pkg` syntax to bring in\nall the tools we needed.\n\n> We have pretty advanced versions of the above script, eg\n> [teaBASE][teaBASE-release-script]\n\nThere\u2019s tools for just about every language ecosystem so you can import\ndependencies. For example, here we use `uv` to run a python script with\npypi dependencies, and pkgx to load both `uv` and a specific python version:\n\n```sh\n#!/usr/bin/env -S pkgx +python@3.11 uv run --script\n\n# /// script\n# dependencies = [\n#   \"requests<3\",\n#   \"rich\",\n# ]\n# ///\n\nimport requests\nfrom rich.pretty import pprint\n\nresp = requests.get(\"https://peps.python.org/api/peps.json\")\ndata = resp.json()\npprint([(k, v[\"title\"]) for k, v in data.items()][:10])\n```\n\n> [!TIP]\n>\n> ### Mash\n>\n> We love scripting with `pkgx` so much that we made a whole package manager\n> for scripts to show the world what is possible when the whole open source\n> ecosystem is available to your scripts Check it out [`mash`].\n\n> [!NOTE]\n>\n> Notably, packages used during your script aren\u2019t installed and don\u2019t pollute\n> your system and anyone else\u2019s systems either. Don\u2019t be confused\u2014 they are\n> downloaded to `~/.pkgx` but the wider system is not touched.\n\n## Recursive Run\n\nEasily run tools from other language ecosystems:\n\n```sh\npkgx uvx cowsay \"Run Python (PyPi) programs with `uvx`\"  # or pipx\npkgx bunx cowsay \"Run JavaScript (NPM) programs tools with `bunx`\"  # or `npx`\n```\n\n## Magic\n\nIt can be fun to add magic to your shell:\n\n```sh\n# add to ~/.zshrc\ncommand_not_found_handler() {\n  pkgx -- \"$@\"\n}\n```\n\nThus if you type `gh` and it\u2019s not installed pkgx will magically run it as\nthough it was installed all along.\n\n> [!NOTE]\n> Bash is the same function but drop the `r` from the end of the name.\n\n&nbsp;\n\n\n# Further Reading\n\n[docs.pkgx.sh][docs] is a comprehensive manual and user guide for the `pkgx`\nsuite.\n\n&nbsp;\n\n\n# Migrating from `pkgx`^1\n\n## Shellcode\n\nThe `pkgx` suite has had its scopes tightened. There is no shellcode in `pkgx`\nanymore. Instead [`dev`] is its own separate tool that has its own shellcode.\nMigrate your shell configuration with:\n\n```sh\npkgx pkgx^1 deintegrate\npkgx dev integrate\n```\n\n## `env +foo`\n\nIf you used this, let us know, we can make a mash script to provide this\nfunctionality again. You can achieve the same result as eg. `env +git` with:\n\n```sh\neval \"$(pkgx +git)\"\n```\n\nSurround the `eval` with `set -a` and `set +a` if you need the environment\nexported.\n\n## `pkgx install`\n\nWe now provide [`pkgm`][pkgm] but if you miss the leanness of \u201cstubs\u201d we\nprovide a [`mash`] script to create stubs in `/usr/local/bin`:\n\n```sh\n$ pkgx mash pkgx/stub git\ncreated stub: /usr/local/bin/git\n\n$ cat /usr/local/bin/git\n#!/bin/sh\nexec pkgx git \"$@\"\n```\n\n&nbsp;\n\n\n# Contributing\n\nWe recommend using [`dev`] to make rust available.\n\n* To add packages see the [pantry README]\n* To hack on `pkgx` itself; clone it and `cargo build`\n  * [`hydrate.rs`] is where optimization efforts will bear most fruit\n\n## Pre-PR Linting\n\n```sh\ncargo fmt --all --check\ncargo clippy --all-features\npkgx npx markdownlint --config .github/markdownlint.yml --fix .\n```\n\n# Chat / Support / Questions\n\nWe love a good chinwag.\n\n* [Discord](https://discord.gg/rNwNUY83XS)\n* [github.com/orgs/pkgxdev/discussions][discussions]\n\n[docs]: https://docs.pkgx.sh\n[pantry README]: ../../../pantry#contributing\n[discussions]: ../../discussions\n[docs.pkgx.sh/ci-cd]: https://docs.pkgx.sh/ci-cd\n[docs.pkgx.sh/scripts]: https://docs.pkgx.sh/scripts\n[docs.pkgx.sh/editors]: https://docs.pkgx.sh/editors\n[docs.pkgx.sh/docker]: https://docs.pkgx.sh/docker\n[docs.pkgx.sh/installing-w/out-brew]: https://docs.pkgx.sh/installing-w/out-brew\n[dev]: https://github.com/pkgxdev/dev\n[pkgm]: https://github.com/pkgxdev/pkgm\n[teaBASE-release-script]: https://github.com/teaxyz/teaBASE/blob/main/Scripts/publish-release.sh\n[`hydrate.rs`]: src/hydrate.rs\n[`mash`]: https://github.com/pkgxdev/mash\n[`dev`]: https://github.com/pkgxdev/dev\n\n[coverage]: https://coveralls.io/repos/github/pkgxdev/pkgx/badge.svg?branch=main\n[coveralls]: https://coveralls.io/github/pkgxdev/pkgx?branch=main\n[teaRank]: https://img.shields.io/endpoint?url=https%3A%2F%2Fchai.tea.xyz%2Fv1%2FgetTeaRankBadge%3FprojectId%3D79e9363b-862c-43e0-841d-4d4eaad1fc95\n",
+        "releases": [
+            {
+                "name": "v2.1.1",
+                "date": "2025-01-17T21:41:11Z"
+            },
+            {
+                "name": "v1.4.1",
+                "date": "2025-01-17T16:42:29Z"
+            },
+            {
+                "name": "v2.1.0",
+                "date": "2025-01-16T19:46:27Z"
+            },
+            {
+                "name": "v1.4.0",
+                "date": "2025-01-16T19:08:34Z"
+            },
+            {
+                "name": "v2.0.0",
+                "date": "2025-01-14T18:03:49Z"
+            },
+            {
+                "name": "v1.3.1",
+                "date": "2024-11-23T15:26:17Z"
+            },
+            {
+                "name": "v1.3.0",
+                "date": "2024-11-21T15:48:02Z"
+            },
+            {
+                "name": "v1.2.2",
+                "date": "2024-09-25T12:14:54Z"
+            },
+            {
+                "name": "v1.2.1",
+                "date": "2024-09-19T18:49:42Z"
+            },
+            {
+                "name": "v1.2.0",
+                "date": "2024-09-07T15:06:21Z"
+            },
+            {
+                "name": "v1.1.6",
+                "date": "2024-01-28T15:46:08Z"
+            },
+            {
+                "name": "v1.1.5",
+                "date": "2024-01-17T15:49:23Z"
+            },
+            {
+                "name": "v1.1.4",
+                "date": "2024-01-05T13:34:24Z"
+            },
+            {
+                "name": "v1.1.3",
+                "date": "2023-12-23T08:22:11Z"
+            },
+            {
+                "name": "v1.1.2",
+                "date": "2023-12-22T10:20:23Z"
+            },
+            {
+                "name": "v1.1.1",
+                "date": "2023-11-25T19:24:49Z"
+            },
+            {
+                "name": "v1.1.0",
+                "date": "2023-10-26T15:40:47Z"
+            },
+            {
+                "name": "v1.0.4",
+                "date": "2023-10-23T12:47:08Z"
+            },
+            {
+                "name": "v1.0.3",
+                "date": "2023-10-22T18:01:15Z"
+            },
+            {
+                "name": "v1.0.2",
+                "date": "2023-10-17T15:26:29Z"
+            },
+            {
+                "name": "v1.0.1",
+                "date": "2023-10-07T11:22:08Z"
+            },
+            {
+                "name": "v1.0.0",
+                "date": "2023-10-02T00:13:01Z"
+            },
+            {
+                "name": "1.0.0-alpha.4",
+                "date": "2023-09-17T13:13:04Z"
+            },
+            {
+                "name": "1.0.0-alpha.3",
+                "date": "2023-09-13T20:59:35Z"
+            },
+            {
+                "name": "1.0.0-alpha.2",
+                "date": "2023-09-12T16:19:12Z"
+            },
+            {
+                "name": "1.0.0-alpha.1",
+                "date": "2023-09-10T14:21:00Z"
+            },
+            {
+                "name": "v0.39.6",
+                "date": "2023-08-08T19:25:12Z"
+            },
+            {
+                "name": "v0.39.5",
+                "date": "2023-08-01T15:15:54Z"
+            },
+            {
+                "name": "v0.39.4",
+                "date": "2023-07-29T15:27:28Z"
+            },
+            {
+                "name": "v0.39.3",
+                "date": "2023-07-27T15:30:11Z"
+            },
+            {
+                "name": "v0.39.2",
+                "date": "2023-07-27T13:32:23Z"
+            },
+            {
+                "name": "v0.39.1",
+                "date": "2023-07-26T22:38:44Z"
+            },
+            {
+                "name": "v0.39.0",
+                "date": "2023-07-25T22:10:03Z"
+            },
+            {
+                "name": "v0.38.4",
+                "date": "2023-07-24T20:43:21Z"
+            },
+            {
+                "name": "v0.38.3",
+                "date": "2023-07-12T08:05:41Z"
+            },
+            {
+                "name": "v0.38.2",
+                "date": "2023-07-11T12:10:46Z"
+            },
+            {
+                "name": "v0.38.1",
+                "date": "2023-07-10T22:32:15Z"
+            },
+            {
+                "name": "v0.38.0",
+                "date": "2023-07-10T19:27:11Z"
+            },
+            {
+                "name": "v0.37.0",
+                "date": "2023-07-09T13:37:43Z"
+            },
+            {
+                "name": "v0.36.0",
+                "date": "2023-06-28T13:14:21Z"
+            },
+            {
+                "name": "v0.35.8",
+                "date": "2023-06-19T10:55:00Z"
+            },
+            {
+                "name": "v0.35.7",
+                "date": "2023-06-15T17:05:23Z"
+            },
+            {
+                "name": "v0.35.6",
+                "date": "2023-06-13T14:59:23Z"
+            },
+            {
+                "name": "v0.35.5",
+                "date": "2023-06-12T20:27:19Z"
+            },
+            {
+                "name": "v0.35.4",
+                "date": "2023-06-08T18:54:50Z"
+            },
+            {
+                "name": "v0.35.3",
+                "date": "2023-06-08T13:54:19Z"
+            },
+            {
+                "name": "v0.35.2",
+                "date": "2023-06-07T20:29:16Z"
+            },
+            {
+                "name": "v0.35.1",
+                "date": "2023-06-06T21:26:17Z"
+            },
+            {
+                "name": "v0.35.0",
+                "date": "2023-06-06T15:19:13Z"
+            },
+            {
+                "name": "v0.34.1",
+                "date": "2023-06-05T18:03:44Z"
+            },
+            {
+                "name": "v0.34.0",
+                "date": "2023-06-04T18:18:23Z"
+            },
+            {
+                "name": "v0.33.3",
+                "date": "2023-05-26T15:20:04Z"
+            },
+            {
+                "name": "v0.33.2",
+                "date": "2023-05-25T15:11:25Z"
+            },
+            {
+                "name": "v0.33.1",
+                "date": "2023-05-24T17:46:03Z"
+            },
+            {
+                "name": "v0.33.0",
+                "date": "2023-05-23T19:04:58Z"
+            },
+            {
+                "name": "v0.32.1",
+                "date": "2023-05-13T17:31:42Z"
+            },
+            {
+                "name": "v0.32.0",
+                "date": "2023-05-11T16:02:13Z"
+            },
+            {
+                "name": "v0.31.2",
+                "date": "2023-05-02T14:20:04Z"
+            },
+            {
+                "name": "v0.31.1",
+                "date": "2023-04-30T17:29:33Z"
+            },
+            {
+                "name": "v0.31.0",
+                "date": "2023-04-29T15:48:49Z"
+            },
+            {
+                "name": "v0.30.0",
+                "date": "2023-04-25T11:41:23Z"
+            },
+            {
+                "name": "v0.29.0",
+                "date": "2023-04-22T21:05:34Z"
+            },
+            {
+                "name": "v0.28.4",
+                "date": "2023-04-19T19:04:33Z"
+            },
+            {
+                "name": "v0.28.3",
+                "date": "2023-04-19T15:01:52Z"
+            },
+            {
+                "name": "v0.28.2",
+                "date": "2023-04-19T13:31:34Z"
+            },
+            {
+                "name": "v0.28.1",
+                "date": "2023-04-16T13:09:44Z"
+            },
+            {
+                "name": "v0.28.0",
+                "date": "2023-04-14T12:26:20Z"
+            },
+            {
+                "name": "v0.27.0",
+                "date": "2023-04-13T12:17:18Z"
+            },
+            {
+                "name": "v0.26.4",
+                "date": "2023-04-08T11:20:29Z"
+            },
+            {
+                "name": "v0.26.3",
+                "date": "2023-04-07T19:09:20Z"
+            },
+            {
+                "name": "v0.26.2",
+                "date": "2023-03-30T01:57:41Z"
+            },
+            {
+                "name": "v0.26.1",
+                "date": "2023-03-29T21:14:48Z"
+            },
+            {
+                "name": "v0.26.0",
+                "date": "2023-03-27T19:15:39Z"
+            },
+            {
+                "name": "v0.25.3",
+                "date": "2023-03-21T12:34:53Z"
+            },
+            {
+                "name": "v0.25.2",
+                "date": "2023-03-19T13:37:03Z"
+            },
+            {
+                "name": "v0.25.1",
+                "date": "2023-03-15T16:13:16Z"
+            },
+            {
+                "name": "v0.25.0",
+                "date": "2023-03-15T01:42:57Z"
+            },
+            {
+                "name": "v0.24.10",
+                "date": "2023-03-10T19:33:16Z"
+            },
+            {
+                "name": "v0.24.9",
+                "date": "2023-03-02T16:36:27Z"
+            },
+            {
+                "name": "v0.24.8",
+                "date": "2023-03-02T12:47:39Z"
+            },
+            {
+                "name": "v0.24.7",
+                "date": "2023-03-01T09:22:56Z"
+            },
+            {
+                "name": "v0.24.6",
+                "date": "2023-02-23T15:00:53Z"
+            },
+            {
+                "name": "v0.24.5",
+                "date": "2023-02-22T20:08:25Z"
+            },
+            {
+                "name": "v0.24.4",
+                "date": "2023-02-22T12:16:44Z"
+            },
+            {
+                "name": "v0.24.3",
+                "date": "2023-02-14T01:41:08Z"
+            },
+            {
+                "name": "v0.24.2",
+                "date": "2023-02-13T17:40:28Z"
+            },
+            {
+                "name": "v0.24.1",
+                "date": "2023-02-13T14:01:11Z"
+            },
+            {
+                "name": "v0.24.0",
+                "date": "2023-02-13T00:56:09Z"
+            },
+            {
+                "name": "v0.23.0",
+                "date": "2023-02-11T13:35:55Z"
+            },
+            {
+                "name": "v0.22.3",
+                "date": "2023-02-06T14:04:45Z"
+            },
+            {
+                "name": "v0.22.2",
+                "date": "2023-02-05T21:03:49Z"
+            },
+            {
+                "name": "v0.22.1",
+                "date": "2023-02-02T16:58:47Z"
+            },
+            {
+                "name": "v0.22.0",
+                "date": "2023-02-01T21:11:28Z"
+            },
+            {
+                "name": "v0.21.4",
+                "date": "2023-01-28T17:36:07Z"
+            },
+            {
+                "name": "v0.21.3",
+                "date": "2023-01-26T13:43:17Z"
+            },
+            {
+                "name": "v0.21.2",
+                "date": "2023-01-25T21:12:49Z"
+            },
+            {
+                "name": "v0.21.1",
+                "date": "2023-01-25T20:57:27Z"
+            },
+            {
+                "name": "v0.21.0",
+                "date": "2023-01-24T16:47:06Z"
+            },
+            {
+                "name": "v0.20.0",
+                "date": "2023-01-22T18:15:04Z"
+            },
+            {
+                "name": "v0.19.7",
+                "date": "2023-01-20T17:57:38Z"
+            },
+            {
+                "name": "v0.19.6",
+                "date": "2023-01-19T14:58:30Z"
+            },
+            {
+                "name": "v0.19.5",
+                "date": "2023-01-18T14:19:43Z"
+            },
+            {
+                "name": "v0.19.4",
+                "date": "2023-01-17T17:04:23Z"
+            },
+            {
+                "name": "v0.19.3",
+                "date": "2023-01-17T13:31:34Z"
+            },
+            {
+                "name": "v0.19.2",
+                "date": "2023-01-15T13:17:37Z"
+            },
+            {
+                "name": "v0.19.1",
+                "date": "2023-01-14T20:14:26Z"
+            },
+            {
+                "name": "v0.19.0",
+                "date": "2023-01-14T16:54:29Z"
+            },
+            {
+                "name": "v0.18.1",
+                "date": "2023-01-03T17:54:45Z"
+            },
+            {
+                "name": "v0.18.0",
+                "date": "2023-01-03T16:02:18Z"
+            },
+            {
+                "name": "v0.17.3",
+                "date": "2022-12-22T21:57:28Z"
+            },
+            {
+                "name": "v0.17.2",
+                "date": "2022-12-21T14:51:00Z"
+            },
+            {
+                "name": "v0.17.1",
+                "date": "2022-12-17T13:56:40Z"
+            },
+            {
+                "name": "v0.17.0",
+                "date": "2022-12-16T21:51:46Z"
+            },
+            {
+                "name": "v0.16.4",
+                "date": "2022-12-12T23:03:27Z"
+            },
+            {
+                "name": "v0.16.3",
+                "date": "2022-12-12T15:26:42Z"
+            },
+            {
+                "name": "v0.16.2",
+                "date": "2022-12-10T15:30:09Z"
+            },
+            {
+                "name": "v0.16.1",
+                "date": "2022-12-08T13:10:34Z"
+            },
+            {
+                "name": "v0.16.0",
+                "date": "2022-12-03T17:49:57Z"
+            },
+            {
+                "name": "v0.15.0",
+                "date": "2022-12-02T16:37:16Z"
+            },
+            {
+                "name": "v0.14.5",
+                "date": "2022-11-27T14:34:08Z"
+            },
+            {
+                "name": "v0.14.4",
+                "date": "2022-11-26T14:25:53Z"
+            },
+            {
+                "name": "v0.14.3",
+                "date": "2022-11-26T13:18:38Z"
+            },
+            {
+                "name": "v0.14.2",
+                "date": "2022-11-26T13:01:33Z"
+            },
+            {
+                "name": "v0.14.1",
+                "date": "2022-11-24T14:23:03Z"
+            },
+            {
+                "name": "v0.14.0",
+                "date": "2022-11-23T14:18:22Z"
+            },
+            {
+                "name": "v0.13.11",
+                "date": "2022-11-22T15:46:18Z"
+            },
+            {
+                "name": "v0.13.10",
+                "date": "2022-11-22T15:38:36Z"
+            },
+            {
+                "name": "v0.13.9",
+                "date": "2022-11-22T13:23:43Z"
+            },
+            {
+                "name": "v0.13.8",
+                "date": "2022-11-21T16:21:38Z"
+            },
+            {
+                "name": "v0.13.7",
+                "date": "2022-11-21T13:42:15Z"
+            },
+            {
+                "name": "v0.13.6",
+                "date": "2022-11-21T11:43:22Z"
+            },
+            {
+                "name": "v0.13.5",
+                "date": "2022-11-20T19:29:14Z"
+            },
+            {
+                "name": "v0.13.4",
+                "date": "2022-11-18T20:43:09Z"
+            },
+            {
+                "name": "v0.13.3",
+                "date": "2022-11-17T18:43:43Z"
+            },
+            {
+                "name": "v0.13.2",
+                "date": "2022-11-17T16:22:01Z"
+            },
+            {
+                "name": "v0.13.1",
+                "date": "2022-11-17T15:04:41Z"
+            },
+            {
+                "name": "v0.13.0",
+                "date": "2022-11-12T13:48:28Z"
+            },
+            {
+                "name": "v0.12.1",
+                "date": "2022-11-11T14:25:57Z"
+            },
+            {
+                "name": "v0.12.0",
+                "date": "2022-11-11T01:14:31Z"
+            },
+            {
+                "name": "v0.11.14",
+                "date": "2022-11-09T14:06:26Z"
+            },
+            {
+                "name": "v0.11.13",
+                "date": "2022-11-08T20:59:40Z"
+            },
+            {
+                "name": "v0.11.11",
+                "date": "2022-11-08T13:04:09Z"
+            },
+            {
+                "name": "v0.11.10",
+                "date": "2022-11-07T22:03:43Z"
+            },
+            {
+                "name": "v0.11.9",
+                "date": "2022-11-07T20:41:36Z"
+            },
+            {
+                "name": "v0.11.8",
+                "date": "2022-11-07T14:21:11Z"
+            },
+            {
+                "name": "v0.11.6",
+                "date": "2022-11-04T10:56:20Z"
+            },
+            {
+                "name": "v0.11.5",
+                "date": "2022-11-04T17:12:07Z"
+            },
+            {
+                "name": "v0.11.4",
+                "date": "2022-11-01T14:21:03Z"
+            },
+            {
+                "name": "v0.11.3",
+                "date": "2022-10-30T15:49:41Z"
+            },
+            {
+                "name": "v0.11.2",
+                "date": "2022-10-30T14:52:46Z"
+            },
+            {
+                "name": "v0.11.1",
+                "date": "2022-10-29T18:22:29Z"
+            },
+            {
+                "name": "v0.11.0",
+                "date": "2022-10-29T14:29:44Z"
+            },
+            {
+                "name": "v0.10.8",
+                "date": "2022-10-29T12:42:03Z"
+            },
+            {
+                "name": "v0.10.7",
+                "date": "2022-10-29T11:56:10Z"
+            },
+            {
+                "name": "v0.10.6",
+                "date": "2022-10-28T18:37:45Z"
+            },
+            {
+                "name": "v0.10.5",
+                "date": "2022-10-27T18:50:34Z"
+            },
+            {
+                "name": "v0.10.4",
+                "date": "2022-10-27T16:00:29Z"
+            },
+            {
+                "name": "v0.10.3",
+                "date": "2022-10-27T01:31:32Z"
+            },
+            {
+                "name": "v0.10.2",
+                "date": "2022-10-27T00:01:05Z"
+            },
+            {
+                "name": "v0.10.1",
+                "date": "2022-10-26T22:42:34Z"
+            },
+            {
+                "name": "v0.10.0",
+                "date": "2022-10-26T20:44:50Z"
+            },
+            {
+                "name": "v0.9.2",
+                "date": "2022-10-25T18:28:32Z"
+            },
+            {
+                "name": "v0.9.1",
+                "date": "2022-10-24T20:53:27Z"
+            },
+            {
+                "name": "v0.9.0",
+                "date": "2022-10-24T19:19:27Z"
+            },
+            {
+                "name": "v0.8.12",
+                "date": "2022-10-23T19:33:54Z"
+            },
+            {
+                "name": "v0.8.11",
+                "date": "2022-10-23T16:16:51Z"
+            },
+            {
+                "name": "v0.8.10",
+                "date": "2022-10-22T12:36:23Z"
+            },
+            {
+                "name": "v0.8.9",
+                "date": "2022-10-21T15:24:44Z"
+            },
+            {
+                "name": "v0.8.8",
+                "date": "2022-10-21T10:29:39Z"
+            },
+            {
+                "name": "v0.8.7",
+                "date": "2022-10-20T15:32:19Z"
+            },
+            {
+                "name": "v0.8.6",
+                "date": "2022-10-18T18:39:02Z"
+            },
+            {
+                "name": "v0.8.5",
+                "date": "2022-10-17T18:05:52Z"
+            },
+            {
+                "name": "v0.8.4",
+                "date": "2022-10-15T18:43:01Z"
+            },
+            {
+                "name": "v0.8.3",
+                "date": "2022-10-15T16:20:37Z"
+            },
+            {
+                "name": "v0.8.2",
+                "date": "2022-10-15T12:51:20Z"
+            },
+            {
+                "name": "v0.8.1",
+                "date": "2022-10-11T11:07:26Z"
+            },
+            {
+                "name": "v0.8.0",
+                "date": "2022-10-10T11:39:18Z"
+            },
+            {
+                "name": "v0.7.1",
+                "date": "2022-10-03T21:25:13Z"
+            },
+            {
+                "name": "v0.7.0",
+                "date": "2022-10-02T15:39:08Z"
+            },
+            {
+                "name": "v0.6.10",
+                "date": "2022-09-29T02:25:29Z"
+            },
+            {
+                "name": "v0.6.9",
+                "date": "2022-09-29T02:04:34Z"
+            },
+            {
+                "name": "v0.6.8",
+                "date": "2022-09-29T01:27:03Z"
+            },
+            {
+                "name": "v0.6.7",
+                "date": "2022-09-28T20:17:40Z"
+            },
+            {
+                "name": "v0.6.6",
+                "date": "2022-09-28T17:54:36Z"
+            },
+            {
+                "name": "v0.6.5",
+                "date": "2022-09-24T14:17:20Z"
+            },
+            {
+                "name": "v0.6.4",
+                "date": "2022-09-21T05:26:08Z"
+            },
+            {
+                "name": "v0.6.3",
+                "date": "2022-09-20T23:44:28Z"
+            },
+            {
+                "name": "v0.6.2",
+                "date": "2022-09-20T15:33:48Z"
+            },
+            {
+                "name": "v0.6.1",
+                "date": "2022-09-20T12:20:16Z"
+            },
+            {
+                "name": "v0.6.0",
+                "date": "2022-09-20T11:57:29Z"
+            },
+            {
+                "name": "v0.5.6",
+                "date": "2022-09-18T12:58:17Z"
+            },
+            {
+                "name": "v0.5.5",
+                "date": "2022-09-17T12:01:33Z"
+            },
+            {
+                "name": "v0.5.4",
+                "date": "2022-09-12T12:08:47Z"
+            },
+            {
+                "name": "v0.5.3",
+                "date": "2022-09-10T13:49:04Z"
+            },
+            {
+                "name": "v0.5.2",
+                "date": "2022-09-09T16:05:24Z"
+            },
+            {
+                "name": "v0.5.1",
+                "date": "2022-09-08T20:47:09Z"
+            },
+            {
+                "name": "v0.5.0",
+                "date": "2022-09-07T20:00:44Z"
+            },
+            {
+                "name": "v0.4.3",
+                "date": "2022-08-23T11:43:15Z"
+            },
+            {
+                "name": "v0.4.2",
+                "date": "2022-08-07T16:27:11Z"
+            },
+            {
+                "name": "v0.4.0",
+                "date": "2022-08-04T15:38:26Z"
+            },
+            {
+                "name": "v0.3.9",
+                "date": "2022-08-02T00:40:01Z"
+            },
+            {
+                "name": "v0.3.8",
+                "date": "2022-07-28T18:37:54Z"
+            },
+            {
+                "name": "v0.3.7",
+                "date": "2022-07-20T22:46:30Z"
+            },
+            {
+                "name": "v0.3.6",
+                "date": "2022-07-20T14:05:02Z"
+            },
+            {
+                "name": "v0.3.5",
+                "date": "2022-07-09T13:12:36Z"
+            },
+            {
+                "name": "v0.3.4",
+                "date": "2022-07-09T01:34:29Z"
+            },
+            {
+                "name": "v0.3.3",
+                "date": "2022-07-09T00:28:27Z"
+            },
+            {
+                "name": "v0.3.2",
+                "date": "2022-07-08T15:54:39Z"
+            },
+            {
+                "name": "v0.3.1",
+                "date": "2022-07-08T14:09:26Z"
+            },
+            {
+                "name": "v0.3.0",
+                "date": "2022-07-07T17:19:38Z"
+            },
+            {
+                "name": "v0.2.0",
+                "date": "2022-06-15T14:05:08Z"
+            },
+            {
+                "name": "v0.1.2",
+                "date": "2022-06-14T15:17:00Z"
+            },
+            {
+                "name": "v0.1.1",
+                "date": "2022-06-14T14:57:05Z"
+            },
+            {
+                "name": "v0.1.0",
+                "date": "2022-06-03T17:40:51Z"
+            }
+        ]
+    }
+}

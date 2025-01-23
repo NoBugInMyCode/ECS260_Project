@@ -1,0 +1,57 @@
+{
+    "https://api.github.com/repos/alex000kim/nsfw_data_scraper": {
+        "forks": 2875,
+        "watchers": 12320,
+        "stars": 12320,
+        "languages": {
+            "Shell": 5302,
+            "Jupyter Notebook": 3232,
+            "Dockerfile": 298
+        },
+        "commits": [
+            "2022-04-17T01:20:42Z",
+            "2022-04-17T01:19:56Z",
+            "2022-04-16T19:26:23Z",
+            "2022-04-16T17:06:07Z",
+            "2022-04-16T16:56:45Z",
+            "2022-04-16T16:52:07Z",
+            "2020-07-25T22:35:29Z",
+            "2020-05-08T00:36:20Z",
+            "2020-01-09T16:16:35Z",
+            "2020-01-06T04:18:20Z",
+            "2019-11-09T15:36:51Z",
+            "2019-11-09T15:36:38Z",
+            "2019-11-04T04:02:26Z",
+            "2019-11-04T04:00:04Z",
+            "2019-10-13T23:04:17Z",
+            "2019-05-11T23:05:55Z",
+            "2019-05-02T23:58:11Z",
+            "2019-03-26T02:29:25Z",
+            "2019-02-20T19:55:34Z",
+            "2019-02-19T21:04:39Z",
+            "2019-02-19T12:57:20Z",
+            "2019-02-19T10:47:13Z",
+            "2019-02-19T10:45:28Z",
+            "2019-02-19T10:36:59Z",
+            "2019-02-19T10:35:23Z",
+            "2019-02-15T16:37:22Z",
+            "2019-02-10T03:54:58Z",
+            "2019-02-10T01:15:46Z",
+            "2019-01-26T03:21:13Z",
+            "2019-01-22T14:32:32Z"
+        ],
+        "creation_date": "2019-01-11T02:21:40Z",
+        "contributors": 6,
+        "topics": [
+            "content-moderation",
+            "deep-learning",
+            "machine-learning",
+            "nsfw",
+            "nsfw-classifier",
+            "pornography"
+        ],
+        "subscribers": 425,
+        "readme": "# NSFW Data Scraper\n\n## Note: use with caution - the dataset is noisy\n\n## Description\n\nThis is a set of scripts that allows for an automatic collection of _tens of thousands_ of images for the following (loosely defined) categories to be later used for training an image classifier:\n- `porn` - pornography images\n- `hentai` - hentai images, but also includes pornographic drawings\n- `sexy` - sexually explicit images, but not pornography. Think nude photos, playboy, bikini, etc.\n- `neutral` - safe for work neutral images of everyday things and people\n- `drawings` - safe for work drawings (including anime)\n\nHere is what each script (located under `scripts` directory) does:\n- `1_get_urls_.sh` - iterates through text files under `scripts/source_urls` downloading URLs of images for each of the 5 categories above. The `ripme` application performs all the heavy lifting. The source URLs are mostly links to various subreddits, but could be any website that Ripme supports.\n*Note*: I already ran this script for you, and its outputs are located in `raw_data` directory. No need to rerun unless you edit files under `scripts/source_urls`.\n- `2_download_from_urls_.sh` - downloads actual images for urls found in text files in `raw_data` directory.\n- `3_optional_download_drawings_.sh` - (optional) script that downloads SFW anime images from the [Danbooru2018](https://www.gwern.net/Danbooru2018) database.\n- `4_optional_download_neutral_.sh` - (optional) script that downloads SFW neutral images from the [Caltech256](http://www.vision.caltech.edu/Image_Datasets/Caltech256/) dataset\n- `5_create_train_.sh` - creates `data/train` directory and copy all `*.jpg` and `*.jpeg` files into it from `raw_data`. Also removes corrupted images.\n- `6_create_test_.sh` - creates `data/test` directory and moves `N=2000` random files for each class from `data/train` to `data/test` (change this number inside the script if you need a different train/test split). Alternatively, you can run it multiple times, each time it will move `N` images for each class from `data/train` to `data/test`.\n\n## Prerequisites\n\n- Docker\n\n## How to collect data\n\n```bash\n$ docker build . -t docker_nsfw_data_scraper\nSending build context to Docker daemon  426.3MB\nStep 1/3 : FROM ubuntu:18.04\n ---> 775349758637\nStep 2/3 : RUN apt update  && apt upgrade -y  && apt install wget rsync imagemagick default-jre -y\n ---> Using cache\n ---> b2129908e7e2\nStep 3/3 : ENTRYPOINT [\"/bin/bash\"]\n ---> Using cache\n ---> d32c5ae5235b\nSuccessfully built d32c5ae5235b\nSuccessfully tagged docker_nsfw_data_scraper:latest\n$ # Next command might run for several hours. It is recommended to leave it overnight\n$ docker run -v $(pwd):/root/nsfw_data_scraper docker_nsfw_data_scraper scripts/runall.sh\nGetting images for class: neutral\n...\n...\n$ ls data\ntest  train\n$ ls data/train/\ndrawings  hentai  neutral  porn  sexy\n$ ls data/test/\ndrawings  hentai  neutral  porn  sexy\n```\n\n## How to train a CNN model\n- Install [fastai](https://github.com/fastai/fastai): `conda install -c pytorch -c fastai fastai`\n- Run `train_model.ipynb` top to bottom\n\n## Results\n\nI was able to train a CNN classifier to 91% accuracy with the following confusion matrix:\n\n![alt text](confusion_matrix.png)\n\nAs expected,  `drawings` and `hentai` are confused with each other more frequently than with other classes.\n\nSame with `porn` and `sexy` categories.\n\n",
+        "releases": []
+    }
+}

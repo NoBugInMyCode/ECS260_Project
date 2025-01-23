@@ -1,0 +1,47 @@
+{
+    "https://api.github.com/repos/adamian98/pulse": {
+        "forks": 1501,
+        "watchers": 7963,
+        "stars": 7963,
+        "languages": {
+            "Python": 44617
+        },
+        "commits": [
+            "2020-06-27T13:55:05Z",
+            "2020-06-27T13:51:54Z",
+            "2020-06-22T17:13:39Z",
+            "2020-06-22T17:12:12Z",
+            "2020-06-22T17:03:05Z",
+            "2020-06-21T03:04:01Z",
+            "2020-06-21T01:48:45Z",
+            "2020-06-16T22:04:14Z",
+            "2020-06-16T20:52:49Z",
+            "2020-06-16T20:52:39Z",
+            "2020-06-16T20:50:17Z",
+            "2020-06-16T14:39:17Z",
+            "2020-06-15T19:07:02Z",
+            "2020-06-14T16:23:16Z",
+            "2020-06-14T16:10:34Z",
+            "2020-06-14T02:54:59Z",
+            "2020-06-13T20:58:12Z",
+            "2020-06-13T20:17:06Z",
+            "2020-06-13T19:24:34Z",
+            "2020-06-06T01:32:59Z",
+            "2020-05-21T01:41:19Z",
+            "2020-05-20T23:47:50Z",
+            "2020-05-20T22:58:45Z",
+            "2020-05-20T19:45:28Z",
+            "2020-05-20T19:39:17Z",
+            "2020-05-20T19:32:24Z",
+            "2020-05-20T18:52:39Z",
+            "2020-05-20T18:08:20Z",
+            "2020-05-20T18:05:56Z"
+        ],
+        "creation_date": "2020-05-20T17:58:16Z",
+        "contributors": 3,
+        "topics": [],
+        "subscribers": 228,
+        "readme": "# PULSE: Self-Supervised Photo Upsampling via Latent Space Exploration of Generative Models\nCode accompanying CVPR'20 paper of the same title. Paper link: https://arxiv.org/pdf/2003.03808.pdf\n\n## NOTE\n\nWe have noticed a lot of concern that PULSE will be used to identify individuals whose faces have been blurred out. We want to emphasize that this is impossible - **PULSE makes imaginary faces of people who do not exist, which should not be confused for real people.** It will **not** help identify or reconstruct the original image.\n\nWe also want to address concerns of bias in PULSE. **We have now included a new section in the [paper](https://arxiv.org/pdf/2003.03808.pdf) and an accompanying model card directly addressing this bias.**\n\n---\n\n![Transformation Preview](./readme_resources/014.jpeg)\n![Transformation Preview](./readme_resources/034.jpeg)\n![Transformation Preview](./readme_resources/094.jpeg)\n\nTable of Contents\n=================\n- [PULSE: Self-Supervised Photo Upsampling via Latent Space Exploration of Generative Models](#pulse-self-supervised-photo-upsampling-via-latent-space-exploration-of-generative-models)\n- [Table of Contents](#table-of-contents)\n  - [What does it do?](#what-does-it-do)\n  - [Usage](#usage)\n    - [Prereqs](#prereqs)\n    - [Data](#data)\n    - [Applying PULSE](#applying-pulse)\n## What does it do? \nGiven a low-resolution input image, PULSE searches the outputs of a generative model (here, [StyleGAN](https://github.com/NVlabs/stylegan)) for high-resolution images that are perceptually realistic and downscale correctly.\n\n![Transformation Preview](./readme_resources/transformation.gif)\n\n## Usage\n\nThe main file of interest for applying PULSE is `run.py`. A full list of arguments with descriptions can be found in that file; here we describe those relevant to getting started.\n\n### Prereqs\n\nYou will need to install cmake first (required for dlib, which is used for face alignment). Currently the code only works with CUDA installed (and therefore requires an appropriate GPU) and has been tested on Linux and Windows. For the full set of required Python packages, create a Conda environment from the provided YAML, e.g.\n\n```\nconda create -f pulse.yml \n```\nor (Anaconda on Windows):\n```\nconda env create -n pulse -f pulse.yml\nconda activate pulse\n```\n\nIn some environments (e.g. on Windows), you may have to edit the pulse.yml to remove the version specific hash on each dependency and remove any dependency that still throws an error after running ```conda env create...``` (such as readline)\n```\ndependencies\n  - blas=1.0=mkl\n  ...\n```\nto\n```\ndependencies\n  - blas=1.0\n ...\n```\n\nFinally, you will need an internet connection the first time you run the code as it will automatically download the relevant pretrained model from Google Drive (if it has already been downloaded, it will use the local copy). In the event that the public Google Drive is out of capacity, add the files to your own Google Drive instead; get the share URL and replace the ID in the https://drive.google.com/uc?=ID links in ```align_face.py``` and ```PULSE.py``` with the new file ids from the share URL given by your own Drive file.\n \n\n### Data\n\nBy default, input data for `run.py` should be placed in `./input/` (though this can be modified). However, this assumes faces have already been aligned and downscaled. If you have data that is not already in this form, place it in `realpics` and run `align_face.py` which will automatically do this for you. (Again, all directories can be changed by command line arguments if more convenient.) You will at this stage pic a downscaling factor. \n\nNote that if your data begins at a low resolution already, downscaling it further will retain very little information. In this case, you may wish to bicubically upsample (usually, to 1024x1024) and allow `align_face.py` to downscale for you.  \n\n### Applying PULSE\nOnce your data is appropriately formatted, all you need to do is\n```\npython run.py\n```\nEnjoy!\n",
+        "releases": []
+    }
+}

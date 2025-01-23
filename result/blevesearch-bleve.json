@@ -1,0 +1,235 @@
+{
+    "https://api.github.com/repos/blevesearch/bleve": {
+        "forks": 689,
+        "watchers": 10203,
+        "stars": 10203,
+        "languages": {
+            "Go": 3556089,
+            "Yacc": 7408,
+            "Shell": 241
+        },
+        "commits": [
+            "2025-01-17T16:14:44Z",
+            "2025-01-16T18:27:51Z",
+            "2025-01-15T09:08:22Z",
+            "2025-01-13T04:52:17Z",
+            "2025-01-10T17:29:12Z",
+            "2025-01-06T21:05:43Z",
+            "2025-01-06T20:59:29Z",
+            "2024-12-19T16:14:48Z",
+            "2024-12-17T21:17:14Z",
+            "2024-12-17T18:12:15Z",
+            "2024-12-17T18:01:47Z",
+            "2024-12-17T18:01:09Z",
+            "2024-12-17T17:44:30Z",
+            "2024-12-17T08:52:20Z",
+            "2024-12-11T15:44:19Z",
+            "2024-12-02T16:57:25Z",
+            "2024-12-02T12:07:54Z",
+            "2024-11-28T13:16:45Z",
+            "2024-11-21T08:47:19Z",
+            "2024-11-21T05:15:05Z",
+            "2024-11-20T17:43:34Z",
+            "2024-11-14T06:32:52Z",
+            "2024-11-13T18:13:44Z",
+            "2024-11-13T17:25:32Z",
+            "2024-11-04T16:54:31Z",
+            "2024-11-04T16:33:06Z",
+            "2024-10-28T16:45:19Z",
+            "2024-10-18T16:14:08Z",
+            "2024-10-16T19:26:03Z",
+            "2024-10-09T21:09:31Z"
+        ],
+        "creation_date": "2014-04-17T21:02:18Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 236,
+        "readme": "# ![bleve](docs/bleve.png) bleve\n\n[![Tests](https://github.com/blevesearch/bleve/workflows/Tests/badge.svg?branch=master&event=push)](https://github.com/blevesearch/bleve/actions?query=workflow%3ATests+event%3Apush+branch%3Amaster)\n[![Coverage Status](https://coveralls.io/repos/github/blevesearch/bleve/badge.svg?branch=master)](https://coveralls.io/github/blevesearch/bleve?branch=master)\n[![GoDoc](https://godoc.org/github.com/blevesearch/bleve?status.svg)](https://godoc.org/github.com/blevesearch/bleve)\n[![Join the chat at https://gitter.im/blevesearch/bleve](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/blevesearch/bleve?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)\n[![codebeat](https://codebeat.co/badges/38a7cbc9-9cf5-41c0-a315-0746178230f4)](https://codebeat.co/projects/github-com-blevesearch-bleve)\n[![Go Report Card](https://goreportcard.com/badge/blevesearch/bleve)](https://goreportcard.com/report/blevesearch/bleve)\n[![Sourcegraph](https://sourcegraph.com/github.com/blevesearch/bleve/-/badge.svg)](https://sourcegraph.com/github.com/blevesearch/bleve?badge)\n[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)\n\nA modern indexing + search library in GO\n\n## Features\n\n* Index any GO data structure or JSON\n* Intelligent defaults backed up by powerful configuration ([scorch](https://github.com/blevesearch/bleve/blob/master/index/scorch/README.md))\n* Supported field types:\n    * `text`, `number`, `datetime`, `boolean`, `geopoint`, `geoshape`, `IP`, `vector`\n* Supported query types:\n    * `term`, `phrase`, `match`, `match_phrase`, `prefix`, `regexp`, `wildcard`, `fuzzy`\n    * term range, numeric range, date range, boolean field\n    * compound queries: `conjuncts`, `disjuncts`, boolean (`must`/`should`/`must_not`)\n    * [query string syntax](http://www.blevesearch.com/docs/Query-String-Query/)\n    * [geo spatial search](https://github.com/blevesearch/bleve/blob/master/geo/README.md)\n    * approximate k-nearest neighbors via [vector search](https://github.com/blevesearch/bleve/blob/master/docs/vectors.md)\n* [tf-idf](https://en.wikipedia.org/wiki/Tf-idf) scoring\n* Hybrid search: exact + semantic\n* Query time boosting\n* Search result match highlighting with document fragments\n* Aggregations/faceting support:\n    * terms facet\n    * numeric range facet\n    * date range facet\n\n## Indexing\n\n```go\nmessage := struct{\n\tId   string\n\tFrom string\n\tBody string\n}{\n\tId:   \"example\",\n\tFrom: \"marty.schoch@gmail.com\",\n\tBody: \"bleve indexing is easy\",\n}\n\nmapping := bleve.NewIndexMapping()\nindex, err := bleve.New(\"example.bleve\", mapping)\nif err != nil {\n\tpanic(err)\n}\nindex.Index(message.Id, message)\n```\n\n## Querying\n\n```go\nindex, _ := bleve.Open(\"example.bleve\")\nquery := bleve.NewQueryStringQuery(\"bleve\")\nsearchRequest := bleve.NewSearchRequest(query)\nsearchResult, _ := index.Search(searchRequest)\n```\n\n## Command Line Interface\n\nTo install the CLI for the latest release of bleve, run:\n\n```bash\n$ go install github.com/blevesearch/bleve/v2/cmd/bleve@latest\n```\n\n```\n$ bleve --help\nBleve is a command-line tool to interact with a bleve index.\n\nUsage:\n  bleve [command]\n\nAvailable Commands:\n  bulk        bulk loads from newline delimited JSON files\n  check       checks the contents of the index\n  count       counts the number documents in the index\n  create      creates a new index\n  dictionary  prints the term dictionary for the specified field in the index\n  dump        dumps the contents of the index\n  fields      lists the fields in this index\n  help        Help about any command\n  index       adds the files to the index\n  mapping     prints the mapping used for this index\n  query       queries the index\n  registry    registry lists the bleve components compiled into this executable\n  scorch      command-line tool to interact with a scorch index\n\nFlags:\n  -h, --help   help for bleve\n\nUse \"bleve [command] --help\" for more information about a command.\n```\n\n## Text Analysis\n\nBleve includes general-purpose analyzers (customizable) as well as pre-built text analyzers for the following languages:\n\nArabic (ar), Bulgarian (bg), Catalan (ca), Chinese-Japanese-Korean (cjk), Kurdish (ckb), Danish (da), German (de), Greek (el), English (en), Spanish - Castilian (es), Basque (eu), Persian (fa), Finnish (fi), French (fr), Gaelic (ga), Spanish - Galician (gl), Hindi (hi), Croatian (hr), Hungarian (hu), Armenian (hy), Indonesian (id, in), Italian (it), Dutch (nl), Norwegian (no), Polish (pl), Portuguese (pt), Romanian (ro), Russian (ru), Swedish (sv), Turkish (tr)\n\n## Text Analysis Wizard\n\n[bleveanalysis.couchbase.com](https://bleveanalysis.couchbase.com)\n\n## Discussion/Issues\n\nDiscuss usage/development of bleve and/or report issues here:\n* [Github issues](https://github.com/blevesearch/bleve/issues)\n* [Google group](https://groups.google.com/forum/#!forum/bleve)\n\n## License\n\nApache License Version 2.0\n",
+        "releases": [
+            {
+                "name": "v2.4.4",
+                "date": "2024-12-17T21:31:56Z"
+            },
+            {
+                "name": "v2.4.3",
+                "date": "2024-11-13T17:54:52Z"
+            },
+            {
+                "name": "v2.4.2",
+                "date": "2024-07-26T15:08:11Z"
+            },
+            {
+                "name": "v2.4.1",
+                "date": "2024-07-03T16:20:10Z"
+            },
+            {
+                "name": "v2.4.0",
+                "date": "2024-03-20T17:14:06Z"
+            },
+            {
+                "name": "v2.3.10",
+                "date": "2023-09-15T16:40:22Z"
+            },
+            {
+                "name": "v2.3.9",
+                "date": "2023-07-12T18:47:55Z"
+            },
+            {
+                "name": "v2.3.8",
+                "date": "2023-05-05T16:33:58Z"
+            },
+            {
+                "name": "v2.3.7",
+                "date": "2023-03-17T16:57:48Z"
+            },
+            {
+                "name": "v2.3.6",
+                "date": "2022-12-15T18:30:07Z"
+            },
+            {
+                "name": "v2.3.5",
+                "date": "2022-10-20T16:57:15Z"
+            },
+            {
+                "name": "v2.3.4",
+                "date": "2022-08-18T15:35:18Z"
+            },
+            {
+                "name": "v2.3.3",
+                "date": "2022-07-07T16:26:39Z"
+            },
+            {
+                "name": "v2.3.2",
+                "date": "2022-03-22T15:15:17Z"
+            },
+            {
+                "name": "v2.3.1",
+                "date": "2022-02-24T15:56:12Z"
+            },
+            {
+                "name": "v2.3.0",
+                "date": "2021-12-16T23:49:07Z"
+            },
+            {
+                "name": "v2.2.2",
+                "date": "2021-10-28T17:40:00Z"
+            },
+            {
+                "name": "v2.2.1",
+                "date": "2021-10-04T21:45:01Z"
+            },
+            {
+                "name": "v2.2.0",
+                "date": "2021-09-21T20:46:48Z"
+            },
+            {
+                "name": "v2.1.1",
+                "date": "2021-09-14T16:57:04Z"
+            },
+            {
+                "name": "v2.1.0",
+                "date": "2021-08-09T16:29:10Z"
+            },
+            {
+                "name": "v2.0.7",
+                "date": "2021-07-28T16:54:58Z"
+            },
+            {
+                "name": "v2.0.6",
+                "date": "2021-06-11T21:12:49Z"
+            },
+            {
+                "name": "v2.0.5",
+                "date": "2021-06-06T15:07:21Z"
+            },
+            {
+                "name": "v2.0.4 (BROKEN)",
+                "date": "2021-06-06T14:43:11Z"
+            },
+            {
+                "name": "v2.0.3",
+                "date": "2021-03-26T02:09:17Z"
+            },
+            {
+                "name": "v2.0.2",
+                "date": "2021-02-12T17:18:46Z"
+            },
+            {
+                "name": "v2.0.1",
+                "date": "2021-01-14T18:36:10Z"
+            },
+            {
+                "name": "v2.0.0",
+                "date": "2021-01-13T00:24:32Z"
+            },
+            {
+                "name": "v1.0.14",
+                "date": "2020-12-08T17:28:28Z"
+            },
+            {
+                "name": "v1.0.13",
+                "date": "2020-11-20T21:02:23Z"
+            },
+            {
+                "name": "v1.0.12",
+                "date": "2020-10-06T21:21:20Z"
+            },
+            {
+                "name": "v1.0.10",
+                "date": "2020-08-24T18:25:31Z"
+            },
+            {
+                "name": "v1.0.9",
+                "date": "2020-06-08T10:17:18Z"
+            },
+            {
+                "name": "v1.0.8",
+                "date": "2020-06-08T10:21:13Z"
+            },
+            {
+                "name": "v1.0.7",
+                "date": "2020-06-08T10:25:54Z"
+            },
+            {
+                "name": "v1.0.5",
+                "date": "2020-06-08T10:28:09Z"
+            },
+            {
+                "name": "v0.8.1",
+                "date": "2019-09-23T17:23:55Z"
+            },
+            {
+                "name": "v0.8.0",
+                "date": "2019-07-30T21:43:09Z"
+            },
+            {
+                "name": "v0.7.0",
+                "date": "2018-02-27T19:26:06Z"
+            },
+            {
+                "name": "v0.6.0",
+                "date": "2018-01-06T14:40:14Z"
+            },
+            {
+                "name": "v0.5.0",
+                "date": "2016-09-29T18:37:41Z"
+            },
+            {
+                "name": "v0.4.0",
+                "date": "2016-09-12T18:13:53Z"
+            },
+            {
+                "name": "v0.3.0",
+                "date": "2016-06-16T21:43:16Z"
+            },
+            {
+                "name": "v0.2.0",
+                "date": "2016-04-08T21:24:43Z"
+            },
+            {
+                "name": "Initial Release",
+                "date": "2016-04-08T19:11:25Z"
+            }
+        ]
+    }
+}

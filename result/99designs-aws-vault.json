@@ -1,0 +1,373 @@
+{
+    "https://api.github.com/repos/99designs/aws-vault": {
+        "forks": 826,
+        "watchers": 8594,
+        "stars": 8594,
+        "languages": {
+            "Go": 167548,
+            "Shell": 5844,
+            "Makefile": 2993,
+            "Dockerfile": 647
+        },
+        "commits": [
+            "2024-05-07T01:00:25Z",
+            "2024-02-28T19:21:24Z",
+            "2023-05-24T21:30:06Z",
+            "2023-05-15T15:57:10Z",
+            "2023-05-15T10:51:05Z",
+            "2023-05-02T22:55:58Z",
+            "2023-05-02T17:58:40Z",
+            "2023-04-21T07:09:19Z",
+            "2023-03-26T23:39:13Z",
+            "2023-03-20T09:06:05Z",
+            "2023-03-20T09:02:27Z",
+            "2023-03-20T08:27:52Z",
+            "2023-03-20T06:08:55Z",
+            "2023-03-20T05:55:45Z",
+            "2023-03-19T23:45:24Z",
+            "2023-03-19T23:43:35Z",
+            "2023-03-19T23:26:38Z",
+            "2023-03-17T23:58:25Z",
+            "2023-03-17T23:57:20Z",
+            "2023-03-17T00:26:21Z",
+            "2023-03-16T01:37:29Z",
+            "2023-03-16T01:34:16Z",
+            "2023-03-13T22:43:06Z",
+            "2023-03-10T09:53:36Z",
+            "2023-03-10T09:34:49Z",
+            "2023-03-10T08:50:12Z",
+            "2023-03-09T13:44:07Z",
+            "2023-03-09T20:46:30Z",
+            "2023-03-09T10:43:35Z",
+            "2023-03-09T09:28:34Z"
+        ],
+        "creation_date": "2015-08-11T12:09:34Z",
+        "contributors": 30,
+        "topics": [
+            "aws",
+            "aws-vault",
+            "cli",
+            "credentials",
+            "iam",
+            "keychain",
+            "mfa",
+            "temporary-credentials"
+        ],
+        "subscribers": 120,
+        "readme": "# AWS Vault\n\n[![Downloads](https://img.shields.io/github/downloads/99designs/aws-vault/total.svg)](https://github.com/99designs/aws-vault/releases)\n[![Continuous Integration](https://github.com/99designs/aws-vault/workflows/Continuous%20Integration/badge.svg)](https://github.com/99designs/aws-vault/actions)\n\nAWS Vault is a tool to securely store and access AWS credentials in a development environment.\n\nAWS Vault stores IAM credentials in your operating system's secure keystore and then generates temporary credentials from those to expose to your shell and applications. It's designed to be complementary to the AWS CLI tools, and is aware of your [profiles and configuration in `~/.aws/config`](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html#cli-config-files).\n\nCheck out the [announcement blog post](https://99designs.com.au/tech-blog/blog/2015/10/26/aws-vault/) for more details.\n\n## Installing\n\nYou can install AWS Vault:\n- by downloading the [latest release](https://github.com/99designs/aws-vault/releases/latest)\n- on macOS with [Homebrew Cask](https://formulae.brew.sh/cask/aws-vault): `brew install --cask aws-vault`\n- on macOS with [MacPorts](https://ports.macports.org/port/aws-vault/summary): `port install aws-vault`\n- on Windows with [Chocolatey](https://chocolatey.org/packages/aws-vault): `choco install aws-vault`\n- on Windows with [Scoop](https://scoop.sh/): `scoop install aws-vault`\n- on Linux with [Homebrew on Linux](https://formulae.brew.sh/formula/aws-vault): `brew install aws-vault`\n- on [Arch Linux](https://www.archlinux.org/packages/community/x86_64/aws-vault/): `pacman -S aws-vault`\n- on [Gentoo Linux](https://github.com/gentoo/guru/tree/master/app-admin/aws-vault): `emerge --ask app-admin/aws-vault` ([enable Guru first](https://wiki.gentoo.org/wiki/Project:GURU/Information_for_End_Users))\n- on [FreeBSD](https://www.freshports.org/security/aws-vault/): `pkg install aws-vault`\n- on [OpenSUSE](https://software.opensuse.org/package/aws-vault): enable devel:languages:go repo then `zypper install aws-vault`\n- with [Nix](https://search.nixos.org/packages?show=aws-vault&query=aws-vault): `nix-env -i aws-vault`\n- with [asdf-vm](https://github.com/karancode/asdf-aws-vault): `asdf plugin-add aws-vault https://github.com/karancode/asdf-aws-vault.git && asdf install aws-vault <version>`\n\n## Documentation\n\nConfig, usage, tips and tricks are available in the [USAGE.md](./USAGE.md) file.\n\n## Vaulting Backends\n\nThe supported vaulting backends are:\n\n* [macOS Keychain](https://support.apple.com/en-au/guide/keychain-access/welcome/mac)\n* [Windows Credential Manager](https://support.microsoft.com/en-au/help/4026814/windows-accessing-credential-manager)\n* Secret Service ([Gnome Keyring](https://wiki.gnome.org/Projects/GnomeKeyring), [KWallet](https://kde.org/applications/system/org.kde.kwalletmanager5))\n* [KWallet](https://kde.org/applications/system/org.kde.kwalletmanager5)\n* [Pass](https://www.passwordstore.org/)\n* Encrypted file\n\nUse the `--backend` flag or `AWS_VAULT_BACKEND` environment variable to specify.\n\n## Quick start\n\n```shell\n# Store AWS credentials for the \"jonsmith\" profile\n$ aws-vault add jonsmith\nEnter Access Key Id: ABDCDEFDASDASF\nEnter Secret Key: %%%\n\n# Execute a command (using temporary credentials)\n$ aws-vault exec jonsmith -- aws s3 ls\nbucket_1\nbucket_2\n\n# open a browser window and login to the AWS Console\n$ aws-vault login jonsmith\n\n# List credentials\n$ aws-vault list\nProfile                  Credentials              Sessions\n=======                  ===========              ========\njonsmith                 jonsmith                 -\n\n# Start a subshell with temporary credentials\n$ aws-vault exec jonsmith\nStarting subshell /bin/zsh, use `exit` to exit the subshell\n$ aws s3 ls\nbucket_1\nbucket_2\n```\n\n## How it works\n\n`aws-vault` uses Amazon's STS service to generate [temporary credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html) via the `GetSessionToken` or `AssumeRole` API calls. These expire in a short period of time, so the risk of leaking credentials is reduced.\n\nAWS Vault then exposes the temporary credentials to the sub-process in one of two ways\n\n1. **Environment variables** are written to the sub-process. Notice in the below example how the AWS credentials get written out\n   ```shell\n   $ aws-vault exec jonsmith -- env | grep AWS\n   AWS_VAULT=jonsmith\n   AWS_DEFAULT_REGION=us-east-1\n   AWS_REGION=us-east-1\n   AWS_ACCESS_KEY_ID=%%%\n   AWS_SECRET_ACCESS_KEY=%%%\n   AWS_SESSION_TOKEN=%%%\n   AWS_CREDENTIAL_EXPIRATION=2020-04-16T11:16:27Z\n   ```\n2. **Local metadata server** is started. This approach has the advantage that anything that uses Amazon's SDKs will automatically refresh credentials as needed, so session times can be as short as possible.\n   ```shell\n   $ aws-vault exec --server jonsmith -- env | grep AWS\n   AWS_VAULT=jonsmith\n   AWS_DEFAULT_REGION=us-east-1\n   AWS_REGION=us-east-1\n   AWS_CONTAINER_CREDENTIALS_FULL_URI=%%%\n   AWS_CONTAINER_AUTHORIZATION_TOKEN=%%%\n   ```\n\nThe default is to use environment variables, but you can opt-in to the local instance metadata server with the `--server` flag on the `exec` command.\n\n## Roles and MFA\n\n[Best-practice](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#delegate-using-roles) is to [create Roles to delegate permissions](https://docs.aws.amazon.com/cli/latest/userguide/cli-roles.html). For security, you should also require that users provide a one-time key generated from a multi-factor authentication (MFA) device.\n\nFirst you'll need to create the users and roles in IAM, as well as [setup an MFA device](https://docs.aws.amazon.com/IAM/latest/UserGuide/GenerateMFAConfigAccount.html). You can then [set up IAM roles to enforce MFA](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-role.html#cli-configure-role-mfa).\n\nHere's an example configuration using roles and MFA:\n\n```ini\n[default]\nregion = us-east-1\n\n[profile jonsmith]\nmfa_serial = arn:aws:iam::111111111111:mfa/jonsmith\n\n[profile foo-readonly]\nsource_profile = jonsmith\nrole_arn = arn:aws:iam::22222222222:role/ReadOnly\n\n[profile foo-admin]\nsource_profile = jonsmith\nrole_arn = arn:aws:iam::22222222222:role/Administrator\nmfa_serial = arn:aws:iam::111111111111:mfa/jonsmith\n\n[profile bar-role1]\nsource_profile = jonsmith\nrole_arn = arn:aws:iam::333333333333:role/Role1\nmfa_serial = arn:aws:iam::111111111111:mfa/jonsmith\n\n[profile bar-role2]\nsource_profile = bar-role1\nrole_arn = arn:aws:iam::333333333333:role/Role2\nmfa_serial = arn:aws:iam::111111111111:mfa/jonsmith\n```\n\nHere's what you can expect from aws-vault\n\n| Command                                  | Credentials                 | Cached        | MFA |\n|------------------------------------------|-----------------------------|---------------|-----|\n| `aws-vault exec jonsmith --no-session`   | Long-term credentials       | No            | No  |\n| `aws-vault exec jonsmith`                | session-token               | session-token | Yes |\n| `aws-vault exec foo-readonly`            | role                        | No            | No  |\n| `aws-vault exec foo-admin`               | session-token + role        | session-token | Yes |\n| `aws-vault exec foo-admin --duration=2h` | role                        | role          | Yes |\n| `aws-vault exec bar-role2`               | session-token + role + role | session-token | Yes |\n| `aws-vault exec bar-role2 --no-session`  | role + role                 | role          | Yes |\n\n## Development\n\nThe [macOS release builds](https://github.com/99designs/aws-vault/releases) are code-signed to avoid extra prompts in Keychain. You can verify this with:\n```shell\n$ codesign --verify --verbose $(which aws-vault)\n```\n\nIf you are developing or compiling the aws-vault binary yourself, you can [generate a self-signed certificate](https://support.apple.com/en-au/guide/keychain-access/kyca8916/mac) by accessing Keychain Access > Certificate Assistant > Create Certificate -> Certificate Type: Code Signing. You can then sign your binary with:\n```shell\n$ go build .\n$ codesign --sign <Name of certificate created above> ./aws-vault\n```\n\n## References and Inspiration\n\n * https://github.com/pda/aws-keychain\n * https://docs.aws.amazon.com/IAM/latest/UserGuide/MFAProtectedAPI.html\n * https://docs.aws.amazon.com/IAM/latest/UserGuide/IAMBestPractices.html#create-iam-users\n * https://github.com/makethunder/awsudo\n * https://github.com/AdRoll/hologram\n * https://github.com/realestate-com-au/credulous\n * https://github.com/dump247/aws-mock-metadata\n * https://boto.readthedocs.org/en/latest/boto_config_tut.html\n",
+        "releases": [
+            {
+                "name": "v7.2.0",
+                "date": "2023-03-26T23:28:17Z"
+            },
+            {
+                "name": "v7.2.0-beta2",
+                "date": "2023-03-20T06:14:53Z"
+            },
+            {
+                "name": "v7.1.2",
+                "date": "2023-03-18T00:03:02Z"
+            },
+            {
+                "name": "v7.1.1",
+                "date": "2023-03-16T01:41:40Z"
+            },
+            {
+                "name": "v7.1.0",
+                "date": "2023-03-13T09:28:57Z"
+            },
+            {
+                "name": "v7.0.2",
+                "date": "2023-03-09T20:50:29Z"
+            },
+            {
+                "name": "v7.0.1",
+                "date": "2023-03-06T21:18:38Z"
+            },
+            {
+                "name": "v7.0.0",
+                "date": "2023-03-05T21:35:20Z"
+            },
+            {
+                "name": "v6.6.2",
+                "date": "2023-01-16T23:57:24Z"
+            },
+            {
+                "name": "v6.6.1",
+                "date": "2022-12-20T09:31:14Z"
+            },
+            {
+                "name": "v6.6.0",
+                "date": "2022-03-08T11:20:47Z"
+            },
+            {
+                "name": "v6.5.0",
+                "date": "2022-02-05T23:14:52Z"
+            },
+            {
+                "name": "v6.4.0",
+                "date": "2022-01-18T04:00:15Z"
+            },
+            {
+                "name": "v6.3.1",
+                "date": "2021-03-30T11:20:56Z"
+            },
+            {
+                "name": "v6.3.0",
+                "date": "2021-03-19T11:55:33Z"
+            },
+            {
+                "name": "v6.2.0",
+                "date": "2020-09-25T12:37:51Z"
+            },
+            {
+                "name": "v6.1.0",
+                "date": "2020-09-14T03:48:28Z"
+            },
+            {
+                "name": "v6.0.1",
+                "date": "2020-09-11T20:45:01Z"
+            },
+            {
+                "name": "v6.0.0",
+                "date": "2020-09-02T23:29:16Z"
+            },
+            {
+                "name": "v5.4.4",
+                "date": "2020-05-07T05:11:51Z"
+            },
+            {
+                "name": "v4.7.2",
+                "date": "2020-05-07T04:50:13Z"
+            },
+            {
+                "name": "v5.4.3",
+                "date": "2020-05-04T12:00:37Z"
+            },
+            {
+                "name": "v5.4.2",
+                "date": "2020-04-30T14:36:22Z"
+            },
+            {
+                "name": "v5.4.1",
+                "date": "2020-04-20T12:06:53Z"
+            },
+            {
+                "name": "v5.4.0",
+                "date": "2020-04-20T01:57:18Z"
+            },
+            {
+                "name": "v5.3.2",
+                "date": "2020-02-18T09:45:44Z"
+            },
+            {
+                "name": "v5.3.1",
+                "date": "2020-02-16T10:06:56Z"
+            },
+            {
+                "name": "v5.3.0",
+                "date": "2020-02-14T02:36:49Z"
+            },
+            {
+                "name": "v5.2.1",
+                "date": "2020-02-11T05:00:35Z"
+            },
+            {
+                "name": "v5.2.0",
+                "date": "2020-01-22T11:45:46Z"
+            },
+            {
+                "name": "v5.1.2",
+                "date": "2020-01-16T23:53:54Z"
+            },
+            {
+                "name": "v5.1.1",
+                "date": "2020-01-13T10:49:53Z"
+            },
+            {
+                "name": "v5.1.0",
+                "date": "2020-01-08T13:11:00Z"
+            },
+            {
+                "name": "v5.0.1",
+                "date": "2019-12-24T03:04:27Z"
+            },
+            {
+                "name": "v5.0.0",
+                "date": "2019-12-19T22:18:11Z"
+            },
+            {
+                "name": "v4.7.1",
+                "date": "2019-10-30T01:38:36Z"
+            },
+            {
+                "name": "v4.7.0",
+                "date": "2019-10-29T04:48:46Z"
+            },
+            {
+                "name": "v4.6.4",
+                "date": "2019-08-27T00:04:06Z"
+            },
+            {
+                "name": "v4.6.3",
+                "date": "2019-08-09T00:05:34Z"
+            },
+            {
+                "name": "v4.6.2",
+                "date": "2019-07-10T05:04:25Z"
+            },
+            {
+                "name": "v4.6.1",
+                "date": "2019-06-24T00:02:23Z"
+            },
+            {
+                "name": "v4.6.0",
+                "date": "2019-06-12T04:10:30Z"
+            },
+            {
+                "name": "v4.5.1",
+                "date": "2019-01-23T09:19:58Z"
+            },
+            {
+                "name": "v4.5.0",
+                "date": "2019-01-22T03:12:16Z"
+            },
+            {
+                "name": "v4.4.1",
+                "date": "2018-09-20T12:33:40Z"
+            },
+            {
+                "name": "v4.4.0",
+                "date": "2018-09-20T01:36:15Z"
+            },
+            {
+                "name": "v4.3.0",
+                "date": "2018-08-28T03:54:51Z"
+            },
+            {
+                "name": "v4.2.1",
+                "date": "2018-04-13T03:57:10Z"
+            },
+            {
+                "name": "v4.2.0",
+                "date": "2018-01-12T00:46:11Z"
+            },
+            {
+                "name": "v4.1.0",
+                "date": "2017-10-24T02:26:10Z"
+            },
+            {
+                "name": "v4.0.0",
+                "date": "2017-09-13T23:46:04Z"
+            },
+            {
+                "name": "v3.7.1",
+                "date": "2017-03-14T23:58:52Z"
+            },
+            {
+                "name": "v3.7.0",
+                "date": "2017-01-31T21:47:52Z"
+            },
+            {
+                "name": "v3.6.1",
+                "date": "2017-01-12T22:34:41Z"
+            },
+            {
+                "name": "v3.6.0",
+                "date": "2016-11-28T02:33:30Z"
+            },
+            {
+                "name": "v3.5.0",
+                "date": "2016-09-21T07:47:33Z"
+            },
+            {
+                "name": "v3.4.0",
+                "date": "2016-08-04T00:59:37Z"
+            },
+            {
+                "name": "v3.3.0",
+                "date": "2016-07-24T20:18:34Z"
+            },
+            {
+                "name": "v3.3.0 (experimental)",
+                "date": "2016-06-21T11:40:29Z"
+            },
+            {
+                "name": "v3.2.0",
+                "date": "2015-12-03T22:10:56Z"
+            },
+            {
+                "name": "v3.1.0",
+                "date": "2015-10-27T01:05:54Z"
+            },
+            {
+                "name": "v3.0.0",
+                "date": "2015-10-19T21:43:05Z"
+            },
+            {
+                "name": "v3.0.0-dev",
+                "date": "2015-10-15T01:46:31Z"
+            },
+            {
+                "name": "v2.4.1",
+                "date": "2015-10-14T03:33:49Z"
+            },
+            {
+                "name": "v2.4.0",
+                "date": "2015-10-12T06:02:11Z"
+            },
+            {
+                "name": "v2.3.3",
+                "date": "2015-10-12T00:48:14Z"
+            },
+            {
+                "name": "v2.3.2",
+                "date": "2015-10-07T00:06:15Z"
+            },
+            {
+                "name": "v2.3.1",
+                "date": "2015-10-05T07:21:55Z"
+            },
+            {
+                "name": "v2.3.0",
+                "date": "2015-10-05T00:45:43Z"
+            },
+            {
+                "name": "v2.2.1",
+                "date": "2015-09-28T01:03:02Z"
+            },
+            {
+                "name": "v2.2.0",
+                "date": "2015-09-22T04:01:05Z"
+            },
+            {
+                "name": "",
+                "date": "2015-09-15T04:05:20Z"
+            },
+            {
+                "name": "",
+                "date": "2015-09-15T03:37:52Z"
+            },
+            {
+                "name": "",
+                "date": "2015-09-15T03:15:20Z"
+            },
+            {
+                "name": "v2.0.2",
+                "date": "2015-09-03T02:20:44Z"
+            },
+            {
+                "name": "v2.0.1",
+                "date": "2015-09-03T01:47:19Z"
+            },
+            {
+                "name": "v2.0.0",
+                "date": "2015-09-02T23:29:25Z"
+            },
+            {
+                "name": "v1.0.0",
+                "date": "2015-09-01T13:17:44Z"
+            }
+        ]
+    }
+}

@@ -1,0 +1,55 @@
+{
+    "https://api.github.com/repos/sullo/nikto": {
+        "forks": 1273,
+        "watchers": 8860,
+        "stars": 8860,
+        "languages": {
+            "Perl": 218309,
+            "Roff": 9586,
+            "Dockerfile": 822
+        },
+        "commits": [
+            "2025-01-07T15:05:15Z",
+            "2024-12-13T20:30:56Z",
+            "2024-12-13T20:22:19Z",
+            "2024-11-15T21:31:52Z",
+            "2024-11-15T20:22:13Z",
+            "2024-11-15T19:16:52Z",
+            "2024-11-01T15:56:42Z",
+            "2024-11-01T15:54:55Z",
+            "2024-10-30T16:06:45Z",
+            "2024-10-30T15:59:21Z",
+            "2024-10-30T15:58:42Z",
+            "2024-10-24T16:02:34Z",
+            "2024-10-24T15:45:00Z",
+            "2024-09-30T17:51:00Z",
+            "2024-09-30T12:53:56Z",
+            "2024-09-27T15:57:37Z",
+            "2024-09-27T15:47:32Z",
+            "2024-09-26T19:10:49Z",
+            "2024-09-08T19:40:14Z",
+            "2024-08-28T13:45:50Z",
+            "2024-08-16T13:49:06Z",
+            "2024-08-16T13:46:46Z",
+            "2024-08-16T13:42:37Z",
+            "2024-08-08T20:22:30Z",
+            "2024-08-02T16:11:06Z",
+            "2024-07-30T23:57:22Z",
+            "2024-07-30T15:55:02Z",
+            "2024-07-30T15:43:41Z",
+            "2024-07-30T13:55:46Z",
+            "2024-07-30T13:32:04Z"
+        ],
+        "creation_date": "2012-11-24T04:24:29Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 285,
+        "readme": "\nnikto\n=====\n[![alt text](https://cirt.net/images/patreon.png \"Become a patron of Nikto!\")](https://www.patreon.com/sullo)\n\n\nNikto web server scanner  - https://cirt.net/Nikto2 \n\nFull documentation - https://github.com/sullo/nikto/wiki\n\nRun normally:\n\n~~~\ngit clone https://github.com/sullo/nikto\n# Main script is in program/\ncd nikto/program\n# Run using the shebang interpreter\n./nikto.pl -h http://www.example.com\n# Run using perl (if you forget to chmod)\nperl nikto.pl -h http://www.example.com\n~~~\n\nRun as a Docker container:\n\n~~~bash\ngit clone https://github.com/sullo/nikto.git\ncd nikto\ndocker build -t sullo/nikto .\n# Call it without arguments to display the full help\ndocker run --rm sullo/nikto\n# Basic usage\ndocker run --rm sullo/nikto -h http://www.example.com\n# To save the report in a specific format, mount /tmp as a volume:\ndocker run --rm -v $(pwd):/tmp sullo/nikto -h http://www.example.com -o /tmp/out.json\n~~~\n\nBasic usage:\n\n```\n   Options:\n       -ask+               Whether to ask about submitting updates\n                               yes   Ask about each (default)\n                               no    Don't ask, don't send\n                               auto  Don't ask, just send\n       -Cgidirs+           Scan these CGI dirs: \"none\", \"all\", or values like \"/cgi/ /cgi-a/\"\n       -config+            Use this config file\n       -Display+           Turn on/off display outputs:\n                               1     Show redirects\n                               2     Show cookies received\n                               3     Show all 200/OK responses\n                               4     Show URLs which require authentication\n                               D     Debug output\n                               E     Display all HTTP errors\n                               P     Print progress to STDOUT\n                               S     Scrub output of IPs and hostnames\n                               V     Verbose output\n       -dbcheck           Check database and other key files for syntax errors\n       -followredirects   Follow 3xx redirects to new location\n       -evasion+          Encoding technique:\n                               1     Random URI encoding (non-UTF8)\n                               2     Directory self-reference (/./)\n                               3     Premature URL ending\n                               4     Prepend long random string\n                               5     Fake parameter\n                               6     TAB as request spacer\n                               7     Change the case of the URL\n                               8     Use Windows directory separator (\\)\n                               A     Use a carriage return (0x0d) as a request spacer\n                               B     Use binary value 0x0b as a request spacer\n        -Format+           Save file (-o) format:\n                               csv   Comma-separated-value\n                               htm   HTML Format\n                               msf+  Log to Metasploit\n                               nbe   Nessus NBE format\n                               txt   Plain text\n                               xml   XML Format\n                               (if not specified the format will be taken from the file extension passed to -output)\n       -Help              Extended help information\n       -host+             Target host\n       -IgnoreCode        Ignore Codes--treat as negative responses\n       -id+               Host authentication to use, format is id:pass or id:pass:realm\n       -key+              Client certificate key file\n       -list-plugins      List all available plugins, perform no testing\n       -maxtime+          Maximum testing time per host\n       -mutate+           Guess additional file names:\n                               1     Test all files with all root directories\n                               2     Guess for password file names\n                               3     Enumerate user names via Apache (/~user type requests)\n                               4     Enumerate user names via cgiwrap (/cgi-bin/cgiwrap/~user type requests)\n                               5     Attempt to brute force sub-domain names, assume that the host name is the parent domain\n                               6     Attempt to guess directory names from the supplied dictionary file\n       -mutate-options    Provide information for mutates\n       -nointeractive     Disables interactive features\n       -nolookup          Disables DNS lookups\n       -noslash           Strip trailing slash from URL (e.g., '/admin/' to '/admin')\n       -nossl             Disables the use of SSL\n       -no404             Disables nikto attempting to guess a 404 page\n       -output+           Write output to this file ('.' for auto-name)\n       -Pause+            Pause between tests (seconds, integer or float)\n       -Plugins+          List of plugins to run (default: ALL)\n       -port+             Port to use (default 80)\n       -RSAcert+          Client certificate file\n       -root+             Prepend root value to all requests, format is /directory\n       -Save              Save positive responses to this directory ('.' for auto-name)\n       -ssl               Force ssl mode on port\n       -Tuning+           Scan tuning:\n                               1     Interesting File / Seen in logs\n                               2     Misconfiguration / Default File\n                               3     Information Disclosure\n                               4     Injection (XSS/Script/HTML)\n                               5     Remote File Retrieval - Inside Web Root\n                               6     Denial of Service\n                               7     Remote File Retrieval - Server Wide\n                               8     Command Execution / Remote Shell\n                               9     SQL Injection\n                               0     File Upload\n                               a     Authentication Bypass\n                               b     Software Identification\n                               c     Remote Source Inclusion\n                               x     Reverse Tuning Options (i.e., include all except specified)\n       -timeout+          Timeout for requests (default 10 seconds)\n       -Userdbs           Load only user databases, not the standard databases\n                               all   Disable standard dbs and load only user dbs\n                               tests Disable only db_tests and load udb_tests\n       -until             Run until the specified time or duration\n       -update            Update databases and plugins from CIRT.net\n       -useproxy          Use the proxy defined in nikto.conf\n       -usecookies        Use cookies from responses in future requests\n       -Version           Print plugin and database versions\n       -vhost+            Virtual host (for Host header)\n              + requires a value\n```\n\nLicense\n=======\nCopyright (C) 2001 Chris Sullo\n\nThis program is free software; you can redistribute it and/or\nmodify it under the terms of the GNU General Public License\nas published by the Free Software Foundation; version 2\nof the License only.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\nGNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with this program; if not, write to\nFree Software Foundation, 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.\n",
+        "releases": [
+            {
+                "name": "Nikto 2.5.0",
+                "date": "2023-12-03T19:00:51Z"
+            }
+        ]
+    }
+}

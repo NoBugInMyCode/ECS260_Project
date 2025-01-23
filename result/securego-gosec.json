@@ -1,0 +1,220 @@
+{
+    "https://api.github.com/repos/securego/gosec": {
+        "forks": 620,
+        "watchers": 7954,
+        "stars": 7954,
+        "languages": {
+            "Go": 533358,
+            "HTML": 17634,
+            "Shell": 10800,
+            "Makefile": 2645,
+            "Dockerfile": 465
+        },
+        "commits": [
+            "2025-01-20T08:31:43Z",
+            "2025-01-20T08:16:55Z",
+            "2025-01-14T14:57:57Z",
+            "2025-01-06T14:41:33Z",
+            "2025-01-06T08:51:27Z",
+            "2024-12-30T14:47:51Z",
+            "2024-12-23T08:38:16Z",
+            "2024-12-20T09:05:09Z",
+            "2024-12-20T09:03:23Z",
+            "2024-12-19T10:55:12Z",
+            "2024-12-19T09:52:50Z",
+            "2024-12-19T09:27:17Z",
+            "2024-12-17T08:40:45Z",
+            "2024-12-16T14:18:51Z",
+            "2024-12-16T14:18:11Z",
+            "2024-12-16T14:17:42Z",
+            "2024-12-16T09:42:23Z",
+            "2024-12-16T09:41:16Z",
+            "2024-12-16T09:40:43Z",
+            "2024-12-16T09:38:51Z",
+            "2024-12-16T09:34:38Z",
+            "2024-12-12T11:10:18Z",
+            "2024-12-12T09:08:44Z",
+            "2024-12-09T09:42:25Z",
+            "2024-12-02T09:09:45Z",
+            "2024-11-30T09:54:57Z",
+            "2024-11-29T22:46:31Z",
+            "2024-11-26T09:07:11Z",
+            "2024-11-26T08:40:47Z",
+            "2024-11-26T02:04:20Z"
+        ],
+        "creation_date": "2016-07-18T18:01:08Z",
+        "contributors": 30,
+        "topics": [
+            "golang",
+            "security",
+            "security-automation",
+            "security-tools",
+            "static-analysis",
+            "static-code-analysis"
+        ],
+        "subscribers": 85,
+        "readme": "\n# gosec - Go Security Checker\n\nInspects source code for security problems by scanning the Go AST and SSA code representation.\n\n<img src=\"https://securego.io/img/gosec.png\" width=\"320\">\n\n## License\n\nLicensed under the Apache License, Version 2.0 (the \"License\").\nYou may not use this file except in compliance with the License.\nYou may obtain a copy of the License [here](http://www.apache.org/licenses/LICENSE-2.0).\n\n## Project status\n\n[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3218/badge)](https://bestpractices.coreinfrastructure.org/projects/3218)\n[![Build Status](https://github.com/securego/gosec/workflows/CI/badge.svg)](https://github.com/securego/gosec/actions?query=workflows%3ACI)\n[![Coverage Status](https://codecov.io/gh/securego/gosec/branch/master/graph/badge.svg)](https://codecov.io/gh/securego/gosec)\n[![GoReport](https://goreportcard.com/badge/github.com/securego/gosec)](https://goreportcard.com/report/github.com/securego/gosec)\n[![GoDoc](https://pkg.go.dev/badge/github.com/securego/gosec/v2)](https://pkg.go.dev/github.com/securego/gosec/v2)\n[![Docs](https://readthedocs.org/projects/docs/badge/?version=latest)](https://securego.io/)\n[![Downloads](https://img.shields.io/github/downloads/securego/gosec/total.svg)](https://github.com/securego/gosec/releases)\n[![Docker Pulls](https://img.shields.io/docker/pulls/securego/gosec.svg)](https://hub.docker.com/r/securego/gosec/tags)\n[![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)](http://securego.slack.com)\n[![go-recipes](https://raw.githubusercontent.com/nikolaydubina/go-recipes/main/badge.svg?raw=true)](https://github.com/nikolaydubina/go-recipes)\n\n## Install\n\n### CI Installation\n\n```bash\n# binary will be $(go env GOPATH)/bin/gosec\ncurl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b $(go env GOPATH)/bin vX.Y.Z\n\n# or install it into ./bin/\ncurl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s vX.Y.Z\n\n# In alpine linux (as it does not come with curl by default)\nwget -O - -q https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s vX.Y.Z\n\n# If you want to use the checksums provided on the \"Releases\" page\n# then you will have to download a tar.gz file for your operating system instead of a binary file\nwget https://github.com/securego/gosec/releases/download/vX.Y.Z/gosec_vX.Y.Z_OS.tar.gz\n\n# The file will be in the current folder where you run the command\n# and you can check the checksum like this\necho \"<check sum from the check sum file>  gosec_vX.Y.Z_OS.tar.gz\" | sha256sum -c -\n\ngosec --help\n```\n\n### GitHub Action\n\nYou can run `gosec` as a GitHub action as follows:\n\n```yaml\nname: Run Gosec\non:\n  push:\n    branches:\n      - master\n  pull_request:\n    branches:\n      - master\njobs:\n  tests:\n    runs-on: ubuntu-latest\n    env:\n      GO111MODULE: on\n    steps:\n      - name: Checkout Source\n        uses: actions/checkout@v3\n      - name: Run Gosec Security Scanner\n        uses: securego/gosec@master\n        with:\n          args: ./...\n```\n\n### Integrating with code scanning\n\nYou can [integrate third-party code analysis tools](https://docs.github.com/en/github/finding-security-vulnerabilities-and-errors-in-your-code/integrating-with-code-scanning) with GitHub code scanning by uploading data as SARIF files.\n\nThe workflow shows an example of running the `gosec` as a step in a GitHub action workflow which outputs the `results.sarif` file. The workflow then uploads the `results.sarif` file to GitHub using the `upload-sarif` action.\n\n```yaml\nname: \"Security Scan\"\n\n# Run workflow each time code is pushed to your repository and on a schedule.\n# The scheduled workflow runs every at 00:00 on Sunday UTC time.\non:\n  push:\n  schedule:\n  - cron: '0 0 * * 0'\n\njobs:\n  tests:\n    runs-on: ubuntu-latest\n    env:\n      GO111MODULE: on\n    steps:\n      - name: Checkout Source\n        uses: actions/checkout@v3\n      - name: Run Gosec Security Scanner\n        uses: securego/gosec@master\n        with:\n          # we let the report trigger content trigger a failure using the GitHub Security features.\n          args: '-no-fail -fmt sarif -out results.sarif ./...'\n      - name: Upload SARIF file\n        uses: github/codeql-action/upload-sarif@v2\n        with:\n          # Path to SARIF file relative to the root of the repository\n          sarif_file: results.sarif\n```\n\n### Local Installation\n\n```bash\ngo install github.com/securego/gosec/v2/cmd/gosec@latest\n```\n\n## Usage\n\nGosec can be configured to only run a subset of rules, to exclude certain file\npaths, and produce reports in different formats. By default all rules will be\nrun against the supplied input files. To recursively scan from the current\ndirectory you can supply `./...` as the input argument.\n\n### Available rules\n\n- G101: Look for hard coded credentials\n- G102: Bind to all interfaces\n- G103: Audit the use of unsafe block\n- G104: Audit errors not checked\n- G106: Audit the use of ssh.InsecureIgnoreHostKey\n- G107: Url provided to HTTP request as taint input\n- G108: Profiling endpoint automatically exposed on /debug/pprof\n- G109: Potential Integer overflow made by strconv.Atoi result conversion to int16/32\n- G110: Potential DoS vulnerability via decompression bomb\n- G111: Potential directory traversal\n- G112: Potential slowloris attack\n- G113: Usage of Rat.SetString in math/big with an overflow (CVE-2022-23772)\n- G114: Use of net/http serve function that has no support for setting timeouts\n- G115: Potential integer overflow when converting between integer types\n- G201: SQL query construction using format string\n- G202: SQL query construction using string concatenation\n- G203: Use of unescaped data in HTML templates\n- G204: Audit use of command execution\n- G301: Poor file permissions used when creating a directory\n- G302: Poor file permissions used with chmod\n- G303: Creating tempfile using a predictable path\n- G304: File path provided as taint input\n- G305: File traversal when extracting zip/tar archive\n- G306: Poor file permissions used when writing to a new file\n- G307: Poor file permissions used when creating a file with os.Create\n- G401: Detect the usage of MD5 or SHA1\n- G402: Look for bad TLS connection settings\n- G403: Ensure minimum RSA key length of 2048 bits\n- G404: Insecure random number source (rand)\n- G405: Detect the usage of DES or RC4\n- G406: Detect the usage of MD4 or RIPEMD160\n- G407: Detect the usage of hardcoded Initialization Vector(IV)/Nonce\n- G501: Import blocklist: crypto/md5\n- G502: Import blocklist: crypto/des\n- G503: Import blocklist: crypto/rc4\n- G504: Import blocklist: net/http/cgi\n- G505: Import blocklist: crypto/sha1\n- G506: Import blocklist: golang.org/x/crypto/md4\n- G507: Import blocklist: golang.org/x/crypto/ripemd160\n- G601: Implicit memory aliasing of items from a range statement (only for Go 1.21 or lower)\n- G602: Slice access out of bounds\n\n### Retired rules\n\n- G105: Audit the use of math/big.Int.Exp - [CVE is fixed](https://github.com/golang/go/issues/15184)\n- G307: Deferring a method which returns an error - causing more inconvenience than fixing a security issue, despite the details from this [blog post](https://www.joeshaw.org/dont-defer-close-on-writable-files/)\n\n### Selecting rules\n\nBy default, gosec will run all rules against the supplied file paths. It is however possible to select a subset of rules to run via the `-include=` flag,\nor to specify a set of rules to explicitly exclude using the `-exclude=` flag.\n\n```bash\n# Run a specific set of rules\n$ gosec -include=G101,G203,G401 ./...\n\n# Run everything except for rule G303\n$ gosec -exclude=G303 ./...\n```\n\n### CWE Mapping\n\nEvery issue detected by `gosec` is mapped to a [CWE (Common Weakness Enumeration)](http://cwe.mitre.org/data/index.html) which describes in more generic terms the vulnerability. The exact mapping can be found  [here](https://github.com/securego/gosec/blob/master/issue/issue.go#L50).\n\n### Configuration\n\nA number of global settings can be provided in a configuration file as follows:\n\n```JSON\n{\n    \"global\": {\n        \"nosec\": \"enabled\",\n        \"audit\": \"enabled\"\n    }\n}\n```\n\n- `nosec`: this setting will overwrite all `#nosec` directives defined throughout the code base\n- `audit`: runs in audit mode which enables addition checks that for normal code analysis might be too nosy\n\n```bash\n# Run with a global configuration file\n$ gosec -conf config.json .\n```\n\n#### Rule Configuration\n\nSome rules accept configuration flags as well; these flags are documented in [RULES.md](https://github.com/securego/gosec/blob/master/RULES.md).\n\n#### Go version\n\nSome rules require a specific Go version which is retrieved from the Go module file present in the project. If this version cannot be found, it will fallback to Go runtime version.\n\nThe Go module version is parsed using the `go list` command which in some cases might lead to performance degradation. In this situation, the go module version can be easily provided by setting the environment variable `GOSECGOVERSION=go1.21.1`.\n\n### Dependencies\n\ngosec will fetch automatically the dependencies of the code which is being analyzed when go module is turned on (e.g.`GO111MODULE=on`). If this is not the case,\nthe dependencies need to be explicitly downloaded by running the `go get -d` command before the scan.\n\n### Excluding test files and folders\n\ngosec will ignore test files across all packages and any dependencies in your vendor directory.\n\nThe scanning of test files can be enabled with the following flag:\n\n```bash\ngosec -tests ./...\n```\n\nAlso additional folders can be excluded as follows:\n\n```bash\n gosec -exclude-dir=rules -exclude-dir=cmd ./...\n```\n\n### Excluding generated files\n\ngosec can ignore generated go files with default generated code comment.\n\n```\n// Code generated by some generator DO NOT EDIT.\n```\n\n```bash\ngosec -exclude-generated ./...\n```\n\n### Auto fixing vulnerabilities\ngosec can suggest fixes based on AI recommendation. It will call an AI API to receive a suggestion for a security finding.\n\nYou can enable this feature by providing the following command line arguments:\n- `ai-api-provider`: the name of the AI API provider, currently only `gemini`is supported.\n- `ai-api-key` or set the environment variable `GOSEC_AI_API_KEY`: the key to access the AI API,\nFor gemini, you can create an API key following [these instructions](https://ai.google.dev/gemini-api/docs/api-key).\n- `ai-endpoint`: the endpoint of the AI provider, this is optional argument.\n\n\n```bash\ngosec -ai-api-provider=\"gemini\" -ai-api-key=\"your_key\" ./...\n```\n\n### Annotating code\n\nAs with all automated detection tools, there will be cases of false positives.\nIn cases where gosec reports a failure that has been manually verified as being safe,\nit is possible to annotate the code with a comment that starts with `#nosec`.\n\nThe `#nosec` comment should have the format `#nosec [RuleList] [-- Justification]`.\n\nThe `#nosec` comment needs to be placed on the line where the warning is reported.\n\n```go\nfunc main() {\n\ttr := &http.Transport{\n\t\tTLSClientConfig: &tls.Config{\n\t\t\tInsecureSkipVerify: true, // #nosec G402\n\t\t},\n\t}\n\n\tclient := &http.Client{Transport: tr}\n\t_, err := client.Get(\"https://go.dev/\")\n\tif err != nil {\n\t\tfmt.Println(err)\n\t}\n}\n```\n\nWhen a specific false positive has been identified and verified as safe, you may\nwish to suppress only that single rule (or a specific set of rules) within a section of code,\nwhile continuing to scan for other problems. To do this, you can list the rule(s) to be suppressed within\nthe `#nosec` annotation, e.g: `/* #nosec G401 */` or `//#nosec G201 G202 G203`\n\nYou could put the description or justification text for the annotation. The\njustification should be after the rule(s) to suppress and start with two or\nmore dashes, e.g: `//#nosec G101 G102 -- This is a false positive`\n\nIn some cases you may also want to revisit places where `#nosec` annotations\nhave been used. To run the scanner and ignore any `#nosec` annotations you\ncan do the following:\n\n```bash\ngosec -nosec=true ./...\n```\n\n### Tracking suppressions\n\nAs described above, we could suppress violations externally (using `-include`/\n`-exclude`) or inline (using `#nosec` annotations) in gosec. This suppression\ninflammation can be used to generate corresponding signals for auditing\npurposes.\n\nWe could track suppressions by the `-track-suppressions` flag as follows:\n\n```bash\ngosec -track-suppressions -exclude=G101 -fmt=sarif -out=results.sarif ./...\n```\n\n- For external suppressions, gosec records suppression info where `kind` is\n`external` and `justification` is a certain sentence \"Globally suppressed\".\n- For inline suppressions, gosec records suppression info where `kind` is\n`inSource` and `justification` is the text after two or more dashes in the\ncomment.\n\n**Note:** Only SARIF and JSON formats support tracking suppressions.\n\n### Build tags\n\ngosec is able to pass your [Go build tags](https://pkg.go.dev/go/build/) to the analyzer.\nThey can be provided as a comma separated list as follows:\n\n```bash\ngosec -tags debug,ignore ./...\n```\n\n### Output formats\n\ngosec currently supports `text`, `json`, `yaml`, `csv`, `sonarqube`, `JUnit XML`, `html` and `golint` output formats. By default\nresults will be reported to stdout, but can also be written to an output\nfile. The output format is controlled by the `-fmt` flag, and the output file is controlled by the `-out` flag as follows:\n\n```bash\n# Write output in json format to results.json\n$ gosec -fmt=json -out=results.json *.go\n```\n\nResults will be reported to stdout as well as to the provided output file by `-stdout` flag. The `-verbose` flag overrides the\noutput format when stdout the results while saving them in the output file\n```bash\n# Write output in json format to results.json as well as stdout\n$ gosec -fmt=json -out=results.json -stdout *.go\n\n# Overrides the output format to 'text' when stdout the results, while writing it to results.json\n$ gosec -fmt=json -out=results.json -stdout -verbose=text *.go\n```\n\n**Note:** gosec generates the [generic issue import format](https://docs.sonarqube.org/latest/analysis/generic-issue/) for SonarQube, and a report has to be imported into SonarQube using `sonar.externalIssuesReportPaths=path/to/gosec-report.json`.\n\n## Development\n\n[CONTRIBUTING.md](https://github.com/securego/gosec/blob/master/CONTRIBUTING.md) contains detailed information about adding new rules to gosec.\n\n### Build\n\nYou can build the binary with:\n\n```bash\nmake\n```\n\n### Note on Sarif Types Generation\n\nInstall the tool with :\n\n```bash\ngo get -u github.com/a-h/generate/cmd/schema-generate\n```\n\nThen generate the types with :\n\n```bash\nschema-generate -i sarif-schema-2.1.0.json -o mypath/types.go\n```\n\nMost of the MarshallJSON/UnmarshalJSON are removed except the one for PropertyBag which is handy to inline the additional properties. The rest can be removed.\nThe URI,ID, UUID, GUID were renamed so it fits the Go convention defined [here](https://github.com/golang/lint/blob/master/lint.go#L700)\n\n### Tests\n\nYou can run all unit tests using:\n\n```bash\nmake test\n```\n\n### Release\n\nYou can create a release by tagging the version as follows:\n\n``` bash\ngit tag v1.0.0 -m \"Release version v1.0.0\"\ngit push origin v1.0.0\n```\n\nThe GitHub [release workflow](.github/workflows/release.yml) triggers immediately after the tag is pushed upstream. This flow will\nrelease the binaries using the [goreleaser](https://goreleaser.com/actions/) action and then it will build and publish the docker image into Docker Hub.\n\nThe released artifacts are signed using [cosign](https://docs.sigstore.dev/). You can use the public key from [cosign.pub](cosign.pub)\nfile to verify the signature of docker image and binaries files.\n\nThe docker image signature can be verified with the following command:\n```\ncosign verify --key cosign.pub securego/gosec:<TAG>\n```\n\nThe binary files signature can be verified with the following command:\n```\ncosign verify-blob --key cosign.pub --signature gosec_<VERSION>_darwin_amd64.tar.gz.sig  gosec_<VERSION>_darwin_amd64.tar.gz\n```\n\n### Docker image\n\nYou can also build locally the docker image by using the command:\n\n```bash\nmake image\n```\n\nYou can run the `gosec` tool in a container against your local Go project. You only have to mount the project\ninto a volume as follows:\n\n```bash\ndocker run --rm -it -w /<PROJECT>/ -v <YOUR PROJECT PATH>/<PROJECT>:/<PROJECT> securego/gosec /<PROJECT>/...\n```\n\n**Note:** the current working directory needs to be set with `-w` option in order to get successfully resolved the dependencies from go module file\n\n### Generate TLS rule\n\nThe configuration of TLS rule can be generated from [Mozilla's TLS ciphers recommendation](https://statics.tls.security.mozilla.org/server-side-tls-conf.json).\n\nFirst you need to install the generator tool:\n\n```bash\ngo get github.com/securego/gosec/v2/cmd/tlsconfig/...\n```\n\nYou can invoke now the `go generate` in the root of the project:\n\n```bash\ngo generate ./...\n```\n\nThis will generate the `rules/tls_config.go` file which will contain the current ciphers recommendation from Mozilla.\n\n## Who is using gosec?\n\nThis is a [list](USERS.md) with some of the gosec's users.\n\n## Sponsors\n\nSupport this project by becoming a sponsor. Your logo will show up here with a link to your website\n\n<a href=\"https://github.com/mercedes-benz\" target=\"_blank\"><img src=\"https://avatars.githubusercontent.com/u/34240465?s=80&v=4\"></a>\n",
+        "releases": [
+            {
+                "name": "v2.22.0",
+                "date": "2025-01-09T12:06:56Z"
+            },
+            {
+                "name": "v2.21.4",
+                "date": "2024-09-26T11:58:33Z"
+            },
+            {
+                "name": "v2.21.3",
+                "date": "2024-09-18T11:49:31Z"
+            },
+            {
+                "name": "v2.21.2",
+                "date": "2024-09-09T13:43:57Z"
+            },
+            {
+                "name": "v2.21.1",
+                "date": "2024-09-04T15:01:14Z"
+            },
+            {
+                "name": "v2.21.0",
+                "date": "2024-09-04T14:27:44Z"
+            },
+            {
+                "name": "v2.20.0",
+                "date": "2024-05-14T13:42:29Z"
+            },
+            {
+                "name": "v2.19.0",
+                "date": "2024-02-12T09:17:20Z"
+            },
+            {
+                "name": "v2.18.2",
+                "date": "2023-10-23T08:06:01Z"
+            },
+            {
+                "name": "v2.18.1",
+                "date": "2023-10-13T12:16:13Z"
+            },
+            {
+                "name": "v2.18.0",
+                "date": "2023-10-09T08:04:52Z"
+            },
+            {
+                "name": "v2.17.0",
+                "date": "2023-08-17T07:18:20Z"
+            },
+            {
+                "name": "v2.16.0",
+                "date": "2023-05-17T13:33:14Z"
+            },
+            {
+                "name": "v2.15.0",
+                "date": "2023-02-06T13:28:41Z"
+            },
+            {
+                "name": "v2.14.0",
+                "date": "2022-10-17T09:16:04Z"
+            },
+            {
+                "name": "v2.13.1",
+                "date": "2022-08-20T11:36:13Z"
+            },
+            {
+                "name": "v2.13.0",
+                "date": "2022-08-19T06:45:13Z"
+            },
+            {
+                "name": "v2.12.0",
+                "date": "2022-06-13T19:37:34Z"
+            },
+            {
+                "name": "v2.11.0",
+                "date": "2022-03-21T15:57:23Z"
+            },
+            {
+                "name": "v2.10.0",
+                "date": "2022-02-22T20:41:04Z"
+            },
+            {
+                "name": "v2.9.6",
+                "date": "2022-01-20T16:28:55Z"
+            },
+            {
+                "name": "v2.9.5",
+                "date": "2021-12-13T16:54:41Z"
+            },
+            {
+                "name": "v2.9.4",
+                "date": "2021-12-09T11:02:06Z"
+            },
+            {
+                "name": "v2.9.3",
+                "date": "2021-11-24T16:18:23Z"
+            },
+            {
+                "name": "v2.9.2",
+                "date": "2021-11-16T20:45:22Z"
+            },
+            {
+                "name": "v2.9.1",
+                "date": "2021-10-15T09:02:03Z"
+            },
+            {
+                "name": "v2.8.1",
+                "date": "2021-06-17T13:11:02Z"
+            },
+            {
+                "name": "v2.8.0",
+                "date": "2021-05-26T08:03:34Z"
+            },
+            {
+                "name": "v2.7.0",
+                "date": "2021-03-04T09:00:47Z"
+            },
+            {
+                "name": "v2.6.1",
+                "date": "2021-01-22T10:39:39Z"
+            },
+            {
+                "name": "v2.5.0",
+                "date": "2020-10-26T11:52:57Z"
+            },
+            {
+                "name": "v2.4.0",
+                "date": "2020-07-24T07:55:31Z"
+            },
+            {
+                "name": "v2.3.0",
+                "date": "2020-05-04T08:02:46Z"
+            },
+            {
+                "name": "v2.2.0",
+                "date": "2020-01-30T09:33:04Z"
+            },
+            {
+                "name": "v2.1.0",
+                "date": "2019-10-09T14:09:33Z"
+            },
+            {
+                "name": "2.0.0",
+                "date": "2019-05-02T15:22:14Z"
+            },
+            {
+                "name": "1.3.0",
+                "date": "2019-02-28T08:25:52Z"
+            },
+            {
+                "name": "1.2.0",
+                "date": "2018-11-11T09:22:44Z"
+            },
+            {
+                "name": "1.1.0",
+                "date": "2018-08-21T09:25:23Z"
+            },
+            {
+                "name": "1.0.0",
+                "date": "2018-07-27T13:07:11Z"
+            }
+        ]
+    }
+}

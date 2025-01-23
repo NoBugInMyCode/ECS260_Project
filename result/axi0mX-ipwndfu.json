@@ -1,0 +1,50 @@
+{
+    "https://api.github.com/repos/axi0mX/ipwndfu": {
+        "forks": 1697,
+        "watchers": 7127,
+        "stars": 7127,
+        "languages": {
+            "Python": 321497,
+            "Assembly": 46716,
+            "Makefile": 2656
+        },
+        "commits": [
+            "2019-10-01T21:04:36Z",
+            "2019-09-28T23:37:27Z",
+            "2019-09-28T23:11:18Z",
+            "2019-09-27T15:41:32Z",
+            "2019-09-27T14:41:45Z",
+            "2019-09-27T14:41:09Z",
+            "2019-09-27T14:39:24Z",
+            "2019-09-27T10:03:16Z",
+            "2018-10-06T03:47:42Z",
+            "2018-10-05T22:41:46Z",
+            "2018-10-05T21:50:27Z",
+            "2018-10-05T20:37:56Z",
+            "2017-09-14T09:35:38Z",
+            "2017-08-14T22:53:54Z",
+            "2017-06-16T05:01:30Z",
+            "2017-06-14T01:15:26Z",
+            "2017-06-13T21:04:27Z",
+            "2017-06-13T14:11:07Z",
+            "2017-06-11T22:10:15Z",
+            "2017-06-11T22:02:11Z",
+            "2017-06-11T21:29:48Z",
+            "2017-06-09T04:38:50Z",
+            "2017-06-09T01:35:20Z",
+            "2017-06-09T01:05:00Z",
+            "2017-06-07T05:49:36Z",
+            "2017-06-07T05:21:46Z",
+            "2017-06-07T03:54:47Z",
+            "2017-06-07T03:07:33Z",
+            "2017-06-04T22:40:16Z",
+            "2017-05-31T20:45:29Z"
+        ],
+        "creation_date": "2017-04-09T22:21:26Z",
+        "contributors": 2,
+        "topics": [],
+        "subscribers": 377,
+        "readme": "![](repo/ipwndfu.png)\n# Open-source jailbreaking tool for many iOS devices\n\n\n**Read [disclaimer](#disclaimer) before using this software.*\n\n\n## checkm8\n\n* permanent unpatchable bootrom exploit for hundreds of millions of iOS devices\n\n* meant for researchers, this is not a jailbreak with Cydia yet\n\n* allows dumping SecureROM, decrypting keybags for iOS firmware, and demoting device for JTAG\n\n* current SoC support: s5l8947x, s5l8950x, s5l8955x, s5l8960x, t8002, t8004, t8010, t8011, t8015\n\n* future SoC support: s5l8940x, s5l8942x, s5l8945x, s5l8747x, t7000, t7001, s7002, s8000, s8001, s8003, t8012\n\n* full jailbreak with Cydia on latest iOS version is possible, but requires additional work\n\n\n## Quick start guide for checkm8\n\n1. Use a cable to connect device to your Mac. Hold buttons as needed to enter DFU Mode.\n\n2. First run ```./ipwndfu -p``` to exploit the device. Repeat the process if it fails, it is not reliable.\n\n3. Run ```./ipwndfu --dump-rom``` to get a dump of SecureROM.\n\n4. Run ```./ipwndfu --decrypt-gid KEYBAG``` to decrypt a keybag.\n\n5. Run ```./ipwndfu --demote``` to demote device and enable JTAG.\n\n\n## Features\n\n* Jailbreak and downgrade iPhone 3GS (new bootrom) with alloc8 untethered bootrom exploit. :-)\n\n* Pwned DFU Mode with steaks4uce exploit for S5L8720 devices.\n\n* Pwned DFU Mode with limera1n exploit for S5L8920/S5L8922 devices.\n\n* Pwned DFU Mode with SHAtter exploit for S5L8930 devices.\n\n* Dump SecureROM on S5L8920/S5L8922/S5L8930 devices.\n\n* Dump NOR on S5L8920 devices.\n\n* Flash NOR on S5L8920 devices.\n\n* Encrypt or decrypt hex data on a connected device in pwned DFU Mode using its GID or UID key.\n\n\n## Dependencies\n\nThis tool should be compatible with Mac and Linux. It won't work in a virtual machine.\n\n* libusb, `If you are using Linux: install libusb using your package manager.`\n* [iPhone 3GS iOS 4.3.5 iBSS](#ibss)\n\n\n## Tutorial\n\nThis tool can be used to downgrade or jailbreak iPhone 3GS (new bootrom) without SHSH blobs, as documented in [JAILBREAK-GUIDE](https://github.com/axi0mX/ipwndfu/blob/master/JAILBREAK-GUIDE.md).\n\n\n## Exploit write-up\n\nWrite-up for alloc8 exploit can be found here:\n\nhttps://github.com/axi0mX/alloc8\n\n\n## iBSS\n\nDownload iPhone 3GS iOS 4.3.5 IPSW from Apple:\n\nhttp://appldnld.apple.com/iPhone4/041-1965.20110721.gxUB5/iPhone2,1_4.3.5_8L1_Restore.ipsw\n\nIn Terminal, extract iBSS using the following command, then move the file to ipwndfu folder:\n\n```\nunzip -p iPhone2,1_4.3.5_8L1_Restore.ipsw Firmware/dfu/iBSS.n88ap.RELEASE.dfu > n88ap-iBSS-4.3.5.img3\n```\n\n\n## Coming soon!\n\n* Reorganize and refactor code.\n\n* Easier setup: download iBSS automatically using partial zip.\n\n* Dump SecureROM on S5L8720 devices.\n\n* Install custom boot logos on devices jailbroken with 24Kpwn and alloc8.\n\n* Enable verbose boot on devices jailbroken with 24Kpwn and alloc8.\n\n## Disclaimer\n\n**This is BETA software.**\n\nBackup your data.\n\nThis tool is currently in beta and could potentially brick your device. It will attempt to save a copy of data in NOR to nor-backups folder before flashing new data to NOR, and it will attempt to not overwrite critical data in NOR which your device requires to function. If something goes wrong, hopefully you will be able to restore to latest IPSW in iTunes and bring your device back to life, or use nor-backups to restore NOR to the original state, but I cannot provide any guarantees.\n\n**There is NO warranty provided.**\n\nTHERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU. SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.\n\n## Toolchain\n\nYou will not need to use `make` or compile anything to use ipwndfu. However, if you wish to make changes to assembly code in `src/*`, you will need to use an ARM toolchain and assemble the source files by running `make`.\n\nIf you are using macOS with Homebrew, you can use binutils and gcc-arm-embedded. You can install them with these commands:\n\n```\nbrew install binutils\nbrew cask install https://raw.githubusercontent.com/Homebrew/homebrew-cask/b88346667547cc85f8f2cacb3dfe7b754c8afc8a/Casks/gcc-arm-embedded.rb\n```\n\n## Credit\n\ngeohot for limera1n exploit\n\nposixninja and pod2g for SHAtter exploit\n\nchronic, CPICH, ius, MuscleNerd, Planetbeing, pod2g, posixninja, et al. for 24Kpwn exploit\n\npod2g for steaks4uce exploit\n\nwalac for pyusb\n",
+        "releases": []
+    }
+}

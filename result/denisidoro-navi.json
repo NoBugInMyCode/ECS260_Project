@@ -1,0 +1,332 @@
+{
+    "https://api.github.com/repos/denisidoro/navi": {
+        "forks": 514,
+        "watchers": 15402,
+        "stars": 15402,
+        "languages": {
+            "Rust": 106326,
+            "Shell": 16576,
+            "PowerShell": 5069,
+            "Nushell": 1008,
+            "Elvish": 704,
+            "Makefile": 181
+        },
+        "commits": [
+            "2025-01-18T11:58:49Z",
+            "2025-01-18T11:06:17Z",
+            "2025-01-18T11:05:32Z",
+            "2025-01-18T10:36:39Z",
+            "2025-01-18T10:36:29Z",
+            "2025-01-18T10:35:22Z",
+            "2025-01-18T10:34:55Z",
+            "2025-01-18T10:34:18Z",
+            "2025-01-18T10:33:06Z",
+            "2025-01-18T10:32:43Z",
+            "2025-01-18T10:31:27Z",
+            "2025-01-11T09:46:32Z",
+            "2025-01-10T06:21:51Z",
+            "2025-01-09T06:31:36Z",
+            "2025-01-03T11:11:05Z",
+            "2024-12-08T18:19:18Z",
+            "2024-12-08T17:57:34Z",
+            "2024-12-08T17:50:19Z",
+            "2024-12-08T17:44:18Z",
+            "2024-12-08T12:37:44Z",
+            "2024-12-07T16:24:18Z",
+            "2024-12-07T16:24:00Z",
+            "2024-12-07T13:02:06Z",
+            "2024-12-07T13:00:36Z",
+            "2024-12-06T16:46:13Z",
+            "2024-11-20T21:29:06Z",
+            "2024-11-19T16:36:47Z",
+            "2024-11-09T19:50:20Z",
+            "2024-10-11T22:51:50Z",
+            "2024-09-29T01:53:06Z"
+        ],
+        "creation_date": "2019-09-20T13:38:20Z",
+        "contributors": 30,
+        "topics": [
+            "bash",
+            "cheatsheets",
+            "cli",
+            "command-line",
+            "rust",
+            "shell",
+            "snippet",
+            "snippets",
+            "terminal"
+        ],
+        "subscribers": 108,
+        "readme": "# navi <img src=\"https://raw.githubusercontent.com/denisidoro/navi/master/assets/icon.png\" alt=\"icon\" height=\"28px\"/> [![Actions Status](https://github.com/denisidoro/navi/workflows/CI/badge.svg)](https://github.com/denisidoro/navi/actions) ![GitHub release](https://img.shields.io/github/v/release/denisidoro/navi?include_prereleases)\n\nAn interactive cheatsheet tool for the command-line.\n\n[![Demo](https://asciinema.org/a/406461.svg)](https://asciinema.org/a/406461)\n\n**navi** allows you to browse through cheatsheets (that you may write yourself or download from maintainers) and execute commands. Suggested values for arguments are dynamically displayed in a list.\n\n## Pros\n\n- it will spare you from knowing CLIs by heart\n- it will spare you from copy-pasting output from intermediate commands\n- it will make you type less\n- it will teach you new one-liners\n\nIt uses [fzf](https://github.com/junegunn/fzf), [skim](https://github.com/lotabout/skim), or [Alfred](https://www.alfredapp.com/) under the hood and it can be either used as a command or as a shell widget (_\u00e0 la_ Ctrl-R).\n\n## Table of contents\n\n- [Installation](#installation)\n- [Usage](#usage)\n- [Cheatsheet repositories](#cheatsheet-repositories)\n- [Cheatsheet syntax](#cheatsheet-syntax)\n- [Customization](#customization)\n- [More info](#more-info)\n- [Trying out online](#trying-out-online)\n- [Similar tools](#similar-tools)\n- [Etymology](#etymology)\n\n## Installation\n\n**navi** can be installed with the following package managers:\n\n[![Packaging status](https://repology.org/badge/vertical-allrepos/navi.svg)](https://repology.org/project/navi/versions)\n\nThe recommended way to install **navi** is by running:\n\n```sh\nbrew install navi\n```\n\nIf `brew` isn't available, you can check [alternative install instructions](docs/installation.md).\n\n## Usage\n\nThere are multiple ways to use **navi**:\n\n- by typing `navi` in the terminal\n  - pros: you have access to all possible subcommands and flags\n- as a [shell widget](docs/installation.md#installing-the-shell-widget) for the terminal\n  - pros: the shell history is correctly populated (i.e. with the actual command you ran instead of `navi`) and you can edit the command as you wish before executing it\n- as a [Tmux widget](docs/tmux.md)\n  - pros: you can use your cheatsheets in any command-line app even in SSH sessions\n- as [aliases](docs/cheatsheet_syntax.md#aliases)\n- as a [shell scripting tool](docs/shell_scripting.md)\n- as an [Alfred workflow](docs/alfred.md)\n\nIn particular, check [these instructions](https://github.com/denisidoro/navi/issues/491) if you want to replicate what's shown in the demo above.\n\n## Cheatsheet repositories\n\nRunning **navi** for the first time will help you download and manage cheatsheets. By default, they are stored at `~/.local/share/navi/cheats/`.\n\nYou can also:\n\n- [browse through featured cheatsheets](docs/cheatsheet_repositories.md#browsing-through-cheatsheet-repositories)\n- [import cheatsheets from git repositories](docs/cheatsheet_repositories.md#importing-cheatsheets)\n- [write your own cheatsheets](#cheatsheet-syntax) (and [share them](docs/cheatsheet_repositories.md#submitting-cheatsheets), if you want)\n- [use cheatsheets from other tools](docs/cheatsheet_repositories.md#using-cheatsheets-from-other-tools), such as [tldr](https://github.com/tldr-pages/tldr) and [cheat.sh](https://github.com/chubin/cheat.sh)\n- [auto-update repositories](docs/cheatsheet_repositories.md#auto-updating-repositories)\n- auto-export cheatsheets from your [TiddlyWiki](https://tiddlywiki.com/) notes using a [TiddlyWiki plugin](https://bimlas.github.io/tw5-navi-cheatsheet/)\n\n## Cheatsheet syntax\n\nCheatsheets are described in `.cheat` files that look like this:\n\n```sh\n% git, code\n\n# Change branch\ngit checkout <branch>\n\n$ branch: git branch | awk '{print $NF}'\n```\n\nThe full syntax and examples can be found [here](docs/cheatsheet_syntax.md).\n\n## Customization\n\nYou can:\n\n- [setup your own config file](docs/navi_config.md)\n- [set custom paths for your config file and cheat sheets](docs/navi_config.md#paths-and-environment-variables)\n- [change colors](docs/navi_config.md#changing-colors)\n- [resize columns](docs/navi_config.md#resizing-columns)\n- [change how search is performed](docs/navi_config.md#overriding-fzf-options)\n\n## More info\n\nPlease run the following command to read more about all possible options:\n\n```sh\nnavi --help\n```\n\nIn addition, please check the [/docs](docs) folder.\n\n## Similar tools\n\nThere are many similar projects out there ([beavr](https://github.com/denisidoro/beavr), [bro](https://github.com/hubsmoke/bro), [cheat](https://github.com/cheat/cheat), [cheat.sh](https://github.com/chubin/cheat.sh), [cmdmenu](https://github.com/amacfie/cmdmenu), [eg](https://github.com/srsudar/eg), [how2](https://github.com/santinic/how2), [howdoi](https://github.com/gleitz/howdoi), [Command Line Interface Pages](https://github.com/command-line-interface-pages) and [tldr](https://github.com/tldr-pages/tldr), to name a few).\n\nThey are excellent projects, but **navi** remains unique in the following ways:\n\n- it's natural to write cheatsheets tailored to your needs\n- arguments are neither hardcoded nor a simple template\n\n## Etymology\n\n[Navi](https://zelda.gamepedia.com/Navi) is a character from [The Legend of Zelda Ocarina of Time](https://zelda.gamepedia.com/Ocarina_of_Time) that provides [Link](https://zelda.gamepedia.com/Link) with a variety of clues to help him solve puzzles and make progress in his quest.\n",
+        "releases": [
+            {
+                "name": "2.23.0",
+                "date": "2023-12-10T09:46:00Z"
+            },
+            {
+                "name": "2.22.1",
+                "date": "2023-04-09T14:22:27Z"
+            },
+            {
+                "name": "2.20.1",
+                "date": "2022-05-18T12:09:08Z"
+            },
+            {
+                "name": "2.20.0",
+                "date": "2022-05-15T15:52:20Z"
+            },
+            {
+                "name": "2.19.0",
+                "date": "2022-01-18T12:05:05Z"
+            },
+            {
+                "name": "2.18.0",
+                "date": "2021-11-16T15:51:47Z"
+            },
+            {
+                "name": "2.17.0",
+                "date": "2021-08-09T13:54:21Z"
+            },
+            {
+                "name": "2.16.0",
+                "date": "2021-04-19T13:55:34Z"
+            },
+            {
+                "name": "2.15.1",
+                "date": "2021-04-11T15:04:53Z"
+            },
+            {
+                "name": "2.15.0",
+                "date": "2021-04-09T14:56:44Z"
+            },
+            {
+                "name": "2.14.0",
+                "date": "2021-01-18T16:04:56Z"
+            },
+            {
+                "name": "2.13.1",
+                "date": "2020-12-22T15:07:48Z"
+            },
+            {
+                "name": "2.13.0",
+                "date": "2020-11-27T13:19:18Z"
+            },
+            {
+                "name": "2.12.1",
+                "date": "2020-10-08T20:49:31Z"
+            },
+            {
+                "name": "2.12.0",
+                "date": "2020-09-15T20:13:26Z"
+            },
+            {
+                "name": "2.11.0",
+                "date": "2020-09-11T15:00:50Z"
+            },
+            {
+                "name": "2.10.0",
+                "date": "2020-08-29T21:59:50Z"
+            },
+            {
+                "name": "2.9.0",
+                "date": "2020-08-23T23:10:16Z"
+            },
+            {
+                "name": "2.8.0",
+                "date": "2020-08-14T17:07:42Z"
+            },
+            {
+                "name": "2.7.2",
+                "date": "2020-08-13T18:40:23Z"
+            },
+            {
+                "name": "2.7.1",
+                "date": "2020-07-10T13:11:57Z"
+            },
+            {
+                "name": "2.7.0",
+                "date": "2020-06-02T20:00:47Z"
+            },
+            {
+                "name": "2.6.1",
+                "date": "2020-04-26T01:28:16Z"
+            },
+            {
+                "name": "2.6.0",
+                "date": "2020-04-19T19:03:49Z"
+            },
+            {
+                "name": "2.5.1",
+                "date": "2020-04-13T17:31:30Z"
+            },
+            {
+                "name": "2.5.0",
+                "date": "2020-04-11T16:28:44Z"
+            },
+            {
+                "name": "2.4.1",
+                "date": "2020-03-24T14:43:27Z"
+            },
+            {
+                "name": "2.4.0",
+                "date": "2020-03-24T13:55:41Z"
+            },
+            {
+                "name": "2.3.1",
+                "date": "2020-03-22T13:31:16Z"
+            },
+            {
+                "name": "2.3.0",
+                "date": "2020-03-20T01:07:38Z"
+            },
+            {
+                "name": "2.2.0",
+                "date": "2020-03-19T17:16:32Z"
+            },
+            {
+                "name": "2.1.3",
+                "date": "2020-03-16T13:40:31Z"
+            },
+            {
+                "name": "2.1.1",
+                "date": "2020-03-16T01:17:08Z"
+            },
+            {
+                "name": "2.1.0",
+                "date": "2020-03-15T17:10:48Z"
+            },
+            {
+                "name": "2.0.11",
+                "date": "2020-03-13T12:20:38Z"
+            },
+            {
+                "name": "2.0.8",
+                "date": "2020-03-12T22:11:37Z"
+            },
+            {
+                "name": "2.0.6",
+                "date": "2020-03-12T18:01:02Z"
+            },
+            {
+                "name": "2.0.5",
+                "date": "2020-03-12T16:09:38Z"
+            },
+            {
+                "name": "2.0.4",
+                "date": "2020-03-11T23:34:02Z"
+            },
+            {
+                "name": "2.0.3",
+                "date": "2020-03-11T14:35:27Z"
+            },
+            {
+                "name": "2.0.2",
+                "date": "2020-03-10T17:17:58Z"
+            },
+            {
+                "name": "2.0.0",
+                "date": "2020-03-15T16:49:47Z"
+            },
+            {
+                "name": "1.0.0",
+                "date": "2020-02-26T17:47:01Z"
+            },
+            {
+                "name": "0.18.3",
+                "date": "2020-02-06T19:51:58Z"
+            },
+            {
+                "name": "0.18.2",
+                "date": "2020-01-22T20:27:18Z"
+            },
+            {
+                "name": "0.18.1",
+                "date": "2020-01-20T19:45:07Z"
+            },
+            {
+                "name": "0.18.0",
+                "date": "2020-01-17T18:29:59Z"
+            },
+            {
+                "name": "0.17.1",
+                "date": "2020-01-17T17:45:50Z"
+            },
+            {
+                "name": "0.17.0",
+                "date": "2019-12-17T16:37:32Z"
+            },
+            {
+                "name": "0.16.0",
+                "date": "2019-12-09T14:09:01Z"
+            },
+            {
+                "name": "0.15.5",
+                "date": "2019-12-06T17:25:06Z"
+            },
+            {
+                "name": "0.15.3",
+                "date": "2019-11-22T16:03:22Z"
+            },
+            {
+                "name": "0.15.2",
+                "date": "2019-10-28T20:31:52Z"
+            },
+            {
+                "name": "0.15.1",
+                "date": "2019-10-28T20:09:26Z"
+            },
+            {
+                "name": "0.15.0",
+                "date": "2019-10-28T20:00:56Z"
+            },
+            {
+                "name": "0.14.3",
+                "date": "2019-10-23T21:13:36Z"
+            },
+            {
+                "name": "0.14.2",
+                "date": "2019-10-18T16:22:39Z"
+            },
+            {
+                "name": "0.14.1",
+                "date": "2019-10-15T13:11:32Z"
+            },
+            {
+                "name": "0.14.0",
+                "date": "2019-10-14T20:17:40Z"
+            },
+            {
+                "name": "0.12.0",
+                "date": "2019-10-05T17:09:46Z"
+            },
+            {
+                "name": "0.11.0",
+                "date": "2019-10-02T17:48:48Z"
+            },
+            {
+                "name": "0.10.3",
+                "date": "2019-09-29T02:59:21Z"
+            },
+            {
+                "name": "0.10.2",
+                "date": "2019-09-29T02:31:23Z"
+            },
+            {
+                "name": "0.10.1",
+                "date": "2019-09-27T19:54:49Z"
+            },
+            {
+                "name": "0.9.4",
+                "date": "2019-09-25T14:53:32Z"
+            },
+            {
+                "name": "0.9.3",
+                "date": "2019-09-25T11:23:10Z"
+            },
+            {
+                "name": "0.9.2",
+                "date": "2019-09-24T21:29:16Z"
+            }
+        ]
+    }
+}

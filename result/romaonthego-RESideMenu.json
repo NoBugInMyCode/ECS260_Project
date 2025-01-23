@@ -1,0 +1,67 @@
+{
+    "https://api.github.com/repos/romaonthego/RESideMenu": {
+        "forks": 1346,
+        "watchers": 7092,
+        "stars": 7092,
+        "languages": {
+            "Objective-C": 78446,
+            "C": 1697,
+            "Ruby": 645
+        },
+        "commits": [
+            "2015-04-02T05:37:28Z",
+            "2015-03-27T02:34:35Z",
+            "2015-03-11T03:50:21Z",
+            "2015-03-03T22:04:23Z",
+            "2015-03-03T20:34:47Z",
+            "2015-02-23T12:34:27Z",
+            "2015-02-07T12:52:43Z",
+            "2015-01-24T12:16:55Z",
+            "2014-11-01T23:25:26Z",
+            "2014-11-01T21:54:54Z",
+            "2014-10-05T17:34:16Z",
+            "2014-09-24T19:22:40Z",
+            "2014-09-14T20:08:13Z",
+            "2014-09-14T19:38:09Z",
+            "2014-09-14T19:34:36Z",
+            "2014-09-14T19:33:03Z",
+            "2014-09-14T19:26:29Z",
+            "2014-09-14T19:20:56Z",
+            "2014-09-14T05:39:21Z",
+            "2014-09-14T05:38:43Z",
+            "2014-09-14T05:37:38Z",
+            "2014-09-14T05:24:53Z",
+            "2014-09-14T05:21:27Z",
+            "2014-09-11T17:45:17Z",
+            "2014-08-18T20:32:53Z",
+            "2014-08-13T06:49:13Z",
+            "2014-08-13T06:01:38Z",
+            "2014-08-12T01:33:01Z",
+            "2014-08-07T01:55:28Z",
+            "2014-08-07T01:55:10Z"
+        ],
+        "creation_date": "2013-06-17T15:37:52Z",
+        "contributors": 24,
+        "topics": [],
+        "subscribers": 291,
+        "readme": "# RESideMenu\n\niOS 7/8 style side menu with parallax effect inspired by Dribbble shots ([first](http://dribbble.com/shots/1116265-Instasave-iPhone-App) and [second](http://dribbble.com/shots/1114754-Social-Feed-iOS7)).\n\nSince version 4.0 you can add menu view controllers on both left and right sides of your content view controller.\n\n<img src=\"https://github.com/romaonthego/RESideMenu/raw/master/Screenshot.png\" alt=\"RESideMenu Screenshot\" width=\"400\" height=\"568\" />\n<img src=\"https://raw.githubusercontent.com/romaonthego/RESideMenu/master/Demo.gif?2\" alt=\"RESideMenu Screenshot\" width=\"320\" height=\"568\" />\n\n## Requirements\n* Xcode 6 or higher\n* Apple LLVM compiler\n* iOS 6.0 or higher\n* ARC\n\n## Demo\n\nBuild and run the `RESideMenuExample` project in Xcode to see `RESideMenu` in action. For storyboards integration demo, build and run `RESideMenuStoryboardsExample`.\n\n## Installation\n\n### CocoaPods\n\nThe recommended approach for installating `RESideMenu` is via the [CocoaPods](http://cocoapods.org/) package manager, as it provides flexible dependency management and dead simple installation.\nFor best results, it is recommended that you install via CocoaPods >= **0.28.0** using Git >= **1.8.0** installed via Homebrew.\n\nInstall CocoaPods if not already available:\n\n``` bash\n$ [sudo] gem install cocoapods\n$ pod setup\n```\n\nChange to the directory of your Xcode project:\n\n``` bash\n$ cd /path/to/MyProject\n$ touch Podfile\n$ edit Podfile\n```\n\nEdit your Podfile and add RESideMenu:\n\n``` bash\nplatform :ios, '6.0'\npod 'RESideMenu', '~> 4.0.7'\n```\n\nInstall into your Xcode project:\n\n``` bash\n$ pod install\n```\n\nOpen your project in Xcode from the .xcworkspace file (not the usual project file)\n\n``` bash\n$ open MyProject.xcworkspace\n```\n\nPlease note that if your installation fails, it may be because you are installing with a version of Git lower than CocoaPods is expecting. Please ensure that you are running Git >= **1.8.0** by executing `git --version`. You can get a full picture of the installation details by executing `pod install --verbose`.\n\n### Manual Install\n\nAll you need to do is drop `RESideMenu` files into your project, and add `#include \"RESideMenu.h\"` to the top of classes that will use it.\n\n## Example Usage\n\nIn your AppDelegate's `- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions` create the view controller and assign content and menu view controllers.\n\n``` objective-c\n// Create content and menu controllers\n//\nDEMONavigationController *navigationController = [[DEMONavigationController alloc] initWithRootViewController:[[DEMOHomeViewController alloc] init]];\nDEMOLeftMenuViewController *leftMenuViewController = [[DEMOLeftMenuViewController alloc] init];\nDEMORightMenuViewController *rightMenuViewController = [[DEMORightMenuViewController alloc] init];\n\n// Create side menu controller\n//\nRESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:navigationController\n                                                                leftMenuViewController:leftMenuViewController\n                                                               rightMenuViewController:rightMenuViewController];\nsideMenuViewController.backgroundImage = [UIImage imageNamed:@\"Stars\"];\n\n// Make it a root controller\n//\nself.window.rootViewController = sideMenuViewController;\n```\n\nPresent the menu view controller:\n\n```objective-c\n[self.sideMenuViewController presentLeftMenuViewController];\n```\n\nor\n\n```objective-c\n[self.sideMenuViewController presentRightMenuViewController];\n```\n\nSwitch content view controllers:\n\n```objective-c\n#import <RESideMenu/RESideMenu.h>\n\n....\n\n[self.sideMenuViewController setContentViewController:viewController animated:YES];\n[self.sideMenuViewController hideMenuViewController];\n```\n\n## Storyboards Example\n\n1. Create a subclass of `RESideMenu`. In this example we call it `DEMORootViewController`.\n2. In the Storyboard designate the root view's owner as `DEMORootViewController`.\n3. Make sure to `#import \"RESideMenu.h\"` in `DEMORootViewController.h`.\n4. Add more view controllers to your Storyboard, and give them identifiers \"leftMenuViewController\", \"rightMenuViewController\" and \"contentViewController\". Note that in the new XCode the identifier is called \"Storyboard ID\" and can be found in the Identity inspector.\n5. Add a method `awakeFromNib` to `DEMORootViewController.m` with the following code:\n\n```objective-c\n- (void)awakeFromNib\n{\n    self.contentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@\"contentViewController\"];\n    self.leftMenuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@\"leftMenuViewController\"];\n    self.rightMenuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@\"rightMenuViewController\"];\n}\n```\n\n## Customization\n\nYou can customize the following properties of `RESideMenu`:\n\n``` objective-c\n@property (assign, readwrite, nonatomic) NSTimeInterval animationDuration;\n@property (strong, readwrite, nonatomic) UIImage *backgroundImage;\n@property (assign, readwrite, nonatomic) BOOL panGestureEnabled;\n@property (assign, readwrite, nonatomic) BOOL panFromEdge;\n@property (assign, readwrite, nonatomic) NSUInteger panMinimumOpenThreshold;\n@property (assign, readwrite, nonatomic) BOOL interactivePopGestureRecognizerEnabled;\n@property (assign, readwrite, nonatomic) BOOL scaleContentView;\n@property (assign, readwrite, nonatomic) BOOL scaleBackgroundImageView;\n@property (assign, readwrite, nonatomic) BOOL scaleMenuView;\n@property (assign, readwrite, nonatomic) BOOL contentViewShadowEnabled;\n@property (assign, readwrite, nonatomic) UIColor *contentViewShadowColor;\n@property (assign, readwrite, nonatomic) CGSize contentViewShadowOffset;\n@property (assign, readwrite, nonatomic) CGFloat contentViewShadowOpacity;\n@property (assign, readwrite, nonatomic) CGFloat contentViewShadowRadius;\n@property (assign, readwrite, nonatomic) CGFloat contentViewScaleValue;\n@property (assign, readwrite, nonatomic) CGFloat contentViewInLandscapeOffsetCenterX;\n@property (assign, readwrite, nonatomic) CGFloat contentViewInPortraitOffsetCenterX;\n@property (assign, readwrite, nonatomic) CGFloat parallaxMenuMinimumRelativeValue;\n@property (assign, readwrite, nonatomic) CGFloat parallaxMenuMaximumRelativeValue;\n@property (assign, readwrite, nonatomic) CGFloat parallaxContentMinimumRelativeValue;\n@property (assign, readwrite, nonatomic) CGFloat parallaxContentMaximumRelativeValue;\n@property (assign, readwrite, nonatomic) CGAffineTransform menuViewControllerTransformation;\n@property (assign, readwrite, nonatomic) BOOL parallaxEnabled;\n@property (assign, readwrite, nonatomic) BOOL bouncesHorizontally;\n@property (assign, readwrite, nonatomic) UIStatusBarStyle menuPreferredStatusBarStyle;\n@property (assign, readwrite, nonatomic) BOOL menuPrefersStatusBarHidden;\n```\n\nIf you set a backgroundImage, don't forget to set the Menu View Controller's background color to clear color.\n\nYou can implement `RESideMenuDelegate` protocol to receive the following messages:\n\n```objective-c\n- (void)sideMenu:(RESideMenu *)sideMenu didRecognizePanGesture:(UIPanGestureRecognizer *)recognizer;\n- (void)sideMenu:(RESideMenu *)sideMenu willShowMenuViewController:(UIViewController *)menuViewController;\n- (void)sideMenu:(RESideMenu *)sideMenu didShowMenuViewController:(UIViewController *)menuViewController;\n- (void)sideMenu:(RESideMenu *)sideMenu willHideMenuViewController:(UIViewController *)menuViewController;\n- (void)sideMenu:(RESideMenu *)sideMenu didHideMenuViewController:(UIViewController *)menuViewController;\n```\n\n## Contact\n\nRoman Efimov\n\n- https://github.com/romaonthego\n- https://twitter.com/romaonthego\n- romefimov@gmail.com\n\n## License\n\nRESideMenu is available under the MIT license.\n\nCopyright \u00a9 2013 Roman Efimov.\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n",
+        "releases": [
+            {
+                "name": "iOS 8, iPhone 6 / 6 Plus support",
+                "date": "2014-09-14T19:37:54Z"
+            },
+            {
+                "name": "Bugfixes",
+                "date": "2014-03-27T21:14:44Z"
+            },
+            {
+                "name": "Menu view scale",
+                "date": "2014-03-27T21:15:56Z"
+            },
+            {
+                "name": "Right menu support",
+                "date": "2014-03-27T21:12:57Z"
+            }
+        ]
+    }
+}

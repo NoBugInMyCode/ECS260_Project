@@ -1,0 +1,239 @@
+{
+    "https://api.github.com/repos/arrow-py/arrow": {
+        "forks": 689,
+        "watchers": 8769,
+        "stars": 8769,
+        "languages": {
+            "Python": 656875,
+            "Makefile": 1112
+        },
+        "commits": [
+            "2024-11-20T05:41:58Z",
+            "2024-11-17T19:26:32Z",
+            "2024-11-17T19:13:46Z",
+            "2024-11-06T00:04:38Z",
+            "2024-11-05T23:57:55Z",
+            "2024-10-29T04:30:01Z",
+            "2024-10-29T04:29:00Z",
+            "2024-10-24T05:45:53Z",
+            "2024-10-24T05:45:38Z",
+            "2024-10-22T05:53:15Z",
+            "2024-10-19T14:53:53Z",
+            "2024-10-19T14:53:28Z",
+            "2024-10-19T14:52:29Z",
+            "2024-10-19T14:52:12Z",
+            "2024-10-19T14:51:46Z",
+            "2024-10-18T03:52:48Z",
+            "2024-10-18T03:44:29Z",
+            "2024-10-18T03:33:40Z",
+            "2024-08-27T02:41:18Z",
+            "2024-08-26T00:41:56Z",
+            "2024-08-24T00:49:29Z",
+            "2024-08-24T00:43:24Z",
+            "2024-07-09T04:48:10Z",
+            "2024-06-23T16:31:16Z",
+            "2023-09-30T22:03:06Z",
+            "2023-09-30T21:49:15Z",
+            "2023-09-30T21:07:00Z",
+            "2023-09-30T21:04:59Z",
+            "2023-09-30T20:55:54Z",
+            "2023-09-12T05:30:56Z"
+        ],
+        "creation_date": "2012-11-18T20:23:27Z",
+        "contributors": 30,
+        "topics": [
+            "arrow",
+            "date",
+            "datetime",
+            "hacktoberfest",
+            "python",
+            "time",
+            "timestamp",
+            "timezones"
+        ],
+        "subscribers": 135,
+        "readme": "Arrow: Better dates & times for Python\n======================================\n\n.. start-inclusion-marker-do-not-remove\n\n.. image:: https://github.com/arrow-py/arrow/workflows/tests/badge.svg?branch=master\n   :alt: Build Status\n   :target: https://github.com/arrow-py/arrow/actions?query=workflow%3Atests+branch%3Amaster\n\n.. image:: https://codecov.io/gh/arrow-py/arrow/branch/master/graph/badge.svg\n   :alt: Coverage\n   :target: https://codecov.io/gh/arrow-py/arrow\n\n.. image:: https://img.shields.io/pypi/v/arrow.svg\n   :alt: PyPI Version\n   :target: https://pypi.python.org/pypi/arrow\n\n.. image:: https://img.shields.io/pypi/pyversions/arrow.svg\n   :alt: Supported Python Versions\n   :target: https://pypi.python.org/pypi/arrow\n\n.. image:: https://img.shields.io/pypi/l/arrow.svg\n   :alt: License\n   :target: https://pypi.python.org/pypi/arrow\n\n.. image:: https://img.shields.io/badge/code%20style-black-000000.svg\n   :alt: Code Style: Black\n   :target: https://github.com/psf/black\n\n\n**Arrow** is a Python library that offers a sensible and human-friendly approach to creating, manipulating, formatting and converting dates, times and timestamps. It implements and updates the datetime type, plugging gaps in functionality and providing an intelligent module API that supports many common creation scenarios. Simply put, it helps you work with dates and times with fewer imports and a lot less code.\n\nArrow is named after the `arrow of time <https://en.wikipedia.org/wiki/Arrow_of_time>`_ and is heavily inspired by `moment.js <https://github.com/moment/moment>`_ and `requests <https://github.com/psf/requests>`_.\n\nWhy use Arrow over built-in modules?\n------------------------------------\n\nPython's standard library and some other low-level modules have near-complete date, time and timezone functionality, but don't work very well from a usability perspective:\n\n- Too many modules: datetime, time, calendar, dateutil, pytz and more\n- Too many types: date, time, datetime, tzinfo, timedelta, relativedelta, etc.\n- Timezones and timestamp conversions are verbose and unpleasant\n- Timezone naivety is the norm\n- Gaps in functionality: ISO 8601 parsing, timespans, humanization\n\nFeatures\n--------\n\n- Fully-implemented, drop-in replacement for datetime\n- Support for Python 3.8+\n- Timezone-aware and UTC by default\n- Super-simple creation options for many common input scenarios\n- ``shift`` method with support for relative offsets, including weeks\n- Format and parse strings automatically\n- Wide support for the `ISO 8601 <https://en.wikipedia.org/wiki/ISO_8601>`_ standard\n- Timezone conversion\n- Support for ``dateutil``, ``pytz``, and ``ZoneInfo`` tzinfo objects\n- Generates time spans, ranges, floors and ceilings for time frames ranging from microsecond to year\n- Humanize dates and times with a growing list of contributed locales\n- Extensible for your own Arrow-derived types\n- Full support for PEP 484-style type hints\n\nQuick Start\n-----------\n\nInstallation\n~~~~~~~~~~~~\n\nTo install Arrow, use `pip <https://pip.pypa.io/en/stable/quickstart/>`_ or `pipenv <https://docs.pipenv.org>`_:\n\n.. code-block:: console\n\n    $ pip install -U arrow\n\nExample Usage\n~~~~~~~~~~~~~\n\n.. code-block:: python\n\n    >>> import arrow\n    >>> arrow.get('2013-05-11T21:23:58.970460+07:00')\n    <Arrow [2013-05-11T21:23:58.970460+07:00]>\n\n    >>> utc = arrow.utcnow()\n    >>> utc\n    <Arrow [2013-05-11T21:23:58.970460+00:00]>\n\n    >>> utc = utc.shift(hours=-1)\n    >>> utc\n    <Arrow [2013-05-11T20:23:58.970460+00:00]>\n\n    >>> local = utc.to('US/Pacific')\n    >>> local\n    <Arrow [2013-05-11T13:23:58.970460-07:00]>\n\n    >>> local.timestamp()\n    1368303838.970460\n\n    >>> local.format()\n    '2013-05-11 13:23:58 -07:00'\n\n    >>> local.format('YYYY-MM-DD HH:mm:ss ZZ')\n    '2013-05-11 13:23:58 -07:00'\n\n    >>> local.humanize()\n    'an hour ago'\n\n    >>> local.humanize(locale='ko-kr')\n    '\ud55c\uc2dc\uac04 \uc804'\n\n.. end-inclusion-marker-do-not-remove\n\nDocumentation\n-------------\n\nFor full documentation, please visit `arrow.readthedocs.io <https://arrow.readthedocs.io>`_.\n\nContributing\n------------\n\nContributions are welcome for both code and localizations (adding and updating locales). Begin by gaining familiarity with the Arrow library and its features. Then, jump into contributing:\n\n#. Find an issue or feature to tackle on the `issue tracker <https://github.com/arrow-py/arrow/issues>`_. Issues marked with the `\"good first issue\" label <https://github.com/arrow-py/arrow/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22>`_ may be a great place to start!\n#. Fork `this repository <https://github.com/arrow-py/arrow>`_ on GitHub and begin making changes in a branch.\n#. Add a few tests to ensure that the bug was fixed or the feature works as expected.\n#. Run the entire test suite and linting checks by running one of the following commands: ``tox && tox -e lint,docs`` (if you have `tox <https://tox.readthedocs.io>`_ installed) **OR** ``make build39 && make test && make lint`` (if you do not have Python 3.9 installed, replace ``build39`` with the latest Python version on your system).\n#. Submit a pull request and await feedback \ud83d\ude03.\n\nIf you have any questions along the way, feel free to ask them `here <https://github.com/arrow-py/arrow/discussions>`_.\n\nSupport Arrow\n-------------\n\n`Open Collective <https://opencollective.com/>`_ is an online funding platform that provides tools to raise money and share your finances with full transparency. It is the platform of choice for individuals and companies to make one-time or recurring donations directly to the project. If you are interested in making a financial contribution, please visit the `Arrow collective <https://opencollective.com/arrow>`_.\n",
+        "releases": [
+            {
+                "name": "Version 1.3.0",
+                "date": "2023-09-30T22:11:17Z"
+            },
+            {
+                "name": "Version 1.2.3",
+                "date": "2023-09-30T20:38:22Z"
+            },
+            {
+                "name": "Version 1.2.2",
+                "date": "2022-01-27T15:57:18Z"
+            },
+            {
+                "name": "Version 1.2.1",
+                "date": "2021-10-24T22:20:00Z"
+            },
+            {
+                "name": "Version 1.2.0",
+                "date": "2021-10-22T23:51:39Z"
+            },
+            {
+                "name": "Version 1.1.1",
+                "date": "2021-06-24T15:05:35Z"
+            },
+            {
+                "name": "Version 1.1.0",
+                "date": "2021-04-27T22:46:41Z"
+            },
+            {
+                "name": "Version 1.0.3",
+                "date": "2021-03-07T16:40:09Z"
+            },
+            {
+                "name": "Version 1.0.2",
+                "date": "2021-02-28T22:50:06Z"
+            },
+            {
+                "name": "Version 1.0.1",
+                "date": "2021-02-27T18:11:51Z"
+            },
+            {
+                "name": "Version 1.0.0",
+                "date": "2021-02-26T13:58:19Z"
+            },
+            {
+                "name": "Version 0.17.0",
+                "date": "2020-10-06T20:47:04Z"
+            },
+            {
+                "name": "Version 0.16.0",
+                "date": "2020-08-23T21:49:59Z"
+            },
+            {
+                "name": "Version 0.15.8",
+                "date": "2020-07-24T03:05:15Z"
+            },
+            {
+                "name": "Version 0.15.7",
+                "date": "2020-06-19T17:53:40Z"
+            },
+            {
+                "name": "Version 0.15.6",
+                "date": "2020-05-03T16:11:39Z"
+            },
+            {
+                "name": "Version 0.15.5",
+                "date": "2020-01-03T16:50:26Z"
+            },
+            {
+                "name": "Version 0.15.4",
+                "date": "2019-11-03T02:56:25Z"
+            },
+            {
+                "name": "Version 0.15.3",
+                "date": "2019-11-02T15:54:35Z"
+            },
+            {
+                "name": "Version 0.15.2",
+                "date": "2019-09-14T10:38:55Z"
+            },
+            {
+                "name": "Version 0.15.1",
+                "date": "2019-09-10T17:59:37Z"
+            },
+            {
+                "name": "Version 0.15.0",
+                "date": "2019-09-08T20:55:04Z"
+            },
+            {
+                "name": "Version 0.14.7",
+                "date": "2019-09-04T19:17:11Z"
+            },
+            {
+                "name": "Version 0.14.6",
+                "date": "2019-08-27T17:22:39Z"
+            },
+            {
+                "name": "Version 0.14.5",
+                "date": "2019-08-09T17:20:29Z"
+            },
+            {
+                "name": "Version 0.14.4",
+                "date": "2019-07-30T22:16:33Z"
+            },
+            {
+                "name": "Version 0.14.3",
+                "date": "2019-07-28T19:08:46Z"
+            },
+            {
+                "name": "Version 0.14.2",
+                "date": "2019-06-06T10:59:45Z"
+            },
+            {
+                "name": "Version 0.14.1",
+                "date": "2019-06-06T10:58:01Z"
+            },
+            {
+                "name": "Version 0.14.0",
+                "date": "2019-06-06T10:54:19Z"
+            },
+            {
+                "name": "Version 0.13.2",
+                "date": "2019-05-30T10:55:30Z"
+            },
+            {
+                "name": "Version 0.13.1",
+                "date": "2019-02-17T20:38:31Z"
+            },
+            {
+                "name": "Version 0.13.0",
+                "date": "2019-01-09T17:14:57Z"
+            },
+            {
+                "name": "Version 0.12.1",
+                "date": "2018-12-12T16:16:59Z"
+            },
+            {
+                "name": "Version 0.12.0",
+                "date": "2018-12-12T15:53:49Z"
+            },
+            {
+                "name": "Version 0.11.0",
+                "date": "2018-12-12T15:36:31Z"
+            },
+            {
+                "name": "Version 0.10.0 release",
+                "date": "2016-11-29T17:39:43Z"
+            },
+            {
+                "name": "Version 0.9.0",
+                "date": "2016-11-29T17:40:32Z"
+            },
+            {
+                "name": "PRs and Bug fixes",
+                "date": "2015-07-09T23:58:45Z"
+            },
+            {
+                "name": "Minor tweak to setup.py and update history",
+                "date": "2015-02-26T18:39:59Z"
+            },
+            {
+                "name": "Minor tweaks",
+                "date": "2015-02-25T21:59:45Z"
+            },
+            {
+                "name": "Update version in code",
+                "date": "2015-01-23T17:41:05Z"
+            },
+            {
+                "name": "Update meta data version number",
+                "date": "2015-01-22T21:16:22Z"
+            },
+            {
+                "name": "PRs, lang fixes, bug fixes",
+                "date": "2015-01-22T11:46:51Z"
+            },
+            {
+                "name": "Mostly language and typo fixes.",
+                "date": "2015-01-22T09:10:49Z"
+            }
+        ]
+    }
+}

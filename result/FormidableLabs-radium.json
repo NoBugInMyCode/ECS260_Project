@@ -1,0 +1,48 @@
+{
+    "https://api.github.com/repos/FormidableLabs/radium": {
+        "forks": 308,
+        "watchers": 7382,
+        "stars": 7382,
+        "languages": {
+            "JavaScript": 190471
+        },
+        "commits": [
+            "2022-08-19T13:33:56Z",
+            "2022-03-02T23:27:23Z",
+            "2022-03-02T22:57:05Z",
+            "2022-03-02T22:56:08Z",
+            "2022-03-02T22:48:14Z",
+            "2021-05-27T16:11:11Z",
+            "2020-10-14T04:05:50Z",
+            "2020-09-29T19:23:57Z",
+            "2020-09-29T19:16:03Z",
+            "2020-09-25T17:07:42Z",
+            "2020-09-25T17:07:23Z",
+            "2020-09-24T15:24:55Z",
+            "2020-09-24T15:24:38Z",
+            "2020-09-24T15:19:45Z",
+            "2020-09-24T15:19:23Z",
+            "2020-09-24T15:19:12Z",
+            "2020-09-24T15:18:55Z",
+            "2020-09-24T15:17:48Z",
+            "2020-08-03T19:07:07Z",
+            "2019-12-30T21:23:34Z",
+            "2019-12-30T21:00:56Z",
+            "2019-12-28T04:18:58Z",
+            "2019-09-05T18:04:24Z",
+            "2019-09-05T18:03:32Z",
+            "2019-09-05T17:52:06Z",
+            "2019-06-08T04:33:35Z",
+            "2019-06-08T04:32:08Z",
+            "2019-06-07T17:36:49Z",
+            "2019-05-17T22:11:34Z",
+            "2019-05-17T22:10:10Z"
+        ],
+        "creation_date": "2015-01-09T19:35:59Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 149,
+        "readme": "[![Maintenance Status][maintenance-image]](#maintenance-status)\n[![Travis Status][trav_img]][trav_site]\n[![AppVeyor Status][appveyor_img]][appveyor_site]\n[![Coverage Status][cov_img]][cov_site]\n[![NPM Package][npm_img]][npm_site]\n[![Dependency Status][david_img]][david_site]\n![gzipped size][size_img]\n\n# Radium\n\n```sh\nyarn add radium\n# or\nnpm install --save radium\n```\n\nRadium is a set of tools to manage inline styles on React elements. It gives you powerful styling capabilities without CSS.\n\n_Inspired by_ <a href=\"https://speakerdeck.com/vjeux/react-css-in-js\">React: CSS in JS</a>\nby <a href=\"https://twitter.com/Vjeux\">vjeux</a>.\n\n## Maintenance Status\n\n**Archived:** This project is no longer maintained by Formidable. We are no longer responding to issues or pull requests unless they relate to security concerns. We encourage interested developers to fork this project and make it their own!\n\n## Overview\n\nEliminating CSS in favor of inline styles that are computed on the fly is a powerful approach, providing a number of benefits over traditional CSS:\n\n- Scoped styles without selectors\n- Avoids specificity conflicts\n- Source order independence\n- Dead code elimination\n- Highly expressive\n\nDespite that, there are some common CSS features and techniques that inline styles don't easily accommodate: media queries, browser states (:hover, :focus, :active) and modifiers (no more .btn-primary!). Radium offers a standard interface and abstractions for dealing with these problems.\n\nWhen we say expressive, we mean it: math, concatenation, regex, conditionals, functions\u2013JavaScript is at your disposal. Modern web applications demand that the display changes when data changes, and Radium is here to help.\n\nFor a short technical explanation, see [How does Radium work?](#how-does-radium-work).\n\n## Features\n\n- Conceptually simple extension of normal inline styles\n- Browser state styles to support `:hover`, `:focus`, and `:active`\n- Media queries\n- Automatic vendor prefixing\n- Keyframes animation helper\n- ES6 class and `createClass` support\n\n## Docs\n\n- [Overview][docs_guides]\n- [API Docs][docs_api]\n- [Frequently Asked Questions (FAQ)][docs_faq]\n\n## Usage\n\nStart by wrapping your component class with `Radium()`, like `export default Radium(Component)`, or `Component = Radium(Component)`, which works with classes, `createClass`, and stateless components (functions that take props and return a ReactElement). Then, write a style object as you normally would with inline styles, and add in styles for interactive states and media queries. Pass the style object to your component via `style={...}` and let Radium do the rest!\n\n```jsx\n<Button kind=\"primary\">Radium Button</Button>\n```\n\n```jsx\nimport Radium from 'radium';\nimport React from 'react';\nimport color from 'color';\n\nclass Button extends React.Component {\n  static propTypes = {\n    kind: PropTypes.oneOf(['primary', 'warning']).isRequired\n  };\n\n  render() {\n    // Radium extends the style attribute to accept an array. It will merge\n    // the styles in order. We use this feature here to apply the primary\n    // or warning styles depending on the value of the `kind` prop. Since its\n    // all just JavaScript, you can use whatever logic you want to decide which\n    // styles are applied (props, state, context, etc).\n    return (\n      <button style={[styles.base, styles[this.props.kind]]}>\n        {this.props.children}\n      </button>\n    );\n  }\n}\n\nButton = Radium(Button);\n\n// You can create your style objects dynamically or share them for\n// every instance of the component.\nvar styles = {\n  base: {\n    color: '#fff',\n\n    // Adding interactive state couldn't be easier! Add a special key to your\n    // style object (:hover, :focus, :active, or @media) with the additional rules.\n    ':hover': {\n      background: color('#0074d9')\n        .lighten(0.2)\n        .hexString()\n    }\n  },\n\n  primary: {\n    background: '#0074D9'\n  },\n\n  warning: {\n    background: '#FF4136'\n  }\n};\n```\n\n## Importing Radium\n\nAs of `v0.22.x`, Radium is built as an ECMAScript Modules-first project. We now have a `package.json:module` entry pointing to our library files with `import|export` statements instead of CommonJS `require`s. We still support CommonJS `require`s with a special `package.json:main` entry pointing to root `index.js` to smooth over this transition. The basic takeaways are:\n\nIf you are using **ESM** with **webpack** or **`@std/esm`** with **Node.js**, imports like the following work fine without any gotchas:\n\n```js\nimport Radium from 'radium';\nimport Radium, {Style} from 'radium';\n```\n\nIf you are using **CommonJS** with **Node.js** or **webpack@1** requires work like normal:\n\n```js\nconst Radium = require('radium');\nconst {Style} = require('radium');\n```\n\nIf you are using **CommonJS** with **webpack@2+**, however, you must instead add `.default` to the root `Radium` object import:\n\n```js\nconst Radium = require('radium').default; // CHANGED: Must add `.default`\nconst {Style} = require('radium'); // Works as per normal\n```\n\nIf you cannot change the `require` statements directly (say Radium is included from a different library your project depends on) you can manually tweak the Radium import in your project's webpack configuration with the following:\n\n```js\nresolve: {\n  alias: {\n    radium: require.resolve('radium/index');\n  }\n}\n```\n\nwhich will allow `const Radium = require('radium');` to still work. The configuration effectively forces webpack to point to code from `package.json:main` (which points to `/index.js`) instead of what is in `package.json:module`.\n\n_Note:_ Radium uses `Reflect` which is not supported in IE11. You will need to bring in a polyfill like [CoreJs](https://github.com/zloirock/core-js#ecmascript-reflect) in order to support <IE11.\n\n## Examples\n\nTo see the universal examples:\n\n```\nnpm install\nnpm run universal\n```\n\nTo see local client-side only examples in action, do this:\n\n```\nnpm install\nnpm run examples\n```\n\n## How does Radium work?\n\nFollowing is a short technical explanation of Radium's inner workings:\n\n- Wrap the `render` function\n- Recurse into the result of the original `render`\n- For each element:\n  - Add handlers to props if interactive styles are specified, e.g. `onMouseEnter` for `:hover`, wrapping existing handlers if necessary\n  - If any of the handlers are triggered, e.g. by hovering, Radium calls `setState` to update a Radium-specific field on the components state object\n  - On re-render, resolve any interactive styles that apply, e.g. `:hover`, by looking up the element's key or ref in the Radium-specific state\n\n## More with Radium\n\nYou can find a list of other tools, components, and frameworks to help you build with Radium on our [wiki](https://github.com/FormidableLabs/radium/wiki). Contributions welcome!\n\n## Contributing\n\nPlease see [CONTRIBUTING](https://github.com/FormidableLabs/radium/blob/master/CONTRIBUTING.md)\n\n[trav_img]: https://api.travis-ci.com/FormidableLabs/radium.svg\n[trav_site]: https://travis-ci.com/FormidableLabs/radium\n[cov_img]: https://img.shields.io/coveralls/FormidableLabs/radium.svg\n[cov_site]: https://coveralls.io/r/FormidableLabs/radium\n[npm_img]: https://img.shields.io/npm/v/radium.svg\n[npm_site]: https://www.npmjs.org/package/radium\n[david_img]: https://img.shields.io/david/FormidableLabs/radium.svg\n[david_site]: https://david-dm.org/FormidableLabs/radium\n[size_img]: https://badges.herokuapp.com/size/npm/radium/dist/radium.min.js?gzip=true&label=gzipped\n[docs_guides]: https://github.com/FormidableLabs/radium/tree/master/docs/guides\n[docs_api]: https://github.com/FormidableLabs/radium/tree/master/docs/api\n[docs_faq]: https://github.com/FormidableLabs/radium/tree/master/docs/faq\n[appveyor_img]: https://ci.appveyor.com/api/projects/status/github/formidablelabs/radium?branch=master&svg=true\n[appveyor_site]: https://ci.appveyor.com/project/ryan-roemer/radium\n[maintenance-image]: https://img.shields.io/badge/maintenance-archived-red.svg\n",
+        "releases": []
+    }
+}

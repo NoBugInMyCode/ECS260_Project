@@ -1,0 +1,77 @@
+{
+    "https://api.github.com/repos/CreateJS/EaselJS": {
+        "forks": 1964,
+        "watchers": 8156,
+        "stars": 8156,
+        "languages": {
+            "JavaScript": 2232485,
+            "HTML": 106736,
+            "SCSS": 71463,
+            "Handlebars": 34680,
+            "CSS": 21061
+        },
+        "commits": [
+            "2024-09-10T14:53:00Z",
+            "2024-09-10T14:51:36Z",
+            "2024-09-10T14:49:01Z",
+            "2022-06-26T13:22:21Z",
+            "2022-06-26T12:31:50Z",
+            "2021-04-02T16:51:43Z",
+            "2021-03-27T14:45:06Z",
+            "2021-03-27T14:22:27Z",
+            "2020-12-30T23:19:59Z",
+            "2020-10-29T11:23:45Z",
+            "2020-10-24T15:00:57Z",
+            "2020-10-02T04:48:29Z",
+            "2020-08-12T23:26:24Z",
+            "2020-07-15T20:47:09Z",
+            "2020-07-14T15:46:09Z",
+            "2020-02-29T05:47:23Z",
+            "2019-03-16T18:42:04Z",
+            "2019-03-16T17:13:34Z",
+            "2019-02-16T13:28:02Z",
+            "2019-01-30T18:15:21Z",
+            "2019-01-30T17:52:49Z",
+            "2019-01-30T15:53:38Z",
+            "2019-01-27T01:35:44Z",
+            "2018-11-21T16:33:36Z",
+            "2018-11-21T16:33:09Z",
+            "2018-11-08T22:05:12Z",
+            "2018-10-24T17:28:47Z",
+            "2018-10-22T22:05:58Z",
+            "2018-10-22T21:25:00Z",
+            "2018-10-22T20:01:41Z"
+        ],
+        "creation_date": "2011-01-22T01:36:07Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 374,
+        "readme": "# EaselJS\n\nEaselJS is a library for building high-performance interactive 2D content in HTML5. It provides a feature-rich display \nlist to allow you to manipulate and animate graphics. It also provides a robust interactive model for mouse and touch \ninteractions.\n\nIt is excellent for building games, generative art, ads, data visualization, and other highly graphical experiences. It \nworks well alone, or with the rest of the [CreateJS](http://createjs.com/) suite: [SoundJS](http://createjs.com/soundjs), \n[PreloadJS](http://createjs.com/preloadjs), and [TweenJS](http://createjs.com/tweenjs).\n\nIt has no external dependencies, and should be compatible with virtually any framework you enjoy using.\n\n## Simple Example\n\n```javascript\n//Draw a square on screen.\nvar stage = new createjs.Stage('myCanvas');\nvar shape = new createjs.Shape();\nshape.graphics.beginFill('red').drawRect(0, 0, 120, 120);\nstage.addChild(shape);\nstage.update();\n```\n\n## Sprite Animation Example\n```javascript\nvar ss = new createjs.SpriteSheet({\n\tframes: {\n\t\twidth: 32,\n\t\theight: 64,\n\t\tnumFrames: 19\n\t},\n\tanimations: {run: [0, 25], jump: [26, 63, \"run\"]},\n\timages: [\"./assets/runningGrant.png\"]\n});\n\t\nvar sprite = new createjs.Sprite(ss, \"run\");\nsprite.scaleY = sprite.scaleX = 0.4;\nstage.addChild(sprite);\n\t\nsprite.on(\"click\", function() { sprite.gotoAndPlay(\"jump\"); });\n\t\ncreatejs.Ticker.on(\"tick\", stage);\n```\n\n## Support and Resources\n* Find examples and more information at the [EaselJS web site](http://easeljs.com/).\n* Read the [documentation](http://createjs.com/docs/easeljs).\n* Discuss, share projects, and interact with other users on [reddit](http://www.reddit.com/r/createjs/).\n* Ask technical questions on [Stack Overflow](http://stackoverflow.com/questions/tagged/easeljs).\n* File verified bugs or formal feature requests using Issues on [GitHub](https://github.com/createjs/EaselJS/issues).\n* There is a [Google Group](http://groups.google.com/group/createjs-discussion) for discussions and support.\n* Have a look at the included [examples](https://github.com/CreateJS/EaselJS/tree/master/examples) and \n[API documentation](http://createjs.com/docs/easeljs/) for more in-depth information.\n\nIt was built by [gskinner.com](http://www.gskinner.com), and is released for free under the MIT license, which means you\ncan use it for almost any purpose (including commercial projects). We appreciate credit where possible, but it is not a \nrequirement.\n\n\n## Classes\n\nThe API is inspired in part by Flash's display list, and should be easy to pick up for both JS and AS3 developers. Check \nout the [docs](http://createjs.com/docs/easeljs/) for more information.\n\n**DisplayObject**\nAbstract base class for all display elements in EaselJS. Exposes all of the display properties (ex. x, y, rotation, \nscaleX, scaleY, skewX, skewY, alpha, shadow, etc) that are common to all display objects.\n\n**Stage**\nThe root level display container for display elements. Each time tick() is called on Stage, it will update and render \nthe display list to its associated canvas.\n\n**Container**\nA nestable display container, which lets you aggregate display objects and manipulate them as a group.\n\n**Bitmap**\nDraws an image, video or canvas to the canvas according to its display properties.\n\n**Sprite**\nDisplays single frames or animations from sprite sheets, and provides APIs for managing playback and sequencing.\n\n**Shape**\nRenders a Graphics object within the context of the display list.\n\n**Graphics**\nProvides an easy to use API for drawing vector data. Can be used with Shape, or completely stand alone.\n\n**Text**\nRenders a single line of text to the stage.\n\n**BitmapText**\nRenders text using a SpriteSheet of letter.\n\n**DOMElement**\nAn experimental display object that allows you to manage an HTML element as a part of the display list.\n\n**Filter**\nThe base filter class that other filters (ex. BlurFilter, ColorMatrixFilter, etc) extend.\n\n\nThere are also a few helper classes included:\n\n**Shadow**\nDefines all of the properties needed to display a shadow on a display object.\n\n**Ticker**\nProvides a pausable centralized tick manager for ticking Stage instances or other time based code.\n\n**UID**\nVery simple class that provides global, incremental unique numeric IDs.\n\n**SpriteSheet**\nEncapsulates all the data associated with a sprite sheet to be used with Sprite.\n\n**SpriteSheetUtils**\nContains utility methods for extending existing sprite sheets with flipped frames and extracting individual frames.\n\n**SpriteSheetBuilder**\nBuild a bitmap SpriteSheet from vector graphics at run time. Get the filesize savings of vector, with the performance\nof a SpriteSheet.\n\n**Matrix2D**\nRepresents a 3x3 affine transformation matrix. Used internally for calculating concatenated transformations.\n\n**Rectangle**\nRepresents a rectangle as defined by the points (x, y) and (x+width, y+height).\n\n**Point**\nRepresents a point on a 2 dimensional x / y coordinate system.\n\nA WebGL implementation currently exists, but is limited.\n\n**StageGL**\nA drop-in replacement for the EaselJS Stage class that fully supports a WebGL pipeline. StageGL will draw most Bitmap-\nbased content, including any cached DisplayObjects.\n\n**WebGLInspector**\nA utility and helper class designed to work with StageGL to help investigate and test performance or display problems. \n",
+        "releases": [
+            {
+                "name": "Version 1.0.0",
+                "date": "2017-09-15T19:52:06Z"
+            },
+            {
+                "name": "Version 0.8.2",
+                "date": "2015-12-04T17:44:03Z"
+            },
+            {
+                "name": "Version 0.8.1",
+                "date": "2015-05-27T18:22:36Z"
+            },
+            {
+                "name": "Version 0.8.0",
+                "date": "2014-12-19T19:14:34Z"
+            },
+            {
+                "name": "Version 0.7.1",
+                "date": "2014-02-18T22:02:03Z"
+            },
+            {
+                "name": "Version 0.7.0",
+                "date": "2014-02-18T22:11:27Z"
+            }
+        ]
+    }
+}

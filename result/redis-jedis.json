@@ -1,0 +1,494 @@
+{
+    "https://api.github.com/repos/redis/jedis": {
+        "forks": 3875,
+        "watchers": 11941,
+        "stars": 11941,
+        "languages": {
+            "Java": 5784817,
+            "Makefile": 15632,
+            "C": 12510,
+            "JavaScript": 2092
+        },
+        "commits": [
+            "2025-01-21T15:05:29Z",
+            "2025-01-20T13:30:14Z",
+            "2025-01-19T06:46:50Z",
+            "2025-01-19T06:30:24Z",
+            "2025-01-19T06:24:31Z",
+            "2025-01-16T20:27:16Z",
+            "2025-01-16T19:51:49Z",
+            "2025-01-16T19:51:03Z",
+            "2025-01-16T19:50:25Z",
+            "2025-01-16T18:49:07Z",
+            "2025-01-15T16:45:56Z",
+            "2025-01-15T16:06:17Z",
+            "2025-01-15T15:08:59Z",
+            "2025-01-15T10:44:30Z",
+            "2025-01-14T14:19:32Z",
+            "2025-01-14T11:35:07Z",
+            "2025-01-14T11:13:48Z",
+            "2025-01-06T13:27:34Z",
+            "2024-12-29T09:46:48Z",
+            "2024-12-20T16:18:51Z",
+            "2024-12-11T19:07:27Z",
+            "2024-12-07T12:48:55Z",
+            "2024-12-02T12:16:17Z",
+            "2024-11-27T16:10:50Z",
+            "2024-11-27T15:50:55Z",
+            "2024-11-20T11:54:56Z",
+            "2024-11-19T11:14:31Z",
+            "2024-11-18T08:18:38Z",
+            "2024-11-17T11:12:57Z",
+            "2024-11-11T17:00:41Z"
+        ],
+        "creation_date": "2010-06-11T13:04:43Z",
+        "contributors": 30,
+        "topics": [
+            "java",
+            "jedis",
+            "redis",
+            "redis-client",
+            "redis-cluster"
+        ],
+        "subscribers": 680,
+        "readme": "# Jedis\n\n[![Release](https://img.shields.io/github/release/redis/jedis.svg?sort=semver)](https://github.com/redis/jedis/releases/latest)\n[![Maven Central](https://img.shields.io/maven-central/v/redis.clients/jedis.svg)](https://search.maven.org/artifact/redis.clients/jedis)\n[![Javadocs](https://www.javadoc.io/badge/redis.clients/jedis.svg)](https://www.javadoc.io/doc/redis.clients/jedis)\n[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE.txt)\n[![Integration](https://github.com/redis/jedis/actions/workflows/integration.yml/badge.svg?branch=master)](https://github.com/redis/jedis/actions/workflows/integration.yml)\n[![codecov](https://codecov.io/gh/redis/jedis/branch/master/graph/badge.svg?token=pAstxAAjYo)](https://codecov.io/gh/redis/jedis)\n[![Discord](https://img.shields.io/discord/697882427875393627?style=flat-square)](https://discord.gg/redis)\n\n## What is Jedis?\n\nJedis is a Java client for [Redis](https://github.com/redis/redis \"Redis\") designed for performance and ease of use.\n\nAre you looking for a high-level library to handle object mapping? See [redis-om-spring](https://github.com/redis/redis-om-spring)!\n\n## How do I Redis?\n\n[Learn for free at Redis University](https://university.redis.io/academy/)\n\n[Try the Redis Cloud](https://redis.io/try-free/)\n\n[Dive in developer tutorials](https://redis.io/learn/)\n\n[Join the Redis community](https://redis.io/community/)\n\n[Work at Redis](https://redis.io/careers/jobs/)\n\n## Supported Redis versions\n\nThe most recent version of this library supports redis version \n[5.0](https://github.com/redis/redis/blob/5.0/00-RELEASENOTES), \n[6.0](https://github.com/redis/redis/blob/6.0/00-RELEASENOTES), \n[6.2](https://github.com/redis/redis/blob/6.2/00-RELEASENOTES), \n[7.0](https://github.com/redis/redis/blob/7.0/00-RELEASENOTES), \n[7.2](https://github.com/redis/redis/blob/7.2/00-RELEASENOTES) and \n[7.4](https://github.com/redis/redis/blob/7.4/00-RELEASENOTES).\n\nThe table below highlights version compatibility of the most-recent library versions and Redis versions. Compatibility means communication features, and Redis command capabilities.\n\n\n| Jedis version | Supported Redis versions              | JDK Compatibility |\n|---------------|---------------------------------------|-------------------|\n| 3.9+          | 5.0 to 6.2 Family of releases         | 8, 11             |\n| >= 4.0        | Version 5.0 to 7.2 Family of releases | 8, 11, 17         |\n| >= 5.0        | Version 6.0 to current                | 8, 11, 17, 21     |\n| >= 5.2        | Version 7.2 to current                | 8, 11, 17, 21     |\n\n## Getting started\n\nTo get started with Jedis, first add it as a dependency in your Java project. If you're using Maven, that looks like this:\n\n```xml\n<dependency>\n    <groupId>redis.clients</groupId>\n    <artifactId>jedis</artifactId>\n    <version>5.2.0</version>\n</dependency>\n```\n\nTo use the cutting-edge Jedis, check [here](/docs/jedis-maven.md).\n\nNext, you'll need to connect to Redis. Consider installing a redis-stack docker:\n\n```bash\ndocker run -p 6379:6379 -it redis/redis-stack:latest\n```\n\nFor many applications, it's best to use a connection pool. You can instantiate a Jedis connection pool like so:\n\n```java\nJedisPool pool = new JedisPool(\"localhost\", 6379);\n```\n\nWith a `JedisPool` instance, you can use a\n[try-with-resources](https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html)\nblock to get a connection and run Redis commands.\n\nHere's how to run a single [SET](https://redis.io/commands/set) command within a *try-with-resources* block:\n\n```java\ntry (Jedis jedis = pool.getResource()) {\n  jedis.set(\"clientName\", \"Jedis\");\n}\n```\n\n`Jedis` instances implement most Redis commands. See the\n[Jedis Javadocs](https://www.javadoc.io/doc/redis.clients/jedis/latest/redis/clients/jedis/Jedis.html)\nfor the complete list of supported commands.\n\n### Easier way of using connection pool\n\nUsing a *try-with-resources* block for each command may be cumbersome, so you may consider using JedisPooled.\n\n```java\nJedisPooled jedis = new JedisPooled(\"localhost\", 6379);\n```\n\nNow you can send commands like sending from Jedis.\n\n```java\njedis.sadd(\"planets\", \"Venus\");\n```\n\n## Connecting to a Redis cluster\n\nJedis lets you connect to Redis Clusters, supporting the [Redis Cluster Specification](https://redis.io/topics/cluster-spec).\nTo do this, you'll need to connect using `JedisCluster`. See the example below:\n\n```java\nSet<HostAndPort> jedisClusterNodes = new HashSet<HostAndPort>();\njedisClusterNodes.add(new HostAndPort(\"127.0.0.1\", 7379));\njedisClusterNodes.add(new HostAndPort(\"127.0.0.1\", 7380));\nJedisCluster jedis = new JedisCluster(jedisClusterNodes);\n```\n\nNow you can use the `JedisCluster` instance and send commands like you would with a standard pooled connection:\n\n```java\njedis.sadd(\"planets\", \"Mars\");\n```\n\n## Using Redis modules\n\nJedis includes support for [Redis modules](https://redis.io/docs/modules/) such as\n[RedisJSON](https://redis.io/json/) and [RediSearch](https://redis.io/search/).\n\nSee the [RedisJSON Jedis](docs/redisjson.md) or [RediSearch Jedis](docs/redisearch.md) for details.\n\n## Failover\n\nJedis supports retry and failover for your Redis deployments. This is useful when:\n\n1. You have more than one Redis deployment. This might include two independent Redis servers or two or more Redis databases replicated across multiple [active-active Redis Enterprise](https://redis.io/docs/latest/operate/rs/databases/active-active/) clusters.\n2. You want your application to connect to one deployment at a time and to fail over to the next available deployment if the first deployment becomes unavailable.\n\nFor the complete failover configuration options and examples, see the [Jedis failover docs](docs/failover.md).\n\n## Documentation\n\nThe [Jedis wiki](http://github.com/redis/jedis/wiki) contains several useful articles for using Jedis.\n\nYou can also check the [latest Jedis Javadocs](https://www.javadoc.io/doc/redis.clients/jedis/latest/index.html).\n\nSome specific use-case examples can be found in [`redis.clients.jedis.examples`\npackage](src/test/java/redis/clients/jedis/examples/) of the test source codes.\n\n## Troubleshooting\n\nIf you run into trouble or have any questions, we're here to help!\n\nHit us up on the [Redis Discord Server](http://discord.gg/redis) or \n[Jedis GitHub Discussions](https://github.com/redis/jedis/discussions) or \n[Jedis mailing list](http://groups.google.com/group/jedis_redis).\n\n## Contributing\n\nWe'd love your contributions!\n\nBug reports are always welcome! [You can open a bug report on GitHub](https://github.com/redis/jedis/issues/new).\n\nYou can also contribute documentation -- or anything to improve Jedis. Please see\n[contribution guideline](https://github.com/redis/jedis/blob/master/.github/CONTRIBUTING.md) for more details.\n\n## License\n\nJedis is licensed under the [MIT license](https://github.com/redis/jedis/blob/master/LICENSE).\n\n## Sponsorship\n\n[![Redis Logo](redis-logo-full-color-rgb.png)](https://redis.io/)\n",
+        "releases": [
+            {
+                "name": "5.3.0-beta1",
+                "date": "2024-12-20T16:32:42Z"
+            },
+            {
+                "name": "5.2.0 GA",
+                "date": "2024-09-27T14:03:50Z"
+            },
+            {
+                "name": "5.2.0-beta5",
+                "date": "2024-08-29T15:30:53Z"
+            },
+            {
+                "name": "5.1.5",
+                "date": "2024-08-22T10:48:02Z"
+            },
+            {
+                "name": "5.1.4",
+                "date": "2024-07-29T13:29:37Z"
+            },
+            {
+                "name": "5.2.0-beta4",
+                "date": "2024-06-10T19:00:22Z"
+            },
+            {
+                "name": "5.2.0-beta3",
+                "date": "2024-06-06T19:02:39Z"
+            },
+            {
+                "name": "5.1.3",
+                "date": "2024-05-21T11:37:55Z"
+            },
+            {
+                "name": "5.2.0-beta2",
+                "date": "2024-05-07T10:31:20Z"
+            },
+            {
+                "name": "4.4.8",
+                "date": "2024-04-04T08:29:11Z"
+            },
+            {
+                "name": "5.2.0-beta1",
+                "date": "2024-03-11T02:20:43Z"
+            },
+            {
+                "name": "5.1.2",
+                "date": "2024-03-06T11:16:05Z"
+            },
+            {
+                "name": "5.2.0-alpha3",
+                "date": "2024-02-26T05:31:00Z"
+            },
+            {
+                "name": "4.4.7",
+                "date": "2024-02-26T06:28:36Z"
+            },
+            {
+                "name": "5.1.1",
+                "date": "2024-02-26T06:09:33Z"
+            },
+            {
+                "name": "5.2.0-alpha2",
+                "date": "2023-12-28T16:19:57Z"
+            },
+            {
+                "name": "5.2.0-alpha1",
+                "date": "2023-12-28T13:22:04Z"
+            },
+            {
+                "name": "5.1.0",
+                "date": "2023-11-21T09:02:19Z"
+            },
+            {
+                "name": "5.0.2",
+                "date": "2023-10-19T11:20:25Z"
+            },
+            {
+                "name": "4.4.6",
+                "date": "2023-10-19T11:04:07Z"
+            },
+            {
+                "name": "5.0.1",
+                "date": "2023-09-26T11:01:47Z"
+            },
+            {
+                "name": "4.4.5",
+                "date": "2023-09-26T11:52:26Z"
+            },
+            {
+                "name": "5.0.0",
+                "date": "2023-09-03T09:41:09Z"
+            },
+            {
+                "name": "4.4.4",
+                "date": "2023-09-03T12:42:07Z"
+            },
+            {
+                "name": "5.0.0-beta2",
+                "date": "2023-06-14T13:49:25Z"
+            },
+            {
+                "name": "4.4.3",
+                "date": "2023-06-14T09:58:49Z"
+            },
+            {
+                "name": "4.4.2",
+                "date": "2023-06-07T10:42:39Z"
+            },
+            {
+                "name": "5.0.0-beta1",
+                "date": "2023-05-21T10:02:16Z"
+            },
+            {
+                "name": "4.4.1",
+                "date": "2023-05-17T10:13:53Z"
+            },
+            {
+                "name": "5.0.0-alpha2",
+                "date": "2023-05-08T10:55:03Z"
+            },
+            {
+                "name": "4.4.0",
+                "date": "2023-05-08T11:08:11Z"
+            },
+            {
+                "name": "4.4.0-rc1",
+                "date": "2023-04-27T05:24:15Z"
+            },
+            {
+                "name": "3.10.0",
+                "date": "2023-04-27T06:09:12Z"
+            },
+            {
+                "name": "5.0.0-alpha1",
+                "date": "2023-03-28T07:34:17Z"
+            },
+            {
+                "name": "4.3.2",
+                "date": "2023-03-21T17:40:10Z"
+            },
+            {
+                "name": "4.4.0-m2",
+                "date": "2023-02-01T12:49:02Z"
+            },
+            {
+                "name": "4.4.0-m1",
+                "date": "2022-12-13T13:00:30Z"
+            },
+            {
+                "name": "4.3.1",
+                "date": "2022-10-20T09:38:56Z"
+            },
+            {
+                "name": "4.3.0",
+                "date": "2022-10-09T10:10:01Z"
+            },
+            {
+                "name": "4.3.0-m2",
+                "date": "2022-09-20T09:38:33Z"
+            },
+            {
+                "name": "4.3.0-m1",
+                "date": "2022-08-10T10:53:40Z"
+            },
+            {
+                "name": "3.9.0",
+                "date": "2022-06-02T09:35:10Z"
+            },
+            {
+                "name": "4.2.3",
+                "date": "2022-05-08T11:28:55Z"
+            },
+            {
+                "name": "4.2.2",
+                "date": "2022-04-12T10:11:32Z"
+            },
+            {
+                "name": "4.2.1",
+                "date": "2022-03-31T07:34:54Z"
+            },
+            {
+                "name": "4.2.0",
+                "date": "2022-03-23T13:46:48Z"
+            },
+            {
+                "name": "4.2.0-rc1",
+                "date": "2022-03-20T13:15:43Z"
+            },
+            {
+                "name": "4.2.0-m1",
+                "date": "2022-03-10T10:41:08Z"
+            },
+            {
+                "name": "4.1.1",
+                "date": "2022-01-31T11:17:03Z"
+            },
+            {
+                "name": "4.1.0",
+                "date": "2022-01-26T05:45:23Z"
+            },
+            {
+                "name": "4.0.1",
+                "date": "2021-12-29T13:10:30Z"
+            },
+            {
+                "name": "4.0.0",
+                "date": "2021-12-19T11:34:34Z"
+            },
+            {
+                "name": "3.8.0",
+                "date": "2021-12-19T11:13:41Z"
+            },
+            {
+                "name": "4.0.0-rc2",
+                "date": "2021-12-12T09:22:43Z"
+            },
+            {
+                "name": "3.7.1",
+                "date": "2021-12-12T08:30:24Z"
+            },
+            {
+                "name": "4.0.0-RC1",
+                "date": "2021-12-09T10:31:33Z"
+            },
+            {
+                "name": "4.0.0-beta4",
+                "date": "2021-11-28T05:24:24Z"
+            },
+            {
+                "name": "4.0.0-beta3",
+                "date": "2021-11-14T10:35:45Z"
+            },
+            {
+                "name": "4.0.0-beta2",
+                "date": "2021-11-04T11:50:55Z"
+            },
+            {
+                "name": "4.0.0-beta1",
+                "date": "2021-10-31T09:55:48Z"
+            },
+            {
+                "name": "3.7.0",
+                "date": "2021-08-31T05:52:09Z"
+            },
+            {
+                "name": "3.7.0-RC1",
+                "date": "2021-08-25T15:11:16Z"
+            },
+            {
+                "name": "3.6.3",
+                "date": "2021-07-20T16:06:24Z"
+            },
+            {
+                "name": "3.6.2",
+                "date": "2021-07-15T17:44:01Z"
+            },
+            {
+                "name": "3.6.1",
+                "date": "2021-06-13T12:28:25Z"
+            },
+            {
+                "name": "3.6.0",
+                "date": "2021-04-20T08:30:35Z"
+            },
+            {
+                "name": "3.6.0-RC1",
+                "date": "2021-03-31T10:44:37Z"
+            },
+            {
+                "name": "3.5.2",
+                "date": "2021-03-15T16:40:57Z"
+            },
+            {
+                "name": "3.5.1",
+                "date": "2021-01-23T15:10:34Z"
+            },
+            {
+                "name": "3.5.0",
+                "date": "2021-01-19T19:36:28Z"
+            },
+            {
+                "name": "3.4.1",
+                "date": "2020-12-27T11:22:39Z"
+            },
+            {
+                "name": "3.4.0",
+                "date": "2020-12-10T09:54:06Z"
+            },
+            {
+                "name": "3.3.0",
+                "date": "2020-05-03T16:04:13Z"
+            },
+            {
+                "name": "3.2.0",
+                "date": "2019-12-15T16:14:13Z"
+            },
+            {
+                "name": "3.1.0 ",
+                "date": "2019-07-23T06:47:36Z"
+            },
+            {
+                "name": "3.1.0-rc2",
+                "date": "2019-07-21T12:06:45Z"
+            },
+            {
+                "name": "3.1.0-rc",
+                "date": "2019-07-17T07:55:52Z"
+            },
+            {
+                "name": "3.1.0-m4",
+                "date": "2019-07-04T07:14:00Z"
+            },
+            {
+                "name": "3.1.0-m3",
+                "date": "2019-06-17T11:09:30Z"
+            },
+            {
+                "name": "3.1.0-m2",
+                "date": "2019-06-11T08:04:36Z"
+            },
+            {
+                "name": "3.1.0-m1",
+                "date": "2019-03-26T16:35:18Z"
+            },
+            {
+                "name": "2.9.3",
+                "date": "2019-03-05T12:18:32Z"
+            },
+            {
+                "name": "2.9.2",
+                "date": "2019-02-18T14:18:13Z"
+            },
+            {
+                "name": "2.10.2",
+                "date": "2019-01-20T07:59:42Z"
+            },
+            {
+                "name": "3.0.1",
+                "date": "2018-12-25T09:06:19Z"
+            },
+            {
+                "name": "2.10.1",
+                "date": "2018-12-25T08:50:05Z"
+            },
+            {
+                "name": "3.0.0",
+                "date": "2018-12-06T10:59:11Z"
+            },
+            {
+                "name": "2.9.1",
+                "date": "2018-12-06T11:51:04Z"
+            },
+            {
+                "name": "2.10.0",
+                "date": "2018-12-06T10:57:20Z"
+            },
+            {
+                "name": "3.0.0-m1",
+                "date": "2018-11-21T07:45:12Z"
+            },
+            {
+                "name": "2.10.0-m1",
+                "date": "2018-11-21T07:46:13Z"
+            },
+            {
+                "name": "2.9.0",
+                "date": "2016-09-10T23:03:48Z"
+            },
+            {
+                "name": "2.8.2",
+                "date": "2016-09-10T23:06:04Z"
+            },
+            {
+                "name": "2.8.1",
+                "date": "2016-03-15T01:11:20Z"
+            },
+            {
+                "name": "2.8.0",
+                "date": "2015-11-23T21:34:51Z"
+            },
+            {
+                "name": "2.7.2",
+                "date": "2015-04-28T22:41:21Z"
+            },
+            {
+                "name": "v2.6.3",
+                "date": "2015-03-29T20:31:15Z"
+            },
+            {
+                "name": "v2.6.2",
+                "date": "2014-12-31T15:13:45Z"
+            },
+            {
+                "name": "v2.6.1",
+                "date": "2014-11-18T15:16:30Z"
+            },
+            {
+                "name": "v2.6.0",
+                "date": "2014-09-21T20:34:54Z"
+            },
+            {
+                "name": "v2.5.2",
+                "date": "2014-08-04T15:27:33Z"
+            },
+            {
+                "name": "v2.5.1",
+                "date": "2014-05-29T15:54:21Z"
+            },
+            {
+                "name": "v2.5.0",
+                "date": "2014-05-27T19:23:32Z"
+            },
+            {
+                "name": "v2.4.2",
+                "date": "2014-03-12T17:24:31Z"
+            },
+            {
+                "name": "v2.4.1",
+                "date": "2014-02-17T23:23:33Z"
+            },
+            {
+                "name": "v2.4.0",
+                "date": "2014-02-12T15:51:31Z"
+            },
+            {
+                "name": "v2.3.1",
+                "date": "2014-02-05T15:57:12Z"
+            },
+            {
+                "name": "v2.3.0",
+                "date": "2014-02-03T18:56:02Z"
+            },
+            {
+                "name": "v2.2.0",
+                "date": "2013-09-03T17:15:01Z"
+            }
+        ]
+    }
+}

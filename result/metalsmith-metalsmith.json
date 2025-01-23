@@ -1,0 +1,103 @@
+{
+    "https://api.github.com/repos/metalsmith/metalsmith": {
+        "forks": 623,
+        "watchers": 7850,
+        "stars": 7850,
+        "languages": {
+            "JavaScript": 106930,
+            "TypeScript": 7722
+        },
+        "commits": [
+            "2024-10-01T20:52:03Z",
+            "2024-09-27T09:08:56Z",
+            "2024-10-01T20:31:29Z",
+            "2024-03-05T01:03:32Z",
+            "2024-03-05T01:02:09Z",
+            "2024-03-05T01:01:36Z",
+            "2024-02-20T23:58:10Z",
+            "2024-02-20T23:53:26Z",
+            "2024-02-20T23:49:20Z",
+            "2024-02-10T14:45:11Z",
+            "2024-02-10T11:48:43Z",
+            "2023-11-15T21:11:35Z",
+            "2023-11-15T21:10:20Z",
+            "2023-11-15T20:59:43Z",
+            "2023-11-15T00:14:42Z",
+            "2023-09-11T18:06:28Z",
+            "2023-09-11T10:18:41Z",
+            "2023-09-10T23:57:21Z",
+            "2023-09-01T07:08:04Z",
+            "2023-07-11T21:21:04Z",
+            "2023-07-11T21:03:25Z",
+            "2023-07-09T22:59:25Z",
+            "2023-07-09T22:50:52Z",
+            "2023-07-09T22:38:51Z",
+            "2023-06-27T22:21:48Z",
+            "2023-06-27T22:18:54Z",
+            "2023-06-27T18:35:49Z",
+            "2023-06-27T18:29:20Z",
+            "2023-05-29T22:04:42Z",
+            "2023-05-02T20:02:31Z"
+        ],
+        "creation_date": "2014-02-04T03:46:22Z",
+        "contributors": 30,
+        "topics": [
+            "javascript",
+            "markdown",
+            "markdown-to-html",
+            "metalsmith",
+            "nodejs",
+            "ssg",
+            "static-site-generator",
+            "templates"
+        ],
+        "subscribers": 103,
+        "readme": "# Metalsmith\n\n[![npm: version][npm-badge]][npm-url]\n[![ci: build][ci-badge]][ci-url]\n[![code coverage][codecov-badge]][codecov-url]\n[![license: MIT][license-badge]][license-url]\n[![Gitter chat][gitter-badge]][gitter-url]\n\n> An extremely simple, _pluggable_ static site generator for NodeJS.\n\nIn Metalsmith, all of the logic is handled by plugins. You simply chain them together.\n\nHere's what the simplest blog looks like:\n\n```js\nimport { fileURLToPath } from 'node:url'\nimport { dirname } from 'path'\nimport Metalsmith from 'metalsmith'\nimport layouts from '@metalsmith/layouts'\nimport markdown from '@metalsmith/markdown'\n\nconst __dirname = dirname(fileURLToPath(import.meta.url))\n\nMetalsmith(__dirname)\n  .use(markdown())\n  .use(\n    layouts({\n      pattern: '**/*.html'\n    })\n  )\n  .build(function (err) {\n    if (err) throw err\n    console.log('Build finished!')\n  })\n```\n\n## Installation\n\nNPM:\n\n```\nnpm install metalsmith\n```\n\nYarn:\n\n```\nyarn add metalsmith\n```\n\n## Quickstart\n\nWhat if you want to get fancier by hiding unfinished drafts, grouping posts in collections, and using custom permalinks? Just add plugins...\n\n```js\nimport { fileURLToPath } from 'node:url'\nimport { dirname } from 'node:path'\nimport Metalsmith from 'metalsmith'\nimport collections from '@metalsmith/collections'\nimport layouts from '@metalsmith/layouts'\nimport markdown from '@metalsmith/markdown'\nimport permalinks from '@metalsmith/permalinks'\nimport drafts from '@metalsmith/drafts'\n\nconst __dirname = dirname(fileURLToPath(import.meta.url))\nconst t1 = performance.now()\nconst devMode = process.env.NODE_ENV === 'development'\n\nMetalsmith(__dirname) // parent directory of this file\n  .source('./src') // source directory\n  .destination('./build') // destination directory\n  .clean(true) // clean destination before\n  .env({\n    // pass NODE_ENV & other environment variables\n    DEBUG: process.env.DEBUG,\n    NODE_ENV: process.env.NODE_ENV\n  })\n  .metadata({\n    // add any variable you want & use them in layout-files\n    sitename: 'My Static Site & Blog',\n    siteurl: 'https://example.com/',\n    description: \"It's about saying \u00bbHello\u00ab to the world.\",\n    generatorname: 'Metalsmith',\n    generatorurl: 'https://metalsmith.io/'\n  })\n  .use(drafts(devMode)) // only include drafts when NODE_ENV === 'development'\n  .use(\n    collections({\n      // group all blog posts by adding key\n      posts: 'posts/*.md' // collections:'posts' to metalsmith.metadata()\n    })\n  ) // use `collections.posts` in layouts\n  .use(\n    markdown({\n      // transpile all md file contents into html\n      keys: ['description'], // and also file.description\n      globalRefs: {\n        // define links available to all markdown files\n        home: 'https://example.com'\n      }\n    })\n  )\n  .use(permalinks()) // change URLs to permalink URLs\n  .use(\n    layouts({\n      // wrap layouts around html\n      pattern: '**/*.html'\n    })\n  )\n  .build((err) => {\n    // build process\n    if (err) throw err // error handling is required\n    console.log(`Build success in ${((performance.now() - t1) / 1000).toFixed(1)}s`)\n  })\n```\n\n## How does it work?\n\nMetalsmith works in three simple steps:\n\n1. Read all the files in a source directory.\n2. Invoke a series of plugins that manipulate the files.\n3. Write the results to a destination directory!\n\nEach plugin is invoked with the contents of the source directory, and each file can contain YAML front-matter that will be attached as metadata, so a simple file like...\n\n```yml\n---\ntitle: A Catchy Title\ndate: 2024-01-01\n---\nAn informative article.\n```\n\n...would be parsed into...\n\n```js\n{\n  'path/to/my-file.md': {\n    title: 'A Catchy Title',\n    date: new Date(2024, 1, 1),\n    contents: Buffer.from('An informative article'),\n    stats: fs.Stats\n  }\n}\n```\n\n...which any of the plugins can then manipulate however they want. Writing plugins is incredibly simple, just take a look at the [example drafts plugin](examples/drafts-plugin/index.js).\n\nOf course they can get a lot more complicated too. That's what makes Metalsmith powerful; the plugins can do anything you want!\n\n## Plugins\n\nA [Metalsmith plugin](https://metalsmith.io/api/#Plugin) is a function that is passed the file list, the metalsmith instance, and a done callback.\nIt is often wrapped in a plugin initializer that accepts configuration options.\n\nCheck out the official plugin registry at: https://metalsmith.io/plugins.  \nFind all the core plugins at: https://github.com/search?q=org%3Ametalsmith+metalsmith-plugin  \nSee [the draft plugin](examples/drafts-plugin) for a simple plugin example.\n\n## API\n\nCheck out the full API reference at: https://metalsmith.io/api.\n\n## CLI\n\nIn addition to a simple [Javascript API](#api), the Metalsmith CLI can read configuration from a `metalsmith.json` file, so that you can build static-site generators similar to [Jekyll](https://jekyllrb.com) or [Hexo](https://hexo.io) easily. The example blog above would be configured like this:\n\n`metalsmith.json`\n\n```json\n{\n  \"source\": \"src\",\n  \"destination\": \"build\",\n  \"clean\": true,\n  \"metadata\": {\n    \"sitename\": \"My Static Site & Blog\",\n    \"siteurl\": \"https://example.com/\",\n    \"description\": \"It's about saying \u00bbHello\u00ab to the world.\",\n    \"generatorname\": \"Metalsmith\",\n    \"generatorurl\": \"https://metalsmith.io/\"\n  },\n  \"plugins\": [\n    { \"@metalsmith/drafts\": true },\n    { \"@metalsmith/collections\": { \"posts\": \"posts/*.md\" } },\n    { \"@metalsmith/markdown\": true },\n    { \"@metalsmith/permalinks\": \"posts/:title\" },\n    { \"@metalsmith/layouts\": true }\n  ]\n}\n```\n\nThen run:\n\n```bash\nmetalsmith\n\n# Metalsmith \u00b7 reading configuration from: /path/to/metalsmith.json\n# Metalsmith \u00b7 successfully built to: /path/to/build\n```\n\nOptions recognised by `metalsmith.json` are `source`, `destination`, `concurrency`, `metadata`, `clean` and `frontmatter`.\nCheckout the [static site](examples/static-site), [Jekyll](examples/jekyll) examples to see the CLI in action.\n\n### Local plugins\n\nIf you want to use a custom plugin, but feel like it's too domain-specific to be published to the world, you can include plugins as local npm modules: (simply use a relative path from your root directory)\n\n```json\n{\n  \"plugins\": [{ \"./lib/metalsmith/plugin.js\": true }]\n}\n```\n\n## The secret...\n\nWe often refer to Metalsmith as a \"static site generator\", but it's a lot more than that. Since everything is a plugin, the core library is just an abstraction for manipulating a directory of files.\n\nWhich means you could just as easily use it to make...\n\n- [A project scaffolder.](examples/project-scaffolder)\n- [A build tool for Sass files.](examples/build-tool)\n- [A simple static site generator.](examples/static-site)\n- [A Jekyll-like static site generator.](examples/jekyll)\n\n## Resources\n\n- [Gitter Matrix community chat](https://app.gitter.im/#/room/#metalsmith_community:gitter.im) for chat, questions\n- [X (formerly Twitter) announcements](https://x.com/@metalsmithio) and the [metalsmith.io news page](https://metalsmith.io/news) for updates\n- [Awesome Metalsmith](https://github.com/metalsmith/awesome-metalsmith) - great collection of resources, examples, and tutorials\n- [emmer.dev on metalsmith](https://emmer.dev/blog/tag/metalsmith/) - A good collection of various how to's for metalsmith\n- [glinka.co on metalsmith](https://www.glinka.co/blog/) - Another great collection of advanced approaches for developing metalsmith\n- [Getting to Know Metalsmith](http://robinthrift.com/post/getting-to-know-metalsmith/) - a great series about how to use Metalsmith for your static site.\n\n## Troubleshooting\n\nSet `metalsmith.env('DEBUG', '*metalsmith*')` to debug your build. This will log debug logs for all plugins using the built-in `metalsmith.debug` debugger.\nFor older plugins using [debug](https://github.com/debug-js/debug/) directly, run your build with `export DEBUG=metalsmith-*,@metalsmith/*` (Linux) or `set DEBUG=metalsmith-*,@metalsmith/*` for Windows.\n\n### Node Version Requirements\n\nFuture Metalsmith releases will at least support the oldest supported Node LTS versions.\n\nMetalsmith 2.6.x supports NodeJS versions 14.18.0 and higher.  \nMetalsmith 2.5.x supports NodeJS versions 12 and higher.  \nMetalsmith 2.4.x supports NodeJS versions 8 and higher.  \nMetalsmith 2.3.0 and below support NodeJS versions all the way back to 0.12.\n\n### Compatibility & support policy\n\nMetalsmith is supported on all common operating systems (Windows, Linux, Mac).\nMetalsmith releases adhere to [semver (semantic versioning)](https://semver.org/) with 2 minor gray-area exceptions for what could be considered breaking changes:\n\n- Major Node version support for EOL (End of Life) versions can be dropped in minor releases\n- If a change represents a major improvement that is backwards-compatible with 99% of use cases (not considering outdated plugins), they will be considered eligible for inclusion in minor version updates.\n\n## Credits\n\nSpecial thanks to [Ian Storm Taylor](https://github.com/ianstormtaylor), [Andrew Meyer](https://github.com/Ajedi32), [Dominic Barnes](https://github.com/dominicbarnes), [Andrew Goodricke](https://github.com/woodyrew), [Ismay Wolff](https://github.com/ismay), [Kevin Van Lierde](https://github.com/webketje) and [others](https://github.com/segmentio/metalsmith/graphs/contributors) for their contributions!\n\n## [License](LICENSE)\n\n[npm-badge]: https://img.shields.io/npm/v/metalsmith.svg\n[npm-url]: https://www.npmjs.com/package/metalsmith\n[ci-badge]: https://github.com/metalsmith/metalsmith/actions/workflows/test.yml/badge.svg\n[ci-url]: https://github.com/metalsmith/metalsmith/actions/workflows/test.yml\n[codecov-badge]: https://coveralls.io/repos/github/metalsmith/metalsmith/badge.svg?branch=master\n[codecov-url]: https://coveralls.io/github/metalsmith/metalsmith?branch=master\n[license-badge]: https://img.shields.io/github/license/metalsmith/metalsmith\n[license-url]: LICENSE\n\n[gitter-badge]: https://img.shields.io/badge/[gitter:matrix]-join-blue.svg\n[gitter-url]: https://app.gitter.im/#/room/#metalsmith_community:gitter.im\n",
+        "releases": [
+            {
+                "name": "Metalsmith 2.6.3",
+                "date": "2024-03-05T01:05:55Z"
+            },
+            {
+                "name": "Metalsmith 2.6.2",
+                "date": "2023-11-15T21:15:35Z"
+            },
+            {
+                "name": "Metalsmith 2.6.1",
+                "date": "2023-07-11T21:21:12Z"
+            },
+            {
+                "name": "Metalsmith 2.6.0",
+                "date": "2023-05-29T22:04:51Z"
+            },
+            {
+                "name": "Metalsmith 2.5.1",
+                "date": "2022-10-06T23:58:42Z"
+            },
+            {
+                "name": "Metalsmith 2.5.0",
+                "date": "2022-06-10T16:11:17Z"
+            },
+            {
+                "name": "Metalsmith 2.4.3",
+                "date": "2022-05-16T20:20:20Z"
+            },
+            {
+                "name": "Metalsmith 2.4.2",
+                "date": "2022-02-13T20:33:25Z"
+            },
+            {
+                "name": "metalsmith 2.4.1",
+                "date": "2022-01-31T18:48:19Z"
+            },
+            {
+                "name": "metalsmith 2.4.0",
+                "date": "2022-01-31T13:48:59Z"
+            },
+            {
+                "name": "metalsmith 2.3.0",
+                "date": "2022-01-04T15:15:55Z"
+            }
+        ]
+    }
+}

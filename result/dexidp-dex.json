@@ -1,0 +1,409 @@
+{
+    "https://api.github.com/repos/dexidp/dex": {
+        "forks": 1733,
+        "watchers": 9652,
+        "stars": 9652,
+        "languages": {
+            "Go": 1121338,
+            "Makefile": 7364,
+            "CSS": 6590,
+            "HTML": 5662,
+            "Dockerfile": 2971,
+            "Shell": 1704,
+            "Nix": 1259
+        },
+        "commits": [
+            "2025-01-21T19:43:40Z",
+            "2025-01-21T19:36:03Z",
+            "2025-01-21T19:34:53Z",
+            "2025-01-21T19:34:34Z",
+            "2025-01-21T19:22:02Z",
+            "2025-01-21T19:21:57Z",
+            "2025-01-21T19:20:29Z",
+            "2025-01-21T18:09:03Z",
+            "2025-01-21T18:08:29Z",
+            "2025-01-21T18:08:06Z",
+            "2025-01-21T18:07:49Z",
+            "2025-01-21T15:19:02Z",
+            "2025-01-21T15:18:20Z",
+            "2025-01-21T15:18:05Z",
+            "2025-01-21T15:14:30Z",
+            "2025-01-21T15:14:00Z",
+            "2025-01-21T15:13:41Z",
+            "2025-01-21T15:13:25Z",
+            "2025-01-21T15:13:06Z",
+            "2025-01-21T15:12:49Z",
+            "2025-01-21T15:12:20Z",
+            "2025-01-21T15:11:57Z",
+            "2025-01-21T15:11:38Z",
+            "2025-01-21T15:11:23Z",
+            "2025-01-21T15:11:02Z",
+            "2025-01-21T15:10:39Z",
+            "2025-01-21T12:02:30Z",
+            "2025-01-21T12:00:57Z",
+            "2025-01-21T12:00:51Z",
+            "2025-01-21T12:00:32Z"
+        ],
+        "creation_date": "2015-08-17T17:57:06Z",
+        "contributors": 30,
+        "topics": [
+            "hacktoberfest",
+            "identity-provider",
+            "idp",
+            "kubernetes",
+            "oidc"
+        ],
+        "subscribers": 175,
+        "readme": "# dex - A federated OpenID Connect provider\n\n![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/dexidp/dex/ci.yaml?style=flat-square&branch=master)\n[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/dexidp/dex/badge?style=flat-square)](https://api.securityscorecards.dev/projects/github.com/dexidp/dex)\n[![Go Report Card](https://goreportcard.com/badge/github.com/dexidp/dex?style=flat-square)](https://goreportcard.com/report/github.com/dexidp/dex)\n[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod&style=flat-square)](https://gitpod.io/#https://github.com/dexidp/dex)\n\n![logo](docs/logos/dex-horizontal-color.png)\n\nDex is an identity service that uses [OpenID Connect][openid-connect] to drive authentication for other apps.\n\nDex acts as a portal to other identity providers through [\"connectors.\"](#connectors) This lets dex defer authentication to LDAP servers, SAML providers, or established identity providers like GitHub, Google, and Active Directory. Clients write their authentication logic once to talk to dex, then dex handles the protocols for a given backend.\n\n## ID Tokens\n\nID Tokens are an OAuth2 extension introduced by OpenID Connect and dex's primary feature. ID Tokens are [JSON Web Tokens][jwt-io] (JWTs) signed by dex and returned as part of the OAuth2 response that attests to the end user's identity. An example JWT might look like:\n\n```\neyJhbGciOiJSUzI1NiIsImtpZCI6IjlkNDQ3NDFmNzczYjkzOGNmNjVkZDMyNjY4NWI4NjE4MGMzMjRkOTkifQ.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjU1NTYvZGV4Iiwic3ViIjoiQ2djeU16UXlOelE1RWdabmFYUm9kV0kiLCJhdWQiOiJleGFtcGxlLWFwcCIsImV4cCI6MTQ5Mjg4MjA0MiwiaWF0IjoxNDkyNzk1NjQyLCJhdF9oYXNoIjoiYmk5NmdPWFpTaHZsV1l0YWw5RXFpdyIsImVtYWlsIjoiZXJpYy5jaGlhbmdAY29yZW9zLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJncm91cHMiOlsiYWRtaW5zIiwiZGV2ZWxvcGVycyJdLCJuYW1lIjoiRXJpYyBDaGlhbmcifQ.OhROPq_0eP-zsQRjg87KZ4wGkjiQGnTi5QuG877AdJDb3R2ZCOk2Vkf5SdP8cPyb3VMqL32G4hLDayniiv8f1_ZXAde0sKrayfQ10XAXFgZl_P1yilkLdknxn6nbhDRVllpWcB12ki9vmAxklAr0B1C4kr5nI3-BZLrFcUR5sQbxwJj4oW1OuG6jJCNGHXGNTBTNEaM28eD-9nhfBeuBTzzO7BKwPsojjj4C9ogU4JQhGvm_l4yfVi0boSx8c0FX3JsiB0yLa1ZdJVWVl9m90XmbWRSD85pNDQHcWZP9hR6CMgbvGkZsgjG32qeRwUL_eNkNowSBNWLrGNPoON1gMg\n```\n\nID Tokens contains standard claims assert which client app logged the user in, when the token expires, and the identity of the user.\n\n```json\n{\n  \"iss\": \"http://127.0.0.1:5556/dex\",\n  \"sub\": \"CgcyMzQyNzQ5EgZnaXRodWI\",\n  \"aud\": \"example-app\",\n  \"exp\": 1492882042,\n  \"iat\": 1492795642,\n  \"at_hash\": \"bi96gOXZShvlWYtal9Eqiw\",\n  \"email\": \"jane.doe@coreos.com\",\n  \"email_verified\": true,\n  \"groups\": [\n    \"admins\",\n    \"developers\"\n  ],\n  \"name\": \"Jane Doe\"\n}\n```\n\nBecause these tokens are signed by dex and [contain standard-based claims][standard-claims] other services can consume them as service-to-service credentials. Systems that can already consume OpenID Connect ID Tokens issued by dex include:\n\n* [Kubernetes][kubernetes]\n* [AWS STS][aws-sts]\n\nFor details on how to request or validate an ID Token, see [_\"Writing apps that use dex\"_][using-dex].\n\n## Kubernetes and Dex\n\nDex runs natively on top of any Kubernetes cluster using Custom Resource Definitions and can drive API server authentication through the OpenID Connect plugin. Clients, such as the [`kubernetes-dashboard`](https://github.com/kubernetes/dashboard) and `kubectl`, can act on behalf of users who can login to the cluster through any identity provider dex supports.\n\n* More docs for running dex as a Kubernetes authenticator can be found [here](https://dexidp.io/docs/guides/kubernetes/).\n* You can find more about companies and projects which use dex, [here](./ADOPTERS.md).\n\n## Connectors\n\nWhen a user logs in through dex, the user's identity is usually stored in another user-management system: a LDAP directory, a GitHub org, etc. Dex acts as a shim between a client app and the upstream identity provider. The client only needs to understand OpenID Connect to query dex, while dex implements an array of protocols for querying other user-management systems.\n\n![](docs/img/dex-flow.png)\n\nA \"connector\" is a strategy used by dex for authenticating a user against another identity provider. Dex implements connectors that target specific platforms such as GitHub, LinkedIn, and Microsoft as well as established protocols like LDAP and SAML.\n\nDepending on the connectors limitations in protocols can prevent dex from issuing [refresh tokens][scopes] or returning [group membership][scopes] claims. For example, because SAML doesn't provide a non-interactive way to refresh assertions, if a user logs in through the SAML connector dex won't issue a refresh token to its client. Refresh token support is required for clients that require offline access, such as `kubectl`.\n\nDex implements the following connectors:\n\n| Name | supports refresh tokens | supports groups claim | supports preferred_username claim | status | notes |\n| ---- | ----------------------- | --------------------- | --------------------------------- | ------ | ----- |\n| [LDAP](https://dexidp.io/docs/connectors/ldap/) | yes | yes | yes | stable | |\n| [GitHub](https://dexidp.io/docs/connectors/github/) | yes | yes | yes | stable | |\n| [SAML 2.0](https://dexidp.io/docs/connectors/saml/) | no | yes | no | stable | WARNING: Unmaintained and likely vulnerable to auth bypasses ([#1884](https://github.com/dexidp/dex/discussions/1884)) |\n| [GitLab](https://dexidp.io/docs/connectors/gitlab/) | yes | yes | yes | beta | |\n| [OpenID Connect](https://dexidp.io/docs/connectors/oidc/) | yes | yes | yes | beta | Includes Salesforce, Azure, etc. |\n| [OAuth 2.0](https://dexidp.io/docs/connectors/oauth/) | no | yes | yes | alpha | |\n| [Google](https://dexidp.io/docs/connectors/google/) | yes | yes | yes | alpha | |\n| [LinkedIn](https://dexidp.io/docs/connectors/linkedin/) | yes | no | no | beta | |\n| [Microsoft](https://dexidp.io/docs/connectors/microsoft/) | yes | yes | no | beta | |\n| [AuthProxy](https://dexidp.io/docs/connectors/authproxy/) | no | yes | no | alpha | Authentication proxies such as Apache2 mod_auth, etc. |\n| [Bitbucket Cloud](https://dexidp.io/docs/connectors/bitbucketcloud/) | yes | yes | no | alpha | |\n| [OpenShift](https://dexidp.io/docs/connectors/openshift/) | yes | yes | no | alpha | |\n| [Atlassian Crowd](https://dexidp.io/docs/connectors/atlassian-crowd/) | yes | yes | yes * | beta | preferred_username claim must be configured through config |\n| [Gitea](https://dexidp.io/docs/connectors/gitea/) | yes | no | yes | beta | |\n| [OpenStack Keystone](https://dexidp.io/docs/connectors/keystone/) | yes | yes | no | alpha | |\n\nStable, beta, and alpha are defined as:\n\n* Stable: well tested, in active use, and will not change in backward incompatible ways.\n* Beta: tested and unlikely to change in backward incompatible ways.\n* Alpha: may be untested by core maintainers and is subject to change in backward incompatible ways.\n\nAll changes or deprecations of connector features will be announced in the [release notes][release-notes].\n\n## Documentation\n\n* [Getting started](https://dexidp.io/docs/getting-started/)\n* [Intro to OpenID Connect](https://dexidp.io/docs/openid-connect/)\n* [Writing apps that use dex][using-dex]\n* [What's new in v2](https://dexidp.io/docs/archive/v2/)\n* [Custom scopes, claims, and client features](https://dexidp.io/docs/custom-scopes-claims-clients/)\n* [Storage options](https://dexidp.io/docs/storage/)\n* [gRPC API](https://dexidp.io/docs/api/)\n* [Using Kubernetes with dex](https://dexidp.io/docs/kubernetes/)\n* Client libraries\n  * [Go][go-oidc]\n\n## Reporting a vulnerability\n\nPlease see our [security policy](.github/SECURITY.md) for details about reporting vulnerabilities.\n\n## Getting help\n\n- For feature requests and bugs, file an [issue](https://github.com/dexidp/dex/issues).\n- For general discussion about both using and developing Dex:\n    - join the [#dexidp](https://cloud-native.slack.com/messages/dexidp) on the CNCF Slack\n    - open a new [discussion](https://github.com/dexidp/dex/discussions)\n    - join the [dex-dev](https://groups.google.com/forum/#!forum/dex-dev) mailing list\n\n[openid-connect]: https://openid.net/connect/\n[standard-claims]: https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims\n[scopes]: https://dexidp.io/docs/custom-scopes-claims-clients/#scopes\n[using-dex]: https://dexidp.io/docs/using-dex/\n[jwt-io]: https://jwt.io/\n[kubernetes]: https://kubernetes.io/docs/reference/access-authn-authz/authentication/#openid-connect-tokens\n[aws-sts]: https://docs.aws.amazon.com/STS/latest/APIReference/Welcome.html\n[go-oidc]: https://github.com/coreos/go-oidc\n[issue-1065]: https://github.com/dexidp/dex/issues/1065\n[release-notes]: https://github.com/dexidp/dex/releases\n\n## Development\n\nWhen all coding and testing is done, please run the test suite:\n\n```shell\nmake testall\n```\n\nFor the best developer experience, install [Nix](https://builtwithnix.org/) and [direnv](https://direnv.net/).\n\nAlternatively, install Go and Docker manually or using a package manager. Install the rest of the dependencies by running `make deps`.\n\nFor release process, please read the [release documentation](https://dexidp.io/docs/development/releases/).\n\n## License\n\nThe project is licensed under the [Apache License, Version 2.0](LICENSE).\n",
+        "releases": [
+            {
+                "name": "v2.2.0 Dex API release",
+                "date": "2024-09-10T09:40:25Z"
+            },
+            {
+                "name": "v2.41.1",
+                "date": "2024-08-07T17:48:46Z"
+            },
+            {
+                "name": "v2.41.0",
+                "date": "2024-08-04T14:50:45Z"
+            },
+            {
+                "name": "v2.40.0",
+                "date": "2024-06-03T19:52:20Z"
+            },
+            {
+                "name": "v2.39.1",
+                "date": "2024-04-09T11:55:18Z"
+            },
+            {
+                "name": "v2.39.0",
+                "date": "2024-03-22T20:32:45Z"
+            },
+            {
+                "name": "v2.38.0",
+                "date": "2024-01-25T14:31:22Z"
+            },
+            {
+                "name": "v2.37.0",
+                "date": "2023-06-30T14:12:39Z"
+            },
+            {
+                "name": "v2.36.0",
+                "date": "2023-03-20T13:29:42Z"
+            },
+            {
+                "name": "v2.35.3",
+                "date": "2022-10-11T16:58:10Z"
+            },
+            {
+                "name": "v2.35.2",
+                "date": "2022-10-09T10:18:50Z"
+            },
+            {
+                "name": "v2.35.1",
+                "date": "2022-10-04T10:33:39Z"
+            },
+            {
+                "name": "v2.35.0",
+                "date": "2022-10-03T16:04:24Z"
+            },
+            {
+                "name": "v2.34.0",
+                "date": "2022-09-16T05:27:13Z"
+            },
+            {
+                "name": "v2.33.1",
+                "date": "2022-09-13T11:52:41Z"
+            },
+            {
+                "name": "v2.33.0",
+                "date": "2022-07-28T15:32:00Z"
+            },
+            {
+                "name": "v2.32.0",
+                "date": "2022-06-07T15:29:08Z"
+            },
+            {
+                "name": "v2.31.2",
+                "date": "2022-05-26T16:08:14Z"
+            },
+            {
+                "name": "v2.31.1",
+                "date": "2022-03-22T14:15:00Z"
+            },
+            {
+                "name": "v2.31.0",
+                "date": "2022-02-09T00:29:29Z"
+            },
+            {
+                "name": "v2.30.3",
+                "date": "2022-02-02T18:05:58Z"
+            },
+            {
+                "name": "v2.30.2",
+                "date": "2021-11-16T00:06:55Z"
+            },
+            {
+                "name": "v2.30.1",
+                "date": "2021-11-15T14:21:11Z"
+            },
+            {
+                "name": "v2.30.0",
+                "date": "2021-08-03T13:16:43Z"
+            },
+            {
+                "name": "v2.29.0",
+                "date": "2021-06-29T15:05:20Z"
+            },
+            {
+                "name": "v2.28.1",
+                "date": "2021-03-20T20:04:47Z"
+            },
+            {
+                "name": "v2.28.0",
+                "date": "2021-03-12T22:26:59Z"
+            },
+            {
+                "name": "v2.27.0",
+                "date": "2020-12-14T08:58:39Z"
+            },
+            {
+                "name": "v2.26.0",
+                "date": "2020-11-05T15:43:10Z"
+            },
+            {
+                "name": "v2.25.0",
+                "date": "2020-09-11T07:07:10Z"
+            },
+            {
+                "name": "V2 API release",
+                "date": "2020-07-23T10:48:59Z"
+            },
+            {
+                "name": "v2.24.0",
+                "date": "2020-05-13T12:00:06Z"
+            },
+            {
+                "name": "v2.23.0",
+                "date": "2020-03-18T09:25:58Z"
+            },
+            {
+                "name": "v2.22.0",
+                "date": "2020-01-30T16:27:32Z"
+            },
+            {
+                "name": "v2.21.0",
+                "date": "2019-11-27T15:40:33Z"
+            },
+            {
+                "name": "v2.20.0",
+                "date": "2019-10-30T14:20:51Z"
+            },
+            {
+                "name": "v2.19.0",
+                "date": "2019-09-03T07:45:23Z"
+            },
+            {
+                "name": "v2.18.0",
+                "date": "2019-08-14T10:11:28Z"
+            },
+            {
+                "name": "v2.17.0",
+                "date": "2019-07-03T08:17:38Z"
+            },
+            {
+                "name": "v2.16.0",
+                "date": "2019-04-18T22:35:16Z"
+            },
+            {
+                "name": "v2.15.0",
+                "date": "2019-02-09T20:03:33Z"
+            },
+            {
+                "name": "v2.14.0",
+                "date": "2019-01-11T15:17:10Z"
+            },
+            {
+                "name": "v2.13.0",
+                "date": "2018-11-07T05:47:09Z"
+            },
+            {
+                "name": "v2.12.0",
+                "date": "2018-10-12T09:01:51Z"
+            },
+            {
+                "name": "v2.11.0",
+                "date": "2018-09-11T06:50:13Z"
+            },
+            {
+                "name": "v2.10.0",
+                "date": "2018-03-05T19:35:43Z"
+            },
+            {
+                "name": "",
+                "date": "2017-12-05T16:12:48Z"
+            },
+            {
+                "name": "",
+                "date": "2017-11-15T23:29:56Z"
+            },
+            {
+                "name": "v2.8.0",
+                "date": "2017-11-06T17:28:43Z"
+            },
+            {
+                "name": "v2.7.1",
+                "date": "2017-09-19T23:05:16Z"
+            },
+            {
+                "name": "",
+                "date": "2017-09-18T22:13:07Z"
+            },
+            {
+                "name": "v2.6.1",
+                "date": "2017-08-21T23:32:30Z"
+            },
+            {
+                "name": "v2.6.0",
+                "date": "2017-08-12T00:21:30Z"
+            },
+            {
+                "name": "v2.5.0",
+                "date": "2017-07-19T18:42:56Z"
+            },
+            {
+                "name": "v2.4.1",
+                "date": "2017-05-04T22:17:07Z"
+            },
+            {
+                "name": "v2.4.0",
+                "date": "2017-04-11T22:03:48Z"
+            },
+            {
+                "name": "",
+                "date": "2017-04-04T18:46:57Z"
+            },
+            {
+                "name": "v2.3.0",
+                "date": "2017-03-24T20:53:36Z"
+            },
+            {
+                "name": "",
+                "date": "2017-03-14T00:02:47Z"
+            },
+            {
+                "name": "",
+                "date": "2017-03-01T21:27:51Z"
+            },
+            {
+                "name": "v2.2.3",
+                "date": "2017-02-27T23:34:09Z"
+            },
+            {
+                "name": "v2.2.2",
+                "date": "2017-02-24T23:37:55Z"
+            },
+            {
+                "name": "v2.2.1",
+                "date": "2017-02-24T03:47:50Z"
+            },
+            {
+                "name": "v2.2.0",
+                "date": "2017-02-22T23:57:54Z"
+            },
+            {
+                "name": "v2.1.0",
+                "date": "2017-01-18T01:00:26Z"
+            },
+            {
+                "name": "",
+                "date": "2017-01-10T16:59:24Z"
+            },
+            {
+                "name": "v2.0.1",
+                "date": "2017-01-07T01:06:27Z"
+            },
+            {
+                "name": "",
+                "date": "2016-12-12T23:51:58Z"
+            },
+            {
+                "name": "",
+                "date": "2016-12-01T23:32:28Z"
+            },
+            {
+                "name": "",
+                "date": "2016-11-17T06:24:23Z"
+            },
+            {
+                "name": "",
+                "date": "2016-11-07T16:48:32Z"
+            },
+            {
+                "name": "",
+                "date": "2016-10-28T20:49:09Z"
+            },
+            {
+                "name": "",
+                "date": "2016-10-19T21:02:33Z"
+            },
+            {
+                "name": "v2.0.0-alpha.3",
+                "date": "2016-10-14T17:48:10Z"
+            },
+            {
+                "name": "v2.0.0-alpha.2",
+                "date": "2016-10-14T17:47:58Z"
+            },
+            {
+                "name": "",
+                "date": "2016-10-06T17:44:20Z"
+            },
+            {
+                "name": "v0.6.1",
+                "date": "2016-09-29T23:49:42Z"
+            },
+            {
+                "name": "v0.6.0",
+                "date": "2016-09-29T22:07:58Z"
+            },
+            {
+                "name": "v0.5.1",
+                "date": "2016-06-30T22:55:39Z"
+            },
+            {
+                "name": "v0.5.0",
+                "date": "2016-06-27T23:44:35Z"
+            },
+            {
+                "name": "v0.4.0",
+                "date": "2016-05-04T22:42:49Z"
+            },
+            {
+                "name": "v0.3.0",
+                "date": "2016-03-03T05:43:53Z"
+            },
+            {
+                "name": "v0.2.3",
+                "date": "2016-01-14T00:16:06Z"
+            },
+            {
+                "name": "",
+                "date": "2015-12-29T00:37:03Z"
+            },
+            {
+                "name": "",
+                "date": "2015-12-22T00:06:50Z"
+            },
+            {
+                "name": "",
+                "date": "2015-12-16T22:51:27Z"
+            },
+            {
+                "name": "v0.1.0",
+                "date": "2015-09-03T17:09:24Z"
+            }
+        ]
+    }
+}

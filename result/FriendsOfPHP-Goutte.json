@@ -1,0 +1,77 @@
+{
+    "https://api.github.com/repos/FriendsOfPHP/Goutte": {
+        "forks": 1005,
+        "watchers": 9254,
+        "stars": 9254,
+        "languages": {
+            "PHP": 1779
+        },
+        "commits": [
+            "2023-04-01T09:06:44Z",
+            "2023-04-01T09:05:33Z",
+            "2023-04-01T07:04:07Z",
+            "2021-12-17T17:15:01Z",
+            "2020-10-14T06:49:09Z",
+            "2020-10-14T06:48:24Z",
+            "2020-10-13T14:56:44Z",
+            "2020-07-27T07:46:58Z",
+            "2020-07-26T21:17:09Z",
+            "2019-12-06T13:44:35Z",
+            "2019-12-06T13:35:11Z",
+            "2019-12-06T13:11:18Z",
+            "2019-12-06T13:04:56Z",
+            "2019-12-06T12:59:04Z",
+            "2019-12-06T12:55:44Z",
+            "2019-12-06T12:54:34Z",
+            "2019-12-06T12:52:06Z",
+            "2019-12-06T12:49:59Z",
+            "2019-12-06T12:47:48Z",
+            "2019-09-08T08:05:50Z",
+            "2019-09-08T08:04:32Z",
+            "2019-08-13T13:32:06Z",
+            "2019-06-28T08:46:22Z",
+            "2018-06-29T15:13:57Z",
+            "2018-06-21T11:24:06Z",
+            "2017-11-19T08:45:40Z",
+            "2017-11-19T08:45:14Z",
+            "2017-11-18T13:45:34Z",
+            "2017-11-18T13:10:05Z",
+            "2017-01-03T13:21:43Z"
+        ],
+        "creation_date": "2010-04-21T19:21:54Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 347,
+        "readme": "Goutte, a simple PHP Web Scraper\n================================\n\nGoutte is a screen scraping and web crawling library for PHP.\n\nGoutte provides a nice API to crawl websites and extract data from the HTML/XML\nresponses.\n\n**WARNING**: This library is deprecated. As of v4, Goutte became a simple proxy\nto the `HttpBrowser class\n<https://symfony.com/doc/current/components/browser_kit.html#making-external-http-requests>`_\nfrom the `Symfony BrowserKit <https://symfony.com/browser-kit>`_ component. To\nmigrate, replace ``Goutte\\Client`` by\n``Symfony\\Component\\BrowserKit\\HttpBrowser`` in your code.\n\nRequirements\n------------\n\nGoutte depends on PHP 7.1+.\n\nInstallation\n------------\n\nAdd ``fabpot/goutte`` as a require dependency in your ``composer.json`` file:\n\n.. code-block:: bash\n\n    composer require fabpot/goutte\n\nUsage\n-----\n\nCreate a Goutte Client instance (which extends\n``Symfony\\Component\\BrowserKit\\HttpBrowser``):\n\n.. code-block:: php\n\n    use Goutte\\Client;\n\n    $client = new Client();\n\nMake requests with the ``request()`` method:\n\n.. code-block:: php\n\n    // Go to the symfony.com website\n    $crawler = $client->request('GET', 'https://www.symfony.com/blog/');\n\nThe method returns a ``Crawler`` object\n(``Symfony\\Component\\DomCrawler\\Crawler``).\n\nTo use your own HTTP settings, you may create and pass an HttpClient\ninstance to Goutte. For example, to add a 60 second request timeout:\n\n.. code-block:: php\n\n    use Goutte\\Client;\n    use Symfony\\Component\\HttpClient\\HttpClient;\n\n    $client = new Client(HttpClient::create(['timeout' => 60]));\n\nClick on links:\n\n.. code-block:: php\n\n    // Click on the \"Security Advisories\" link\n    $link = $crawler->selectLink('Security Advisories')->link();\n    $crawler = $client->click($link);\n\nExtract data:\n\n.. code-block:: php\n\n    // Get the latest post in this category and display the titles\n    $crawler->filter('h2 > a')->each(function ($node) {\n        print $node->text().\"\\n\";\n    });\n\nSubmit forms:\n\n.. code-block:: php\n\n    $crawler = $client->request('GET', 'https://github.com/');\n    $crawler = $client->click($crawler->selectLink('Sign in')->link());\n    $form = $crawler->selectButton('Sign in')->form();\n    $crawler = $client->submit($form, ['login' => 'fabpot', 'password' => 'xxxxxx']);\n    $crawler->filter('.flash-error')->each(function ($node) {\n        print $node->text().\"\\n\";\n    });\n\nMore Information\n----------------\n\nRead the documentation of the `BrowserKit`_, `DomCrawler`_, and `HttpClient`_\nSymfony Components for more information about what you can do with Goutte.\n\nPronunciation\n-------------\n\nGoutte is pronounced ``goot`` i.e. it rhymes with ``boot`` and not ``out``.\n\nTechnical Information\n---------------------\n\nGoutte is a thin wrapper around the following Symfony Components:\n`BrowserKit`_, `CssSelector`_, `DomCrawler`_, and `HttpClient`_.\n\nLicense\n-------\n\nGoutte is licensed under the MIT license.\n\n.. _`Composer`: https://getcomposer.org\n.. _`BrowserKit`: https://symfony.com/components/BrowserKit\n.. _`DomCrawler`: https://symfony.com/doc/current/components/dom_crawler.html\n.. _`CssSelector`: https://symfony.com/doc/current/components/css_selector.html\n.. _`HttpClient`: https://symfony.com/doc/current/components/http_client.html\n",
+        "releases": [
+            {
+                "name": "Last release",
+                "date": "2023-04-01T09:07:30Z"
+            },
+            {
+                "name": "v3.1.0",
+                "date": "2015-06-25T17:02:23Z"
+            },
+            {
+                "name": "v3.0.0",
+                "date": "2015-06-25T17:02:22Z"
+            },
+            {
+                "name": "v2.0.4",
+                "date": "2015-06-25T17:02:21Z"
+            },
+            {
+                "name": "v2.0.3",
+                "date": "2015-06-25T17:02:19Z"
+            },
+            {
+                "name": "v1.0.7",
+                "date": "2015-06-25T16:44:42Z"
+            },
+            {
+                "name": "v2.0.2",
+                "date": "2015-06-25T17:02:18Z"
+            }
+        ]
+    }
+}

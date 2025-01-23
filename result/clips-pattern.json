@@ -1,0 +1,63 @@
+{
+    "https://api.github.com/repos/clips/pattern": {
+        "forks": 1577,
+        "watchers": 8761,
+        "stars": 8761,
+        "languages": {
+            "Python": 1562007,
+            "JavaScript": 229360,
+            "HTML": 606
+        },
+        "commits": [
+            "2020-04-25T12:40:40Z",
+            "2018-08-18T17:18:00Z",
+            "2018-08-09T07:27:54Z",
+            "2018-08-09T00:31:26Z",
+            "2018-07-31T23:48:12Z",
+            "2018-07-23T17:34:06Z",
+            "2018-07-23T16:54:23Z",
+            "2018-07-23T16:25:46Z",
+            "2018-07-23T01:23:21Z",
+            "2018-07-23T01:02:05Z",
+            "2018-07-23T00:38:21Z",
+            "2018-07-23T00:08:10Z",
+            "2018-07-22T23:37:30Z",
+            "2018-07-18T16:16:18Z",
+            "2018-07-08T15:06:09Z",
+            "2018-07-08T11:38:46Z",
+            "2018-07-04T23:24:57Z",
+            "2018-07-04T09:27:43Z",
+            "2018-06-29T01:01:33Z",
+            "2018-06-29T01:00:53Z",
+            "2018-06-29T00:57:52Z",
+            "2018-06-29T00:31:34Z",
+            "2018-06-28T23:20:01Z",
+            "2018-06-22T11:50:24Z",
+            "2018-06-21T21:57:05Z",
+            "2018-06-21T21:55:53Z",
+            "2018-06-21T00:06:05Z",
+            "2018-06-19T23:58:32Z",
+            "2018-06-18T23:53:42Z",
+            "2018-06-07T17:49:05Z"
+        ],
+        "creation_date": "2011-05-03T15:29:01Z",
+        "contributors": 19,
+        "topics": [
+            "machine-learning",
+            "natural-language-processing",
+            "network-analysis",
+            "python",
+            "sentiment-analysis",
+            "web-mining",
+            "wordnet"
+        ],
+        "subscribers": 542,
+        "readme": "Pattern\n=======\n\n[![Build Status](http://img.shields.io/travis/clips/pattern/master.svg?style=flat)](https://travis-ci.org/clips/pattern/branches)\n[![Coverage](https://img.shields.io/coveralls/clips/pattern/master.svg?style=flat)](https://coveralls.io/github/clips/pattern?branch=master)\n[![PyPi version](http://img.shields.io/pypi/v/pattern.svg?style=flat)](https://pypi.python.org/pypi/pattern)\n[![License](https://img.shields.io/badge/License-BSD%203--Clause-green.svg?style=flat)](https://github.com/clips/pattern/blob/master/LICENSE.txt)\n\nPattern is a web mining module for Python. It has tools for:\n\n * Data Mining: web services (Google, Twitter, Wikipedia), web crawler, HTML DOM parser\n * Natural Language Processing: part-of-speech taggers, n-gram search, sentiment analysis, WordNet\n * Machine Learning: vector space model, clustering, classification (KNN, SVM, Perceptron)\n * Network Analysis: graph centrality and visualization.\n\nIt is well documented, thoroughly tested with 350+ unit tests and comes bundled with 50+ examples. The source code is licensed under BSD.\n\n![Example workflow](https://raw.githubusercontent.com/clips/pattern/master/docs/g/pattern_schema.gif)\n\nExample\n-------\n\nThis example trains a classifier on adjectives mined from Twitter using Python 3. First, tweets that contain hashtag #win or #fail are collected. For example: *\"$20 tip off a sweet little old lady today #win\"*. The word part-of-speech tags are then parsed, keeping only adjectives. Each tweet is transformed to a vector, a dictionary of adjective \u2192 count items, labeled `WIN` or `FAIL`. The classifier uses the vectors to learn which other tweets look more like `WIN` or more like `FAIL`.\n\n```python\nfrom pattern.web import Twitter\nfrom pattern.en import tag\nfrom pattern.vector import KNN, count\n\ntwitter, knn = Twitter(), KNN()\n\nfor i in range(1, 3):\n    for tweet in twitter.search('#win OR #fail', start=i, count=100):\n        s = tweet.text.lower()\n        p = '#win' in s and 'WIN' or 'FAIL'\n        v = tag(s)\n        v = [word for word, pos in v if pos == 'JJ'] # JJ = adjective\n        v = count(v) # {'sweet': 1}\n        if v:\n            knn.train(v, type=p)\n\nprint(knn.classify('sweet potato burger'))\nprint(knn.classify('stupid autocorrect'))\n```\n\nInstallation\n------------\n\nPattern supports Python 2.7 and Python 3.6. To install Pattern so that it is available in all your scripts, unzip the download and from the command line do:\n```bash\ncd pattern-3.6\npython setup.py install\n```\n\nIf you have pip, you can automatically download and install from the [PyPI repository](https://pypi.python.org/pypi/pattern):\n```bash\npip install pattern\n```\n\nIf none of the above works, you can make Python aware of the module in three ways:\n- Put the pattern folder in the same folder as your script.\n- Put the pattern folder in the standard location for modules so it is available to all scripts:\n  * `c:\\python36\\Lib\\site-packages\\` (Windows),\n  * `/Library/Python/3.6/site-packages/` (Mac OS X),\n  * `/usr/lib/python3.6/site-packages/` (Unix).\n- Add the location of the module to `sys.path` in your script, before importing it:\n\n```python\nMODULE = '/users/tom/desktop/pattern'\nimport sys; if MODULE not in sys.path: sys.path.append(MODULE)\nfrom pattern.en import parsetree\n```\n\nDocumentation\n-------------\n\nFor documentation and examples see the [user documentation](https://github.com/clips/pattern/wiki).\n\nVersion\n-------\n\n3.6\n\nLicense\n-------\n\n**BSD**, see `LICENSE.txt` for further details.\n\nReference\n---------\n\nDe Smedt, T., Daelemans, W. (2012). Pattern for Python. *Journal of Machine Learning Research, 13*, 2031\u20132035.\n\nContribute\n----------\n\nThe source code is hosted on GitHub and contributions or donations are welcomed.\n\nBundled dependencies\n--------------------\n\nPattern is bundled with the following data sets, algorithms and Python packages:\n\n- **Brill tagger**, Eric Brill\n- **Brill tagger for Dutch**, Jeroen Geertzen\n- **Brill tagger for German**, Gerold Schneider & Martin Volk\n- **Brill tagger for Spanish**, trained on Wikicorpus (Samuel Reese & Gemma Boleda et al.)\n- **Brill tagger for French**, trained on Lefff (Beno\u00eet Sagot & Lionel Cl\u00e9ment et al.)\n- **Brill tagger for Italian**, mined from Wiktionary\n- **English pluralization**, Damian Conway\n- **Spanish verb inflection**, Fred Jehle\n- **French verb inflection**, Bob Salita\n- **Graph JavaScript framework**, Aslak Hellesoy & Dave Hoover\n- **LIBSVM**, Chih-Chung Chang & Chih-Jen Lin\n- **LIBLINEAR**, Rong-En Fan et al.\n- **NetworkX centrality**, Aric Hagberg, Dan Schult & Pieter Swart\n- **spelling corrector**, Peter Norvig\n\nAcknowledgements\n----------------\n\n**Authors:**\n\n- Tom De Smedt (tom@organisms.be)\n- Walter Daelemans (walter.daelemans@ua.ac.be)\n\n**Contributors (chronological):**\n\n- Frederik De Bleser\n- Jason Wiener\n- Daniel Friesen\n- Jeroen Geertzen\n- Thomas Crombez\n- Ken Williams\n- Peteris Erins\n- Rajesh Nair\n- F. De Smedt\n- Radim \u0158eh\u016f\u0159ek\n- Tom Loredo\n- John DeBovis\n- Thomas Sileo\n- Gerold Schneider\n- Martin Volk\n- Samuel Joseph\n- Shubhanshu Mishra\n- Robert Elwell\n- Fred Jehle\n- Antoine Mazi\u00e8res + fabelier.org\n- R\u00e9mi de Zoeten + closealert.nl\n- Kenneth Koch\n- Jens Grivolla\n- Fabio Marfia\n- Steven Loria\n- Colin Molter + tevizz.com\n- Peter Bull\n- Maurizio Sambati\n- Dan Fu\n- Salvatore Di Dio\n- Vincent Van Asch\n- Frederik Elwert\n",
+        "releases": [
+            {
+                "name": "3.7-beta",
+                "date": "2022-08-30T12:13:51Z"
+            }
+        ]
+    }
+}

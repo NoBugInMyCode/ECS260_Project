@@ -1,0 +1,78 @@
+{
+    "https://api.github.com/repos/hackware1993/MagicIndicator": {
+        "forks": 1550,
+        "watchers": 9757,
+        "stars": 9757,
+        "languages": {
+            "Java": 196306
+        },
+        "commits": [
+            "2024-12-07T07:46:57Z",
+            "2024-08-26T05:42:07Z",
+            "2022-09-24T03:25:47Z",
+            "2022-06-20T00:53:36Z",
+            "2022-06-08T13:48:22Z"
+        ],
+        "creation_date": "2016-06-26T08:20:43Z",
+        "contributors": 1,
+        "topics": [
+            "indicator",
+            "pagerslidingtabstrip",
+            "tablayout",
+            "viewpager",
+            "viewpagerindicator"
+        ],
+        "subscribers": 156,
+        "readme": "# MagicIndicator\n\nA powerful, customizable and extensible ViewPager indicator framework. As the best alternative of ViewPagerIndicator, TabLayout and PagerSlidingTabStrip.\n\n[Flutter_ConstraintLayout](https://github.com/hackware1993/Flutter_ConstraintLayout) Another very good open source project of mine.\n\n**I have developed the world's fastest general purpose sorting algorithm, which is on average 3 times faster than Quicksort and up to 20 times faster**, [ChenSort](https://github.com/hackware1993/ChenSort)\n\n[![](https://jitpack.io/v/hackware1993/MagicIndicator.svg)](https://jitpack.io/#hackware1993/MagicIndicator)\n[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MagicIndicator-green.svg?style=true)](https://android-arsenal.com/details/1/4252)\n[![Codewake](https://www.codewake.com/badges/ask_question.svg)](https://www.codewake.com/p/magicindicator)\n\n![magicindicaotor.gif](https://github.com/hackware1993/MagicIndicator/blob/main/magicindicator.gif)\n\n# Usage\n\nSimple steps, you can integrate **MagicIndicator**:\n\n1. checkout out **MagicIndicator**, which contains source code and demo\n2. import module **magicindicator** and add dependency:\n\n  ```groovy\n  implementation project(':magicindicator')\n  ```\n  \n  **or**\n  \n  ```groovy\n  repositories {\n      ...\n      maven {\n          url \"https://jitpack.io\"\n      }\n  }\n  \n  dependencies {\n      ...\n      implementation 'com.github.hackware1993:MagicIndicator:1.6.0' // for support lib\n      implementation 'com.github.hackware1993:MagicIndicator:1.7.0' // for androidx\n  }\n  ```\n  \n3. add **MagicIndicator** to your layout xml:\n\n  ```xml\n  <?xml version=\"1.0\" encoding=\"utf-8\"?>\n  <LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n      xmlns:tools=\"http://schemas.android.com/tools\"\n      android:layout_width=\"match_parent\"\n      android:layout_height=\"match_parent\"\n      android:orientation=\"vertical\"\n      tools:context=\"net.lucode.hackware.magicindicatordemo.MainActivity\">\n  \n      <net.lucode.hackware.magicindicator.MagicIndicator\n          android:id=\"@+id/magic_indicator\"\n          android:layout_width=\"match_parent\"\n          android:layout_height=\"40dp\" />\n  \n      <android.support.v4.view.ViewPager\n          android:id=\"@+id/view_pager\"\n          android:layout_width=\"match_parent\"\n          android:layout_height=\"0dp\"\n          android:layout_weight=\"1\" />\n  \n  </LinearLayout>\n  ```\n\n4. find **MagicIndicator** through code, initialize it:\n\n  ```java\n  MagicIndicator magicIndicator = (MagicIndicator) findViewById(R.id.magic_indicator);\n  CommonNavigator commonNavigator = new CommonNavigator(this);\n  commonNavigator.setAdapter(new CommonNavigatorAdapter() {\n  \n      @Override\n      public int getCount() {\n          return mTitleDataList == null ? 0 : mTitleDataList.size();\n      }\n  \n      @Override\n      public IPagerTitleView getTitleView(Context context, final int index) {\n          ColorTransitionPagerTitleView colorTransitionPagerTitleView = new ColorTransitionPagerTitleView(context);\n          colorTransitionPagerTitleView.setNormalColor(Color.GRAY);\n          colorTransitionPagerTitleView.setSelectedColor(Color.BLACK);\n          colorTransitionPagerTitleView.setText(mTitleDataList.get(index));\n          colorTransitionPagerTitleView.setOnClickListener(new View.OnClickListener() {\n              @Override\n              public void onClick(View view) {\n                  mViewPager.setCurrentItem(index);\n              }\n          });\n          return colorTransitionPagerTitleView;\n      }\n  \n      @Override\n      public IPagerIndicator getIndicator(Context context) {\n          LinePagerIndicator indicator = new LinePagerIndicator(context);\n          indicator.setMode(LinePagerIndicator.MODE_WRAP_CONTENT);\n          return indicator;\n      }\n  });\n  magicIndicator.setNavigator(commonNavigator);\n  ```\n  \n5. work with ViewPager:\n\n  ```java\n  ViewPagerHelper.bind(magicIndicator, mViewPager);\n  ```\n\n  **or**\n  \n  work with Fragment Container(switch Fragment by hide()\u3001show()):\n  ```java\n  mFramentContainerHelper = new FragmentContainerHelper(magicIndicator);\n  \n  // ...\n  \n  mFragmentContainerHelper.handlePageSelected(pageIndex);   // invoke when switch Fragment\n  ```\n  \n# Extend\n\n**MagicIndicator** can be easily extended:\n\n1. implement **IPagerTitleView** to customize tab:\n\n  ```java\n  public class MyPagerTitleView extends View implements IPagerTitleView {\n  \n      public MyPagerTitleView(Context context) {\n          super(context);\n      }\n  \n      @Override\n      public void onLeave(int index, int totalCount, float leavePercent, boolean leftToRight) {\n      }\n  \n      @Override\n      public void onEnter(int index, int totalCount, float enterPercent, boolean leftToRight) {\n      }\n  \n      @Override\n      public void onSelected(int index, int totalCount) {\n      }\n  \n      @Override\n      public void onDeselected(int index, int totalCount) {\n      }\n  }\n  ```\n\n2. implement **IPagerIndicator** to customize indicator:\n\n  ```java\n  public class MyPagerIndicator extends View implements IPagerIndicator {\n  \n      public MyPagerIndicator(Context context) {\n          super(context);\n      }\n  \n      @Override\n      public void onPageSelected(int position) {\n      }\n  \n      @Override\n      public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {\n      }\n  \n      @Override\n      public void onPageScrollStateChanged(int state) {\n      }\n  \n      @Override\n      public void onPositionDataProvide(List<PositionData> dataList) {\n      }\n  }\n  ```\n\n3. use **CommonPagerTitleView** to load custom layout xml.\n\nNow, enjoy yourself!\n\nSee extensions in [*app/src/main/java/net/lucode/hackware/magicindicatordemo/ext*](https://github.com/hackware1993/MagicIndicator/tree/master/app/src/main/java/net/lucode/hackware/magicindicatordemo/ext)\uff0cmore extensions adding...\n\n# Who developed?\n\nhackware1993@gmail.com\n\ncfb1993@163.com\n\nQ&A <a target=\"_blank\" href=\"http://shang.qq.com/wpa/qunwpa?idkey=7ac5bef0321c7afa7e9fc4e94175fa36f413e3330c82e828b1743274af8a64d7\"><img border=\"0\" src=\"http://pub.idqqimg.com/wpa/images/group.png\" alt=\"MagicIndicator\u4ea4\u6d41\u7fa4\" title=\"MagicIndicator\u4ea4\u6d41\u7fa4\"></a>\n\nAn intermittent perfectionist.\n\nVisit [My Blog](http://hackware.lucode.net) for more articles about MagicIndicator.\n\n\u8ba2\u9605\u6211\u7684\u5fae\u4fe1\u516c\u4f17\u53f7\u4ee5\u53ca\u65f6\u83b7\u53d6 MagicIndicator \u7684\u6700\u65b0\u52a8\u6001\u3002\u540e\u7eed\u4e5f\u4f1a\u5206\u4eab\u4e00\u4e9b\u9ad8\u8d28\u91cf\u7684\u3001\u72ec\u7279\u7684\u3001\u6709\u601d\u60f3\u7684 Flutter \u548c Android \u6280\u672f\u6587\u7ae0\u3002\n\n![official_account.webp](https://github.com/hackware1993/weiV/blob/master/official_account.webp?raw=true)\n\n# License\n\n  ```\n  MIT License\n  \n  Copyright (c) 2016 hackware1993\n  \n  Permission is hereby granted, free of charge, to any person obtaining a copy\n  of this software and associated documentation files (the \"Software\"), to deal\n  in the Software without restriction, including without limitation the rights\n  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n  copies of the Software, and to permit persons to whom the Software is\n  furnished to do so, subject to the following conditions:\n  \n  The above copyright notice and this permission notice shall be included in all\n  copies or substantial portions of the Software.\n  \n  THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\n  SOFTWARE.\n  ```\n\n# More\n\nHave seen here, give a star?\uff08\u90fd\u770b\u5230\u8fd9\u513f\u4e86\uff0c\u4f55\u4e0d\u7ed9\u4e2a...\uff0c\u54ce\uff0c\u522b\u8d70\u554a\uff0cstar\u8fd8\u6ca1...\uff09\n",
+        "releases": [
+            {
+                "name": "1.7.0",
+                "date": "2020-09-29T06:27:18Z"
+            },
+            {
+                "name": "1.6.0",
+                "date": "2019-03-21T08:19:18Z"
+            },
+            {
+                "name": "1.5.0",
+                "date": "2016-11-30T06:38:21Z"
+            },
+            {
+                "name": "1.4.2",
+                "date": "2016-11-22T03:06:36Z"
+            },
+            {
+                "name": "1.4.1",
+                "date": "2016-11-21T02:37:48Z"
+            },
+            {
+                "name": "1.4.0",
+                "date": "2016-09-13T07:45:14Z"
+            },
+            {
+                "name": "1.3.1",
+                "date": "2016-09-05T03:26:18Z"
+            },
+            {
+                "name": "1.3.0",
+                "date": "2016-09-04T04:21:30Z"
+            },
+            {
+                "name": "1.2.1",
+                "date": "2016-08-30T13:25:32Z"
+            },
+            {
+                "name": "1.2.0",
+                "date": "2016-08-26T00:29:41Z"
+            },
+            {
+                "name": "1.1.0",
+                "date": "2016-08-13T03:11:38Z"
+            },
+            {
+                "name": "1.0.0",
+                "date": "2016-08-02T13:18:34Z"
+            }
+        ]
+    }
+}

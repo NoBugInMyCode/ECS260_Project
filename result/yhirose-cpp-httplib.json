@@ -1,0 +1,554 @@
+{
+    "https://api.github.com/repos/yhirose/cpp-httplib": {
+        "forks": 2348,
+        "watchers": 13535,
+        "stars": 13535,
+        "languages": {
+            "C++": 2414163,
+            "CMake": 28300,
+            "Meson": 9514,
+            "Makefile": 8212,
+            "Python": 1992,
+            "Shell": 1475,
+            "HTML": 938,
+            "Dockerfile": 531
+        },
+        "commits": [
+            "2025-01-20T05:32:10Z",
+            "2025-01-20T05:02:02Z",
+            "2025-01-20T04:46:12Z",
+            "2025-01-17T22:38:03Z",
+            "2025-01-17T22:37:07Z",
+            "2025-01-17T04:26:04Z",
+            "2025-01-17T03:36:07Z",
+            "2025-01-17T02:38:45Z",
+            "2025-01-16T06:00:25Z",
+            "2025-01-16T05:04:17Z",
+            "2025-01-16T05:03:10Z",
+            "2024-12-27T22:19:23Z",
+            "2024-12-24T14:38:59Z",
+            "2024-12-23T18:14:36Z",
+            "2024-12-16T22:03:45Z",
+            "2024-12-12T23:15:22Z",
+            "2024-12-04T00:26:08Z",
+            "2024-12-03T11:33:00Z",
+            "2024-12-03T05:38:20Z",
+            "2024-12-03T05:11:29Z",
+            "2024-12-02T16:09:52Z",
+            "2024-11-30T01:49:50Z",
+            "2024-11-30T01:46:48Z",
+            "2024-11-29T01:40:38Z",
+            "2024-11-29T01:37:39Z",
+            "2024-11-27T17:18:35Z",
+            "2024-11-27T17:18:23Z",
+            "2024-11-25T20:46:41Z",
+            "2024-11-16T16:14:13Z",
+            "2024-11-16T15:56:57Z"
+        ],
+        "creation_date": "2012-09-22T02:38:32Z",
+        "contributors": 30,
+        "topics": [
+            "cpp",
+            "cpp11",
+            "header-only",
+            "http",
+            "https"
+        ],
+        "subscribers": 190,
+        "readme": "cpp-httplib\n===========\n\n[![](https://github.com/yhirose/cpp-httplib/workflows/test/badge.svg)](https://github.com/yhirose/cpp-httplib/actions)\n\nA C++11 single-file header-only cross platform HTTP/HTTPS library.\n\nIt's extremely easy to setup. Just include the **httplib.h** file in your code!\n\n> [!IMPORTANT]\n> This library uses 'blocking' socket I/O. If you are looking for a library with 'non-blocking' socket I/O, this is not the one that you want.\n\nSimple examples\n---------------\n\n#### Server (Multi-threaded)\n\n```c++\n#define CPPHTTPLIB_OPENSSL_SUPPORT\n#include \"path/to/httplib.h\"\n\n// HTTP\nhttplib::Server svr;\n\n// HTTPS\nhttplib::SSLServer svr;\n\nsvr.Get(\"/hi\", [](const httplib::Request &, httplib::Response &res) {\n  res.set_content(\"Hello World!\", \"text/plain\");\n});\n\nsvr.listen(\"0.0.0.0\", 8080);\n```\n\n#### Client\n\n```c++\n#define CPPHTTPLIB_OPENSSL_SUPPORT\n#include \"path/to/httplib.h\"\n\n// HTTP\nhttplib::Client cli(\"http://yhirose.github.io/hi\");\n\n// HTTPS\nhttplib::Client cli(\"https://yhirose.github.io/hi\");\n\nauto res = cli.Get(\"/hi\");\nres->status;\nres->body;\n```\n\nSSL Support\n-----------\n\nSSL support is available with `CPPHTTPLIB_OPENSSL_SUPPORT`. `libssl` and `libcrypto` should be linked.\n\n> [!NOTE]\n> cpp-httplib currently supports only version 3.0 or later. Please see [this page](https://www.openssl.org/policies/releasestrat.html) to get more information.\n\n> [!TIP]\n> For macOS: cpp-httplib now can use system certs with `CPPHTTPLIB_USE_CERTS_FROM_MACOSX_KEYCHAIN`. `CoreFoundation` and `Security` should be linked with `-framework`.\n\n```c++\n#define CPPHTTPLIB_OPENSSL_SUPPORT\n#include \"path/to/httplib.h\"\n\n// Server\nhttplib::SSLServer svr(\"./cert.pem\", \"./key.pem\");\n\n// Client\nhttplib::Client cli(\"https://localhost:1234\"); // scheme + host\nhttplib::SSLClient cli(\"localhost:1234\"); // host\nhttplib::SSLClient cli(\"localhost\", 1234); // host, port\n\n// Use your CA bundle\ncli.set_ca_cert_path(\"./ca-bundle.crt\");\n\n// Disable cert verification\ncli.enable_server_certificate_verification(false);\n\n// Disable host verification\ncli.enable_server_hostname_verification(false);\n```\n\n> [!NOTE]\n> When using SSL, it seems impossible to avoid SIGPIPE in all cases, since on some operating systems, SIGPIPE can only be suppressed on a per-message basis, but there is no way to make the OpenSSL library do so for its internal communications. If your program needs to avoid being terminated on SIGPIPE, the only fully general way might be to set up a signal handler for SIGPIPE to handle or ignore it yourself.\n\nServer\n------\n\n```c++\n#include <httplib.h>\n\nint main(void)\n{\n  using namespace httplib;\n\n  Server svr;\n\n  svr.Get(\"/hi\", [](const Request& req, Response& res) {\n    res.set_content(\"Hello World!\", \"text/plain\");\n  });\n\n  // Match the request path against a regular expression\n  // and extract its captures\n  svr.Get(R\"(/numbers/(\\d+))\", [&](const Request& req, Response& res) {\n    auto numbers = req.matches[1];\n    res.set_content(numbers, \"text/plain\");\n  });\n\n  // Capture the second segment of the request path as \"id\" path param\n  svr.Get(\"/users/:id\", [&](const Request& req, Response& res) {\n    auto user_id = req.path_params.at(\"id\");\n    res.set_content(user_id, \"text/plain\");\n  });\n\n  // Extract values from HTTP headers and URL query params\n  svr.Get(\"/body-header-param\", [](const Request& req, Response& res) {\n    if (req.has_header(\"Content-Length\")) {\n      auto val = req.get_header_value(\"Content-Length\");\n    }\n    if (req.has_param(\"key\")) {\n      auto val = req.get_param_value(\"key\");\n    }\n    res.set_content(req.body, \"text/plain\");\n  });\n\n  // If the handler takes time to finish, you can also poll the connection state\n  svr.Get(\"/task\", [&](const Request& req, Response& res) {\n    const char * result = nullptr;\n    process.run(); // for example, starting an external process\n    while (result == nullptr) {\n      sleep(1);\n      if (req.is_connection_closed()) {\n        process.kill(); // kill the process\n        return;\n      }\n      result = process.stdout(); // != nullptr if the process finishes\n    }\n    res.set_content(result, \"text/plain\");\n  });\n\n  svr.Get(\"/stop\", [&](const Request& req, Response& res) {\n    svr.stop();\n  });\n\n  svr.listen(\"localhost\", 1234);\n}\n```\n\n`Post`, `Put`, `Delete` and `Options` methods are also supported.\n\n### Bind a socket to multiple interfaces and any available port\n\n```cpp\nint port = svr.bind_to_any_port(\"0.0.0.0\");\nsvr.listen_after_bind();\n```\n\n### Static File Server\n\n```cpp\n// Mount / to ./www directory\nauto ret = svr.set_mount_point(\"/\", \"./www\");\nif (!ret) {\n  // The specified base directory doesn't exist...\n}\n\n// Mount /public to ./www directory\nret = svr.set_mount_point(\"/public\", \"./www\");\n\n// Mount /public to ./www1 and ./www2 directories\nret = svr.set_mount_point(\"/public\", \"./www1\"); // 1st order to search\nret = svr.set_mount_point(\"/public\", \"./www2\"); // 2nd order to search\n\n// Remove mount /\nret = svr.remove_mount_point(\"/\");\n\n// Remove mount /public\nret = svr.remove_mount_point(\"/public\");\n```\n\n```cpp\n// User defined file extension and MIME type mappings\nsvr.set_file_extension_and_mimetype_mapping(\"cc\", \"text/x-c\");\nsvr.set_file_extension_and_mimetype_mapping(\"cpp\", \"text/x-c\");\nsvr.set_file_extension_and_mimetype_mapping(\"hh\", \"text/x-h\");\n```\n\nThe followings are built-in mappings:\n\n| Extension  |          MIME Type          | Extension  |          MIME Type          |\n| :--------- | :-------------------------- | :--------- | :-------------------------- |\n| css        | text/css                    | mpga       | audio/mpeg                  |\n| csv        | text/csv                    | weba       | audio/webm                  |\n| txt        | text/plain                  | wav        | audio/wave                  |\n| vtt        | text/vtt                    | otf        | font/otf                    |\n| html, htm  | text/html                   | ttf        | font/ttf                    |\n| apng       | image/apng                  | woff       | font/woff                   |\n| avif       | image/avif                  | woff2      | font/woff2                  |\n| bmp        | image/bmp                   | 7z         | application/x-7z-compressed |\n| gif        | image/gif                   | atom       | application/atom+xml        |\n| png        | image/png                   | pdf        | application/pdf             |\n| svg        | image/svg+xml               | mjs, js    | application/javascript      |\n| webp       | image/webp                  | json       | application/json            |\n| ico        | image/x-icon                | rss        | application/rss+xml         |\n| tif        | image/tiff                  | tar        | application/x-tar           |\n| tiff       | image/tiff                  | xhtml, xht | application/xhtml+xml       |\n| jpeg, jpg  | image/jpeg                  | xslt       | application/xslt+xml        |\n| mp4        | video/mp4                   | xml        | application/xml             |\n| mpeg       | video/mpeg                  | gz         | application/gzip            |\n| webm       | video/webm                  | zip        | application/zip             |\n| mp3        | audio/mp3                   | wasm       | application/wasm            |\n\n> [!WARNING]\n> These static file server methods are not thread-safe.\n\n### File request handler\n\n```cpp\n// The handler is called right before the response is sent to a client\nsvr.set_file_request_handler([](const Request &req, Response &res) {\n  ...\n});\n```\n\n### Logging\n\n```cpp\nsvr.set_logger([](const auto& req, const auto& res) {\n  your_logger(req, res);\n});\n```\n\n### Error handler\n\n```cpp\nsvr.set_error_handler([](const auto& req, auto& res) {\n  auto fmt = \"<p>Error Status: <span style='color:red;'>%d</span></p>\";\n  char buf[BUFSIZ];\n  snprintf(buf, sizeof(buf), fmt, res.status);\n  res.set_content(buf, \"text/html\");\n});\n```\n\n### Exception handler\nThe exception handler gets called if a user routing handler throws an error.\n\n```cpp\nsvr.set_exception_handler([](const auto& req, auto& res, std::exception_ptr ep) {\n  auto fmt = \"<h1>Error 500</h1><p>%s</p>\";\n  char buf[BUFSIZ];\n  try {\n    std::rethrow_exception(ep);\n  } catch (std::exception &e) {\n    snprintf(buf, sizeof(buf), fmt, e.what());\n  } catch (...) { // See the following NOTE\n    snprintf(buf, sizeof(buf), fmt, \"Unknown Exception\");\n  }\n  res.set_content(buf, \"text/html\");\n  res.status = StatusCode::InternalServerError_500;\n});\n```\n\n> [!CAUTION]\n> if you don't provide the `catch (...)` block for a rethrown exception pointer, an uncaught exception will end up causing the server crash. Be careful!\n\n### Pre routing handler\n\n```cpp\nsvr.set_pre_routing_handler([](const auto& req, auto& res) {\n  if (req.path == \"/hello\") {\n    res.set_content(\"world\", \"text/html\");\n    return Server::HandlerResponse::Handled;\n  }\n  return Server::HandlerResponse::Unhandled;\n});\n```\n\n### Post routing handler\n\n```cpp\nsvr.set_post_routing_handler([](const auto& req, auto& res) {\n  res.set_header(\"ADDITIONAL_HEADER\", \"value\");\n});\n```\n\n### 'multipart/form-data' POST data\n\n```cpp\nsvr.Post(\"/multipart\", [&](const auto& req, auto& res) {\n  auto size = req.files.size();\n  auto ret = req.has_file(\"name1\");\n  const auto& file = req.get_file_value(\"name1\");\n  // file.filename;\n  // file.content_type;\n  // file.content;\n});\n```\n\n### Receive content with a content receiver\n\n```cpp\nsvr.Post(\"/content_receiver\",\n  [&](const Request &req, Response &res, const ContentReader &content_reader) {\n    if (req.is_multipart_form_data()) {\n      // NOTE: `content_reader` is blocking until every form data field is read\n      MultipartFormDataItems files;\n      content_reader(\n        [&](const MultipartFormData &file) {\n          files.push_back(file);\n          return true;\n        },\n        [&](const char *data, size_t data_length) {\n          files.back().content.append(data, data_length);\n          return true;\n        });\n    } else {\n      std::string body;\n      content_reader([&](const char *data, size_t data_length) {\n        body.append(data, data_length);\n        return true;\n      });\n    }\n  });\n```\n\n### Send content with the content provider\n\n```cpp\nconst size_t DATA_CHUNK_SIZE = 4;\n\nsvr.Get(\"/stream\", [&](const Request &req, Response &res) {\n  auto data = new std::string(\"abcdefg\");\n\n  res.set_content_provider(\n    data->size(), // Content length\n    \"text/plain\", // Content type\n    [&, data](size_t offset, size_t length, DataSink &sink) {\n      const auto &d = *data;\n      sink.write(&d[offset], std::min(length, DATA_CHUNK_SIZE));\n      return true; // return 'false' if you want to cancel the process.\n    },\n    [data](bool success) { delete data; });\n});\n```\n\nWithout content length:\n\n```cpp\nsvr.Get(\"/stream\", [&](const Request &req, Response &res) {\n  res.set_content_provider(\n    \"text/plain\", // Content type\n    [&](size_t offset, DataSink &sink) {\n      if (/* there is still data */) {\n        std::vector<char> data;\n        // prepare data...\n        sink.write(data.data(), data.size());\n      } else {\n        sink.done(); // No more data\n      }\n      return true; // return 'false' if you want to cancel the process.\n    });\n});\n```\n\n### Chunked transfer encoding\n\n```cpp\nsvr.Get(\"/chunked\", [&](const Request& req, Response& res) {\n  res.set_chunked_content_provider(\n    \"text/plain\",\n    [](size_t offset, DataSink &sink) {\n      sink.write(\"123\", 3);\n      sink.write(\"345\", 3);\n      sink.write(\"789\", 3);\n      sink.done(); // No more data\n      return true; // return 'false' if you want to cancel the process.\n    }\n  );\n});\n```\n\nWith trailer:\n\n```cpp\nsvr.Get(\"/chunked\", [&](const Request& req, Response& res) {\n  res.set_header(\"Trailer\", \"Dummy1, Dummy2\");\n  res.set_chunked_content_provider(\n    \"text/plain\",\n    [](size_t offset, DataSink &sink) {\n      sink.write(\"123\", 3);\n      sink.write(\"345\", 3);\n      sink.write(\"789\", 3);\n      sink.done_with_trailer({\n        {\"Dummy1\", \"DummyVal1\"},\n        {\"Dummy2\", \"DummyVal2\"}\n      });\n      return true;\n    }\n  );\n});\n```\n\n### Send file content\n\n```cpp\nsvr.Get(\"/content\", [&](const Request &req, Response &res) {\n  res.set_file_content(\"./path/to/conent.html\");\n});\n\nsvr.Get(\"/content\", [&](const Request &req, Response &res) {\n  res.set_file_content(\"./path/to/conent\", \"text/html\");\n});\n```\n\n### 'Expect: 100-continue' handler\n\nBy default, the server sends a `100 Continue` response for an `Expect: 100-continue` header.\n\n```cpp\n// Send a '417 Expectation Failed' response.\nsvr.set_expect_100_continue_handler([](const Request &req, Response &res) {\n  return StatusCode::ExpectationFailed_417;\n});\n```\n\n```cpp\n// Send a final status without reading the message body.\nsvr.set_expect_100_continue_handler([](const Request &req, Response &res) {\n  return res.status = StatusCode::Unauthorized_401;\n});\n```\n\n### Keep-Alive connection\n\n```cpp\nsvr.set_keep_alive_max_count(2); // Default is 5\nsvr.set_keep_alive_timeout(10);  // Default is 5\n```\n\n### Timeout\n\n```c++\nsvr.set_read_timeout(5, 0); // 5 seconds\nsvr.set_write_timeout(5, 0); // 5 seconds\nsvr.set_idle_interval(0, 100000); // 100 milliseconds\n```\n\n### Set maximum payload length for reading a request body\n\n```c++\nsvr.set_payload_max_length(1024 * 1024 * 512); // 512MB\n```\n\n> [!NOTE]\n> When the request body content type is 'www-form-urlencoded', the actual payload length shouldn't exceed `CPPHTTPLIB_FORM_URL_ENCODED_PAYLOAD_MAX_LENGTH`.\n\n### Server-Sent Events\n\nPlease see [Server example](https://github.com/yhirose/cpp-httplib/blob/master/example/ssesvr.cc) and [Client example](https://github.com/yhirose/cpp-httplib/blob/master/example/ssecli.cc).\n\n### Default thread pool support\n\n`ThreadPool` is used as a **default** task queue, and the default thread count is 8, or `std::thread::hardware_concurrency()`. You can change it with `CPPHTTPLIB_THREAD_POOL_COUNT`.\n\nIf you want to set the thread count at runtime, there is no convenient way... But here is how.\n\n```cpp\nsvr.new_task_queue = [] { return new ThreadPool(12); };\n```\n\nYou can also provide an optional parameter to limit the maximum number\nof pending requests, i.e. requests `accept()`ed by the listener but\nstill waiting to be serviced by worker threads.\n\n```cpp\nsvr.new_task_queue = [] { return new ThreadPool(/*num_threads=*/12, /*max_queued_requests=*/18); };\n```\n\nDefault limit is 0 (unlimited). Once the limit is reached, the listener\nwill shutdown the client connection.\n\n### Override the default thread pool with yours\n\nYou can supply your own thread pool implementation according to your need.\n\n```cpp\nclass YourThreadPoolTaskQueue : public TaskQueue {\npublic:\n  YourThreadPoolTaskQueue(size_t n) {\n    pool_.start_with_thread_count(n);\n  }\n\n  virtual bool enqueue(std::function<void()> fn) override {\n    /* Return true if the task was actually enqueued, or false\n     * if the caller must drop the corresponding connection. */\n    return pool_.enqueue(fn);\n  }\n\n  virtual void shutdown() override {\n    pool_.shutdown_gracefully();\n  }\n\nprivate:\n  YourThreadPool pool_;\n};\n\nsvr.new_task_queue = [] {\n  return new YourThreadPoolTaskQueue(12);\n};\n```\n\nClient\n------\n\n```c++\n#include <httplib.h>\n#include <iostream>\n\nint main(void)\n{\n  httplib::Client cli(\"localhost\", 1234);\n\n  if (auto res = cli.Get(\"/hi\")) {\n    if (res->status == StatusCode::OK_200) {\n      std::cout << res->body << std::endl;\n    }\n  } else {\n    auto err = res.error();\n    std::cout << \"HTTP error: \" << httplib::to_string(err) << std::endl;\n  }\n}\n```\n\n> [!TIP]\n> Constructor with scheme-host-port string is now supported!\n\n```c++\nhttplib::Client cli(\"localhost\");\nhttplib::Client cli(\"localhost:8080\");\nhttplib::Client cli(\"http://localhost\");\nhttplib::Client cli(\"http://localhost:8080\");\nhttplib::Client cli(\"https://localhost\");\nhttplib::SSLClient cli(\"localhost\");\n```\n\n### Error code\n\nHere is the list of errors from `Result::error()`.\n\n```c++\nenum Error {\n  Success = 0,\n  Unknown,\n  Connection,\n  BindIPAddress,\n  Read,\n  Write,\n  ExceedRedirectCount,\n  Canceled,\n  SSLConnection,\n  SSLLoadingCerts,\n  SSLServerVerification,\n  UnsupportedMultipartBoundaryChars,\n  Compression,\n  ConnectionTimeout,\n};\n```\n\n### GET with HTTP headers\n\n```c++\nhttplib::Headers headers = {\n  { \"Hello\", \"World!\" }\n};\nauto res = cli.Get(\"/hi\", headers);\n```\nor\n```c++\nauto res = cli.Get(\"/hi\", {{\"Hello\", \"World!\"}});\n```\nor\n```c++\ncli.set_default_headers({\n  { \"Hello\", \"World!\" }\n});\nauto res = cli.Get(\"/hi\");\n```\n\n### POST\n\n```c++\nres = cli.Post(\"/post\", \"text\", \"text/plain\");\nres = cli.Post(\"/person\", \"name=john1&note=coder\", \"application/x-www-form-urlencoded\");\n```\n\n### POST with parameters\n\n```c++\nhttplib::Params params;\nparams.emplace(\"name\", \"john\");\nparams.emplace(\"note\", \"coder\");\n\nauto res = cli.Post(\"/post\", params);\n```\n or\n\n```c++\nhttplib::Params params{\n  { \"name\", \"john\" },\n  { \"note\", \"coder\" }\n};\n\nauto res = cli.Post(\"/post\", params);\n```\n\n### POST with Multipart Form Data\n\n```c++\nhttplib::MultipartFormDataItems items = {\n  { \"text1\", \"text default\", \"\", \"\" },\n  { \"text2\", \"a\u03c9b\", \"\", \"\" },\n  { \"file1\", \"h\\ne\\n\\nl\\nl\\no\\n\", \"hello.txt\", \"text/plain\" },\n  { \"file2\", \"{\\n  \\\"world\\\", true\\n}\\n\", \"world.json\", \"application/json\" },\n  { \"file3\", \"\", \"\", \"application/octet-stream\" },\n};\n\nauto res = cli.Post(\"/multipart\", items);\n```\n\n### PUT\n\n```c++\nres = cli.Put(\"/resource/foo\", \"text\", \"text/plain\");\n```\n\n### DELETE\n\n```c++\nres = cli.Delete(\"/resource/foo\");\n```\n\n### OPTIONS\n\n```c++\nres = cli.Options(\"*\");\nres = cli.Options(\"/resource/foo\");\n```\n\n### Timeout\n\n```c++\ncli.set_connection_timeout(0, 300000); // 300 milliseconds\ncli.set_read_timeout(5, 0); // 5 seconds\ncli.set_write_timeout(5, 0); // 5 seconds\n```\n\n### Receive content with a content receiver\n\n```c++\nstd::string body;\n\nauto res = cli.Get(\"/large-data\",\n  [&](const char *data, size_t data_length) {\n    body.append(data, data_length);\n    return true;\n  });\n```\n\n```cpp\nstd::string body;\n\nauto res = cli.Get(\n  \"/stream\", Headers(),\n  [&](const Response &response) {\n    EXPECT_EQ(StatusCode::OK_200, response.status);\n    return true; // return 'false' if you want to cancel the request.\n  },\n  [&](const char *data, size_t data_length) {\n    body.append(data, data_length);\n    return true; // return 'false' if you want to cancel the request.\n  });\n```\n\n### Send content with a content provider\n\n```cpp\nstd::string body = ...;\n\nauto res = cli.Post(\n  \"/stream\", body.size(),\n  [](size_t offset, size_t length, DataSink &sink) {\n    sink.write(body.data() + offset, length);\n    return true; // return 'false' if you want to cancel the request.\n  },\n  \"text/plain\");\n```\n\n### Chunked transfer encoding\n\n```cpp\nauto res = cli.Post(\n  \"/stream\",\n  [](size_t offset, DataSink &sink) {\n    sink.os << \"chunked data 1\";\n    sink.os << \"chunked data 2\";\n    sink.os << \"chunked data 3\";\n    sink.done();\n    return true; // return 'false' if you want to cancel the request.\n  },\n  \"text/plain\");\n```\n\n### With Progress Callback\n\n```cpp\nhttplib::Client cli(url, port);\n\n// prints: 0 / 000 bytes => 50% complete\nauto res = cli.Get(\"/\", [](uint64_t len, uint64_t total) {\n  printf(\"%lld / %lld bytes => %d%% complete\\n\",\n    len, total,\n    (int)(len*100/total));\n  return true; // return 'false' if you want to cancel the request.\n}\n);\n```\n\n![progress](https://user-images.githubusercontent.com/236374/33138910-495c4ecc-cf86-11e7-8693-2fc6d09615c4.gif)\n\n### Authentication\n\n```cpp\n// Basic Authentication\ncli.set_basic_auth(\"user\", \"pass\");\n\n// Digest Authentication\ncli.set_digest_auth(\"user\", \"pass\");\n\n// Bearer Token Authentication\ncli.set_bearer_token_auth(\"token\");\n```\n\n> [!NOTE]\n> OpenSSL is required for Digest Authentication.\n\n### Proxy server support\n\n```cpp\ncli.set_proxy(\"host\", port);\n\n// Basic Authentication\ncli.set_proxy_basic_auth(\"user\", \"pass\");\n\n// Digest Authentication\ncli.set_proxy_digest_auth(\"user\", \"pass\");\n\n// Bearer Token Authentication\ncli.set_proxy_bearer_token_auth(\"pass\");\n```\n\n> [!NOTE]\n> OpenSSL is required for Digest Authentication.\n\n### Range\n\n```cpp\nhttplib::Client cli(\"httpbin.org\");\n\nauto res = cli.Get(\"/range/32\", {\n  httplib::make_range_header({{1, 10}}) // 'Range: bytes=1-10'\n});\n// res->status should be 206.\n// res->body should be \"bcdefghijk\".\n```\n\n```cpp\nhttplib::make_range_header({{1, 10}, {20, -1}})      // 'Range: bytes=1-10, 20-'\nhttplib::make_range_header({{100, 199}, {500, 599}}) // 'Range: bytes=100-199, 500-599'\nhttplib::make_range_header({{0, 0}, {-1, 1}})        // 'Range: bytes=0-0, -1'\n```\n\n### Keep-Alive connection\n\n```cpp\nhttplib::Client cli(\"localhost\", 1234);\n\ncli.Get(\"/hello\");         // with \"Connection: close\"\n\ncli.set_keep_alive(true);\ncli.Get(\"/world\");\n\ncli.set_keep_alive(false);\ncli.Get(\"/last-request\");  // with \"Connection: close\"\n```\n\n### Redirect\n\n```cpp\nhttplib::Client cli(\"yahoo.com\");\n\nauto res = cli.Get(\"/\");\nres->status; // 301\n\ncli.set_follow_location(true);\nres = cli.Get(\"/\");\nres->status; // 200\n```\n\n### Use a specific network interface\n\n> [!NOTE]\n> This feature is not available on Windows, yet.\n\n```cpp\ncli.set_interface(\"eth0\"); // Interface name, IP address or host name\n```\n\nCompression\n-----------\n\nThe server can apply compression to the following MIME type contents:\n\n  * all text types except text/event-stream\n  * image/svg+xml\n  * application/javascript\n  * application/json\n  * application/xml\n  * application/xhtml+xml\n\n### Zlib Support\n\n'gzip' compression is available with `CPPHTTPLIB_ZLIB_SUPPORT`. `libz` should be linked.\n\n### Brotli Support\n\nBrotli compression is available with `CPPHTTPLIB_BROTLI_SUPPORT`. Necessary libraries should be linked.\nPlease see https://github.com/google/brotli for more detail.\n\n### Default `Accept-Encoding` value\n\nThe default `Acdcept-Encoding` value contains all possible compression types. So, the following two examples are same.\n\n```c++\nres = cli.Get(\"/resource/foo\");\nres = cli.Get(\"/resource/foo\", {{\"Accept-Encoding\", \"gzip, deflate, br\"}});\n```\n\nIf we don't want a response without compression, we have to set `Accept-Encoding` to an empty string. This behavior is similar to curl.\n\n```c++\nres = cli.Get(\"/resource/foo\", {{\"Accept-Encoding\", \"\"}});\n```\n\n### Compress request body on client\n\n```c++\ncli.set_compress(true);\nres = cli.Post(\"/resource/foo\", \"...\", \"text/plain\");\n```\n\n### Compress response body on client\n\n```c++\ncli.set_decompress(false);\nres = cli.Get(\"/resource/foo\");\nres->body; // Compressed data\n\n```\n\nUse `poll` instead of `select`\n------------------------------\n\n`select` system call is used as default since it's more widely supported. If you want to let cpp-httplib use `poll` instead, you can do so with `CPPHTTPLIB_USE_POLL`.\n\nUnix Domain Socket Support\n--------------------------\n\nUnix Domain Socket support is available on Linux and macOS.\n\n```c++\n// Server\nhttplib::Server svr(\"./my-socket.sock\");\nsvr.set_address_family(AF_UNIX).listen(\"./my-socket.sock\", 80);\n\n// Client\nhttplib::Client cli(\"./my-socket.sock\");\ncli.set_address_family(AF_UNIX);\n```\n\n\"my-socket.sock\" can be a relative path or an absolute path. You application must have the appropriate permissions for the path. You can also use an abstract socket address on Linux. To use an abstract socket address, prepend a null byte ('\\x00') to the path.\n\n\nSplit httplib.h into .h and .cc\n-------------------------------\n\n```console\n$ ./split.py -h\nusage: split.py [-h] [-e EXTENSION] [-o OUT]\n\nThis script splits httplib.h into .h and .cc parts.\n\noptional arguments:\n  -h, --help            show this help message and exit\n  -e EXTENSION, --extension EXTENSION\n                        extension of the implementation file (default: cc)\n  -o OUT, --out OUT     where to write the files (default: out)\n\n$ ./split.py\nWrote out/httplib.h and out/httplib.cc\n```\n\nDockerfile for Static HTTP Server\n---------------------------------\n\nDockerfile for static HTTP server is available. Port number of this HTTP server is 80, and it serves static files from `/html` directory in the container.\n\n```bash\n> docker build -t cpp-httplib-server .\n...\n\n> docker run --rm -it -p 8080:80 -v ./docker/html:/html cpp-httplib-server\nServing HTTP on 0.0.0.0 port 80 ...\n192.168.65.1 - - [31/Aug/2024:21:33:56 +0000] \"GET / HTTP/1.1\" 200 599 \"-\" \"curl/8.7.1\"\n192.168.65.1 - - [31/Aug/2024:21:34:26 +0000] \"GET / HTTP/1.1\" 200 599 \"-\" \"Mozilla/5.0 ...\"\n192.168.65.1 - - [31/Aug/2024:21:34:26 +0000] \"GET /favicon.ico HTTP/1.1\" 404 152 \"-\" \"Mozilla/5.0 ...\"\n```\n\nFrom Docker Hub\n\n```bash\n> docker run --rm -it -p 8080:80 -v ./docker/html:/html yhirose4dockerhub/cpp-httplib-server\nServing HTTP on 0.0.0.0 port 80 ...\n192.168.65.1 - - [31/Aug/2024:21:33:56 +0000] \"GET / HTTP/1.1\" 200 599 \"-\" \"curl/8.7.1\"\n192.168.65.1 - - [31/Aug/2024:21:34:26 +0000] \"GET / HTTP/1.1\" 200 599 \"-\" \"Mozilla/5.0 ...\"\n192.168.65.1 - - [31/Aug/2024:21:34:26 +0000] \"GET /favicon.ico HTTP/1.1\" 404 152 \"-\" \"Mozilla/5.0 ...\"\n```\n\nNOTE\n----\n\n### g++\n\ng++ 4.8 and below cannot build this library since `<regex>` in the versions are [broken](https://stackoverflow.com/questions/12530406/is-gcc-4-8-or-earlier-buggy-about-regular-expressions).\n\n### Windows\n\nInclude `httplib.h` before `Windows.h` or include `Windows.h` by defining `WIN32_LEAN_AND_MEAN` beforehand.\n\n```cpp\n#include <httplib.h>\n#include <Windows.h>\n```\n\n```cpp\n#define WIN32_LEAN_AND_MEAN\n#include <Windows.h>\n#include <httplib.h>\n```\n\n> [!NOTE]\n> cpp-httplib officially supports only the latest Visual Studio. It might work with former versions of Visual Studio, but I can no longer verify it. Pull requests are always welcome for the older versions of Visual Studio unless they break the C++11 conformance.\n\n> [!NOTE]\n> Windows 8 or lower, Visual Studio 2013 or lower, and Cygwin and MSYS2 including MinGW are neither supported nor tested.\n\nLicense\n-------\n\nMIT license (\u00a9 2025 Yuji Hirose)\n\nSpecial Thanks To\n-----------------\n\n[These folks](https://github.com/yhirose/cpp-httplib/graphs/contributors) made great contributions to polish this library to totally another level from a simple toy!\n",
+        "releases": [
+            {
+                "name": "Bug fixes and new feature",
+                "date": "2025-01-17T22:46:35Z"
+            },
+            {
+                "name": "Bug fixes",
+                "date": "2025-01-16T22:58:17Z"
+            },
+            {
+                "name": "Bug fixes",
+                "date": "2024-12-03T11:51:44Z"
+            },
+            {
+                "name": "Bug fixes",
+                "date": "2024-11-30T02:33:13Z"
+            },
+            {
+                "name": "Bug fixes",
+                "date": "2024-10-18T21:20:13Z"
+            },
+            {
+                "name": "New features and bug fixes",
+                "date": "2024-09-13T00:24:06Z"
+            },
+            {
+                "name": "Bug fixes",
+                "date": "2024-09-07T00:01:02Z"
+            },
+            {
+                "name": "Bug fixes and improvements",
+                "date": "2024-09-05T16:59:09Z"
+            },
+            {
+                "name": "Bug fixes",
+                "date": "2024-09-04T01:38:24Z"
+            },
+            {
+                "name": "New features and Bug fixes",
+                "date": "2024-09-01T12:07:56Z"
+            },
+            {
+                "name": "",
+                "date": "2024-08-17T13:56:40Z"
+            },
+            {
+                "name": "Some new features",
+                "date": "2024-08-08T15:51:50Z"
+            },
+            {
+                "name": "",
+                "date": "2024-08-06T21:06:25Z"
+            },
+            {
+                "name": "Bug fixes",
+                "date": "2024-06-11T22:22:08Z"
+            },
+            {
+                "name": "Bug fix",
+                "date": "2024-02-06T03:16:32Z"
+            },
+            {
+                "name": "Bug fix",
+                "date": "2024-02-03T04:30:54Z"
+            },
+            {
+                "name": "Bug fix",
+                "date": "2024-01-29T12:42:24Z"
+            },
+            {
+                "name": "Some new features and bug fixes",
+                "date": "2024-01-27T22:46:19Z"
+            },
+            {
+                "name": "Bug fixes",
+                "date": "2023-12-22T01:00:26Z"
+            },
+            {
+                "name": "Bug fixes",
+                "date": "2023-12-05T03:33:53Z"
+            },
+            {
+                "name": "New feature",
+                "date": "2023-10-01T02:15:12Z"
+            },
+            {
+                "name": "Bug fix and breaking change",
+                "date": "2023-08-23T00:22:11Z"
+            },
+            {
+                "name": "New features and bug fixes",
+                "date": "2023-08-01T01:30:29Z"
+            },
+            {
+                "name": "Bug fixes",
+                "date": "2023-07-29T16:27:41Z"
+            },
+            {
+                "name": "Bug fix",
+                "date": "2023-07-08T11:42:03Z"
+            },
+            {
+                "name": "Some new features and bug fixes",
+                "date": "2023-07-06T22:36:09Z"
+            },
+            {
+                "name": "Some new features",
+                "date": "2023-06-09T22:04:34Z"
+            },
+            {
+                "name": "Add HTTPLIB_INSTALL CMake option",
+                "date": "2023-05-30T07:11:43Z"
+            },
+            {
+                "name": "Fix more CRLF injection problems",
+                "date": "2023-05-27T00:16:12Z"
+            },
+            {
+                "name": "Bug fixes",
+                "date": "2023-04-30T01:46:27Z"
+            },
+            {
+                "name": "Bug fixes",
+                "date": "2023-03-26T01:50:36Z"
+            },
+            {
+                "name": "Some new features and bug fixes",
+                "date": "2023-03-10T22:58:13Z"
+            },
+            {
+                "name": "Update including breaking change",
+                "date": "2023-02-07T15:29:54Z"
+            },
+            {
+                "name": "Some updates",
+                "date": "2023-01-10T16:47:22Z"
+            },
+            {
+                "name": "Bug fixes",
+                "date": "2022-11-30T00:31:53Z"
+            },
+            {
+                "name": "",
+                "date": "2022-09-12T15:53:41Z"
+            },
+            {
+                "name": "Some updates",
+                "date": "2022-08-02T23:48:28Z"
+            },
+            {
+                "name": "Some breaking changes",
+                "date": "2022-07-30T00:51:43Z"
+            },
+            {
+                "name": "Fix problem with multipart/form-data parsing",
+                "date": "2022-07-08T21:47:57Z"
+            },
+            {
+                "name": "Bug fixes",
+                "date": "2022-06-07T15:05:23Z"
+            },
+            {
+                "name": "Accept large data transfer over SSL (#1261)",
+                "date": "2022-04-28T14:23:42Z"
+            },
+            {
+                "name": "CPPHTTPLIB_VERSION support",
+                "date": "2022-04-17T21:38:17Z"
+            },
+            {
+                "name": "Fix IPV6 problem",
+                "date": "2022-04-17T01:07:05Z"
+            },
+            {
+                "name": "Bug fixes",
+                "date": "2022-03-17T12:42:54Z"
+            },
+            {
+                "name": "Add CPPHTTPLIB_NO_DEFAULT_USER_AGENT",
+                "date": "2022-02-23T18:32:46Z"
+            },
+            {
+                "name": "Fix various problems",
+                "date": "2022-01-27T03:37:30Z"
+            },
+            {
+                "name": "Fix \"Issue 42689 in oss-fuzz: cpp-httplib:server_fuzzer: Timeout in server_fuzzer\"",
+                "date": "2021-12-25T02:05:47Z"
+            },
+            {
+                "name": "Add SSLServer::ssl_context()",
+                "date": "2021-12-21T23:19:17Z"
+            },
+            {
+                "name": "Fix problem when stopping a server",
+                "date": "2021-12-12T00:29:19Z"
+            },
+            {
+                "name": "Added patch version in user agent string",
+                "date": "2021-11-27T01:47:57Z"
+            },
+            {
+                "name": "Fixed several issues",
+                "date": "2021-11-23T15:57:17Z"
+            },
+            {
+                "name": "Support custom SSL ctx configuration for SSLServer",
+                "date": "2021-10-15T11:14:41Z"
+            },
+            {
+                "name": "Add retry logic for SSL_write",
+                "date": "2021-10-10T00:39:28Z"
+            },
+            {
+                "name": "Fix bugs and performance improvement",
+                "date": "2021-09-29T16:15:14Z"
+            },
+            {
+                "name": "Fix \"Issue 37742 in oss-fuzz: cpp-httplib:server_fuzzer: Timeout in server_fuzzer\"",
+                "date": "2021-09-03T03:01:43Z"
+            },
+            {
+                "name": "Added '_Online' suffix to unit test cases accessing external servers",
+                "date": "2021-08-23T21:32:12Z"
+            },
+            {
+                "name": "Fix some problems",
+                "date": "2021-07-23T23:28:11Z"
+            },
+            {
+                "name": "Fix problem with IPv6 address",
+                "date": "2021-07-16T00:15:48Z"
+            },
+            {
+                "name": "Content Provider Resource Releaser interface change",
+                "date": "2021-06-11T18:49:41Z"
+            },
+            {
+                "name": "Fix SSL read timeout errors on Windows",
+                "date": "2021-05-23T00:17:36Z"
+            },
+            {
+                "name": "Fix timeout problems and Remove redundant call to close_socket",
+                "date": "2021-04-23T21:16:49Z"
+            },
+            {
+                "name": "Added `set_address_family`",
+                "date": "2021-04-15T13:53:07Z"
+            },
+            {
+                "name": "Fix content reader problem with auto redirection",
+                "date": "2021-04-06T01:04:37Z"
+            },
+            {
+                "name": "Fix problem with Get with Parameters",
+                "date": "2021-03-16T23:44:26Z"
+            },
+            {
+                "name": "Fix response line parsing problem without reason phrase",
+                "date": "2021-02-12T19:45:48Z"
+            },
+            {
+                "name": "Add exception handler support",
+                "date": "2021-02-02T04:02:34Z"
+            },
+            {
+                "name": "Minor API breaking change for the pre request handler",
+                "date": "2021-01-23T18:39:19Z"
+            },
+            {
+                "name": "Fix problem with a 204 request",
+                "date": "2021-01-17T17:51:50Z"
+            },
+            {
+                "name": "Pre/Post routing handlers support",
+                "date": "2021-01-12T15:16:16Z"
+            },
+            {
+                "name": "Ensure socket is closed after processing in SSLServer",
+                "date": "2020-12-19T22:44:31Z"
+            },
+            {
+                "name": "MultiparFormData parse problem on Client",
+                "date": "2020-12-01T15:32:42Z"
+            },
+            {
+                "name": "Fix multiple threading bugs",
+                "date": "2020-11-29T22:22:46Z"
+            },
+            {
+                "name": "Fixed stack smashing problem due to misuse of select",
+                "date": "2020-11-19T14:27:16Z"
+            },
+            {
+                "name": "Fixed error_handler problems",
+                "date": "2020-11-09T18:27:12Z"
+            },
+            {
+                "name": "Fix for SSL_connect problem and range problems",
+                "date": "2020-11-05T05:26:01Z"
+            },
+            {
+                "name": "Fix digest auth proxy connection",
+                "date": "2020-11-02T02:20:17Z"
+            },
+            {
+                "name": "Fixed SSL read timeout problem",
+                "date": "2020-10-27T19:01:20Z"
+            },
+            {
+                "name": "Temporary fix for memory leak on SSL",
+                "date": "2020-10-20T00:07:45Z"
+            },
+            {
+                "name": "set_mount_point accepts HTTP headers",
+                "date": "2020-10-11T01:18:58Z"
+            },
+            {
+                "name": "Fix for '100 Continue' problem on client",
+                "date": "2020-09-26T09:03:40Z"
+            },
+            {
+                "name": "Added CPPHTTPLIB_COMPRESSION_BUFSIZ",
+                "date": "2020-09-08T16:19:03Z"
+            },
+            {
+                "name": "Fixed various bugs",
+                "date": "2020-09-03T17:24:37Z"
+            },
+            {
+                "name": "Content provider without content length",
+                "date": "2020-08-17T02:31:27Z"
+            },
+            {
+                "name": "Brotli support on server",
+                "date": "2020-08-08T12:19:53Z"
+            },
+            {
+                "name": "KeepAlive problem with a read time out client request",
+                "date": "2020-07-30T22:31:43Z"
+            },
+            {
+                "name": "Brotli compression support on client",
+                "date": "2020-07-28T21:25:02Z"
+            },
+            {
+                "name": "Use the default ca bundle in system",
+                "date": "2020-07-14T12:00:41Z"
+            },
+            {
+                "name": "Better support for Keep-alive on the client side",
+                "date": "2020-06-16T21:55:34Z"
+            },
+            {
+                "name": "Fix for server hang when multipart data was malformed",
+                "date": "2020-06-16T16:25:52Z"
+            },
+            {
+                "name": "Fixed build error on Windows with CPPHTTPLIB_USE_POLL",
+                "date": "2020-05-28T16:55:14Z"
+            },
+            {
+                "name": "Fixed `stop()` method problem on Windows",
+                "date": "2020-05-23T17:57:52Z"
+            },
+            {
+                "name": "Made the idle event feature optional",
+                "date": "2020-05-23T12:51:59Z"
+            },
+            {
+                "name": "Made write timeout configurable and fixed redirect problem with digest auth on proxy",
+                "date": "2020-05-18T17:41:27Z"
+            },
+            {
+                "name": "Experimental simple client Interface",
+                "date": "2020-05-16T13:03:55Z"
+            },
+            {
+                "name": "Updated version number in the User Agent string (0.6)",
+                "date": "2020-05-14T22:09:22Z"
+            },
+            {
+                "name": "New ContentProvider interface",
+                "date": "2020-05-14T02:58:18Z"
+            },
+            {
+                "name": "Fixed a number of bugs",
+                "date": "2020-05-11T00:49:24Z"
+            },
+            {
+                "name": "Changed CPPHTTPLIB_THREAD_POOL_COUNT back to 8",
+                "date": "2020-05-02T01:42:36Z"
+            },
+            {
+                "name": "Support remote_addr and remote_port REMOTE_PORT header in client Request (#433)",
+                "date": "2020-04-25T22:08:34Z"
+            },
+            {
+                "name": "SSLClient::set_ca_cert_store: mark as inline (#435)",
+                "date": "2020-04-20T17:19:47Z"
+            },
+            {
+                "name": "set_redirect & set_header are susceptible to http response splitting attack #425",
+                "date": "2020-04-13T16:28:59Z"
+            },
+            {
+                "name": "Handler called when error occurred #407",
+                "date": "2020-04-02T15:35:41Z"
+            },
+            {
+                "name": "Fix exception that occurs with libc++ regex engine",
+                "date": "2020-03-01T18:29:00Z"
+            },
+            {
+                "name": "Deflate compression support when decompressing input body on Server",
+                "date": "2020-02-24T16:51:25Z"
+            },
+            {
+                "name": "Fixed problems (#351 and #352)",
+                "date": "2020-02-16T13:49:28Z"
+            },
+            {
+                "name": "Expect: 100-Continue support",
+                "date": "2020-02-11T11:54:23Z"
+            },
+            {
+                "name": "HEAD support for static file server",
+                "date": "2020-01-28T11:35:29Z"
+            },
+            {
+                "name": "Proxy support and bug fixes",
+                "date": "2020-01-22T05:10:32Z"
+            },
+            {
+                "name": "Added set_file_extension_and_mimetype_mapping server method and fixed problem with colon in URL",
+                "date": "2019-12-27T01:19:38Z"
+            },
+            {
+                "name": "Better authentication support",
+                "date": "2019-12-22T17:53:35Z"
+            },
+            {
+                "name": "set_interface support and fixed URL encoding problem when sending a request to proxy",
+                "date": "2019-12-18T04:03:46Z"
+            },
+            {
+                "name": "Fixed build problem with Visual C++",
+                "date": "2019-12-14T03:53:14Z"
+            },
+            {
+                "name": "Improve multipart content reader interface",
+                "date": "2019-12-13T03:51:25Z"
+            },
+            {
+                "name": "Digest Authentication support",
+                "date": "2019-12-11T04:35:29Z"
+            },
+            {
+                "name": "Removed C++ exception",
+                "date": "2019-12-07T04:58:36Z"
+            },
+            {
+                "name": "Improve multipart content reader interface",
+                "date": "2019-12-02T12:12:36Z"
+            },
+            {
+                "name": "The MultipartFile structure has been modified.",
+                "date": "2019-12-02T03:21:18Z"
+            },
+            {
+                "name": "",
+                "date": "2019-11-29T06:00:39Z"
+            },
+            {
+                "name": "",
+                "date": "2019-10-07T13:09:03Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-12T14:43:38Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-05T17:26:10Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-05T03:29:25Z"
+            },
+            {
+                "name": "",
+                "date": "2019-07-25T11:08:36Z"
+            }
+        ]
+    }
+}

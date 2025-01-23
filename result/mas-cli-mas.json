@@ -1,0 +1,196 @@
+{
+    "https://api.github.com/repos/mas-cli/mas": {
+        "forks": 278,
+        "watchers": 11104,
+        "stars": 11104,
+        "languages": {
+            "Swift": 154178,
+            "Objective-C": 42912,
+            "Shell": 19082,
+            "Ruby": 229,
+            "C": 189
+        },
+        "commits": [
+            "2025-01-17T08:55:03Z",
+            "2025-01-17T08:45:50Z",
+            "2025-01-17T00:10:32Z",
+            "2025-01-17T00:06:46Z",
+            "2025-01-16T23:42:22Z",
+            "2025-01-16T21:51:35Z",
+            "2025-01-16T21:49:04Z",
+            "2025-01-16T21:48:16Z",
+            "2025-01-16T07:24:18Z",
+            "2025-01-16T07:01:35Z",
+            "2025-01-15T20:46:31Z",
+            "2025-01-15T20:03:55Z",
+            "2025-01-15T20:03:39Z",
+            "2025-01-15T19:57:07Z",
+            "2025-01-15T19:55:37Z",
+            "2025-01-15T14:44:06Z",
+            "2025-01-15T14:37:59Z",
+            "2025-01-12T22:58:18Z",
+            "2025-01-12T22:38:26Z",
+            "2025-01-12T22:36:57Z",
+            "2025-01-12T21:11:36Z",
+            "2025-01-05T13:48:37Z",
+            "2025-01-05T13:31:09Z",
+            "2025-01-04T07:01:59Z",
+            "2025-01-04T06:14:54Z",
+            "2025-01-04T03:09:55Z",
+            "2025-01-04T02:17:59Z",
+            "2025-01-04T02:02:57Z",
+            "2025-01-03T16:40:19Z",
+            "2025-01-03T16:00:10Z"
+        ],
+        "creation_date": "2015-08-02T20:43:12Z",
+        "contributors": 30,
+        "topics": [
+            "homebrew",
+            "mac-app-store",
+            "macos",
+            "mas",
+            "osx",
+            "software-update"
+        ],
+        "subscribers": 104,
+        "readme": "<h1 align=\"center\"><img src=\"mas-cli.png\" alt=\"mas-cli\" width=\"450\" height=\"138\"></h1>\n\n# mas\n\nA command-line interface for the Mac App Store. Designed for scripting & automation.\n\n[![GitHub Release](https://img.shields.io/github/v/release/mas-cli/mas.svg)](https://github.com/mas-cli/mas/releases)\n[![Software License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](LICENSE)\n[![Swift 5](https://img.shields.io/badge/Language-Swift_5-orange.svg)](https://www.swift.org)\n[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)\n[![Build, Test, & Lint](https://github.com/mas-cli/mas/actions/workflows/build-test.yml/badge.svg?branch=main)](\n    https://github.com/mas-cli/mas/actions/workflows/build-test.yml?query=branch%3Amain\n)\n\n## \ud83d\udcf2 Installation\n\n### \ud83c\udf7a Homebrew\n\n[Homebrew](https://brew.sh) is the preferred way to install:\n\n```shell\nbrew install mas\n```\n\n\u26a0\ufe0f macOS 10.15 (Catalina) or newer is required to install mas from the Homebrew core formula.\n\n### \ud83d\udd0c MacPorts\n\n[MacPorts](https://www.macports.org/install.php) is an alternative way to install:\n\n```shell\nsudo port install mas\n```\n\n\u26a0\ufe0f macOS 10.15 (Catalina) or newer is required to install mas from MacPorts.\n\n### \ud83e\uddee Older macOS Versions\n\n#### \ud83c\udf7b Custom Homebrew tap\n\nWe provide a [custom Homebrew tap](https://github.com/mas-cli/homebrew-tap) with pre-built bottles\nfor all macOS versions since 10.11 (El Capitan). The newest versions of mas, however, are only available\nfor macOS 10.13+ (High Sierra or newer).\n\nTo install mas from our tap:\n\n```shell\nbrew install mas-cli/tap/mas\n```\n\n#### \ud83d\udc19 GitHub Releases\n\nAlternatively, binaries & sources are available from the [GitHub Releases](https://github.com/mas-cli/mas/releases).\n\n#### \ud83d\udd4a Swift 5 Runtime Support\n\nmas requires Swift 5 runtime support. macOS 10.14.4 (Mojave) & newer include it, but earlier releases do not.\nWithout it, running mas might report errors similar to:\n\n> dyld: Symbol not found: _$s11SubSequenceSlTl\n\nTo get Swift 5 support on macOS versions older than 10.14.4 (Mojave), you can:\n\n- Upgrade to macOS 10.14.4 (Mojave) or newer.\n- Install the [Swift 5 Runtime Support for Command Line Tools](https://support.apple.com/en-us/106446).\n- Install Xcode 10.2 or newer to `/Applications/Xcode.app`.\n\n## \ud83e\udd33 Usage\n\n### \ud83e\udeaa App IDs\n\nEach application in the Mac App Store has an integer app identifier (app ID).\nmas commands accept app IDs as arguments & output App IDs to uniquely identify apps.\n\n`mas search` & `mas list` can be used to find the app IDs of relevant apps.\n\nAlternatively, to find an app's app ID:\n\n1. Find the app in the Mac App Store\n2. Select `Share` > `Copy Link`\n3. Extract the app ID from the URL. e.g., the Mac App Store URL for Xcode\n   (<https://apps.apple.com/us/app/xcode/id497799835?mt=12>) has app ID `497799835`\n\n### \ud83d\udecd Info from the Mac App Store\n\nNone of the commands in this section require you to be logged into an Apple ID,\nneither for your macOS user, nor in the Mac App Store.\n\n#### `mas search`\n\n`mas search <search-term>` searches by name for applications available from the Mac App Store.\nProviding the `--price` flag includes each app's price in the output.\n\n```console\n$ mas search Xcode\n497799835 Xcode\n688199928 Docs for Xcode\n449589707 Dash 3 - API Docs & Snippets. Integrates with Xcode, Alfred, TextWrangler and many more.\n[...]\n```\n\n#### `mas info`\n\n`mas info <app-id>` displays more detailed information about an application available from the Mac App Store.\n\n```console\n$ mas info 497799835\nXcode 16.0 [Free]\nBy: Apple Inc.\nReleased: 2024-09-16\nMinimum OS: 14.5\nSize: 2.98 GB\nFrom: https://apps.apple.com/us/app/xcode/id497799835?mt=12&uo=4\n```\n\n### \ud83d\udcda Info from Your Local App Library\n\nAll the commands in this section require you to be logged into an Apple ID for your macOS user.\n\n#### `mas list`\n\n`mas list` displays all the applications on your Mac that were installed from the Mac App Store.\n\n```console\n$ mas list\n497799835 Xcode       (15.4)\n640199958 Developer   (10.6.5)\n899247664 TestFlight  (3.5.2)\n```\n\n#### `mas outdated`\n\n`mas outdated` displays all applications installed from the Mac App Store on your computer that have pending upgrades.\n\n```console\n$ mas outdated\n497799835 Xcode (15.4 -> 16.0)\n640199958 Developer (10.6.5 -> 10.6.6)\n```\n\nRun [`mas upgrade`](#mas-upgrade) to install pending upgrades.\n\n### \u2b07\ufe0f Installing Apps\n\nAll the commands in this section require you to be logged into an Apple ID in the Mac App Store.\n\n> Depending on your Apple ID settings, you might need to re-authenticate yourself in the Mac App Store to perform a\n> purchase, install, lucky, or upgrade, even if you are already signed in to an Apple ID in the Mac App Store.\n\n#### `mas purchase`\n\n`mas purchase <app-id>\u2026` installs free applications that you haven't yet gotten/\"purchased\" from the Mac App Store.\n\n> `purchase` is currently a misnomer, because it currently can only \"purchase\" free\n> apps. To purchase apps that cost money, please purchase them directly in the Mac App Store.\n\n```console\n$ mas purchase 497799835\n==> Downloading Xcode\n==> Installed Xcode\n```\n\n#### `mas install`\n\n`mas install <app-id>\u2026` installs apps that you have already gotten/\"purchased\" from the Mac App Store.\nProviding the `--force` flag re-installs the app even if it is already installed on your computer.\n\n```console\n$ mas install 497799835\n==> Downloading Xcode\n==> Installed Xcode\n```\n\n#### `mas lucky`\n\n`mas lucky <search-term>` installs the first result that would be returned by `mas search <search-term>`.\nLike `mas install`, `mas lucky` can only install apps that have previously been gotten/\"purchased\".\n\n```console\n$ mas lucky Xcode\n==> Downloading Xcode\n==> Installed Xcode\n```\n\n### \ud83c\udd95 Upgrading Apps\n\nAll the commands in this section require you to be logged into an Apple ID in the Mac App Store.\n\n> mas only installs/upgrades applications from the Mac App Store.\n>\n> Use [`softwareupdate(8)`](https://www.unix.com/man-page/osx/8/softwareupdate) to install system updates (e.g., Xcode\n> Command Line Tools, Safari, etc.)\n\n#### `mas upgrade`\n\n`mas upgrade` upgrades outdated apps installed from the Mac App Store. Without any arguments, it upgrades all such apps.\n\n```console\n$ mas upgrade\nUpgrading 2 outdated applications:\nXcode (15.4) -> (16.0)\nDeveloper (10.6.5) -> (10.6.6)\n==> Downloading Xcode\n==> Installed Xcode\n==> Downloading Developer\n==> Installed Developer\n```\n\nUpgrades can be performed selectively by providing app IDs to `mas upgrade`.\n\n```console\n$ mas upgrade 715768417\nUpgrading 1 outdated application:\nXcode (15.4) -> (16.0)\n==> Downloading Xcode\n==> Installed Xcode\n```\n\n### Mac App Store Account Management\n\nAll the commands in this section interact with the Apple ID for which you are signed in in the Mac App Store.\nThese commands do not interact with the Apple ID for which your macOS user is signed in.\n\n#### `mas signin`\n\n> \u26d4 The `signin` command is not supported on macOS 10.13 (High Sierra) or newer. On those macOS versions, please\n> sign in via the Mac App Store instead. Please see [Known Issues](#known-issues).\n\nOn macOS 10.12 (Sierra) or older, `mas signin <apple-id>` signs in to the specified Apple ID in the Mac App Store.\n\n```console\n$ mas signin mas@example.com\nPassword:\n```\n\nProviding the `--dialog` flag signs in using a graphical dialog provided by Mac App Store.\n\n```shell\nmas signin --dialog mas@example.com\n```\n\nYou can also embed your password in the command.\n\n```shell\nmas signin mas@example.com MyPassword\n```\n\n#### `mas signout`\n\n`mas signout` signs out from the current Apple ID in the Mac App Store.\n\n## \ud83c\udf7a Homebrew integration\n\nmas integrates with [homebrew-bundle]. If mas is installed, when you run `brew bundle dump`,\nyour Mac App Store apps will be included in the created Brewfile. See the [homebrew-bundle]\ndocs for more details.\n\n<!-- markdownlint-disable-next-line MD033 -->\n## <a name=\"known-issues\"></a> \u26a0\ufe0f Known Issues\n\n### \ud83d\udca5 Changed Apple Private Frameworks\n\nmas uses multiple undocumented Apple private frameworks to implement much of its functionality.\nOver time, Apple has silently changed these frameworks, breaking some functionality. Known issues include:\n\n- \u26d4 The `signin` command is not supported on macOS 10.13 (High Sierra) or newer. [#164](\n      https://github.com/mas-cli/mas/issues/164\n  )\n- \u26d4 The `account` command is not supported on macOS 12 (Monterey) or newer. [#417](\n      https://github.com/mas-cli/mas/issues/417\n  )\n\n### \u23f3 Eventual Consistency\n\nThe Mac App Store operates on eventual consistency, so the versions seen by various parts of mas or the Mac App Store\nmight be inconsistent for short periods of time. This might cause symptoms like\n[#384](https://github.com/mas-cli/mas/issues/384) & [#387](https://github.com/mas-cli/mas/issues/387).\n\n### \ud83d\udcf1 iOS & iPadOS Apps\n\nApple Silicon Macs can install & run iOS & iPadOS apps from the Mac App Store. mas does not yet support such apps.\n[#321](https://github.com/mas-cli/mas/issues/321)\n\n### \ud83d\udcfa Using `tmux`\n\nmas operates via the same system services as the Mac App Store. These exist as\nseparate processes with communication through XPC. As a result of this, mas\nexperiences similar problems as the pasteboard when running inside `tmux`. A\n[wrapper tool exists](https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard) to\nfix pasteboard behaviour which also works for mas.\n\nYou should consider configuring `tmux` to use the wrapper but if you do not wish\nto do this it can be used on a one-off basis as follows:\n\n```shell\nbrew install reattach-to-user-namespace\nreattach-to-user-namespace mas install\n```\n\n## \ud83d\udeab When something doesn't work\n\nIf you see the following error, it's probably because you haven't yet \"purchased\" the app through the Mac App Store.\nSee [#46](https://github.com/mas-cli/mas/issues/46#issuecomment-248581233).\n> This redownload is not available for this Apple ID either because it was bought by a different user or the\n> item was refunded or cancelled.\n\nIf mas doesn't work for you as expected (e.g. you can't install/upgrade apps), run `mas reset`, then try again.\nIf the issue persists, please [file a bug](https://github.com/mas-cli/mas/issues/new).\nAll feedback is much appreciated! \u2728\n\n## \ud83c\udfd7 Build from source\n\nYou can build from Xcode by opening the root mas directory, or from the Terminal:\n\n```shell\nscript/build\n```\n\nBuild output can be found in the `.build` directory within the project.\n\n## \ud83e\uddea Tests\n\nTests are written using [Quick](https://github.com/Quick/Quick) & [Nimble](https://github.com/Quick/Nimble).\n\n```shell\nscript/test\n```\n\n## \ud83d\udcc4 License\n\nCode is under the [MIT license](LICENSE).\n\nmas was created by [@argon](https://github.com/argon).\n\n[homebrew-bundle]: https://github.com/Homebrew/homebrew-bundle\n",
+        "releases": [
+            {
+                "name": "v1.9.0: \ud83c\udf0e region & config",
+                "date": "2025-01-04T07:50:18Z"
+            },
+            {
+                "name": "v1.8.8: \ud83d\ude80 Release process overhaul",
+                "date": "2024-12-27T06:35:42Z"
+            },
+            {
+                "name": "v1.8.7: \ud83d\udd27 Numerous fixes",
+                "date": "2024-11-03T20:25:03Z"
+            },
+            {
+                "name": "v1.8.6: \ud83c\udf0d Localize queries",
+                "date": "2021-12-21T00:47:56Z"
+            },
+            {
+                "name": "v1.8.5: \ud83d\udc1b Allow redownloads on macOS 12",
+                "date": "2021-11-04T16:29:14Z"
+            },
+            {
+                "name": "v1.8.4: \ud83e\ude9c Unsupported updates != outdated",
+                "date": "2021-11-03T03:52:31Z"
+            },
+            {
+                "name": "v1.8.3: \ud83d\udc1b Ignore apps outside /Applications",
+                "date": "2021-09-08T22:30:25Z"
+            },
+            {
+                "name": "v1.8.2: \ud83d\udc1b Fix upgrade command",
+                "date": "2021-05-08T06:05:48Z"
+            },
+            {
+                "name": "v1.8.1: \ud83d\udcfc Fix outdated & upgrade commands",
+                "date": "2021-03-15T01:20:48Z"
+            },
+            {
+                "name": "v1.8.0: \ud83d\udcaa\ud83c\udffc arm64 support for M1 Macs",
+                "date": "2021-02-13T18:01:49Z"
+            },
+            {
+                "name": "v1.7.1: \ud83d\udc1b Search JSON Fix",
+                "date": "2020-09-07T15:06:25Z"
+            },
+            {
+                "name": "v1.7.0: \ud83d\udecd Purchase Command ",
+                "date": "2020-05-25T03:27:13Z"
+            },
+            {
+                "name": "v1.6.4: \ud83d\udd0e Search Fix",
+                "date": "2020-05-13T03:41:41Z"
+            },
+            {
+                "name": "v1.6.3: \ud83d\uddd2\ufe0f List Fix",
+                "date": "2019-03-31T19:32:53Z"
+            },
+            {
+                "name": "v1.6.2: \ud83d\uddd1 Trashy",
+                "date": "2019-01-22T04:10:44Z"
+            },
+            {
+                "name": "v1.6.1: \ud83c\udf40 Lucky Again",
+                "date": "2019-01-19T00:53:53Z"
+            },
+            {
+                "name": "v1.6.0: \ud83d\udd17 Links",
+                "date": "2019-01-13T01:58:07Z"
+            },
+            {
+                "name": "v1.5.0: \ud83d\uddd1 Uninstall",
+                "date": "2018-12-28T00:11:20Z"
+            },
+            {
+                "name": "v1.4.4: \ud83e\uddf9 Cleanup",
+                "date": "2018-12-21T04:38:28Z"
+            },
+            {
+                "name": "v1.4.3: \ud83d\udce6\ud83c\udfdb\ufe0f MasKit & Carthage",
+                "date": "2018-10-18T00:19:41Z"
+            },
+            {
+                "name": "v1.4.2: \ud83d\ude8f\ud83d\udce5\ud83d\ude45\ud83c\udffb\u200d\u2640\ufe0f Sign-In Disabled",
+                "date": "2018-08-12T21:17:14Z"
+            },
+            {
+                "name": "v1.4.1: \ud83d\udeaf Stop Littering",
+                "date": "2018-02-19T02:05:59Z"
+            },
+            {
+                "name": "v1.4.0: \ud83e\udddf\u200d\u2642\ufe0f It's Alive!",
+                "date": "2018-02-17T04:26:16Z"
+            },
+            {
+                "name": "v1.3.1: Better Errors",
+                "date": "2016-09-25T22:06:27Z"
+            },
+            {
+                "name": "v1.3.0: Multiple app install",
+                "date": "2016-09-15T15:41:08Z"
+            },
+            {
+                "name": "v1.2.2: Secure Password entry",
+                "date": "2016-09-14T08:22:43Z"
+            },
+            {
+                "name": "v1.2.1",
+                "date": "2018-01-27T03:07:19Z"
+            },
+            {
+                "name": "v1.2.0: Search",
+                "date": "2016-04-17T00:58:40Z"
+            },
+            {
+                "name": null,
+                "date": "2016-02-21T22:21:29Z"
+            },
+            {
+                "name": "v1.1.2: Upload dSYM correctly",
+                "date": "2016-02-21T12:57:41Z"
+            },
+            {
+                "name": "v1.1.1: Upload dSYM",
+                "date": "2016-02-21T12:45:53Z"
+            },
+            {
+                "name": "v1.1.0: Sign In",
+                "date": "2016-02-14T01:57:11Z"
+            },
+            {
+                "name": "v1.0.2: Upgrade",
+                "date": "2015-12-31T01:57:32Z"
+            },
+            {
+                "name": null,
+                "date": "2015-09-21T00:36:20Z"
+            }
+        ]
+    }
+}

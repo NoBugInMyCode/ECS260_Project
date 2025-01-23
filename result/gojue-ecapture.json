@@ -1,0 +1,329 @@
+{
+    "https://api.github.com/repos/gojue/ecapture": {
+        "forks": 1463,
+        "watchers": 13847,
+        "stars": 13847,
+        "languages": {
+            "C": 5409469,
+            "Go": 386335,
+            "Shell": 28222,
+            "Makefile": 19339,
+            "C++": 2580,
+            "Lua": 2244,
+            "Dockerfile": 1298,
+            "JavaScript": 750,
+            "Python": 411
+        },
+        "commits": [
+            "2025-01-18T14:34:58Z",
+            "2025-01-18T01:42:32Z",
+            "2025-01-05T13:55:31Z",
+            "2025-01-04T02:20:18Z",
+            "2025-01-01T12:59:39Z",
+            "2024-12-29T10:44:13Z",
+            "2024-12-29T10:33:30Z",
+            "2024-12-29T09:31:07Z",
+            "2024-12-29T04:59:50Z",
+            "2024-12-29T03:41:31Z",
+            "2024-12-28T15:27:57Z",
+            "2024-12-27T20:00:09Z",
+            "2024-12-27T17:30:48Z",
+            "2024-12-24T13:19:12Z",
+            "2024-12-22T07:03:23Z",
+            "2024-12-18T14:50:06Z",
+            "2024-12-18T14:44:28Z",
+            "2024-12-17T16:11:09Z",
+            "2024-12-15T11:56:56Z",
+            "2024-12-14T12:25:01Z",
+            "2024-12-12T14:49:29Z",
+            "2024-12-10T16:02:25Z",
+            "2024-12-10T16:01:33Z",
+            "2024-12-10T16:00:53Z",
+            "2024-12-10T16:00:31Z",
+            "2024-12-06T12:28:34Z",
+            "2024-12-06T04:10:25Z",
+            "2024-12-04T15:29:48Z",
+            "2024-12-02T15:59:34Z",
+            "2024-12-02T15:50:29Z"
+        ],
+        "creation_date": "2022-03-13T07:40:48Z",
+        "contributors": 30,
+        "topics": [
+            "android",
+            "android-https-capture",
+            "ebpf",
+            "ebpf-go",
+            "ebpf-tc",
+            "ebpf-uprobe",
+            "golang",
+            "https",
+            "linux",
+            "network-capture",
+            "security-audit",
+            "ssl",
+            "ssldump",
+            "tcpdump",
+            "tls"
+        ],
+        "subscribers": 101,
+        "readme": "![](./images/ecapture-logo-400x400.png)\n\n[\u7b80\u4f53\u4e2d\u6587](./README_CN.md) | English | [\u65e5\u672c\u8a9e](./README_JA.md)\n\n[![GitHub stars](https://img.shields.io/github/stars/gojue/ecapture.svg?label=Stars&logo=github)](https://github.com/gojue/ecapture)\n[![GitHub forks](https://img.shields.io/github/forks/gojue/ecapture?label=Forks&logo=github)](https://github.com/gojue/ecapture)\n[![CI](https://github.com/gojue/ecapture/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/gojue/ecapture/actions/workflows/code-analysis.yml)\n[![Github Version](https://img.shields.io/github/v/release/gojue/ecapture?display_name=tag&include_prereleases&sort=semver)](https://github.com/gojue/ecapture/releases)\n\n### eCapture(\u65c1\u89c2\u8005): capture SSL/TLS text content without a CA certificate using eBPF.\n\n> [!IMPORTANT]  \n> Supports Linux/Android kernel versions x86_64 4.18 and above, **aarch64 5.5** and above.\n> Need ROOT permission.\n> Does not support Windows and macOS system.\n\n----\n\n<!-- MarkdownTOC autolink=\"true\" -->\n- [Introduction](#introduction)\n- [Getting started](#getting-started)\n  - [Download](#download)\n    - [ELF binary file](#elf-binary-file)\n    - [Docker image](#docker-image)\n  - [Capture openssl text content.](#capture-openssl-text-content)\n  - [Modules](#modules)\n    - [OpenSSL Module](#openssl-module)\n    - [GoTLS Module](#gotls-module)\n    - [Other Modules](#bash-module)\n  - [Videos](#videos)\n- [Contributing](#contributing)\n- [Compilation](#compilation)\n<!-- /MarkdownTOC -->\n\n# Introduction\n\n* SSL/TLS plaintext capture, support openssl\\libressl\\boringssl\\gnutls\\nspr(nss) libraries.\n* GoTLS plaintext support go tls library, which refers to encrypted communication in https/tls programs written in the golang language.\n* Bash audit, capture bash command for Host Security Audit.\n* Zsh audit, capture zsh command for Host Security Audit.\n* MySQL query SQL audit, support mysqld 5.6\\5.7\\8.0, and MariaDB.\n\n![](./images/ecapture-help-v0.8.9.svg)\n\n# Getting started\n\n## Download\n\n### ELF binary file\n\n> [!TIP]\n> support Linux/Android x86_64/aarch64.\n\nDownload ELF zip file [release](https://github.com/gojue/ecapture/releases) , unzip and use by\ncommand `sudo ecapture --help`.\n\n### Docker image\n\n> [!TIP]\n> Linux only.\n\n```shell\n# pull docker image\ndocker pull gojue/ecapture:latest\n# run\ndocker run --rm --privileged=true --net=host -v ${HOST_PATH}:${CONTAINER_PATH} gojue/ecapture ARGS\n```\n\nsee [Docker Hub](https://hub.docker.com/r/gojue/ecapture) for more information.\n\n## Capture openssl text content.\n\n```shell\nsudo ecapture tls\n2024-09-15T11:51:31Z INF AppName=\"eCapture(\u65c1\u89c2\u8005)\"\n2024-09-15T11:51:31Z INF HomePage=https://ecapture.cc\n2024-09-15T11:51:31Z INF Repository=https://github.com/gojue/ecapture\n2024-09-15T11:51:31Z INF Author=\"CFC4N <cfc4ncs@gmail.com>\"\n2024-09-15T11:51:31Z INF Description=\"Capturing SSL/TLS plaintext without a CA certificate using eBPF. Supported on Linux/Android kernels for amd64/arm64.\"\n2024-09-15T11:51:31Z INF Version=linux_arm64:0.8.6-20240915-d87ae48:5.15.0-113-generic\n2024-09-15T11:51:31Z INF Listen=localhost:28256\n2024-09-15T11:51:31Z INF eCapture running logs logger=\n2024-09-15T11:51:31Z INF the file handler that receives the captured event eventCollector=\n2024-09-15T11:51:31Z INF listen=localhost:28256\n2024-09-15T11:51:31Z INF https server starting...You can update the configuration file via the HTTP interface.\n2024-09-15T11:51:31Z WRN ========== module starting. ==========\n2024-09-15T11:51:31Z INF Kernel Info=5.15.152 Pid=233698\n2024-09-15T11:51:31Z INF BTF bytecode mode: CORE. btfMode=0\n2024-09-15T11:51:31Z INF master key keylogger has been set. eBPFProgramType=Text keylogger=\n2024-09-15T11:51:31Z INF module initialization. isReload=false moduleName=EBPFProbeOPENSSL\n2024-09-15T11:51:31Z INF Module.Run()\n2024-09-15T11:51:31Z WRN OpenSSL/BoringSSL version not found from shared library file, used default version OpenSSL Version=linux_default_3_0\n2024-09-15T11:51:31Z INF Hook masterKey function ElfType=2 Functions=[\"SSL_get_wbio\",\"SSL_in_before\",\"SSL_do_handshake\"] binrayPath=/usr/lib/aarch64-linux-gnu/libssl.so.3\n2024-09-15T11:51:31Z INF target all process.\n2024-09-15T11:51:31Z INF target all users.\n2024-09-15T11:51:31Z INF setupManagers eBPFProgramType=Text\n2024-09-15T11:51:31Z INF BPF bytecode file is matched. bpfFileName=user/bytecode/openssl_3_0_0_kern_core.o\n2024-09-15T11:51:32Z INF perfEventReader created mapSize(MB)=4\n2024-09-15T11:51:32Z INF perfEventReader created mapSize(MB)=4\n2024-09-15T11:51:32Z INF module started successfully. isReload=false moduleName=EBPFProbeOPENSSL\n2024-09-15T11:51:53Z ??? UUID:233851_233851_curl_5_1_172.16.71.1:51837, Name:HTTP2Request, Type:2, Length:304\n\nFrame Type\t=>\tSETTINGS\n\nFrame Type\t=>\tWINDOW_UPDATE\n\nFrame Type\t=>\tHEADERS\nheader field \":method\" = \"GET\"\nheader field \":path\" = \"/\"\nheader field \":scheme\" = \"https\"\nheader field \":authority\" = \"google.com\"\nheader field \"user-agent\" = \"curl/7.81.0\"\nheader field \"accept\" = \"*/*\"\n\nFrame Type\t=>\tSETTINGS\n\n2024-09-15T11:51:53Z ??? UUID:233851_233851_curl_5_0_172.16.71.1:51837, Name:HTTP2Response, Type:4, Length:1160\n\nFrame Type\t=>\tSETTINGS\n\nFrame Type\t=>\tWINDOW_UPDATE\n\nFrame Type\t=>\tSETTINGS\n\nFrame Type\t=>\tHEADERS\nheader field \":status\" = \"301\"\nheader field \"location\" = \"https://www.google.com/\"\nheader field \"content-type\" = \"text/html; charset=UTF-8\"\nheader field \"content-security-policy-report-only\" = \"object-src 'none';base-uri 'self';script-src 'nonce-qvZZ0XreBfeqRnUEV1WoYw' 'strict-dynamic' 'report-sample' 'unsafe-eval' 'unsafe-inline' https: http:;report-uri https://csp.withgoogle.com/csp/gws/other-hp\"\nheader field \"date\" = \"Sun, 15 Sep 2024 11:51:52 GMT\"\nheader field \"expires\" = \"Tue, 15 Oct 2024 11:51:52 GMT\"\nheader field \"cache-control\" = \"public, max-age=2592000\"\nheader field \"server\" = \"gws\"\nheader field \"content-length\" = \"220\"\nheader field \"x-xss-protection\" = \"0\"\nheader field \"x-frame-options\" = \"SAMEORIGIN\"\nheader field \"alt-svc\" = \"h3=\\\":443\\\"; ma=2592000,h3-29=\\\":443\\\"; ma=2592000\"\n\nFrame Type\t=>\tPING\n\nFrame Type\t=>\tDATA\n<HTML><HEAD><meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\n<TITLE>301 Moved</TITLE></HEAD><BODY>\n<H1>301 Moved</H1>\nThe document has moved\n<A HREF=\"https://www.google.com/\">here</A>.\n</BODY></HTML>\n```\n\n## Modules\nThe eCapture tool comprises 8 modules that respectively support plaintext capture for TLS/SSL encryption libraries like OpenSSL, GnuTLS, NSPR, BoringSSL, and GoTLS. Additionally, it facilitates software audits for Bash, MySQL, and PostgreSQL applications.\n* bash\t\tcapture bash command\n* zsh\t\tcapture zsh command\n* gnutls\tcapture gnutls text content without CA cert for gnutls libraries.\n* gotls\t\tCapturing plaintext communication from Golang programs encrypted with TLS/HTTPS.\n* mysqld\tcapture sql queries from mysqld 5.6/5.7/8.0 .\n* nss\t\tcapture nss/nspr encrypted text content without CA cert for nss/nspr libraries.\n* postgres\tcapture sql queries from postgres 10+.\n* tls\t\tuse to capture tls/ssl text content without CA cert. (Support openssl 1.0.x/1.1.x/3.0.x or newer).\n  You can use `ecapture -h` to view the list of subcommands.\n\n### OpenSSL Module\n\neCapture search `/etc/ld.so.conf` file default, to search load directories of  `SO` file, and search `openssl` shard\nlibraries location. or you can use `--libssl`\nflag to set shard library path.\n\nIf target program is compile statically, you can set program path as `--libssl` flag value directly\u3002\n\nThe OpenSSL module supports three capture modes:\n\n- `pcap`/`pcapng` mode stores captured plaintext data in `pcap-NG` format.\n- `keylog`/`key` mode saves the TLS handshake keys to a file.\n- `text` mode directly captures plaintext data, either outputting to a specified file or printing to the command line.\n\n#### Pcap Mode\n\nSupported TLS encrypted http `1.0/1.1/2.0` over TCP, and http3 `QUIC` protocol over UDP.\nYou can specify `-m pcap` or `-m pcapng` and use it in conjunction with `--pcapfile` and `-i` parameters. The default value for `--pcapfile` is `ecapture_openssl.pcapng`.\n\n```shell\nsudo ecapture tls -m pcap -i eth0 --pcapfile=ecapture.pcapng tcp port 443\n```\n\nThis command saves captured plaintext data packets as a pcapng file, which can be viewed using `Wireshark`.\n\n```shell\nsudo ecapture tls -m pcap -w ecap.pcapng -i ens160\n2024-09-15T06:54:12Z INF AppName=\"eCapture(\u65c1\u89c2\u8005)\"\n2024-09-15T06:54:12Z INF HomePage=https://ecapture.cc\n2024-09-15T06:54:12Z INF Repository=https://github.com/gojue/ecapture\n2024-09-15T06:54:12Z INF Author=\"CFC4N <cfc4ncs@gmail.com>\"\n2024-09-15T06:54:12Z INF Description=\"Capturing SSL/TLS plaintext without a CA certificate using eBPF. Supported on Linux/Android kernels for amd64/arm64.\"\n2024-09-15T06:54:12Z INF Version=linux_arm64:0.8.6-20240915-d87ae48:5.15.0-113-generic\n2024-09-15T06:54:12Z INF Listen=localhost:28256\n2024-09-15T06:54:12Z INF eCapture running logs logger=\n2024-09-15T06:54:12Z INF the file handler that receives the captured event eventCollector=\n2024-09-15T06:54:12Z WRN ========== module starting. ==========\n2024-09-15T06:54:12Z INF Kernel Info=5.15.152 Pid=230440\n2024-09-15T06:54:12Z INF BTF bytecode mode: CORE. btfMode=0\n2024-09-15T06:54:12Z INF listen=localhost:28256\n2024-09-15T06:54:12Z INF module initialization. isReload=false moduleName=EBPFProbeOPENSSL\n2024-09-15T06:54:12Z INF Module.Run()\n2024-09-15T06:54:12Z INF https server starting...You can update the configuration file via the HTTP interface.\n2024-09-15T06:54:12Z WRN OpenSSL/BoringSSL version not found from shared library file, used default version OpenSSL Version=linux_default_3_0\n2024-09-15T06:54:12Z INF HOOK type:Openssl elf ElfType=2 IFindex=2 IFname=ens160 PcapFilter= binrayPath=/usr/lib/aarch64-linux-gnu/libssl.so.3\n2024-09-15T06:54:12Z INF Hook masterKey function Functions=[\"SSL_get_wbio\",\"SSL_in_before\",\"SSL_do_handshake\"]\n2024-09-15T06:54:12Z INF target all process.\n2024-09-15T06:54:12Z INF target all users.\n2024-09-15T06:54:12Z INF setupManagers eBPFProgramType=PcapNG\n2024-09-15T06:54:12Z INF BPF bytecode file is matched. bpfFileName=user/bytecode/openssl_3_0_0_kern_core.o\n2024-09-15T06:54:12Z INF packets saved into pcapng file. pcapng path=/home/ecapture/ecap.pcapng\n2024-09-15T06:54:12Z INF perfEventReader created mapSize(MB)=4\n2024-09-15T06:54:12Z INF perfEventReader created mapSize(MB)=4\n2024-09-15T06:54:12Z INF module started successfully. isReload=false moduleName=EBPFProbeOPENSSL\n2024-09-15T06:54:14Z INF packets saved into pcapng file. count=4\n2024-09-15T06:54:16Z INF non-TLSv1.3 cipher suite found CLientRandom=f08e8d784962d1693c042f9fe266345507ccfaba58b823904a357f30dbfa1e71 CipherId=0\n2024-09-15T06:54:16Z INF non-TLSv1.3 cipher suite found CLientRandom=f08e8d784962d1693c042f9fe266345507ccfaba58b823904a357f30dbfa1e71 CipherId=0\n2024-09-15T06:54:16Z INF packets saved into pcapng file. count=183\n2024-09-15T06:54:16Z INF CLIENT_RANDOM save success CLientRandom=f08e8d784962d1693c042f9fe266345507ccfaba58b823904a357f30dbfa1e71 TlsVersion=TLS1_2_VERSION bytes=176\n2024-09-15T06:54:18Z INF packets saved into pcapng file. count=65\n^C2024-09-15T06:54:18Z INF module close.\n2024-09-15T06:54:18Z INF packets saved into pcapng file. count=3\n2024-09-15T06:54:18Z INF packets saved into pcapng file. count=255\n2024-09-15T06:54:18Z INF Module closed,message recived from Context\n2024-09-15T06:54:18Z INF iModule module close\n2024-09-15T06:54:18Z INF bye bye.\n```\n\nUsed `Wireshark` to open `ecap.pcapng` file to view the plaintext data packets.\n\n#### Keylog Mode\n\nYou can specify `-m keylog` or `-m key` and use it in conjunction with the `--keylogfile` parameter, which defaults to `ecapture_masterkey.log`.\n\nThe captured OpenSSL TLS `Master Secret` information is saved to `--keylogfile`. You can also enable `tcpdump` packet capture and then use `Wireshark` to open the file and set the `Master Secret` path to view plaintext data packets.\n\n```shell\nsudo ecapture tls -m keylog -keylogfile=openssl_keylog.log\n```\n\nYou can also directly use the `tshark` software for real-time decryption and display:\n\n```shell\ntshark -o tls.keylog_file:ecapture_masterkey.log -Y http -T fields -e http.file_data -f \"port 443\" -i eth0\n```\n\n#### Text Mode\n\n`sudo ecapture tls -m text` will output all plaintext data packets. (Starting from v0.7.0, it no longer captures\nSSLKEYLOG information.)\n\n### GoTLS Module\n\nSimilar to the OpenSSL module.\n\n#### gotls command\n\ncapture tls text context.\n\nStep 1:\n```shell\nsudo ecapture gotls --elfpath=/home/cfc4n/go_https_client --hex\n```\n\nStep 2:\n```shell\n/home/cfc4n/go_https_client\n```\n\n#### more help\n```shell\nsudo ecapture gotls -h\n```\n\n### Other Modules\n\nsuch as `bash\\mysqld\\postgres` modules, you can use `ecapture -h` to view the list of subcommands.\n\n## Videos\n\n* Youtube video: [How to use eCapture v0.1.0](https://www.youtube.com/watch?v=CoDIjEQCvvA \"eCapture User Manual\")\n* [eCapture:supports capturing plaintext of Golang TLS/HTTPS traffic](https://medium.com/@cfc4ncs/ecapture-supports-capturing-plaintext-of-golang-tls-https-traffic-f16874048269)\n\n\n## Stargazers over time\n[![Stargazers over time](https://starchart.cc/gojue/ecapture.svg)](https://starchart.cc/gojue/ecapture)\n\n# Contributing\nSee [CONTRIBUTING](./CONTRIBUTING.md) for details on submitting patches and the contribution workflow.\n\n# Compilation\n\nSee [COMPILATION](./COMPILATION.md) for details on compiling the eCapture source code.\n",
+        "releases": [
+            {
+                "name": "eCapture v0.9.3",
+                "date": "2025-01-18T14:43:33Z"
+            },
+            {
+                "name": "eCapture v0.9.2",
+                "date": "2024-12-29T10:55:50Z"
+            },
+            {
+                "name": "eCapture v0.9.1",
+                "date": "2024-12-18T14:58:59Z"
+            },
+            {
+                "name": "eCapture v0.9.0",
+                "date": "2024-12-15T12:08:50Z"
+            },
+            {
+                "name": "eCapture v0.8.12",
+                "date": "2024-12-02T16:07:53Z"
+            },
+            {
+                "name": "eCapture v0.8.11",
+                "date": "2024-12-01T14:23:34Z"
+            },
+            {
+                "name": "eCapture v0.8.10",
+                "date": "2024-11-16T15:16:45Z"
+            },
+            {
+                "name": "eCapture v0.8.9",
+                "date": "2024-10-26T14:26:45Z"
+            },
+            {
+                "name": "eCapture v0.8.8",
+                "date": "2024-10-09T16:00:29Z"
+            },
+            {
+                "name": "eCapture v0.8.7",
+                "date": "2024-10-07T03:42:01Z"
+            },
+            {
+                "name": "eCapture v0.8.6",
+                "date": "2024-09-06T15:24:31Z"
+            },
+            {
+                "name": "eCapture v0.8.5",
+                "date": "2024-08-18T16:21:56Z"
+            },
+            {
+                "name": "eCapture v0.8.4",
+                "date": "2024-07-09T13:20:37Z"
+            },
+            {
+                "name": "eCapture v0.8.3",
+                "date": "2024-06-01T15:27:09Z"
+            },
+            {
+                "name": "eCapture v0.8.2",
+                "date": "2024-05-19T14:03:42Z"
+            },
+            {
+                "name": "eCapture v0.8.1",
+                "date": "2024-05-19T11:43:42Z"
+            },
+            {
+                "name": "eCapture v0.8.0",
+                "date": "2024-05-04T08:11:59Z"
+            },
+            {
+                "name": "eCapture v0.7.7",
+                "date": "2024-04-21T11:01:05Z"
+            },
+            {
+                "name": "eCapture v0.7.6",
+                "date": "2024-03-30T15:52:40Z"
+            },
+            {
+                "name": "eCapture v0.7.5",
+                "date": "2024-03-03T07:23:07Z"
+            },
+            {
+                "name": "eCapture v0.7.4",
+                "date": "2024-02-24T04:02:36Z"
+            },
+            {
+                "name": "eCapture v0.7.3",
+                "date": "2024-01-28T14:28:02Z"
+            },
+            {
+                "name": "eCapture v0.7.2",
+                "date": "2024-01-01T15:48:42Z"
+            },
+            {
+                "name": "eCapture v0.7.1",
+                "date": "2023-12-23T14:59:17Z"
+            },
+            {
+                "name": "eCapture v0.7.0",
+                "date": "2023-12-02T16:53:30Z"
+            },
+            {
+                "name": "eCapture v0.6.6",
+                "date": "2023-11-19T14:27:58Z"
+            },
+            {
+                "name": "eCapture v0.6.5",
+                "date": "2023-11-11T09:34:41Z"
+            },
+            {
+                "name": "eCapture v0.6.4",
+                "date": "2023-10-14T16:34:30Z"
+            },
+            {
+                "name": "eCapture v0.6.3",
+                "date": "2023-09-27T13:55:46Z"
+            },
+            {
+                "name": "eCapture v0.6.2",
+                "date": "2023-09-24T08:44:01Z"
+            },
+            {
+                "name": "eCapture v0.6.1",
+                "date": "2023-07-16T11:38:27Z"
+            },
+            {
+                "name": "eCapture v0.6.0",
+                "date": "2023-07-02T15:11:39Z"
+            },
+            {
+                "name": "eCapture v0.5.3",
+                "date": "2023-05-21T05:17:53Z"
+            },
+            {
+                "name": "eCapture v0.5.2",
+                "date": "2023-05-01T08:48:17Z"
+            },
+            {
+                "name": "eCapture v0.5.1",
+                "date": "2023-04-08T13:44:49Z"
+            },
+            {
+                "name": "eCapture v0.5.0",
+                "date": "2023-03-10T14:37:34Z"
+            },
+            {
+                "name": "eCapture v0.4.12",
+                "date": "2023-02-10T15:04:37Z"
+            },
+            {
+                "name": "eCapture v0.4.11",
+                "date": "2023-01-07T05:15:56Z"
+            },
+            {
+                "name": "eCapture v0.4.10",
+                "date": "2022-12-11T15:22:30Z"
+            },
+            {
+                "name": "eCapture v0.4.9",
+                "date": "2022-11-19T08:38:35Z"
+            },
+            {
+                "name": "eCapture v0.4.8",
+                "date": "2022-11-05T13:39:26Z"
+            },
+            {
+                "name": "eCapture v0.4.7",
+                "date": "2022-10-23T14:34:16Z"
+            },
+            {
+                "name": "eCapture v0.4.6",
+                "date": "2022-10-15T10:22:35Z"
+            },
+            {
+                "name": "eCapture v0.4.5",
+                "date": "2022-10-10T13:09:22Z"
+            },
+            {
+                "name": "eCapture v0.4.4",
+                "date": "2022-10-03T14:48:05Z"
+            },
+            {
+                "name": "eCapture v0.4.3",
+                "date": "2022-09-09T11:56:44Z"
+            },
+            {
+                "name": "eCapture v0.4.2 release (Linux x86_64/aarch64, Android kernel 5.5+).",
+                "date": "2022-09-04T12:42:07Z"
+            },
+            {
+                "name": "eCapture v0.4.1 release (Linux x86_64/aarch64, Android kernel 5.5+).",
+                "date": "2022-08-21T16:05:27Z"
+            },
+            {
+                "name": "eCapture v0.4.0 release (Linux x86_64/aarch64, Android kernel 5.5+).",
+                "date": "2022-08-07T10:53:44Z"
+            },
+            {
+                "name": "eCapture v0.3.0 release (Linux x86_64/aarch64, Android kernel 5.5+).",
+                "date": "2022-07-20T15:40:47Z"
+            },
+            {
+                "name": "eCapture v0.2.2 release (Linux x86_64/aarch64, Android kernel 5.5+).",
+                "date": "2022-07-08T16:06:17Z"
+            },
+            {
+                "name": "eCapture v0.2.1 release (Linux x86_64/aarch64, Android kernel 4.18+).",
+                "date": "2022-07-05T15:19:46Z"
+            },
+            {
+                "name": "eCapture v0.2.0 release (Linux x86_64/aarch64, Android kernel 4.18+).",
+                "date": "2022-07-03T17:17:21Z"
+            },
+            {
+                "name": "eCapture v0.1.10 release (Linux x86_64/aarch64, Android GKI).",
+                "date": "2022-06-19T16:41:43Z"
+            },
+            {
+                "name": "eCapture v0.1.9 release (Linux x86_64/aarch64).",
+                "date": "2022-06-11T12:04:21Z"
+            },
+            {
+                "name": "eCapture v0.1.8 release.",
+                "date": "2022-05-08T14:59:18Z"
+            },
+            {
+                "name": "eCapture v0.1.7 release.",
+                "date": "2022-04-21T16:29:49Z"
+            },
+            {
+                "name": "eCapture v0.1.6 release.",
+                "date": "2022-04-07T14:32:16Z"
+            },
+            {
+                "name": "eCapture v0.1.5 release.",
+                "date": "2022-03-25T15:07:52Z"
+            },
+            {
+                "name": "eCapture v0.1.4 release.",
+                "date": "2022-03-22T16:31:30Z"
+            },
+            {
+                "name": "ecapture v0.1.3 release.",
+                "date": "2022-03-20T12:11:57Z"
+            },
+            {
+                "name": "v0.1.2",
+                "date": "2023-01-07T16:15:02Z"
+            },
+            {
+                "name": "v0.1.1\u7248",
+                "date": "2022-03-19T11:03:04Z"
+            },
+            {
+                "name": "v0.1.0\u7248",
+                "date": "2022-03-17T15:30:52Z"
+            }
+        ]
+    }
+}

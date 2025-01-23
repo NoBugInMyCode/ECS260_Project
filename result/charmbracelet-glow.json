@@ -1,0 +1,136 @@
+{
+    "https://api.github.com/repos/charmbracelet/glow": {
+        "forks": 375,
+        "watchers": 16829,
+        "stars": 16829,
+        "languages": {
+            "Go": 82617,
+            "Makefile": 202,
+            "Dockerfile": 97
+        },
+        "commits": [
+            "2024-12-18T19:10:03Z",
+            "2024-12-16T15:55:09Z",
+            "2024-10-31T12:53:59Z",
+            "2024-10-01T17:23:20Z",
+            "2024-08-23T19:00:20Z",
+            "2024-08-23T18:49:31Z",
+            "2024-08-23T17:23:40Z",
+            "2024-08-23T15:45:30Z",
+            "2024-08-23T15:45:18Z",
+            "2024-08-21T18:07:42Z",
+            "2024-08-21T17:43:05Z",
+            "2024-07-25T14:32:08Z",
+            "2024-07-11T21:07:35Z",
+            "2024-07-11T15:20:59Z",
+            "2024-07-11T15:16:12Z",
+            "2024-07-11T15:08:57Z",
+            "2024-07-11T15:02:03Z",
+            "2024-07-10T20:02:37Z",
+            "2024-07-10T15:02:50Z",
+            "2024-07-10T13:42:21Z",
+            "2024-07-10T13:39:05Z",
+            "2024-07-10T13:37:00Z",
+            "2024-07-10T13:35:52Z",
+            "2024-07-09T19:46:49Z",
+            "2024-07-09T19:38:32Z",
+            "2024-07-09T19:38:10Z",
+            "2024-07-09T19:13:32Z",
+            "2024-07-09T19:13:05Z",
+            "2024-07-09T19:07:39Z",
+            "2024-07-09T19:04:11Z"
+        ],
+        "creation_date": "2019-11-04T23:34:55Z",
+        "contributors": 30,
+        "topics": [
+            "cli",
+            "excitement",
+            "hacktoberfest",
+            "markdown"
+        ],
+        "subscribers": 75,
+        "readme": "# Glow\n\nRender markdown on the CLI, with _pizzazz_!\n\n<p align=\"center\">\n    <img src=\"https://stuff.charm.sh/glow/glow-banner-github.gif\" alt=\"Glow Logo\">\n    <a href=\"https://github.com/charmbracelet/glow/releases\"><img src=\"https://img.shields.io/github/release/charmbracelet/glow.svg\" alt=\"Latest Release\"></a>\n    <a href=\"https://pkg.go.dev/github.com/charmbracelet/glow?tab=doc\"><img src=\"https://godoc.org/github.com/golang/gddo?status.svg\" alt=\"GoDoc\"></a>\n    <a href=\"https://github.com/charmbracelet/glow/actions\"><img src=\"https://github.com/charmbracelet/glow/workflows/build/badge.svg\" alt=\"Build Status\"></a>\n    <a href=\"https://goreportcard.com/report/github.com/charmbracelet/glow\"><img src=\"https://goreportcard.com/badge/charmbracelet/glow\" alt=\"Go ReportCard\"></a>\n</p>\n\n<p align=\"center\">\n    <img src=\"https://github.com/user-attachments/assets/c2246366-f84b-4847-b431-32a61ca07b74\" width=\"800\" alt=\"Glow UI Demo\">\n</p>\n\n## What is it?\n\nGlow is a terminal based markdown reader designed from the ground up to bring\nout the beauty\u2014and power\u2014of the CLI.\n\nUse it to discover markdown files, read documentation directly on the command\nline. Glow will find local markdown files in subdirectories or a local\nGit repository.\n\n## Installation\n\n### Package Manager\n\n```bash\n# macOS or Linux\nbrew install glow\n\n# macOS (with MacPorts)\nsudo port install glow\n\n# Arch Linux (btw)\npacman -S glow\n\n# Void Linux\nxbps-install -S glow\n\n# Nix shell\nnix-shell -p glow --command glow\n\n# FreeBSD\npkg install glow\n\n# Solus\neopkg install glow\n\n# Windows (with Chocolatey, Scoop, or Winget)\nchoco install glow\nscoop install glow\nwinget install charmbracelet.glow\n\n# Android (with termux)\npkg install glow\n\n# Debian/Ubuntu\nsudo mkdir -p /etc/apt/keyrings\ncurl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg\necho \"deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *\" | sudo tee /etc/apt/sources.list.d/charm.list\nsudo apt update && sudo apt install glow\n\n# Fedora/RHEL\necho '[charm]\nname=Charm\nbaseurl=https://repo.charm.sh/yum/\nenabled=1\ngpgcheck=1\ngpgkey=https://repo.charm.sh/yum/gpg.key' | sudo tee /etc/yum.repos.d/charm.repo\nsudo yum install glow\n```\n\nOr download a binary from the [releases][releases] page. MacOS, Linux, Windows,\nFreeBSD and OpenBSD binaries are available, as well as Debian, RPM, and Alpine\npackages. ARM builds are also available for macOS, Linux, FreeBSD and OpenBSD.\n\n### Go\n\nOr just install it with `go`:\n\n```bash\ngo install github.com/charmbracelet/glow@latest\n```\n\n### Build (requires Go 1.21+)\n\n```bash\ngit clone https://github.com/charmbracelet/glow.git\ncd glow\ngo build\n```\n\n[releases]: https://github.com/charmbracelet/glow/releases\n\n## The TUI\n\nSimply run `glow` without arguments to start the textual user interface and\nbrowse local. Glow will find local markdown files in the\ncurrent directory and below or, if you\u2019re in a Git repository, Glow will search\nthe repo.\n\nMarkdown files can be read with Glow's high-performance pager. Most of the\nkeystrokes you know from `less` are the same, but you can press `?` to list\nthe hotkeys.\n\n## The CLI\n\nIn addition to a TUI, Glow has a CLI for working with Markdown. To format a\ndocument use a markdown source as the primary argument:\n\n```bash\n# Read from file\nglow README.md\n\n# Read from stdin\necho \"[Glow](https://github.com/charmbracelet/glow)\" | glow -\n\n# Fetch README from GitHub / GitLab\nglow github.com/charmbracelet/glow\n\n# Fetch markdown from HTTP\nglow https://host.tld/file.md\n```\n\n### Word Wrapping\n\nThe `-w` flag lets you set a maximum width at which the output will be wrapped:\n\n```bash\nglow -w 60\n```\n\n### Paging\n\nCLI output can be displayed in your preferred pager with the `-p` flag. This defaults\nto the ANSI-aware `less -r` if `$PAGER` is not explicitly set.\n\n### Styles\n\nYou can choose a style with the `-s` flag. When no flag is provided `glow` tries\nto detect your terminal's current background color and automatically picks\neither the `dark` or the `light` style for you.\n\n```bash\nglow -s [dark|light]\n```\n\nAlternatively you can also supply a custom JSON stylesheet:\n\n```bash\nglow -s mystyle.json\n```\n\nFor additional usage details see:\n\n```bash\nglow --help\n```\n\nCheck out the [Glamour Style Section](https://github.com/charmbracelet/glamour/blob/master/styles/gallery/README.md)\nto find more styles. Or [make your own](https://github.com/charmbracelet/glamour/tree/master/styles)!\n\n## The Config File\n\nIf you find yourself supplying the same flags to `glow` all the time, it's\nprobably a good idea to create a config file. Run `glow config`, which will open\nit in your favorite $EDITOR. Alternatively you can manually put a file named\n`glow.yml` in the default config path of you platform. If you're not sure where\nthat is, please refer to `glow --help`.\n\nHere's an example config:\n\n```yaml\n# style name or JSON path (default \"auto\")\nstyle: \"light\"\n# mouse wheel support (TUI-mode only)\nmouse: true\n# use pager to display markdown\npager: true\n# at which column should we word wrap?\nwidth: 80\n# show all files, including hidden and ignored.\nall: true\n```\n\n## Feedback\n\nWe\u2019d love to hear your thoughts on this project. Feel free to drop us a note!\n\n- [Twitter](https://twitter.com/charmcli)\n- [The Fediverse](https://mastodon.social/@charmcli)\n- [Discord](https://charm.sh/chat)\n\n## License\n\n[MIT](https://github.com/charmbracelet/glow/raw/master/LICENSE)\n\n---\n\nPart of [Charm](https://charm.sh).\n\n<a href=\"https://charm.sh/\"><img alt=\"The Charm logo\" src=\"https://stuff.charm.sh/charm-badge.jpg\" width=\"400\"></a>\n\nCharm\u70ed\u7231\u5f00\u6e90 \u2022 Charm loves open source\n",
+        "releases": [
+            {
+                "name": "v2.0.0",
+                "date": "2024-08-23T19:27:58Z"
+            },
+            {
+                "name": "v1.5.1",
+                "date": "2023-05-09T16:16:51Z"
+            },
+            {
+                "name": "v1.5.0",
+                "date": "2023-01-23T19:11:29Z"
+            },
+            {
+                "name": "v1.4.1",
+                "date": "2021-04-08T14:56:01Z"
+            },
+            {
+                "name": "v1.4.0",
+                "date": "2021-03-14T02:20:44Z"
+            },
+            {
+                "name": "v1.3.0",
+                "date": "2020-12-25T02:30:13Z"
+            },
+            {
+                "name": "v1.2.1",
+                "date": "2020-11-25T00:53:29Z"
+            },
+            {
+                "name": "v1.2.0",
+                "date": "2020-11-21T17:16:22Z"
+            },
+            {
+                "name": "v1.1.0",
+                "date": "2020-10-27T14:26:55Z"
+            },
+            {
+                "name": "v1.0.2",
+                "date": "2020-10-14T02:39:42Z"
+            },
+            {
+                "name": "v1.0.1",
+                "date": "2020-10-07T17:07:04Z"
+            },
+            {
+                "name": "v1.0.0",
+                "date": "2020-10-06T17:01:08Z"
+            },
+            {
+                "name": "v0.2.0",
+                "date": "2020-01-09T11:20:22Z"
+            },
+            {
+                "name": "v0.1.6",
+                "date": "2019-12-30T06:09:39Z"
+            },
+            {
+                "name": "v0.1.5",
+                "date": "2019-12-28T05:11:15Z"
+            },
+            {
+                "name": "v0.1.4",
+                "date": "2019-12-28T02:18:25Z"
+            },
+            {
+                "name": "v0.1.3",
+                "date": "2019-12-24T01:47:55Z"
+            },
+            {
+                "name": "v0.1.2",
+                "date": "2019-12-23T03:29:07Z"
+            },
+            {
+                "name": "v0.1.1",
+                "date": "2019-12-23T00:40:42Z"
+            },
+            {
+                "name": "v0.1",
+                "date": "2019-12-21T00:09:38Z"
+            }
+        ]
+    }
+}

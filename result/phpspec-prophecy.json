@@ -1,0 +1,221 @@
+{
+    "https://api.github.com/repos/phpspec/prophecy": {
+        "forks": 242,
+        "watchers": 8529,
+        "stars": 8529,
+        "languages": {
+            "PHP": 460138
+        },
+        "commits": [
+            "2024-11-19T13:12:41Z",
+            "2024-11-19T12:49:44Z",
+            "2024-10-29T13:24:20Z",
+            "2024-10-29T10:33:30Z",
+            "2024-08-14T01:24:36Z",
+            "2024-10-11T20:39:08Z",
+            "2024-10-11T20:38:57Z",
+            "2024-10-04T17:47:54Z",
+            "2024-10-04T17:44:02Z",
+            "2024-10-04T17:43:54Z",
+            "2024-10-03T13:08:43Z",
+            "2024-08-27T07:52:54Z",
+            "2024-08-21T16:45:44Z",
+            "2024-08-21T15:14:52Z",
+            "2024-08-21T17:02:41Z",
+            "2023-12-06T14:46:28Z",
+            "2023-12-04T08:56:20Z",
+            "2023-12-04T08:55:55Z",
+            "2023-12-01T16:55:10Z",
+            "2023-12-01T16:50:41Z",
+            "2023-12-01T16:45:44Z",
+            "2023-12-01T16:15:04Z",
+            "2023-12-01T14:05:17Z",
+            "2023-12-01T13:56:16Z",
+            "2023-12-01T00:50:00Z",
+            "2023-12-01T00:48:03Z",
+            "2024-08-21T16:44:27Z",
+            "2024-08-21T15:11:55Z",
+            "2024-08-21T15:58:53Z",
+            "2024-08-21T15:50:10Z"
+        ],
+        "creation_date": "2013-03-25T11:40:40Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 30,
+        "readme": "# Prophecy\n\n[![Stable release](https://poser.pugx.org/phpspec/prophecy/version.svg)](https://packagist.org/packages/phpspec/prophecy)\n[![Build](https://github.com/phpspec/prophecy/actions/workflows/build.yml/badge.svg)](https://github.com/phpspec/prophecy/actions/workflows/build.yml)\n\nProphecy is a highly opinionated yet very powerful and flexible PHP object mocking\nframework. Though initially it was created to fulfil phpspec2 needs, it is flexible\nenough to be used inside any testing framework out there with minimal effort.\n\n## A simple example\n\n```php\n<?php\n\nclass UserTest extends PHPUnit\\Framework\\TestCase\n{\n    private $prophet;\n\n    public function testPasswordHashing()\n    {\n        $hasher = $this->prophet->prophesize('App\\Security\\Hasher');\n        $user   = new App\\Entity\\User($hasher->reveal());\n\n        $hasher->generateHash($user, 'qwerty')->willReturn('hashed_pass');\n\n        $user->setPassword('qwerty');\n\n        $this->assertEquals('hashed_pass', $user->getPassword());\n    }\n\n    protected function setUp()\n    {\n        $this->prophet = new \\Prophecy\\Prophet;\n    }\n\n    protected function tearDown()\n    {\n        $this->prophet->checkPredictions();\n    }\n}\n```\n\n## Installation\n\n### Prerequisites\n\nProphecy requires PHP 7.2.0 or greater.\n\n### Setup through composer\n\nFirst, add Prophecy to the list of dependencies inside your `composer.json`:\n\n```json\n{\n    \"require-dev\": {\n        \"phpspec/prophecy\": \"~1.0\"\n    }\n}\n```\n\nThen simply install it with composer:\n\n```bash\n$> composer install --prefer-dist\n```\n\nYou can read more about Composer on its [official webpage](http://getcomposer.org).\n\n## How to use it\n\nFirst of all, in Prophecy every word has a logical meaning, even the name of the library\nitself (Prophecy). When you start feeling that, you'll become very fluid with this\ntool.\n\nFor example, Prophecy has been named that way because it concentrates on describing the future\nbehavior of objects with very limited knowledge about them. But as with any other prophecy,\nthose object prophecies can't create themselves - there should be a Prophet:\n\n```php\n$prophet = new Prophecy\\Prophet;\n```\n\nThe Prophet creates prophecies by *prophesizing* them:\n\n```php\n$prophecy = $prophet->prophesize();\n```\n\nThe result of the `prophesize()` method call is a new object of class `ObjectProphecy`. Yes,\nthat's your specific object prophecy, which describes how your object would behave\nin the near future. But first, you need to specify which object you're talking about,\nright?\n\n```php\n$prophecy->willExtend('stdClass');\n$prophecy->willImplement('SessionHandlerInterface');\n```\n\nThere are 2 interesting calls - `willExtend` and `willImplement`. The first one tells\nobject prophecy that our object should extend a specific class. The second one says that\nit should implement some interface. Obviously, objects in PHP can implement multiple\ninterfaces, but extend only one parent class.\n\n### Dummies\n\nOk, now we have our object prophecy. What can we do with it? First of all, we can get\nour object *dummy* by revealing its prophecy:\n\n```php\n$dummy = $prophecy->reveal();\n```\n\nThe `$dummy` variable now holds a special dummy object. Dummy objects are objects that extend\nand/or implement preset classes/interfaces by overriding all their public methods. The key\npoint about dummies is that they do not hold any logic - they just do nothing. Any method\nof the dummy will always return `null` and the dummy will never throw any exceptions.\nDummy is your friend if you don't care about the actual behavior of this double and just need\na token object to satisfy a method typehint.\n\nYou need to understand one thing - a dummy is not a prophecy. Your object prophecy is still\nassigned to `$prophecy` variable and in order to manipulate with your expectations, you\nshould work with it. `$dummy` is a dummy - a simple php object that tries to fulfil your\nprophecy.\n\n### Stubs\n\nOk, now we know how to create basic prophecies and reveal dummies from them. That's\nawesome if we don't care about our _doubles_ (objects that reflect originals)\ninteractions. If we do, we need to use *stubs* or *mocks*.\n\nA stub is an object double, which doesn't have any expectations about the object behavior,\nbut when put in specific environment, behaves in specific way. Ok, I know, it's cryptic,\nbut bear with me for a minute. Simply put, a stub is a dummy, which depending on the called\nmethod signature does different things (has logic). To create stubs in Prophecy:\n\n```php\n$prophecy->read('123')->willReturn('value');\n```\n\nOh wow. We've just made an arbitrary call on the object prophecy? Yes, we did. And this\ncall returned us a new object instance of class `MethodProphecy`. Yep, that's a specific\nmethod with arguments prophecy. Method prophecies give you the ability to create method\npromises or predictions. We'll talk about method predictions later in the _Mocks_ section.\n\n#### Promises\n\nPromises are logical blocks, that represent your fictional methods in prophecy terms\nand they are handled by the `MethodProphecy::will(PromiseInterface $promise)` method.\nAs a matter of fact, the call that we made earlier (`willReturn('value')`) is a simple\nshortcut to:\n\n```php\n$prophecy->read('123')->will(new Prophecy\\Promise\\ReturnPromise(array('value')));\n```\n\nThis promise will cause any call to our double's `read()` method with exactly one\nargument - `'123'` to always return `'value'`. But that's only for this\npromise, there's plenty others you can use:\n\n- `ReturnPromise` or `->willReturn(1)` - returns a value from a method call\n- `ReturnArgumentPromise` or `->willReturnArgument($index)` - returns the nth method argument from call\n- `ThrowPromise` or `->willThrow($exception)` - causes the method to throw specific exception\n- `CallbackPromise` or `->will($callback)` - gives you a quick way to define your own custom logic\n\nKeep in mind, that you can always add even more promises by implementing\n`Prophecy\\Promise\\PromiseInterface`.\n\n#### Method prophecies idempotency\n\nProphecy enforces same method prophecies and, as a consequence, same promises and\npredictions for the same method calls with the same arguments. This means:\n\n```php\n$methodProphecy1 = $prophecy->read('123');\n$methodProphecy2 = $prophecy->read('123');\n$methodProphecy3 = $prophecy->read('321');\n\n$methodProphecy1 === $methodProphecy2;\n$methodProphecy1 !== $methodProphecy3;\n```\n\nThat's interesting, right? Now you might ask me how would you define more complex\nbehaviors where some method call changes behavior of others. In PHPUnit or Mockery\nyou do that by predicting how many times your method will be called. In Prophecy,\nyou'll use promises for that:\n\n```php\n$user->getName()->willReturn(null);\n\n// For PHP 5.4\n$user->setName('everzet')->will(function () {\n    $this->getName()->willReturn('everzet');\n});\n\n// For PHP 5.3\n$user->setName('everzet')->will(function ($args, $user) {\n    $user->getName()->willReturn('everzet');\n});\n\n// Or\n$user->setName('everzet')->will(function ($args) use ($user) {\n    $user->getName()->willReturn('everzet');\n});\n```\n\nAnd now it doesn't matter how many times or in which order your methods are called.\nWhat matters is their behaviors and how well you faked it.\n\nNote: If the method is called several times, you can use the following syntax to return different\nvalues for each call:\n\n```php\n$prophecy->read('123')->willReturn(1, 2, 3);\n```\n\nThis feature is actually not recommended for most cases. Relying on the order of\ncalls for the same arguments tends to make test fragile, as adding one more call\ncan break everything.\n\n#### Arguments wildcarding\n\nThe previous example is awesome (at least I hope it is for you), but that's not\noptimal enough. We hardcoded `'everzet'` in our expectation. Isn't there a better\nway? In fact there is, but it involves understanding what this `'everzet'`\nactually is.\n\nYou see, even if method arguments used during method prophecy creation look\nlike simple method arguments, in reality they are not. They are argument token\nwildcards.  As a matter of fact, `->setName('everzet')` looks like a simple call just\nbecause Prophecy automatically transforms it under the hood into:\n\n```php\n$user->setName(new Prophecy\\Argument\\Token\\ExactValueToken('everzet'));\n```\n\nThose argument tokens are simple PHP classes, that implement\n`Prophecy\\Argument\\Token\\TokenInterface` and tell Prophecy how to compare real arguments\nwith your expectations. And yes, those classnames are damn big. That's why there's a\nshortcut class `Prophecy\\Argument`, which you can use to create tokens like that:\n\n```php\nuse Prophecy\\Argument;\n\n$user->setName(Argument::exact('everzet'));\n```\n\n`ExactValueToken` is not very useful in our case as it forced us to hardcode the username.\nThat's why Prophecy comes bundled with a bunch of other tokens:\n\n- `IdenticalValueToken` or `Argument::is($value)` - checks that the argument is identical to a specific value\n- `ExactValueToken` or `Argument::exact($value)` - checks that the argument matches a specific value\n- `TypeToken` or `Argument::type($typeOrClass)` - checks that the argument matches a specific type or\n  classname\n- `ObjectStateToken` or `Argument::which($method, $value)` - checks that the argument method returns\n  a specific value\n- `CallbackToken` or `Argument::that(callback)` - checks that the argument matches a custom callback\n- `AnyValueToken` or `Argument::any()` - matches any argument\n- `AnyValuesToken` or `Argument::cetera()` - matches any arguments to the rest of the signature\n- `StringContainsToken` or `Argument::containingString($value)` - checks that the argument contains a specific string value\n- `InArrayToken` or `Argument::in($array)` - checks if value is in array\n- `NotInArrayToken` or `Argument::notIn($array)` - checks if value is not in array\n\nAnd you can add even more by implementing `TokenInterface` with your own custom classes.\n\nSo, let's refactor our initial `{set,get}Name()` logic with argument tokens:\n\n```php\nuse Prophecy\\Argument;\n\n$user->getName()->willReturn(null);\n\n// For PHP 5.4\n$user->setName(Argument::type('string'))->will(function ($args) {\n    $this->getName()->willReturn($args[0]);\n});\n\n// For PHP 5.3\n$user->setName(Argument::type('string'))->will(function ($args, $user) {\n    $user->getName()->willReturn($args[0]);\n});\n\n// Or\n$user->setName(Argument::type('string'))->will(function ($args) use ($user) {\n    $user->getName()->willReturn($args[0]);\n});\n```\n\nThat's it. Now our `{set,get}Name()` prophecy will work with any string argument provided to it.\nWe've just described how our stub object should behave, even though the original object could have\nno behavior whatsoever.\n\nOne last bit about arguments now. You might ask, what happens in case of:\n\n```php\nuse Prophecy\\Argument;\n\n$user->getName()->willReturn(null);\n\n// For PHP 5.4\n$user->setName(Argument::type('string'))->will(function ($args) {\n    $this->getName()->willReturn($args[0]);\n});\n\n// For PHP 5.3\n$user->setName(Argument::type('string'))->will(function ($args, $user) {\n    $user->getName()->willReturn($args[0]);\n});\n\n// Or\n$user->setName(Argument::type('string'))->will(function ($args) use ($user) {\n    $user->getName()->willReturn($args[0]);\n});\n\n$user->setName(Argument::any())->will(function () {\n});\n```\n\nNothing. Your stub will continue behaving the way it did before. That's because of how\narguments wildcarding works. Every argument token type has a different score level, which\nwildcard then uses to calculate the final arguments match score and use the method prophecy\npromise that has the highest score. In this case, `Argument::type()` in case of success\nscores `5` and `Argument::any()` scores `3`. So the type token wins, as does the first\n`setName()` method prophecy and its promise. The simple rule of thumb - more precise token\nalways wins.\n\n#### Getting stub objects\n\nOk, now we know how to define our prophecy method promises, let's get our stub from\nit:\n\n```php\n$stub = $prophecy->reveal();\n```\n\nAs you might see, the only difference between how we get dummies and stubs is that with\nstubs we describe every object conversation instead of just agreeing with `null` returns\n(object being *dummy*). As a matter of fact, after you define your first promise\n(method call), Prophecy will force you to define all the communications - it throws\nthe `UnexpectedCallException` for any call you didn't describe with object prophecy before\ncalling it on a stub.\n\n### Mocks\n\nNow we know how to define doubles without behavior (dummies) and doubles with behavior, but\nno expectations (stubs). What's left is doubles for which we have some expectations. These\nare called mocks and in Prophecy they look almost exactly the same as stubs, except that\nthey define *predictions* instead of *promises* on method prophecies:\n\n```php\n$entityManager->flush()->shouldBeCalled();\n```\n\n#### Predictions\n\nThe `shouldBeCalled()` method here assigns `CallPrediction` to our method prophecy.\nPredictions are a delayed behavior check for your prophecies. You see, during the entire lifetime\nof your doubles, Prophecy records every single call you're making against it inside your\ncode. After that, Prophecy can use this collected information to check if it matches defined\npredictions. You can assign predictions to method prophecies using the\n`MethodProphecy::should(PredictionInterface $prediction)` method. As a matter of fact,\nthe `shouldBeCalled()` method we used earlier is just a shortcut to:\n\n```php\n$entityManager->flush()->should(new Prophecy\\Prediction\\CallPrediction());\n```\n\nIt checks if your method of interest (that matches both the method name and the arguments wildcard)\nwas called 1 or more times. If the prediction failed then it throws an exception. When does this\ncheck happen? Whenever you call `checkPredictions()` on the main Prophet object:\n\n```php\n$prophet->checkPredictions();\n```\n\nIn PHPUnit, you would want to put this call into the `tearDown()` method. If no predictions\nare defined, it would do nothing. So it won't harm to call it after every test.\n\nThere are plenty more predictions you can play with:\n\n- `CallPrediction` or `shouldBeCalled()` - checks that the method has been called 1 or more times\n- `NoCallsPrediction` or `shouldNotBeCalled()` - checks that the method has not been called\n- `CallTimesPrediction` or `shouldBeCalledTimes($count)` - checks that the method has been called\n  `$count` times\n- `CallbackPrediction` or `should($callback)` - checks the method against your own custom callback\n\nOf course, you can always create your own custom prediction any time by implementing\n`PredictionInterface`.\n\n### Spies\n\nThe last bit of awesomeness in Prophecy is out-of-the-box spies support. As I said in the previous\nsection, Prophecy records every call made during the double's entire lifetime. This means\nyou don't need to record predictions in order to check them. You can also do it\nmanually by using the `MethodProphecy::shouldHave(PredictionInterface $prediction)` method:\n\n```php\n$em = $prophet->prophesize('Doctrine\\ORM\\EntityManager');\n\n$controller->createUser($em->reveal());\n\n$em->flush()->shouldHaveBeenCalled();\n```\n\nSuch manipulation with doubles is called spying. And with Prophecy it just works.\n\n\n## FAQ\n\n### Can I call the original methods on a prophesized class?\n\nProphecy does not support calling the original methods on a phrophesized class. If you find yourself needing to mock some methods of a class while calling the original version of other methods, it's likely a sign that your class violates the [single-responsibility principle](https://en.wikipedia.org/wiki/Single-responsibility_principle) and should be refactored.\n",
+        "releases": [
+            {
+                "name": "1.20.0",
+                "date": "2024-11-19T13:13:52Z"
+            },
+            {
+                "name": "1.19.0",
+                "date": "2024-02-29T11:54:50Z"
+            },
+            {
+                "name": "1.18.0",
+                "date": "2023-12-07T16:25:31Z"
+            },
+            {
+                "name": "1.17.0",
+                "date": "2023-02-02T15:42:31Z"
+            },
+            {
+                "name": "1.16.0",
+                "date": "2022-11-29T15:07:49Z"
+            },
+            {
+                "name": "1.15.0",
+                "date": "2021-12-08T12:21:03Z"
+            },
+            {
+                "name": "1.14.0",
+                "date": "2021-09-10T09:04:54Z"
+            },
+            {
+                "name": "1.13.0",
+                "date": "2021-03-17T13:45:31Z"
+            },
+            {
+                "name": "1.12.2",
+                "date": "2020-12-19T10:16:38Z"
+            },
+            {
+                "name": "1.12.1",
+                "date": "2020-09-29T09:11:18Z"
+            },
+            {
+                "name": "1.12.0",
+                "date": "2020-09-28T12:26:52Z"
+            },
+            {
+                "name": "1.11.1",
+                "date": "2020-07-08T12:44:55Z"
+            },
+            {
+                "name": "1.11.0",
+                "date": "2020-07-07T17:40:48Z"
+            },
+            {
+                "name": "1.10.3",
+                "date": "2020-03-05T16:10:06Z"
+            },
+            {
+                "name": "v1.10.2",
+                "date": "2020-01-20T15:57:51Z"
+            },
+            {
+                "name": "1.10.1",
+                "date": "2019-12-22T21:19:08Z"
+            },
+            {
+                "name": "1.10.0",
+                "date": "2019-12-17T16:58:49Z"
+            },
+            {
+                "name": "1.9.0",
+                "date": "2019-10-03T11:08:46Z"
+            },
+            {
+                "name": "1.8.1",
+                "date": "2019-06-13T12:51:10Z"
+            },
+            {
+                "name": "1.8.0",
+                "date": "2018-08-05T17:59:15Z"
+            },
+            {
+                "name": "1.7.6",
+                "date": "2018-04-18T13:58:38Z"
+            },
+            {
+                "name": "1.7.5",
+                "date": "2018-02-19T10:20:30Z"
+            },
+            {
+                "name": "1.7.4",
+                "date": "2018-02-11T18:58:11Z"
+            },
+            {
+                "name": "1.7.3",
+                "date": "2017-11-24T16:03:20Z"
+            },
+            {
+                "name": "1.7.2",
+                "date": "2017-09-05T15:35:17Z"
+            },
+            {
+                "name": "1.7.1",
+                "date": "2017-09-03T09:40:18Z"
+            },
+            {
+                "name": "1.7.0",
+                "date": "2017-03-02T20:06:08Z"
+            },
+            {
+                "name": "1.6.2",
+                "date": "2016-11-21T14:59:28Z"
+            },
+            {
+                "name": "v1.6.1",
+                "date": "2016-06-07T08:16:26Z"
+            },
+            {
+                "name": "v1.6.0",
+                "date": "2016-02-15T07:46:48Z"
+            },
+            {
+                "name": "v1.5.0 (PHP7 support)",
+                "date": "2015-08-13T10:08:13Z"
+            },
+            {
+                "name": "v1.4.1",
+                "date": "2015-04-27T22:15:38Z"
+            },
+            {
+                "name": "v1.4.0",
+                "date": "2015-03-27T19:31:55Z"
+            },
+            {
+                "name": "Spies fix",
+                "date": "2014-01-24T11:04:16Z"
+            },
+            {
+                "name": "HHVM compatibility",
+                "date": "2014-01-15T15:07:20Z"
+            },
+            {
+                "name": "Improvements and bugfixes",
+                "date": "2014-01-01T21:24:29Z"
+            },
+            {
+                "name": "1.0.4 - bugfix",
+                "date": "2013-08-10T11:12:40Z"
+            },
+            {
+                "name": "1.0.3 - bugfix",
+                "date": "2013-07-04T20:07:13Z"
+            },
+            {
+                "name": "1.0.2 - logical argument operators",
+                "date": "2013-07-04T19:59:14Z"
+            },
+            {
+                "name": "1.0.1 - bugfix",
+                "date": "2013-07-04T19:58:40Z"
+            },
+            {
+                "name": "1.0.0 - going stable!",
+                "date": "2013-07-04T19:58:15Z"
+            },
+            {
+                "name": "1.0.0 - beta2",
+                "date": "2013-07-04T19:57:40Z"
+            },
+            {
+                "name": "1.0.0 - beta1",
+                "date": "2013-07-04T19:56:49Z"
+            }
+        ]
+    }
+}

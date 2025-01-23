@@ -1,0 +1,77 @@
+{
+    "https://api.github.com/repos/facebookincubator/SocketRocket": {
+        "forks": 2012,
+        "watchers": 9571,
+        "stars": 9571,
+        "languages": {
+            "Objective-C": 167984,
+            "JavaScript": 2688,
+            "Python": 2211,
+            "Go": 1478,
+            "C": 1290,
+            "Shell": 1212,
+            "Ruby": 1084,
+            "HTML": 747,
+            "Makefile": 707
+        },
+        "commits": [
+            "2024-11-15T07:32:54Z",
+            "2024-10-15T19:00:47Z",
+            "2024-09-12T14:44:02Z",
+            "2024-08-31T00:11:33Z",
+            "2024-08-30T23:10:40Z",
+            "2024-08-29T18:35:43Z",
+            "2024-08-27T23:44:35Z",
+            "2024-08-27T23:42:56Z",
+            "2023-07-04T04:05:37Z",
+            "2023-06-28T19:57:46Z",
+            "2023-06-28T17:21:15Z",
+            "2023-06-28T17:20:54Z",
+            "2023-06-28T17:20:36Z",
+            "2023-06-28T17:19:48Z",
+            "2023-06-28T17:19:18Z",
+            "2023-06-28T17:18:23Z",
+            "2023-06-28T17:10:39Z",
+            "2023-06-28T17:07:02Z",
+            "2023-06-28T17:02:36Z",
+            "2023-06-28T17:02:02Z",
+            "2023-06-28T17:51:46Z",
+            "2023-06-28T16:53:09Z",
+            "2023-06-28T16:49:00Z",
+            "2023-06-28T16:47:08Z",
+            "2023-06-28T16:46:29Z",
+            "2019-09-24T18:08:24Z",
+            "2021-08-12T23:41:46Z",
+            "2021-08-12T23:41:28Z",
+            "2021-08-12T22:56:23Z",
+            "2021-08-12T22:29:47Z"
+        ],
+        "creation_date": "2012-01-30T00:21:34Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 333,
+        "readme": "# SocketRocket\n\n![Platforms][platforms-svg]\n[![License][license-svg]][license-link]\n\n[![Podspec][podspec-svg]][podspec-link]\n[![Carthage Compatible][carthage-svg]](carthage-link)\n\n[![Build Status][build-status-svg]][build-status-link]\n\nA conforming WebSocket ([RFC 6455](https://tools.ietf.org/html/rfc6455>)) client library for iOS, macOS, tvOS and visionOS.\n\nTest results for SocketRocket [here](http://facebook.github.io/SocketRocket/results/).\nYou can compare to what modern browsers look like [here](http://autobahn.ws/testsuite/reports/clients/index.html).\n\nSocketRocket currently conforms to all core ~300 of [Autobahn](http://autobahn.ws/testsuite/>)'s fuzzing tests \n(aside from two UTF-8 ones where it is merely *non-strict* tests 6.4.2 and 6.4.4).\n\n## Features/Design\n\n- TLS (wss) support, including self-signed certificates.\n- Seems to perform quite well.\n- Supports HTTP Proxies.\n- Supports IPv4/IPv6.\n- Supports SSL certificate pinning.\n- Sends `ping` and can process `pong` events.\n- Asynchronous and non-blocking. Most of the work is done on a background thread.\n- Supports iOS, macOS, tvOS.\n\n## Installing\n\nThere are a few options. Choose one, or just figure it out:\n\n- **[CocoaPods](https://cocoapods.org)**\n\n Add the following line to your Podfile:\n ```ruby\n pod 'SocketRocket'\n ```\n Run `pod install`, and you are all set.\n  \n- **[Carthage](https://github.com/carthage/carthage)**\n\n Add the following line to your Cartfile:\n ```\n github \"facebook/SocketRocket\"\n ```\n Run `carthage update`, and you should now have the latest version of `SocketRocket` in your `Carthage` folder.\n\n- **Using SocketRocket as a sub-project**\n\n  You can also include `SocketRocket` as a subproject inside of your application if you'd prefer, although we do not recommend this, as it will increase your indexing time significantly. To do so, just drag and drop the `SocketRocket.xcodeproj` file into your workspace.\n\n## API\n\n### `SRWebSocket`\n\nThe Web Socket.\n\n#### Note:\n\n`SRWebSocket` will retain itself between `-(void)open` and when it closes, errors, or fails.\nThis is similar to how `NSURLConnection` behaves (unlike `NSURLConnection`, `SRWebSocket` won't retain the delegate).\n\n#### Interface\n\n```objective-c\n@interface SRWebSocket : NSObject\n\n// Make it with this\n- (instancetype)initWithURLRequest:(NSURLRequest *)request;\n\n// Set this before opening\n@property (nonatomic, weak) id <SRWebSocketDelegate> delegate;\n\n// Open with this\n- (void)open;\n\n// Close it with this\n- (void)close;\n\n// Send a Data\n- (void)sendData:(nullable NSData *)data error:(NSError **)error;\n\n// Send a UTF8 String\n- (void)sendString:(NSString *)string error:(NSError **)error;\n\n@end\n```\n\n### `SRWebSocketDelegate`\n\nYou implement this\n\n```objective-c\n@protocol SRWebSocketDelegate <NSObject>\n\n@optional\n\n- (void)webSocketDidOpen:(SRWebSocket *)webSocket;\n\n- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessageWithString:(NSString *)string;\n- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessageWithData:(NSData *)data;\n\n- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error;\n- (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(nullable NSString *)reason wasClean:(BOOL)wasClean;\n\n@end\n```\n\n## Testing\n\nIncluded are setup scripts for the python testing environment.\nIt comes packaged with vitualenv so all the dependencies are installed in userland.\n\nTo run the short test from the command line, run:\n```bash\n  make test\n```\n\nTo run all the tests, run:\n```bash\n  make test_all\n```\n\nThe short tests don't include the performance tests\n(the test harness is actually the bottleneck, not SocketRocket).\n\nThe first time this is run, it may take a while to install the dependencies. It will be smooth sailing after that. \n\nYou can also run tests inside Xcode, which runs the same thing, but makes it easier to debug.\n\n- Choose the `SocketRocketTests` target\n- Make sure your running destination is either your Mac or any Simulator\n- Run the test action (`\u2318+U`)\n\n### TestChat Demo Application\n\nSocketRocket includes a demo app, TestChat.\nIt will \"chat\" with a listening websocket on port 9900.\n\n#### TestChat Server\n\nThe sever takes a message and broadcasts it to all other connected clients.\n\nIt requires some dependencies though to run. \nWe also want to reuse the virtualenv we made when we ran the tests. \nIf you haven't run the tests yet, go into the SocketRocket root directory and type:\n\n```bash\nmake test\n```\n\nThis will set up your [virtualenv](https://pypi.python.org/pypi/virtualenv).\n\nNow, in your terminal:\n\n```bash\nsource .env/bin/activate\npip install git+https://github.com/tornadoweb/tornado.git\n```\n\nIn the same terminal session, start the chatroom server:\n\n```bash\npython TestChatServer/py/chatroom.py\n```\n\nThere's also a Go implementation (with the latest weekly) where you can:\n\n```bash\ncd TestChatServer/go\ngo run chatroom.go\n```\n\n#### Chatting\n\nNow, start TestChat.app (just run the target in the Xcode project).\nIf you had it started already you can hit the refresh button to reconnect.\nIt should say \"Connected!\" on top.\n\nTo talk with the app, open up your browser to [http://localhost:9000](http://localhost:9000) and start chatting.\n\n\n## WebSocket Server Implementation Recommendations\n\nSocketRocket has been used with the following libraries:\n\n- [Tornado](https://github.com/tornadoweb/tornado)\n- Go's [WebSocket package](https://godoc.org/golang.org/x/net/websocket) or Gorilla's [version](http://www.gorillatoolkit.org/pkg/websocket).\n- [Autobahn](http://autobahn.ws/testsuite/) (using its fuzzing client).\n\nThe Tornado one is dirt simple and works like a charm. \n([IPython notebook](http://ipython.org/ipython-doc/dev/interactive/htmlnotebook.html) uses it too).\nIt's much easier to configure handlers and routes than in Autobahn/twisted.\n\n## Contributing\n\nWe\u2019re glad you\u2019re interested in SocketRocket, and we\u2019d love to see where you take it. \nPlease read our [contributing guidelines](https://github.com/facebook/SocketRocket/blob/master/CONTRIBUTING.md) prior to submitting a Pull Request.\n\n [build-status-svg]: https://img.shields.io/travis/facebook/SocketRocket/master.svg\n [build-status-link]: https://travis-ci.org/facebook/SocketRocket/branches\n\n [license-svg]: https://img.shields.io/badge/license-BSD-lightgrey.svg\n [license-link]: https://github.com/facebook/SocketRocket/blob/master/LICENSE\n\n [podspec-svg]: https://img.shields.io/cocoapods/v/SocketRocket.svg\n [podspec-link]: https://cocoapods.org/pods/SocketRocket\n \n [carthage-svg]: https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat\n [carthage-link]: https://github.com/carthage/carthage\n\n [platforms-svg]: http://img.shields.io/cocoapods/p/SocketRocket.svg?style=flat\n",
+        "releases": [
+            {
+                "name": "0.7.1",
+                "date": "2024-08-31T00:33:55Z"
+            },
+            {
+                "name": "0.7.0",
+                "date": "2023-06-28T23:05:52Z"
+            },
+            {
+                "name": "0.6.1",
+                "date": "2023-06-29T14:27:58Z"
+            },
+            {
+                "name": "0.6.0",
+                "date": "2021-08-12T23:44:32Z"
+            },
+            {
+                "name": "0.4.2",
+                "date": "2015-10-31T00:26:17Z"
+            }
+        ]
+    }
+}

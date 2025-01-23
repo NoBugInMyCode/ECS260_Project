@@ -1,0 +1,170 @@
+{
+    "https://api.github.com/repos/imsnif/bandwhich": {
+        "forks": 297,
+        "watchers": 10277,
+        "stars": 10277,
+        "languages": {
+            "Rust": 160854
+        },
+        "commits": [
+            "2025-01-01T05:08:21Z",
+            "2025-01-01T05:08:04Z",
+            "2025-01-01T01:32:43Z",
+            "2025-01-01T01:11:41Z",
+            "2024-12-16T07:17:57Z",
+            "2024-12-16T07:03:38Z",
+            "2024-12-16T03:18:37Z",
+            "2024-12-06T04:43:28Z",
+            "2024-12-04T18:30:43Z",
+            "2024-12-03T06:58:49Z",
+            "2024-12-03T06:22:22Z",
+            "2024-12-03T06:18:13Z",
+            "2024-12-03T06:15:26Z",
+            "2024-12-03T05:59:01Z",
+            "2024-12-03T05:52:33Z",
+            "2024-12-01T01:11:14Z",
+            "2024-10-17T06:16:39Z",
+            "2024-10-17T04:46:06Z",
+            "2024-10-17T04:45:29Z",
+            "2024-10-17T04:43:29Z",
+            "2024-10-16T09:55:34Z",
+            "2024-10-09T15:45:19Z",
+            "2024-10-09T15:45:02Z",
+            "2024-10-09T15:41:46Z",
+            "2024-10-09T04:55:22Z",
+            "2024-10-09T03:02:02Z",
+            "2024-04-22T10:00:58Z",
+            "2024-01-30T07:51:24Z",
+            "2024-01-30T07:42:53Z",
+            "2023-10-17T08:40:18Z"
+        ],
+        "creation_date": "2019-09-06T21:08:33Z",
+        "contributors": 30,
+        "topics": [
+            "bandwidth",
+            "cli",
+            "dashboard",
+            "networking"
+        ],
+        "subscribers": 75,
+        "readme": "# bandwhich\n\n![demo](res/demo.gif)\n\nThis is a CLI utility for displaying current network utilization by process, connection and remote IP/hostname\n\n## Table of contents\n\n- [bandwhich](#bandwhich)\n  - [Table of contents](#table-of-contents)\n  - [Project status](#project-status)\n  - [How does it work?](#how-does-it-work)\n  - [Installation](#installation)\n    - [Downstream packaging status](#downstream-packaging-status)\n    - [Download a prebuilt binary](#download-a-prebuilt-binary)\n  - [Building from source](#building-from-source)\n    - [Cross-compiling](#cross-compiling)\n      - [Android](#android)\n  - [Post install (Linux)](#post-install-linux)\n    - [1. `setcap`](#1-setcap)\n      - [Capabilities explained](#capabilities-explained)\n    - [2. `sudo` (or alternative)](#2-sudo-or-alternative)\n  - [Post install (Windows)](#post-install-windows)\n  - [Usage](#usage)\n  - [Contributing](#contributing)\n  - [License](#license)\n\n## Project status\n\nThis project is in passive maintenance. Critical issues will be addressed, but\nno new features are being worked on. However, this is due to a lack of funding\nand/or manpower more than anything else, so pull requests are more than welcome.\nIn addition, if you are able and willing to contribute to this project long-term,\nwe would like to invite you to apply for co-maintainership.\n\nFor more details, see [The Future of Bandwhich #275](https://github.com/imsnif/bandwhich/issues/275).\n\n## How does it work?\n\n`bandwhich` sniffs a given network interface and records IP packet size, cross referencing it with the `/proc` filesystem on linux, `lsof` on macOS, or using WinApi on windows. It is responsive to the terminal window size, displaying less info if there is no room for it. It will also attempt to resolve ips to their host name in the background using reverse DNS on a best effort basis.\n\n## Installation\n\n### Downstream packaging status\n\nFor detailed instructions for each platform, see [INSTALL.md](INSTALL.md).\n\n<a href=\"https://repology.org/project/bandwhich/versions\">\n  <img src=\"https://repology.org/badge/vertical-allrepos/bandwhich.svg?columns=3\" alt=\"Packaging status\">\n</a>\n\n### Download a prebuilt binary\n\nWe offer several generic binaries in [releases](https://github.com/imsnif/bandwhich/releases) for various OSes.\n\n<table>\n  <thead>\n    <th>OS</th><th>Architecture</th><th>Support</th><th>Usage</th>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Android</td><td>aarch64</td><td>Best effort</td>\n      <td>\n        <p>All modern Android devices.</p>\n        <p>Note that this is a pure binary file, not an APK suitable for general usage.</p>\n      </td>\n    </tr>\n    <tr>\n      <td rowspan=\"3\">Linux</td><td>aarch64</td><td>Full</td>\n      <td>64-bit ARMv8+ (servers, some modern routers, RPi-4+).</td>\n    </tr>\n    <tr>\n      <td>armv7hf</td><td>Best effort</td><td>32-bit ARMv7 (older routers, pre-RPi-4).</td>\n    </tr>\n    <tr>\n      <td>x64</td><td>Full</td>\n      <td>Most Linux desktops & servers.</td>\n    </tr>\n    <tr>\n      <td rowspan=\"2\">MacOS</td><td>aarch64</td><td rowspan=\"2\">Full</td>\n      <td>Apple silicon Macs (2021+).</td>\n    </tr>\n    <tr>\n      <td>x64</td>\n      <td>Intel Macs (pre-2021).</td>\n    </tr>\n    <tr>\n      <td>Windows</td><td>x64</td><td>Full</td>\n      <td>Most Windows desktops & servers.</td>\n    </tr>\n  </tbody>\n</table>\n\n## Building from source\n\n```sh\ngit clone https://github.com/imsnif/bandwhich.git\ncd bandwhich\ncargo build --release\n```\n\nFor the up-to-date minimum supported Rust version, please refer to the `rust-version` field in [Cargo.toml](Cargo.toml).\n\n### Cross-compiling\n\nCross-compiling for alternate targets is supported via [cross](https://github.com/cross-rs/cross). Here's the rough procedure:\n\n1. Check the target architecture. If on Linux, you can use `uname -m`.\n2. Lookup [rustc platform support](https://doc.rust-lang.org/rustc/platform-support.html) for the corresponding target triple.\n3. [Install `cross`](https://github.com/cross-rs/cross#installation).\n4. Run `cross build --release --target <TARGET_TRIPLE>`.\n\n#### Android\n\nUntil [cross-rs/cross#1222](https://github.com/cross-rs/cross/issues/1222) is solved, use the latest HEAD:\n\n```sh\ncargo install --git https://github.com/cross-rs/cross.git cross\ncross build --release --target aarch64-linux-android\n```\n\n## Post install (Linux)\n\nSince `bandwhich` sniffs network packets, it requires elevated privileges.\nOn Linux, there are two main ways to accomplish this:\n\n### 1. `setcap`\n\n- Permanently allow the `bandwhich` binary its required privileges (called \"capabilities\" in Linux).\n- Do this if you want to give all unprivileged users full access to bandwhich's monitoring capabilities.\n    - This is the **recommended** setup **for single user machines**, or **if all users are trusted**.\n    - This is **not recommended** if you want to **ensure users cannot see others' traffic**.\n\n```sh\n# assign capabilities\nsudo setcap cap_sys_ptrace,cap_dac_read_search,cap_net_raw,cap_net_admin+ep $(command -v bandwhich)\n# run as unprivileged user\nbandwhich\n```\n\n#### Capabilities explained\n- `cap_sys_ptrace,cap_dac_read_search`: allow access to `/proc/<pid>/fd/`, so that `bandwhich` can determine which open port belongs to which process.\n- `cap_net_raw,cap_net_admin`: allow capturing packets on your system.\n\n### 2. `sudo` (or alternative)\n\n- Require privilege escalation every time.\n- Do this if you are an administrator of a multi-user environment.\n\n```sh\nsudo bandwhich\n```\n\nNote that if your installation method installed `bandwhich` to somewhere in\nyour home directory (you can check with `command -v bandwhich`), you may get a\n`command not found` error. This is because in many distributions, `sudo` by\ndefault does not keep your user's `$PATH` for safety concerns.\n\nTo overcome this, you can do any one of the following:\n1. [make `sudo` preserve your `$PATH` environment variable](https://unix.stackexchange.com/q/83191/375550);\n2. explicitly set `$PATH` while running `bandwhich`: `sudo env \"PATH=$PATH\" bandwhich`;\n3. pass the full path to `sudo`: `sudo $(command -v bandwhich)`.\n\n## Post install (Windows)\n\nYou might need to first install [npcap](https://npcap.com/#download) for capturing packets on Windows.\n\n## Usage\n\n```\nUsage: bandwhich [OPTIONS]\n\nOptions:\n  -i, --interface <INTERFACE>      The network interface to listen on, eg. eth0\n  -r, --raw                        Machine friendlier output\n  -n, --no-resolve                 Do not attempt to resolve IPs to their hostnames\n  -s, --show-dns                   Show DNS queries\n  -d, --dns-server <DNS_SERVER>    A dns server ip to use instead of the system default\n      --log-to <LOG_TO>            Enable debug logging to a file\n  -v, --verbose...                 Increase logging verbosity\n  -q, --quiet...                   Decrease logging verbosity\n  -p, --processes                  Show processes table only\n  -c, --connections                Show connections table only\n  -a, --addresses                  Show remote addresses table only\n  -u, --unit-family <UNIT_FAMILY>  Choose a specific family of units [default: bin-bytes] [possible values: bin-bytes, bin-bits, si-bytes, si-bits]\n  -t, --total-utilization          Show total (cumulative) usages\n  -h, --help                       Print help (see more with '--help')\n  -V, --version                    Print version\n```\n\n## Contributing\n\nSee [CONTRIBUTING.md](CONTRIBUTING.md).\n\n## License\n\nMIT\n",
+        "releases": [
+            {
+                "name": "Release v0.23.1",
+                "date": "2024-10-08T09:41:25Z"
+            },
+            {
+                "name": "Release v0.23.0",
+                "date": "2024-08-17T08:44:16Z"
+            },
+            {
+                "name": "Release v0.22.2",
+                "date": "2024-01-27T20:33:59Z"
+            },
+            {
+                "name": "Release v0.22.1",
+                "date": "2024-01-27T18:37:05Z"
+            },
+            {
+                "name": "Release v0.22.0",
+                "date": "2024-01-27T17:36:10Z"
+            },
+            {
+                "name": "Release v0.21.1",
+                "date": "2023-10-16T01:40:32Z"
+            },
+            {
+                "name": "Release v0.21.0",
+                "date": "2023-09-19T10:37:14Z"
+            },
+            {
+                "name": "0.20.0",
+                "date": "2020-10-15T09:16:36Z"
+            },
+            {
+                "name": "0.19.0",
+                "date": "2020-09-29T16:01:36Z"
+            },
+            {
+                "name": "0.18.1",
+                "date": "2020-09-11T10:06:38Z"
+            },
+            {
+                "name": "0.18.0",
+                "date": "2020-09-11T08:46:51Z"
+            },
+            {
+                "name": "0.17.0",
+                "date": "2020-09-02T14:05:29Z"
+            },
+            {
+                "name": "0.16.0",
+                "date": "2020-07-13T15:00:24Z"
+            },
+            {
+                "name": "0.15.0",
+                "date": "2020-05-23T12:48:05Z"
+            },
+            {
+                "name": "0.14.0",
+                "date": "2020-05-03T19:09:11Z"
+            },
+            {
+                "name": "0.13.0",
+                "date": "2020-04-05T17:30:09Z"
+            },
+            {
+                "name": "0.12.0",
+                "date": "2020-03-01T13:11:49Z"
+            },
+            {
+                "name": "0.11.0",
+                "date": "2020-01-25T21:52:41Z"
+            },
+            {
+                "name": "0.10.0",
+                "date": "2020-01-18T12:39:36Z"
+            },
+            {
+                "name": "0.9.0",
+                "date": "2020-01-14T16:55:01Z"
+            },
+            {
+                "name": "0.8.0",
+                "date": "2020-01-09T20:25:58Z"
+            },
+            {
+                "name": "0.7.0",
+                "date": "2020-01-05T10:35:37Z"
+            },
+            {
+                "name": "0.6.0",
+                "date": "2019-12-30T21:29:23Z"
+            },
+            {
+                "name": "0.5.1",
+                "date": "2019-12-23T08:23:45Z"
+            },
+            {
+                "name": "0.4.0",
+                "date": "2019-12-07T13:05:40Z"
+            },
+            {
+                "name": "0.3.7",
+                "date": "2019-11-12T14:42:50Z"
+            },
+            {
+                "name": "0.3.2",
+                "date": "2019-11-11T15:02:41Z"
+            },
+            {
+                "name": "0.3.1",
+                "date": "2019-11-11T14:40:28Z"
+            },
+            {
+                "name": "",
+                "date": "2019-11-08T02:48:43Z"
+            }
+        ]
+    }
+}

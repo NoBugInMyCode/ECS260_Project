@@ -1,0 +1,750 @@
+{
+    "https://api.github.com/repos/grpc/grpc-java": {
+        "forks": 3871,
+        "watchers": 11549,
+        "stars": 11549,
+        "languages": {
+            "Java": 13402819,
+            "Starlark": 57492,
+            "C++": 54820,
+            "Shell": 46797,
+            "Batchfile": 6294,
+            "Dockerfile": 3785
+        },
+        "commits": [
+            "2025-01-18T00:06:36Z",
+            "2025-01-16T15:22:23Z",
+            "2025-01-15T22:51:45Z",
+            "2025-01-17T09:28:52Z",
+            "2025-01-15T18:43:48Z",
+            "2025-01-14T15:15:29Z",
+            "2025-01-14T01:57:39Z",
+            "2025-01-14T00:38:16Z",
+            "2025-01-10T23:35:43Z",
+            "2025-01-10T23:25:15Z",
+            "2025-01-07T17:57:18Z",
+            "2025-01-09T23:04:25Z",
+            "2025-01-09T21:09:57Z",
+            "2025-01-09T21:45:35Z",
+            "2025-01-09T19:53:36Z",
+            "2025-01-07T16:31:15Z",
+            "2025-01-07T09:03:09Z",
+            "2025-01-07T04:33:13Z",
+            "2025-01-06T21:09:42Z",
+            "2025-01-06T18:24:42Z",
+            "2025-01-03T22:52:37Z",
+            "2025-01-03T20:34:47Z",
+            "2024-12-28T06:56:48Z",
+            "2025-01-03T18:42:42Z",
+            "2024-12-27T20:04:58Z",
+            "2024-12-27T18:45:42Z",
+            "2024-12-27T18:41:51Z",
+            "2024-12-26T21:31:34Z",
+            "2024-12-24T06:48:03Z",
+            "2024-12-23T21:29:40Z"
+        ],
+        "creation_date": "2014-12-08T19:00:00Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 522,
+        "readme": "gRPC-Java - An RPC library and framework\n========================================\n\n<table>\n  <tr>\n    <td><b>Homepage:</b></td>\n    <td><a href=\"https://grpc.io/\">grpc.io</a></td>\n  </tr>\n  <tr>\n    <td><b>Mailing List:</b></td>\n    <td><a href=\"https://groups.google.com/forum/#!forum/grpc-io\">grpc-io@googlegroups.com</a></td>\n  </tr>\n</table>\n\n[![Join the chat at https://gitter.im/grpc/grpc](https://badges.gitter.im/grpc/grpc.svg)](https://gitter.im/grpc/grpc?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)\n[![GitHub Actions Linux Testing](https://github.com/grpc/grpc-java/actions/workflows/testing.yml/badge.svg?branch=master)](https://github.com/grpc/grpc-java/actions/workflows/testing.yml?branch=master)\n[![Line Coverage Status](https://coveralls.io/repos/grpc/grpc-java/badge.svg?branch=master&service=github)](https://coveralls.io/github/grpc/grpc-java?branch=master)\n[![Branch-adjusted Line Coverage Status](https://codecov.io/gh/grpc/grpc-java/branch/master/graph/badge.svg)](https://codecov.io/gh/grpc/grpc-java)\n\nSupported Platforms\n-------------------\n\ngRPC-Java supports Java 8 and later. Android minSdkVersion 21 (Lollipop) and\nlater are supported with [Java 8 language desugaring][android-java-8].\n\nTLS usage on Android typically requires Play Services Dynamic Security Provider.\nPlease see the [Security Readme](SECURITY.md).\n\nOlder Java versions are not directly supported, but a branch remains available\nfor fixes and releases. See [gRFC P5 JDK Version Support\nPolicy][P5-jdk-version-support].\n\nJava version | gRPC Branch\n------------ | -----------\n7            | 1.41.x\n\n[android-java-8]: https://developer.android.com/studio/write/java8-support#supported_features\n[P5-jdk-version-support]: https://github.com/grpc/proposal/blob/master/P5-jdk-version-support.md#proposal\n\nGetting Started\n---------------\n\nFor a guided tour, take a look at the [quick start\nguide](https://grpc.io/docs/languages/java/quickstart) or the more explanatory [gRPC\nbasics](https://grpc.io/docs/languages/java/basics).\n\nThe [examples](https://github.com/grpc/grpc-java/tree/v1.69.1/examples) and the\n[Android example](https://github.com/grpc/grpc-java/tree/v1.69.1/examples/android)\nare standalone projects that showcase the usage of gRPC.\n\nDownload\n--------\n\nDownload [the JARs][]. Or for Maven with non-Android, add to your `pom.xml`:\n```xml\n<dependency>\n  <groupId>io.grpc</groupId>\n  <artifactId>grpc-netty-shaded</artifactId>\n  <version>1.69.1</version>\n  <scope>runtime</scope>\n</dependency>\n<dependency>\n  <groupId>io.grpc</groupId>\n  <artifactId>grpc-protobuf</artifactId>\n  <version>1.69.1</version>\n</dependency>\n<dependency>\n  <groupId>io.grpc</groupId>\n  <artifactId>grpc-stub</artifactId>\n  <version>1.69.1</version>\n</dependency>\n<dependency> <!-- necessary for Java 9+ -->\n  <groupId>org.apache.tomcat</groupId>\n  <artifactId>annotations-api</artifactId>\n  <version>6.0.53</version>\n  <scope>provided</scope>\n</dependency>\n```\n\nOr for Gradle with non-Android, add to your dependencies:\n```gradle\nruntimeOnly 'io.grpc:grpc-netty-shaded:1.69.1'\nimplementation 'io.grpc:grpc-protobuf:1.69.1'\nimplementation 'io.grpc:grpc-stub:1.69.1'\ncompileOnly 'org.apache.tomcat:annotations-api:6.0.53' // necessary for Java 9+\n```\n\nFor Android client, use `grpc-okhttp` instead of `grpc-netty-shaded` and\n`grpc-protobuf-lite` instead of `grpc-protobuf`:\n```gradle\nimplementation 'io.grpc:grpc-okhttp:1.69.1'\nimplementation 'io.grpc:grpc-protobuf-lite:1.69.1'\nimplementation 'io.grpc:grpc-stub:1.69.1'\ncompileOnly 'org.apache.tomcat:annotations-api:6.0.53' // necessary for Java 9+\n```\n\nFor [Bazel](https://bazel.build), you can either\n[use Maven](https://github.com/bazelbuild/rules_jvm_external)\n(with the GAVs from above), or use `@io_grpc_grpc_java//api` et al (see below).\n\n[the JARs]:\nhttps://search.maven.org/search?q=g:io.grpc%20AND%20v:1.69.1\n\nDevelopment snapshots are available in [Sonatypes's snapshot\nrepository](https://oss.sonatype.org/content/repositories/snapshots/).\n\nGenerated Code\n--------------\n\nFor protobuf-based codegen, you can put your proto files in the `src/main/proto`\nand `src/test/proto` directories along with an appropriate plugin.\n\nFor protobuf-based codegen integrated with the Maven build system, you can use\n[protobuf-maven-plugin][] (Eclipse and NetBeans users should also look at\n`os-maven-plugin`'s\n[IDE documentation](https://github.com/trustin/os-maven-plugin#issues-with-eclipse-m2e-or-other-ides)):\n```xml\n<build>\n  <extensions>\n    <extension>\n      <groupId>kr.motd.maven</groupId>\n      <artifactId>os-maven-plugin</artifactId>\n      <version>1.7.1</version>\n    </extension>\n  </extensions>\n  <plugins>\n    <plugin>\n      <groupId>org.xolstice.maven.plugins</groupId>\n      <artifactId>protobuf-maven-plugin</artifactId>\n      <version>0.6.1</version>\n      <configuration>\n        <protocArtifact>com.google.protobuf:protoc:3.25.5:exe:${os.detected.classifier}</protocArtifact>\n        <pluginId>grpc-java</pluginId>\n        <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.69.1:exe:${os.detected.classifier}</pluginArtifact>\n      </configuration>\n      <executions>\n        <execution>\n          <goals>\n            <goal>compile</goal>\n            <goal>compile-custom</goal>\n          </goals>\n        </execution>\n      </executions>\n    </plugin>\n  </plugins>\n</build>\n```\n\n[protobuf-maven-plugin]: https://www.xolstice.org/protobuf-maven-plugin/\n\nFor non-Android protobuf-based codegen integrated with the Gradle build system,\nyou can use [protobuf-gradle-plugin][]:\n```gradle\nplugins {\n    id 'com.google.protobuf' version '0.9.4'\n}\n\nprotobuf {\n  protoc {\n    artifact = \"com.google.protobuf:protoc:3.25.5\"\n  }\n  plugins {\n    grpc {\n      artifact = 'io.grpc:protoc-gen-grpc-java:1.69.1'\n    }\n  }\n  generateProtoTasks {\n    all()*.plugins {\n      grpc {}\n    }\n  }\n}\n```\n\n[protobuf-gradle-plugin]: https://github.com/google/protobuf-gradle-plugin\n\nThe prebuilt protoc-gen-grpc-java binary uses glibc on Linux. If you are\ncompiling on Alpine Linux, you may want to use the [Alpine grpc-java package][]\nwhich uses musl instead.\n\n[Alpine grpc-java package]: https://pkgs.alpinelinux.org/package/edge/community/x86_64/grpc-java\n\nFor Android protobuf-based codegen integrated with the Gradle build system, also\nuse protobuf-gradle-plugin but specify the 'lite' options:\n\n```gradle\nplugins {\n    id 'com.google.protobuf' version '0.9.4'\n}\n\nprotobuf {\n  protoc {\n    artifact = \"com.google.protobuf:protoc:3.25.5\"\n  }\n  plugins {\n    grpc {\n      artifact = 'io.grpc:protoc-gen-grpc-java:1.69.1'\n    }\n  }\n  generateProtoTasks {\n    all().each { task ->\n      task.builtins {\n        java { option 'lite' }\n      }\n      task.plugins {\n        grpc { option 'lite' }\n      }\n    }\n  }\n}\n\n```\n\nFor [Bazel](https://bazel.build), use the [`proto_library`](https://github.com/bazelbuild/rules_proto)\nand the [`java_proto_library`](https://bazel.build/reference/be/java#java_proto_library) (no `load()` required) \nand `load(\"@io_grpc_grpc_java//:java_grpc_library.bzl\", \"java_grpc_library\")` (from this project), as in\n[this example `BUILD.bazel`](https://github.com/grpc/grpc-java/blob/master/examples/BUILD.bazel).\n\nAPI Stability\n-------------\n\nAPIs annotated with `@Internal` are for internal use by the gRPC library and\nshould not be used by gRPC users. APIs annotated with `@ExperimentalApi` are\nsubject to change in future releases, and library code that other projects\nmay depend on should not use these APIs.\n\nWe recommend using the\n[grpc-java-api-checker](https://github.com/grpc/grpc-java-api-checker)\n(an [Error Prone](https://github.com/google/error-prone) plugin)\nto check for usages of `@ExperimentalApi` and `@Internal` in any library code\nthat depends on gRPC. It may also be used to check for `@Internal` usage or\nunintended `@ExperimentalApi` consumption in non-library code.\n\nHow to Build\n------------\n\nIf you are making changes to gRPC-Java, see the [compiling\ninstructions](COMPILING.md).\n\nHigh-level Components\n---------------------\n\nAt a high level there are three distinct layers to the library: *Stub*,\n*Channel*, and *Transport*.\n\n### Stub\n\nThe Stub layer is what is exposed to most developers and provides type-safe\nbindings to whatever datamodel/IDL/interface you are adapting. gRPC comes with\na [plugin](https://github.com/google/grpc-java/blob/master/compiler) to the\nprotocol-buffers compiler that generates Stub interfaces out of `.proto` files,\nbut bindings to other datamodel/IDL are easy and encouraged.\n\n### Channel\n\nThe Channel layer is an abstraction over Transport handling that is suitable for\ninterception/decoration and exposes more behavior to the application than the\nStub layer. It is intended to be easy for application frameworks to use this\nlayer to address cross-cutting concerns such as logging, monitoring, auth, etc.\n\n### Transport\n\nThe Transport layer does the heavy lifting of putting and taking bytes off the\nwire. The interfaces to it are abstract just enough to allow plugging in of\ndifferent implementations. Note the transport layer API is considered internal\nto gRPC and has weaker API guarantees than the core API under package `io.grpc`.\n\ngRPC comes with multiple Transport implementations:\n\n1. The Netty-based HTTP/2 transport is the main transport implementation based\n   on [Netty](https://netty.io). It is not officially supported on Android.\n   There is a \"grpc-netty-shaded\" version of this transport. It is generally\n   preferred over using the Netty-based transport directly as it requires less\n   dependency management and is easier to upgrade within many applications.\n2. The OkHttp-based HTTP/2 transport is a lightweight transport based on\n   [Okio](https://square.github.io/okio/) and forked low-level parts of\n   [OkHttp](https://square.github.io/okhttp/). It is mainly for use on Android.\n3. The in-process transport is for when a server is in the same process as the\n   client. It is used frequently for testing, while also being safe for\n   production use.\n4. The Binder transport is for Android cross-process communication on a single\n   device.\n",
+        "releases": [
+            {
+                "name": "v1.69.1",
+                "date": "2025-01-17T20:03:31Z"
+            },
+            {
+                "name": "v1.68.3",
+                "date": "2025-01-17T20:00:06Z"
+            },
+            {
+                "name": "v1.69.0",
+                "date": "2024-12-11T16:04:36Z"
+            },
+            {
+                "name": "v1.68.2",
+                "date": "2024-11-28T02:49:21Z"
+            },
+            {
+                "name": "v1.68.1",
+                "date": "2024-10-29T00:36:43Z"
+            },
+            {
+                "name": "v1.67.1",
+                "date": "2024-09-27T10:49:21Z"
+            },
+            {
+                "name": "v1.68.0 MISTAKE",
+                "date": "2024-09-30T21:17:08Z"
+            },
+            {
+                "name": "v1.66.0",
+                "date": "2024-08-13T17:02:10Z"
+            },
+            {
+                "name": "v1.65.1",
+                "date": "2024-07-11T21:13:59Z"
+            },
+            {
+                "name": "v1.64.2",
+                "date": "2024-07-11T22:38:38Z"
+            },
+            {
+                "name": "v1.63.2",
+                "date": "2024-07-12T18:42:19Z"
+            },
+            {
+                "name": "v1.64.1",
+                "date": "2024-06-28T20:58:27Z"
+            },
+            {
+                "name": "v1.65.0",
+                "date": "2024-06-28T17:59:38Z"
+            },
+            {
+                "name": "",
+                "date": "2024-05-17T17:15:26Z"
+            },
+            {
+                "name": "v1.64.0",
+                "date": "2024-05-15T19:57:31Z"
+            },
+            {
+                "name": "v1.63.0",
+                "date": "2024-04-05T19:50:30Z"
+            },
+            {
+                "name": "v1.62.2",
+                "date": "2024-02-26T23:39:40Z"
+            },
+            {
+                "name": "v1.61.1",
+                "date": "2024-02-02T21:33:45Z"
+            },
+            {
+                "name": "v1.60.2",
+                "date": "2024-02-02T21:26:38Z"
+            },
+            {
+                "name": "",
+                "date": "2024-01-12T04:49:14Z"
+            },
+            {
+                "name": "v1.60.1",
+                "date": "2023-12-21T20:26:46Z"
+            },
+            {
+                "name": "v1.58.1",
+                "date": "2023-12-15T18:24:40Z"
+            },
+            {
+                "name": "v1.60.0",
+                "date": "2023-12-05T18:17:54Z"
+            },
+            {
+                "name": "v1.59.1",
+                "date": "2023-11-28T16:17:16Z"
+            },
+            {
+                "name": "v1.59.0",
+                "date": "2023-10-20T18:12:18Z"
+            },
+            {
+                "name": "v1.58.0",
+                "date": "2023-09-07T01:10:01Z"
+            },
+            {
+                "name": "v1.57.2",
+                "date": "2023-08-15T20:30:01Z"
+            },
+            {
+                "name": "v1.57.1",
+                "date": "2023-08-01T20:11:19Z"
+            },
+            {
+                "name": "v1.57.0",
+                "date": "2023-07-28T17:35:01Z"
+            },
+            {
+                "name": "v1.56.1",
+                "date": "2023-06-30T23:42:21Z"
+            },
+            {
+                "name": "v1.55.3",
+                "date": "2023-06-30T23:43:12Z"
+            },
+            {
+                "name": "v1.54.2",
+                "date": "2023-07-06T17:54:33Z"
+            },
+            {
+                "name": "",
+                "date": "2023-06-14T21:31:07Z"
+            },
+            {
+                "name": "v1.55.1",
+                "date": "2023-05-09T17:02:50Z"
+            },
+            {
+                "name": "v1.54.1",
+                "date": "2023-04-17T02:03:44Z"
+            },
+            {
+                "name": "v1.50.3",
+                "date": "2023-04-13T15:05:10Z"
+            },
+            {
+                "name": "v1.54.0",
+                "date": "2023-03-24T22:18:47Z"
+            },
+            {
+                "name": "v1.53.0",
+                "date": "2023-02-10T19:54:38Z"
+            },
+            {
+                "name": "v1.45.4",
+                "date": "2023-01-24T17:59:45Z"
+            },
+            {
+                "name": "v1.51.3",
+                "date": "2023-01-18T18:58:28Z"
+            },
+            {
+                "name": "v1.52.1",
+                "date": "2023-01-17T18:40:56Z"
+            },
+            {
+                "name": "v1.45.3",
+                "date": "2023-01-13T23:25:43Z"
+            },
+            {
+                "name": "v1.52.0",
+                "date": "2023-01-11T02:45:41Z"
+            },
+            {
+                "name": "v1.51.1",
+                "date": "2022-12-14T22:27:41Z"
+            },
+            {
+                "name": "v1.51.0",
+                "date": "2022-11-19T00:25:09Z"
+            },
+            {
+                "name": "v1.50.2",
+                "date": "2022-10-21T05:23:10Z"
+            },
+            {
+                "name": "v1.50.1",
+                "date": "2022-10-21T05:23:38Z"
+            },
+            {
+                "name": "v1.50.0",
+                "date": "2022-10-12T15:34:54Z"
+            },
+            {
+                "name": "v1.47.1",
+                "date": "2022-10-07T18:07:09Z"
+            },
+            {
+                "name": "v1.46.1",
+                "date": "2022-10-07T17:57:26Z"
+            },
+            {
+                "name": "",
+                "date": "2022-10-07T18:55:17Z"
+            },
+            {
+                "name": "",
+                "date": "2022-10-07T18:55:39Z"
+            },
+            {
+                "name": "v1.43.3",
+                "date": "2022-10-07T15:46:44Z"
+            },
+            {
+                "name": "v1.42.3",
+                "date": "2022-10-06T18:18:54Z"
+            },
+            {
+                "name": "v1.41.3",
+                "date": "2022-10-07T14:50:31Z"
+            },
+            {
+                "name": "v1.36.3",
+                "date": "2022-10-07T14:52:28Z"
+            },
+            {
+                "name": "v1.48.2",
+                "date": "2022-10-04T22:28:13Z"
+            },
+            {
+                "name": "v1.49.2",
+                "date": "2022-10-04T22:20:45Z"
+            },
+            {
+                "name": "v1.49.1",
+                "date": "2022-09-21T02:49:23Z"
+            },
+            {
+                "name": "v1.49.0",
+                "date": "2022-08-24T17:14:39Z"
+            },
+            {
+                "name": "v1.48.1",
+                "date": "2022-08-02T21:57:02Z"
+            },
+            {
+                "name": "v1.48.0",
+                "date": "2022-07-21T00:22:14Z"
+            },
+            {
+                "name": "v1.47.0",
+                "date": "2022-06-02T22:01:40Z"
+            },
+            {
+                "name": "v1.46.0",
+                "date": "2022-04-28T16:08:10Z"
+            },
+            {
+                "name": "v1.45.1",
+                "date": "2022-03-30T14:40:43Z"
+            },
+            {
+                "name": "v1.45.0",
+                "date": "2022-03-08T22:09:48Z"
+            },
+            {
+                "name": "v1.44.1",
+                "date": "2022-02-18T21:46:44Z"
+            },
+            {
+                "name": "v1.44.0",
+                "date": "2022-01-27T21:37:03Z"
+            },
+            {
+                "name": "v1.43.2",
+                "date": "2022-01-06T21:01:19Z"
+            },
+            {
+                "name": "v1.42.2",
+                "date": "2022-01-06T21:15:43Z"
+            },
+            {
+                "name": "v1.41.2",
+                "date": "2022-01-07T15:39:10Z"
+            },
+            {
+                "name": "v1.43.1",
+                "date": "2021-12-21T23:07:45Z"
+            },
+            {
+                "name": "v1.43.0",
+                "date": "2021-12-15T18:13:13Z"
+            },
+            {
+                "name": "",
+                "date": "2021-11-15T18:45:00Z"
+            },
+            {
+                "name": "v1.40.2",
+                "date": "2021-11-08T18:49:21Z"
+            },
+            {
+                "name": "v1.42.0",
+                "date": "2021-11-05T21:37:58Z"
+            },
+            {
+                "name": "v1.41.1",
+                "date": "2021-11-05T21:07:11Z"
+            },
+            {
+                "name": "v1.41.0",
+                "date": "2021-09-22T21:52:52Z"
+            },
+            {
+                "name": "",
+                "date": "2021-08-31T19:28:01Z"
+            },
+            {
+                "name": "",
+                "date": "2021-08-17T22:03:06Z"
+            },
+            {
+                "name": "",
+                "date": "2021-06-30T06:59:11Z"
+            },
+            {
+                "name": "v1.38.1",
+                "date": "2021-06-18T08:30:33Z"
+            },
+            {
+                "name": "v1.36.2",
+                "date": "2021-05-26T22:26:52Z"
+            },
+            {
+                "name": "v1.38.0",
+                "date": "2021-05-19T07:10:38Z"
+            },
+            {
+                "name": "v1.37.1",
+                "date": "2021-05-14T18:04:16Z"
+            },
+            {
+                "name": "v1.37.0",
+                "date": "2021-04-08T17:24:23Z"
+            },
+            {
+                "name": "v1.36.1",
+                "date": "2021-03-25T19:16:19Z"
+            },
+            {
+                "name": "v1.35.1",
+                "date": "2021-03-25T18:40:19Z"
+            },
+            {
+                "name": "v1.32.3",
+                "date": "2021-03-15T17:51:13Z"
+            },
+            {
+                "name": "v1.31.2",
+                "date": "2021-03-15T17:50:15Z"
+            },
+            {
+                "name": "v1.36.0",
+                "date": "2021-02-24T01:07:34Z"
+            },
+            {
+                "name": "",
+                "date": "2021-01-14T02:37:23Z"
+            },
+            {
+                "name": "v1.34.1",
+                "date": "2020-12-15T19:51:26Z"
+            },
+            {
+                "name": "",
+                "date": "2020-12-02T00:03:30Z"
+            },
+            {
+                "name": "v1.33.1",
+                "date": "2020-11-02T16:51:59Z"
+            },
+            {
+                "name": "v1.33.0",
+                "date": "2020-10-21T00:33:54Z"
+            },
+            {
+                "name": "v1.32.2",
+                "date": "2020-10-12T21:01:52Z"
+            },
+            {
+                "name": "v1.32.1",
+                "date": "2020-09-10T19:07:26Z"
+            },
+            {
+                "name": "v1.32.0",
+                "date": "2020-09-10T15:50:56Z"
+            },
+            {
+                "name": "v1.31.1",
+                "date": "2020-08-12T22:32:38Z"
+            },
+            {
+                "name": "v1.31.0",
+                "date": "2020-07-30T05:30:32Z"
+            },
+            {
+                "name": "v1.30.2 patch release",
+                "date": "2020-06-23T01:48:13Z"
+            },
+            {
+                "name": "v1.30.1",
+                "date": "2020-06-19T20:49:24Z"
+            },
+            {
+                "name": "v1.30.0",
+                "date": "2020-06-08T22:45:42Z"
+            },
+            {
+                "name": "v1.29.0",
+                "date": "2020-04-22T02:51:10Z"
+            },
+            {
+                "name": "v1.28.1",
+                "date": "2020-04-03T19:29:48Z"
+            },
+            {
+                "name": "v1.28.0",
+                "date": "2020-03-10T21:54:10Z"
+            },
+            {
+                "name": "v1.27.2",
+                "date": "2020-02-26T02:19:57Z"
+            },
+            {
+                "name": "v1.27.1",
+                "date": "2020-02-14T01:01:30Z"
+            },
+            {
+                "name": "v1.26.1",
+                "date": "2020-02-13T18:12:15Z"
+            },
+            {
+                "name": "v1.27.0",
+                "date": "2020-02-04T21:26:46Z"
+            },
+            {
+                "name": "v1.26.0",
+                "date": "2019-12-18T23:37:33Z"
+            },
+            {
+                "name": "v1.24.2",
+                "date": "2019-11-06T22:51:48Z"
+            },
+            {
+                "name": "v1.25.0",
+                "date": "2019-11-06T19:10:11Z"
+            },
+            {
+                "name": "v1.24.1",
+                "date": "2019-10-25T23:24:34Z"
+            },
+            {
+                "name": "v1.23.1",
+                "date": "2019-10-25T23:23:57Z"
+            },
+            {
+                "name": "v1.22.3",
+                "date": "2019-10-25T23:23:04Z"
+            },
+            {
+                "name": "v1.24.0",
+                "date": "2019-09-25T23:08:40Z"
+            },
+            {
+                "name": "v1.23.0",
+                "date": "2019-08-14T18:23:01Z"
+            },
+            {
+                "name": "v1.22.2",
+                "date": "2019-08-14T22:20:27Z"
+            },
+            {
+                "name": "v1.21.1",
+                "date": "2019-08-14T17:02:43Z"
+            },
+            {
+                "name": "v1.22.1",
+                "date": "2019-07-11T00:12:33Z"
+            },
+            {
+                "name": "v1.22.0",
+                "date": "2019-07-02T21:21:21Z"
+            },
+            {
+                "name": "v1.21.0",
+                "date": "2019-05-23T19:29:37Z"
+            },
+            {
+                "name": "v1.20.0",
+                "date": "2019-04-10T21:23:43Z"
+            },
+            {
+                "name": "v1.19.0",
+                "date": "2019-02-28T18:56:31Z"
+            },
+            {
+                "name": "v1.18.0",
+                "date": "2019-01-15T19:30:23Z"
+            },
+            {
+                "name": "v1.17.2",
+                "date": "2018-12-18T17:35:45Z"
+            },
+            {
+                "name": "v1.17.1",
+                "date": "2018-12-10T18:31:54Z"
+            },
+            {
+                "name": "v1.17.0",
+                "date": "2018-12-06T00:05:36Z"
+            },
+            {
+                "name": "v1.16.1",
+                "date": "2018-10-26T22:02:09Z"
+            },
+            {
+                "name": "v1.16.0",
+                "date": "2018-10-26T21:04:18Z"
+            },
+            {
+                "name": "v1.15.1",
+                "date": "2018-10-02T19:17:48Z"
+            },
+            {
+                "name": "v1.15.0",
+                "date": "2018-09-11T22:35:25Z"
+            },
+            {
+                "name": "v1.14.0",
+                "date": "2018-07-31T18:17:56Z"
+            },
+            {
+                "name": "v1.13.2",
+                "date": "2018-07-26T22:35:04Z"
+            },
+            {
+                "name": "v1.12.1",
+                "date": "2018-07-26T22:34:49Z"
+            },
+            {
+                "name": "v1.13.1",
+                "date": "2018-06-21T16:24:28Z"
+            },
+            {
+                "name": "v1.12.0",
+                "date": "2018-05-09T00:15:47Z"
+            },
+            {
+                "name": "v1.11.0",
+                "date": "2018-03-30T23:15:14Z"
+            },
+            {
+                "name": "",
+                "date": "2018-03-24T00:22:16Z"
+            },
+            {
+                "name": "v1.10.0",
+                "date": "2018-02-16T00:10:07Z"
+            },
+            {
+                "name": "v1.9.1",
+                "date": "2018-02-12T18:57:26Z"
+            },
+            {
+                "name": "v1.9.0",
+                "date": "2018-01-11T19:29:39Z"
+            },
+            {
+                "name": "",
+                "date": "2017-12-05T14:06:50Z"
+            },
+            {
+                "name": "",
+                "date": "2017-11-22T16:48:20Z"
+            },
+            {
+                "name": "1.7.0 Release",
+                "date": "2017-10-12T01:08:36Z"
+            },
+            {
+                "name": "v1.6.1 Release",
+                "date": "2017-08-31T22:02:39Z"
+            },
+            {
+                "name": "1.5.0 Release",
+                "date": "2017-07-18T18:29:54Z"
+            },
+            {
+                "name": "v1.3.1 Release",
+                "date": "2017-07-06T16:06:25Z"
+            },
+            {
+                "name": "1.4.0 Release",
+                "date": "2017-06-07T01:21:13Z"
+            },
+            {
+                "name": "1.3.0 Release",
+                "date": "2017-04-27T22:57:21Z"
+            },
+            {
+                "name": "1.2.0 Release",
+                "date": "2017-03-16T00:07:45Z"
+            },
+            {
+                "name": "1.1.2 Release",
+                "date": "2017-02-07T21:17:35Z"
+            },
+            {
+                "name": "1.1.1 Release",
+                "date": "2017-02-01T01:50:03Z"
+            },
+            {
+                "name": "v1.0.3 Release",
+                "date": "2016-12-22T17:09:01Z"
+            },
+            {
+                "name": "v1.0.2 Release",
+                "date": "2016-11-28T22:36:23Z"
+            },
+            {
+                "name": "v1.0.1 Release",
+                "date": "2016-09-30T00:50:24Z"
+            },
+            {
+                "name": "v1.0.0 Release",
+                "date": "2016-08-19T00:22:45Z"
+            },
+            {
+                "name": "v1.0.0-pre2 Release",
+                "date": "2016-08-03T22:47:21Z"
+            },
+            {
+                "name": "v1.0.0-pre1 Release",
+                "date": "2016-07-27T22:27:13Z"
+            },
+            {
+                "name": "v0.15.0 Release",
+                "date": "2016-07-07T23:03:06Z"
+            },
+            {
+                "name": "v0.14.1 Release",
+                "date": "2016-06-24T23:38:17Z"
+            },
+            {
+                "name": "v0.14.0 Release",
+                "date": "2016-05-02T18:31:16Z"
+            },
+            {
+                "name": "v0.13.2 Release",
+                "date": "2016-03-10T21:37:42Z"
+            },
+            {
+                "name": "v0.13.1 Release",
+                "date": "2016-02-23T00:42:15Z"
+            },
+            {
+                "name": "v0.13.0 Release",
+                "date": "2016-02-18T20:50:11Z"
+            },
+            {
+                "name": "v0.12.0 Release",
+                "date": "2016-01-26T00:49:06Z"
+            },
+            {
+                "name": "v0.9.1 Release",
+                "date": "2016-01-26T00:49:04Z"
+            },
+            {
+                "name": "v0.9.0 Release",
+                "date": "2015-09-28T23:17:14Z"
+            },
+            {
+                "name": "v0.8.0 Release",
+                "date": "2015-08-14T23:04:39Z"
+            },
+            {
+                "name": "v0.7.2 Release",
+                "date": "2015-07-13T21:40:26Z"
+            },
+            {
+                "name": "v0.7.1 Release",
+                "date": "2015-06-09T18:41:45Z"
+            },
+            {
+                "name": "v0.7.0 Release",
+                "date": "2015-05-27T00:37:17Z"
+            }
+        ]
+    }
+}

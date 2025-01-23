@@ -1,0 +1,189 @@
+{
+    "https://api.github.com/repos/ecomfe/vue-echarts": {
+        "forks": 1494,
+        "watchers": 9893,
+        "stars": 9893,
+        "languages": {
+            "JavaScript": 40086,
+            "Vue": 32859,
+            "TypeScript": 21023,
+            "HTML": 705,
+            "CSS": 64
+        },
+        "commits": [
+            "2024-08-19T15:41:18Z",
+            "2024-08-19T03:47:41Z",
+            "2024-08-13T07:12:09Z",
+            "2024-08-03T23:38:57Z",
+            "2024-08-03T08:31:17Z",
+            "2024-08-03T08:17:46Z",
+            "2024-07-25T15:54:58Z",
+            "2024-07-25T15:21:49Z",
+            "2024-07-24T08:03:33Z",
+            "2024-07-24T07:34:01Z",
+            "2024-07-24T07:14:05Z",
+            "2024-07-24T06:48:53Z",
+            "2024-07-24T04:04:41Z",
+            "2024-07-24T03:37:03Z",
+            "2024-07-24T01:54:24Z",
+            "2024-06-28T16:31:57Z",
+            "2024-06-28T16:20:14Z",
+            "2024-06-28T16:19:34Z",
+            "2024-06-28T16:18:12Z",
+            "2024-06-27T11:37:06Z",
+            "2024-05-11T07:36:34Z",
+            "2024-06-13T11:37:03Z",
+            "2024-06-11T12:05:05Z",
+            "2024-06-04T15:14:19Z",
+            "2024-06-04T15:11:22Z",
+            "2024-05-07T09:43:19Z",
+            "2024-04-23T11:47:50Z",
+            "2024-04-23T06:17:23Z",
+            "2024-04-23T07:59:10Z",
+            "2024-04-23T02:55:48Z"
+        ],
+        "creation_date": "2016-06-17T09:55:24Z",
+        "contributors": 11,
+        "topics": [
+            "echarts",
+            "vue",
+            "vue-echarts"
+        ],
+        "subscribers": 139,
+        "readme": "<h1 align=\"center\">Vue-ECharts</h1>\n\n<p align=\"center\">Vue.js component for Apache ECharts\u2122.</p>\n<p align=\"center\"><a href=\"https://npmjs.com/package/vue-echarts\"><img alt=\"npm version\" src=\"https://img.shields.io/npm/v/vue-echarts\"></a> <a href=\"https://vue-echarts.dev/\"><img src=\"https://img.shields.io/badge/Demo%20%C2%BB-20c3aa\" alt=\"View demo\"></a> <a href=\"./README.zh-Hans.md\"><img src=\"https://img.shields.io/badge/%E4%B8%AD%E6%96%87%E7%89%88%20%C2%BB-000\" alt=\"\u524d\u5f80\u4e2d\u6587\u7248\"></a></p>\n<p align=\"center\"><a href=\"https:///pr.new/ecomfe/vue-echarts\"><img alt=\"Open in Codeflow\" src=\"https://developer.stackblitz.com/img/open_in_codeflow.svg\" height=\"28\"></a> <a href=\"https://codesandbox.io/p/github/ecomfe/vue-echarts\"><img alt=\"Edit in CodeSandbox\" src=\"https://assets.codesandbox.io/github/button-edit-lime.svg\" height=\"28\"></a></p>\n\n---\n\n> Still using v6? Read v6 docs [here \u2192](https://github.com/ecomfe/vue-echarts/tree/6.x)\n\n## Installation & Usage\n\n### npm\n\n```sh\nnpm add echarts vue-echarts\n```\n\n#### Example\n\n<details>\n<summary>Vue 3 <a href=\"https://stackblitz.com/edit/vue-echarts-vue-3?file=src%2FApp.vue\">Demo \u2192</a></summary>\n\n```vue\n<template>\n  <v-chart class=\"chart\" :option=\"option\" />\n</template>\n\n<script setup>\nimport { use } from \"echarts/core\";\nimport { CanvasRenderer } from \"echarts/renderers\";\nimport { PieChart } from \"echarts/charts\";\nimport {\n  TitleComponent,\n  TooltipComponent,\n  LegendComponent\n} from \"echarts/components\";\nimport VChart, { THEME_KEY } from \"vue-echarts\";\nimport { ref, provide } from \"vue\";\n\nuse([\n  CanvasRenderer,\n  PieChart,\n  TitleComponent,\n  TooltipComponent,\n  LegendComponent\n]);\n\nprovide(THEME_KEY, \"dark\");\n\nconst option = ref({\n  title: {\n    text: \"Traffic Sources\",\n    left: \"center\"\n  },\n  tooltip: {\n    trigger: \"item\",\n    formatter: \"{a} <br/>{b} : {c} ({d}%)\"\n  },\n  legend: {\n    orient: \"vertical\",\n    left: \"left\",\n    data: [\"Direct\", \"Email\", \"Ad Networks\", \"Video Ads\", \"Search Engines\"]\n  },\n  series: [\n    {\n      name: \"Traffic Sources\",\n      type: \"pie\",\n      radius: \"55%\",\n      center: [\"50%\", \"60%\"],\n      data: [\n        { value: 335, name: \"Direct\" },\n        { value: 310, name: \"Email\" },\n        { value: 234, name: \"Ad Networks\" },\n        { value: 135, name: \"Video Ads\" },\n        { value: 1548, name: \"Search Engines\" }\n      ],\n      emphasis: {\n        itemStyle: {\n          shadowBlur: 10,\n          shadowOffsetX: 0,\n          shadowColor: \"rgba(0, 0, 0, 0.5)\"\n        }\n      }\n    }\n  ]\n});\n</script>\n\n<style scoped>\n.chart {\n  height: 400px;\n}\n</style>\n```\n\n</details>\n\n<details>\n<summary>Vue 2 <a href=\"https://stackblitz.com/edit/vue-echarts-vue-2?file=src%2FApp.vue\">Demo \u2192</a></summary>\n\n```vue\n<template>\n  <v-chart class=\"chart\" :option=\"option\" />\n</template>\n\n<script>\nimport { use } from \"echarts/core\";\nimport { CanvasRenderer } from \"echarts/renderers\";\nimport { PieChart } from \"echarts/charts\";\nimport {\n  TitleComponent,\n  TooltipComponent,\n  LegendComponent\n} from \"echarts/components\";\nimport VChart, { THEME_KEY } from \"vue-echarts\";\n\nuse([\n  CanvasRenderer,\n  PieChart,\n  TitleComponent,\n  TooltipComponent,\n  LegendComponent\n]);\n\nexport default {\n  name: \"HelloWorld\",\n  components: {\n    VChart\n  },\n  provide: {\n    [THEME_KEY]: \"dark\"\n  },\n  data() {\n    return {\n      option: {\n        title: {\n          text: \"Traffic Sources\",\n          left: \"center\"\n        },\n        tooltip: {\n          trigger: \"item\",\n          formatter: \"{a} <br/>{b} : {c} ({d}%)\"\n        },\n        legend: {\n          orient: \"vertical\",\n          left: \"left\",\n          data: [\n            \"Direct\",\n            \"Email\",\n            \"Ad Networks\",\n            \"Video Ads\",\n            \"Search Engines\"\n          ]\n        },\n        series: [\n          {\n            name: \"Traffic Sources\",\n            type: \"pie\",\n            radius: \"55%\",\n            center: [\"50%\", \"60%\"],\n            data: [\n              { value: 335, name: \"Direct\" },\n              { value: 310, name: \"Email\" },\n              { value: 234, name: \"Ad Networks\" },\n              { value: 135, name: \"Video Ads\" },\n              { value: 1548, name: \"Search Engines\" }\n            ],\n            emphasis: {\n              itemStyle: {\n                shadowBlur: 10,\n                shadowOffsetX: 0,\n                shadowColor: \"rgba(0, 0, 0, 0.5)\"\n              }\n            }\n          }\n        ]\n      }\n    };\n  }\n};\n</script>\n\n<style scoped>\n.chart {\n  height: 400px;\n}\n</style>\n```\n\n</details>\n\n> [!IMPORTANT]\n> We encourage manually importing components and charts from ECharts for smaller bundle size. We've built an [import code generator](https://vue-echarts.dev/#codegen) to help you with that. You can just paste in your `option` code and we'll generate the precise import code for you.\n>\n> ![](https://github.com/ecomfe/vue-echarts/assets/1726061/f9c38a06-3422-4f0e-ab8c-f242d9aea9aa)\n>\n> [Try it \u2192](https://vue-echarts.dev/#codegen)\n\nBut if you really want to import the whole ECharts bundle without having to import modules manually, just add this in your code:\n\n```js\nimport \"echarts\";\n```\n\n### CDN\n\nDrop `<script>` inside your HTML file and access the component via `window.VueECharts`.\n\n<details>\n<summary>Vue 3 <a href=\"https://stackblitz.com/edit/vue-echarts-vue-3-global?file=index.html\">Demo \u2192</a></summary>\n\n<!-- vue3Scripts:start -->\n```html\n<script src=\"https://cdn.jsdelivr.net/npm/vue@3.4.33\"></script>\n<script src=\"https://cdn.jsdelivr.net/npm/echarts@5.5.1\"></script>\n<script src=\"https://cdn.jsdelivr.net/npm/vue-echarts@7.0.3\"></script>\n```\n<!-- vue3Scripts:end -->\n\n```js\nconst app = Vue.createApp(...)\n\n// register globally (or you can do it locally)\napp.component('v-chart', VueECharts)\n```\n\n</details>\n\n<details>\n<summary>Vue 2 <a href=\"https://stackblitz.com/edit/vue-echarts-vue-2-global?file=index.html\">Demo \u2192</a></summary>\n\n<!-- vue2Scripts:start -->\n```html\n<script src=\"https://cdn.jsdelivr.net/npm/vue@2.7.16\"></script>\n<script src=\"https://cdn.jsdelivr.net/npm/echarts@5.5.1\"></script>\n<script src=\"https://cdn.jsdelivr.net/npm/vue-echarts@7.0.3\"></script>\n```\n<!-- vue2Scripts:end -->\n\n```js\n// register globally (or you can do it locally)\nVue.component(\"v-chart\", VueECharts);\n```\n\n</details>\n\nSee more examples [here](https://github.com/ecomfe/vue-echarts/tree/main/src/demo).\n\n### Props\n\n- `init-options: object`\n\n  Optional chart init configurations. See `echarts.init`'s `opts` parameter [here \u2192](https://echarts.apache.org/en/api.html#echarts.init)\n\n  Injection key: `INIT_OPTIONS_KEY`.\n\n- `theme: string | object`\n\n  Theme to be applied. See `echarts.init`'s `theme` parameter [here \u2192](https://echarts.apache.org/en/api.html#echarts.init)\n\n  Injection key: `THEME_KEY`.\n\n- `option: object`\n\n  ECharts' universal interface. Modifying this prop will trigger ECharts' `setOption` method. Read more [here \u2192](https://echarts.apache.org/en/option.html)\n\n  > \ud83d\udca1 When `update-options` is not specified, `notMerge: false` will be specified by default when the `setOption` method is called if the `option` object is modified directly and the reference remains unchanged; otherwise, if a new reference is bound to `option`, ` notMerge: true` will be specified.\n\n- `update-options: object`\n\n  Options for updating chart option. See `echartsInstance.setOption`'s `opts` parameter [here \u2192](https://echarts.apache.org/en/api.html#echartsInstance.setOption)\n\n  Injection key: `UPDATE_OPTIONS_KEY`.\n\n- `group: string`\n\n  Group name to be used in chart [connection](https://echarts.apache.org/en/api.html#echarts.connect). See `echartsInstance.group` [here \u2192](https://echarts.apache.org/en/api.html#echartsInstance.group)\n\n- `autoresize: boolean | { throttle?: number, onResize?: () => void }` (default: `false`)\n\n  Whether the chart should be resized automatically whenever its root is resized. Use the options object to specify a custom throttle delay (in milliseconds) and/or an extra resize callback function.\n\n- `loading: boolean` (default: `false`)\n\n  Whether the chart is in loading state.\n\n- `loading-options: object`\n\n  Configuration item of loading animation. See `echartsInstance.showLoading`'s `opts` parameter [here \u2192](https://echarts.apache.org/en/api.html#echartsInstance.showLoading)\n\n  Injection key: `LOADING_OPTIONS_KEY`.\n\n- `manual-update: boolean` (default: `false`)\n\n  For performance critical scenarios (having a large dataset) we'd better bypass Vue's reactivity system for `option` prop. By specifying `manual-update` prop with `true` and not providing `option` prop, the dataset won't be watched any more. After doing so, you need to retrieve the component instance with `ref` and manually call `setOption` method to update the chart.\n\n### Events\n\nYou can bind events with Vue's `v-on` directive.\n\n```vue\n<template>\n  <v-chart :option=\"option\" @highlight=\"handleHighlight\" />\n</template>\n```\n\n> **Note**\n>\n> Only the `.once` event modifier is supported as other modifiers are tightly coupled with the DOM event system.\n\nVue-ECharts support the following events:\n\n- `highlight` [\u2192](https://echarts.apache.org/en/api.html#events.highlight)\n- `downplay` [\u2192](https://echarts.apache.org/en/api.html#events.downplay)\n- `selectchanged` [\u2192](https://echarts.apache.org/en/api.html#events.selectchanged)\n- `legendselectchanged` [\u2192](https://echarts.apache.org/en/api.html#events.legendselectchanged)\n- `legendselected` [\u2192](https://echarts.apache.org/en/api.html#events.legendselected)\n- `legendunselected` [\u2192](https://echarts.apache.org/en/api.html#events.legendunselected)\n- `legendselectall` [\u2192](https://echarts.apache.org/en/api.html#events.legendselectall)\n- `legendinverseselect` [\u2192](https://echarts.apache.org/en/api.html#events.legendinverseselect)\n- `legendscroll` [\u2192](https://echarts.apache.org/en/api.html#events.legendscroll)\n- `datazoom` [\u2192](https://echarts.apache.org/en/api.html#events.datazoom)\n- `datarangeselected` [\u2192](https://echarts.apache.org/en/api.html#events.datarangeselected)\n- `timelinechanged` [\u2192](https://echarts.apache.org/en/api.html#events.timelinechanged)\n- `timelineplaychanged` [\u2192](https://echarts.apache.org/en/api.html#events.timelineplaychanged)\n- `restore` [\u2192](https://echarts.apache.org/en/api.html#events.restore)\n- `dataviewchanged` [\u2192](https://echarts.apache.org/en/api.html#events.dataviewchanged)\n- `magictypechanged` [\u2192](https://echarts.apache.org/en/api.html#events.magictypechanged)\n- `geoselectchanged` [\u2192](https://echarts.apache.org/en/api.html#events.geoselectchanged)\n- `geoselected` [\u2192](https://echarts.apache.org/en/api.html#events.geoselected)\n- `geounselected` [\u2192](https://echarts.apache.org/en/api.html#events.geounselected)\n- `axisareaselected` [\u2192](https://echarts.apache.org/en/api.html#events.axisareaselected)\n- `brush` [\u2192](https://echarts.apache.org/en/api.html#events.brush)\n- `brushEnd` [\u2192](https://echarts.apache.org/en/api.html#events.brushEnd)\n- `brushselected` [\u2192](https://echarts.apache.org/en/api.html#events.brushselected)\n- `globalcursortaken` [\u2192](https://echarts.apache.org/en/api.html#events.globalcursortaken)\n- `rendered` [\u2192](https://echarts.apache.org/en/api.html#events.rendered)\n- `finished` [\u2192](https://echarts.apache.org/en/api.html#events.finished)\n- Mouse events\n  - `click` [\u2192](https://echarts.apache.org/en/api.html#events.Mouse%20events.click)\n  - `dblclick` [\u2192](https://echarts.apache.org/en/api.html#events.Mouse%20events.dblclick)\n  - `mouseover` [\u2192](https://echarts.apache.org/en/api.html#events.Mouse%20events.mouseover)\n  - `mouseout` [\u2192](https://echarts.apache.org/en/api.html#events.Mouse%20events.mouseout)\n  - `mousemove` [\u2192](https://echarts.apache.org/en/api.html#events.Mouse%20events.mousemove)\n  - `mousedown` [\u2192](https://echarts.apache.org/en/api.html#events.Mouse%20events.mousedown)\n  - `mouseup` [\u2192](https://echarts.apache.org/en/api.html#events.Mouse%20events.mouseup)\n  - `globalout` [\u2192](https://echarts.apache.org/en/api.html#events.Mouse%20events.globalout)\n  - `contextmenu` [\u2192](https://echarts.apache.org/en/api.html#events.Mouse%20events.contextmenu)\n- ZRender events\n  - `zr:click`\n  - `zr:mousedown`\n  - `zr:mouseup`\n  - `zr:mousewheel`\n  - `zr:dblclick`\n  - `zr:contextmenu`\n\nSee supported events [here \u2192](https://echarts.apache.org/en/api.html#events)\n\n#### Native DOM Events\n\nAs Vue-ECharts binds events to the ECharts instance by default, there is some caveat when using native DOM events. You need to prefix the event name with `native:` to bind native DOM events (or you can use the `.native` modifier in Vue 2, which is dropped in Vue 3).\n\n```vue\n<template>\n  <v-chart @native:click=\"handleClick\" />\n</template>\n```\n\n### Provide / Inject\n\nVue-ECharts provides provide/inject API for `theme`, `init-options`, `update-options` and `loading-options` to help configuring contextual options. eg. for `init-options` you can use the provide API like this:\n\n<details>\n<summary>Vue 3</summary>\n\n```js\nimport { THEME_KEY } from 'vue-echarts'\nimport { provide } from 'vue'\n\n// composition API\nprovide(THEME_KEY, 'dark')\n\n// options API\n{\n  provide: {\n    [THEME_KEY]: 'dark'\n  }\n}\n```\n\n</details>\n\n<details>\n<summary>Vue 2</summary>\n\n```js\nimport { THEME_KEY } from 'vue-echarts'\n\n// in component options\n{\n  provide: {\n    [THEME_KEY]: 'dark'\n  }\n}\n```\n\n> **Note**\n>\n> You need to provide an object for Vue 2 if you want to change it dynamically.\n>\n> ```js\n> // in component options\n> {\n>   data () {\n>     return {\n>       theme: { value: 'dark' }\n>     }\n>   },\n>   provide () {\n>     return {\n>       [THEME_KEY]: this.theme\n>     }\n>   }\n> }\n> ```\n\n</details>\n\n### Methods\n\n- `setOption` [\u2192](https://echarts.apache.org/en/api.html#echartsInstance.setOption)\n- `getWidth` [\u2192](https://echarts.apache.org/en/api.html#echartsInstance.getWidth)\n- `getHeight` [\u2192](https://echarts.apache.org/en/api.html#echartsInstance.getHeight)\n- `getDom` [\u2192](https://echarts.apache.org/en/api.html#echartsInstance.getDom)\n- `getOption` [\u2192](https://echarts.apache.org/en/api.html#echartsInstance.getOption)\n- `resize` [\u2192](https://echarts.apache.org/en/api.html#echartsInstance.resize)\n- `dispatchAction` [\u2192](https://echarts.apache.org/en/api.html#echartsInstance.dispatchAction)\n- `convertToPixel` [\u2192](https://echarts.apache.org/en/api.html#echartsInstance.convertToPixel)\n- `convertFromPixel` [\u2192](https://echarts.apache.org/en/api.html#echartsInstance.convertFromPixel)\n- `containPixel` [\u2192](https://echarts.apache.org/en/api.html#echartsInstance.containPixel)\n- `showLoading` [\u2192](https://echarts.apache.org/en/api.html#echartsInstance.showLoading)\n- `hideLoading` [\u2192](https://echarts.apache.org/en/api.html#echartsInstance.hideLoading)\n- `getDataURL` [\u2192](https://echarts.apache.org/en/api.html#echartsInstance.getDataURL)\n- `getConnectedDataURL` [\u2192](https://echarts.apache.org/en/api.html#echartsInstance.getConnectedDataURL)\n- `clear` [\u2192](https://echarts.apache.org/en/api.html#echartsInstance.clear)\n- `dispose` [\u2192](https://echarts.apache.org/en/api.html#echartsInstance.dispose)\n\n### Static Methods\n\nStatic methods can be accessed from [`echarts` itself](https://echarts.apache.org/en/api.html#echarts).\n\n## CSP: `style-src` or `style-src-elem`\n\nIf you are applying a CSP to prevent inline `<style>` injection, you need to use `vue-echarts/csp` instead of `vue-echarts` and include `vue-echarts/csp/style.css` manually.\n\n## Migration to v7\n\nRead the breaking changes document in the [release log](https://github.com/ecomfe/vue-echarts/releases/tag/v7.0.0-beta.0) and the migration shoud be straightforward.\n\n## Local development\n\n```sh\npnpm i\npnpm serve\n```\n\nOpen `http://localhost:8080` to see the demo.\n\n## Notice\n\nThe Apache Software Foundation [Apache ECharts, ECharts](https://echarts.apache.org/), Apache, the Apache feather, and the Apache ECharts project logo are either registered trademarks or trademarks of the [Apache Software Foundation](https://www.apache.org/).\n",
+        "releases": [
+            {
+                "name": "",
+                "date": "2024-08-19T15:42:50Z"
+            },
+            {
+                "name": "",
+                "date": "2024-08-13T07:34:48Z"
+            },
+            {
+                "name": "",
+                "date": "2024-08-03T23:39:54Z"
+            },
+            {
+                "name": "v7.0.0",
+                "date": "2024-08-03T08:20:33Z"
+            },
+            {
+                "name": "",
+                "date": "2024-07-24T10:33:56Z"
+            },
+            {
+                "name": "",
+                "date": "2024-06-04T15:12:42Z"
+            },
+            {
+                "name": "",
+                "date": "2024-05-07T09:44:55Z"
+            },
+            {
+                "name": "",
+                "date": "2024-04-23T11:51:20Z"
+            },
+            {
+                "name": "",
+                "date": "2024-04-22T13:16:27Z"
+            },
+            {
+                "name": "",
+                "date": "2024-04-22T13:09:20Z"
+            },
+            {
+                "name": "",
+                "date": "2024-02-20T03:19:06Z"
+            },
+            {
+                "name": "",
+                "date": "2023-12-26T07:22:11Z"
+            },
+            {
+                "name": "",
+                "date": "2023-12-26T07:01:17Z"
+            },
+            {
+                "name": "",
+                "date": "2023-12-26T06:59:44Z"
+            },
+            {
+                "name": "",
+                "date": "2023-12-20T11:24:17Z"
+            },
+            {
+                "name": "",
+                "date": "2023-12-13T03:05:54Z"
+            },
+            {
+                "name": "",
+                "date": "2023-12-12T02:03:05Z"
+            },
+            {
+                "name": "",
+                "date": "2023-12-12T01:55:11Z"
+            },
+            {
+                "name": "",
+                "date": "2023-08-16T12:44:06Z"
+            },
+            {
+                "name": "v6.6.0",
+                "date": "2023-06-13T12:46:51Z"
+            },
+            {
+                "name": "",
+                "date": "2023-06-13T12:46:33Z"
+            },
+            {
+                "name": "",
+                "date": "2023-02-08T08:36:31Z"
+            },
+            {
+                "name": "",
+                "date": "2023-02-08T08:36:06Z"
+            },
+            {
+                "name": "",
+                "date": "2023-01-28T15:53:49Z"
+            },
+            {
+                "name": "",
+                "date": "2023-01-09T05:01:55Z"
+            },
+            {
+                "name": "v6.5.0",
+                "date": "2023-01-02T15:53:42Z"
+            },
+            {
+                "name": "",
+                "date": "2023-01-01T15:53:01Z"
+            },
+            {
+                "name": "",
+                "date": "2022-12-29T10:16:02Z"
+            },
+            {
+                "name": "",
+                "date": "2022-12-18T18:04:55Z"
+            },
+            {
+                "name": "",
+                "date": "2022-12-18T11:42:08Z"
+            },
+            {
+                "name": "",
+                "date": "2022-12-16T17:47:29Z"
+            },
+            {
+                "name": "",
+                "date": "2022-12-16T17:30:26Z"
+            },
+            {
+                "name": "v6.2.3",
+                "date": "2022-09-22T04:08:27Z"
+            }
+        ]
+    }
+}

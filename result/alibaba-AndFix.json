@@ -1,0 +1,54 @@
+{
+    "https://api.github.com/repos/alibaba/AndFix": {
+        "forks": 1599,
+        "watchers": 6979,
+        "stars": 6979,
+        "languages": {
+            "C++": 67375,
+            "Java": 29214,
+            "C": 11405,
+            "Makefile": 731
+        },
+        "commits": [
+            "2016-12-26T03:11:42Z",
+            "2016-12-22T10:20:12Z",
+            "2016-10-28T03:59:52Z",
+            "2016-10-25T07:09:36Z",
+            "2016-09-28T09:21:09Z",
+            "2016-08-31T11:07:36Z",
+            "2016-08-31T02:55:41Z",
+            "2016-08-30T12:31:52Z",
+            "2016-08-30T10:04:26Z",
+            "2016-08-30T09:05:43Z",
+            "2016-08-30T09:00:38Z",
+            "2016-08-30T08:50:01Z",
+            "2016-08-30T02:04:30Z",
+            "2016-08-19T05:46:08Z",
+            "2016-04-27T08:31:57Z",
+            "2016-04-01T11:16:52Z",
+            "2016-03-29T07:00:46Z",
+            "2016-03-29T06:53:52Z",
+            "2015-11-24T10:03:22Z",
+            "2015-11-18T06:03:11Z",
+            "2015-11-18T05:56:33Z",
+            "2015-11-18T05:50:36Z",
+            "2015-09-23T11:20:23Z",
+            "2015-09-22T09:31:18Z",
+            "2015-09-22T03:48:19Z",
+            "2015-09-22T03:28:36Z",
+            "2015-09-21T10:02:24Z",
+            "2015-09-18T08:24:26Z",
+            "2015-09-18T02:59:12Z",
+            "2015-09-17T11:50:47Z"
+        ],
+        "creation_date": "2015-09-15T02:26:39Z",
+        "contributors": 4,
+        "topics": [
+            "android",
+            "hotfix"
+        ],
+        "subscribers": 449,
+        "readme": "# AndFix\n\n[![Download](https://api.bintray.com/packages/supern/maven/andfix/images/download.svg) ](https://bintray.com/supern/maven/andfix/_latestVersion)\n[![Build Status](https://travis-ci.org/alibaba/AndFix.svg)](https://travis-ci.org/alibaba/AndFix)\n[![Software License](https://rawgit.com/alibaba/AndFix/master/images/license.svg)](LICENSE)\n\n[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/alibaba/AndFix?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)\n\nAndFix is a solution to fix the bugs online instead of redistributing Android App. It is distributed as [Android Library](https://sites.google.com/a/android.com/tools/tech-docs/new-build-system/aar-format).\n\nAndfix is an acronym for \"**And**roid hot-**fix**\".\n\nAndFix supports Android version from 2.3 to 7.0, both ARM and X86 architecture, both Dalvik and ART runtime, both 32bit and 64bit.\n\nThe compressed file format of AndFix's patch is **.apatch**. It is dispatched from your own server to client to fix your App's bugs.\n\n## Principle\n\nThe implementation principle of AndFix is method body's replacing,\n\n![image](images/principle.png)\n\n### Method replacing\n\nAndFix judges the methods should be replaced by java custom annotation and replaces it by hooking it. AndFix has a native method `art_replaceMethod` in ART or `dalvik_replaceMethod` in Dalvik. \n\nFor more details, [here](https://github.com/alibaba/AndFix/tree/master/jni).\n\n## Fix Process\n\n![image](images/process.png)\n\n## Integration\n\n### How to get?\n\nDirectly add AndFix aar to your project as compile libraries.\n\nFor your maven dependency,\n\n```xml\n<dependency>\n  \t<groupId>com.alipay.euler</groupId>\n  \t<artifactId>andfix</artifactId>\n  \t<version>0.5.0</version>\n  \t<type>aar</type>\n</dependency>\n```\nFor your gradle dependency,\n\n```groovy\ndependencies {\n\tcompile 'com.alipay.euler:andfix:0.5.0@aar'\n}\n```\n\n### How to use?\n\n1. Initialize PatchManager,\n\n```java\npatchManager = new PatchManager(context);\npatchManager.init(appversion);//current version\n```\n\n2. Load patch,\n\n```java\npatchManager.loadPatch();\n```\n\nYou should load patch as early as possible, generally, in the initialization phase of your application(such as `Application.onCreate()`).\n\n3. Add patch,\n\n```java\npatchManager.addPatch(path);//path of the patch file that was downloaded\n```\nWhen a new patch file has been downloaded, it will become effective immediately by `addPatch`.\n\n## Developer Tool\n\nAndFix provides a patch-making tool called **apkpatch**.\n\n### How to get?\n\nThe `apkpatch` tool can be found [here](https://github.com/alibaba/AndFix/raw/master/tools/apkpatch-1.0.3.zip).\n\n### How to use?\n\n* Prepare two android packages, one is the online package, the other one is the package after you fix bugs by coding.\n\n* Generate `.apatch` file by providing the two package,\n\n```\nusage: apkpatch -f <new> -t <old> -o <output> -k <keystore> -p <***> -a <alias> -e <***>\n -a,--alias <alias>     keystore entry alias.\n -e,--epassword <***>   keystore entry password.\n -f,--from <loc>        new Apk file path.\n -k,--keystore <loc>    keystore path.\n -n,--name <name>       patch name.\n -o,--out <dir>         output dir.\n -p,--kpassword <***>   keystore password.\n -t,--to <loc>          old Apk file path.\n```\n\nNow you get the application savior, the patch file. Then you need to dispatch it to your client in some way, push or pull.\n\nSometimes, your team members may fix each other's bugs, and generate not only one `.apatch`. For this situation, you can\nmerge `.apatch` files using this tool,\n\n```\nusage: apkpatch -m <apatch_path...> -o <output> -k <keystore> -p <***> -a <alias> -e <***>\n -a,--alias <alias>     keystore entry alias.\n -e,--epassword <***>   keystore entry password.\n -k,--keystore <loc>    keystore path.\n -m,--merge <loc...>    path of .apatch files.\n -n,--name <name>       patch name.\n -o,--out <dir>         output dir.\n -p,--kpassword <***>   keystore password.\n```\n\n## Running sample\n\n1. Import samplesI/AndFixDemo to your IDE, append AndFixDemo dependencies with AndFix(library project or aar).\n2. Build project, save the package as 1.apk, and then install on device/emulator.\n3. Modify com.euler.test.A, references com.euler.test.Fix.\n4. Build project, save the package as 2.apk.\n5. Use apkpatch tool to make a patch.\n6. Rename the patch file to out.apatch, and then copy it to sdcard.\n7. Run 1.apk and view log.\n\n## Notice\n\n### ProGuard\n\nIf you enable ProGuard, you must save the mapping.txt, so your new version's build can use it with [\"-applymapping\"](http://proguard.sourceforge.net/manual/usage.html#applymapping).\n\nAnd it is necessary to keep classes as follow,\n\n* Native method\n\n\tcom.alipay.euler.andfix.AndFix\n\n* Annotation\n\n\tcom.alipay.euler.andfix.annotation.MethodReplace\n\nTo ensure that these classes can be found after running an obfuscation and static analysis tool like ProGuard, add the configuration below to your ProGuard configuration file.\n\n\n```\n-keep class * extends java.lang.annotation.Annotation\n-keepclasseswithmembernames class * {\n    native <methods>;\n}\n```\n\n### Self-Modifying Code\n\nIf you use it, such as *Bangcle*. To generate patch file, you'd better to use raw apk.\n\n### Security\n\nThe following is important but out of AndFix's range.\n\n-  verify the signature of patch file\n-  verify the fingerprint of optimize file\n\n## API Documentation\n\nThe libraries javadoc can be found [here](https://rawgit.com/alibaba/AndFix/master/docs/index.html).\n\n## Contact\n\n...\n\n## License\n\n[Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html)\n\nCopyright (c) 2015, alipay.com\n",
+        "releases": []
+    }
+}

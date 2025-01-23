@@ -1,0 +1,560 @@
+{
+    "https://api.github.com/repos/cure53/DOMPurify": {
+        "forks": 751,
+        "watchers": 14445,
+        "stars": 14445,
+        "languages": {
+            "JavaScript": 90816,
+            "TypeScript": 83482,
+            "HTML": 5342,
+            "Shell": 273
+        },
+        "commits": [
+            "2025-01-01T12:44:38Z",
+            "2024-12-30T14:09:58Z",
+            "2024-12-28T16:51:53Z",
+            "2024-12-27T21:39:46Z",
+            "2024-12-25T10:21:53Z",
+            "2024-12-25T08:20:21Z",
+            "2024-12-16T13:58:50Z",
+            "2024-12-09T22:34:07Z",
+            "2024-12-09T08:32:09Z",
+            "2024-12-07T13:41:36Z",
+            "2024-12-06T11:45:21Z",
+            "2024-12-06T10:12:28Z",
+            "2024-12-04T14:01:18Z",
+            "2024-12-04T13:48:56Z",
+            "2024-12-04T12:24:31Z",
+            "2024-11-29T11:04:17Z",
+            "2024-11-29T10:30:44Z",
+            "2024-11-29T10:20:16Z",
+            "2024-11-29T09:53:59Z",
+            "2024-11-29T09:52:51Z",
+            "2024-11-29T09:31:53Z",
+            "2024-11-29T09:23:54Z",
+            "2024-11-26T18:45:28Z",
+            "2024-11-26T15:30:35Z",
+            "2024-11-26T10:24:46Z",
+            "2024-11-22T12:35:24Z",
+            "2024-11-20T11:21:33Z",
+            "2024-11-20T10:32:07Z",
+            "2024-11-20T07:31:04Z",
+            "2024-11-19T07:14:18Z"
+        ],
+        "creation_date": "2014-02-17T21:48:14Z",
+        "contributors": 30,
+        "topics": [
+            "cross-site-scripting",
+            "dom",
+            "dompurify",
+            "html",
+            "javascript",
+            "mathml",
+            "prevent-xss-attacks",
+            "sanitizer",
+            "security",
+            "svg",
+            "xss"
+        ],
+        "subscribers": 154,
+        "readme": "# DOMPurify\n\n[![npm version](https://badge.fury.io/js/dompurify.svg)](http://badge.fury.io/js/dompurify) ![Build and Test](https://github.com/cure53/DOMPurify/workflows/Build%20and%20Test/badge.svg) [![Downloads](https://img.shields.io/npm/dm/dompurify.svg)](https://www.npmjs.com/package/dompurify) ![npm package minimized gzipped size (select exports)](https://img.shields.io/bundlejs/size/dompurify?color=%233C1&label=minified) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/cure53/dompurify?color=%233C1) [![dependents](https://badgen.net/github/dependents-repo/cure53/dompurify?color=green&label=dependents)](https://github.com/cure53/DOMPurify/network/dependents)\n\nDOMPurify is a DOM-only, super-fast, uber-tolerant XSS sanitizer for HTML, MathML and SVG.\n\nIt's also very simple to use and get started with. DOMPurify was [started in February 2014](https://github.com/cure53/DOMPurify/commit/a630922616927373485e0e787ab19e73e3691b2b) and, meanwhile, has reached version **v3.2.3**.\n\nDOMPurify is written in JavaScript and works in all modern browsers (Safari (10+), Opera (15+), Edge, Firefox and Chrome - as well as almost anything else using Blink, Gecko or WebKit). It doesn't break on MSIE or other legacy browsers. It simply does nothing.\n\n**Note that [DOMPurify v2.5.8](https://github.com/cure53/DOMPurify/releases/tag/2.5.8) is the latest version supporting MSIE. For important security updates compatible with MSIE, please use the [2.x branch](https://github.com/cure53/DOMPurify/tree/2.x).**\n\nOur automated tests cover [24 different browsers](https://github.com/cure53/DOMPurify/blob/main/test/karma.custom-launchers.config.js#L5) right now, more to come. We also cover Node.js v16.x, v17.x, v18.x and v19.x, running DOMPurify on [jsdom](https://github.com/jsdom/jsdom). Older Node versions are known to work as well, but hey... no guarantees.\n\nDOMPurify is written by security people who have vast background in web attacks and XSS. Fear not. For more details please also read about our [Security Goals & Threat Model](https://github.com/cure53/DOMPurify/wiki/Security-Goals-&-Threat-Model). Please, read it. Like, really.\n\n## What does it do?\n\nDOMPurify sanitizes HTML and prevents XSS attacks. You can feed DOMPurify with string full of dirty HTML and it will return a string (unless configured otherwise) with clean HTML. DOMPurify will strip out everything that contains dangerous HTML and thereby prevent XSS attacks and other nastiness. It's also damn bloody fast. We use the technologies the browser provides and turn them into an XSS filter. The faster your browser, the faster DOMPurify will be.\n\n## How do I use it?\n\nIt's easy. Just include DOMPurify on your website.\n\n### Using the unminified development version\n\n```html\n<script type=\"text/javascript\" src=\"src/purify.js\"></script>\n```\n\n### Using the minified and tested production version (source-map available)\n\n```html\n<script type=\"text/javascript\" src=\"dist/purify.min.js\"></script>\n```\n\nAfterwards you can sanitize strings by executing the following code:\n\n```js\nconst clean = DOMPurify.sanitize(dirty);\n```\n\nOr maybe this, if you love working with Angular or alike:\n\n```js\nimport DOMPurify from 'dompurify';\n\nconst clean = DOMPurify.sanitize('<b>hello there</b>');\n```\n\nThe resulting HTML can be written into a DOM element using `innerHTML` or the DOM using `document.write()`. That is fully up to you.\nNote that by default, we permit HTML, SVG **and** MathML. If you only need HTML, which might be a very common use-case, you can easily set that up as well:\n\n```js\nconst clean = DOMPurify.sanitize(dirty, { USE_PROFILES: { html: true } });\n```\n\n### Is there any foot-gun potential?\n\nWell, please note, if you _first_ sanitize HTML and then modify it _afterwards_, you might easily **void the effects of sanitization**. If you feed the sanitized markup to another library _after_ sanitization, please be certain that the library doesn't mess around with the HTML on its own.\n\n### Okay, makes sense, let's move on\n\nAfter sanitizing your markup, you can also have a look at the property `DOMPurify.removed` and find out, what elements and attributes were thrown out. Please **do not use** this property for making any security critical decisions. This is just a little helper for curious minds.\n\n### Running DOMPurify on the server\n\nDOMPurify technically also works server-side with Node.js. Our support strives to follow the [Node.js release cycle](https://nodejs.org/en/about/releases/).\n\nRunning DOMPurify on the server requires a DOM to be present, which is probably no surprise. Usually, [jsdom](https://github.com/jsdom/jsdom) is the tool of choice and we **strongly recommend** to use the latest version of _jsdom_.\n\nWhy? Because older versions of _jsdom_ are known to be buggy in ways that result in XSS _even if_ DOMPurify does everything 100% correctly. There are **known attack vectors** in, e.g. _jsdom v19.0.0_ that are fixed in _jsdom v20.0.0_ - and we really recommend to keep _jsdom_ up to date because of that.\n\nPlease also be aware that tools like [happy-dom](https://github.com/capricorn86/happy-dom) exist but **are not considered safe** at this point. Combining DOMPurify with _happy-dom_ is currently not recommended and will likely lead to XSS.\n\nOther than that, you are fine to use DOMPurify on the server. Probably. This really depends on _jsdom_ or whatever DOM you utilize server-side. If you can live with that, this is how you get it to work:\n\n```bash\nnpm install dompurify\nnpm install jsdom\n```\n\nFor _jsdom_ (please use an up-to-date version), this should do the trick:\n\n```js\nconst createDOMPurify = require('dompurify');\nconst { JSDOM } = require('jsdom');\n\nconst window = new JSDOM('').window;\nconst DOMPurify = createDOMPurify(window);\nconst clean = DOMPurify.sanitize('<b>hello there</b>');\n```\n\nOr even this, if you prefer working with imports:\n\n```js\nimport { JSDOM } from 'jsdom';\nimport DOMPurify from 'dompurify';\n\nconst window = new JSDOM('').window;\nconst purify = DOMPurify(window);\nconst clean = purify.sanitize('<b>hello there</b>');\n```\n\nIf you have problems making it work in your specific setup, consider looking at the amazing [isomorphic-dompurify](https://github.com/kkomelin/isomorphic-dompurify) project which solves lots of problems people might run into.\n\n```bash\nnpm install isomorphic-dompurify\n```\n\n```js\nimport DOMPurify from 'isomorphic-dompurify';\n\nconst clean = DOMPurify.sanitize('<s>hello</s>');\n```\n\n## Is there a demo?\n\nOf course there is a demo! [Play with DOMPurify](https://cure53.de/purify)\n\n## What if I find a _security_ bug?\n\nFirst of all, please immediately contact us via [email](mailto:mario@cure53.de) so we can work on a fix. [PGP key](https://keyserver.ubuntu.com/pks/lookup?op=vindex&search=0xC26C858090F70ADA)\n\nAlso, you probably qualify for a bug bounty! The fine folks over at [Fastmail](https://www.fastmail.com/) use DOMPurify for their services and added our library to their bug bounty scope. So, if you find a way to bypass or weaken DOMPurify, please also have a look at their website and the [bug bounty info](https://www.fastmail.com/about/bugbounty/).\n\n## Some purification samples please?\n\nHow does purified markup look like? Well, [the demo](https://cure53.de/purify) shows it for a big bunch of nasty elements. But let's also show some smaller examples!\n\n```js\nDOMPurify.sanitize('<img src=x onerror=alert(1)//>'); // becomes <img src=\"x\">\nDOMPurify.sanitize('<svg><g/onload=alert(2)//<p>'); // becomes <svg><g></g></svg>\nDOMPurify.sanitize('<p>abc<iframe//src=jAva&Tab;script:alert(3)>def</p>'); // becomes <p>abc</p>\nDOMPurify.sanitize('<math><mi//xlink:href=\"data:x,<script>alert(4)</script>\">'); // becomes <math><mi></mi></math>\nDOMPurify.sanitize('<TABLE><tr><td>HELLO</tr></TABL>'); // becomes <table><tbody><tr><td>HELLO</td></tr></tbody></table>\nDOMPurify.sanitize('<UL><li><A HREF=//google.com>click</UL>'); // becomes <ul><li><a href=\"//google.com\">click</a></li></ul>\n```\n\n## What is supported?\n\nDOMPurify currently supports HTML5, SVG and MathML. DOMPurify per default allows CSS, HTML custom data attributes. DOMPurify also supports the Shadow DOM - and sanitizes DOM templates recursively. DOMPurify also allows you to sanitize HTML for being used with the jQuery `$()` and `elm.html()` API without any known problems.\n\n## What about legacy browsers like Internet Explorer?\n\nDOMPurify does nothing at all. It simply returns exactly the string that you fed it. DOMPurify exposes a property called `isSupported`, which tells you whether it will be able to do its job, so you can come up with your own backup plan.\n\n## What about DOMPurify and Trusted Types?\n\nIn version 1.0.9, support for [Trusted Types API](https://github.com/w3c/webappsec-trusted-types) was added to DOMPurify.\nIn version 2.0.0, a config flag was added to control DOMPurify's behavior regarding this.\n\nWhen `DOMPurify.sanitize` is used in an environment where the Trusted Types API is available and `RETURN_TRUSTED_TYPE` is set to `true`, it tries to return a `TrustedHTML` value instead of a string (the behavior for `RETURN_DOM` and `RETURN_DOM_FRAGMENT` config options does not change).\n\nNote that in order to create a policy in `trustedTypes` using DOMPurify, `RETURN_TRUSTED_TYPE: false` is required, as `createHTML` expects a normal string, not `TrustedHTML`. The example below shows this.\n\n```js\nwindow.trustedTypes!.createPolicy('default', {\n  createHTML: (to_escape) =>\n    DOMPurify.sanitize(to_escape, { RETURN_TRUSTED_TYPE: false }),\n});\n```\n\n## Can I configure DOMPurify?\n\nYes. The included default configuration values are pretty good already - but you can of course override them. Check out the [`/demos`](https://github.com/cure53/DOMPurify/tree/main/demos) folder to see a bunch of examples on how you can [customize DOMPurify](https://github.com/cure53/DOMPurify/tree/main/demos#what-is-this).\n\n### General settings\n```js\n// strip {{ ... }}, ${ ... } and <% ... %> to make output safe for template systems\n// be careful please, this mode is not recommended for production usage.\n// allowing template parsing in user-controlled HTML is not advised at all.\n// only use this mode if there is really no alternative.\nconst clean = DOMPurify.sanitize(dirty, {SAFE_FOR_TEMPLATES: true});\n\n\n// change how e.g. comments containing risky HTML characters are treated.\n// be very careful, this setting should only be set to `false` if you really only handle \n// HTML and nothing else, no SVG, MathML or the like. \n// Otherwise, changing from `true` to `false` will lead to XSS in this or some other way.\nconst clean = DOMPurify.sanitize(dirty, {SAFE_FOR_XML: false});\n```\n\n### Control our allow-lists and block-lists\n```js\n// allow only <b> elements, very strict\nconst clean = DOMPurify.sanitize(dirty, {ALLOWED_TAGS: ['b']});\n\n// allow only <b> and <q> with style attributes\nconst clean = DOMPurify.sanitize(dirty, {ALLOWED_TAGS: ['b', 'q'], ALLOWED_ATTR: ['style']});\n\n// allow all safe HTML elements but neither SVG nor MathML\n// note that the USE_PROFILES setting will override the ALLOWED_TAGS setting\n// so don't use them together\nconst clean = DOMPurify.sanitize(dirty, {USE_PROFILES: {html: true}});\n\n// allow all safe SVG elements and SVG Filters, no HTML or MathML\nconst clean = DOMPurify.sanitize(dirty, {USE_PROFILES: {svg: true, svgFilters: true}});\n\n// allow all safe MathML elements and SVG, but no SVG Filters\nconst clean = DOMPurify.sanitize(dirty, {USE_PROFILES: {mathMl: true, svg: true}});\n\n// change the default namespace from HTML to something different\nconst clean = DOMPurify.sanitize(dirty, {NAMESPACE: 'http://www.w3.org/2000/svg'});\n\n// leave all safe HTML as it is and add <style> elements to block-list\nconst clean = DOMPurify.sanitize(dirty, {FORBID_TAGS: ['style']});\n\n// leave all safe HTML as it is and add style attributes to block-list\nconst clean = DOMPurify.sanitize(dirty, {FORBID_ATTR: ['style']});\n\n// extend the existing array of allowed tags and add <my-tag> to allow-list\nconst clean = DOMPurify.sanitize(dirty, {ADD_TAGS: ['my-tag']});\n\n// extend the existing array of allowed attributes and add my-attr to allow-list\nconst clean = DOMPurify.sanitize(dirty, {ADD_ATTR: ['my-attr']});\n\n// prohibit ARIA attributes, leave other safe HTML as is (default is true)\nconst clean = DOMPurify.sanitize(dirty, {ALLOW_ARIA_ATTR: false});\n\n// prohibit HTML5 data attributes, leave other safe HTML as is (default is true)\nconst clean = DOMPurify.sanitize(dirty, {ALLOW_DATA_ATTR: false});\n```\n\n### Control behavior relating to Custom Elements\n```js\n// DOMPurify allows to define rules for Custom Elements. When using the CUSTOM_ELEMENT_HANDLING\n// literal, it is possible to define exactly what elements you wish to allow (by default, none are allowed).\n//\n// The same goes for their attributes. By default, the built-in or configured allow.list is used.\n//\n// You can use a RegExp literal to specify what is allowed or a predicate, examples for both can be seen below.\n// The default values are very restrictive to prevent accidental XSS bypasses. Handle with great care!\n\nconst clean = DOMPurify.sanitize(\n    '<foo-bar baz=\"foobar\" forbidden=\"true\"></foo-bar><div is=\"foo-baz\"></div>',\n    {\n        CUSTOM_ELEMENT_HANDLING: {\n            tagNameCheck: null, // no custom elements are allowed\n            attributeNameCheck: null, // default / standard attribute allow-list is used\n            allowCustomizedBuiltInElements: false, // no customized built-ins allowed\n        },\n    }\n); // <div is=\"\"></div>\n\nconst clean = DOMPurify.sanitize(\n    '<foo-bar baz=\"foobar\" forbidden=\"true\"></foo-bar><div is=\"foo-baz\"></div>',\n    {\n        CUSTOM_ELEMENT_HANDLING: {\n            tagNameCheck: /^foo-/, // allow all tags starting with \"foo-\"\n            attributeNameCheck: /baz/, // allow all attributes containing \"baz\"\n            allowCustomizedBuiltInElements: true, // customized built-ins are allowed\n        },\n    }\n); // <foo-bar baz=\"foobar\"></foo-bar><div is=\"foo-baz\"></div>\n\nconst clean = DOMPurify.sanitize(\n    '<foo-bar baz=\"foobar\" forbidden=\"true\"></foo-bar><div is=\"foo-baz\"></div>',\n    {\n        CUSTOM_ELEMENT_HANDLING: {\n            tagNameCheck: (tagName) => tagName.match(/^foo-/), // allow all tags starting with \"foo-\"\n            attributeNameCheck: (attr) => attr.match(/baz/), // allow all containing \"baz\"\n            allowCustomizedBuiltInElements: true, // allow customized built-ins\n        },\n    }\n); // <foo-bar baz=\"foobar\"></foo-bar><div is=\"foo-baz\"></div>\n```\n### Control behavior relating to URI values\n```js\n// extend the existing array of elements that can use Data URIs\nconst clean = DOMPurify.sanitize(dirty, {ADD_DATA_URI_TAGS: ['a', 'area']});\n\n// extend the existing array of elements that are safe for URI-like values (be careful, XSS risk)\nconst clean = DOMPurify.sanitize(dirty, {ADD_URI_SAFE_ATTR: ['my-attr']});\n\n```\n### Control permitted attribute values\n```js\n// allow external protocol handlers in URL attributes (default is false, be careful, XSS risk)\n// by default only http, https, ftp, ftps, tel, mailto, callto, sms, cid and xmpp are allowed.\nconst clean = DOMPurify.sanitize(dirty, {ALLOW_UNKNOWN_PROTOCOLS: true});\n\n// allow specific protocols handlers in URL attributes via regex (default is false, be careful, XSS risk)\n// by default only http, https, ftp, ftps, tel, mailto, callto, sms, cid and xmpp are allowed.\n// Default RegExp: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|sms|cid|xmpp):|[^a-z]|[a-z+.\\-]+(?:[^a-z+.\\-:]|$))/i;\nconst clean = DOMPurify.sanitize(dirty, {ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|sms|cid|xmpp|xxx):|[^a-z]|[a-z+.\\-]+(?:[^a-z+.\\-:]|$))/i});\n\n```\n### Influence the return-type\n```js\n// return a DOM HTMLBodyElement instead of an HTML string (default is false)\nconst clean = DOMPurify.sanitize(dirty, {RETURN_DOM: true});\n\n// return a DOM DocumentFragment instead of an HTML string (default is false)\nconst clean = DOMPurify.sanitize(dirty, {RETURN_DOM_FRAGMENT: true});\n\n// use the RETURN_TRUSTED_TYPE flag to turn on Trusted Types support if available\nconst clean = DOMPurify.sanitize(dirty, {RETURN_TRUSTED_TYPE: true}); // will return a TrustedHTML object instead of a string if possible\n\n// use a provided Trusted Types policy\nconst clean = DOMPurify.sanitize(dirty, {\n    // supplied policy must define createHTML and createScriptURL\n    TRUSTED_TYPES_POLICY: trustedTypes.createPolicy({\n        createHTML(s) { return s},\n        createScriptURL(s) { return s},\n    }\n});\n```\n### Influence how we sanitize\n```js\n// return entire document including <html> tags (default is false)\nconst clean = DOMPurify.sanitize(dirty, {WHOLE_DOCUMENT: true});\n\n// disable DOM Clobbering protection on output (default is true, handle with care, minor XSS risks here)\nconst clean = DOMPurify.sanitize(dirty, {SANITIZE_DOM: false});\n\n// enforce strict DOM Clobbering protection via namespace isolation (default is false)\n// when enabled, isolates the namespace of named properties (i.e., `id` and `name` attributes)\n// from JS variables by prefixing them with the string `user-content-`\nconst clean = DOMPurify.sanitize(dirty, {SANITIZE_NAMED_PROPS: true});\n\n// keep an element's content when the element is removed (default is true)\nconst clean = DOMPurify.sanitize(dirty, {KEEP_CONTENT: false});\n\n// glue elements like style, script or others to document.body and prevent unintuitive browser behavior in several edge-cases (default is false)\nconst clean = DOMPurify.sanitize(dirty, {FORCE_BODY: true});\n\n// remove all <a> elements under <p> elements that are removed\nconst clean = DOMPurify.sanitize(dirty, {FORBID_CONTENTS: ['a'], FORBID_TAGS: ['p']});\n\n// change the parser type so sanitized data is treated as XML and not as HTML, which is the default\nconst clean = DOMPurify.sanitize(dirty, {PARSER_MEDIA_TYPE: 'application/xhtml+xml'});\n```\n### Influence where we sanitize\n```js\n// use the IN_PLACE mode to sanitize a node \"in place\", which is much faster depending on how you use DOMPurify\nconst dirty = document.createElement('a');\ndirty.setAttribute('href', 'javascript:alert(1)');\n\nconst clean = DOMPurify.sanitize(dirty, {IN_PLACE: true}); // see https://github.com/cure53/DOMPurify/issues/288 for more info\n```\n\nThere is even [more examples here](https://github.com/cure53/DOMPurify/tree/main/demos#what-is-this), showing how you can run, customize and configure DOMPurify to fit your needs.\n\n## Persistent Configuration\n\nInstead of repeatedly passing the same configuration to `DOMPurify.sanitize`, you can use the `DOMPurify.setConfig` method. Your configuration will persist until your next call to `DOMPurify.setConfig`, or until you invoke `DOMPurify.clearConfig` to reset it. Remember that there is only one active configuration, which means once it is set, all extra configuration parameters passed to `DOMPurify.sanitize` are ignored.\n\n## Hooks\n\nDOMPurify allows you to augment its functionality by attaching one or more functions with the `DOMPurify.addHook` method to one of the following hooks:\n\n- `beforeSanitizeElements`\n- `uponSanitizeElement` (No 's' - called for every element)\n- `afterSanitizeElements`\n- `beforeSanitizeAttributes`\n- `uponSanitizeAttribute`\n- `afterSanitizeAttributes`\n- `beforeSanitizeShadowDOM`\n- `uponSanitizeShadowNode`\n- `afterSanitizeShadowDOM`\n\nIt passes the currently processed DOM node, when needed a literal with verified node and attribute data and the DOMPurify configuration to the callback. Check out the [MentalJS hook demo](https://github.com/cure53/DOMPurify/blob/main/demos/hooks-mentaljs-demo.html) to see how the API can be used nicely.\n\n_Example_:\n\n```js\nDOMPurify.addHook(\n  'uponSanitizeAttribute',\n  function (currentNode, hookEvent, config) {\n    // Do something with the current node\n    // You can also mutate hookEvent for current node (i.e. set hookEvent.forceKeepAttr = true)\n    // For other than 'uponSanitizeAttribute' hook types hookEvent equals to null\n  }\n);\n```\n\n## Removed Configuration\n\n| Option          | Since | Note                     |\n|-----------------|-------|--------------------------|\n| SAFE_FOR_JQUERY | 2.1.0 | No replacement required. |\n\n## Continuous Integration\n\nWe are currently using Github Actions in combination with BrowserStack. This gives us the possibility to confirm for each and every commit that all is going according to plan in all supported browsers. Check out the build logs here: https://github.com/cure53/DOMPurify/actions\n\nYou can further run local tests by executing `npm test`. The tests work fine with Node.js v0.6.2 and jsdom@8.5.0.\n\nAll relevant commits will be signed with the key `0x24BB6BF4` for additional security (since 8th of April 2016).\n\n### Development and contributing\n\n#### Installation (`npm i`)\n\nWe support `npm` officially. GitHub Actions workflow is configured to install dependencies using `npm`. When using deprecated version of `npm` we can not fully ensure the versions of installed dependencies which might lead to unanticipated problems.\n\n#### Scripts\n\nWe rely on npm run-scripts for integrating with our tooling infrastructure. We use ESLint as a pre-commit hook to ensure code consistency. Moreover, to ease formatting we use [prettier](https://github.com/prettier/prettier) while building the `/dist` assets happens through `rollup`.\n\nThese are our npm scripts:\n\n- `npm run dev` to start building while watching sources for changes\n- `npm run test` to run our test suite via jsdom and karma\n  - `test:jsdom` to only run tests through jsdom\n  - `test:karma` to only run tests through karma\n- `npm run lint` to lint the sources using ESLint (via xo)\n- `npm run format` to format our sources using prettier to ease to pass ESLint\n- `npm run build` to build our distribution assets minified and unminified as a UMD module\n  - `npm run build:umd` to only build an unminified UMD module\n  - `npm run build:umd:min` to only build a minified UMD module\n\nNote: all run scripts triggered via `npm run <script>`.\n\nThere are more npm scripts but they are mainly to integrate with CI or are meant to be \"private\" for instance to amend build distribution files with every commit.\n\n## Security Mailing List\n\nWe maintain a mailing list that notifies whenever a security-critical release of DOMPurify was published. This means, if someone found a bypass and we fixed it with a release (which always happens when a bypass was found) a mail will go out to that list. This usually happens within minutes or few hours after learning about a bypass. The list can be subscribed to here:\n\n[https://lists.ruhr-uni-bochum.de/mailman/listinfo/dompurify-security](https://lists.ruhr-uni-bochum.de/mailman/listinfo/dompurify-security)\n\nFeature releases will not be announced to this list.\n\n## Who contributed?\n\nMany people helped and help DOMPurify become what it is and need to be acknowledged here!\n\n[hash_kitten \u2764\ufe0f](https://twitter.com/hash_kitten), [kevin_mizu \u2764\ufe0f](https://twitter.com/kevin_mizu), [icesfont \u2764\ufe0f](https://github.com/icesfont), [reduckted \u2764\ufe0f](https://github.com/reduckted), [dcramer \ud83d\udcb8](https://github.com/dcramer), [JGraph \ud83d\udcb8](https://github.com/jgraph), [baekilda \ud83d\udcb8](https://github.com/baekilda), [Healthchecks \ud83d\udcb8](https://github.com/healthchecks), [Sentry \ud83d\udcb8](https://github.com/getsentry), [jarrodldavis \ud83d\udcb8](https://github.com/jarrodldavis), [CynegeticIO](https://github.com/CynegeticIO), [ssi02014 \u2764\ufe0f](https://github.com/ssi02014), [GrantGryczan](https://github.com/GrantGryczan), [Lowdefy](https://twitter.com/lowdefy), [granlem](https://twitter.com/MaximeVeit), [oreoshake](https://github.com/oreoshake), [tdeekens \u2764\ufe0f](https://github.com/tdeekens), [peernohell \u2764\ufe0f](https://github.com/peernohell), [is2ei](https://github.com/is2ei), [SoheilKhodayari](https://github.com/SoheilKhodayari), [franktopel](https://github.com/franktopel), [NateScarlet](https://github.com/NateScarlet), [neilj](https://github.com/neilj), [fhemberger](https://github.com/fhemberger), [Joris-van-der-Wel](https://github.com/Joris-van-der-Wel), [ydaniv](https://github.com/ydaniv), [terjanq](https://twitter.com/terjanq), [filedescriptor](https://github.com/filedescriptor), [ConradIrwin](https://github.com/ConradIrwin), [gibson042](https://github.com/gibson042), [choumx](https://github.com/choumx), [0xSobky](https://github.com/0xSobky), [styfle](https://github.com/styfle), [koto](https://github.com/koto), [tlau88](https://github.com/tlau88), [strugee](https://github.com/strugee), [oparoz](https://github.com/oparoz), [mathiasbynens](https://github.com/mathiasbynens), [edg2s](https://github.com/edg2s), [dnkolegov](https://github.com/dnkolegov), [dhardtke](https://github.com/dhardtke), [wirehead](https://github.com/wirehead), [thorn0](https://github.com/thorn0), [styu](https://github.com/styu), [mozfreddyb](https://github.com/mozfreddyb), [mikesamuel](https://github.com/mikesamuel), [jorangreef](https://github.com/jorangreef), [jimmyhchan](https://github.com/jimmyhchan), [jameydeorio](https://github.com/jameydeorio), [jameskraus](https://github.com/jameskraus), [hyderali](https://github.com/hyderali), [hansottowirtz](https://github.com/hansottowirtz), [hackvertor](https://github.com/hackvertor), [freddyb](https://github.com/freddyb), [flavorjones](https://github.com/flavorjones), [djfarrelly](https://github.com/djfarrelly), [devd](https://github.com/devd), [camerondunford](https://github.com/camerondunford), [buu700](https://github.com/buu700), [buildog](https://github.com/buildog), [alabiaga](https://github.com/alabiaga), [Vector919](https://github.com/Vector919), [Robbert](https://github.com/Robbert), [GreLI](https://github.com/GreLI), [FuzzySockets](https://github.com/FuzzySockets), [ArtemBernatskyy](https://github.com/ArtemBernatskyy), [@garethheyes](https://twitter.com/garethheyes), [@shafigullin](https://twitter.com/shafigullin), [@mmrupp](https://twitter.com/mmrupp), [@irsdl](https://twitter.com/irsdl),[ShikariSenpai](https://github.com/ShikariSenpai), [ansjdnakjdnajkd](https://github.com/ansjdnakjdnajkd), [@asutherland](https://twitter.com/asutherland), [@mathias](https://twitter.com/mathias), [@cgvwzq](https://twitter.com/cgvwzq), [@robbertatwork](https://twitter.com/robbertatwork), [@giutro](https://twitter.com/giutro), [@CmdEngineer\\_](https://twitter.com/CmdEngineer_), [@avr4mit](https://twitter.com/avr4mit), [davecardwell](https://github.com/davecardwell) and especially [@securitymb \u2764\ufe0f](https://twitter.com/securitymb) & [@masatokinugawa \u2764\ufe0f](https://twitter.com/masatokinugawa)\n\n## Testing powered by\n\n<a target=\"_blank\" href=\"https://www.browserstack.com/\"><img width=\"200\" src=\"https://github.com/cure53/DOMPurify/assets/6709482/f70be7eb-8fc4-41ea-9653-9d359235328f\"></a><br>\n\nAnd last but not least, thanks to [BrowserStack Open-Source Program](https://www.browserstack.com/open-source) for supporting this project with their services for free and delivering excellent, dedicated and very professional support on top of that.\n",
+        "releases": [
+            {
+                "name": "DOMPurify 3.2.3",
+                "date": "2024-12-09T09:21:00Z"
+            },
+            {
+                "name": "DOMPurify 2.5.8",
+                "date": "2024-12-09T09:04:52Z"
+            },
+            {
+                "name": "DOMPurify 3.2.2",
+                "date": "2024-11-29T10:47:51Z"
+            },
+            {
+                "name": "DOMPurify 3.2.1",
+                "date": "2024-11-20T10:22:51Z"
+            },
+            {
+                "name": "DOMPurify 3.2.0",
+                "date": "2024-11-11T15:09:44Z"
+            },
+            {
+                "name": "DOMPurify 3.1.7",
+                "date": "2024-09-26T11:11:52Z"
+            },
+            {
+                "name": "DOMPurify 2.5.7",
+                "date": "2024-09-26T10:53:59Z"
+            },
+            {
+                "name": "DOMPurify 3.1.6",
+                "date": "2024-07-05T13:06:28Z"
+            },
+            {
+                "name": "DOMPurify 2.5.6",
+                "date": "2024-07-05T13:04:16Z"
+            },
+            {
+                "name": "DOMPurify 3.1.5",
+                "date": "2024-05-31T09:22:09Z"
+            },
+            {
+                "name": "DOMPurify 2.5.5",
+                "date": "2024-05-31T09:10:16Z"
+            },
+            {
+                "name": "DOMPurify 3.1.4",
+                "date": "2024-05-20T11:16:35Z"
+            },
+            {
+                "name": "DOMPurify 2.5.4",
+                "date": "2024-05-20T11:08:46Z"
+            },
+            {
+                "name": "DOMPurify 3.1.3",
+                "date": "2024-05-11T12:00:45Z"
+            },
+            {
+                "name": "DOMPurify 2.5.3",
+                "date": "2024-05-11T10:21:46Z"
+            },
+            {
+                "name": "DOMPurify 3.1.2",
+                "date": "2024-04-30T08:28:10Z"
+            },
+            {
+                "name": "DOMPurify 2.5.2",
+                "date": "2024-04-30T08:26:24Z"
+            },
+            {
+                "name": "DOMPurify 3.1.1",
+                "date": "2024-04-26T11:14:44Z"
+            },
+            {
+                "name": "DOMPurify 2.5.1",
+                "date": "2024-04-26T11:11:53Z"
+            },
+            {
+                "name": "DOMPurify 3.1.0",
+                "date": "2024-04-07T14:10:05Z"
+            },
+            {
+                "name": "DOMPurify 2.5.0",
+                "date": "2024-04-07T14:08:44Z"
+            },
+            {
+                "name": "DOMPurify 3.0.11",
+                "date": "2024-03-21T11:21:55Z"
+            },
+            {
+                "name": "DOMPurify 2.4.9",
+                "date": "2024-03-21T10:20:17Z"
+            },
+            {
+                "name": "DOMPurify 3.0.10",
+                "date": "2024-03-19T11:07:37Z"
+            },
+            {
+                "name": "DOMPurify 2.4.8",
+                "date": "2024-03-19T11:05:51Z"
+            },
+            {
+                "name": "DOMPurify 3.0.9",
+                "date": "2024-02-20T14:31:54Z"
+            },
+            {
+                "name": "DOMPurify 3.0.8",
+                "date": "2024-01-05T16:43:15Z"
+            },
+            {
+                "name": "DOMPurify 3.0.7",
+                "date": "2024-01-03T12:08:13Z"
+            },
+            {
+                "name": "DOMPurify 3.0.6",
+                "date": "2023-09-28T08:33:23Z"
+            },
+            {
+                "name": "DOMPurify 3.0.5",
+                "date": "2023-07-11T08:00:21Z"
+            },
+            {
+                "name": "DOMPurify 2.4.7",
+                "date": "2023-07-11T07:42:11Z"
+            },
+            {
+                "name": "DOMPurify 3.0.4",
+                "date": "2023-06-29T16:08:14Z"
+            },
+            {
+                "name": "DOMPurify 2.4.6",
+                "date": "2023-06-29T16:06:17Z"
+            },
+            {
+                "name": "DOMPurify 3.0.3",
+                "date": "2023-05-06T12:26:33Z"
+            },
+            {
+                "name": "DOMPurify 3.0.2",
+                "date": "2023-04-14T17:02:57Z"
+            },
+            {
+                "name": "DOMPurify 3.0.1",
+                "date": "2023-02-26T15:30:51Z"
+            },
+            {
+                "name": "DOMPurify 2.4.5",
+                "date": "2023-02-26T15:30:43Z"
+            },
+            {
+                "name": "DOMPurify 3.0.0",
+                "date": "2023-02-13T16:45:57Z"
+            },
+            {
+                "name": "DOMPurify 2.4.4",
+                "date": "2023-02-13T16:41:39Z"
+            },
+            {
+                "name": "DOMPurify 2.4.3",
+                "date": "2023-01-06T14:14:10Z"
+            },
+            {
+                "name": "DOMPurify 2.4.2",
+                "date": "2023-01-06T13:07:18Z"
+            },
+            {
+                "name": "DOMPurify 2.4.1",
+                "date": "2022-11-10T14:01:10Z"
+            },
+            {
+                "name": "DOMPurify 2.4.0",
+                "date": "2022-08-24T17:34:28Z"
+            },
+            {
+                "name": "DOMPurify 2.3.12",
+                "date": "2022-08-23T15:41:35Z"
+            },
+            {
+                "name": "DOMPurify 2.3.11",
+                "date": "2022-08-23T09:20:39Z"
+            },
+            {
+                "name": "DOMPurify 2.3.10",
+                "date": "2022-07-18T13:03:04Z"
+            },
+            {
+                "name": "DOMPurify 2.3.9",
+                "date": "2022-07-11T12:22:52Z"
+            },
+            {
+                "name": "DOMPurify 2.3.8",
+                "date": "2022-05-13T13:58:39Z"
+            },
+            {
+                "name": "DOMPurify 2.3.6",
+                "date": "2022-02-16T07:19:48Z"
+            },
+            {
+                "name": "DOMPurify 2.3.5",
+                "date": "2022-01-26T14:05:20Z"
+            },
+            {
+                "name": "DOMPurify 2.3.4",
+                "date": "2021-12-07T14:31:37Z"
+            },
+            {
+                "name": "DOMPurify 2.3.3",
+                "date": "2021-09-20T12:29:33Z"
+            },
+            {
+                "name": "DOMPurify 2.3.2",
+                "date": "2021-09-15T15:23:41Z"
+            },
+            {
+                "name": "DOMPurify 2.3.1",
+                "date": "2021-08-13T14:48:53Z"
+            },
+            {
+                "name": "DOMPurify 2.3.0",
+                "date": "2021-07-06T10:28:33Z"
+            },
+            {
+                "name": "DOMPurify 2.2.9",
+                "date": "2021-06-01T11:24:53Z"
+            },
+            {
+                "name": "DOMPurify 2.2.8",
+                "date": "2021-04-28T08:06:12Z"
+            },
+            {
+                "name": "DOMPurify 2.2.7",
+                "date": "2021-03-12T15:22:39Z"
+            },
+            {
+                "name": "DOMPurify 2.2.6",
+                "date": "2020-12-18T15:18:35Z"
+            },
+            {
+                "name": "DOMPurify 2.2.4",
+                "date": "2020-12-15T16:36:29Z"
+            },
+            {
+                "name": "DOMPurify 2.2.3",
+                "date": "2020-12-07T13:25:47Z"
+            },
+            {
+                "name": "DOMPurify 2.2.2",
+                "date": "2020-11-02T20:04:45Z"
+            },
+            {
+                "name": "DOMPurify 2.2.0",
+                "date": "2020-10-21T07:30:52Z"
+            },
+            {
+                "name": "DOMPurify 2.1.1",
+                "date": "2020-09-25T11:47:48Z"
+            },
+            {
+                "name": "DOMPurify 2.1.0",
+                "date": "2020-09-23T08:42:19Z"
+            },
+            {
+                "name": "DOMPurify 2.0.17",
+                "date": "2020-09-20T08:47:53Z"
+            },
+            {
+                "name": "DOMPurify 2.0.16",
+                "date": "2020-09-18T12:30:33Z"
+            },
+            {
+                "name": "DOMPurify 2.0.15",
+                "date": "2020-09-03T10:10:32Z"
+            },
+            {
+                "name": "DOMPurify 2.0.14",
+                "date": "2020-08-27T21:02:37Z"
+            },
+            {
+                "name": "DOMPurify 2.0.12",
+                "date": "2020-06-24T14:31:18Z"
+            },
+            {
+                "name": "DOMPurify 2.0.11",
+                "date": "2020-05-06T17:09:48Z"
+            },
+            {
+                "name": "DOMPurify 2.0.10",
+                "date": "2020-04-23T11:59:07Z"
+            },
+            {
+                "name": "DOMPurify 2.0.9",
+                "date": "2020-04-22T14:45:02Z"
+            },
+            {
+                "name": "DOMPurify 2.0.8",
+                "date": "2020-02-03T13:11:11Z"
+            },
+            {
+                "name": "DOMPurify 2.0.7",
+                "date": "2019-10-21T10:01:43Z"
+            },
+            {
+                "name": "DOMPurify 2.0.6",
+                "date": "2019-10-10T08:42:29Z"
+            },
+            {
+                "name": "DOMPurify 2.0.5",
+                "date": "2019-10-08T09:16:29Z"
+            },
+            {
+                "name": "DOMPurify 2.0.4",
+                "date": "2019-10-07T13:32:14Z"
+            },
+            {
+                "name": "DOMPurify 2.0.3",
+                "date": "2019-09-25T16:26:32Z"
+            },
+            {
+                "name": "DOMPurify 2.0.2",
+                "date": "2019-09-23T09:39:07Z"
+            },
+            {
+                "name": "DOMPurify 2.0.1",
+                "date": "2019-09-19T09:28:39Z"
+            },
+            {
+                "name": "DOMPurify 2.0.0",
+                "date": "2019-09-12T17:03:56Z"
+            },
+            {
+                "name": "DOMPurify 1.0.11",
+                "date": "2019-06-18T13:37:46Z"
+            },
+            {
+                "name": "DOMPurify 1.0.10",
+                "date": "2019-02-19T13:36:56Z"
+            },
+            {
+                "name": "DOMPurify 1.0.9",
+                "date": "2019-01-14T09:05:58Z"
+            },
+            {
+                "name": "DOMPurify 1.0.8",
+                "date": "2018-09-08T14:17:05Z"
+            },
+            {
+                "name": "DOMPurify 1.0.7",
+                "date": "2018-07-29T14:22:57Z"
+            },
+            {
+                "name": "DOMPurify 1.0.6",
+                "date": "2018-07-16T12:19:58Z"
+            },
+            {
+                "name": "DOMPurify 1.0.5",
+                "date": "2018-06-16T13:29:56Z"
+            },
+            {
+                "name": "DOMPurify 1.0.4",
+                "date": "2018-04-28T13:00:01Z"
+            },
+            {
+                "name": "DOMPurify 1.0.3",
+                "date": "2017-12-08T10:58:19Z"
+            },
+            {
+                "name": "DOMPurify 1.0.2",
+                "date": "2017-08-25T14:22:25Z"
+            },
+            {
+                "name": "DOMPurify 1.0.1",
+                "date": "2017-08-21T07:51:37Z"
+            },
+            {
+                "name": "DOMPurify 1.0.0",
+                "date": "2017-08-15T15:16:11Z"
+            },
+            {
+                "name": "DOMPurify 0.9.0",
+                "date": "2017-05-18T14:22:21Z"
+            },
+            {
+                "name": "DOMPurify 0.8.9",
+                "date": "2017-05-03T06:21:43Z"
+            },
+            {
+                "name": "DOMPurify 0.8.7",
+                "date": "2017-04-25T07:49:50Z"
+            },
+            {
+                "name": "",
+                "date": "2017-04-21T13:56:29Z"
+            },
+            {
+                "name": "DOMPurify 0.8.5",
+                "date": "2017-02-07T13:20:23Z"
+            },
+            {
+                "name": "DOMPurify 0.8.4",
+                "date": "2016-11-02T16:44:50Z"
+            },
+            {
+                "name": "DOMPurify 0.8.3",
+                "date": "2016-08-18T15:00:43Z"
+            },
+            {
+                "name": "DOMPurify 0.8.2",
+                "date": "2016-06-09T16:14:57Z"
+            },
+            {
+                "name": "DOMPurify 0.8.1",
+                "date": "2016-06-06T11:34:08Z"
+            },
+            {
+                "name": "DOMPurify 0.8.0",
+                "date": "2016-05-24T13:30:33Z"
+            },
+            {
+                "name": "DOMPurify 0.7.4",
+                "date": "2016-02-17T13:55:07Z"
+            },
+            {
+                "name": "DOMPurify 0.7.3",
+                "date": "2015-11-26T11:52:58Z"
+            },
+            {
+                "name": "DOMPurify 0.7.2",
+                "date": "2015-10-19T10:45:14Z"
+            },
+            {
+                "name": "DOMPurify 0.7.1",
+                "date": "2015-10-02T09:32:51Z"
+            },
+            {
+                "name": "DOMPurify 0.7.0",
+                "date": "2015-09-23T07:00:38Z"
+            },
+            {
+                "name": "DOMPurify 0.6.7",
+                "date": "2015-09-17T13:00:08Z"
+            },
+            {
+                "name": "DOMPurify 0.6.6",
+                "date": "2015-09-15T09:18:00Z"
+            },
+            {
+                "name": "DOMPurify 0.6.5",
+                "date": "2015-08-04T13:07:26Z"
+            },
+            {
+                "name": "DOMPurify 0.6.4",
+                "date": "2015-05-26T10:48:36Z"
+            },
+            {
+                "name": "DOMPurify 0.6.3",
+                "date": "2015-04-07T13:59:44Z"
+            },
+            {
+                "name": "DOMPurify 0.6.2",
+                "date": "2015-03-31T13:44:30Z"
+            },
+            {
+                "name": "DOMPurify 0.6.1",
+                "date": "2015-02-23T08:45:26Z"
+            },
+            {
+                "name": "DOMPurify 0.6.0",
+                "date": "2015-02-16T12:58:35Z"
+            },
+            {
+                "name": "DOMPurify 0.4.5",
+                "date": "2015-01-16T12:18:13Z"
+            },
+            {
+                "name": "DOMPurify 0.4.4",
+                "date": "2014-10-13T11:24:04Z"
+            },
+            {
+                "name": "DOMPurify 0.4.3",
+                "date": "2014-10-04T12:41:42Z"
+            },
+            {
+                "name": "DOMPurify 0.4.2",
+                "date": "2014-06-03T18:37:29Z"
+            },
+            {
+                "name": "DOMPurify 0.4",
+                "date": "2014-05-11T12:50:43Z"
+            },
+            {
+                "name": "DOMPurify 0.3",
+                "date": "2014-04-07T08:10:00Z"
+            },
+            {
+                "name": "DOMPurify 0.1",
+                "date": "2014-03-01T14:20:05Z"
+            }
+        ]
+    }
+}

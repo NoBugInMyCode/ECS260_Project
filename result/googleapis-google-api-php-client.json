@@ -1,0 +1,337 @@
+{
+    "https://api.github.com/repos/googleapis/google-api-php-client": {
+        "forks": 3521,
+        "watchers": 9414,
+        "stars": 9414,
+        "languages": {
+            "PHP": 324722
+        },
+        "commits": [
+            "2024-12-27T18:27:51Z",
+            "2024-12-16T22:52:40Z",
+            "2024-12-16T22:50:30Z",
+            "2024-12-04T15:23:09Z",
+            "2024-11-24T13:21:03Z",
+            "2024-11-24T13:18:35Z",
+            "2024-10-16T21:58:58Z",
+            "2024-10-16T20:41:17Z",
+            "2024-08-26T16:50:03Z",
+            "2024-08-26T16:47:56Z",
+            "2024-07-10T14:57:54Z",
+            "2024-07-10T14:56:12Z",
+            "2024-05-22T15:07:21Z",
+            "2024-05-17T17:31:11Z",
+            "2024-05-02T16:34:51Z",
+            "2024-04-24T00:59:47Z",
+            "2024-04-24T00:57:59Z",
+            "2024-04-24T00:56:12Z",
+            "2024-03-06T07:18:29Z",
+            "2024-02-23T23:53:27Z",
+            "2024-01-17T22:17:03Z",
+            "2024-01-17T22:14:55Z",
+            "2024-01-04T19:15:22Z",
+            "2024-01-04T19:11:32Z",
+            "2024-01-03T17:27:58Z",
+            "2024-01-03T17:24:46Z",
+            "2023-12-26T17:01:17Z",
+            "2023-12-20T19:52:19Z",
+            "2023-12-15T22:22:44Z",
+            "2023-12-15T22:20:56Z"
+        ],
+        "creation_date": "2013-08-16T19:48:39Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 549,
+        "readme": "![](https://github.com/googleapis/google-api-php-client/workflows/.github/workflows/tests.yml/badge.svg)\n\n# Google APIs Client Library for PHP #\n\n**NOTE**: please check to see if the package you'd like to install is available in our\nlist of [Google cloud packages](https://cloud.google.com/php/docs/reference) first, as\nthese are the recommended libraries.\n\n<dl>\n  <dt>Reference Docs</dt><dd><a href=\"https://googleapis.github.io/google-api-php-client/\">https://googleapis.github.io/google-api-php-client/</a></dd>\n  <dt>License</dt><dd>Apache 2.0</dd>\n</dl>\n\nThe Google API Client Library enables you to work with Google APIs such as Gmail, Drive or YouTube on your server.\n\nThese client libraries are officially supported by Google. However, the libraries are considered complete and are in maintenance mode. This means that we will address critical bugs and security issues but will not add any new features.\n\n## Google Cloud Platform\n\nFor Google Cloud Platform APIs such as [Datastore][cloud-datastore], [Cloud Storage][cloud-storage], [Pub/Sub][cloud-pubsub], and [Compute Engine][cloud-compute], we recommend using the Google Cloud client libraries. For a complete list of supported Google Cloud client libraries, see [googleapis/google-cloud-php](https://github.com/googleapis/google-cloud-php).\n\n[cloud-datastore]: https://github.com/googleapis/google-cloud-php-datastore\n[cloud-pubsub]: https://github.com/googleapis/google-cloud-php-pubsub\n[cloud-storage]: https://github.com/googleapis/google-cloud-php-storage\n[cloud-compute]: https://github.com/googleapis/google-cloud-php-compute\n\n## Requirements ##\n* [PHP 8.0 or higher](https://www.php.net/)\n\n## Developer Documentation ##\n\nThe [docs folder](docs/) provides detailed guides for using this library.\n\n## Installation ##\n\nYou can use **Composer** or simply **Download the Release**\n\n### Composer\n\nThe preferred method is via [composer](https://getcomposer.org/). Follow the\n[installation instructions](https://getcomposer.org/doc/00-intro.md) if you do not already have\ncomposer installed.\n\nOnce composer is installed, execute the following command in your project root to install this library:\n\n```sh\ncomposer require google/apiclient\n```\n\nIf you're facing a timeout error then either increase the timeout for composer by adding the env flag as `COMPOSER_PROCESS_TIMEOUT=600 composer install` or you can put this in the `config` section of the composer schema:\n```\n{\n    \"config\": {\n        \"process-timeout\": 600\n    }\n}\n```\n\nFinally, be sure to include the autoloader:\n\n```php\nrequire_once '/path/to/your-project/vendor/autoload.php';\n```\n\nThis library relies on `google/apiclient-services`. That library provides up-to-date API wrappers for a large number of Google APIs. In order that users may make use of the latest API clients, this library does not pin to a specific version of `google/apiclient-services`. **In order to prevent the accidental installation of API wrappers with breaking changes**, it is highly recommended that you pin to the [latest version](https://github.com/googleapis/google-api-php-client-services/releases) yourself prior to using this library in production.\n\n#### Cleaning up unused services\n\nThere are over 200 Google API services. The chances are good that you will not\nwant them all. In order to avoid shipping these dependencies with your code,\nyou can run the `Google\\Task\\Composer::cleanup` task and specify the services\nyou want to keep in `composer.json`:\n\n```json\n{\n    \"require\": {\n        \"google/apiclient\": \"^2.15.0\"\n    },\n    \"scripts\": {\n        \"pre-autoload-dump\": \"Google\\\\Task\\\\Composer::cleanup\"\n    },\n    \"extra\": {\n        \"google/apiclient-services\": [\n            \"Drive\",\n            \"YouTube\"\n        ]\n    }\n}\n```\n\nThis example will remove all services other than \"Drive\" and \"YouTube\" when\n`composer update` or a fresh `composer install` is run.\n\n**IMPORTANT**: If you add any services back in `composer.json`, you will need to\nremove the `vendor/google/apiclient-services` directory explicitly for the\nchange you made to have effect:\n\n```sh\nrm -r vendor/google/apiclient-services\ncomposer update\n```\n\n**NOTE**: This command performs an exact match on the service name, so to keep\n`YouTubeReporting` and `YouTubeAnalytics` as well, you'd need to add each of\nthem explicitly:\n\n```json\n{\n    \"extra\": {\n        \"google/apiclient-services\": [\n            \"Drive\",\n            \"YouTube\",\n            \"YouTubeAnalytics\",\n            \"YouTubeReporting\"\n        ]\n    }\n}\n```\n\n### Download the Release\n\nIf you prefer not to use composer, you can download the package in its entirety. The [Releases](https://github.com/googleapis/google-api-php-client/releases) page lists all stable versions. Download any file\nwith the name `google-api-php-client-[RELEASE_NAME].zip` for a package including this library and its dependencies.\n\nUncompress the zip file you download, and include the autoloader in your project:\n\n```php\nrequire_once '/path/to/google-api-php-client/vendor/autoload.php';\n```\n\nFor additional installation and setup instructions, see [the documentation](docs/).\n\n## Examples ##\nSee the [`examples/`](examples) directory for examples of the key client features. You can\nview them in your browser by running the php built-in web server.\n\n```\n$ php -S localhost:8000 -t examples/\n```\n\nAnd then browsing to the host and port you specified\n(in the above example, `http://localhost:8000`).\n\n### Basic Example ###\n\n```php\n// include your composer dependencies\nrequire_once 'vendor/autoload.php';\n\n$client = new Google\\Client();\n$client->setApplicationName(\"Client_Library_Examples\");\n$client->setDeveloperKey(\"YOUR_APP_KEY\");\n\n$service = new Google\\Service\\Books($client);\n$query = 'Henry David Thoreau';\n$optParams = [\n  'filter' => 'free-ebooks',\n];\n$results = $service->volumes->listVolumes($query, $optParams);\n\nforeach ($results->getItems() as $item) {\n  echo $item['volumeInfo']['title'], \"<br /> \\n\";\n}\n```\n\n### Authentication with OAuth ###\n\n> An example of this can be seen in [`examples/simple-file-upload.php`](examples/simple-file-upload.php).\n\n1. Follow the instructions to [Create Web Application Credentials](docs/oauth-web.md#create-authorization-credentials)\n1. Download the JSON credentials\n1. Set the path to these credentials using `Google\\Client::setAuthConfig`:\n\n    ```php\n    $client = new Google\\Client();\n    $client->setAuthConfig('/path/to/client_credentials.json');\n    ```\n\n1. Set the scopes required for the API you are going to call\n\n    ```php\n    $client->addScope(Google\\Service\\Drive::DRIVE);\n    ```\n\n1. Set your application's redirect URI\n\n    ```php\n    // Your redirect URI can be any registered URI, but in this example\n    // we redirect back to this same page\n    $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];\n    $client->setRedirectUri($redirect_uri);\n    ```\n\n1. In the script handling the redirect URI, exchange the authorization code for an access token:\n\n    ```php\n    if (isset($_GET['code'])) {\n        $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);\n    }\n    ```\n\n### Authentication with Service Accounts ###\n\n> An example of this can be seen in [`examples/service-account.php`](examples/service-account.php).\n\nSome APIs\n(such as the [YouTube Data API](https://developers.google.com/youtube/v3/)) do\nnot support service accounts. Check with the specific API documentation if API\ncalls return unexpected 401 or 403 errors.\n\n1. Follow the instructions to [Create a Service Account](docs/oauth-server.md#creating-a-service-account)\n1. Download the JSON credentials\n1. Set the path to these credentials using the `GOOGLE_APPLICATION_CREDENTIALS` environment variable:\n\n    ```php\n    putenv('GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json');\n    ```\n\n1. Tell the Google client to use your service account credentials to authenticate:\n\n    ```php\n    $client = new Google\\Client();\n    $client->useApplicationDefaultCredentials();\n    ```\n\n1. Set the scopes required for the API you are going to call\n\n    ```php\n    $client->addScope(Google\\Service\\Drive::DRIVE);\n    ```\n\n1. If you have delegated domain-wide access to the service account and you want to impersonate a user account, specify the email address of the user account using the method setSubject:\n\n    ```php\n    $client->setSubject($user_to_impersonate);\n    ```\n\n#### How to use a specific JSON key\n\nIf you want to a specific JSON key instead of using `GOOGLE_APPLICATION_CREDENTIALS` environment variable, you can do this:\n\n```php\n$jsonKey = [\n   'type' => 'service_account',\n   // ...\n];\n$client = new Google\\Client();\n$client->setAuthConfig($jsonKey);\n```\n\n### Making Requests ###\n\nThe classes used to call the API in [google-api-php-client-services](https://github.com/googleapis/google-api-php-client-services) are autogenerated. They map directly to the JSON requests and responses found in the [APIs Explorer](https://developers.google.com/apis-explorer/#p/).\n\nA JSON request to the [Datastore API](https://developers.google.com/apis-explorer/#p/datastore/v1beta3/datastore.projects.runQuery) would look like this:\n\n```\nPOST https://datastore.googleapis.com/v1beta3/projects/YOUR_PROJECT_ID:runQuery?key=YOUR_API_KEY\n```\n```json\n{\n    \"query\": {\n        \"kind\": [{\n            \"name\": \"Book\"\n        }],\n        \"order\": [{\n            \"property\": {\n                \"name\": \"title\"\n            },\n            \"direction\": \"descending\"\n        }],\n        \"limit\": 10\n    }\n}\n```\n\nUsing this library, the same call would look something like this:\n\n```php\n// create the datastore service class\n$datastore = new Google\\Service\\Datastore($client);\n\n// build the query - this maps directly to the JSON\n$query = new Google\\Service\\Datastore\\Query([\n    'kind' => [\n        [\n            'name' => 'Book',\n        ],\n    ],\n    'order' => [\n        'property' => [\n            'name' => 'title',\n        ],\n        'direction' => 'descending',\n    ],\n    'limit' => 10,\n]);\n\n// build the request and response\n$request = new Google\\Service\\Datastore\\RunQueryRequest(['query' => $query]);\n$response = $datastore->projects->runQuery('YOUR_DATASET_ID', $request);\n```\n\nHowever, as each property of the JSON API has a corresponding generated class, the above code could also be written like this:\n\n```php\n// create the datastore service class\n$datastore = new Google\\Service\\Datastore($client);\n\n// build the query\n$request = new Google\\Service\\Datastore_RunQueryRequest();\n$query = new Google\\Service\\Datastore\\Query();\n//   - set the order\n$order = new Google\\Service\\Datastore_PropertyOrder();\n$order->setDirection('descending');\n$property = new Google\\Service\\Datastore\\PropertyReference();\n$property->setName('title');\n$order->setProperty($property);\n$query->setOrder([$order]);\n//   - set the kinds\n$kind = new Google\\Service\\Datastore\\KindExpression();\n$kind->setName('Book');\n$query->setKinds([$kind]);\n//   - set the limit\n$query->setLimit(10);\n\n// add the query to the request and make the request\n$request->setQuery($query);\n$response = $datastore->projects->runQuery('YOUR_DATASET_ID', $request);\n```\n\nThe method used is a matter of preference, but *it will be very difficult to use this library without first understanding the JSON syntax for the API*, so it is recommended to look at the [APIs Explorer](https://developers.google.com/apis-explorer/#p/) before using any of the services here.\n\n### Making HTTP Requests Directly ###\n\nIf Google Authentication is desired for external applications, or a Google API is not available yet in this library, HTTP requests can be made directly.\n\nIf you are installing this client only to authenticate your own HTTP client requests, you should use [`google/auth`](https://github.com/googleapis/google-auth-library-php#call-the-apis) instead.\n\nThe `authorize` method returns an authorized [Guzzle Client](http://docs.guzzlephp.org/), so any request made using the client will contain the corresponding authorization.\n\n```php\n// create the Google client\n$client = new Google\\Client();\n\n/**\n * Set your method for authentication. Depending on the API, This could be\n * directly with an access token, API key, or (recommended) using\n * Application Default Credentials.\n */\n$client->useApplicationDefaultCredentials();\n$client->addScope(Google\\Service\\Plus::PLUS_ME);\n\n// returns a Guzzle HTTP Client\n$httpClient = $client->authorize();\n\n// make an HTTP request\n$response = $httpClient->get('https://www.googleapis.com/plus/v1/people/me');\n```\n\n### Caching ###\n\nIt is recommended to use another caching library to improve performance. This can be done by passing a [PSR-6](https://www.php-fig.org/psr/psr-6/) compatible library to the client:\n\n```php\nuse League\\Flysystem\\Adapter\\Local;\nuse League\\Flysystem\\Filesystem;\nuse Cache\\Adapter\\Filesystem\\FilesystemCachePool;\n\n$filesystemAdapter = new Local(__DIR__.'/');\n$filesystem        = new Filesystem($filesystemAdapter);\n\n$cache = new FilesystemCachePool($filesystem);\n$client->setCache($cache);\n```\n\nIn this example we use [PHP Cache](http://www.php-cache.com/). Add this to your project with composer:\n\n```\ncomposer require cache/filesystem-adapter\n```\n\n### Updating Tokens ###\n\nWhen using [Refresh Tokens](https://developers.google.com/identity/protocols/OAuth2InstalledApp#offline) or [Service Account Credentials](https://developers.google.com/identity/protocols/OAuth2ServiceAccount#overview), it may be useful to perform some action when a new access token is granted. To do this, pass a callable to the `setTokenCallback` method on the client:\n\n```php\n$logger = new Monolog\\Logger();\n$tokenCallback = function ($cacheKey, $accessToken) use ($logger) {\n  $logger->debug(sprintf('new access token received at cache key %s', $cacheKey));\n};\n$client->setTokenCallback($tokenCallback);\n```\n\n### Debugging Your HTTP Request using Charles ###\n\nIt is often very useful to debug your API calls by viewing the raw HTTP request. This library supports the use of [Charles Web Proxy](https://www.charlesproxy.com/documentation/getting-started/). Download and run Charles, and then capture all HTTP traffic through Charles with the following code:\n\n```php\n// FOR DEBUGGING ONLY\n$httpClient = new GuzzleHttp\\Client([\n    'proxy' => 'localhost:8888', // by default, Charles runs on localhost port 8888\n    'verify' => false, // otherwise HTTPS requests will fail.\n]);\n\n$client = new Google\\Client();\n$client->setHttpClient($httpClient);\n```\n\nNow all calls made by this library will appear in the Charles UI.\n\nOne additional step is required in Charles to view SSL requests. Go to **Charles > Proxy > SSL Proxying Settings** and add the domain you'd like captured. In the case of the Google APIs, this is usually `*.googleapis.com`.\n\n### Controlling HTTP Client Configuration Directly\n\nGoogle API Client uses [Guzzle](http://docs.guzzlephp.org/) as its default HTTP client. That means that you can control your HTTP requests in the same manner you would for any application using Guzzle.\n\nLet's say, for instance, we wished to apply a referrer to each request.\n\n```php\nuse GuzzleHttp\\Client;\n\n$httpClient = new Client([\n    'headers' => [\n        'referer' => 'mysite.com'\n    ]\n]);\n\n$client = new Google\\Client();\n$client->setHttpClient($httpClient);\n```\n\nOther Guzzle features such as [Handlers and Middleware](http://docs.guzzlephp.org/en/stable/handlers-and-middleware.html) offer even more control.\n\n### Partial Consent and Granted Scopes\n\nWhen using OAuth2 3LO (e.g. you're a client requesting credentials from a 3rd\nparty, such as in the [simple file upload example](examples/simple-file-upload.php)),\nyou may want to take advantage of Partial Consent.\n\nTo allow clients to only grant certain scopes in the OAuth2 screen, pass the\nquerystring parameter for `enable_serial_consent` when generating the\nauthorization URL:\n\n```php\n$authUrl = $client->createAuthUrl($scope, ['enable_serial_consent' => 'true']);\n```\n\nOnce the flow is completed, you can see which scopes were granted by calling\n`getGrantedScope` on the OAuth2 object:\n\n```php\n// Space-separated string of granted scopes if it exists, otherwise null.\necho $client->getOAuth2Service()->getGrantedScope();\n```\n\n### Service Specific Examples ###\n\nYouTube: https://github.com/youtube/api-samples/tree/master/php\n\n## How Do I Contribute? ##\n\nPlease see the [contributing](.github/CONTRIBUTING.md) page for more information. In particular, we love pull requests - but please make sure to sign the contributor license agreement.\n\n## Frequently Asked Questions ##\n\n### What do I do if something isn't working? ###\n\nFor support with the library the best place to ask is via the google-api-php-client tag on StackOverflow: https://stackoverflow.com/questions/tagged/google-api-php-client\n\nIf there is a specific bug with the library, please [file an issue](https://github.com/googleapis/google-api-php-client/issues) in the GitHub issues tracker, including an example of the failing code and any specific errors retrieved. Feature requests can also be filed, as long as they are core library requests, and not-API specific: for those, refer to the documentation for the individual APIs for the best place to file requests. Please try to provide a clear statement of the problem that the feature would address.\n\n### I want an example of X! ###\n\nIf X is a feature of the library, file away! If X is an example of using a specific service, the best place to go is to the teams for those specific APIs - our preference is to link to their examples rather than add them to the library, as they can then pin to specific versions of the library. If you have any examples for other APIs, let us know and we will happily add a link to the README above!\n\n### Why do some Google\\Service classes have weird names? ###\n\nThe _Google\\Service_ classes are generally automatically generated from the API discovery documents: https://developers.google.com/discovery/. Sometimes new features are added to APIs with unusual names, which can cause some unexpected or non-standard style naming in the PHP classes.\n\n### How do I deal with non-JSON response types? ###\n\nSome services return XML or similar by default, rather than JSON, which is what the library supports. You can request a JSON response by adding an 'alt' argument to optional params that is normally the last argument to a method call:\n\n```php\n$opt_params = array(\n  'alt' => \"json\"\n);\n```\n\n### How do I set a field to null? ###\n\nThe library strips out nulls from the objects sent to the Google APIs as it is the default value of all of the uninitialized properties. To work around this, set the field you want to null to `Google\\Model::NULL_VALUE`. This is a placeholder that will be replaced with a true null when sent over the wire.\n\n## Code Quality ##\n\nRun the PHPUnit tests with PHPUnit. You can configure an API key and token in BaseTest.php to run all calls, but this will require some setup on the Google Developer Console.\n\n    phpunit tests/\n\n### Coding Style\n\nTo check for coding style violations, run\n\n```\nvendor/bin/phpcs src --standard=style/ruleset.xml -np\n```\n\nTo automatically fix (fixable) coding style violations, run\n\n```\nvendor/bin/phpcbf src --standard=style/ruleset.xml\n```\n",
+        "releases": [
+            {
+                "name": "v2.18.2",
+                "date": "2024-12-16T22:52:48Z"
+            },
+            {
+                "name": "v2.18.1",
+                "date": "2024-11-24T13:21:14Z"
+            },
+            {
+                "name": "v2.18.0",
+                "date": "2024-10-16T21:59:06Z"
+            },
+            {
+                "name": "v2.17.0",
+                "date": "2024-07-10T14:58:04Z"
+            },
+            {
+                "name": "v2.16.0",
+                "date": "2024-04-24T00:59:53Z"
+            },
+            {
+                "name": "v2.15.4",
+                "date": "2024-04-24T00:56:20Z"
+            },
+            {
+                "name": "v2.15.3",
+                "date": "2024-01-04T19:15:33Z"
+            },
+            {
+                "name": "v2.15.2",
+                "date": "2024-01-03T17:28:09Z"
+            },
+            {
+                "name": "v2.15.1",
+                "date": "2023-09-13T21:46:50Z"
+            },
+            {
+                "name": "v2.15.0",
+                "date": "2023-05-18T13:51:51Z"
+            },
+            {
+                "name": "v2.14.0",
+                "date": "2023-05-11T21:55:06Z"
+            },
+            {
+                "name": "v2.13.2",
+                "date": "2023-04-06T15:00:10Z"
+            },
+            {
+                "name": "v2.13.1",
+                "date": "2023-03-13T20:38:39Z"
+            },
+            {
+                "name": "v2.13.0",
+                "date": "2022-12-19T22:17:23Z"
+            },
+            {
+                "name": "v2.12.6",
+                "date": "2022-06-06T20:01:03Z"
+            },
+            {
+                "name": "v2.12.5",
+                "date": "2022-05-31T14:44:23Z"
+            },
+            {
+                "name": "v2.12.4",
+                "date": "2022-04-20T16:45:09Z"
+            },
+            {
+                "name": "v2.12.3",
+                "date": "2022-04-18T16:01:19Z"
+            },
+            {
+                "name": "v2.12.2",
+                "date": "2022-04-05T22:35:55Z"
+            },
+            {
+                "name": "v2.12.1",
+                "date": "2021-12-02T03:34:34Z"
+            },
+            {
+                "name": "v2.12.0",
+                "date": "2021-12-01T17:56:20Z"
+            },
+            {
+                "name": "v2.11.0",
+                "date": "2021-09-20T21:17:07Z"
+            },
+            {
+                "name": "v2.10.1",
+                "date": "2021-06-25T14:27:00Z"
+            },
+            {
+                "name": "v2.10.0",
+                "date": "2021-06-23T18:19:38Z"
+            },
+            {
+                "name": "v2.9.2",
+                "date": "2021-06-09T22:16:12Z"
+            },
+            {
+                "name": "v2.9.1",
+                "date": "2021-01-19T18:07:47Z"
+            },
+            {
+                "name": "v2.9.0",
+                "date": "2021-01-19T15:19:39Z"
+            },
+            {
+                "name": "v2.8.3",
+                "date": "2020-11-17T17:34:23Z"
+            },
+            {
+                "name": "v2.8.2",
+                "date": "2020-11-11T17:09:02Z"
+            },
+            {
+                "name": "v2.8.1",
+                "date": "2020-10-27T23:20:38Z"
+            },
+            {
+                "name": "v2.8.0",
+                "date": "2020-10-23T20:29:38Z"
+            },
+            {
+                "name": "v2.7.2",
+                "date": "2020-09-18T20:03:48Z"
+            },
+            {
+                "name": "v2.7.1",
+                "date": "2020-09-08T16:38:49Z"
+            },
+            {
+                "name": "v2.7.0",
+                "date": "2020-07-23T21:38:09Z"
+            },
+            {
+                "name": "v2.6.0",
+                "date": "2020-07-10T17:07:29Z"
+            },
+            {
+                "name": "v2.5.0",
+                "date": "2020-05-26T22:29:55Z"
+            },
+            {
+                "name": "v2.4.1",
+                "date": "2020-03-26T15:30:52Z"
+            },
+            {
+                "name": "v2.4.0",
+                "date": "2019-09-11T17:38:55Z"
+            },
+            {
+                "name": "v2.3.0",
+                "date": "2019-09-09T16:20:15Z"
+            },
+            {
+                "name": "v2.2.4",
+                "date": "2019-08-19T18:10:10Z"
+            },
+            {
+                "name": "v2.2.3",
+                "date": "2019-05-21T18:09:46Z"
+            },
+            {
+                "name": "v2.2.2",
+                "date": "2018-06-20T15:52:36Z"
+            },
+            {
+                "name": "v2.2.1",
+                "date": "2017-11-03T01:22:06Z"
+            },
+            {
+                "name": "v2.2.0",
+                "date": "2017-07-10T15:58:09Z"
+            },
+            {
+                "name": "v2.1.3",
+                "date": "2017-03-30T18:09:27Z"
+            },
+            {
+                "name": "v2.1.1",
+                "date": "2017-01-09T22:37:21Z"
+            },
+            {
+                "name": "v2.1.0",
+                "date": "2016-11-02T15:08:08Z"
+            },
+            {
+                "name": "v2.0.3",
+                "date": "2016-09-14T19:38:34Z"
+            },
+            {
+                "name": "v2.0.2",
+                "date": "2016-07-21T18:54:02Z"
+            },
+            {
+                "name": "v2.0.1",
+                "date": "2016-06-28T18:58:12Z"
+            },
+            {
+                "name": "v2.0.0",
+                "date": "2016-06-08T01:30:43Z"
+            },
+            {
+                "name": "v2.0.0-RC8",
+                "date": "2016-05-16T20:13:11Z"
+            },
+            {
+                "name": "v2.0.0-RC7",
+                "date": "2016-03-29T12:42:34Z"
+            },
+            {
+                "name": "v2.0.0-RC6",
+                "date": "2016-03-04T18:53:30Z"
+            },
+            {
+                "name": "v2.0.0-RC5",
+                "date": "2016-02-10T23:41:05Z"
+            },
+            {
+                "name": "1.1.7",
+                "date": "2016-02-02T18:53:34Z"
+            },
+            {
+                "name": "v2.0.0-RC4",
+                "date": "2015-12-28T19:02:39Z"
+            },
+            {
+                "name": "v2.0.0-RC3",
+                "date": "2015-12-22T02:00:05Z"
+            },
+            {
+                "name": "v2.0.0-RC2",
+                "date": "2015-11-09T20:02:30Z"
+            },
+            {
+                "name": "v2.0.0-RC1",
+                "date": "2015-10-26T18:34:55Z"
+            },
+            {
+                "name": "1.1.6 Release",
+                "date": "2015-10-26T18:31:10Z"
+            },
+            {
+                "name": "1.1.5 Release",
+                "date": "2015-09-24T23:11:23Z"
+            },
+            {
+                "name": "1.1.4 Release",
+                "date": "2015-05-21T19:38:17Z"
+            },
+            {
+                "name": "1.1.3 Release",
+                "date": "2015-05-17T01:06:03Z"
+            },
+            {
+                "name": "1.1.2 release",
+                "date": "2014-11-25T14:36:28Z"
+            },
+            {
+                "name": "1.1.1 ",
+                "date": "2014-11-21T15:47:15Z"
+            },
+            {
+                "name": "1.0.6 beta release",
+                "date": "2014-09-30T19:54:56Z"
+            },
+            {
+                "name": "1.0.5-beta release",
+                "date": "2014-09-08T21:00:38Z"
+            },
+            {
+                "name": "",
+                "date": "2014-03-07T17:56:36Z"
+            },
+            {
+                "name": "Fixes for array types conversion and API errors without details.",
+                "date": "2014-01-30T21:40:24Z"
+            },
+            {
+                "name": "Fix for upload issue",
+                "date": "2014-01-24T21:41:21Z"
+            },
+            {
+                "name": "",
+                "date": "2014-01-22T16:41:42Z"
+            }
+        ]
+    }
+}

@@ -1,0 +1,215 @@
+{
+    "https://api.github.com/repos/iovisor/bpftrace": {
+        "forks": 1366,
+        "watchers": 8859,
+        "stars": 8859,
+        "languages": {
+            "C++": 1765452,
+            "C": 87855,
+            "CMake": 58788,
+            "Python": 40818,
+            "Yacc": 29875,
+            "Shell": 15754,
+            "Lex": 13914,
+            "Nix": 8666,
+            "Rust": 69,
+            "Go": 29
+        },
+        "commits": [
+            "2025-01-21T13:38:51Z",
+            "2025-01-19T05:54:05Z",
+            "2025-01-18T17:36:27Z",
+            "2025-01-18T17:33:09Z",
+            "2025-01-03T02:35:13Z",
+            "2024-11-22T20:12:48Z",
+            "2025-01-17T19:36:09Z",
+            "2024-12-13T16:28:29Z",
+            "2024-12-13T16:22:23Z",
+            "2024-12-13T09:23:02Z",
+            "2024-11-25T16:52:36Z",
+            "2025-01-06T23:48:38Z",
+            "2025-01-16T08:56:58Z",
+            "2024-06-18T18:35:31Z",
+            "2025-01-16T02:15:25Z",
+            "2025-01-13T06:44:41Z",
+            "2025-01-16T03:01:33Z",
+            "2025-01-15T22:02:41Z",
+            "2025-01-15T23:56:34Z",
+            "2024-12-03T12:42:21Z",
+            "2024-12-03T11:37:50Z",
+            "2024-12-03T11:30:26Z",
+            "2024-12-03T12:06:49Z",
+            "2024-12-03T11:07:35Z",
+            "2024-11-20T22:05:47Z",
+            "2025-01-15T23:44:53Z",
+            "2024-08-29T17:31:07Z",
+            "2024-08-29T15:37:01Z",
+            "2025-01-13T21:49:39Z",
+            "2025-01-13T04:34:29Z"
+        ],
+        "creation_date": "2018-08-31T04:34:44Z",
+        "contributors": 30,
+        "topics": [
+            "bcc",
+            "bpf",
+            "ebpf",
+            "kprobes",
+            "tracepoints",
+            "tracing",
+            "uprobes",
+            "usdt"
+        ],
+        "subscribers": 172,
+        "readme": "# bpftrace\n\n[![Build Status](https://github.com/bpftrace/bpftrace/workflows/CI/badge.svg?branch=master)](https://github.com/bpftrace/bpftrace/actions?query=workflow%3ACI+branch%3Amaster)\n[![IRC#bpftrace](https://img.shields.io/badge/IRC-bpftrace-blue.svg)](https://webchat.oftc.net/?channels=bpftrace)\n[![CodeQL](https://github.com/bpftrace/bpftrace/actions/workflows/codeql.yml/badge.svg)](https://github.com/bpftrace/bpftrace/actions/workflows/codeql.yml)\n\nbpftrace is a high-level tracing language for Linux. bpftrace uses LLVM as a backend to compile scripts to [eBPF](https://ebpf.io/what-is-ebpf/)-bytecode and makes use of [libbpf](https://github.com/libbpf/libbpf) and [bcc](https://github.com/iovisor/bcc) for interacting with the Linux BPF subsystem, as well as existing Linux tracing capabilities: kernel dynamic tracing (kprobes), user-level dynamic tracing (uprobes), tracepoints, etc. The bpftrace language is inspired by awk, C, and predecessor tracers such as DTrace and SystemTap. bpftrace was created by [Alastair Robertson](https://github.com/ajor).\n\n- [How to Install and Build](INSTALL.md)\n- [Manual / Reference Guide](man/adoc/bpftrace.adoc)\n- [Tutorial](docs/tutorial_one_liners.md)\n- [Example One-Liners](#example-one-liners)\n- [Videos](#videos)\n- [Tools](tools/README.md)\n- [Contribute](#contribute)\n- [Development](#development)\n- [Support](#support)\n- [Migration guide](docs/migration_guide.md)\n- [Probe types](#probe-types)\n- [Plugins](#plugins)\n- [License](#license)\n\n## Example One-Liners\n\nThe following one-liners demonstrate different capabilities:\n\n```\n# Files opened by thread name\nbpftrace -e 'tracepoint:syscalls:sys_enter_open { printf(\"%s %s\\n\", comm, str(args->filename)); }'\n\n# Syscall count by thread name\nbpftrace -e 'tracepoint:raw_syscalls:sys_enter { @[comm] = count(); }'\n\n# Read bytes by thread name:\nbpftrace -e 'tracepoint:syscalls:sys_exit_read /args->ret/ { @[comm] = sum(args->ret); }'\n\n# Read size distribution by thread name:\nbpftrace -e 'tracepoint:syscalls:sys_exit_read { @[comm] = hist(args->ret); }'\n\n# Show per-second syscall rates:\nbpftrace -e 'tracepoint:raw_syscalls:sys_enter { @ = count(); } interval:s:1 { print(@); clear(@); }'\n\n# Trace disk size by PID and thread name\nbpftrace -e 'tracepoint:block:block_rq_issue { printf(\"%d %s %d\\n\", pid, comm, args->bytes); }'\n\n# Count page faults by thread name\nbpftrace -e 'software:faults:1 { @[comm] = count(); }'\n\n# Count LLC cache misses by thread name and PID (uses PMCs):\nbpftrace -e 'hardware:cache-misses:1000000 { @[comm, pid] = count(); }'\n\n# Profile user-level stacks at 99 Hertz for PID 189:\nbpftrace -e 'profile:hz:99 /pid == 189/ { @[ustack] = count(); }'\n\n# Files opened in the root cgroup-v2\nbpftrace -e 'tracepoint:syscalls:sys_enter_openat /cgroup == cgroupid(\"/sys/fs/cgroup/unified/mycg\")/ { printf(\"%s\\n\", str(args->filename)); }'\n```\n\nMore powerful scripts can easily be constructed. See [Tools](tools/README.md) for examples.\n\n## Videos\n\nNote: some of the content in these videos may be out of date, the current [reference guide](man/adoc/bpftrace.adoc) is the source of truth.\n\n- [Making bpftrace more powerful - 2023](https://www.youtube.com/watch?v=19RZ7b6AZJ0)\n- [Bpftrace Recipes: 5 Real Problems Solved - 2023](https://www.youtube.com/watch?v=wMtArNjRYXU)\n- [Linux tracing made simpler with bpftrace - 2022](https://www.youtube.com/watch?v=gSxntAO2Iys)\n- [Ahead-of-time compiled bpftrace programs - 2021](https://www.youtube.com/watch?v=C2n2i__YCcI)\n- [Getting Started with BPF observability - 2021](https://www.youtube.com/watch?v=bGAVrtb_tFs)\n- [bpftrace internals - 2020](https://www.youtube.com/watch?v=nDY4iC_ekQY&t=1477s)\n- [Using bpftrace with Performance Co-Pilot & Grafana - 2020](https://www.youtube.com/watch?v=ZiGTbItyJyg)\n- [An introduction to bpftrace tracing language - 2020](https://www.youtube.com/watch?v=93aHXYqZmU0)\n\n## Contribute\n\nContributions are welcome! Please see the [development section](#development) below for more information. For new bpftrace tools, please add them to the new [user-tools repository](https://github.com/bpftrace/user-tools/blob/master/CONTRIBUTING.md). The tools that exist in this repository are a small collection curated by the bpftrace maintainers.\n\n* Bug reports and feature requests: [Issue Tracker](https://github.com/bpftrace/bpftrace/issues)\n\n* Development IRC: #bpftrace at irc.oftc.net\n\n* [Good first issues](https://github.com/bpftrace/bpftrace/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)\n\n## Development\n\n* [Coding Guidelines](docs/coding_guidelines.md)\n* [Development Guide](docs/developers.md)\n* [Development Roadmap](https://docs.google.com/document/d/17729Rlyo1xzlJObzHpFLDzeCVgvwRh0ktAmMEJLK-EU/edit)\n* [Fuzzing](docs/fuzzing.md)\n* [Nix](docs/nix.md)\n* [Release Process](docs/release_process.md)\n* [Tests](tests/README.md)\n\n## Support\n\nFor additional help / discussion, please use our [discussions](https://github.com/bpftrace/bpftrace/discussions) page.\n\nWe are also holding regular [office hours](https://docs.google.com/document/d/1nt010RfL4s4gydhCPSJ-Z5mnFMFuD4NrcpVmUcyvu2E/edit?usp=sharing) open to the public.\n\n## Probe types\n<center><a href=\"images/bpftrace_probes_2018.png\"><img src=\"images/bpftrace_probes_2018.png\" border=0 width=700></a></center>\n\nSee the [Manual](man/adoc/bpftrace.adoc) for more details.\n\n## Plugins\n\nbpftrace has several plugins/definitions, integrating the syntax into your editor.\n<!--- Feel free to add your own plugins below, in alphabetical order -->\n\n- [Emacs](https://gitlab.com/jgkamat/bpftrace-mode)\n- [Vim](https://github.com/mmarchini/bpftrace.vim)\n- [VS Code](https://github.com/bolinfest/bpftrace-vscode)\n- [Bash Completion](https://github.com/scop/bash-completion)\n\n## License\n\nCopyright 2019 Alastair Robertson\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n",
+        "releases": [
+            {
+                "name": "v0.22.1",
+                "date": "2025-01-16T23:54:11Z"
+            },
+            {
+                "name": "v0.22.0",
+                "date": "2025-01-08T06:45:05Z"
+            },
+            {
+                "name": "v0.21.3",
+                "date": "2024-12-16T23:29:20Z"
+            },
+            {
+                "name": "v0.21.2",
+                "date": "2024-07-19T11:07:26Z"
+            },
+            {
+                "name": "v0.21.1",
+                "date": "2024-06-24T13:43:15Z"
+            },
+            {
+                "name": "v0.21.0",
+                "date": "2024-06-21T09:54:33Z"
+            },
+            {
+                "name": "v0.20.4",
+                "date": "2024-05-21T07:15:00Z"
+            },
+            {
+                "name": "v0.20.3",
+                "date": "2024-03-26T01:15:11Z"
+            },
+            {
+                "name": "v0.20.2",
+                "date": "2024-03-07T22:31:14Z"
+            },
+            {
+                "name": "v0.20.1",
+                "date": "2024-01-29T22:43:18Z"
+            },
+            {
+                "name": "v0.20.0",
+                "date": "2024-01-23T11:20:00Z"
+            },
+            {
+                "name": "v0.19.1",
+                "date": "2023-10-04T08:23:39Z"
+            },
+            {
+                "name": "v0.19.0",
+                "date": "2023-09-19T10:15:09Z"
+            },
+            {
+                "name": "v0.18.1",
+                "date": "2023-08-31T17:17:19Z"
+            },
+            {
+                "name": "v0.18.0",
+                "date": "2023-05-15T10:56:57Z"
+            },
+            {
+                "name": "v0.17.1",
+                "date": "2023-04-20T20:45:31Z"
+            },
+            {
+                "name": "v0.17.0",
+                "date": "2023-01-30T12:05:07Z"
+            },
+            {
+                "name": "v0.16.0",
+                "date": "2022-08-31T06:11:03Z"
+            },
+            {
+                "name": "v0.15.0",
+                "date": "2022-05-24T10:53:17Z"
+            },
+            {
+                "name": "v0.14.1",
+                "date": "2021-12-29T17:06:35Z"
+            },
+            {
+                "name": "v0.13.1",
+                "date": "2021-12-29T13:58:26Z"
+            },
+            {
+                "name": "v0.14.0",
+                "date": "2021-10-22T19:01:33Z"
+            },
+            {
+                "name": "v0.13.0",
+                "date": "2021-07-01T07:37:21Z"
+            },
+            {
+                "name": "v0.12.1",
+                "date": "2021-04-16T17:34:09Z"
+            },
+            {
+                "name": "v0.12.0",
+                "date": "2021-04-02T10:15:48Z"
+            },
+            {
+                "name": "v0.11.4",
+                "date": "2020-11-14T22:06:34Z"
+            },
+            {
+                "name": "v0.11.3",
+                "date": "2020-11-13T11:25:38Z"
+            },
+            {
+                "name": "v0.11.2",
+                "date": "2020-10-30T14:16:48Z"
+            },
+            {
+                "name": "v0.11.1",
+                "date": "2020-09-22T18:58:27Z"
+            },
+            {
+                "name": "v0.11.0",
+                "date": "2020-07-15T17:41:44Z"
+            },
+            {
+                "name": "v0.10.0",
+                "date": "2020-04-13T21:37:47Z"
+            },
+            {
+                "name": "v0.9.4",
+                "date": "2020-02-04T18:17:23Z"
+            },
+            {
+                "name": "v0.9.3",
+                "date": "2019-11-21T15:41:25Z"
+            },
+            {
+                "name": "v0.9.2",
+                "date": "2019-07-31T21:58:14Z"
+            },
+            {
+                "name": "v0.9.1",
+                "date": "2019-06-25T17:54:09Z"
+            },
+            {
+                "name": "v0.9",
+                "date": "2019-03-16T13:35:13Z"
+            },
+            {
+                "name": "v0.8",
+                "date": "2019-01-06T23:28:59Z"
+            }
+        ]
+    }
+}

@@ -1,0 +1,65 @@
+{
+    "https://api.github.com/repos/tylertreat/comcast": {
+        "forks": 385,
+        "watchers": 10331,
+        "stars": 10331,
+        "languages": {
+            "Go": 37228,
+            "Makefile": 815
+        },
+        "commits": [
+            "2022-04-22T20:44:57Z",
+            "2022-04-22T20:09:52Z",
+            "2022-03-14T15:29:22Z",
+            "2022-03-13T13:35:23Z",
+            "2022-03-13T08:28:29Z",
+            "2021-12-27T17:45:12Z",
+            "2021-12-27T16:03:23Z",
+            "2021-06-02T17:45:03Z",
+            "2021-06-01T22:12:42Z",
+            "2020-03-23T15:56:37Z",
+            "2020-03-23T02:38:20Z",
+            "2019-07-02T20:57:43Z",
+            "2019-06-30T11:57:16Z",
+            "2019-06-30T11:45:54Z",
+            "2019-06-30T11:36:11Z",
+            "2019-06-30T11:24:16Z",
+            "2018-10-20T17:58:51Z",
+            "2018-10-20T09:53:28Z",
+            "2017-12-11T16:43:25Z",
+            "2017-09-16T19:59:51Z",
+            "2017-09-16T13:25:28Z",
+            "2017-09-16T13:02:56Z",
+            "2017-09-16T12:59:28Z",
+            "2017-08-30T20:18:48Z",
+            "2017-08-30T20:05:25Z",
+            "2017-03-31T00:39:37Z",
+            "2017-03-31T00:36:31Z",
+            "2016-10-13T17:54:16Z",
+            "2016-10-13T03:30:44Z",
+            "2016-08-15T02:58:45Z"
+        ],
+        "creation_date": "2014-11-12T03:15:58Z",
+        "contributors": 22,
+        "topics": [
+            "bandwidth",
+            "chaos",
+            "chaos-engineering",
+            "go",
+            "latency",
+            "packet-loss"
+        ],
+        "subscribers": 160,
+        "readme": "# Comcast\n\nTesting distributed systems under hard failures like network partitions and instance termination is critical, but it's also important we test them under [less catastrophic conditions](http://www.bravenewgeek.com/sometimes-kill-9-isnt-enough/) because this is what they most often experience. Comcast is a tool designed to simulate common network problems like latency, bandwidth restrictions, and dropped/reordered/corrupted packets.\n\nIt works by wrapping up some system tools in a portable(ish) way. On BSD-derived systems such as OSX, we use tools like `ipfw` and `pfctl` to inject failure. On Linux, we use `iptables` and `tc`. Comcast is merely a thin wrapper around these controls. Windows support may be possible with `wipfw` or even the native network stack, but this has not yet been implemented in Comcast and may be at a later date.\n\n## Installation\n\n```\n$ go install github.com/tylertreat/comcast@latest\n```\n\n## Usage\n\nOn Linux, Comcast supports several options: device, latency, target/default bandwidth, packet loss, protocol, and port number.\n\n```\n$ comcast --device=eth0 --latency=250 --target-bw=1000 --default-bw=1000000 --packet-loss=10% --target-addr=8.8.8.8,10.0.0.0/24 --target-proto=tcp,udp,icmp --target-port=80,22,1000:2000\n```\n\nOn OSX, Comcast will check for `pfctl` support (as of Yosemite), which supports the same options as above. If `pfctl` is not available, it will use `ipfw` instead, which supports device, latency, target bandwidth, and packet-loss options.\n\nOn BSD (with `ipfw`), Comcast currently supports only: device, latency, target bandwidth, and packet loss. \n\n```\n$ comcast --device=eth0 --latency=250 --target-bw=1000 --packet-loss=10%\n```\n\nThis will add 250ms of latency, limit bandwidth to 1Mbps, and drop 10% of packets to the targetted (on Linux) destination addresses using the specified protocols on the specified port numbers (slow lane). The default bandwidth specified will apply to all egress traffic (fast lane). To turn this off, run the following:\n\n```\n$ comcast --stop\n```\n\nBy default, comcast will determine the system commands to execute, log them to stdout, and execute them. The `--dry-run` flag will skip execution.\n\n## I don't trust you, this code sucks, I hate Go, etc.\n\nIf you don't like running code that executes shell commands for you (despite it being open source, so you can read it and change the code) or want finer-grained control, you can run them directly instead. Read the man pages on these things for more details.\n\n### Linux\n\nOn Linux, you can use `iptables` to drop incoming and outgoing packets.\n\n```\n$ iptables -A INPUT -m statistic --mode random --probability 0.1 -j DROP\n$ iptables -A OUTPUT -m statistic --mode random --probability 0.1 -j DROP\n```\n\nAlternatively, you can use `tc` which supports some additional options.\n\n```\n$ tc qdisc add dev eth0 root netem delay 50ms 20ms distribution normal\n$ tc qdisc change dev eth0 root netem reorder 0.02 duplicate 0.05 corrupt 0.01\n```\n\nTo reset:\n\n```\n$ tc qdisc del dev eth0 root netem\n```\n\n### BSD/OSX\n\nTo shape traffic in BSD-derived systems, create an `ipfw` pipe and configure it. You can control incoming and outgoing traffic separately for any specific host or network.\n\n```\n$ ipfw add 1 pipe 1 ip from me to any\n$ ipfw add 2 pipe 1 ip from any to me\n$ ipfw pipe 1 config delay 500ms bw 1Mbit/s plr 0.1\n```\n\nTo reset:\n\n```\n$ ipfw delete 1\n```\n\n*Note: `ipfw` was removed in OSX Yosemite in favor of `pfctl`.*\n\n## Network Condition Profiles\n\nHere's a list of network conditions with values that you can plug into Comcast. Please add any more that you may come across.\n\nName | Latency | Bandwidth | Packet-loss\n:-- | --: | --: | --:\nGPRS (good) | 500 | 50 | 2\nEDGE (good) | 300 | 250 | 1.5\n3G/HSDPA (good) | 250 | 750 | 1.5\nDIAL-UP (good) | 185 | 40 | 2\nDSL (poor) | 70 | 2000 | 2\nDSL (good) | 40 | 8000 | 0.5\nWIFI (good) | 40 | 30000 | 0.2\nStarlink | 20 | - | 2.5\n",
+        "releases": [
+            {
+                "name": "Comcast 1.0.1",
+                "date": "2015-11-27T02:31:54Z"
+            },
+            {
+                "name": "Comcast 1.0.0",
+                "date": "2015-10-02T00:31:52Z"
+            }
+        ]
+    }
+}

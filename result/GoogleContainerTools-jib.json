@@ -1,0 +1,722 @@
+{
+    "https://api.github.com/repos/GoogleContainerTools/jib": {
+        "forks": 1436,
+        "watchers": 13762,
+        "stars": 13762,
+        "languages": {
+            "Java": 3142875,
+            "Shell": 8631,
+            "HTML": 1932,
+            "Batchfile": 701,
+            "JavaScript": 72
+        },
+        "commits": [
+            "2024-11-01T21:54:28Z",
+            "2024-10-25T22:30:31Z",
+            "2024-10-25T14:02:33Z",
+            "2024-10-25T14:02:23Z",
+            "2024-10-25T14:02:12Z",
+            "2024-10-25T13:58:13Z",
+            "2024-09-09T16:17:04Z",
+            "2024-08-23T19:27:15Z",
+            "2024-08-14T17:05:22Z",
+            "2024-07-19T18:53:26Z",
+            "2024-06-25T15:36:19Z",
+            "2024-05-31T16:00:21Z",
+            "2024-05-31T16:00:12Z",
+            "2024-05-31T15:59:52Z",
+            "2024-05-31T15:49:28Z",
+            "2024-05-30T16:17:01Z",
+            "2024-05-07T20:32:24Z",
+            "2024-05-07T20:21:47Z",
+            "2024-05-07T16:19:14Z",
+            "2024-05-07T16:18:12Z",
+            "2024-04-06T01:30:11Z",
+            "2024-04-06T01:29:41Z",
+            "2024-04-05T17:26:39Z",
+            "2024-04-02T16:25:20Z",
+            "2024-03-29T13:58:15Z",
+            "2024-03-29T13:57:41Z",
+            "2024-03-29T13:57:24Z",
+            "2024-03-26T16:58:33Z",
+            "2024-03-20T17:41:01Z",
+            "2024-03-14T21:39:26Z"
+        ],
+        "creation_date": "2018-01-22T18:30:43Z",
+        "contributors": 30,
+        "topics": [
+            "containers",
+            "docker",
+            "docker-registry",
+            "gradle",
+            "gradle-plugin",
+            "java",
+            "jib",
+            "kubernetes",
+            "maven",
+            "maven-plugin",
+            "microservices",
+            "oci"
+        ],
+        "subscribers": 325,
+        "readme": "![stable](https://img.shields.io/badge/stability-stable-brightgreen.svg)\n[![Maven Central](https://img.shields.io/maven-central/v/com.google.cloud.tools/jib-maven-plugin)](https://maven-badges.herokuapp.com/maven-central/com.google.cloud.tools/jib-maven-plugin)\n[![Gradle Plugin Portal](https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/com/google/cloud/tools/jib/com.google.cloud.tools.jib.gradle.plugin/maven-metadata.xml.svg?colorB=007ec6&label=gradle)](https://plugins.gradle.org/plugin/com.google.cloud.tools.jib)\n![Build Status](https://storage.googleapis.com/cloud-tools-for-java-kokoro-build-badges/jib-ubuntu-master-orb.svg)\n![Build Status](https://storage.googleapis.com/cloud-tools-for-java-kokoro-build-badges/jib-windows-master-orb.svg)\n![Build Status](https://storage.googleapis.com/cloud-tools-for-java-kokoro-build-badges/jib-macos-master-orb.svg)\n[![SLSA 3](https://slsa.dev/images/gh-badge-level3.svg)](https://slsa.dev)\n[![Gitter version](https://img.shields.io/gitter/room/gitterHQ/gitter.svg)](https://gitter.im/google/jib)\n\n# Jib\n\n<image src=\"https://github.com/GoogleContainerTools/jib/raw/master/logo/jib-build-docker-java-container-image.png\" alt=\"Jib - Containerize your Java applications.\" width=\"650px\" />\n\n| \u2611\ufe0f  Jib User Survey |\n| :----- |\n| What do you like best about Jib? What needs to be improved? Please tell us by taking a [one-minute survey](https://forms.gle/YRFeamGj51xmgnx28). Your responses will help us understand Jib usage and allow us to serve our customers (you!) better. |\n\n## What is Jib?\n\nJib builds optimized Docker and [OCI](https://github.com/opencontainers/image-spec) images for your Java applications without a Docker daemon - and without deep mastery of Docker best-practices. It is available as plugins for [Maven](jib-maven-plugin) and [Gradle](jib-gradle-plugin) and as a Java library.\n\n- [Maven](https://maven.apache.org/): See documentation for [jib-maven-plugin](jib-maven-plugin).\n- [Gradle](https://gradle.org/): See documentation for [jib-gradle-plugin](jib-gradle-plugin).\n- [Jib Core](jib-core): A general-purpose container-building library for Java.\n- [Jib CLI](jib-cli): A command-line interface for building images that uses Jib Core.\n\nJib works well with Google Cloud Build. For details, see [how to use Jib on Google Cloud Build](docs/google-cloud-build.md).\n\nFor more information, check out the [official blog post](https://cloudplatform.googleblog.com/2018/07/introducing-jib-build-java-docker-images-better.html) or watch [this talk](https://www.youtube.com/watch?v=H6gR_Cv4yWI) ([slides](https://speakerdeck.com/coollog/build-containers-faster-with-jib-a-google-image-build-tool-for-java-applications)).\n\n## Goals\n\n* **Fast** - Deploy your changes fast. Jib separates your application into multiple layers, splitting dependencies from classes. Now you don\u2019t have to wait for Docker to rebuild your entire Java application - just deploy the layers that changed.\n\n* **Reproducible** - Rebuilding your container image with the same contents always generates the same image. Never trigger an unnecessary update again.\n\n* **Daemonless** - Reduce your CLI dependencies. Build your Docker image from within Maven or Gradle and push to any registry of your choice. *No more writing Dockerfiles and calling docker build/push.*\n\n## Quickstart\n\n* **Maven** - See the jib-maven-plugin [Quickstart](jib-maven-plugin#quickstart).\n\n* **Gradle** - See the jib-gradle-plugin [Quickstart](jib-gradle-plugin#quickstart).\n\n* **Jib Core** - See the Jib Core [Quickstart](jib-core#adding-jib-core-to-your-build).\n\n* **Jib CLI** - See the Jib CLI [doc](jib-cli).\n\n## Examples\n\nThe [examples](examples) directory includes the following examples (and more).\n   * [helloworld](examples/helloworld)\n   * [Spring Boot](examples/spring-boot)\n   * [Micronaut](examples/micronaut)\n   * [Multi-module project](examples/multi-module)\n   * [Spark Java using Java Agent](examples/java-agent)\n\n## How Jib Works\n\nWhereas traditionally a Java application is built as a single image layer with the application JAR, Jib's build strategy separates the Java application into multiple layers for more granular incremental builds. When you change your code, only your changes are rebuilt, not your entire application. These layers, by default, are layered on top of an [OpenJDK base image](docs/default_base_image.md), but you can also configure a custom base image. For more information, check out the [official blog post](https://cloudplatform.googleblog.com/2018/07/introducing-jib-build-java-docker-images-better.html) or watch [this talk](https://www.youtube.com/watch?v=H6gR_Cv4yWI) ([slides](https://speakerdeck.com/coollog/build-containers-faster-with-jib-a-google-image-build-tool-for-java-applications)).\n\nSee also [rules_docker](https://github.com/bazelbuild/rules_docker) for a similar existing container image build tool for the [Bazel build system](https://github.com/bazelbuild/bazel).\n\n## Need Help?\n\nA lot of questions are already answered!\n\n* [Frequently Asked Questions (FAQ)](docs/faq.md)\n* [Stack Overflow](https://stackoverflow.com/questions/tagged/jib)\n* [GitHub issues](https://stackoverflow.com/questions/tagged/jib)\n\n_For usage questions, please ask them on Stack Overflow._\n\n## Privacy\n\nSee the [Privacy page](docs/privacy.md).\n\n## Get involved with the community\n\nWe welcome contributions! Here's how you can contribute:\n\n* [Browse issues](https://github.com/GoogleContainerTools/jib/issues) or [file an issue](https://github.com/GoogleContainerTools/jib/issues/new)\n* Chat with us on [gitter](https://gitter.im/google/jib)\n* Join the [jib-users mailing list](https://groups.google.com/forum/#!forum/jib-users)\n* Contribute:\n  * *Read the [contributing guide](https://github.com/GoogleContainerTools/jib/blob/master/CONTRIBUTING.md) before starting work on an issue*\n  * Try to fix [good first issues](https://github.com/GoogleContainerTools/jib/labels/good%20first%20issue)\n  * Help out on [issues that need help](https://github.com/GoogleContainerTools/jib/labels/kind%2Fquestion)\n  * Join in on [discussion issues](https://github.com/GoogleContainerTools/jib/labels/discuss)\n<!--  * Read the [style guide] -->\n*Make sure to follow the [Code of Conduct](https://github.com/GoogleContainerTools/jib/blob/master/CODE_OF_CONDUCT.md) when contributing so we can foster an open and welcoming community.*\n\n## Disclaimer\n\nThis is not an officially supported Google product.\n",
+        "releases": [
+            {
+                "name": "jib-maven-plugin v3.4.4",
+                "date": "2024-10-25T14:01:06Z"
+            },
+            {
+                "name": "jib-gradle-plugin v3.4.4",
+                "date": "2024-10-25T14:01:27Z"
+            },
+            {
+                "name": "jib-core v0.27.2",
+                "date": "2024-10-25T14:01:45Z"
+            },
+            {
+                "name": "jib-maven-plugin v3.4.3",
+                "date": "2024-05-31T15:58:41Z"
+            },
+            {
+                "name": "jib-gradle-plugin v3.4.3",
+                "date": "2024-05-31T15:59:09Z"
+            },
+            {
+                "name": "jib-core v0.27.1",
+                "date": "2024-05-31T15:59:27Z"
+            },
+            {
+                "name": "jib-cli v0.13.0",
+                "date": "2024-05-07T20:02:09Z"
+            },
+            {
+                "name": "jib-maven-plugin v3.4.2",
+                "date": "2024-04-06T01:27:58Z"
+            },
+            {
+                "name": "jib-gradle-plugin v3.4.2",
+                "date": "2024-04-06T01:28:36Z"
+            },
+            {
+                "name": "jib-core v0.27.0",
+                "date": "2024-04-06T01:29:22Z"
+            },
+            {
+                "name": "jib-maven-plugin v3.4.1",
+                "date": "2024-02-28T21:47:37Z"
+            },
+            {
+                "name": "jib-gradle-plugin v3.4.1",
+                "date": "2024-02-28T21:47:30Z"
+            },
+            {
+                "name": "jib-core v0.26.0",
+                "date": "2024-02-28T21:47:14Z"
+            },
+            {
+                "name": "jib-gradle-plugin v3.4.0",
+                "date": "2023-09-21T19:23:53Z"
+            },
+            {
+                "name": "jib-core v0.25.0",
+                "date": "2023-09-22T13:43:05Z"
+            },
+            {
+                "name": "jib-maven-plugin v3.4.0",
+                "date": "2023-09-21T21:26:32Z"
+            },
+            {
+                "name": "jib-maven-plugin v3.3.2",
+                "date": "2023-05-12T19:52:51Z"
+            },
+            {
+                "name": "jib-gradle-plugin v3.3.2",
+                "date": "2023-05-12T19:51:29Z"
+            },
+            {
+                "name": "jib-core v0.24.0",
+                "date": "2023-05-12T19:42:48Z"
+            },
+            {
+                "name": "jib-cli v0.12.0",
+                "date": "2022-10-28T19:53:58Z"
+            },
+            {
+                "name": "jib-maven-plugin v3.3.1",
+                "date": "2022-10-27T22:00:37Z"
+            },
+            {
+                "name": "jib-gradle-plugin v3.3.1",
+                "date": "2022-10-27T22:06:31Z"
+            },
+            {
+                "name": "jib-core v0.23.0",
+                "date": "2022-10-27T21:55:14Z"
+            },
+            {
+                "name": "jib-cli v0.11.0",
+                "date": "2022-09-01T18:53:54Z"
+            },
+            {
+                "name": "jib-maven-plugin v3.3.0",
+                "date": "2022-08-31T16:49:00Z"
+            },
+            {
+                "name": "jib-gradle-plugin v3.3.0",
+                "date": "2022-08-31T16:48:46Z"
+            },
+            {
+                "name": "jib-core v0.22.0",
+                "date": "2022-08-31T16:35:28Z"
+            },
+            {
+                "name": "jib-cli v0.10.0",
+                "date": "2022-04-06T16:00:11Z"
+            },
+            {
+                "name": "jib-maven-plugin v3.2.1",
+                "date": "2022-03-30T16:41:15Z"
+            },
+            {
+                "name": "jib-gradle-plugin v3.2.1",
+                "date": "2022-03-31T15:38:01Z"
+            },
+            {
+                "name": "jib-core v0.21.0",
+                "date": "2022-03-29T21:51:48Z"
+            },
+            {
+                "name": "jib-maven-plugin v3.2.0",
+                "date": "2022-01-19T20:10:14Z"
+            },
+            {
+                "name": "jib-gradle-plugin v3.2.0",
+                "date": "2022-01-19T20:10:19Z"
+            },
+            {
+                "name": "jib-cli v0.9.0",
+                "date": "2022-01-19T20:17:16Z"
+            },
+            {
+                "name": "jib-cli v0.8.0",
+                "date": "2021-11-12T22:12:47Z"
+            },
+            {
+                "name": "jib-core v0.20.0",
+                "date": "2021-08-19T19:06:04Z"
+            },
+            {
+                "name": "jib-maven-plugin v3.1.4",
+                "date": "2021-08-16T22:35:37Z"
+            },
+            {
+                "name": "jib-gradle-plugin v3.1.4",
+                "date": "2021-08-16T22:36:13Z"
+            },
+            {
+                "name": "jib-maven-plugin v3.1.3",
+                "date": "2021-08-11T19:24:52Z"
+            },
+            {
+                "name": "jib-gradle-plugin v3.1.3",
+                "date": "2021-08-11T19:24:45Z"
+            },
+            {
+                "name": "jib-maven-plugin v3.1.2",
+                "date": "2021-07-08T21:38:35Z"
+            },
+            {
+                "name": "jib-gradle-plugin v3.1.2",
+                "date": "2021-07-08T21:38:12Z"
+            },
+            {
+                "name": "jib-cli v0.7.0",
+                "date": "2021-06-24T14:46:15Z"
+            },
+            {
+                "name": "jib-core v0.19.0",
+                "date": "2021-06-14T16:13:31Z"
+            },
+            {
+                "name": "jib-maven-plugin v3.1.1",
+                "date": "2021-06-10T20:19:52Z"
+            },
+            {
+                "name": "jib-gradle-plugin v3.1.1",
+                "date": "2021-06-10T20:20:06Z"
+            },
+            {
+                "name": "jib-maven-plugin v3.1.0",
+                "date": "2021-06-09T19:02:45Z"
+            },
+            {
+                "name": "jib-gradle-plugin v3.1.0",
+                "date": "2021-06-09T19:02:28Z"
+            },
+            {
+                "name": "jib-cli v0.6.0",
+                "date": "2021-04-28T21:21:50Z"
+            },
+            {
+                "name": "jib-maven-plugin v3.0.0",
+                "date": "2021-04-09T20:45:54Z"
+            },
+            {
+                "name": "jib-gradle-plugin v3.0.0",
+                "date": "2021-04-09T20:45:02Z"
+            },
+            {
+                "name": "jib-cli v0.5.0",
+                "date": "2021-03-25T19:03:03Z"
+            },
+            {
+                "name": "jib-cli v0.4.0",
+                "date": "2021-03-16T19:48:03Z"
+            },
+            {
+                "name": "jib-cli v0.3.0",
+                "date": "2021-03-04T23:26:34Z"
+            },
+            {
+                "name": "jib-cli v0.2.0",
+                "date": "2021-03-03T19:26:08Z"
+            },
+            {
+                "name": "jib-maven-plugin v2.8.0",
+                "date": "2021-02-24T20:16:18Z"
+            },
+            {
+                "name": "jib-gradle-plugin v2.8.0",
+                "date": "2021-02-24T20:15:35Z"
+            },
+            {
+                "name": "jib-core v0.18.0",
+                "date": "2021-02-24T20:17:22Z"
+            },
+            {
+                "name": "jib-core v0.17.0",
+                "date": "2021-01-12T18:56:03Z"
+            },
+            {
+                "name": "jib-maven-plugin v2.7.1",
+                "date": "2021-01-07T19:35:31Z"
+            },
+            {
+                "name": "jib-gradle-plugin v2.7.1",
+                "date": "2021-01-07T19:36:09Z"
+            },
+            {
+                "name": "jib-cli v0.1.0",
+                "date": "2021-01-12T17:12:37Z"
+            },
+            {
+                "name": "jib-maven-plugin v2.7.0",
+                "date": "2020-12-07T17:01:17Z"
+            },
+            {
+                "name": "jib-gradle-plugin v2.7.0",
+                "date": "2020-12-07T17:02:58Z"
+            },
+            {
+                "name": "jib-maven-plugin v2.6.0",
+                "date": "2020-10-07T16:26:26Z"
+            },
+            {
+                "name": "jib-gradle-plugin v2.6.0",
+                "date": "2020-10-07T16:24:28Z"
+            },
+            {
+                "name": "jib-core v0.16.0",
+                "date": "2020-10-07T16:21:16Z"
+            },
+            {
+                "name": "jib-maven-plugin v2.5.2",
+                "date": "2020-08-11T18:29:12Z"
+            },
+            {
+                "name": "jib-maven-plugin v2.5.1",
+                "date": "2020-08-10T17:47:15Z"
+            },
+            {
+                "name": "jib-maven-plugin v2.5.0",
+                "date": "2020-08-07T19:57:09Z"
+            },
+            {
+                "name": "jib-gradle-plugin v2.5.0",
+                "date": "2020-08-07T19:59:55Z"
+            },
+            {
+                "name": "jib-core v0.15.0",
+                "date": "2020-06-12T18:16:12Z"
+            },
+            {
+                "name": "jib-maven-plugin v2.4.0",
+                "date": "2020-06-10T15:33:50Z"
+            },
+            {
+                "name": "jib-gradle-plugin v2.4.0",
+                "date": "2020-06-10T15:35:37Z"
+            },
+            {
+                "name": "jib-maven-plugin v2.3.0",
+                "date": "2020-05-21T22:38:52Z"
+            },
+            {
+                "name": "jib-gradle-plugin v2.3.0",
+                "date": "2020-05-21T22:40:28Z"
+            },
+            {
+                "name": "jib-core v0.14.0",
+                "date": "2020-05-21T22:44:16Z"
+            },
+            {
+                "name": "jib-maven-plugin v2.2.0",
+                "date": "2020-04-20T18:26:39Z"
+            },
+            {
+                "name": "jib-gradle-plugin v2.2.0",
+                "date": "2020-04-20T18:26:31Z"
+            },
+            {
+                "name": "jib-maven-plugin v2.1.0",
+                "date": "2020-02-25T21:59:17Z"
+            },
+            {
+                "name": "jib-gradle-plugin v2.1.0",
+                "date": "2020-02-25T20:20:59Z"
+            },
+            {
+                "name": "jib-core v0.13.1",
+                "date": "2020-02-25T21:59:34Z"
+            },
+            {
+                "name": "jib-maven-plugin v2.0.0",
+                "date": "2020-01-28T21:13:06Z"
+            },
+            {
+                "name": "jib-gradle-plugin v2.0.0",
+                "date": "2020-01-28T21:21:42Z"
+            },
+            {
+                "name": "jib-core v0.13.0",
+                "date": "2020-01-29T17:47:40Z"
+            },
+            {
+                "name": "jib-maven-plugin v1.8.0",
+                "date": "2019-11-15T18:25:22Z"
+            },
+            {
+                "name": "jib-gradle-plugin v1.8.0",
+                "date": "2019-11-15T18:25:16Z"
+            },
+            {
+                "name": "jib-maven-plugin v1.7.0",
+                "date": "2019-11-15T18:19:15Z"
+            },
+            {
+                "name": "jib-gradle-plugin v1.7.0",
+                "date": "2019-10-18T14:47:09Z"
+            },
+            {
+                "name": "jib-core v0.12.0",
+                "date": "2019-10-18T14:57:36Z"
+            },
+            {
+                "name": "jib-maven-plugin v1.6.1",
+                "date": "2019-09-16T16:15:14Z"
+            },
+            {
+                "name": "jib-gradle-plugin v1.6.1",
+                "date": "2019-09-16T16:13:03Z"
+            },
+            {
+                "name": "jib-maven-plugin v1.6.0",
+                "date": "2019-09-13T19:18:36Z"
+            },
+            {
+                "name": "jib-gradle-plugin v1.6.0",
+                "date": "2019-09-13T18:10:48Z"
+            },
+            {
+                "name": "jib-core v0.11.0",
+                "date": "2019-09-13T18:31:37Z"
+            },
+            {
+                "name": "jib-maven-plugin v1.5.1",
+                "date": "2019-09-03T15:56:18Z"
+            },
+            {
+                "name": "jib-gradle-plugin v1.5.1",
+                "date": "2019-09-03T15:58:57Z"
+            },
+            {
+                "name": "jib-maven-plugin v1.5.0",
+                "date": "2019-08-16T18:50:47Z"
+            },
+            {
+                "name": "jib-gradle-plugin v1.5.0",
+                "date": "2019-08-16T18:50:50Z"
+            },
+            {
+                "name": "jib-core v0.10.1",
+                "date": "2019-08-16T18:50:40Z"
+            },
+            {
+                "name": "jib-maven-plugin v1.4.0",
+                "date": "2019-07-16T14:47:20Z"
+            },
+            {
+                "name": "jib-gradle-plugin v1.4.0",
+                "date": "2019-07-16T14:44:40Z"
+            },
+            {
+                "name": "jib-maven-plugin v1.3.0",
+                "date": "2019-06-07T21:01:08Z"
+            },
+            {
+                "name": "jib-gradle-plugin v1.3.0",
+                "date": "2019-06-07T20:14:54Z"
+            },
+            {
+                "name": "jib-core v0.10.0",
+                "date": "2019-06-07T21:01:12Z"
+            },
+            {
+                "name": "jib-maven-plugin v1.2.0",
+                "date": "2019-05-07T19:15:43Z"
+            },
+            {
+                "name": "jib-gradle-plugin v1.2.0",
+                "date": "2019-05-07T19:15:36Z"
+            },
+            {
+                "name": "jib-core v0.9.2",
+                "date": "2019-05-07T19:15:29Z"
+            },
+            {
+                "name": "jib-core v0.9.1",
+                "date": "2019-04-24T14:07:18Z"
+            },
+            {
+                "name": "jib-maven-plugin v1.1.2",
+                "date": "2019-04-19T23:08:24Z"
+            },
+            {
+                "name": "jib-gradle-plugin v1.1.2",
+                "date": "2019-04-19T22:53:05Z"
+            },
+            {
+                "name": "jib-maven-plugin v1.1.1",
+                "date": "2019-04-16T19:26:14Z"
+            },
+            {
+                "name": "jib-gradle-plugin v1.1.1",
+                "date": "2019-04-16T19:27:30Z"
+            },
+            {
+                "name": "jib-maven-plugin v1.1.0",
+                "date": "2019-04-15T20:42:14Z"
+            },
+            {
+                "name": "jib-gradle-plugin v1.1.0",
+                "date": "2019-04-15T18:57:57Z"
+            },
+            {
+                "name": "jib-core v0.9.0",
+                "date": "2019-03-28T20:12:07Z"
+            },
+            {
+                "name": "jib-maven-plugin v1.0.2",
+                "date": "2019-03-05T19:56:44Z"
+            },
+            {
+                "name": "jib-gradle-plugin v1.0.2",
+                "date": "2019-03-05T19:29:19Z"
+            },
+            {
+                "name": "jib-maven-plugin v1.0.1",
+                "date": "2019-02-21T22:16:21Z"
+            },
+            {
+                "name": "jib-gradle-plugin v1.0.1",
+                "date": "2019-02-22T00:11:36Z"
+            },
+            {
+                "name": "jib-core v0.1.2",
+                "date": "2019-02-11T21:08:42Z"
+            },
+            {
+                "name": "jib-maven-plugin v1.0.0",
+                "date": "2019-01-18T15:08:24Z"
+            },
+            {
+                "name": "jib-gradle-plugin v1.0.0",
+                "date": "2019-01-18T15:05:56Z"
+            },
+            {
+                "name": "jib-core v0.1.1",
+                "date": "2019-01-17T22:13:55Z"
+            },
+            {
+                "name": "jib-maven-plugin v1.0.0-rc2",
+                "date": "2019-01-15T17:57:49Z"
+            },
+            {
+                "name": "jib-gradle-plugin v1.0.0-rc2",
+                "date": "2019-01-10T21:16:06Z"
+            },
+            {
+                "name": "jib-maven-plugin v1.0.0-rc1",
+                "date": "2018-12-19T20:07:06Z"
+            },
+            {
+                "name": "jib-gradle-plugin v1.0.0-rc1",
+                "date": "2018-12-19T18:52:38Z"
+            },
+            {
+                "name": "jib-maven-plugin v0.10.1",
+                "date": "2018-12-03T23:18:07Z"
+            },
+            {
+                "name": "jib-gradle-plugin v0.10.1",
+                "date": "2018-12-03T22:26:09Z"
+            },
+            {
+                "name": "jib-maven-plugin v0.10.0",
+                "date": "2018-11-08T18:41:51Z"
+            },
+            {
+                "name": "jib-gradle-plugin v0.10.0",
+                "date": "2018-11-08T16:13:11Z"
+            },
+            {
+                "name": "jib-maven-plugin v0.9.13",
+                "date": "2018-10-17T21:29:03Z"
+            },
+            {
+                "name": "jib-gradle-plugin v0.9.13",
+                "date": "2018-10-16T15:39:17Z"
+            },
+            {
+                "name": "jib-gradle-plugin v0.9.12",
+                "date": "2018-10-08T14:35:52Z"
+            },
+            {
+                "name": "jib-maven-plugin v0.9.11",
+                "date": "2018-09-26T18:38:46Z"
+            },
+            {
+                "name": "jib-gradle-plugin v0.9.11",
+                "date": "2018-09-26T17:51:28Z"
+            },
+            {
+                "name": "jib-maven-plugin v0.9.10",
+                "date": "2018-08-31T16:45:02Z"
+            },
+            {
+                "name": "jib-gradle-plugin v0.9.10",
+                "date": "2018-08-31T15:58:56Z"
+            },
+            {
+                "name": "jib-maven-plugin v0.9.9",
+                "date": "2018-08-21T14:13:09Z"
+            },
+            {
+                "name": "jib-gradle-plugin v0.9.9",
+                "date": "2018-08-20T20:40:48Z"
+            },
+            {
+                "name": "jib-maven-plugin v0.9.8",
+                "date": "2018-08-02T12:52:41Z"
+            },
+            {
+                "name": "jib-gradle-plugin v0.9.8",
+                "date": "2018-08-01T19:22:02Z"
+            },
+            {
+                "name": "jib-maven-plugin v0.9.7",
+                "date": "2018-08-01T19:25:13Z"
+            },
+            {
+                "name": "jib-gradle-plugin v0.9.7",
+                "date": "2018-07-20T00:09:25Z"
+            },
+            {
+                "name": "jib-maven-plugin v0.9.4",
+                "date": "2018-07-11T16:16:41Z"
+            },
+            {
+                "name": "jib-gradle-plugin v0.9.4",
+                "date": "2018-07-11T15:35:36Z"
+            },
+            {
+                "name": "jib-maven-plugin v0.9.3",
+                "date": "2018-07-10T16:41:50Z"
+            },
+            {
+                "name": "jib-gradle-plugin v0.9.3",
+                "date": "2018-07-11T11:57:43Z"
+            },
+            {
+                "name": "jib-maven-plugin v0.9.2",
+                "date": "2018-07-09T13:47:41Z"
+            },
+            {
+                "name": "jib-gradle-plugin v0.9.2",
+                "date": "2018-07-06T19:07:06Z"
+            },
+            {
+                "name": "jib-maven-plugin v0.9.1",
+                "date": "2018-06-29T14:07:54Z"
+            },
+            {
+                "name": " jib-gradle-plugin v0.9.1",
+                "date": "2018-06-28T22:03:48Z"
+            },
+            {
+                "name": "jib-maven-plugin v0.9.0",
+                "date": "2018-06-28T21:22:30Z"
+            },
+            {
+                "name": "jib-maven-plugin v0.1.7",
+                "date": "2018-05-31T16:25:42Z"
+            },
+            {
+                "name": "jib-gradle-plugin v0.1.1",
+                "date": "2018-05-31T16:26:39Z"
+            },
+            {
+                "name": "jib-gradle-plugin v0.1.0",
+                "date": "2018-04-09T19:06:55Z"
+            },
+            {
+                "name": "jib-maven-plugin v0.1.6",
+                "date": "2018-03-20T20:58:36Z"
+            },
+            {
+                "name": "jib-maven-plugin v0.1.5",
+                "date": "2018-03-07T23:12:38Z"
+            },
+            {
+                "name": "jib-maven-plugin v0.1.4",
+                "date": "2018-02-28T00:11:00Z"
+            },
+            {
+                "name": "jib-maven-plugin v0.1.3",
+                "date": "2018-02-26T16:44:52Z"
+            },
+            {
+                "name": "jib-maven-plugin v0.1.2",
+                "date": "2018-02-21T04:31:26Z"
+            },
+            {
+                "name": "jib-maven-plugin v0.1.1",
+                "date": "2018-02-12T23:43:55Z"
+            },
+            {
+                "name": "jib-maven-plugin v0.1.0",
+                "date": "2018-02-08T15:49:13Z"
+            }
+        ]
+    }
+}

@@ -1,0 +1,83 @@
+{
+    "https://api.github.com/repos/almende/vis": {
+        "forks": 1477,
+        "watchers": 7838,
+        "stars": 7838,
+        "languages": {
+            "JavaScript": 1585864,
+            "HTML": 34649,
+            "CSS": 32248
+        },
+        "commits": [
+            "2019-07-28T18:48:47Z",
+            "2017-11-04T19:02:42Z",
+            "2017-10-12T12:43:13Z",
+            "2017-10-12T12:23:36Z",
+            "2017-07-02T20:16:45Z",
+            "2017-05-21T18:02:24Z",
+            "2017-03-19T10:06:38Z",
+            "2017-03-18T14:37:20Z",
+            "2017-01-29T18:07:46Z",
+            "2017-01-15T10:31:26Z",
+            "2017-01-15T10:31:12Z",
+            "2016-12-31T09:07:36Z",
+            "2016-11-24T21:14:11Z",
+            "2016-11-23T19:45:02Z",
+            "2016-11-05T14:27:20Z",
+            "2016-11-05T14:25:32Z",
+            "2016-10-18T22:43:56Z",
+            "2017-10-12T12:36:46Z",
+            "2017-10-12T12:10:53Z",
+            "2017-10-12T11:02:53Z",
+            "2017-10-12T08:29:00Z",
+            "2017-10-08T16:06:50Z",
+            "2017-10-07T15:59:45Z",
+            "2017-10-07T14:25:18Z",
+            "2017-10-06T07:11:36Z",
+            "2017-10-05T12:07:17Z",
+            "2017-10-05T08:33:24Z",
+            "2017-10-03T19:26:51Z",
+            "2017-10-02T18:48:43Z",
+            "2017-10-01T17:01:54Z"
+        ],
+        "creation_date": "2013-04-16T08:01:02Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 19,
+        "readme": "# vis.js (deprecated!)\n\n:exclamation: **This project is not maintained anymore! (See [Issue #4259](http://github.com/almende/vis/issues/4259#issue-412107497) for details)**<br/>**We welcome you to use the libraries from the [visjs community](https://www.github.com/visjs) from now on.**\n\n---\n\nVis.js is a dynamic, browser based visualization library.\nThe library is designed to be easy to use, handle large amounts\nof dynamic data, and enable manipulation of the data.\nThe library consists of the following components:\n\n- DataSet and DataView. A flexible key/value based data set. Add, update, and\n  remove items. Subscribe on changes in the data set. A DataSet can filter and\n  order items, and convert fields of items.\n- DataView. A filtered and/or formatted view on a DataSet.\n- Graph2d. Plot data on a timeline with lines or barcharts.\n- Graph3d. Display data in a three dimensional graph.\n- Network. Display a network (force directed graph) with nodes and edges.\n- Timeline. Display different types of data on a timeline.\n\nThe vis.js library was initially developed by [Almende B.V](http://almende.com).\n\n## Install\n\nInstall via npm:\n\n```sh\nnpm install vis\n```\n\nInstall via bower:\n\n```sh\nbower install vis\n```\n\nLink via cdnjs: https://cdnjs.com/libraries/vis\n\nOr download the library from the github project:\n[https://github.com/almende/vis.git](https://github.com/almende/vis.git).\n\n## Load\n\nTo use a component, include the javascript and css files of vis in your web page:\n\n```html\n<!DOCTYPE HTML>\n<html>\n<head>\n  <script src=\"vis/dist/vis.min.js\"></script>\n  <link href=\"vis/dist/vis.min.css\" rel=\"stylesheet\" type=\"text/css\" />\n</head>\n<body>\n  <script type=\"text/javascript\">\n    // ... load a visualization\n  </script>\n</body>\n</html>\n```\n\nor load vis.js using require.js. Note that vis.css must be loaded too.\n\n```js\nrequire.config({\n  paths: {\n    vis: 'path/to/vis/dist',\n  }\n});\nrequire(['vis'], function (math) {\n  // ... load a visualization\n});\n```\n\nA timeline can be instantiated as:\n\n```js\nvar timeline = new vis.Timeline(container, data, options);\n```\n\nWhere `container` is an HTML element, `data` is an Array with data or a DataSet,\nand `options` is an optional object with configuration options for the\ncomponent.\n\n## Example\n\nA basic example on loading a Timeline is shown below. More examples can be\nfound in the [examples directory](https://github.com/almende/vis/tree/master/examples)\nof the project.\n\n```html\n<!DOCTYPE HTML>\n<html>\n<head>\n  <title>Timeline basic demo</title>\n  <script src=\"vis/dist/vis.min.js\"></script>\n  <link href=\"vis/dist/vis.min.css\" rel=\"stylesheet\" type=\"text/css\" />\n\n  <style type=\"text/css\">\n    body, html {\n      font-family: sans-serif;\n    }\n  </style>\n</head>\n<body>\n<div id=\"visualization\"></div>\n\n<script type=\"text/javascript\">\n  var container = document.getElementById('visualization');\n  var data = [\n    {id: 1, content: 'item 1', start: '2013-04-20'},\n    {id: 2, content: 'item 2', start: '2013-04-14'},\n    {id: 3, content: 'item 3', start: '2013-04-18'},\n    {id: 4, content: 'item 4', start: '2013-04-16', end: '2013-04-19'},\n    {id: 5, content: 'item 5', start: '2013-04-25'},\n    {id: 6, content: 'item 6', start: '2013-04-27'}\n  ];\n  var options = {};\n  var timeline = new vis.Timeline(container, data, options);\n</script>\n</body>\n</html>\n```\n\n## Build\n\nTo build the library from source, clone the project from github\n\n```sh\ngit clone git://github.com/almende/vis.git\n```\n\nThe source code uses the module style of node (require and module.exports) to\norganize dependencies. To install all dependencies and build the library,\nrun `npm install` in the root of the project.\n\n```sh\ncd vis\nnpm install\n```\n\nThen, the project can be build running:\n\n```sh\nnpm run build\n```\n\nTo automatically rebuild on changes in the source files, once can use\n\n```sh\nnpm run watch\n```\n\nThis will both build and minify the library on changes. Minifying is relatively\nslow, so when only the non-minified library is needed, one can use the\n`watch-dev` script instead:\n\n```sh\nnpm run watch-dev\n```\n\n## Custom builds\n\nThe folder `dist` contains bundled versions of vis.js for direct use in the browser. These bundles contain all the visualizations and include external dependencies such as *hammer.js* and *moment.js*.\n\nThe source code of vis.js consists of commonjs modules, which makes it possible to create custom bundles using tools like [Browserify](http://browserify.org/) or [Webpack](http://webpack.github.io/). This can be bundling just one visualization like the Timeline, or bundling vis.js as part of your own browserified web application.\n\n*Note that hammer.js version 2 is required as of v4.*\n\n### Prerequisites\n\nBefore you can do a build:\n\n- Install *node.js* and *npm* on your system: https://nodejs.org/\n- Install the following modules using npm: `browserify`, `babelify`, and `uglify-js`:\n\n```sh\n[sudo] npm install -g browserify babelify uglify-js\n```\n\n- Download or clone the vis.js project:\n\n```sh\ngit clone https://github.com/almende/vis.git\n```\n\n- Install the dependencies of vis.js by running `npm install` in the root of the project:\n\n```sh\ncd vis\nnpm install\n```\n\n### Examples of custom builds\n\n#### Example 1: Bundle only a single visualization type\n\nFor example, to create a bundle with just the Timeline and DataSet, create an index file named **custom.js** in the root of the project, containing:\n\n```js\nexports.DataSet = require('./lib/DataSet');\nexports.Timeline = require('./lib/timeline/Timeline');\n```\n\nThen create a custom bundle using browserify, like:\n\n```sh\nbrowserify custom.js -t [ babelify --presets [es2015] ] -o dist/vis-custom.js -s vis\n```\n\nThis will generate a custom bundle *vis-custom.js*, which exposes the namespace `vis` containing only `DataSet` and `Timeline`. The generated bundle can be minified using uglifyjs:\n\n```sh\nuglifyjs dist/vis-custom.js -o dist/vis-custom.min.js\n```\n\nThe custom bundle can now be loaded like:\n\n```html\n<!DOCTYPE HTML>\n<html>\n<head>\n  <script src=\"dist/vis-custom.min.js\"></script>\n  <link href=\"dist/vis.min.css\" rel=\"stylesheet\" type=\"text/css\" />\n</head>\n<body>\n  ...\n</body>\n</html>\n```\n\n#### Example 2: Exclude external libraries\n\nThe default bundle `vis.js` is standalone and includes external dependencies such as *hammer.js* and *moment.js*. When these libraries are already loaded by the application, vis.js does not need to include these dependencies itself too. To build a custom bundle of vis.js excluding *moment.js* and *hammer.js*, run browserify in the root of the project:\n\n```sh\nbrowserify index.js -t [ babelify --presets [es2015] ] -o dist/vis-custom.js -s vis -x moment -x hammerjs\n```\n\nThis will generate a custom bundle *vis-custom.js*, which exposes the namespace `vis`, and has *moment.js* and *hammer.js* excluded. The generated bundle can be minified with uglifyjs:\n\n```sh\nuglifyjs dist/vis-custom.js -o dist/vis-custom.min.js\n```\n\nThe custom bundle can now be loaded as:\n\n```html\n<!DOCTYPE HTML>\n<html>\n<head>\n  <!-- load external dependencies -->\n  <script src=\"http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js\"></script>\n  <script src=\"http://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js\"></script>\n\n  <!-- load vis.js -->\n  <script src=\"dist/vis-custom.min.js\"></script>\n  <link href=\"dist/vis.min.css\" rel=\"stylesheet\" type=\"text/css\" />\n</head>\n<body>\n  ...\n</body>\n</html>\n```\n\n#### Example 3: Bundle vis.js as part of your (commonjs) application\n\nWhen writing a web application with commonjs modules, vis.js can be packaged automatically into the application. Create a file **app.js** containing:\n\n```js\nvar moment = require('moment');\nvar DataSet = require('vis/lib/DataSet');\nvar Timeline = require('vis/lib/timeline/Timeline');\n\nvar container = document.getElementById('visualization');\nvar data = new DataSet([\n  {id: 1, content: 'item 1', start: moment('2013-04-20')},\n  {id: 2, content: 'item 2', start: moment('2013-04-14')},\n  {id: 3, content: 'item 3', start: moment('2013-04-18')},\n  {id: 4, content: 'item 4', start: moment('2013-04-16'), end: moment('2013-04-19')},\n  {id: 5, content: 'item 5', start: moment('2013-04-25')},\n  {id: 6, content: 'item 6', start: moment('2013-04-27')}\n]);\nvar options = {};\nvar timeline = new Timeline(container, data, options);\n```\n\nThe application can be bundled and minified:\n\n```sh\nbrowserify app.js -o dist/app-bundle.js -t babelify\nuglifyjs dist/app-bundle.js -o dist/app-bundle.min.js\n```\n\nAnd loaded into a webpage:\n\n```html\n<!DOCTYPE HTML>\n<html>\n<head>\n  <link href=\"node_modules/vis/dist/vis.min.css\" rel=\"stylesheet\" type=\"text/css\" />\n</head>\n<body>\n  <div id=\"visualization\"></div>\n  <script src=\"dist/app-bundle.min.js\"></script>\n</body>\n</html>\n```\n\n#### Example 4: Integrate vis.js components directly in your webpack build\n\nYou can integrate e.g. the timeline component directly in you webpack build.\nTherefor you can e.g. import the component-files from root direcory (starting with \"index-\").\n\n```js\nimport { DataSet, Timeline } from 'vis/index-timeline-graph2d';\n\nvar container = document.getElementById('visualization');\nvar data = new DataSet();\nvar timeline = new Timeline(container, data, {});\n```\n\nTo get this to work you'll need to add some babel-loader-setting to your webpack-config:\n\n```js\nmodule: {\n  module: {\n    rules: [{\n      test: /node_modules[\\\\\\/]vis[\\\\\\/].*\\.js$/,\n      loader: 'babel-loader',\n      query: {\n        cacheDirectory: true,\n        presets: [ \"babel-preset-es2015\" ].map(require.resolve),\n        plugins: [\n          \"transform-es3-property-literals\", // #2452\n          \"transform-es3-member-expression-literals\", // #2566\n          \"transform-runtime\" // #2566\n        ]\n      }\n    }]\n  }\n}\n```\n\nThere is also an [demo-project](https://github.com/mojoaxel/vis-webpack-demo) showing the integration of vis.js using webpack.\n\n## Test\n\nTo test the library, install the project dependencies once:\n\n```sh\nnpm install\n```\n\nThen run the tests:\n\n```sh\nnpm run test\n```\n\n## License\n\nCopyright (C) 2010-2017 Almende B.V. and Contributors\n\nVis.js is dual licensed under both\n\n- [The Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0)\n\nand\n\n- [The MIT License](http://opensource.org/licenses/MIT)\n\nVis.js may be distributed under either license.\n",
+        "releases": [
+            {
+                "name": "v4.21.0",
+                "date": "2017-10-12T12:53:16Z"
+            },
+            {
+                "name": "v4.20.1",
+                "date": "2017-07-02T20:21:34Z"
+            },
+            {
+                "name": "v4.20.0",
+                "date": "2017-05-21T19:41:36Z"
+            },
+            {
+                "name": "v4.19.1",
+                "date": "2017-03-19T11:31:03Z"
+            },
+            {
+                "name": "v4.19.0",
+                "date": "2017-03-19T11:30:44Z"
+            },
+            {
+                "name": "v4.18.1",
+                "date": "2017-01-29T18:11:48Z"
+            },
+            {
+                "name": "v4.18.0",
+                "date": "2017-01-15T10:35:27Z"
+            },
+            {
+                "name": "v4.17.0",
+                "date": "2016-11-05T14:40:18Z"
+            }
+        ]
+    }
+}

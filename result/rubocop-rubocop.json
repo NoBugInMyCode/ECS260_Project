@@ -1,0 +1,1019 @@
+{
+    "https://api.github.com/repos/rubocop/rubocop": {
+        "forks": 3071,
+        "watchers": 12666,
+        "stars": 12666,
+        "languages": {
+            "Ruby": 8492963,
+            "HTML": 6624,
+            "Emacs Lisp": 480,
+            "Shell": 75
+        },
+        "commits": [
+            "2025-01-22T02:02:11Z",
+            "2025-01-21T20:51:38Z",
+            "2025-01-21T20:32:10Z",
+            "2025-01-21T15:36:27Z",
+            "2025-01-21T15:25:08Z",
+            "2025-01-20T18:55:43Z",
+            "2025-01-21T07:21:26Z",
+            "2025-01-21T06:41:00Z",
+            "2025-01-20T18:37:43Z",
+            "2025-01-20T17:47:51Z",
+            "2025-01-20T18:05:22Z",
+            "2025-01-20T08:12:04Z",
+            "2025-01-20T15:07:31Z",
+            "2025-01-19T15:00:01Z",
+            "2025-01-19T08:43:08Z",
+            "2025-01-18T16:52:57Z",
+            "2025-01-18T11:45:31Z",
+            "2025-01-18T09:03:36Z",
+            "2025-01-18T02:06:29Z",
+            "2025-01-17T18:29:32Z",
+            "2025-01-17T18:14:25Z",
+            "2025-01-17T08:50:26Z",
+            "2025-01-17T08:44:20Z",
+            "2025-01-17T00:07:56Z",
+            "2025-01-17T07:57:55Z",
+            "2025-01-16T19:13:18Z",
+            "2025-01-16T19:01:43Z",
+            "2025-01-16T17:47:51Z",
+            "2025-01-16T18:09:14Z",
+            "2025-01-16T18:23:51Z"
+        ],
+        "creation_date": "2012-04-21T10:09:58Z",
+        "contributors": 30,
+        "topics": [
+            "code-formatter",
+            "hacktoberfest",
+            "linter",
+            "rubocop",
+            "ruby",
+            "static-code-analysis"
+        ],
+        "subscribers": 183,
+        "readme": "<p align=\"center\">\n  <img src=\"https://raw.githubusercontent.com/rubocop/rubocop/master/logo/rubo-logo-horizontal-white.png\" alt=\"RuboCop Logo\"/>\n</p>\n\n----------\n[![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)\n[![Gem Version](https://badge.fury.io/rb/rubocop.svg)](https://badge.fury.io/rb/rubocop)\n[![CI](https://github.com/rubocop/rubocop/actions/workflows/rubocop.yml/badge.svg)](https://github.com/rubocop/rubocop/actions/workflows/rubocop.yml)\n[![Test Coverage](https://api.codeclimate.com/v1/badges/d2d67f728e88ea84ac69/test_coverage)](https://codeclimate.com/github/rubocop/rubocop/test_coverage)\n[![Maintainability](https://api.codeclimate.com/v1/badges/d2d67f728e88ea84ac69/maintainability)](https://codeclimate.com/github/rubocop/rubocop/maintainability)\n[![Discord](https://img.shields.io/badge/chat-on%20discord-7289da.svg?sanitize=true)](https://discord.gg/wJjWvGRDmm)\n\n> Role models are important. <br/>\n> -- Officer Alex J. Murphy / RoboCop\n\n**RuboCop** is a Ruby static code analyzer (a.k.a. `linter`) and code formatter. Out of the box it\nwill enforce many of the guidelines outlined in the community [Ruby Style\nGuide](https://rubystyle.guide). Apart from reporting the problems discovered in your code,\nRuboCop can also automatically fix many of them for you.\n\nRuboCop is extremely flexible and most aspects of its behavior can be tweaked via various\n[configuration options](https://github.com/rubocop/rubocop/blob/master/config/default.yml).\n\n----------\n[![Patreon](https://img.shields.io/badge/patreon-donate-orange.svg)](https://www.patreon.com/bbatsov)\n[![OpenCollective](https://opencollective.com/rubocop/backers/badge.svg)](#open-collective-for-individuals)\n[![OpenCollective](https://opencollective.com/rubocop/sponsors/badge.svg)](#open-collective-for-organizations)\n[![Tidelift](https://tidelift.com/badges/package/rubygems/rubocop)](https://tidelift.com/subscription/pkg/rubygems-rubocop?utm_source=rubygems-rubocop&utm_medium=referral&utm_campaign=readme)\n\nWorking on RuboCop is often fun, but it also requires a great deal of time and energy.\n\n**Please consider [financially supporting its ongoing development](#funding).**\n\n## Installation\n\n**RuboCop**'s installation is pretty standard:\n\n```sh\n$ gem install rubocop\n```\n\nIf you'd rather install RuboCop using `bundler`, add a line for it in your `Gemfile` (but set the `require` option to `false`, as it is a standalone tool):\n\n```rb\ngem 'rubocop', require: false\n```\n\nRuboCop is stable between minor versions, both in terms of API and cop configuration.\nWe aim to ease the maintenance of RuboCop extensions and the upgrades between RuboCop\nreleases. All big changes are reserved for major releases.\nTo prevent an unwanted RuboCop update you might want to use a conservative version lock\nin your `Gemfile`:\n\n```rb\ngem 'rubocop', '~> 1.70', require: false\n```\n\nSee [our versioning policy](https://docs.rubocop.org/rubocop/versioning.html) for further details.\n\n## Quickstart\n\nJust type `rubocop` in a Ruby project's folder and watch the magic happen.\n\n```\n$ cd my/cool/ruby/project\n$ rubocop\n```\n\nYou can also use this magic in your favorite editor with RuboCop's [built-in LSP server](https://docs.rubocop.org/rubocop/usage/lsp.html).\n\n## Documentation\n\nYou can read a lot more about RuboCop in its [official docs](https://docs.rubocop.org).\n\n## Compatibility\n\nRuboCop officially supports the following runtime Ruby implementations:\n\n* MRI 2.7+\n* JRuby 9.4+\n\nTargets Ruby 2.0+ code analysis.\n\nSee the [compatibility documentation](https://docs.rubocop.org/rubocop/compatibility.html) for further details.\n\n## Readme Badge\n\nIf you use RuboCop in your project, you can include one of these badges in your readme to let people know that your code is written following the community Ruby Style Guide.\n\n[![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)\n\n[![Ruby Style Guide](https://img.shields.io/badge/code_style-community-brightgreen.svg)](https://rubystyle.guide)\n\n\nHere are the Markdown snippets for the two badges:\n\n``` markdown\n[![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)\n\n[![Ruby Style Guide](https://img.shields.io/badge/code_style-community-brightgreen.svg)](https://rubystyle.guide)\n```\n\n## Team\n\nHere's a list of RuboCop's core developers:\n\n* [Bozhidar Batsov](https://github.com/bbatsov) (author & head maintainer)\n* [Jonas Arvidsson](https://github.com/jonas054)\n* [Yuji Nakayama](https://github.com/yujinakayama) (retired)\n* [Evgeni Dzhelyov](https://github.com/edzhelyov) (retired)\n* [Ted Johansson](https://github.com/drenmi)\n* [Masataka Kuwabara](https://github.com/pocke)\n* [Koichi Ito](https://github.com/koic)\n* [Maxim Krizhanovski](https://github.com/darhazer)\n* [Benjamin Quorning](https://github.com/bquorning)\n* [Marc-Andr\u00e9 Lafortune](https://github.com/marcandre)\n* [Daniel Vandersluis](https://github.com/dvandersluis)\n\nSee the [team page](https://docs.rubocop.org/rubocop/about/team.html) for more details.\n\n## Logo\n\nRuboCop's logo was created by [Dimiter Petrov](https://www.chadomoto.com/). You can find the logo in various\nformats [here](https://github.com/rubocop/rubocop/tree/master/logo).\n\nThe logo is licensed under a\n[Creative Commons Attribution-NonCommercial 4.0 International License](https://creativecommons.org/licenses/by-nc/4.0/deed.en_GB).\n\n## Contributors\n\nHere's a [list](https://github.com/rubocop/rubocop/graphs/contributors) of\nall the people who have contributed to the development of RuboCop.\n\nI'm extremely grateful to each and every one of them!\n\nIf you'd like to contribute to RuboCop, please take the time to go\nthrough our short\n[contribution guidelines](CONTRIBUTING.md).\n\nConverting more of the Ruby Style Guide into RuboCop cops is our top\npriority right now. Writing a new cop is a great way to dive into RuboCop!\n\nOf course, bug reports and suggestions for improvements are always\nwelcome. GitHub pull requests are even better! :-)\n\n## Funding\n\nWhile RuboCop is free software and will always be, the project would benefit immensely from some funding.\nRaising a monthly budget of a couple of thousand dollars would make it possible to pay people to work on\ncertain complex features, fund other development related stuff (e.g. hardware, conference trips) and so on.\nRaising a monthly budget of over $5000 would open the possibility of someone working full-time on the project\nwhich would speed up the pace of development significantly.\n\nWe welcome both individual and corporate sponsors! We also offer a\nwide array of funding channels to account for your preferences\n(although\ncurrently [Open Collective](https://opencollective.com/rubocop) is our\npreferred funding platform).\n\n**If you're working in a company that's making significant use of RuboCop we'd appreciate it if you suggest to your company\nto become a RuboCop sponsor.**\n\nYou can support the development of RuboCop via\n[GitHub Sponsors](https://github.com/sponsors/bbatsov),\n[Patreon](https://www.patreon.com/bbatsov),\n[PayPal](https://paypal.me/bbatsov),\n[Open Collective](https://opencollective.com/rubocop)\nand [Tidelift](https://tidelift.com/subscription/pkg/rubygems-rubocop?utm_source=rubygems-rubocop&utm_medium=referral&utm_campaign=readme)\n.\n\n**Note:** If doing a sponsorship in the form of donation is problematic for your company from an accounting standpoint, we'd recommend\nthe use of Tidelift, where you can get a support-like subscription instead.\n\n### Open Collective for Individuals\n\nSupport us with a monthly donation and help us continue our activities. [[Become a backer](https://opencollective.com/rubocop#backer)]\n\n<a href=\"https://opencollective.com/rubocop/individual/0/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/0/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/1/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/1/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/2/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/2/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/3/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/3/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/4/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/4/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/5/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/5/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/6/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/6/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/7/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/7/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/8/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/8/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/9/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/9/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/10/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/10/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/11/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/11/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/12/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/12/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/13/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/13/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/14/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/14/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/15/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/15/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/16/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/16/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/17/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/17/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/18/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/18/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/19/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/19/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/20/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/20/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/21/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/21/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/22/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/22/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/23/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/23/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/24/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/24/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/25/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/25/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/26/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/26/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/27/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/27/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/28/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/28/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/individual/29/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/individual/29/avatar.svg\"></a>\n\n### Open Collective for Organizations\n\nBecome a sponsor and get your logo on our README on GitHub with a link to your site. [[Become a sponsor](https://opencollective.com/rubocop#sponsor)]\n\n<a href=\"https://opencollective.com/rubocop/organization/0/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/0/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/1/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/1/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/2/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/2/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/3/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/3/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/4/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/4/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/5/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/5/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/6/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/6/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/7/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/7/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/8/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/8/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/9/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/9/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/10/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/10/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/11/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/11/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/12/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/12/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/13/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/13/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/14/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/14/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/15/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/15/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/16/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/16/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/17/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/17/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/18/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/18/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/19/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/19/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/20/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/20/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/21/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/21/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/22/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/22/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/23/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/23/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/24/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/24/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/25/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/25/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/26/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/26/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/27/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/27/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/28/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/28/avatar.svg\"></a>\n<a href=\"https://opencollective.com/rubocop/organization/29/website\" target=\"_blank\"><img src=\"https://opencollective.com/rubocop/organization/29/avatar.svg\"></a>\n\n## Changelog\n\nRuboCop's changelog is available [here](CHANGELOG.md).\n\n## Copyright\n\nCopyright (c) 2012-2025 Bozhidar Batsov. See [LICENSE.txt](LICENSE.txt) for\nfurther details.\n",
+        "releases": [
+            {
+                "name": "RuboCop 1.70",
+                "date": "2025-01-10T07:49:29Z"
+            },
+            {
+                "name": "RuboCop 1.69.2",
+                "date": "2024-12-12T14:13:33Z"
+            },
+            {
+                "name": "RuboCop 1.69.1",
+                "date": "2024-12-03T16:37:38Z"
+            },
+            {
+                "name": "RuboCop 1.69",
+                "date": "2024-11-26T16:05:38Z"
+            },
+            {
+                "name": "RuboCop 1.68",
+                "date": "2024-10-31T07:45:34Z"
+            },
+            {
+                "name": "RuboCop 1.67",
+                "date": "2024-10-15T10:16:57Z"
+            },
+            {
+                "name": "RuboCop 1.66.1",
+                "date": "2024-09-04T08:30:19Z"
+            },
+            {
+                "name": "RuboCop 1.66",
+                "date": "2024-08-31T12:41:13Z"
+            },
+            {
+                "name": "RuboCop 1.65.1",
+                "date": "2024-08-01T07:12:49Z"
+            },
+            {
+                "name": "RuboCop 1.65",
+                "date": "2024-07-10T12:26:48Z"
+            },
+            {
+                "name": "RuboCop 1.64.1",
+                "date": "2024-05-31T04:33:17Z"
+            },
+            {
+                "name": "RuboCop 1.64",
+                "date": "2024-05-23T08:45:32Z"
+            },
+            {
+                "name": "RuboCop 1.63.5",
+                "date": "2024-05-09T09:00:44Z"
+            },
+            {
+                "name": "RuboCop 1.63.4",
+                "date": "2024-04-28T05:38:49Z"
+            },
+            {
+                "name": "RuboCop 1.63.3",
+                "date": "2024-04-28T05:40:15Z"
+            },
+            {
+                "name": "RuboCop 1.63.2",
+                "date": "2024-04-16T08:28:00Z"
+            },
+            {
+                "name": "RuboCop 1.63.1",
+                "date": "2024-04-10T12:46:23Z"
+            },
+            {
+                "name": "RuboCop 1.63",
+                "date": "2024-04-08T07:29:18Z"
+            },
+            {
+                "name": "RuboCop 1.62.1",
+                "date": "2024-03-11T11:05:41Z"
+            },
+            {
+                "name": "RuboCop 1.62",
+                "date": "2024-03-06T13:04:05Z"
+            },
+            {
+                "name": "RuboCop 1.61",
+                "date": "2024-02-29T09:25:03Z"
+            },
+            {
+                "name": "RuboCop 1.60.2",
+                "date": "2024-01-24T11:34:15Z"
+            },
+            {
+                "name": "RuboCop 1.60.1",
+                "date": "2024-01-17T16:01:14Z"
+            },
+            {
+                "name": "RuboCop 1.60",
+                "date": "2024-01-15T07:54:55Z"
+            },
+            {
+                "name": "RuboCop 1.59",
+                "date": "2023-12-11T10:25:23Z"
+            },
+            {
+                "name": "RuboCop 1.58",
+                "date": "2023-12-01T12:51:42Z"
+            },
+            {
+                "name": "RuboCop 1.57.2",
+                "date": "2023-10-26T09:49:02Z"
+            },
+            {
+                "name": "RuboCop 1.57.1",
+                "date": "2023-10-13T07:46:03Z"
+            },
+            {
+                "name": "RuboCop 1.57",
+                "date": "2023-10-11T10:52:25Z"
+            },
+            {
+                "name": "RuboCop 1.56.4",
+                "date": "2023-09-28T12:06:37Z"
+            },
+            {
+                "name": "RuboCop 1.56.3",
+                "date": "2023-09-11T06:29:02Z"
+            },
+            {
+                "name": "RuboCop 1.56.2",
+                "date": "2023-09-11T06:29:41Z"
+            },
+            {
+                "name": "RuboCop 1.56.1",
+                "date": "2023-08-21T08:02:44Z"
+            },
+            {
+                "name": "RuboCop 1.56",
+                "date": "2023-08-09T07:52:36Z"
+            },
+            {
+                "name": "RuboCop 1.55.1",
+                "date": "2023-07-31T06:09:51Z"
+            },
+            {
+                "name": "RuboCop 1.55",
+                "date": "2023-07-25T15:28:02Z"
+            },
+            {
+                "name": "RuboCop 1.54.2",
+                "date": "2023-07-13T17:05:33Z"
+            },
+            {
+                "name": "RuboCop 1.54.1",
+                "date": "2023-07-04T07:35:18Z"
+            },
+            {
+                "name": "RuboCop 1.54",
+                "date": "2023-07-01T08:15:39Z"
+            },
+            {
+                "name": "RuboCop 1.53.1",
+                "date": "2023-06-26T10:57:18Z"
+            },
+            {
+                "name": "RuboCop 1.53",
+                "date": "2023-06-23T09:46:29Z"
+            },
+            {
+                "name": "RuboCop 1.52.1",
+                "date": "2023-06-12T08:03:57Z"
+            },
+            {
+                "name": "RuboCop 1.52",
+                "date": "2023-06-02T09:28:52Z"
+            },
+            {
+                "name": "RuboCop 1.51 (The RubyKaigi 2023 Edition)",
+                "date": "2023-05-13T07:55:59Z"
+            },
+            {
+                "name": "RuboCop 1.50.2",
+                "date": "2023-04-17T08:14:35Z"
+            },
+            {
+                "name": "RuboCop 1.50.1",
+                "date": "2023-04-12T12:53:09Z"
+            },
+            {
+                "name": "RuboCop 1.50",
+                "date": "2023-04-11T07:15:23Z"
+            },
+            {
+                "name": "RuboCop 1.49",
+                "date": "2023-04-03T07:09:35Z"
+            },
+            {
+                "name": "RuboCop 1.48.1",
+                "date": "2023-03-13T07:00:49Z"
+            },
+            {
+                "name": "RuboCop 1.48",
+                "date": "2023-03-06T09:50:50Z"
+            },
+            {
+                "name": "RuboCop 1.47",
+                "date": "2023-03-01T11:29:57Z"
+            },
+            {
+                "name": "RuboCop 1.46",
+                "date": "2023-02-22T18:46:56Z"
+            },
+            {
+                "name": "RuboCop 1.45.1",
+                "date": "2023-02-08T17:38:56Z"
+            },
+            {
+                "name": "RuboCop 1.45",
+                "date": "2023-02-08T12:30:18Z"
+            },
+            {
+                "name": "RuboCop 1.44.1",
+                "date": "2023-01-25T12:36:46Z"
+            },
+            {
+                "name": "RuboCop 1.44",
+                "date": "2023-01-23T10:47:31Z"
+            },
+            {
+                "name": "RuboCop 1.43",
+                "date": "2023-01-10T10:35:57Z"
+            },
+            {
+                "name": "RuboCop 1.42",
+                "date": "2023-01-01T14:17:25Z"
+            },
+            {
+                "name": "RuboCop 1.41.1",
+                "date": "2022-12-22T08:42:01Z"
+            },
+            {
+                "name": "RuboCop 1.41",
+                "date": "2022-12-20T08:42:20Z"
+            },
+            {
+                "name": "RuboCop 1.40",
+                "date": "2022-12-08T07:53:24Z"
+            },
+            {
+                "name": "RuboCop 1.39",
+                "date": "2022-11-14T06:12:11Z"
+            },
+            {
+                "name": "RuboCop 1.38",
+                "date": "2022-11-01T07:27:07Z"
+            },
+            {
+                "name": "RuboCop 1.37.1",
+                "date": "2022-10-24T06:35:19Z"
+            },
+            {
+                "name": "RuboCop 1.37",
+                "date": "2022-10-20T07:57:20Z"
+            },
+            {
+                "name": "RuboCop 1.36",
+                "date": "2022-09-01T08:00:07Z"
+            },
+            {
+                "name": "RuboCop 1.35.1",
+                "date": "2022-08-22T05:48:41Z"
+            },
+            {
+                "name": "RuboCop 1.35",
+                "date": "2022-08-12T12:51:20Z"
+            },
+            {
+                "name": "RuboCop 1.34.1",
+                "date": "2022-08-09T15:07:23Z"
+            },
+            {
+                "name": "RuboCop 1.34",
+                "date": "2022-08-09T05:27:26Z"
+            },
+            {
+                "name": "RuboCop 1.33",
+                "date": "2022-08-04T09:28:04Z"
+            },
+            {
+                "name": "RuboCop 1.32",
+                "date": "2022-07-21T10:35:03Z"
+            },
+            {
+                "name": "RuboCop 1.31.2",
+                "date": "2022-07-07T08:05:39Z"
+            },
+            {
+                "name": "RuboCop 1.31.1",
+                "date": "2022-06-29T06:56:57Z"
+            },
+            {
+                "name": "RuboCop 1.31",
+                "date": "2022-06-27T06:36:13Z"
+            },
+            {
+                "name": "RuboCop 1.30.1",
+                "date": "2022-06-06T08:19:41Z"
+            },
+            {
+                "name": "RuboCop 1.30",
+                "date": "2022-05-26T06:06:04Z"
+            },
+            {
+                "name": "RuboCop 1.29.1",
+                "date": "2022-05-12T11:23:42Z"
+            },
+            {
+                "name": "RuboCop 1.29",
+                "date": "2022-05-06T15:53:19Z"
+            },
+            {
+                "name": "RuboCop 1.28.2",
+                "date": "2022-04-25T08:07:58Z"
+            },
+            {
+                "name": "RuboCop 1.28 (a.k.a. The 10th Anniversary Edition)",
+                "date": "2022-04-21T08:08:43Z"
+            },
+            {
+                "name": "RuboCop 1.27",
+                "date": "2022-04-08T06:06:20Z"
+            },
+            {
+                "name": "RuboCop 1.26.1",
+                "date": "2022-03-22T13:46:11Z"
+            },
+            {
+                "name": "RuboCop 1.26",
+                "date": "2022-03-09T16:48:18Z"
+            },
+            {
+                "name": "RuboCop 1.25.1",
+                "date": "2022-02-03T06:46:02Z"
+            },
+            {
+                "name": "RuboCop 1.25",
+                "date": "2022-01-18T07:56:00Z"
+            },
+            {
+                "name": "RuboCop 1.24.1",
+                "date": "2021-12-31T10:33:56Z"
+            },
+            {
+                "name": "RuboCop 1.24",
+                "date": "2021-12-23T11:10:43Z"
+            },
+            {
+                "name": "RuboCop 1.23",
+                "date": "2021-11-15T08:12:02Z"
+            },
+            {
+                "name": "RuboCop 1.22.3",
+                "date": "2021-10-27T13:04:56Z"
+            },
+            {
+                "name": "RuboCop 1.22.2",
+                "date": "2021-10-22T05:46:57Z"
+            },
+            {
+                "name": "RuboCop 1.22.1",
+                "date": "2021-10-04T03:21:03Z"
+            },
+            {
+                "name": "RuboCop 1.22",
+                "date": "2021-09-29T07:33:54Z"
+            },
+            {
+                "name": "RuboCop 1.21",
+                "date": "2021-09-13T13:10:13Z"
+            },
+            {
+                "name": "RuboCop 1.20",
+                "date": "2021-08-26T07:51:57Z"
+            },
+            {
+                "name": "RuboCop 1.19.1",
+                "date": "2021-08-26T07:52:32Z"
+            },
+            {
+                "name": "RuboCop 1.19",
+                "date": "2021-08-12T10:31:52Z"
+            },
+            {
+                "name": "RuboCop 1.18.4",
+                "date": "2021-07-23T06:13:56Z"
+            },
+            {
+                "name": "RuboCop 1.18.3",
+                "date": "2021-07-06T09:16:05Z"
+            },
+            {
+                "name": "RuboCop 1.18.2",
+                "date": "2021-07-02T12:18:46Z"
+            },
+            {
+                "name": "RuboCop 1.18.1",
+                "date": "2021-07-02T12:18:23Z"
+            },
+            {
+                "name": "RuboCop 1.18",
+                "date": "2021-06-29T05:39:02Z"
+            },
+            {
+                "name": "RuboCop 1.17",
+                "date": "2021-06-15T10:37:46Z"
+            },
+            {
+                "name": "RuboCop 1.16.1",
+                "date": "2021-06-09T10:47:10Z"
+            },
+            {
+                "name": "RuboCop 1.16",
+                "date": "2021-06-01T07:06:07Z"
+            },
+            {
+                "name": "RuboCop 1.15",
+                "date": "2021-05-17T07:51:13Z"
+            },
+            {
+                "name": "RuboCop 1.14",
+                "date": "2021-05-05T07:55:19Z"
+            },
+            {
+                "name": "RuboCop 1.13",
+                "date": "2021-04-20T08:35:57Z"
+            },
+            {
+                "name": "RuboCop 1.12.1",
+                "date": "2021-04-04T14:00:13Z"
+            },
+            {
+                "name": "RuboCop 1.12",
+                "date": "2021-03-24T13:41:02Z"
+            },
+            {
+                "name": "RuboCop 1.11",
+                "date": "2021-03-01T10:28:22Z"
+            },
+            {
+                "name": "RuboCop 1.10",
+                "date": "2021-02-15T14:27:52Z"
+            },
+            {
+                "name": "RuboCop 1.9.1",
+                "date": "2021-02-01T07:38:47Z"
+            },
+            {
+                "name": "RuboCop 1.9",
+                "date": "2021-01-28T08:19:08Z"
+            },
+            {
+                "name": "",
+                "date": "2021-01-11T11:19:46Z"
+            },
+            {
+                "name": "RuboCop 1.8",
+                "date": "2021-01-07T08:56:54Z"
+            },
+            {
+                "name": "RuboCop 1.7",
+                "date": "2020-12-25T07:22:43Z"
+            },
+            {
+                "name": "RuboCop 1.6.1",
+                "date": "2020-12-10T07:37:38Z"
+            },
+            {
+                "name": "RuboCop 1.6",
+                "date": "2020-12-09T12:11:04Z"
+            },
+            {
+                "name": "RuboCop 1.5.2",
+                "date": "2020-12-04T08:49:32Z"
+            },
+            {
+                "name": "RuboCop 1.5.1",
+                "date": "2020-12-02T16:02:14Z"
+            },
+            {
+                "name": "RuboCop 1.5.0",
+                "date": "2020-12-01T17:20:17Z"
+            },
+            {
+                "name": "RuboCop 1.4.2",
+                "date": "2020-11-25T08:14:25Z"
+            },
+            {
+                "name": "RuboCop 1.4.1",
+                "date": "2020-11-24T02:25:03Z"
+            },
+            {
+                "name": "RuboCop 1.4.0",
+                "date": "2020-11-23T09:22:54Z"
+            },
+            {
+                "name": "RuboCop 1.3.1",
+                "date": "2020-11-16T08:55:57Z"
+            },
+            {
+                "name": "RuboCop 1.3",
+                "date": "2020-11-12T08:03:40Z"
+            },
+            {
+                "name": "RuboCop 1.2",
+                "date": "2020-11-05T07:39:49Z"
+            },
+            {
+                "name": "RuboCop 1.1",
+                "date": "2020-10-29T15:18:54Z"
+            },
+            {
+                "name": "RuboCop 1.0",
+                "date": "2020-10-21T11:03:22Z"
+            },
+            {
+                "name": "RuboCop 0.93.1",
+                "date": "2020-10-12T07:06:08Z"
+            },
+            {
+                "name": "RuboCop 0.93",
+                "date": "2020-10-08T14:54:10Z"
+            },
+            {
+                "name": "RuboCop 0.92",
+                "date": "2020-09-25T08:14:48Z"
+            },
+            {
+                "name": "RuboCop 0.91.1",
+                "date": "2020-09-23T11:10:34Z"
+            },
+            {
+                "name": "RuboCop 0.91",
+                "date": "2020-09-15T05:46:00Z"
+            },
+            {
+                "name": "RuboCop 0.90",
+                "date": "2020-09-01T06:45:34Z"
+            },
+            {
+                "name": "RuboCop 0.89.1",
+                "date": "2020-08-10T12:18:20Z"
+            },
+            {
+                "name": "RuboCop 0.89",
+                "date": "2020-08-05T19:06:00Z"
+            },
+            {
+                "name": "RuboCop 0.88",
+                "date": "2020-07-13T12:23:04Z"
+            },
+            {
+                "name": "RuboCop 0.87.1",
+                "date": "2020-07-07T19:24:09Z"
+            },
+            {
+                "name": "RuboCop 0.87",
+                "date": "2020-07-06T16:13:30Z"
+            },
+            {
+                "name": "RuboCop 0.86",
+                "date": "2020-06-22T07:30:38Z"
+            },
+            {
+                "name": "RuboCop 0.85.1",
+                "date": "2020-06-07T15:41:22Z"
+            },
+            {
+                "name": "RuboCop 0.85",
+                "date": "2020-06-01T15:52:15Z"
+            },
+            {
+                "name": "RuboCop 0.84",
+                "date": "2020-05-21T06:56:24Z"
+            },
+            {
+                "name": "RuboCop 0.83",
+                "date": "2020-05-11T12:32:55Z"
+            },
+            {
+                "name": "RuboCop 0.82",
+                "date": "2020-04-16T08:21:39Z"
+            },
+            {
+                "name": "RuboCop 0.81",
+                "date": "2020-04-01T07:56:59Z"
+            },
+            {
+                "name": "RuboCop 0.80.1",
+                "date": "2020-02-29T18:07:02Z"
+            },
+            {
+                "name": "RuboCop 0.80",
+                "date": "2020-02-18T11:40:09Z"
+            },
+            {
+                "name": "RuboCop 0.79",
+                "date": "2020-01-06T09:58:20Z"
+            },
+            {
+                "name": "RuboCop 0.78",
+                "date": "2019-12-18T21:08:07Z"
+            },
+            {
+                "name": "RuboCop 0.77",
+                "date": "2019-11-27T18:04:21Z"
+            },
+            {
+                "name": "RuboCop 0.76",
+                "date": "2019-10-28T14:55:07Z"
+            },
+            {
+                "name": "RuboCop 0.75.1",
+                "date": "2019-10-14T17:00:33Z"
+            },
+            {
+                "name": "RuboCop 0.75",
+                "date": "2019-09-30T17:06:28Z"
+            },
+            {
+                "name": "RuboCop 0.74",
+                "date": "2019-07-31T19:13:11Z"
+            },
+            {
+                "name": "RuboCop 0.73",
+                "date": "2019-07-16T09:02:38Z"
+            },
+            {
+                "name": "RuboCop 0.72",
+                "date": "2019-06-25T13:05:05Z"
+            },
+            {
+                "name": "RuboCop 0.71",
+                "date": "2019-05-30T13:54:10Z"
+            },
+            {
+                "name": "RuboCop 0.70",
+                "date": "2019-05-21T10:28:45Z"
+            },
+            {
+                "name": "RuboCop 0.69",
+                "date": "2019-05-13T09:40:10Z"
+            },
+            {
+                "name": "RuboCop 0.68.1",
+                "date": "2019-04-30T19:47:30Z"
+            },
+            {
+                "name": "RuboCop 0.68",
+                "date": "2019-04-29T13:55:20Z"
+            },
+            {
+                "name": "RuboCop 0.67.2",
+                "date": "2019-04-05T08:19:53Z"
+            },
+            {
+                "name": "RuboCop 0.67.1",
+                "date": "2019-04-04T18:40:47Z"
+            },
+            {
+                "name": "RuboCop 0.67",
+                "date": "2019-04-04T15:24:03Z"
+            },
+            {
+                "name": "RuboCop 0.66",
+                "date": "2019-03-18T09:27:59Z"
+            },
+            {
+                "name": "RuboCop 0.65",
+                "date": "2019-02-19T08:41:50Z"
+            },
+            {
+                "name": "RuboCop 0.64",
+                "date": "2019-02-10T13:52:46Z"
+            },
+            {
+                "name": "RuboCop 0.63.1",
+                "date": "2019-01-22T02:56:53Z"
+            },
+            {
+                "name": "RuboCop 0.63",
+                "date": "2019-01-16T16:32:47Z"
+            },
+            {
+                "name": "RuboCop 0.62",
+                "date": "2019-01-01T08:41:21Z"
+            },
+            {
+                "name": "RuboCop 0.61.1",
+                "date": "2019-01-01T08:42:09Z"
+            },
+            {
+                "name": "RuboCop 0.61",
+                "date": "2018-12-05T12:43:28Z"
+            },
+            {
+                "name": "RuboCop 0.60",
+                "date": "2018-10-26T10:42:09Z"
+            },
+            {
+                "name": "RuboCop 0.59.2",
+                "date": "2018-09-24T05:20:38Z"
+            },
+            {
+                "name": "RuboCop 0.59.1",
+                "date": "2018-09-15T07:46:48Z"
+            },
+            {
+                "name": "RuboCop 0.59.0",
+                "date": "2018-09-09T16:25:48Z"
+            },
+            {
+                "name": "RuboCop 0.58.2",
+                "date": "2018-07-23T18:01:35Z"
+            },
+            {
+                "name": "RuboCop 0.58.1",
+                "date": "2018-07-10T07:31:32Z"
+            },
+            {
+                "name": "RuboCop 0.58",
+                "date": "2018-07-07T15:39:21Z"
+            },
+            {
+                "name": "RuboCop 0.57.2",
+                "date": "2018-06-12T09:05:22Z"
+            },
+            {
+                "name": "RuboCop 0.57.1",
+                "date": "2018-06-06T22:58:13Z"
+            },
+            {
+                "name": "RuboCop 0.57",
+                "date": "2018-06-06T00:53:44Z"
+            },
+            {
+                "name": "RuboCop 0.56",
+                "date": "2018-05-14T15:18:27Z"
+            },
+            {
+                "name": "RuboCop 0.55",
+                "date": "2018-04-16T09:20:35Z"
+            },
+            {
+                "name": "RuboCop 0.54",
+                "date": "2018-03-21T03:01:55Z"
+            },
+            {
+                "name": "RuboCop 0.53.0",
+                "date": "2018-03-05T01:51:32Z"
+            },
+            {
+                "name": "RuboCop 0.52.1",
+                "date": "2017-12-27T13:32:41Z"
+            },
+            {
+                "name": "RuboCop 0.52",
+                "date": "2017-12-12T13:56:35Z"
+            },
+            {
+                "name": "RuboCop 0.51",
+                "date": "2017-10-18T10:09:46Z"
+            },
+            {
+                "name": "RuboCop 0.50",
+                "date": "2017-09-14T18:15:25Z"
+            },
+            {
+                "name": "RuboCop 0.49.1",
+                "date": "2017-05-29T12:35:36Z"
+            },
+            {
+                "name": "RuboCop 0.49",
+                "date": "2017-05-24T05:34:23Z"
+            },
+            {
+                "name": "RuboCop 0.48.1",
+                "date": "2017-04-03T11:31:05Z"
+            },
+            {
+                "name": "RuboCop 0.48",
+                "date": "2017-03-26T09:54:04Z"
+            },
+            {
+                "name": "RuboCop 0.47.1",
+                "date": "2017-03-26T12:43:50Z"
+            },
+            {
+                "name": "RuboCop 0.47",
+                "date": "2017-01-16T01:39:26Z"
+            },
+            {
+                "name": "RuboCop 0.46",
+                "date": "2016-11-30T06:57:45Z"
+            },
+            {
+                "name": "RuboCop 0.45 (The Halloween Release) ",
+                "date": "2016-10-31T09:32:44Z"
+            },
+            {
+                "name": "RuboCop 0.44 (The Birthday Release)",
+                "date": "2016-10-13T14:06:37Z"
+            },
+            {
+                "name": "RuboCop 0.43",
+                "date": "2016-09-19T08:03:50Z"
+            },
+            {
+                "name": "RuboCop 0.42.0",
+                "date": "2016-07-25T09:17:39Z"
+            },
+            {
+                "name": "RuboCop 0.41.2",
+                "date": "2016-07-07T12:31:18Z"
+            },
+            {
+                "name": "RuboCop 0.41",
+                "date": "2016-06-25T17:51:45Z"
+            },
+            {
+                "name": "RuboCop 0.40",
+                "date": "2016-05-09T17:53:57Z"
+            },
+            {
+                "name": "RuboCop 0.39",
+                "date": "2016-03-27T11:15:53Z"
+            },
+            {
+                "name": "RuboCop 0.38",
+                "date": "2016-03-09T15:11:09Z"
+            },
+            {
+                "name": "RuboCop 0.37.2",
+                "date": "2016-02-11T12:53:07Z"
+            },
+            {
+                "name": "RuboCop 0.37.1",
+                "date": "2016-02-09T16:46:58Z"
+            },
+            {
+                "name": "RuboCop 0.37",
+                "date": "2016-02-04T06:40:28Z"
+            },
+            {
+                "name": "RuboCop 0.36.0",
+                "date": "2016-01-14T18:22:45Z"
+            },
+            {
+                "name": "RuboCop 0.35.0",
+                "date": "2015-11-07T06:47:43Z"
+            },
+            {
+                "name": "RuboCop 0.34.2",
+                "date": "2015-09-21T14:51:17Z"
+            },
+            {
+                "name": "RuboCop 0.34.1",
+                "date": "2015-09-09T11:30:12Z"
+            },
+            {
+                "name": "RuboCop 0.34",
+                "date": "2015-09-05T05:07:34Z"
+            },
+            {
+                "name": "RuboCop 0.33.0",
+                "date": "2015-08-05T12:18:35Z"
+            },
+            {
+                "name": "RuboCop 0.32.1",
+                "date": "2015-06-24T06:18:57Z"
+            },
+            {
+                "name": "",
+                "date": "2015-06-06T09:04:04Z"
+            },
+            {
+                "name": "RuboCop 0.31",
+                "date": "2015-05-05T17:07:07Z"
+            },
+            {
+                "name": "RuboCop 0.30.1",
+                "date": "2015-04-21T11:55:47Z"
+            },
+            {
+                "name": "RuboCop 0.30.0",
+                "date": "2015-04-06T15:39:28Z"
+            },
+            {
+                "name": "RuboCop 0.29.1",
+                "date": "2015-02-13T09:50:49Z"
+            },
+            {
+                "name": "RuboCop 0.29.0",
+                "date": "2015-02-05T20:30:11Z"
+            },
+            {
+                "name": "RuboCop 0.28",
+                "date": "2014-12-10T17:18:45Z"
+            },
+            {
+                "name": "RuboCop 0.27.1",
+                "date": "2014-11-08T11:28:38Z"
+            },
+            {
+                "name": "RuboCop 0.27.0",
+                "date": "2014-10-30T16:44:15Z"
+            },
+            {
+                "name": "RuboCop 0.26.1",
+                "date": "2014-09-18T12:11:52Z"
+            },
+            {
+                "name": "RuboCop 0.26.0",
+                "date": "2014-09-03T12:36:50Z"
+            },
+            {
+                "name": "RuboCop 0.25.0",
+                "date": "2014-08-15T11:20:51Z"
+            },
+            {
+                "name": "RuboCop 0.24.1",
+                "date": "2014-07-03T11:43:20Z"
+            },
+            {
+                "name": "RuboCop 0.24.0",
+                "date": "2014-06-25T06:51:50Z"
+            },
+            {
+                "name": "RuboCop 0.23.0",
+                "date": "2014-06-02T12:22:36Z"
+            },
+            {
+                "name": "RuboCop 0.22.0",
+                "date": "2014-05-20T14:38:37Z"
+            },
+            {
+                "name": "RuboCop 0.21.0",
+                "date": "2014-04-24T09:50:02Z"
+            },
+            {
+                "name": "RuboCop 0.20.1",
+                "date": "2014-04-05T12:17:07Z"
+            },
+            {
+                "name": "RuboCop 0.20.0",
+                "date": "2014-04-02T14:05:08Z"
+            },
+            {
+                "name": "RuboCop 0.19.1",
+                "date": "2014-03-18T07:27:30Z"
+            },
+            {
+                "name": "RuboCop 0.19.0",
+                "date": "2014-03-13T16:34:34Z"
+            }
+        ]
+    }
+}

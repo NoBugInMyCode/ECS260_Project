@@ -1,0 +1,319 @@
+{
+    "https://api.github.com/repos/graphql/graphql-playground": {
+        "forks": 736,
+        "watchers": 8802,
+        "stars": 8802,
+        "languages": {
+            "TypeScript": 565895,
+            "JavaScript": 63765,
+            "HTML": 59642,
+            "Shell": 3175,
+            "CSS": 706
+        },
+        "commits": [
+            "2022-05-02T11:02:41Z",
+            "2022-04-25T06:15:04Z",
+            "2022-02-21T09:24:59Z",
+            "2021-11-04T17:55:09Z",
+            "2021-04-19T19:49:56Z",
+            "2021-04-18T20:35:54Z",
+            "2021-04-04T18:45:47Z",
+            "2021-04-04T18:39:31Z",
+            "2021-04-04T18:34:09Z",
+            "2021-04-04T18:33:15Z",
+            "2021-04-04T18:32:08Z",
+            "2021-04-04T18:31:20Z",
+            "2021-03-03T19:02:54Z",
+            "2021-02-22T18:40:09Z",
+            "2021-02-04T23:08:55Z",
+            "2020-11-15T02:05:55Z",
+            "2020-11-15T02:05:18Z",
+            "2020-10-20T16:21:48Z",
+            "2020-10-20T16:17:33Z",
+            "2020-10-20T15:59:37Z",
+            "2020-09-23T20:18:24Z",
+            "2020-09-23T15:59:46Z",
+            "2020-09-15T14:52:23Z",
+            "2020-09-15T14:48:13Z",
+            "2020-08-30T02:05:37Z",
+            "2020-08-30T02:05:20Z",
+            "2020-08-30T02:00:14Z",
+            "2020-08-30T01:59:52Z",
+            "2020-08-30T00:41:11Z",
+            "2020-08-29T23:16:09Z"
+        ],
+        "creation_date": "2017-01-25T13:19:29Z",
+        "contributors": 30,
+        "topics": [
+            "graphiql",
+            "graphql",
+            "graphql-playground",
+            "ide",
+            "prisma"
+        ],
+        "subscribers": 84,
+        "readme": "<p align=\"center\"><img src=\"https://imgur.com/5fzMbyV.png\" width=\"269\"></p>\n\n[![npm version](https://badge.fury.io/js/graphql-playground-react.svg)](https://badge.fury.io/js/graphql-playground-react)\n[![graphql](https://circleci.com/gh/graphql/graphql-playground.svg?style=shield)](https://circleci.com/gh/graphql/graphql-playground)\n\n> **SECURITY WARNING:** both `graphql-playground-html` and [all four (4) of it's middleware dependents](#impacted-packages) until `graphql-playground-html@1.6.22` were subject to an  **XSS Reflection attack vulnerability only to unsanitized user input strings** to the functions therein. This was resolved in `graphql-playground-html@^1.6.22`. [More Information](#security-details) [CVE-2020-4038](https://github.com/graphql/graphql-playground/security/advisories/GHSA-4852-vrh7-28rf)\n\n\n**Future of this repository**: See [this issue](https://github.com/graphql/graphql-playground/issues/1366#issuecomment-1062088978) for details.\n\n---\n\nGraphQL IDE for better development workflows (GraphQL Subscriptions, interactive docs & collaboration). <br />\n\n[![](https://i.imgur.com/AE5W6OW.png)](https://graphqlbin.com/v2/6RQ6TM)\n\n## Installation\n\n```sh\n$ brew install --cask graphql-playground\n```\n\n## Features\n\n- \u2728 Context-aware autocompletion & error highlighting\n- \ud83d\udcda Interactive, multi-column docs (keyboard support)\n- \u26a1\ufe0f Supports real-time GraphQL Subscriptions\n- \u2699 GraphQL Config support with multiple Projects & Endpoints\n- \ud83d\udea5 Apollo Tracing support\n\n## Security Details\n> **NOTE: only _unsanitized user input_ to the functions in these packages is vulnerable** to the recently reported XSS Reflection attack.\n\n### Impact\n\n> Impacted are any and all unsanitized **user-defined** input to:\n-`renderPlaygroundPage()`\n-`koaPlayground()`\n-`expressPlayground()`\n-`koaPlayground()`\n-`lambdaPlayground()\n\n>  If you used static values, such as `graphql-playground-electron` does in [it's webpack config](https://github.com/prisma-labs/graphql-playground/blob/main/packages/graphql-playground-electron/webpack.config.build.js#L16), as well as the most common middleware implementations out there, they were not vulnerable to the attack.\n\nThe only reason this vulnerability exists is because we are using template strings in `renderPlaygroundPage()` with potentially unsanitized user defined variables. This allows an attacker to inject html and javascript into the page. \n- [Read more about preventing XSS in react](https://pragmaticwebsecurity.com/files/cheatsheets/reactxss.pdf)\n\nCommon examples may be user-defined path parameters, query string, unsanitized UI provided values in database, etc., that are used to build template strings or passed directly to a `renderPlaygroundPage()` or the matching middleware function equivalent listed above.\n\n### Impacted Packages\n\n**All versions of these packages are impacted until the ones specified below**, which are now safe for user defined input:\n\n- `graphql-playground-html`: **\u2614 safe** @ `1.6.22`\n- `graphql-playground-express` **\u2614 safe** @ `1.7.16`\n- `graphql-playground-koa` **\u2614 safe** @ `1.6.15`\n- `graphql-playground-hapi` **\u2614 safe** @ `1.6.13`\n- `graphql-playground-lambda` **\u2614 safe** @ `1.7.17`\n- `graphql-playground-electron` has always been **\u2614 safe** from XSS attacks! This is because configuration is statically defined [it's webpack config](https://github.com/prisma-labs/graphql-playground/blob/main/packages/graphql-playground-electron/webpack.config.build.js#L16)\n- `graphql-playground-react` is safe because it does not use `renderPlaygroundPage()` anywhere, and thus is not susceptible to template string XSS reflection attacks.\n\n### More Information\n\nSee the [security docs](./SECURITY.md) for more details on how your implementation might be impacted by this vulnerability. It contains safe examples, unsafe examples, workarounds, and more details.\n\nWe've also provided ['an example of the xss using the express middleware]('https://github.com/prisma-labs/graphql-playground/tree/main/packages/graphql-playground-html/examples/xss-attack')\n\n## FAQ\n\n### How is this different from [GraphiQL](https://github.com/graphql/graphiql)?\n\nGraphQL Playground uses components of GraphiQL under the hood but is meant as a more powerful GraphQL IDE enabling better (local) development workflows. Compared to GraphiQL, the GraphQL Playground ships with the following additional features:\n\n- Interactive, multi-column schema documentation\n- Automatic schema reloading\n- Support for GraphQL Subscriptions\n- Query history\n- Configuration of HTTP headers\n- Tabs\n\nSee the following question for more additonal features.\n\n### What's the difference between the desktop app and the web version?\n\nThe desktop app is the same as the web version but includes these additional features:\n\n- Partial support for [graphql-config](https://github.com/prismagraphql/graphql-config) enabling features like multi-environment setups (no support for sending HTTP headers).\n- Double click on `*.graphql` files.\n\n### How does GraphQL Bin work?\n\nYou can easily share your Playgrounds with others by clicking on the \"Share\" button and sharing the generated link. You can think about GraphQL Bin like Pastebin for your GraphQL queries including the context (endpoint, HTTP headers, open tabs etc).\n\n<a href=\"https://graphqlbin.com/OksD\" target=\"_blank\">\n <img src=\"https://camo.githubusercontent.com/daf8c64dbde3097fdbe782c0645552550d530a73/68747470733a2f2f696d6775722e636f6d2f48316e36346c4c2e706e67\" alt=\"\" data-canonical-src=\"https://imgur.com/H1n64lL.png\" style=\"max-width:100%;\">\n</a>\n\n> You can also find the announcement blog post [here](https://blog.graph.cool/introducing-graphql-playground-f1e0a018f05d).\n\n## Settings\n\nIn the top right corner of the Playground window you can click on the settings icon.\nThese are the settings currently available:\n\n```js\n{\n  'editor.cursorShape': 'line', // possible values: 'line', 'block', 'underline'\n  'editor.fontFamily': `'Source Code Pro', 'Consolas', 'Inconsolata', 'Droid Sans Mono', 'Monaco', monospace`,\n  'editor.fontSize': 14,\n  'editor.reuseHeaders': true, // new tab reuses headers from last tab\n  'editor.theme': 'dark', // possible values: 'dark', 'light'\n  'general.betaUpdates': false,\n  'prettier.printWidth': 80,\n  'prettier.tabWidth': 2,\n  'prettier.useTabs': false,\n  'request.credentials': 'omit', // possible values: 'omit', 'include', 'same-origin'\n  'schema.polling.enable': true, // enables automatic schema polling\n  'schema.polling.endpointFilter': '*localhost*', // endpoint filter for schema polling\n  'schema.polling.interval': 2000, // schema polling interval in ms\n  'schema.disableComments': boolean,\n  'tracing.hideTracingResponse': true,\n  'tracing.tracingSupported': true, // set false to remove x-apollo-tracing header from Schema fetch requests\n}\n```\n\n## Usage\n\n### Properties\n\nThe React component `<Playground />` and all middlewares expose the following options:\n\n- `props` (Middlewares & React Component)\n  - `endpoint` [`string`](optional) - the GraphQL endpoint url.\n  - `subscriptionEndpoint` [`string`](optional) - the GraphQL subscriptions endpoint url.\n  - `workspaceName` [`string`](optional) - in case you provide a GraphQL Config, you can name your workspace here\n  - `config` [`string`](optional) - the JSON of a GraphQL Config. See an example [here](https://github.com/prismagraphql/graphql-playground/blob/main/packages/graphql-playground-react/src/localDevIndex.tsx#L47)\n  - `settings` [`ISettings`](optional) - Editor settings in json format as [described here](https://github.com/prismagraphql/graphql-playground#settings)\n\n```ts\ninterface ISettings {\n  'editor.cursorShape': 'line' | 'block' | 'underline'\n  'editor.fontFamily': string\n  'editor.fontSize': number\n  'editor.reuseHeaders': boolean\n  'editor.theme': 'dark' | 'light'\n  'general.betaUpdates': boolean\n  'prettier.printWidth': number\n  'prettier.tabWidth': number\n  'prettier.useTabs': boolean\n  'request.credentials': 'omit' | 'include' | 'same-origin'\n  'request.globalHeaders': { [key: string]: string }\n  'schema.polling.enable': boolean\n  'schema.polling.endpointFilter': string\n  'schema.polling.interval': number\n  'schema.disableComments': boolean\n  'tracing.hideTracingResponse': boolean\n  'tracing.tracingSupported': boolean\n}\n```\n\n- `schema` [`IntrospectionResult`](optional) - The result of an introspection query (an object of this form: `{__schema: {...}}`) The playground automatically fetches the schema from the endpoint. This is only needed when you want to override the schema.\n- `tabs` [`Tab[]`](optional) - An array of tabs to inject. **Note: When using this feature, tabs will be resetted each time the page is reloaded**\n\n```ts\ninterface Tab {\n  endpoint: string\n  query: string\n  name?: string\n  variables?: string\n  responses?: string[]\n  headers?: { [key: string]: string }\n}\n```\n\nIn addition to this, the React app provides some more properties:\n\n- `props` (React Component)\n- `createApolloLink` [`(session: Session, subscriptionEndpoint?: string) => ApolloLink`] - this is the equivalent to the `fetcher` of GraphiQL. For each query that is being executed, this function will be called\n\n`createApolloLink` is only available in the React Component and not the middlewares, because the content must be serializable as it is being printed into a HTML template.\n\n### As HTML Page\n\nIf you simply want to render the Playground HTML on your own, for example when implementing a GraphQL Server, there are 2 options for you:\n\n1.  [The bare minimum HTML needed to render the Playground](https://github.com/prismagraphql/graphql-playground/blob/main/packages/graphql-playground-html/minimal.html)\n2.  [The Playground HTML with full loading animation](https://github.com/prismagraphql/graphql-playground/blob/main/packages/graphql-playground-html/withAnimation.html)\n\nNote: In case you do not want to serve assets from a CDN (like jsDelivr) and instead use a local copy, you will need to install `graphql-playground-react` from npm, and then replace all instances of `//cdn.jsdelivr.net/npm` with `./node_modules`. An example can be found [here](https://github.com/prismagraphql/graphql-playground/blob/main/packages/graphql-playground-html/minimalWithoutCDN.html)\n\n### As React Component\n\n#### Install\n\n```sh\nyarn add graphql-playground-react\n```\n\n#### Use\n\nGraphQL Playground provides a React component responsible for rendering the UI and Session management.\nThere are **3 dependencies** needed in order to run the `graphql-playground-react` React component.\n\n1.  _Open Sans_ and _Source Code Pro_ fonts\n2.  Rendering the `<Playground />` component\n\nThe GraphQL Playground requires **React 16**.\n\nIncluding Fonts (`1.`)\n\n```html\n<link\n  href=\"https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Source+Code+Pro:400,700\"\n  rel=\"stylesheet\"\n/>\n```\n\nIncluding stylesheet and the component (`2., 3.`)\n\n```js\nimport React from 'react'\nimport ReactDOM from 'react-dom'\nimport { Provider } from 'react-redux'\nimport { Playground, store } from 'graphql-playground-react'\n\nReactDOM.render(\n  <Provider store={store}>\n    <Playground endpoint='https://api.graph.cool/simple/v1/swapi' />\n  </Provider>,\n  document.body,\n)\n```\n\n### As Server Middleware\n\n#### Install\n\n```sh\n# Pick the one that matches your server framework\nyarn add graphql-playground-middleware-express  # for Express or Connect\nyarn add graphql-playground-middleware-hapi\nyarn add graphql-playground-middleware-koa\nyarn add graphql-playground-middleware-lambda\n```\n\n#### Usage with example\n\nWe have a full example for each of the frameworks below:\n\n- **Express:** See [packages/graphql-playground-middleware-express/examples/basic](https://github.com/prismagraphql/graphql-playground/tree/main/packages/graphql-playground-middleware-express/examples/basic)\n\n- **Hapi:** See [packages/graphql-playground-middleware-hapi](https://github.com/prismagraphql/graphql-playground/tree/main/packages/graphql-playground-middleware-hapi)\n\n- **Koa:** See [packages/graphql-playground-middleware-koa](https://github.com/prismagraphql/graphql-playground/tree/main/packages/graphql-playground-middleware-koa)\n\n- **Lambda (as serverless handler):** See [serverless-graphql-apollo](https://github.com/serverless/serverless-graphql-apollo) or a quick example below.\n\n### As serverless handler\n\n#### Install\n\n```sh\nyarn add graphql-playground-middleware-lambda\n```\n\n#### Usage\n\n`handler.js`\n\n```js\nimport lambdaPlayground from 'graphql-playground-middleware-lambda'\n// or using require()\n// const lambdaPlayground = require('graphql-playground-middleware-lambda').default\n\nexports.graphqlHandler = function graphqlHandler(event, context, callback) {\n  function callbackFilter(error, output) {\n    // eslint-disable-next-line no-param-reassign\n    output.headers['Access-Control-Allow-Origin'] = '*'\n    callback(error, output)\n  }\n\n  const handler = graphqlLambda({ schema: myGraphQLSchema })\n  return handler(event, context, callbackFilter)\n}\n\nexports.playgroundHandler = lambdaPlayground({\n  endpoint: '/dev/graphql',\n})\n```\n\n`serverless.yml`\n\n```yaml\nfunctions:\n  graphql:\n    handler: handler.graphqlHandler\n    events:\n      - http:\n          path: graphql\n          method: post\n          cors: true\n  playground:\n    handler: handler.playgroundHandler\n    events:\n      - http:\n          path: playground\n          method: get\n          cors: true\n```\n\n#### Security Issue\n\nThere is an [XSS Reflection Vulnerability](./SECURITY.md) when using these middlewares with unsanitized user input before\n\n## Development\n\n```sh\n$ cd packages/graphql-playground-react\n$ yarn\n$ yarn start\n```\n\nOpen\n[localhost:3000/localDev.html?endpoint=https://api.graph.cool/simple/v1/swapi](http://localhost:3000/localDev.html?endpoint=https://api.graph.cool/simple/v1/swapi) for local development!\n\n### Contributing to this project\n\nThis repository is managed by EasyCLA. Project participants must sign the free ([GraphQL Specification Membership agreement](https://preview-spec-membership.graphql.org) before making a contribution. You only need to do this one time, and it can be signed by [individual contributors](http://individual-spec-membership.graphql.org/) or their [employers](http://corporate-spec-membership.graphql.org/).\n\nTo initiate the signature process please open a PR against this repo. The EasyCLA bot will block the merge if we still need a membership agreement from you.\n\nYou can find [detailed information here](https://github.com/graphql/graphql-wg/tree/main/membership). If you have issues, please email [operations@graphql.org](mailto:operations@graphql.org).\n\nIf your company benefits from GraphQL and you would like to provide essential financial support for the systems and people that power our community, please also consider membership in the [GraphQL Foundation](https://foundation.graphql.org/join).\n\n## Custom Theme\n\nFrom `graphql-playground-react@1.7.0` on you can provide a `codeTheme` property to the React Component to customize your color theme.\nThese are the available options:\n\n```ts\nexport interface EditorColours {\n  property: string\n  comment: string\n  punctuation: string\n  keyword: string\n  def: string\n  qualifier: string\n  attribute: string\n  number: string\n  string: string\n  builtin: string\n  string2: string\n  variable: string\n  meta: string\n  atom: string\n  ws: string\n  selection: string\n  cursorColor: string\n  editorBackground: string\n  resultBackground: string\n  leftDrawerBackground: string\n  rightDrawerBackground: string\n}\n```\n\n### Versions\n\nThis is repository is a \"mono repo\" and contains multiple packages using [Yarn workspaces](https://yarnpkg.com/lang/en/docs/workspaces/). Please be aware that versions are **not** synchronised between packages. The versions of the [release page](https://github.com/graphcool/graphql-playground/releases) refer to the electron app.\n\n### Packages\n\nIn the folder `packages` you'll find the following packages:\n\n- `graphql-playground-electron`: Cross-platform electron app which uses `graphql-playground-react`\n- `graphql-playground-html`: Simple HTML page rendering a version of `graphql-playground-react` hosted on JSDeliver\n- `graphql-playground-middleware-express`: Express middleware using `graphql-playground-html`\n- `graphql-playground-middleware-hapi`: Hapi middleware using `graphql-playground-html`\n- `graphql-playground-middleware-koa`: Koa middleware using `graphql-playground-html`\n- `graphql-playground-middleware-lambda`: AWS Lambda middleware using `graphql-playground-html`\n- `graphql-playground-react`: Core of GraphQL Playground built with ReactJS\n\n<a name=\"help-and-community\" />\n\n## Help & Community [![Discord](https://img.shields.io/discord/586999333447270440.svg)](https://discord.gg/EXUYPaY)\n\nJoin our [Discord Server](https://discord.gg/EXUYPaY) if you run into issues or have questions. We love talking to you!\n\n<p align=\"center\"><a href=\"https://oss.prisma.io\"><img src=\"https://imgur.com/IMU2ERq.png\" alt=\"Prisma\" height=\"170px\"></a></p>\n",
+        "releases": [
+            {
+                "name": "1.8.10",
+                "date": "2019-02-23T13:55:00Z"
+            },
+            {
+                "name": "1.8.9",
+                "date": "2019-02-01T12:19:13Z"
+            },
+            {
+                "name": "1.8.8",
+                "date": "2019-01-30T08:31:38Z"
+            },
+            {
+                "name": "1.8.7",
+                "date": "2019-01-28T10:39:39Z"
+            },
+            {
+                "name": "1.8.6",
+                "date": "2019-01-27T16:39:13Z"
+            },
+            {
+                "name": "1.8.5",
+                "date": "2018-12-12T09:57:54Z"
+            },
+            {
+                "name": "1.8.4",
+                "date": "2018-12-04T16:52:19Z"
+            },
+            {
+                "name": "1.8.3",
+                "date": "2018-11-23T17:56:13Z"
+            },
+            {
+                "name": "1.8.2",
+                "date": "2018-11-14T23:06:54Z"
+            },
+            {
+                "name": "1.8.1",
+                "date": "2018-11-14T22:11:33Z"
+            },
+            {
+                "name": "1.8.0",
+                "date": "2018-10-16T15:55:18Z"
+            },
+            {
+                "name": "1.7.0",
+                "date": "2018-09-11T11:14:46Z"
+            },
+            {
+                "name": "1.6.3",
+                "date": "2018-08-27T11:03:16Z"
+            },
+            {
+                "name": "1.6.2",
+                "date": "2018-07-06T08:43:40Z"
+            },
+            {
+                "name": "1.6.1",
+                "date": "2018-06-27T07:54:16Z"
+            },
+            {
+                "name": "1.6.0",
+                "date": "2018-05-31T17:30:15Z"
+            },
+            {
+                "name": "1.5.9",
+                "date": "2018-05-25T10:07:21Z"
+            },
+            {
+                "name": "1.5.8",
+                "date": "2018-05-10T09:16:58Z"
+            },
+            {
+                "name": "1.5.7",
+                "date": "2018-05-10T07:47:49Z"
+            },
+            {
+                "name": "1.5.6",
+                "date": "2018-04-25T08:27:12Z"
+            },
+            {
+                "name": "1.5.5",
+                "date": "2018-04-24T20:04:16Z"
+            },
+            {
+                "name": "1.5.4",
+                "date": "2018-04-12T14:26:05Z"
+            },
+            {
+                "name": "1.5.3",
+                "date": "2018-04-12T13:45:37Z"
+            },
+            {
+                "name": "1.5.2",
+                "date": "2018-04-02T17:29:42Z"
+            },
+            {
+                "name": "1.5.1",
+                "date": "2018-04-02T15:08:55Z"
+            },
+            {
+                "name": "1.5.0",
+                "date": "2018-04-01T19:16:30Z"
+            },
+            {
+                "name": "1.5.0-rc.5",
+                "date": "2018-03-28T15:06:49Z"
+            },
+            {
+                "name": "1.5.0-rc.4",
+                "date": "2018-03-26T15:22:41Z"
+            },
+            {
+                "name": "1.5.0-rc.2",
+                "date": "2018-03-26T08:19:48Z"
+            },
+            {
+                "name": "1.5.0-rc.1",
+                "date": "2018-03-23T23:14:11Z"
+            },
+            {
+                "name": "1.4.5",
+                "date": "2018-03-15T15:45:07Z"
+            },
+            {
+                "name": "1.4.4",
+                "date": "2018-03-02T09:40:05Z"
+            },
+            {
+                "name": "1.4.3",
+                "date": "2018-02-01T08:26:33Z"
+            },
+            {
+                "name": "1.4.2",
+                "date": "2018-01-22T16:08:36Z"
+            },
+            {
+                "name": "1.4.1",
+                "date": "2018-01-22T10:57:48Z"
+            },
+            {
+                "name": "1.4.0",
+                "date": "2018-01-15T19:35:46Z"
+            },
+            {
+                "name": "1.3.24",
+                "date": "2018-01-13T22:59:16Z"
+            },
+            {
+                "name": "1.3.23",
+                "date": "2018-01-08T22:36:40Z"
+            },
+            {
+                "name": "1.3.22",
+                "date": "2018-01-05T20:45:48Z"
+            },
+            {
+                "name": "1.3.21",
+                "date": "2018-01-04T18:26:29Z"
+            },
+            {
+                "name": "1.3.20",
+                "date": "2018-01-04T15:59:00Z"
+            },
+            {
+                "name": "1.3.19",
+                "date": "2018-01-03T21:21:51Z"
+            },
+            {
+                "name": "1.3.18",
+                "date": "2018-01-03T20:31:50Z"
+            },
+            {
+                "name": "1.3.17",
+                "date": "2018-01-03T13:10:39Z"
+            },
+            {
+                "name": "1.3.16",
+                "date": "2017-12-27T10:56:33Z"
+            },
+            {
+                "name": "1.3.15",
+                "date": "2017-12-27T10:26:20Z"
+            },
+            {
+                "name": "1.3.14",
+                "date": "2017-12-26T22:42:58Z"
+            },
+            {
+                "name": "1.3.12",
+                "date": "2017-12-24T19:37:32Z"
+            },
+            {
+                "name": "1.3.11",
+                "date": "2017-12-24T19:20:45Z"
+            },
+            {
+                "name": "v1.3.10",
+                "date": "2017-12-20T14:50:33Z"
+            },
+            {
+                "name": "v1.3.9",
+                "date": "2017-12-14T21:36:14Z"
+            },
+            {
+                "name": "v1.3.8",
+                "date": "2017-12-14T19:48:46Z"
+            },
+            {
+                "name": "1.3.8-beta.1",
+                "date": "2017-12-14T19:05:17Z"
+            },
+            {
+                "name": "v1.3.7",
+                "date": "2017-12-12T15:33:03Z"
+            },
+            {
+                "name": "v1.3.6",
+                "date": "2017-12-04T20:04:03Z"
+            },
+            {
+                "name": "v1.3.5",
+                "date": "2017-12-04T13:20:20Z"
+            },
+            {
+                "name": "1.3.4",
+                "date": "2017-12-03T17:41:11Z"
+            },
+            {
+                "name": "v1.3.0",
+                "date": "2017-12-01T11:26:51Z"
+            },
+            {
+                "name": "v1.2.0",
+                "date": "2017-11-24T18:06:03Z"
+            },
+            {
+                "name": "v1.1.6",
+                "date": "2017-11-22T14:12:16Z"
+            },
+            {
+                "name": "v1.1.1",
+                "date": "2017-11-03T08:21:59Z"
+            },
+            {
+                "name": "",
+                "date": "2017-11-03T08:03:32Z"
+            },
+            {
+                "name": "v1.0.2-rc.1",
+                "date": "2017-10-15T09:46:24Z"
+            },
+            {
+                "name": "v1.0.1",
+                "date": "2017-09-27T13:07:25Z"
+            },
+            {
+                "name": "",
+                "date": "2017-09-27T09:56:34Z"
+            }
+        ]
+    }
+}

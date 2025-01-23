@@ -1,0 +1,274 @@
+{
+    "https://api.github.com/repos/wix/react-native-calendars": {
+        "forks": 2975,
+        "watchers": 9671,
+        "stars": 9671,
+        "languages": {
+            "TypeScript": 344290,
+            "JavaScript": 75285,
+            "Java": 6044,
+            "Objective-C": 2615,
+            "Ruby": 2443,
+            "Objective-C++": 1467,
+            "CSS": 1342
+        },
+        "commits": [
+            "2024-11-25T11:46:26Z",
+            "2024-11-24T13:42:57Z",
+            "2024-09-18T07:59:25Z",
+            "2024-09-18T06:24:04Z",
+            "2024-09-18T06:10:23Z",
+            "2024-09-11T07:06:55Z",
+            "2024-09-02T09:20:17Z",
+            "2024-08-15T08:35:33Z",
+            "2024-08-15T08:25:09Z",
+            "2024-07-23T10:41:23Z",
+            "2024-07-23T10:31:47Z",
+            "2024-07-23T10:24:00Z",
+            "2024-07-23T08:11:24Z",
+            "2024-07-11T08:51:09Z",
+            "2024-04-17T09:10:45Z",
+            "2024-04-02T12:04:54Z",
+            "2024-03-05T12:10:08Z",
+            "2024-02-14T13:07:03Z",
+            "2024-02-13T12:14:13Z",
+            "2024-02-13T08:18:57Z",
+            "2023-12-11T10:41:11Z",
+            "2023-10-31T09:49:31Z",
+            "2023-09-18T07:04:10Z",
+            "2023-08-17T15:03:29Z",
+            "2023-07-20T09:16:54Z",
+            "2023-07-16T12:13:42Z",
+            "2023-07-12T11:35:09Z",
+            "2023-07-09T08:44:26Z",
+            "2023-07-05T10:07:14Z",
+            "2023-06-20T11:10:50Z"
+        ],
+        "creation_date": "2016-11-11T12:17:27Z",
+        "contributors": 30,
+        "topics": [
+            "android",
+            "calendar",
+            "hacktoberfest",
+            "ios",
+            "react-native",
+            "ui-components"
+        ],
+        "subscribers": 355,
+        "readme": "[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://stand-with-ukraine.pp.ua)\n\n# React Native Calendars \ud83d\uddd3\ufe0f \ud83d\udcc6\n\n## A declarative cross-platform React Native calendar component for iOS and Android.\n\n[![Version](https://img.shields.io/npm/v/react-native-calendars.svg)](https://www.npmjs.com/package/react-native-calendars)\n[![Build status](https://badge.buildkite.com/1a911fa39db2518a615b73f3dc18ec0938a66403f2ad66f79b.svg)](https://buildkite.com/wix-mobile-oss/react-native-calendars)\n<br>\n\nThis module includes information on how to use this customizable **React Native** calendar component.\n\nThe package is compatible with both **Android** and **iOS**\n\n<br>\n\n> ### **Official documentation**\n>\n> This README provides basic examples of how to get started with `react-native-calendars`. For detailed information, refer to the [official documentation site](https://wix.github.io/react-native-calendars/docs/Intro).\n\n## Features \u2728\n\n- Pure JS. No Native code required\n- Date marking - dot, multi-dot, period, multi-period and custom marking\n- Customization of style, content (days, months, etc) and dates\n- Detailed documentation and examples\n- Swipeable calendar with flexible custom rendering\n- Scrolling to today, selecting dates, and more\n- Allowing or blocking certain dates\n- Accessibility support\n- Automatic date formatting for different locales\n\n## Try it out \u26a1\n\nYou can run a sample module using these steps:\n\n```\n$ git clone git@github.com:wix/react-native-calendars.git\n\n$ cd react-native-calendars\n\n$ yarn install\n\n$ cd ios && pod install && cd ..\n\n$ react-native run-ios\n```\n\nYou can check example screens source code in [example module screens](https://github.com/wix-private/wix-react-native-calendar/tree/master/example/src/screens)\n\nThis project is compatible with Expo/CRNA (without ejecting), and the examples have been [published on Expo](https://expo.io/@community/react-native-calendars-example)\n\n## Getting Started \ud83d\udd27\n\nHere's how to get started with react-native-calendars in your React Native project:\n\n### Install the package:\n\n```\n$ yarn add react-native-calendars\n```\n\n**RN Calendars is implemented in JavaScript, so no native module linking is required.**\n\n## Usage \ud83d\ude80\n\nBasic usage examples of the library\n\n##### **For detailed information on using this component, see the [official documentation site](https://wix.github.io/react-native-calendars/docs/Intro)**\n\n### Importing the `Calendar` component\n\n```javascript\nimport {Calendar, CalendarList, Agenda} from 'react-native-calendars';\n```\n\n### Use the `Calendar` component in your app:\n\n```javascript\n<Calendar\n  onDayPress={day => {\n    console.log('selected day', day);\n  }}\n/>\n```\n\n## Some Code Examples\n\nHere are a few code snippets that demonstrate how to use some of the key features of react-native-calendars:\n\n### Creating a basic calendar with default settings:\n\n```javascript\nimport React, {useState} from 'react';\nimport {Calendar, LocaleConfig} from 'react-native-calendars';\n\nconst App = () => {\n  const [selected, setSelected] = useState('');\n\n  return (\n    <Calendar\n      onDayPress={day => {\n        setSelected(day.dateString);\n      }}\n      markedDates={{\n        [selected]: {selected: true, disableTouchEvent: true, selectedDotColor: 'orange'}\n      }}\n    />\n  );\n};\n\nexport default App;\n```\n\n### Customize the appearance of the calendar:\n\n```javascript\n<Calendar\n  // Customize the appearance of the calendar\n  style={{\n    borderWidth: 1,\n    borderColor: 'gray',\n    height: 350\n  }}\n  // Specify the current date\n  current={'2012-03-01'}\n  // Callback that gets called when the user selects a day\n  onDayPress={day => {\n    console.log('selected day', day);\n  }}\n  // Mark specific dates as marked\n  markedDates={{\n    '2012-03-01': {selected: true, marked: true, selectedColor: 'blue'},\n    '2012-03-02': {marked: true},\n    '2012-03-03': {selected: true, marked: true, selectedColor: 'blue'}\n  }}\n/>\n```\n\n### Configuring the locale:\n\n```javascript\nimport {LocaleConfig} from 'react-native-calendars';\nimport React, {useState} from 'react';\nimport {Calendar, LocaleConfig} from 'react-native-calendars';\n\nLocaleConfig.locales['fr'] = {\n  monthNames: [\n    'Janvier',\n    'F\u00e9vrier',\n    'Mars',\n    'Avril',\n    'Mai',\n    'Juin',\n    'Juillet',\n    'Ao\u00fbt',\n    'Septembre',\n    'Octobre',\n    'Novembre',\n    'D\u00e9cembre'\n  ],\n  monthNamesShort: ['Janv.', 'F\u00e9vr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Ao\u00fbt', 'Sept.', 'Oct.', 'Nov.', 'D\u00e9c.'],\n  dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],\n  dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],\n  today: \"Aujourd'hui\"\n};\n\nLocaleConfig.defaultLocale = 'fr';\n\nconst App = () => {\n  const [selected, setSelected] = useState('');\n\n  return (\n    <Calendar\n      onDayPress={day => {\n        setSelected(day.dateString);\n      }}\n      markedDates={{\n        [selected]: {selected: true, disableTouchEvent: true, selectedDotColor: 'orange'}\n      }}\n    />\n  );\n};\n\nexport default App;\n```\n\n### Adding a global theme to the calendar:\n\n```javascript\n    <Calendar\n      style={{\n        borderWidth: 1,\n        borderColor: 'gray',\n        height: 350,\n      }}\n      theme={{\n        backgroundColor: '#ffffff',\n        calendarBackground: '#ffffff',\n        textSectionTitleColor: '#b6c1cd',\n        selectedDayBackgroundColor: '#00adf5',\n        selectedDayTextColor: '#ffffff',\n        todayTextColor: '#00adf5',\n        dayTextColor: '#2d4150',\n        textDisabledColor: '#dd99ee'\n      }}\n    </Calendar>\n```\n\n## Customized Calendar Examples\n\n### Calendar\n\n  <img src=\"https://github.com/wix-private/wix-react-native-calendar/blob/master/demo/assets/calendar.gif?raw=true\">\n\n### Dot marking\n\n  <img height={50} src=\"https://github.com/wix-private/wix-react-native-calendar/blob/master/demo/assets/marking1.png?raw=true\">\n\n### Multi-Dot marking\n\n <img height=50 src=\"https://github.com/wix-private/wix-react-native-calendar/blob/master/demo/assets/marking4.png?raw=true\">\n\n### Period Marking\n\n  <img height=50 src=\"https://github.com/wix-private/wix-react-native-calendar/blob/master/demo/assets/marking2.png?raw=true\">\n\n  <img height=50 src=\"https://github.com/wix-private/wix-react-native-calendar/blob/master/demo/assets/marking3.png?raw=true\">\n\n### Multi-Period marking\n\n  <img height=50 src=\"https://github.com/wix-private/wix-react-native-calendar/blob/master/demo/assets/marking6.png?raw=true\">\n\n### Custom marking\n\n  <img height=50 src=\"https://github.com/wix-private/wix-react-native-calendar/blob/master/demo/assets/marking5.png?raw=true\">\n\n  <img height=350 src=\"https://github.com/wix-private/wix-react-native-calendar/blob/master/demo/assets/multi-marking.png?raw=true\">\n\n### Date loading indicator\n\n  <img height=50 src=\"https://github.com/wix-private/wix-react-native-calendar/blob/master/demo/assets/loader.png?raw=true\">\n\n### Scrollable semi-infinite calendar\n\n  <img src=\"https://github.com/wix-private/wix-react-native-calendar/blob/master/demo/assets/calendar-list.gif?raw=true\">\n\n### Horizontal calendar\n\n  <img src=\"https://github.com/wix-private/wix-react-native-calendar/blob/master/demo/assets/horizontal-calendar-list.gif?raw=true\">\n\n### Agenda\n\n  <img src=\"https://github.com/wix-private/wix-react-native-calendar/blob/master/demo/assets/agenda.gif?raw=true\">\n\n<br>\n\n## Authors\n\n- [Tautvilas Mecinskas](https://github.com/tautvilas/) - Initial code - [@tautvilas](https://twitter.com/Tautvilas)\n- Katrin Zotchev - Initial design - [@katrin_zot](https://twitter.com/katrin_zot)\n\nSee also the list of [contributors](https://github.com/wix/react-native-calendar-components/contributors) who participated in this project.\n\n## Contributing\n\nWe welcome contributions to react-native-calendars.\n\nIf you have an idea for a new feature or have discovered a bug, please open an issue.\n\nPlease `yarn test` and `yarn lint` before pushing changes.\n\nDon't forget to add a **title** and a **description** explaining the issue you're trying to solve and your proposed solution.\n\nScreenshots and Gifs are VERY helpful to add to the PR for reviews.\n\nPlease DO NOT format the files - we're trying to keep a unified syntax and keep the reviewing process fast and simple.\n\n## License\n\nReact Native Calendars is MIT licensed\n",
+        "releases": [
+            {
+                "name": "",
+                "date": "2025-01-15T08:22:55Z"
+            },
+            {
+                "name": "1.1307.0",
+                "date": "2024-09-18T11:41:28Z"
+            },
+            {
+                "name": "1.1306.0",
+                "date": "2024-09-18T11:38:39Z"
+            },
+            {
+                "name": "1.1305.0",
+                "date": "2024-05-15T11:21:29Z"
+            },
+            {
+                "name": "1.1304.1",
+                "date": "2024-03-05T13:14:47Z"
+            },
+            {
+                "name": "1.1304.0",
+                "date": "2024-02-27T07:15:02Z"
+            },
+            {
+                "name": "1.1303.0",
+                "date": "2023-12-20T09:50:21Z"
+            },
+            {
+                "name": "1.1302.0",
+                "date": "2023-10-31T09:57:03Z"
+            },
+            {
+                "name": "1.1301.0",
+                "date": "2023-09-03T12:32:25Z"
+            },
+            {
+                "name": "1.1300.0",
+                "date": "2023-07-20T09:41:56Z"
+            },
+            {
+                "name": "1.1299.0",
+                "date": "2023-06-21T12:19:14Z"
+            },
+            {
+                "name": "1.1298.0",
+                "date": "2023-05-23T11:54:51Z"
+            },
+            {
+                "name": "1.1297.0",
+                "date": "2023-05-11T10:16:56Z"
+            },
+            {
+                "name": "1.1295.0",
+                "date": "2023-04-13T09:08:37Z"
+            },
+            {
+                "name": "1.1294.0",
+                "date": "2023-03-09T09:43:10Z"
+            },
+            {
+                "name": "1.1293.0",
+                "date": "2022-12-27T10:18:23Z"
+            },
+            {
+                "name": "1.1292.0",
+                "date": "2022-11-30T09:37:41Z"
+            },
+            {
+                "name": "1.1291.1",
+                "date": "2022-11-08T15:24:08Z"
+            },
+            {
+                "name": "1.1291.0",
+                "date": "2022-10-31T09:33:43Z"
+            },
+            {
+                "name": "1.1290.0",
+                "date": "2022-10-20T05:23:25Z"
+            },
+            {
+                "name": "1.1289.0",
+                "date": "2022-09-08T05:43:35Z"
+            },
+            {
+                "name": "1.1288.3",
+                "date": "2022-09-07T05:47:44Z"
+            },
+            {
+                "name": "1.1288.2",
+                "date": "2022-08-26T06:12:53Z"
+            },
+            {
+                "name": "1.1288.1",
+                "date": "2022-08-23T11:17:16Z"
+            },
+            {
+                "name": "1.1288.0",
+                "date": "2022-08-18T12:19:51Z"
+            },
+            {
+                "name": "1.1287.0",
+                "date": "2022-08-09T10:05:25Z"
+            },
+            {
+                "name": "1.1286.0",
+                "date": "2022-07-31T09:11:38Z"
+            },
+            {
+                "name": "1.1285.0",
+                "date": "2022-07-07T07:22:28Z"
+            },
+            {
+                "name": "1.1284.0",
+                "date": "2022-05-11T10:10:37Z"
+            },
+            {
+                "name": "1.1283.0",
+                "date": "2022-04-24T11:22:19Z"
+            },
+            {
+                "name": "1.1282.0",
+                "date": "2022-04-10T16:44:41Z"
+            },
+            {
+                "name": "1.1281.0",
+                "date": "2022-04-07T05:06:23Z"
+            },
+            {
+                "name": "1.1280.0",
+                "date": "2022-03-23T10:48:39Z"
+            },
+            {
+                "name": "1.1279.0",
+                "date": "2022-03-07T11:45:47Z"
+            },
+            {
+                "name": "1.1278.0",
+                "date": "2022-02-15T12:34:54Z"
+            },
+            {
+                "name": "1.1277.0",
+                "date": "2022-02-02T11:40:57Z"
+            },
+            {
+                "name": "1.1276.0",
+                "date": "2022-01-19T08:38:01Z"
+            },
+            {
+                "name": "1.1275.0",
+                "date": "2022-01-05T07:45:58Z"
+            },
+            {
+                "name": "1.1274.0",
+                "date": "2021-12-14T13:50:08Z"
+            },
+            {
+                "name": "1.12.72.0",
+                "date": "2021-12-14T11:46:45Z"
+            },
+            {
+                "name": "1.1271.0",
+                "date": "2021-12-14T13:01:31Z"
+            },
+            {
+                "name": "",
+                "date": "2018-02-01T12:20:17Z"
+            },
+            {
+                "name": "Refactor period marking API",
+                "date": "2017-11-17T07:49:22Z"
+            },
+            {
+                "name": "Refactor interactive marking to period marking",
+                "date": "2017-11-16T11:36:57Z"
+            },
+            {
+                "name": "",
+                "date": "2017-09-14T12:21:43Z"
+            },
+            {
+                "name": "",
+                "date": "2017-06-12T13:17:57Z"
+            },
+            {
+                "name": "",
+                "date": "2017-05-29T05:43:51Z"
+            },
+            {
+                "name": "",
+                "date": "2017-05-26T06:23:27Z"
+            },
+            {
+                "name": "",
+                "date": "2017-05-22T16:11:51Z"
+            },
+            {
+                "name": "",
+                "date": "2017-05-18T06:48:16Z"
+            },
+            {
+                "name": "",
+                "date": "2017-05-15T14:19:22Z"
+            },
+            {
+                "name": "v1.2.11",
+                "date": "2017-05-14T10:49:17Z"
+            },
+            {
+                "name": "Initial release",
+                "date": "2017-05-12T19:31:35Z"
+            }
+        ]
+    }
+}

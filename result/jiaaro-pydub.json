@@ -1,0 +1,173 @@
+{
+    "https://api.github.com/repos/jiaaro/pydub": {
+        "forks": 1064,
+        "watchers": 9115,
+        "stars": 9115,
+        "languages": {
+            "Python": 164059
+        },
+        "commits": [
+            "2022-12-08T17:49:19Z",
+            "2022-10-15T23:45:34Z",
+            "2022-10-09T17:00:55Z",
+            "2022-05-14T13:22:02Z",
+            "2021-06-08T14:06:40Z",
+            "2021-04-21T10:21:41Z",
+            "2021-04-19T12:12:35Z",
+            "2021-04-05T14:36:09Z",
+            "2021-03-10T02:09:33Z",
+            "2021-03-08T17:13:50Z",
+            "2021-03-06T17:08:38Z",
+            "2021-03-06T17:06:22Z",
+            "2021-03-06T17:02:12Z",
+            "2021-03-06T17:00:05Z",
+            "2021-03-06T16:43:34Z",
+            "2021-03-06T16:36:31Z",
+            "2021-03-06T16:34:54Z",
+            "2021-03-06T16:33:00Z",
+            "2021-02-28T21:16:50Z",
+            "2021-01-18T04:33:23Z",
+            "2021-01-14T14:36:38Z",
+            "2020-12-14T17:09:24Z",
+            "2020-10-28T10:27:50Z",
+            "2020-09-10T17:15:24Z",
+            "2020-10-03T22:45:13Z",
+            "2020-09-02T07:19:26Z",
+            "2020-09-02T07:14:24Z",
+            "2020-08-25T14:16:34Z",
+            "2020-07-28T21:08:41Z",
+            "2020-07-13T13:56:01Z"
+        ],
+        "creation_date": "2011-05-02T18:42:38Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 135,
+        "readme": "# Pydub [![Build Status](https://travis-ci.org/jiaaro/pydub.svg?branch=master)](https://travis-ci.org/jiaaro/pydub) [![Build status](https://ci.appveyor.com/api/projects/status/gy1ucp9o5khq7fqi/branch/master?svg=true)](https://ci.appveyor.com/project/jiaaro/pydub/branch/master)\n\nPydub lets you do stuff to audio in a way that isn't stupid.\n\n**Stuff you might be looking for**:\n - [Installing Pydub](https://github.com/jiaaro/pydub#installation)\n - [API Documentation](https://github.com/jiaaro/pydub/blob/master/API.markdown)\n - [Dependencies](https://github.com/jiaaro/pydub#dependencies)\n - [Playback](https://github.com/jiaaro/pydub#playback)\n - [Setting up ffmpeg](https://github.com/jiaaro/pydub#getting-ffmpeg-set-up)\n - [Questions/Bugs](https://github.com/jiaaro/pydub#bugs--questions)\n \n\n##  Quickstart\n\nOpen a WAV file\n\n```python\nfrom pydub import AudioSegment\n\nsong = AudioSegment.from_wav(\"never_gonna_give_you_up.wav\")\n```\n\n...or a mp3\n\n```python\nsong = AudioSegment.from_mp3(\"never_gonna_give_you_up.mp3\")\n```\n\n... or an ogg, or flv, or [anything else ffmpeg supports](http://www.ffmpeg.org/general.html#File-Formats)\n\n```python\nogg_version = AudioSegment.from_ogg(\"never_gonna_give_you_up.ogg\")\nflv_version = AudioSegment.from_flv(\"never_gonna_give_you_up.flv\")\n\nmp4_version = AudioSegment.from_file(\"never_gonna_give_you_up.mp4\", \"mp4\")\nwma_version = AudioSegment.from_file(\"never_gonna_give_you_up.wma\", \"wma\")\naac_version = AudioSegment.from_file(\"never_gonna_give_you_up.aiff\", \"aac\")\n```\n\nSlice audio:\n\n```python\n# pydub does things in milliseconds\nten_seconds = 10 * 1000\n\nfirst_10_seconds = song[:ten_seconds]\n\nlast_5_seconds = song[-5000:]\n```\n\nMake the beginning louder and the end quieter\n\n```python\n# boost volume by 6dB\nbeginning = first_10_seconds + 6\n\n# reduce volume by 3dB\nend = last_5_seconds - 3\n```\n\nConcatenate audio (add one file to the end of another)\n\n```python\nwithout_the_middle = beginning + end\n```\n\nHow long is it?\n\n```python\nwithout_the_middle.duration_seconds == 15.0\n```\n\nAudioSegments are immutable\n\n```python\n# song is not modified\nbackwards = song.reverse()\n```\n\nCrossfade (again, beginning and end are not modified)\n\n```python\n# 1.5 second crossfade\nwith_style = beginning.append(end, crossfade=1500)\n```\n\nRepeat\n\n```python\n# repeat the clip twice\ndo_it_over = with_style * 2\n```\n\nFade (note that you can chain operations because everything returns\nan AudioSegment)\n\n```python\n# 2 sec fade in, 3 sec fade out\nawesome = do_it_over.fade_in(2000).fade_out(3000)\n```\n\nSave the results (again whatever ffmpeg supports)\n\n```python\nawesome.export(\"mashup.mp3\", format=\"mp3\")\n```\n\nSave the results with tags (metadata)\n\n```python\nawesome.export(\"mashup.mp3\", format=\"mp3\", tags={'artist': 'Various artists', 'album': 'Best of 2011', 'comments': 'This album is awesome!'})\n```\n\nYou can pass an optional bitrate argument to export using any syntax ffmpeg \nsupports.\n\n```python\nawesome.export(\"mashup.mp3\", format=\"mp3\", bitrate=\"192k\")\n```\n\nAny further arguments supported by ffmpeg can be passed as a list in a \n'parameters' argument, with switch first, argument second. Note that no \nvalidation takes place on these parameters, and you may be limited by what \nyour particular build of ffmpeg/avlib supports.\n\n```python\n# Use preset mp3 quality 0 (equivalent to lame V0)\nawesome.export(\"mashup.mp3\", format=\"mp3\", parameters=[\"-q:a\", \"0\"])\n\n# Mix down to two channels and set hard output volume\nawesome.export(\"mashup.mp3\", format=\"mp3\", parameters=[\"-ac\", \"2\", \"-vol\", \"150\"])\n```\n\n## Debugging\n\nMost issues people run into are related to converting between formats using\nffmpeg/avlib. Pydub provides a logger that outputs the subprocess calls to \nhelp you track down issues:\n\n```python\n>>> import logging\n\n>>> l = logging.getLogger(\"pydub.converter\")\n>>> l.setLevel(logging.DEBUG)\n>>> l.addHandler(logging.StreamHandler())\n\n>>> AudioSegment.from_file(\"./test/data/test1.mp3\")\nsubprocess.call(['ffmpeg', '-y', '-i', '/var/folders/71/42k8g72x4pq09tfp920d033r0000gn/T/tmpeZTgMy', '-vn', '-f', 'wav', '/var/folders/71/42k8g72x4pq09tfp920d033r0000gn/T/tmpK5aLcZ'])\n<pydub.audio_segment.AudioSegment object at 0x101b43e10>\n```\n\nDon't worry about the temporary files used in the conversion. They're cleaned up \nautomatically.\n\n## Bugs & Questions\n\nYou can file bugs in our [github issues tracker](https://github.com/jiaaro/pydub/issues), \nand ask any technical questions on \n[Stack Overflow using the pydub tag](http://stackoverflow.com/questions/ask?tags=pydub). \nWe keep an eye on both.\n\n## Installation\n\nInstalling pydub is easy, but don't forget to install ffmpeg/avlib (the next section in this doc)\n\n    pip install pydub\n\nOr install the latest dev version from github (or replace `@master` with a [release version like `@v0.12.0`](https://github.com/jiaaro/pydub/releases))\u2026\n\n    pip install git+https://github.com/jiaaro/pydub.git@master\n\n-OR-\n\n    git clone https://github.com/jiaaro/pydub.git\n\n-OR-\n\nCopy the pydub directory into your python path. Zip \n[here](https://github.com/jiaaro/pydub/zipball/master)\n\n## Dependencies\n\nYou can open and save WAV files with pure python. For opening and saving non-wav \nfiles \u2013 like mp3 \u2013 you'll need [ffmpeg](http://www.ffmpeg.org/) or \n[libav](http://libav.org/).\n\n### Playback\n\nYou can play audio if you have one of these installed (simpleaudio _strongly_ recommended, even if you are installing ffmpeg/libav):\n\n - [simpleaudio](https://simpleaudio.readthedocs.io/en/latest/)\n - [pyaudio](https://people.csail.mit.edu/hubert/pyaudio/docs/#)\n - ffplay (usually bundled with ffmpeg, see the next section)\n - avplay (usually bundled with libav, see the next section)\n \n```python\nfrom pydub import AudioSegment\nfrom pydub.playback import play\n\nsound = AudioSegment.from_file(\"mysound.wav\", format=\"wav\")\nplay(sound)\n```\n\n## Getting ffmpeg set up\n\nYou may use **libav or ffmpeg**.\n\nMac (using [homebrew](http://brew.sh)):\n\n```bash\n# libav\nbrew install libav\n\n####    OR    #####\n\n# ffmpeg\nbrew install ffmpeg\n```\n\nLinux (using aptitude):\n\n```bash\n# libav\napt-get install libav-tools libavcodec-extra\n\n####    OR    #####\n\n# ffmpeg\napt-get install ffmpeg libavcodec-extra\n```\n\nWindows:\n\n1. Download and extract libav from [Windows binaries provided here](http://builds.libav.org/windows/).\n2. Add the libav `/bin` folder to your PATH envvar\n3. `pip install pydub`\n\n## Important Notes\n\n`AudioSegment` objects are [immutable](http://www.devshed.com/c/a/Python/String-and-List-Python-Object-Types/1/)\n\n\n### Ogg exporting and default codecs\n\nThe Ogg specification ([http://tools.ietf.org/html/rfc5334](rfc5334)) does not specify\nthe codec to use, this choice is left up to the user. Vorbis and Theora are just\nsome of a number of potential codecs (see page 3 of the rfc) that can be used for the\nencapsulated data.\n\nWhen no codec is specified exporting to `ogg` will _default_ to using `vorbis`\nas a convenience. That is:\n\n```python\nfrom pydub import AudioSegment\nsong = AudioSegment.from_mp3(\"test/data/test1.mp3\")\nsong.export(\"out.ogg\", format=\"ogg\")  # Is the same as:\nsong.export(\"out.ogg\", format=\"ogg\", codec=\"libvorbis\")\n```\n\n## Example Use\n\nSuppose you have a directory filled with *mp4* and *flv* videos and you want to convert all of them to *mp3* so you can listen to  them on your mp3 player.\n\n```python\nimport os\nimport glob\nfrom pydub import AudioSegment\n\nvideo_dir = '/home/johndoe/downloaded_videos/'  # Path where the videos are located\nextension_list = ('*.mp4', '*.flv')\n\nos.chdir(video_dir)\nfor extension in extension_list:\n    for video in glob.glob(extension):\n        mp3_filename = os.path.splitext(os.path.basename(video))[0] + '.mp3'\n        AudioSegment.from_file(video).export(mp3_filename, format='mp3')\n```\n\n### How about another example?\n\n```python\nfrom glob import glob\nfrom pydub import AudioSegment\n\nplaylist_songs = [AudioSegment.from_mp3(mp3_file) for mp3_file in glob(\"*.mp3\")]\n\nfirst_song = playlist_songs.pop(0)\n\n# let's just include the first 30 seconds of the first song (slicing\n# is done by milliseconds)\nbeginning_of_song = first_song[:30*1000]\n\nplaylist = beginning_of_song\nfor song in playlist_songs:\n\n    # We don't want an abrupt stop at the end, so let's do a 10 second crossfades\n    playlist = playlist.append(song, crossfade=(10 * 1000))\n\n# let's fade out the end of the last song\nplaylist = playlist.fade_out(30)\n\n# hmm I wonder how long it is... ( len(audio_segment) returns milliseconds )\nplaylist_length = len(playlist) / (1000*60)\n\n# lets save it!\nwith open(\"%s_minute_playlist.mp3\" % playlist_length, 'wb') as out_f:\n    playlist.export(out_f, format='mp3')\n```\n\n## License ([MIT License](http://opensource.org/licenses/mit-license.php))\n\nCopyright \u00a9 2011 James Robert, http://jiaaro.com\n\nPermission is hereby granted, free of charge, to any person obtaining\na copy of this software and associated documentation files (the\n\"Software\"), to deal in the Software without restriction, including\nwithout limitation the rights to use, copy, modify, merge, publish,\ndistribute, sublicense, and/or sell copies of the Software, and to\npermit persons to whom the Software is furnished to do so, subject to\nthe following conditions:\n\nThe above copyright notice and this permission notice shall be\nincluded in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND\nNONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE\nLIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION\nOF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION\nWITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n\n",
+        "releases": [
+            {
+                "name": "v0.25.1",
+                "date": "2021-03-10T02:10:41Z"
+            },
+            {
+                "name": "v0.25.0",
+                "date": "2021-03-06T17:36:26Z"
+            },
+            {
+                "name": "v0.24.1",
+                "date": "2020-06-03T15:21:32Z"
+            },
+            {
+                "name": "v0.24.0",
+                "date": "2020-05-12T02:47:31Z"
+            },
+            {
+                "name": "v0.23.1",
+                "date": "2019-01-22T17:02:23Z"
+            },
+            {
+                "name": "v0.23.0",
+                "date": "2018-09-17T20:29:27Z"
+            },
+            {
+                "name": "v0.22.1",
+                "date": "2018-06-15T22:48:59Z"
+            },
+            {
+                "name": "v0.22.0",
+                "date": "2018-05-24T16:16:33Z"
+            },
+            {
+                "name": "v0.21.0",
+                "date": "2018-02-22T16:33:34Z"
+            },
+            {
+                "name": "v0.20.0",
+                "date": "2017-08-05T16:11:29Z"
+            },
+            {
+                "name": "v0.19.0",
+                "date": "2017-05-09T23:08:29Z"
+            },
+            {
+                "name": "v0.18.0",
+                "date": "2017-02-10T02:14:47Z"
+            },
+            {
+                "name": "v0.17.0",
+                "date": "2017-02-04T03:38:36Z"
+            },
+            {
+                "name": "v0.16.7",
+                "date": "2017-01-06T13:59:44Z"
+            },
+            {
+                "name": "v0.16.6",
+                "date": "2016-10-12T14:08:28Z"
+            },
+            {
+                "name": "v0.16.5",
+                "date": "2016-08-02T15:02:53Z"
+            },
+            {
+                "name": "v0.16.4",
+                "date": "2016-04-01T14:45:45Z"
+            },
+            {
+                "name": "v0.16.3",
+                "date": "2016-01-11T02:15:07Z"
+            },
+            {
+                "name": "v0.16.2",
+                "date": "2016-01-11T02:12:55Z"
+            },
+            {
+                "name": "v0.16.1",
+                "date": "2016-01-11T02:12:20Z"
+            },
+            {
+                "name": "v0.16.0",
+                "date": "2015-11-05T18:26:00Z"
+            },
+            {
+                "name": "v0.15.0",
+                "date": "2015-08-18T14:41:02Z"
+            },
+            {
+                "name": "v0.14.2",
+                "date": "2015-07-14T14:17:56Z"
+            },
+            {
+                "name": "v0.14.1",
+                "date": "2015-07-06T13:39:23Z"
+            },
+            {
+                "name": "v0.14.0",
+                "date": "2015-06-24T13:50:02Z"
+            },
+            {
+                "name": "v0.12.0",
+                "date": "2015-06-23T22:56:02Z"
+            },
+            {
+                "name": "v0.11.0",
+                "date": "2015-04-17T14:35:26Z"
+            },
+            {
+                "name": "v0.10.0",
+                "date": "2015-02-23T14:26:00Z"
+            },
+            {
+                "name": "v0.9.5",
+                "date": "2014-11-18T16:13:14Z"
+            },
+            {
+                "name": "v0.9.4",
+                "date": "2014-11-07T16:08:10Z"
+            },
+            {
+                "name": "v0.9.3",
+                "date": "2014-10-24T13:12:20Z"
+            }
+        ]
+    }
+}

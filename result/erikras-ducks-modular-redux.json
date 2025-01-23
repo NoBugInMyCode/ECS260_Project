@@ -1,0 +1,48 @@
+{
+    "https://api.github.com/repos/erikras/ducks-modular-redux": {
+        "forks": 338,
+        "watchers": 9599,
+        "stars": 9599,
+        "languages": {
+            "JavaScript": 2718
+        },
+        "commits": [
+            "2019-11-02T06:34:52Z",
+            "2019-02-12T17:30:24Z",
+            "2018-06-06T07:47:49Z",
+            "2018-06-06T07:47:31Z",
+            "2018-06-06T07:47:14Z",
+            "2018-02-22T16:36:20Z",
+            "2018-02-22T16:36:05Z",
+            "2017-12-13T17:31:51Z",
+            "2017-12-05T17:36:41Z",
+            "2017-10-17T06:12:33Z",
+            "2017-10-09T15:19:42Z",
+            "2017-10-06T12:40:32Z",
+            "2017-10-04T19:25:29Z",
+            "2017-06-01T18:08:17Z",
+            "2017-05-04T19:45:40Z",
+            "2017-05-04T19:45:08Z",
+            "2017-05-04T19:43:26Z",
+            "2017-03-27T18:03:32Z",
+            "2017-02-01T16:11:44Z",
+            "2017-01-30T21:25:33Z",
+            "2017-01-07T10:40:54Z",
+            "2017-01-07T10:38:54Z",
+            "2016-12-21T14:36:55Z",
+            "2016-12-21T14:35:17Z",
+            "2016-10-08T14:34:51Z",
+            "2016-06-05T18:55:33Z",
+            "2016-06-05T17:27:14Z",
+            "2016-06-02T03:46:17Z",
+            "2016-04-23T08:47:55Z",
+            "2016-04-23T08:44:15Z"
+        ],
+        "creation_date": "2015-08-31T13:11:57Z",
+        "contributors": 16,
+        "topics": [],
+        "subscribers": 123,
+        "readme": "<p align=\"center\">\n<a href=\"https://codefund.io/properties/555/visit-sponsor\">\n<img src=\"https://codefund.io/properties/555/sponsor\" />\n</a>\n</p>\n    \n# Ducks: Redux Reducer Bundles\n\n<img src=\"duck.jpg\" align=\"right\"/>\n\nI find as I am building my redux app, one piece of functionality at a time, I keep needing to add  `{actionTypes, actions, reducer}` tuples for each use case. I have been keeping these in separate files and even separate folders, however 95% of the time, it's only one reducer/actions pair that ever needs their associated actions.\n\nTo me, it makes more sense for these pieces to be bundled together in an isolated module that is self contained, and can even be packaged easily into a library.\n\n## The Proposal\n\n### Example\n\nSee also: [Common JS Example](CommonJs.md).\n\n```javascript\n// widgets.js\n\n// Actions\nconst LOAD   = 'my-app/widgets/LOAD';\nconst CREATE = 'my-app/widgets/CREATE';\nconst UPDATE = 'my-app/widgets/UPDATE';\nconst REMOVE = 'my-app/widgets/REMOVE';\n\n// Reducer\nexport default function reducer(state = {}, action = {}) {\n  switch (action.type) {\n    // do reducer stuff\n    default: return state;\n  }\n}\n\n// Action Creators\nexport function loadWidgets() {\n  return { type: LOAD };\n}\n\nexport function createWidget(widget) {\n  return { type: CREATE, widget };\n}\n\nexport function updateWidget(widget) {\n  return { type: UPDATE, widget };\n}\n\nexport function removeWidget(widget) {\n  return { type: REMOVE, widget };\n}\n\n// side effects, only as applicable\n// e.g. thunks, epics, etc\nexport function getWidget () {\n  return dispatch => get('/widget').then(widget => dispatch(updateWidget(widget)))\n}\n\n```\n### Rules\n\nA module...\n\n1. MUST `export default` a function called `reducer()`\n2. MUST `export` its action creators as functions\n3. MUST have action types in the form `npm-module-or-app/reducer/ACTION_TYPE`\n3. MAY export its action types as `UPPER_SNAKE_CASE`, if an external reducer needs to listen for them, or if it is a published reusable library\n\nThese same guidelines are recommended for `{actionType, action, reducer}` bundles that are shared as reusable Redux libraries.\n\n### Name\n\nJava has jars and beans. Ruby has gems. I suggest we call these reducer bundles \"ducks\", as in the last syllable of \"redux\".\n\n### Usage\n\nYou can still do:\n\n```javascript\nimport { combineReducers } from 'redux';\nimport * as reducers from './ducks/index';\n\nconst rootReducer = combineReducers(reducers);\nexport default rootReducer;\n```\n\nYou can still do:\n\n```javascript\nimport * as widgetActions from './ducks/widgets';\n```\n...and it will only import the action creators, ready to be passed to `bindActionCreators()`.\n\n> Actually, it'll also import `default`, which will be the reducer function. It'll add an action creator named `default` that won't work. If that's a problem for you, you should enumerate each action creator when importing.\n\nThere will be some times when you want to `export` something other than an action creator. That's okay, too. The rules don't say that you can *only* `export` action creators. When that happens, you'll just have to enumerate the action creators that you want. Not a big deal.\n\n```javascript\nimport {loadWidgets, createWidget, updateWidget, removeWidget} from './ducks/widgets';\n// ...\nbindActionCreators({loadWidgets, createWidget, updateWidget, removeWidget}, dispatch);\n```\n\n### Example\n\n[React Redux Universal Hot Example](https://github.com/erikras/react-redux-universal-hot-example) uses ducks. See [`/src/redux/modules`](https://github.com/erikras/react-redux-universal-hot-example/tree/master/src/redux/modules).\n\n[Todomvc using ducks.](https://github.com/goopscoop/ga-react-tutorial/tree/6-reduxActionsAndReducers)\n\n### BattleCry generators\n\nThere are configurable [BattleCry](https://github.com/pedsmoreira/battlecry) generators ready to be downloaded and help scaffolding ducks:\n\n```sh\nnpm install -g battlecry\ncry download generator erikras/ducks-modular-redux\ncry init duck\n```\n\nRun `cry --help` to check more info about the generators available;\n\n### Implementation\n\nThe migration to this code structure was [painless](https://github.com/erikras/react-redux-universal-hot-example/commit/3fdf194683abb7c40f3cb7969fd1f8aa6a4f9c57), and I foresee it reducing much future development misery.\n\nAlthough it's completely feasable to implement it without any extra library, there are some tools that might help you:\n\n * [extensible-duck](https://github.com/investtools/extensible-duck) - Implementation of the Ducks proposal. With this library you can create reusable and extensible ducks.\n * [saga-duck](https://github.com/cyrilluce/saga-duck) - Implementation of the Ducks proposal in Typescript with [sagas](https://github.com/redux-saga/redux-saga) in mind. Results in reusable and extensible ducks.\n * [redux-duck](https://github.com/PlatziDev/redux-duck) - Helper function to create Redux modules using the ducks-modular-redux proposal\n * [modular-redux-thunk](https://github.com/benbeadle/modular-redux-thunk) - A ducks-inspired package to help organize actions, reducers, and selectors together - with built-in redux-thunk support for async actions.\n * [molecular-js](https://www.npmjs.com/package/molecular-js) - Set of utilities to ease the development of modular state management patterns with Redux (also known as ducks).\n * [ducks-reducer](https://github.com/drpicox/ducks-reducer) - Function to combine _ducks object_ reducers into one reducer (equivalent to [combineReducers](https://redux.js.org/docs/api/combineReducers.html)), and function [ducks-middleware](https://github.com/drpicox/ducks-middleware) to combine _ducks object_ middleware into one single middleware compatible with [applyMiddleware](https://redux.js.org/docs/api/applyMiddleware.html).\n * [simple-duck](https://github.com/xander27/simple-duck) - Class based implementation of modules system, inspired by ducks-modular-redux. All OOP benefits like inheritance and composition. Support combining of duck-module classes and regular reducer functions using `combineModules` function.\n\nPlease submit any feedback via an issue or a tweet to [@erikras](https://twitter.com/erikras). It will be much appreciated.\n\nHappy coding!\n\n-- Erik Rasmussen\n\n\n### Translation\n\n[\ud55c\uad6d\uc5b4](https://github.com/JisuPark/ducks-modular-redux)\n[\u4e2d\u6587](https://github.com/deadivan/ducks-modular-redux)\n[T\u00fcrk\u00e7e](https://github.com/mfyz/ducks-modular-redux-tr)\n\n---\n\n![C'mon! Let's migrate all our reducers!](migrate.jpg)\n> Photo credit to [Airwolfhound](https://www.flickr.com/photos/24874528@N04/3453886876/).\n\n---\n\n[![Beerpay](https://beerpay.io/erikras/ducks-modular-redux/badge.svg?style=beer-square)](https://beerpay.io/erikras/ducks-modular-redux)  [![Beerpay](https://beerpay.io/erikras/ducks-modular-redux/make-wish.svg?style=flat-square)](https://beerpay.io/erikras/ducks-modular-redux?focus=wish)\n",
+        "releases": []
+    }
+}

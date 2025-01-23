@@ -1,0 +1,76 @@
+{
+    "https://api.github.com/repos/nexe/nexe": {
+        "forks": 542,
+        "watchers": 13099,
+        "stars": 13099,
+        "languages": {
+            "TypeScript": 80359,
+            "JavaScript": 9769
+        },
+        "commits": [
+            "2024-07-04T18:41:27Z",
+            "2024-04-29T12:32:12Z",
+            "2024-04-29T12:27:29Z",
+            "2024-04-29T12:20:10Z",
+            "2024-04-29T12:13:34Z",
+            "2023-11-17T22:45:43Z",
+            "2023-11-12T14:00:56Z",
+            "2023-08-20T19:43:06Z",
+            "2022-12-19T22:12:55Z",
+            "2022-12-19T14:15:24Z",
+            "2022-08-10T13:30:36Z",
+            "2022-05-05T16:50:46Z",
+            "2022-05-03T15:51:58Z",
+            "2022-03-17T18:26:31Z",
+            "2021-10-29T11:47:16Z",
+            "2021-10-04T19:36:04Z",
+            "2021-09-27T17:59:55Z",
+            "2021-09-27T14:46:03Z",
+            "2021-09-27T02:20:48Z",
+            "2021-09-26T22:15:06Z",
+            "2021-09-26T21:59:48Z",
+            "2021-09-26T18:58:54Z",
+            "2021-09-26T18:43:14Z",
+            "2021-09-26T18:37:29Z",
+            "2021-09-14T15:26:26Z",
+            "2021-04-05T10:55:24Z",
+            "2021-02-26T01:54:16Z",
+            "2021-02-25T12:37:52Z",
+            "2021-02-25T12:32:35Z",
+            "2021-01-26T13:16:14Z"
+        ],
+        "creation_date": "2011-11-26T19:12:16Z",
+        "contributors": 30,
+        "topics": [
+            "binaries",
+            "binary",
+            "bundle",
+            "bundler",
+            "cli",
+            "executable",
+            "javascript",
+            "nexe",
+            "nodejs"
+        ],
+        "subscribers": 163,
+        "readme": "\n<p align=\"center\"><img src=\"https://cloud.githubusercontent.com/assets/2391349/23598327/a17bb68a-01ee-11e7-8f55-88a5fc96e997.png\" /></p>\n\n<p align=\"center\">\n  <a href=\"https://dev.azure.com/nexe-ci/Nexe/_build?definitionId=1\"><img src=\"https://img.shields.io/azure-devops/build/nexe-ci/nexe/1/master.svg\" alt=\"Build Status\"></a>\n  <a href=\"https://www.npmjs.com/package/nexe\"><img src=\"https://img.shields.io/npm/dt/nexe.svg\" alt=\"Downloads\"></a>\n  <a href=\"https://www.npmjs.com/package/nexe\"><img src=\"https://img.shields.io/npm/v/nexe.svg\" alt=\"Version\"></a>\n  <a href=\"https://www.npmjs.com/package/nexe\"><img src=\"https://img.shields.io/npm/l/nexe.svg\" alt=\"License\"></a>\n  <a href=\"https://discord.gg/2qTH52zNcZ\"><img src=\"https://discordapp.com/api/guilds/814334925049561168/widget.png?style=shield\"></a>\n</p>\n\n<p align=\"center\">Install:&nbsp<code>npm i nexe -g</code></p>\n<p align=\"center\">Nexe is a command-line utility that compiles your Node.js application into a single executable file.</p>\n\n<p align=\"center\">\n  <img src=\"https://user-images.githubusercontent.com/5818726/30999006-df7e0ae0-a497-11e7-96db-9ce87ae67b34.gif\"/>\n</p>\n\n## Motivation and Features\n\n- Self contained applications\n- Ability to run multiple applications with *different* node.js runtimes.\n- Distribute binaries without needing node / npm.\n- Idempotent builds\n- Start and deploy faster.\n- Lockdown specific application versions, and easily rollback.\n- Flexible build pipeline\n- Cross platform builds\n\n## Usage\n\n- Application entrypoint:\n\n  `nexe my-app.js`\n\n- stdin interface\n\n  `rollup -c | nexe --resource \"./public/**/*\" -o my-app.exe`\n\nFor more CLI options see: `nexe --help`\n\n### Examples\n\n- `nexe server.js -r \"public/**/*.html\"`\n- `nexe --build`\n- `nexe -t x86-8.0.0`\n\n## Resources\n\nAdditional files or resources can be added to the binary by passing `-r \"glob/pattern/**/*\"`. These included files can be read in the application by using `fs.readFile` or `fs.readFileSync`.\n\n## Compiling the nexe Executable\n\nBy default `nexe` will attempt to download a pre-built executable. These are listed on the [releases page](https://github.com/nexe/nexe/releases/tag/v3.3.3). The exact version you want may be unavailable or you may want to customize what is built. See `nexe --help` for a list of options available when passing the [`--build`](#build-boolean) option. You will also need to ensure your environment is setup to [build node](https://github.com/nodejs/node/blob/master/BUILDING.md). Note: the `python` binary in your path should be an acceptable version of python 3; you can create a [symlink](https://github.com/nexe/nexe/issues/354#issuecomment-319874486) or use the `--python` parameter (e.g. `nexe --build --python=$(which python3)`).\n\n### Linux and macOS\n[Prerequisites & details](https://github.com/nodejs/node/blob/master/BUILDING.md#unix-and-macos)\n\n### Windows\n\nThe fastest and most reliable way to get started is simply to run the commands below. If you'd rather read the details or perform a manual install of the prerequisites, [you can find that here](https://github.com/nodejs/node/blob/master/BUILDING.md#windows).\n\nThe instructions below are the fastest and most reliable method.\nRun the following sets of commands with PowerShell (running as Administrator).\n\n**Install all required build tools (and dependencies):**\n```\nSet-ExecutionPolicy Unrestricted -Force\niex ((New-Object System.Net.WebClient).DownloadString('https://boxstarter.org/bootstrapper.ps1'))\nget-boxstarter -Force\nInstall-BoxstarterPackage https://raw.githubusercontent.com/nodejs/node/master/tools/bootstrap/windows_boxstarter -DisableReboots\n```\n\n**Set config:**\n```\nnpm config set msvs_version 2019\nnpm config set python python3.8\n```\nWhere `2019` is the version of Visual Studio you have (if you have it).\n\n**Notes:**\n- The above works and has been tested with node.js `14.5.4` and `15.8.0`\n- Python 3 and Python 2 can coexist and `nexe` will still work, considering the `set config` area above\n- Don't use `npm install windows-build-tools` unless you're having some type of issue, because the above commands configures and installs the latest/preferred too.\n\n## Node.js API\n\n#### Example\n\n```javascript\nconst { compile } = require('nexe')\n\ncompile({\n  input: './my-app.js',\n  build: true, //required to use patches\n  patches: [\n    async (compiler, next) => {\n      await compiler.setFileContentsAsync(\n        'lib/new-native-module.js',\n        'module.exports = 42'\n      )\n      return next()\n    }\n  ]\n}).then(() => {\n  console.log('success')\n})\n```\n## NexeOptions\n\n### `options: object`\n\n - #### `input: string`\n    - Input bundle file path\n    - default: stdin or the current directory's main file (package.json)\n - #### `output: string`\n    - Output executable file path\n    - default: same as `name` with an OS specific extension.\n - #### `target: string | object`\n    - An object or string describing platform-arch-version. e.g. `'windows-ia32-10.13.0'`\n      - each segment is optional, and will be merged with the current environment\n      - Examples: ([full list](https://github.com/nexe/nexe/releases))\n        - `'win32-x86-10.13.0`\n        - `{ platform: 'alpine' }`\n        - `darwin-10.13.0`\n        - `linux-x64`\n        - `macos-10.13.0`\n\n        See [test/target.spec.ts](test/target.spec.ts)\n    - If the [`build`](#build-boolean) flag is set, the platform portion of the target is ignored.\n    - default: `process`\n- #### `bundle: string | boolean`\n    - If a string is provided it must be a valid relative module path\n    and should provide an export with the following signature:\n    ```typescript\n    export function createBundle (options: NexeOptions): Promise<string>\n    ```\n    - default: true\n - #### `name: string`\n    - Module friendly name of the application\n    - default: basename of the input file, or `nexe_${Date.now()}`\n - #### `cwd: string`\n    - Directory nexe will operate on as though it is the cwd\n    - default: process.cwd()\n - #### `mangle: boolean`\n    - If set to false, nexe will not include the virtual filesystem (your application and resources) on the output.\n    - This will cause the output to error as an \"Invalid Binary\" unless a userland patch alters the contents of lib/_third_party_main.js in the nodejs source.\n    - default: true\n - #### `build: boolean`\n    - Build node from source, passing this flag tells nexe to download and build from source. Subsequently using this flag will cause nexe to use the previously built binary. To rebuild, first add [`--clean`](#clean-boolean)\n - #### `remote: string`\n    - Provide a custom remote location for fetching pre-built nexe binaries from. This can either be an HTTP or HTTPS URL.\n    - default: `null`\n - #### `asset: string`\n    - Provide a pre-built nexe binary asset, this is a file path is resolved relative to cwd.\n - #### `python: string`\n    - On Linux this is the path pointing to your python3 executable\n    - On Windows this is the directory where `python` can be accessed\n    - default: `null`\n - #### `flags: string[]`\n    - Array of node runtime flags to build node with.\n    - Example: `['--expose-gc']`\n    - default: `[]`\n - #### `configure: string[]`\n    - Array of arguments for the node build configure step\n    - Example: `['--with-dtrace', '--dest-cpu=x64']`\n    - default: `[]`\n - #### `make: string[]`\n    - Array of arguments for the node build make step\n    - default: `[]`\n - #### `vcBuild: string[]`\n    - Options for windows build\n    - default: `['nosign', 'release']`\n - #### `snapshot: string`\n    - path to a file to be used as the warmup snapshot for the build\n    - default: `null`\n - #### `resources: string[]`\n    - Array of globs with files to include in the build\n    - Example: `['./public/**/*']`\n    - default: `[]`\n - #### `temp: string`\n    - Path to use for storing nexe's build files\n    - Override in the env with `NEXE_TEMP`\n    - default: `~/.nexe`\n - #### `ico: string`\n    - Path to a user provided icon to be used (Windows only). Requires `--build` to be set.\n - #### `rc: object`\n    - Settings for patching the [node.rc](https://github.com/nodejs/node/blob/master/src/res/node.rc) configuration file (Windows only).\n    - Example (keys may vary depending on the version. Reference the file linked above):\n      ```javascript\n        {\n          CompanyName: \"ACME Corp\",\n          PRODUCTVERSION: \"17,3,0,0\",\n          FILEVERSION: \"1,2,3,4\"\n          ...\n        }\n      ```\n    - default: `{}`\n - #### `clean: boolean`\n    - If included, nexe will remove temporary files for the accompanying configuration and exit\n - #### `enableNodeCli: boolean`\n    - Enable the original Node CLI (will prevent application cli from working).\n    - Node CLI arguments passed via the [NODE_OPTIONS](https://nodejs.org/api/cli.html#cli_node_options_options) environment\n      variable will still be processed. NODE_OPTIONS support can be disabled with the `--without-node-options` configure flag.\n    - default: `false`\n  - #### `fakeArgv: boolean`\n    - fake the entry point file name (`process.argv[1]`). If nexe was used with stdin this will be `'[stdin]'`.\n - #### `ghToken: string`\n    - Provide a Github Token for accessing nexe releases\n    - This is usually needed in CI environments\n    - default: `process.env.GITHUB_TOKEN`\n - #### `sourceUrl: string`\n    - Provide an alternate url for the node source code\n    - Note: temporary files will still be created for this under the specified version\n - #### `loglevel: string`\n    - Set the loglevel, info, silent, or verbose\n    - default: `'info'`\n - #### `patches: NexePatch[]`\n    - Userland patches for patching or modifying node source\n    - default: `[]`\n - #### `plugins: NexePatch[]`\n    - Userland plugins for modifying nexe executable behavior\n    - default: `[]`\n\n### `NexePatch: (compiler: NexeCompiler, next: () => Promise<void>) => Promise<void>`\n\nPatches and Plugins are just a middleware functions that take two arguments, the `compiler`, and `next`. The compiler is described below, and `next` ensures that the pipeline continues. Its invocation should always be awaited or returned to ensure correct behavior. Patches also require that [`--build`](#build-boolean) be set, while plugins do not.\n\nFor examples, see the built in patches: [src/patches](src/patches).\n\n### `NexeCompiler`\n\n - `setFileContentsAsync(filename: string, contents: string): Promise<void>`\n    - Quickly set a file's contents within the downloaded Node.js source.\n - `replaceInFileAsync(filename: string, ...replaceArgs): Promise<void>`\n    - Quickly perform a replace in a file within the downloaded Node.js source. The rest arguments are passed along to `String.prototype.replace`\n - `readFileAsync(filename: string): Promise<NexeFile>`\n    - Access (or create) a file within the downloaded Node.js source.\n - `addResource(filename: string, contents: Buffer): Promise<void>`\n    - Add a resource to the nexe bundle\n - `files: NexeFile[]`\n    - The cache of the currently read, modified, or created files within the downloaded Node.js source.\n\n#### `NexeFile`\n  - `contents: string`\n  - `absPath: string`\n  - `filename: string`\n\nAny modifications made to `NexeFile#contents` will be maintained in the cache _without_ the need to explicitly write them back out, e.g. using `NexeCompiler#setFileContentsAsync`.\n\n## Native Modules\n\nIn order to use native modules, the native binaries must be shipped alongside the binary generated by nexe.\n\n## Troubleshooting\n\n`Error: Entry file \"\" not found!` means you need to provide `nexe` with input. Either use `-i` or pipe data to it.\n\n`Error: https://github.com/nexe/nexe/releases/download/v3.3.3/windows-x64-15.8.0 is not available, create it using the --build flag` or similar message means that it either:\n- You are having networking issues such as the download being blocked\n- You should specify the target so `nexe` knows what version of the executable to use.\n\t- See the [releases page](https://github.com/nexe/nexe/releases) to find the executable's version number\n\t- Example\n\t\t- `nexe -i \"app.js\" -r \"public/**/*.html\" -o \"dist/myApp.exe\" -t x64-14.15.3`\n\t\t- where `-i` specifies the input, `-r` specifies resources to embed, `-o` specifies the output, `-t` specifies the target.\n\t- Alternatively you can compile the executable yourself, see that section for details\n\n## Contributing\n\nBuilding\n```\n$ git clone git@github.com:nexe/nexe.git\n$ cd nexe\n$ npm i && npm run build\n```\n\nTesting\n```\n$ npm test\n```\n",
+        "releases": [
+            {
+                "name": "Nexe V3",
+                "date": "2017-08-30T05:06:52Z"
+            },
+            {
+                "name": "Bug fixes, support v8 flags!",
+                "date": "2016-01-28T23:41:12Z"
+            },
+            {
+                "name": "Use browserify for bundling",
+                "date": "2016-01-22T21:02:09Z"
+            },
+            {
+                "name": "v0.4.1",
+                "date": "2015-08-09T15:44:56Z"
+            }
+        ]
+    }
+}

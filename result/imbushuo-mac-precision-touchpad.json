@@ -1,0 +1,174 @@
+{
+    "https://api.github.com/repos/imbushuo/mac-precision-touchpad": {
+        "forks": 585,
+        "watchers": 9290,
+        "stars": 9290,
+        "languages": {
+            "C": 385660,
+            "PowerShell": 18010,
+            "C#": 15691
+        },
+        "commits": [
+            "2022-03-15T03:38:47Z",
+            "2021-10-02T10:46:51Z",
+            "2021-10-02T10:46:32Z",
+            "2021-10-02T10:40:30Z",
+            "2021-10-02T10:31:58Z",
+            "2021-07-26T09:30:44Z",
+            "2021-07-17T20:39:23Z",
+            "2021-07-17T20:18:26Z",
+            "2021-06-12T10:00:11Z",
+            "2021-06-12T05:02:06Z",
+            "2021-06-12T05:01:41Z",
+            "2021-06-04T07:06:58Z",
+            "2021-06-02T10:11:22Z",
+            "2021-06-02T09:28:07Z",
+            "2021-06-02T09:05:42Z",
+            "2021-06-02T09:05:33Z",
+            "2021-06-02T07:56:22Z",
+            "2021-06-02T03:04:41Z",
+            "2021-06-01T09:14:27Z",
+            "2021-06-01T09:05:10Z",
+            "2021-05-30T23:39:57Z",
+            "2021-05-30T10:16:22Z",
+            "2021-05-30T09:23:54Z",
+            "2021-05-30T09:17:38Z",
+            "2021-05-30T08:59:31Z",
+            "2021-05-28T05:40:47Z",
+            "2021-05-28T05:13:10Z",
+            "2021-02-25T21:55:03Z",
+            "2021-01-06T07:04:59Z",
+            "2020-11-09T00:59:49Z"
+        ],
+        "creation_date": "2017-08-27T08:47:18Z",
+        "contributors": 9,
+        "topics": [
+            "apple-macbook",
+            "bluetooth",
+            "bluetooth-hid",
+            "driver",
+            "hid",
+            "spi",
+            "trackpad",
+            "usb-hid",
+            "windows-driver",
+            "windows-precision-touchpad"
+        ],
+        "subscribers": 196,
+        "readme": "# Windows Precision Touchpad Implementation for Apple MacBook family/Magic Trackpad 2\n\n[![Build Status](https://ligstd.visualstudio.com/_apis/public/build/definitions/7694e0d0-94e3-4fd2-b39a-ecd261e1ba2e/22/badge)](https://ligstd.visualstudio.com/Apple%20PTP%20Trackpad/_build?definitionId=22)\n\nThis project implements Windows Precision Touchpad Protocol for Apple MacBook family/Magic Trackpad 2 on Windows 10. Both USB (traditional and T2), SPI and Bluetooth trackpads are supported.\n\n## Donation?\n\nA few people asked me why I removed donation. My current financial situation doesn't require me to accept donation for the budget of future development. If you are considering donation, please consider other meaningful projects and foundations, such as [Electronic Frontier Foundation](https://www.eff.org/).\n\n## Official Driver?\n\nBootcamp 6.1.5 offers official driver for T2-based model and Magic Trackpad 2. You can also consider using the official driver if you have such Mac. If you have an older model (e.g. MacBooks before 2018/2019), this is the only implementation for these models (yet). \n\n## Future Plans and feature tracking\n\nUse the [Azure DevOps Board](https://ligstd.visualstudio.com/Apple%20PTP%20Trackpad/_workitems/) to track feature and device support plans. Bug reports should go to Github issues.\n\n## See it in action (YouTube video)\n\n[![Watch the video](https://img.youtube.com/vi/-GWlfw7omdo/hqdefault.jpg)](https://youtu.be/-GWlfw7omdo)\n\n## Converged Installation Guide\n\n**IMPORTANT:** Given changes in Microsoft driver code signing policy, and the compliance need of EV certificate, CI auto builds beyond 2021/01/06 04:00AM EST will not be automatically signed with normal code signing certificate. These builds are still supposed via TestSigning, but not recommended for normal users. Proper WHQL and EV dual-signed packages will be released manually, which can be downloaded from the release page.\n\n0. Make sure you uninstalled `Trackpad++` completely if you have previously does so\n1. Go to the release tab in Github and download the newest version for your architecture\n2. Right click `AmtPtpDevice.inf` and install it\n3. If you have a Magic Trackpad 2 and want to use it in Bluetooth mode: manaully pair it in PC Settings.\n\n**Note: it is unnecessary to enable test signing, or install the certificate manually. Doing so may cause problems in installation. See [this issue](https://github.com/imbushuo/mac-precision-touchpad/issues/228#issuecomment-538689587) for detailed explanation.**\n\n## Also Uninstallation (extremely important for reinstallation `Trackpad++` and such)\n\nSee also [here](https://magicutilities.net/magic-trackpad/help/mac-precision-touchpad-driver-installed).\n\n1. Go to device manager\n2. Find the \"Apple Precision Touch Device\", \"Apple Multi-touch Trackpad HID filter\" and \"Apple Multi-touch Auxiliary Services\"\n3. Right click \"remove the device\" and also check \"uninstall driver\"\n4. Rescan devices\n\n## Installation with Chocolatey\n\nThe drivers are available as a [Chocolatey package](https://chocolatey.org/packages/mac-precision-touchpad/). To install using [Chocolatey](https://chocolatey.org) run:\n\n```\nchoco install mac-precision-touchpad\n```\n\n## For developers\n\n- SPI/T2 version is kernel-mode driver, using KMDF Framework v1.23. Bluetooth driver uses KMDF Framework 1.15. Windows 10 Driver Development Kit Version 2004 or higher is required for development and testing.\n- USB version is a user-mode driver, using UMDF Framework v2.15. Windows 10 Driver Development Kit Version 2004 or higher is required for development and testing.\n- `ReleaseSigned` configuration is reserved for production build only, and it will be rendered as unsigned if you attempt to build using that configuration. (Historically it's signed, but due to EV certificate's requirements, the process has changed.)\n\n## Device support\n\nThere is a bring-up issue for certain MacBook Pro and MacBook Air. I am looking into it. If you have such device with Windows installed, please contact me so I can look into the issue remotely (as I don't have many devices).\n\n- [x] Non-Retina MacBook \n- [x] Some non-Retina MacBook Pro (2011 and 2012)\n- [x] MacBook Pro with Retina Display (MacBookPro 10,1, MacBookPro10,2 & MacBookPro11,1)\n- [x] All recent MacBook Air (Please report if your model is not supported)\n- [x] MacBook Pro with Retina Display (2013, 2014, 2015, 13-inch & 15-inch)\n- [x] New MacBook (12-inch)\n- [x] MacBook Pro 2015, 2016, 2017 (a few SPI devices are in work-in-progress state)\n- [x] T2-based devices: MacBook Air 2018, MacBook Pro 2017/2018/2019/2020: Use default fallback, experience might not be optimal. Open a issue if you encountered dead touch regions.\n- [x] Magic Trackpad 2 & 3 (USB)\n- [x] Magic Trackpad 2 & 3 (Bluetooth connection)\n\n## Roadmap\n\n- [x] Touchpad Device Power Management\n- [x] Touchpad Protocol Stack Implementation\n- [x] Touchpad Raw Input Output (in Driver Trace)\n- [x] HID Protocol Implementation (PTP Touch)\n- [x] HID Protocol Implementation (Configuration)\n- [x] Device Test (Magic Trackpad 2)\n- [x] Refine input experience (tip switch detection and pressure)\n- [x] Refine input experience (gesture experience)\n- [x] More Models\n- [x] SPI\n- [x] KM Driver cross-cert\n- [x] Bluetooth\n- [ ] Defuzz\n- [ ] Input sensitivity configuration\n\n## Acknowledgements\n\n**UPDATE 2021/05**: She got an M1 Mac now.\n\nPeople familiar with me know that I don't use Apple MacBook (so development work of this driver occurs on a Surface Pro 4). People probably think it doesn't make sense that I started this project. The motivation behind this project origin from complaints from my girlfriend. Hearing about frequent complains about Dell XPS 13's touchpad (though it passed Precision Touchpad certification), I decided to start this project, so by the time she switches to MacBook Pro, she will have excellent touchpad experience out-of-box, even on Windows. This driver is made for you, but also for everyone.\n\nI would like to thank projects like [magictrackpad2-dkms](https://github.com/robbi5/magictrackpad2-dkms) and [macbook12-spi-driver](https://github.com/cb22/macbook12-spi-driver) that inspire me. I would also like to thank my friends for providing me immense help on devices and testing.\n \n## License\n\n- USB driver is licensed under [GPLv2](LICENSE-GPL.md).\n- SPI driver is licensed under [MIT](LICENSE-MIT.md).\n\n",
+        "releases": [
+            {
+                "name": "Release 3979",
+                "date": "2021-06-02T11:03:34Z"
+            },
+            {
+                "name": "Release 3965",
+                "date": "2021-05-30T09:27:05Z"
+            },
+            {
+                "name": "Release 3835",
+                "date": "2020-09-10T14:35:29Z"
+            },
+            {
+                "name": "Release 3826",
+                "date": "2020-06-19T18:54:39Z"
+            },
+            {
+                "name": "Release 3805",
+                "date": "2020-02-27T03:51:43Z"
+            },
+            {
+                "name": "Build 3768",
+                "date": "2020-01-16T19:57:48Z"
+            },
+            {
+                "name": "Build 3665",
+                "date": "2019-10-21T09:13:56Z"
+            },
+            {
+                "name": "Build 3656",
+                "date": "2019-10-09T21:22:29Z"
+            },
+            {
+                "name": "Build 3561",
+                "date": "2019-08-28T05:12:17Z"
+            },
+            {
+                "name": "Build 3544",
+                "date": "2019-08-05T22:52:32Z"
+            },
+            {
+                "name": "Build 3541",
+                "date": "2019-07-31T07:45:09Z"
+            },
+            {
+                "name": "Build 3540",
+                "date": "2019-07-30T23:29:22Z"
+            },
+            {
+                "name": "Build 3539",
+                "date": "2019-07-29T17:42:40Z"
+            },
+            {
+                "name": "Build 3533",
+                "date": "2019-07-24T21:05:46Z"
+            },
+            {
+                "name": "Build 3532",
+                "date": "2019-07-24T20:36:38Z"
+            },
+            {
+                "name": "Build 3529",
+                "date": "2019-07-21T00:54:53Z"
+            },
+            {
+                "name": "Build 3524",
+                "date": "2019-07-20T21:48:49Z"
+            },
+            {
+                "name": "Build 3522",
+                "date": "2019-07-20T19:23:39Z"
+            },
+            {
+                "name": "1806 Interim Release",
+                "date": "2018-07-12T14:22:44Z"
+            },
+            {
+                "name": "1802.M2 Interim Release",
+                "date": "2018-02-28T21:14:00Z"
+            },
+            {
+                "name": "1802 Interim Release",
+                "date": "2018-02-28T10:39:27Z"
+            },
+            {
+                "name": "Universal Driver (Magic Trackpad 2 and MacBookPro10,2 & 11,1) Beta 1",
+                "date": "2018-01-02T05:36:20Z"
+            },
+            {
+                "name": "MacBookPro10,2 & 11,1 Milestone 1",
+                "date": "2018-01-02T03:07:01Z"
+            },
+            {
+                "name": "Signed M4",
+                "date": "2017-12-09T00:15:15Z"
+            },
+            {
+                "name": "Experimental Change M4",
+                "date": "2017-12-04T18:30:43Z"
+            },
+            {
+                "name": "Magic Trackpad 2 Milestone 3",
+                "date": "2017-09-09T21:07:24Z"
+            },
+            {
+                "name": "Magic Trackpad 2 Milestone 2",
+                "date": "2017-09-06T16:59:38Z"
+            },
+            {
+                "name": "Magic Trackpad 2 Milestone 1",
+                "date": "2017-09-04T21:02:00Z"
+            }
+        ]
+    }
+}

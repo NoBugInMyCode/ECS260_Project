@@ -1,0 +1,628 @@
+{
+    "https://api.github.com/repos/sindresorhus/got": {
+        "forks": 958,
+        "watchers": 14398,
+        "stars": 14398,
+        "languages": {
+            "TypeScript": 457618
+        },
+        "commits": [
+            "2024-12-12T00:39:05Z",
+            "2024-11-23T15:54:50Z",
+            "2024-11-23T15:43:37Z",
+            "2024-11-04T11:02:48Z",
+            "2024-11-04T11:02:00Z",
+            "2024-10-09T07:01:11Z",
+            "2024-10-09T06:02:35Z",
+            "2024-10-09T05:56:20Z",
+            "2024-09-27T21:40:44Z",
+            "2024-09-16T19:09:56Z",
+            "2024-08-18T03:44:51Z",
+            "2024-08-17T11:10:10Z",
+            "2024-08-07T21:59:01Z",
+            "2024-07-24T11:01:14Z",
+            "2024-07-24T10:56:41Z",
+            "2024-07-11T15:52:51Z",
+            "2024-07-11T10:17:23Z",
+            "2024-07-11T10:16:42Z",
+            "2024-07-10T13:14:43Z",
+            "2024-06-26T12:11:57Z",
+            "2024-06-06T12:28:24Z",
+            "2024-06-06T12:26:58Z",
+            "2024-06-04T11:43:13Z",
+            "2024-06-04T11:42:18Z",
+            "2024-05-18T13:13:13Z",
+            "2024-05-17T18:12:53Z",
+            "2024-04-08T16:01:23Z",
+            "2024-03-07T07:54:30Z",
+            "2024-03-07T07:47:06Z",
+            "2024-02-03T11:20:26Z"
+        ],
+        "creation_date": "2014-03-27T22:40:49Z",
+        "contributors": 30,
+        "topics": [
+            "http",
+            "http-client",
+            "http-request",
+            "https",
+            "nodejs",
+            "npm-package"
+        ],
+        "subscribers": 110,
+        "readme": "<div align=\"center\">\n\t<br>\n\t<br>\n\t<img width=\"360\" src=\"media/logo.svg\" alt=\"Got\">\n\t<br>\n\t<br>\n\t<br>\n\t<br>\n\t<hr>\n\t<p>\n\t\t<p>\n\t\t\t<sup>\n\t\t\t\tSindre's open source work is supported by the community.<br>Special thanks to:\n\t\t\t</sup>\n\t\t</p>\n\t\t<br>\n\t\t<br>\n\t\t<a href=\"https://www.fame.fi#gh-light-mode-only\">\n\t\t\t<img src=\"https://sindresorhus.com/assets/thanks/fame-logo-light.svg\" width=\"200\" alt=\"Fame Helsinki\">\n\t\t</a>\n\t\t<a href=\"https://www.fame.fi#gh-dark-mode-only\">\n\t\t\t<img src=\"https://sindresorhus.com/assets/thanks/fame-logo-dark.svg\" width=\"200\" alt=\"Fame Helsinki\">\n\t\t</a>\n\t\t<br>\n\t</p>\n\t<hr>\n\t<br>\n\t<br>\n\t<br>\n\t<br>\n\t<br>\n\t<br>\n\t<br>\n</div>\n\n> Human-friendly and powerful HTTP request library for Node.js\n\n<!-- [![Coverage Status](https://codecov.io/gh/sindresorhus/got/branch/main/graph/badge.svg)](https://codecov.io/gh/sindresorhus/got/branch/main) -->\n[![Downloads](https://img.shields.io/npm/dm/got.svg)](https://npmjs.com/got)\n[![Install size](https://packagephobia.com/badge?p=got)](https://packagephobia.com/result?p=got)\n\n[See how Got compares to other HTTP libraries](#comparison)\n\n---\n\n**You probably want [Ky](https://github.com/sindresorhus/ky) instead, by the same people. It's smaller, works in the browser too, and is more stable since it's built upon [`Fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API).**\n\n---\n\n**Support questions should be asked [here](https://github.com/sindresorhus/got/discussions).**\n\n## Install\n\n```sh\nnpm install got\n```\n\n**Warning:** This package is native [ESM](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) and no longer provides a CommonJS export. If your project uses CommonJS, you will have to [convert to ESM](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c). Please don't open issues for questions regarding CommonJS / ESM.\n\n**Got v11 is no longer maintained and we will not accept any backport requests.**\n\n## Take a peek\n\n**A [quick start](documentation/quick-start.md) guide is available.**\n\n### JSON mode\n\nGot has a dedicated option for handling JSON payload.\\\nFurthermore, the promise exposes a `.json<T>()` function that returns `Promise<T>`.\n\n```js\nimport got from 'got';\n\nconst {data} = await got.post('https://httpbin.org/anything', {\n\tjson: {\n\t\thello: 'world'\n\t}\n}).json();\n\nconsole.log(data);\n//=> {\"hello\": \"world\"}\n```\n\nFor advanced JSON usage, check out the [`parseJson`](documentation/2-options.md#parsejson) and [`stringifyJson`](documentation/2-options.md#stringifyjson) options.\n\n**For more useful tips like this, visit the [Tips](documentation/tips.md) page.**\n\n## Highlights\n\n- [Used by 10K+ packages and 5M+ repos](https://github.com/sindresorhus/got/network/dependents)\n- [Actively maintained](https://github.com/sindresorhus/got/graphs/contributors)\n- [Trusted by many companies](#widely-used)\n\n## Documentation\n\nBy default, Got will retry on failure. To disable this option, set [`options.retry.limit`](documentation/7-retry.md#retry) to 0.\n\n#### Main API\n\n- [x] [Promise API](documentation/1-promise.md)\n- [x] [Options](documentation/2-options.md)\n- [x] [Stream API](documentation/3-streams.md)\n- [x] [Pagination API](documentation/4-pagination.md)\n- [x] [Advanced HTTPS API](documentation/5-https.md)\n- [x] [HTTP/2 support](documentation/2-options.md#http2)\n- [x] [`Response` class](documentation/3-streams.md#response-2)\n\n#### Timeouts and retries\n\n- [x] [Advanced timeout handling](documentation/6-timeout.md)\n- [x] [Retries on failure](documentation/7-retry.md)\n- [x] [Errors with metadata](documentation/8-errors.md)\n\n#### Advanced creation\n\n- [x] [Hooks](documentation/9-hooks.md)\n- [x] [Instances](documentation/10-instances.md)\n- [x] [Progress events & other events](documentation/3-streams.md#events)\n- [x] [Plugins](documentation/lets-make-a-plugin.md)\n- [x] [Compose](documentation/examples/advanced-creation.js)\n\n#### Cache, Proxy and UNIX sockets\n\n- [x] [RFC compliant caching](documentation/cache.md)\n- [x] [Proxy support](documentation/tips.md#proxying)\n- [x] [Unix Domain Sockets](documentation/2-options.md#enableunixsockets)\n\n#### Integration\n\n- [x] [TypeScript support](documentation/typescript.md)\n- [x] [AWS](documentation/tips.md#aws)\n- [x] [Testing](documentation/tips.md#testing)\n\n---\n\n### Migration guides\n\n- [Request migration guide](documentation/migration-guides/request.md)\n  - [*(Note that Request is unmaintained)*](https://github.com/request/request/issues/3142)\n- [Axios](documentation/migration-guides/axios.md)\n- [Node.js](documentation/migration-guides/nodejs.md)\n\n## Got plugins\n\n- [`got4aws`](https://github.com/SamVerschueren/got4aws) - Got convenience wrapper to interact with AWS v4 signed APIs\n- [`gh-got`](https://github.com/sindresorhus/gh-got) - Got convenience wrapper to interact with the GitHub API\n- [`gl-got`](https://github.com/singapore/gl-got) - Got convenience wrapper to interact with the GitLab API\n- [`gotql`](https://github.com/khaosdoctor/gotql) - Got convenience wrapper to interact with GraphQL using JSON-parsed queries instead of strings\n- [`got-fetch`](https://github.com/alexghr/got-fetch) - Got with a [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) interface\n- [`got-scraping`](https://github.com/apify/got-scraping) - Got wrapper specifically designed for web scraping purposes\n- [`got-ssrf`](https://github.com/JaneJeon/got-ssrf) - Got wrapper to protect server-side requests against SSRF attacks\n\n## Comparison\n\n|                       | `got`               | [`node-fetch`][n0]   | [`ky`][k0]               | [`axios`][a0]      | [`superagent`][s0]     |\n|-----------------------|:-------------------:|:--------------------:|:------------------------:|:------------------:|:----------------------:|\n| HTTP/2 support        | :heavy_check_mark:\u00b9 | :x:                  | :heavy_check_mark:       | :x:                | :heavy_check_mark:\\*\\* |\n| Browser support       | :x:                 | :heavy_check_mark:\\* | :heavy_check_mark:       | :heavy_check_mark: | :heavy_check_mark:     |\n| Promise API           | :heavy_check_mark:  | :heavy_check_mark:   | :heavy_check_mark:       | :heavy_check_mark: | :heavy_check_mark:     |\n| Stream API            | :heavy_check_mark:  | Node.js only         | :x:                      | :x:                | :heavy_check_mark:     |\n| Pagination API        | :heavy_check_mark:  | :x:                  | :x:                      | :x:                | :x:                    |\n| Request cancelation   | :heavy_check_mark:  | :heavy_check_mark:   | :heavy_check_mark:       | :heavy_check_mark: | :heavy_check_mark:     |\n| RFC compliant caching | :heavy_check_mark:  | :x:                  | :x:                      | :x:                | :x:                    |\n| Cookies (out-of-the-box) | :heavy_check_mark: | :x:                | :x:                      | :x:                | :x:                    |\n| Follows redirects     | :heavy_check_mark:  | :heavy_check_mark:   | :heavy_check_mark:       | :heavy_check_mark: | :heavy_check_mark:     |\n| Retries on failure    | :heavy_check_mark:  | :x:                  | :heavy_check_mark:       | :x:                | :heavy_check_mark:     |\n| Progress events       | :heavy_check_mark:  | :x:                  | :heavy_check_mark:\\*\\*\\* | Browser only       | :heavy_check_mark:     |\n| Handles gzip/deflate  | :heavy_check_mark:  | :heavy_check_mark:   | :heavy_check_mark:       | :heavy_check_mark: | :heavy_check_mark:     |\n| Advanced timeouts     | :heavy_check_mark:  | :x:                  | :x:                      | :x:                | :x:                    |\n| Timings               | :heavy_check_mark:  | :x:                  | :x:                      | :x:                | :x:                    |\n| Errors with metadata  | :heavy_check_mark:  | :x:                  | :heavy_check_mark:       | :heavy_check_mark: | :x:                    |\n| JSON mode             | :heavy_check_mark:  | :heavy_check_mark:   | :heavy_check_mark:       | :heavy_check_mark: | :heavy_check_mark:     |\n| Custom defaults       | :heavy_check_mark:  | :x:                  | :heavy_check_mark:       | :heavy_check_mark: | :x:                    |\n| Composable            | :heavy_check_mark:  | :x:                  | :x:                      | :x:                | :heavy_check_mark:     |\n| Hooks                 | :heavy_check_mark:  | :x:                  | :heavy_check_mark:       | :heavy_check_mark: | :x:                    |\n| Issues open           | [![][gio]][g1]      | [![][nio]][n1]       | [![][kio]][k1]           | [![][aio]][a1]     | [![][sio]][s1]         |\n| Issues closed         | [![][gic]][g2]      | [![][nic]][n2]       | [![][kic]][k2]           | [![][aic]][a2]     | [![][sic]][s2]         |\n| Downloads             | [![][gd]][g3]       | [![][nd]][n3]        | [![][kd]][k3]            | [![][ad]][a3]      | [![][sd]][s3]          |\n| Coverage              | TBD                 | [![][nc]][n4]        | [![][kc]][k4]            | [![][ac]][a4]      | [![][sc]][s4]          |\n| Build                 | [![][gb]][g5]       | [![][nb]][n5]        | [![][kb]][k5]            | [![][ab]][a5]      | [![][sb]][s5]          |\n| Bugs                  | [![][gbg]][g6]      | [![][nbg]][n6]       | [![][kbg]][k6]           | [![][abg]][a6]     | [![][sbg]][s6]         |\n| Dependents            | [![][gdp]][g7]      | [![][ndp]][n7]       | [![][kdp]][k7]           | [![][adp]][a7]     | [![][sdp]][s7]         |\n| Install size          | [![][gis]][g8]      | [![][nis]][n8]       | [![][kis]][k8]           | [![][ais]][a8]     | [![][sis]][s8]         |\n| GitHub stars          | [![][gs]][g9]       | [![][ns]][n9]        | [![][ks]][k9]            | [![][as]][a9]      | [![][ss]][s9]          |\n| TypeScript support    | [![][gts]][g10]     | [![][nts]][n10]      | [![][kts]][k10]          | [![][ats]][a10]    | [![][sts]][s11]        |\n| Last commit           | [![][glc]][g11]     | [![][nlc]][n11]      | [![][klc]][k11]          | [![][alc]][a11]    | [![][slc]][s11]        |\n\n\\* It's almost API compatible with the browser `fetch` API.\\\n\\*\\* Need to switch the protocol manually. Doesn't accept PUSH streams and doesn't reuse HTTP/2 sessions.\\\n\\*\\*\\* Currently, only `DownloadProgress` event is supported, `UploadProgress` event is not supported.\\\n\u00b9 Requires Node.js 15.10.0 or above.\\\n:sparkle: Almost-stable feature, but the API may change. Don't hesitate to try it out!\\\n:grey_question: Feature in early stage of development. Very experimental.\n\n<!-- GITHUB -->\n[k0]: https://github.com/sindresorhus/ky\n[n0]: https://github.com/node-fetch/node-fetch\n[a0]: https://github.com/axios/axios\n[s0]: https://github.com/visionmedia/superagent\n\n<!-- ISSUES OPEN -->\n[gio]: https://img.shields.io/github/issues-raw/sindresorhus/got?color=gray&label\n[kio]: https://img.shields.io/github/issues-raw/sindresorhus/ky?color=gray&label\n[nio]: https://img.shields.io/github/issues-raw/bitinn/node-fetch?color=gray&label\n[aio]: https://img.shields.io/github/issues-raw/axios/axios?color=gray&label\n[sio]: https://img.shields.io/github/issues-raw/visionmedia/superagent?color=gray&label\n\n[g1]: https://github.com/sindresorhus/got/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc\n[k1]: https://github.com/sindresorhus/ky/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc\n[n1]: https://github.com/bitinn/node-fetch/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc\n[a1]: https://github.com/axios/axios/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc\n[s1]: https://github.com/visionmedia/superagent/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc\n\n<!-- ISSUES CLOSED -->\n[gic]: https://img.shields.io/github/issues-closed-raw/sindresorhus/got?color=blue&label\n[kic]: https://img.shields.io/github/issues-closed-raw/sindresorhus/ky?color=blue&label\n[nic]: https://img.shields.io/github/issues-closed-raw/bitinn/node-fetch?color=blue&label\n[aic]: https://img.shields.io/github/issues-closed-raw/axios/axios?color=blue&label\n[sic]: https://img.shields.io/github/issues-closed-raw/visionmedia/superagent?color=blue&label\n\n[g2]: https://github.com/sindresorhus/got/issues?q=is%3Aissue+is%3Aclosed+sort%3Aupdated-desc\n[k2]: https://github.com/sindresorhus/ky/issues?q=is%3Aissue+is%3Aclosed+sort%3Aupdated-desc\n[n2]: https://github.com/bitinn/node-fetch/issues?q=is%3Aissue+is%3Aclosed+sort%3Aupdated-desc\n[a2]: https://github.com/axios/axios/issues?q=is%3Aissue+is%3Aclosed+sort%3Aupdated-desc\n[s2]: https://github.com/visionmedia/superagent/issues?q=is%3Aissue+is%3Aclosed+sort%3Aupdated-desc\n\n<!-- DOWNLOADS -->\n[gd]: https://img.shields.io/npm/dm/got?color=darkgreen&label\n[kd]: https://img.shields.io/npm/dm/ky?color=darkgreen&label\n[nd]: https://img.shields.io/npm/dm/node-fetch?color=darkgreen&label\n[ad]: https://img.shields.io/npm/dm/axios?color=darkgreen&label\n[sd]: https://img.shields.io/npm/dm/superagent?color=darkgreen&label\n\n[g3]: https://www.npmjs.com/package/got\n[k3]: https://www.npmjs.com/package/ky\n[n3]: https://www.npmjs.com/package/node-fetch\n[a3]: https://www.npmjs.com/package/axios\n[s3]: https://www.npmjs.com/package/superagent\n\n<!-- COVERAGE -->\n[gc]: https://img.shields.io/coveralls/github/sindresorhus/got?color=0b9062&label\n[kc]: https://img.shields.io/codecov/c/github/sindresorhus/ky?color=0b9062&label\n[nc]: https://img.shields.io/coveralls/github/bitinn/node-fetch?color=0b9062&label\n[ac]: https://img.shields.io/coveralls/github/mzabriskie/axios?color=0b9062&label\n[sc]: https://img.shields.io/codecov/c/github/visionmedia/superagent?color=0b9062&label\n\n[g4]: https://coveralls.io/github/sindresorhus/got\n[k4]: https://codecov.io/gh/sindresorhus/ky\n[n4]: https://coveralls.io/github/bitinn/node-fetch\n[a4]: https://coveralls.io/github/mzabriskie/axios\n[s4]: https://codecov.io/gh/visionmedia/superagent\n\n<!-- BUILD -->\n[gb]: https://github.com/sindresorhus/got/actions/workflows/main.yml/badge.svg\n[kb]: https://github.com/sindresorhus/ky/actions/workflows/main.yml/badge.svg\n[nb]: https://img.shields.io/travis/bitinn/node-fetch?label\n[ab]: https://img.shields.io/travis/axios/axios?label\n[sb]: https://img.shields.io/travis/visionmedia/superagent?label\n\n[g5]: https://github.com/sindresorhus/got/actions/workflows/main.yml\n[k5]: https://github.com/sindresorhus/ky/actions/workflows/main.yml\n[n5]: https://travis-ci.org/github/bitinn/node-fetch\n[a5]: https://travis-ci.org/github/axios/axios\n[s5]: https://travis-ci.org/github/visionmedia/superagent\n\n<!-- BUGS -->\n[gbg]: https://img.shields.io/github/issues-raw/sindresorhus/got/bug?color=darkred&label\n[kbg]: https://img.shields.io/github/issues-raw/sindresorhus/ky/bug?color=darkred&label\n[nbg]: https://img.shields.io/github/issues-raw/bitinn/node-fetch/bug?color=darkred&label\n[abg]: https://img.shields.io/github/issues-raw/axios/axios/bug-fix?color=darkred&label\n[sbg]: https://img.shields.io/github/issues-raw/visionmedia/superagent/Bug?color=darkred&label\n\n[g6]: https://github.com/sindresorhus/got/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Abug\n[k6]: https://github.com/sindresorhus/ky/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Abug\n[n6]: https://github.com/bitinn/node-fetch/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Abug\n[a6]: https://github.com/axios/axios/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22bug-fix%22\n[s6]: https://github.com/visionmedia/superagent/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3ABug\n\n<!-- DEPENDENTS -->\n[gdp]: https://badgen.net/npm/dependents/got?color=orange&label\n[kdp]: https://badgen.net/npm/dependents/ky?color=orange&label\n[ndp]: https://badgen.net/npm/dependents/node-fetch?color=orange&label\n[adp]: https://badgen.net/npm/dependents/axios?color=orange&label\n[sdp]: https://badgen.net/npm/dependents/superagent?color=orange&label\n\n[g7]: https://www.npmjs.com/package/got?activeTab=dependents\n[k7]: https://www.npmjs.com/package/ky?activeTab=dependents\n[n7]: https://www.npmjs.com/package/node-fetch?activeTab=dependents\n[a7]: https://www.npmjs.com/package/axios?activeTab=dependents\n[s7]: https://www.npmjs.com/package/visionmedia?activeTab=dependents\n\n<!-- INSTALL SIZE -->\n[gis]: https://packagephobia.com/badge?p=got\n[kis]: https://packagephobia.com/badge?p=ky\n[nis]: https://packagephobia.com/badge?p=node-fetch\n[ais]: https://packagephobia.com/badge?p=axios\n[sis]: https://packagephobia.com/badge?p=superagent\n\n[g8]: https://packagephobia.com/result?p=got\n[k8]: https://packagephobia.com/result?p=ky\n[n8]: https://packagephobia.com/result?p=node-fetch\n[a8]: https://packagephobia.com/result?p=axios\n[s8]: https://packagephobia.com/result?p=superagent\n\n<!-- GITHUB STARS -->\n[gs]: https://img.shields.io/github/stars/sindresorhus/got?color=white&label\n[ks]: https://img.shields.io/github/stars/sindresorhus/ky?color=white&label\n[ns]: https://img.shields.io/github/stars/bitinn/node-fetch?color=white&label\n[as]: https://img.shields.io/github/stars/axios/axios?color=white&label\n[ss]: https://img.shields.io/github/stars/visionmedia/superagent?color=white&label\n\n[g9]: https://github.com/sindresorhus/got\n[k9]: https://github.com/sindresorhus/ky\n[n9]: https://github.com/node-fetch/node-fetch\n[a9]: https://github.com/axios/axios\n[s9]: https://github.com/visionmedia/superagent\n\n<!-- TYPESCRIPT SUPPORT -->\n[gts]: https://badgen.net/npm/types/got?label\n[kts]: https://badgen.net/npm/types/ky?label\n[nts]: https://badgen.net/npm/types/node-fetch?label\n[ats]: https://badgen.net/npm/types/axios?label\n[sts]: https://badgen.net/npm/types/superagent?label\n\n[g10]: https://github.com/sindresorhus/got\n[k10]: https://github.com/sindresorhus/ky\n[n10]: https://github.com/node-fetch/node-fetch\n[a10]: https://github.com/axios/axios\n[s10]: https://github.com/visionmedia/superagent\n\n<!-- LAST COMMIT -->\n[glc]: https://img.shields.io/github/last-commit/sindresorhus/got?color=gray&label\n[klc]: https://img.shields.io/github/last-commit/sindresorhus/ky?color=gray&label\n[nlc]: https://img.shields.io/github/last-commit/bitinn/node-fetch?color=gray&label\n[alc]: https://img.shields.io/github/last-commit/axios/axios?color=gray&label\n[slc]: https://img.shields.io/github/last-commit/visionmedia/superagent?color=gray&label\n\n[g11]: https://github.com/sindresorhus/got/commits\n[k11]: https://github.com/sindresorhus/ky/commits\n[n11]: https://github.com/node-fetch/node-fetch/commits\n[a11]: https://github.com/axios/axios/commits\n[s11]: https://github.com/visionmedia/superagent/commits\n\n[Click here][InstallSizeOfTheDependencies] to see the install size of the Got dependencies.\n\n[InstallSizeOfTheDependencies]: https://packagephobia.com/result?p=@sindresorhus/is@7.0.0,@szmarczak/http-timer@5.0.1,cacheable-lookup@7.0.0,cacheable-request@12.0.1,decompress-response@6.0.0,form-data-encoder@4.0.2,http2-wrapper@2.2.1,lowercase-keys@3.0.0,p-cancelable@4.0.1,responselike@3.0.0,type-fest@4.19.0\n\n## Maintainers\n\n[![Sindre Sorhus](https://github.com/sindresorhus.png?size=100)](https://sindresorhus.com) | [![Szymon Marczak](https://github.com/szmarczak.png?size=100)](https://github.com/szmarczak)\n---|---\n[Sindre Sorhus](https://sindresorhus.com) | [Szymon Marczak](https://github.com/szmarczak)\n\n<a name=\"widely-used\"></a>\n## These amazing companies are using Got\n\n<table>\n<tbody>\n\t<tr>\n\t\t<td align=\"center\">\n\t\t\t<a href=\"https://segment.com\">\n\t\t\t\t<img width=\"90\" valign=\"middle\" src=\"https://user-images.githubusercontent.com/697676/47693700-ddb62500-dbb7-11e8-8332-716a91010c2d.png\">\n\t\t\t</a>\n\t\t</td>\n\t\t<td align=\"center\">\n\t\t\t<a href=\"https://antora.org\">\n\t\t\t\t<img width=\"100\" valign=\"middle\" src=\"https://user-images.githubusercontent.com/79351/47706840-d874cc80-dbef-11e8-87c6-5f0c60cbf5dc.png\">\n\t\t\t</a>\n\t\t</td>\n\t\t<td align=\"center\">\n\t\t\t<a href=\"https://getvoip.com\">\n\t\t\t\t<img width=\"150\" valign=\"middle\" src=\"https://user-images.githubusercontent.com/10832620/47869404-429e9480-dddd-11e8-8a7a-ca43d7f06020.png\">\n\t\t\t</a>\n\t\t</td>\n\t\t<td align=\"center\">\n\t\t\t<a href=\"https://github.com/exoframejs/exoframe\">\n\t\t\t\t<img width=\"150\" valign=\"middle\" src=\"https://user-images.githubusercontent.com/365944/47791460-11a95b80-dd1a-11e8-9070-e8f2a215e03a.png\">\n\t\t\t</a>\n\t\t</td>\n\t</tr>\n\t<tr>\n\t\t<td align=\"center\">\n\t\t\t<a href=\"http://karaokes.moe\">\n\t\t\t\t<img width=\"140\" valign=\"middle\" src=\"https://karaokes.moe/assets/images/index.png\">\n\t\t\t</a>\n\t\t</td>\n\t\t<td align=\"center\">\n\t\t\t<a href=\"https://github.com/renovatebot/renovate\">\n\t\t\t\t<img width=\"150\" valign=\"middle\" src=\"https://avatars.githubusercontent.com/u/38656520?s=200&v=4\">\n\t\t\t</a>\n\t\t</td>\n\t\t<td align=\"center\">\n\t\t\t<a href=\"https://resist.bot\">\n\t\t\t\t<img width=\"150\" valign=\"middle\" src=\"https://user-images.githubusercontent.com/3322287/51992724-28736180-2473-11e9-9764-599cfda4b012.png\">\n\t\t\t</a>\n\t\t</td>\n\t\t<td align=\"center\">\n\t\t\t<a href=\"https://www.naturalcycles.com\">\n\t\t\t\t<img width=\"150\" valign=\"middle\" src=\"https://user-images.githubusercontent.com/170270/92244143-d0a8a200-eec2-11ea-9fc0-1c07f90b2113.png\">\n\t\t\t</a>\n\t\t</td>\n\t</tr>\n\t<tr>\n\t\t<td align=\"center\">\n\t\t\t<a href=\"https://microlink.io\">\n\t\t\t\t<img width=\"150\" valign=\"middle\" src=\"https://user-images.githubusercontent.com/36894700/91992974-1cc5dc00-ed35-11ea-9d04-f58b42ce6a5e.png\">\n\t\t\t</a>\n\t\t</td>\n\t\t<td align=\"center\">\n\t\t\t<a href=\"https://radity.com\">\n\t\t\t\t<img width=\"150\" valign=\"middle\" src=\"https://user-images.githubusercontent.com/29518613/91814036-97fb9500-ec44-11ea-8c6c-d198cc23ca29.png\">\n\t\t\t</a>\n\t\t</td>\n\t</tr>\n</tbody>\n</table>\n\n<!-- <br> -->\n\n<!-- *Creating an awesome product? Open an issue to get listed here.* -->\n\n<br>\n\n> Segment is a happy user of Got! Got powers the main backend API that our app talks to. It's used by our in-house RPC client that we use to communicate with all microservices.\n>\n> \u2014 <a href=\"https://github.com/vadimdemedes\">Vadim Demedes</a>\n\n> Antora, a static site generator for creating documentation sites, uses Got to download the UI bundle. In Antora, the UI bundle (aka theme) is maintained as a separate project. That project exports the UI as a zip file we call the UI bundle. The main site generator downloads that UI from a URL using Got and streams it to vinyl-zip to extract the files. Those files go on to be used to create the HTML pages and supporting assets.\n>\n> \u2014 <a href=\"https://github.com/mojavelinux\">Dan Allen</a>\n\n> GetVoIP is happily using Got in production. One of the unique capabilities of Got is the ability to handle Unix sockets which enables us to build a full control interfaces for our docker stack.\n>\n> \u2014 <a href=\"https://github.com/danielkalen\">Daniel Kalen</a>\n\n> We're using Got inside of Exoframe to handle all the communication between CLI and server. Exoframe is a self-hosted tool that allows simple one-command deployments using Docker.\n>\n> \u2014 <a href=\"https://github.com/yamalight\">Tim Ermilov</a>\n\n> Karaoke Mugen uses Got to fetch content updates from its online server.\n>\n> \u2014 <a href=\"https://github.com/AxelTerizaki\">Axel Terizaki</a>\n\n> Renovate uses Got, gh-got and gl-got to send millions of queries per day to GitHub, GitLab, npmjs, PyPi, Packagist, Docker Hub, Terraform, CircleCI, and more.\n>\n> \u2014 <a href=\"https://github.com/rarkins\">Rhys Arkins</a>\n\n> Resistbot uses Got to communicate from the API frontend where all correspondence ingresses to the officials lookup database in back.\n>\n> \u2014 <a href=\"https://github.com/chris-erickson\">Chris Erickson</a>\n\n> Natural Cycles is using Got to communicate with all kinds of 3rd-party REST APIs (over 9000!).\n>\n> \u2014 <a href=\"https://github.com/kirillgroshkov\">Kirill Groshkov</a>\n\n> Microlink is a cloud browser as an API service that uses Got widely as the main HTTP client, serving ~22M requests a month, every time a network call needs to be performed.\n>\n> \u2014 <a href=\"https://github.com/Kikobeats\">Kiko Beats</a>\n\n> We\u2019re using Got at Radity. Thanks for such an amazing work!\n>\n> \u2014 <a href=\"https://github.com/MirzayevFarid\">Mirzayev Farid</a>\n",
+        "releases": [
+            {
+                "name": "",
+                "date": "2024-11-23T16:00:13Z"
+            },
+            {
+                "name": "",
+                "date": "2024-11-04T11:03:21Z"
+            },
+            {
+                "name": "",
+                "date": "2024-10-09T07:16:37Z"
+            },
+            {
+                "name": "",
+                "date": "2024-07-24T11:28:49Z"
+            },
+            {
+                "name": "",
+                "date": "2024-06-06T12:28:58Z"
+            },
+            {
+                "name": "",
+                "date": "2024-06-04T11:49:34Z"
+            },
+            {
+                "name": "",
+                "date": "2024-05-18T13:14:05Z"
+            },
+            {
+                "name": "",
+                "date": "2024-03-07T08:25:06Z"
+            },
+            {
+                "name": "",
+                "date": "2024-02-03T11:21:32Z"
+            },
+            {
+                "name": "",
+                "date": "2024-01-29T13:17:28Z"
+            },
+            {
+                "name": "",
+                "date": "2023-11-29T20:20:40Z"
+            },
+            {
+                "name": "",
+                "date": "2023-05-27T15:26:17Z"
+            },
+            {
+                "name": "",
+                "date": "2023-05-27T07:12:49Z"
+            },
+            {
+                "name": "",
+                "date": "2023-03-03T17:40:39Z"
+            },
+            {
+                "name": "",
+                "date": "2022-12-08T23:25:24Z"
+            },
+            {
+                "name": "",
+                "date": "2022-11-16T09:21:26Z"
+            },
+            {
+                "name": "",
+                "date": "2022-10-12T03:44:01Z"
+            },
+            {
+                "name": "",
+                "date": "2022-09-27T07:19:30Z"
+            },
+            {
+                "name": "",
+                "date": "2022-09-19T04:46:01Z"
+            },
+            {
+                "name": "",
+                "date": "2022-09-02T18:18:17Z"
+            },
+            {
+                "name": "",
+                "date": "2022-09-02T16:47:51Z"
+            },
+            {
+                "name": "",
+                "date": "2022-08-06T11:17:28Z"
+            },
+            {
+                "name": "",
+                "date": "2022-07-28T10:23:55Z"
+            },
+            {
+                "name": "",
+                "date": "2022-07-24T15:31:47Z"
+            },
+            {
+                "name": "",
+                "date": "2022-05-25T18:44:41Z"
+            },
+            {
+                "name": "",
+                "date": "2022-05-25T18:38:33Z"
+            },
+            {
+                "name": "",
+                "date": "2022-04-24T20:17:22Z"
+            },
+            {
+                "name": "",
+                "date": "2022-03-26T15:55:53Z"
+            },
+            {
+                "name": "",
+                "date": "2022-03-16T06:49:19Z"
+            },
+            {
+                "name": "",
+                "date": "2022-01-09T14:57:19Z"
+            },
+            {
+                "name": "v12.0.0",
+                "date": "2021-12-10T14:49:23Z"
+            },
+            {
+                "name": "",
+                "date": "2021-11-18T05:02:49Z"
+            },
+            {
+                "name": "",
+                "date": "2021-08-12T07:13:43Z"
+            },
+            {
+                "name": "",
+                "date": "2021-08-06T09:06:09Z"
+            },
+            {
+                "name": "",
+                "date": "2021-08-04T21:43:03Z"
+            },
+            {
+                "name": "",
+                "date": "2021-07-22T13:20:01Z"
+            },
+            {
+                "name": "",
+                "date": "2021-02-26T09:43:47Z"
+            },
+            {
+                "name": "",
+                "date": "2020-12-10T11:47:16Z"
+            },
+            {
+                "name": "",
+                "date": "2020-10-20T17:14:40Z"
+            },
+            {
+                "name": "",
+                "date": "2020-09-18T21:33:54Z"
+            },
+            {
+                "name": "",
+                "date": "2020-09-10T14:05:52Z"
+            },
+            {
+                "name": "",
+                "date": "2020-09-08T17:35:43Z"
+            },
+            {
+                "name": "v11.6.0",
+                "date": "2020-09-02T13:49:43Z"
+            },
+            {
+                "name": "",
+                "date": "2020-08-06T19:03:48Z"
+            },
+            {
+                "name": "",
+                "date": "2020-07-16T12:16:35Z"
+            },
+            {
+                "name": "",
+                "date": "2020-07-07T19:02:45Z"
+            },
+            {
+                "name": "",
+                "date": "2020-07-04T11:53:59Z"
+            },
+            {
+                "name": "",
+                "date": "2020-06-05T16:32:11Z"
+            },
+            {
+                "name": "",
+                "date": "2020-06-01T07:36:36Z"
+            },
+            {
+                "name": "",
+                "date": "2020-05-16T16:30:16Z"
+            },
+            {
+                "name": "",
+                "date": "2020-05-10T13:02:04Z"
+            },
+            {
+                "name": "",
+                "date": "2020-05-08T11:10:24Z"
+            },
+            {
+                "name": "",
+                "date": "2020-05-06T09:44:32Z"
+            },
+            {
+                "name": "",
+                "date": "2020-05-02T11:49:38Z"
+            },
+            {
+                "name": "",
+                "date": "2020-04-30T14:41:47Z"
+            },
+            {
+                "name": "",
+                "date": "2020-04-22T09:22:41Z"
+            },
+            {
+                "name": "",
+                "date": "2020-04-20T17:44:26Z"
+            },
+            {
+                "name": "",
+                "date": "2020-04-20T11:54:42Z"
+            },
+            {
+                "name": "",
+                "date": "2020-04-12T12:58:43Z"
+            },
+            {
+                "name": "",
+                "date": "2020-03-24T18:40:03Z"
+            },
+            {
+                "name": "",
+                "date": "2020-02-20T07:40:34Z"
+            },
+            {
+                "name": "",
+                "date": "2020-02-16T20:10:38Z"
+            },
+            {
+                "name": "",
+                "date": "2020-02-16T19:55:14Z"
+            },
+            {
+                "name": "",
+                "date": "2020-02-08T20:07:24Z"
+            },
+            {
+                "name": "",
+                "date": "2020-02-08T17:51:08Z"
+            },
+            {
+                "name": "",
+                "date": "2020-02-08T16:15:49Z"
+            },
+            {
+                "name": "",
+                "date": "2020-02-07T06:54:38Z"
+            },
+            {
+                "name": "",
+                "date": "2020-02-07T06:32:37Z"
+            },
+            {
+                "name": "",
+                "date": "2020-02-06T20:08:45Z"
+            },
+            {
+                "name": "",
+                "date": "2020-01-31T07:37:30Z"
+            },
+            {
+                "name": "",
+                "date": "2020-01-24T14:54:51Z"
+            },
+            {
+                "name": "",
+                "date": "2020-01-11T15:37:16Z"
+            },
+            {
+                "name": "",
+                "date": "2020-01-01T18:33:15Z"
+            },
+            {
+                "name": "",
+                "date": "2019-12-23T21:07:06Z"
+            },
+            {
+                "name": "",
+                "date": "2019-12-19T12:31:15Z"
+            },
+            {
+                "name": "",
+                "date": "2019-12-12T13:15:01Z"
+            },
+            {
+                "name": "",
+                "date": "2019-12-09T18:50:14Z"
+            },
+            {
+                "name": "",
+                "date": "2019-12-07T18:50:41Z"
+            },
+            {
+                "name": "",
+                "date": "2019-12-01T16:50:54Z"
+            },
+            {
+                "name": "",
+                "date": "2019-12-01T08:09:53Z"
+            },
+            {
+                "name": "",
+                "date": "2019-11-25T04:59:54Z"
+            },
+            {
+                "name": "",
+                "date": "2019-11-18T08:54:26Z"
+            },
+            {
+                "name": "",
+                "date": "2019-11-01T19:59:36Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-23T14:45:21Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-17T09:20:38Z"
+            },
+            {
+                "name": "",
+                "date": "2019-01-17T05:05:16Z"
+            },
+            {
+                "name": "",
+                "date": "2019-01-13T06:11:39Z"
+            },
+            {
+                "name": "",
+                "date": "2018-12-18T15:09:36Z"
+            },
+            {
+                "name": "",
+                "date": "2018-12-10T21:06:38Z"
+            },
+            {
+                "name": "",
+                "date": "2018-11-08T16:20:32Z"
+            },
+            {
+                "name": "",
+                "date": "2018-11-03T12:21:52Z"
+            },
+            {
+                "name": "",
+                "date": "2018-10-30T09:04:08Z"
+            },
+            {
+                "name": "",
+                "date": "2018-09-17T05:22:34Z"
+            },
+            {
+                "name": "",
+                "date": "2018-09-06T10:38:20Z"
+            },
+            {
+                "name": "",
+                "date": "2018-08-31T11:18:26Z"
+            },
+            {
+                "name": "",
+                "date": "2018-08-23T12:07:05Z"
+            },
+            {
+                "name": "",
+                "date": "2018-08-04T06:46:08Z"
+            },
+            {
+                "name": "",
+                "date": "2018-07-03T09:03:33Z"
+            },
+            {
+                "name": "",
+                "date": "2018-05-01T07:36:19Z"
+            },
+            {
+                "name": "",
+                "date": "2018-03-09T17:01:01Z"
+            },
+            {
+                "name": "",
+                "date": "2018-02-19T06:23:42Z"
+            },
+            {
+                "name": "",
+                "date": "2018-02-11T15:22:30Z"
+            },
+            {
+                "name": "",
+                "date": "2018-01-13T13:58:22Z"
+            },
+            {
+                "name": "",
+                "date": "2017-12-01T12:51:03Z"
+            },
+            {
+                "name": "",
+                "date": "2017-11-16T10:07:49Z"
+            },
+            {
+                "name": "",
+                "date": "2017-06-30T15:54:19Z"
+            },
+            {
+                "name": "7.0.0",
+                "date": "2017-05-29T08:07:17Z"
+            },
+            {
+                "name": "6.7.0",
+                "date": "2016-12-29T10:20:36Z"
+            },
+            {
+                "name": "6.6.0",
+                "date": "2016-11-01T08:52:58Z"
+            },
+            {
+                "name": "5.7.0 \u2013 Last minor release of 5.x branch",
+                "date": "2016-11-01T08:48:57Z"
+            },
+            {
+                "name": "6.5.0",
+                "date": "2016-09-14T09:12:13Z"
+            },
+            {
+                "name": "6.3.0",
+                "date": "2016-04-06T18:37:22Z"
+            },
+            {
+                "name": "6.2.0",
+                "date": "2016-03-03T08:06:50Z"
+            },
+            {
+                "name": "6.1.2",
+                "date": "2016-03-03T08:09:11Z"
+            },
+            {
+                "name": "6.1.1",
+                "date": "2016-03-03T08:09:30Z"
+            },
+            {
+                "name": "6.1.0",
+                "date": "2016-01-16T11:32:09Z"
+            },
+            {
+                "name": "5.3.1",
+                "date": "2016-01-12T10:46:18Z"
+            },
+            {
+                "name": "6.0.0",
+                "date": "2016-01-07T18:58:52Z"
+            },
+            {
+                "name": "5.3.0",
+                "date": "2015-12-20T17:29:19Z"
+            },
+            {
+                "name": "5.2.0",
+                "date": "2015-12-02T07:57:46Z"
+            },
+            {
+                "name": "5.1.0",
+                "date": "2015-11-04T06:18:50Z"
+            },
+            {
+                "name": "5.0.0",
+                "date": "2015-10-18T09:45:49Z"
+            },
+            {
+                "name": "4.2.0",
+                "date": "2015-09-09T09:02:48Z"
+            },
+            {
+                "name": "4.1.1",
+                "date": "2015-07-28T15:03:00Z"
+            },
+            {
+                "name": "4.1.0 - x-www-form-urlencoded",
+                "date": "2015-07-27T11:15:39Z"
+            },
+            {
+                "name": "4.0.0",
+                "date": "2015-07-25T07:08:11Z"
+            },
+            {
+                "name": "3.3.1",
+                "date": "2015-07-16T01:22:45Z"
+            },
+            {
+                "name": "3.3.0",
+                "date": "2015-06-30T15:51:24Z"
+            },
+            {
+                "name": "3.2.0",
+                "date": "2015-05-09T07:46:16Z"
+            },
+            {
+                "name": "3.1.0",
+                "date": "2015-05-09T07:44:53Z"
+            },
+            {
+                "name": "3.0.0",
+                "date": "2015-05-06T06:38:09Z"
+            },
+            {
+                "name": "2.9.0",
+                "date": "2015-04-26T16:10:00Z"
+            },
+            {
+                "name": "2.8.0",
+                "date": "2015-04-21T05:45:33Z"
+            },
+            {
+                "name": "2.7.2",
+                "date": "2015-04-08T19:05:28Z"
+            },
+            {
+                "name": "2.7.1",
+                "date": "2015-04-08T11:05:07Z"
+            },
+            {
+                "name": "2.7.0",
+                "date": "2015-04-06T11:34:02Z"
+            },
+            {
+                "name": "2.6.0",
+                "date": "2015-04-03T14:59:16Z"
+            },
+            {
+                "name": "2.5.0",
+                "date": "2015-03-24T18:51:00Z"
+            },
+            {
+                "name": "2.4.0",
+                "date": "2015-02-06T09:23:51Z"
+            },
+            {
+                "name": "2.3.2",
+                "date": "2015-01-24T08:02:55Z"
+            },
+            {
+                "name": "2.3.1",
+                "date": "2015-01-19T13:00:03Z"
+            },
+            {
+                "name": "2.3.0 - funkadelic-bear",
+                "date": "2015-01-05T09:54:59Z"
+            },
+            {
+                "name": "2.0.0",
+                "date": "2014-11-23T09:01:37Z"
+            }
+        ]
+    }
+}

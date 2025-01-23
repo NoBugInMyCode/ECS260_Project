@@ -1,0 +1,68 @@
+{
+    "https://api.github.com/repos/ShiqiYu/libfacedetection": {
+        "forks": 3050,
+        "watchers": 12396,
+        "stars": 12396,
+        "languages": {
+            "C++": 522225,
+            "CMake": 13696,
+            "Python": 5259,
+            "Kotlin": 3861,
+            "Objective-C": 2833,
+            "Objective-C++": 2469,
+            "Shell": 858,
+            "Java": 275
+        },
+        "commits": [
+            "2024-10-11T02:04:22Z",
+            "2024-10-10T19:35:06Z",
+            "2023-08-01T09:55:36Z",
+            "2023-08-01T09:10:50Z",
+            "2023-08-01T09:08:34Z",
+            "2023-08-01T08:59:27Z",
+            "2023-06-04T07:47:18Z",
+            "2023-05-30T07:29:35Z",
+            "2023-05-30T07:23:55Z",
+            "2023-05-08T08:23:59Z",
+            "2023-05-08T08:12:59Z",
+            "2023-04-25T08:26:32Z",
+            "2023-04-19T05:09:00Z",
+            "2022-10-08T06:36:47Z",
+            "2022-09-27T03:15:12Z",
+            "2022-09-25T11:31:48Z",
+            "2022-09-14T05:35:05Z",
+            "2022-09-14T04:07:21Z",
+            "2022-09-03T04:43:14Z",
+            "2022-07-05T03:29:43Z",
+            "2022-05-16T04:52:33Z",
+            "2021-11-20T16:12:16Z",
+            "2021-11-07T10:21:55Z",
+            "2021-11-07T09:57:34Z",
+            "2021-10-28T03:19:35Z",
+            "2021-10-09T02:51:25Z",
+            "2021-09-19T02:36:09Z",
+            "2021-09-19T02:19:02Z",
+            "2021-09-16T07:27:11Z",
+            "2021-09-16T06:51:04Z"
+        ],
+        "creation_date": "2015-01-20T07:47:20Z",
+        "contributors": 19,
+        "topics": [
+            "arm",
+            "cnn",
+            "face-detection"
+        ],
+        "subscribers": 534,
+        "readme": "# libfacedetection\r\n\r\nThis is an open source library for CNN-based face detection in images. The CNN model has been converted to static variables in C source files. The source code does not depend on any other libraries. What you need is just a C++ compiler. You can compile the source code under Windows, Linux, ARM and any platform with a C++ compiler.\r\n\r\nSIMD instructions are used to speed up the detection. You can enable AVX2 if you use Intel CPU or NEON for ARM.\r\n\r\nThe model files are provided in `src/facedetectcnn-data.cpp` (C++ arrays) & [the model (ONNX) from OpenCV Zoo](https://github.com/opencv/opencv_zoo/tree/master/models/face_detection_yunet). You can try our scripts (C++ & Python) in `opencv_dnn/` with the ONNX model. View the network architecture [here](https://netron.app/?url=https://raw.githubusercontent.com/ShiqiYu/libfacedetection.train/master/onnx/yunet*.onnx).\r\n\r\nPlease note that OpenCV DNN does not support the latest version of YuNet with dynamic input shape. Please ensure you have the exact same input shape as the one in the ONNX model to run latest YuNet with OpenCV DNN.\r\n\r\nexamples/detect-image.cpp and examples/detect-camera.cpp show how to use the library.\r\n\r\nThe library was trained by [libfacedetection.train](https://github.com/ShiqiYu/libfacedetection.train).\r\n\r\n![Examples](/images/cnnresult.png \"Detection example\")\r\n\r\n## How to use the code\r\n\r\nYou can copy the files in directory src/ into your project,\r\nand compile them as the other files in your project.\r\nThe source code is written in standard C/C++.\r\nIt should be compiled at any platform which supports C/C++.\r\n\r\nSome tips:\r\n\r\n  * Please add facedetection_export.h file in the position where you copy your facedetectcnn.h files, add #define FACEDETECTION_EXPORT to  facedetection_export.h file. See: [issues #222](https://github.com/ShiqiYu/libfacedetection/issues/222)\r\n  * Please add -O3 to turn on optimizations when you compile the source code using g++.\r\n  * Please choose 'Maximize Speed/-O2' when you compile the source code using Microsoft Visual Studio.\r\n  * You can enable OpenMP to speedup. But the best solution is to call the detection function in different threads.\r\n\r\nYou can also compile the source code to a static or dynamic library, and then use it in your project.\r\n\r\n[How to compile](COMPILE.md)\r\n\r\n\r\n## CNN-based Face Detection on Intel CPU\r\n\r\nUsing **AVX2** instructions\r\n| Method             |Time          | FPS         |Time          | FPS         |\r\n|--------------------|--------------|-------------|--------------|-------------|\r\n|                    |  X64         |X64          |  X64         |X64          |\r\n|                    |Single-thread |Single-thread|Multi-thread  |Multi-thread |\r\n|cnn (CPU, 640x480)  |  50.02ms     |  19.99      |   6.55ms     |  152.65     |\r\n|cnn (CPU, 320x240)  |  13.09ms     |  76.39      |   1.82ms     |  550.54     |\r\n|cnn (CPU, 160x120)  |   3.61ms     | 277.37      |   0.57ms     | 1745.13     |\r\n|cnn (CPU, 128x96)   |   2.11ms     | 474.60      |   0.33ms     | 2994.23     | \r\n\r\nUsing **AVX512** instructions\r\n| Method             |Time          | FPS         |Time          | FPS         |\r\n|--------------------|--------------|-------------|--------------|-------------|\r\n|                    |  X64         |X64          |  X64         |X64          |\r\n|                    |Single-thread |Single-thread|Multi-thread  |Multi-thread |\r\n|cnn (CPU, 640x480)  |  46.47ms     |  21.52      |   6.39ms     |  156.47     |\r\n|cnn (CPU, 320x240)  |  12.10ms     |  82.67      |   1.67ms     |  599.31     |\r\n|cnn (CPU, 160x120)  |   3.37ms     | 296.47      |   0.46ms     | 2155.80     |\r\n|cnn (CPU, 128x96)   |   1.98ms     | 504.72      |   0.31ms     | 3198.63     | \r\n\r\n* Minimal face size ~10x10\r\n* Intel(R) Core(TM) i7-7820X CPU @ 3.60GHz\r\n* Multi-thread in 16 threads and 16 processors.\r\n\r\n\r\n## CNN-based Face Detection on ARM Linux (Raspberry Pi 4 B)\r\n\r\n| Method             |Time          | FPS         |Time          | FPS         |\r\n|--------------------|--------------|-------------|--------------|-------------|\r\n|                    |Single-thread |Single-thread|Multi-thread  |Multi-thread |\r\n|cnn (CPU, 640x480)  |  404.63ms    |  2.47       |  125.47ms    |   7.97      |\r\n|cnn (CPU, 320x240)  |  105.73ms    |  9.46       |   32.98ms    |  30.32      |\r\n|cnn (CPU, 160x120)  |   26.05ms    | 38.38       |    7.91ms    | 126.49      |\r\n|cnn (CPU, 128x96)   |   15.06ms    | 66.38       |    4.50ms    | 222.28      |\r\n\r\n* Minimal face size ~10x10\r\n* Raspberry Pi 4 B, Broadcom BCM2835, Cortex-A72 (ARMv8) 64-bit SoC @ 1.5GHz\r\n* Multi-thread in 4 threads and 4 processors.\r\n\r\n## Performance on WIDER Face \r\nRun on default settings: scales=[1.], confidence_threshold=0.02, floating point:\r\n```\r\nAP_easy=0.887, AP_medium=0.871, AP_hard=0.768\r\n```\r\n\r\n## Author\r\n* Shiqi Yu, <shiqi.yu@gmail.com>\r\n\r\n## Contributors\r\nAll contributors who contribute at GitHub.com are listed [here](https://github.com/ShiqiYu/libfacedetection/graphs/contributors). \r\n\r\nThe contributors who were not listed at GitHub.com:\r\n* Jia Wu (\u5434\u4f73)\r\n* Dong Xu (\u5f90\u680b)\r\n* Shengyin Wu (\u4f0d\u5723\u5bc5)\r\n\r\n## Acknowledgment\r\nThe work was partly supported by the Science Foundation of Shenzhen (Grant No. 20170504160426188).\r\n\r\n## Citation\r\n\r\nThe master thesis of Mr. Wei Wu. All details of the algorithm are in the thesis. The thesis can be downloaded at [\u5434\u4f1f\u7855\u58eb\u6bd5\u4e1a\u8bba\u6587](wu-thesis-facedetect.pdf)\r\n```\r\n@thesis{wu2023thesisyunet,\r\n    author      = {\u5434\u4f1f},\r\n    title       = {\u9762\u5411\u8fb9\u7f18\u8bbe\u5907\u7684\u9ad8\u7cbe\u5ea6\u6beb\u79d2\u7ea7\u4eba\u8138\u68c0\u6d4b\u6280\u672f\u7814\u7a76},\r\n    type        = {\u7855\u58eb\u5b66\u4f4d\u8bba\u6587},\r\n    institution = {\u5357\u65b9\u79d1\u6280\u5927\u5b66},\r\n    year        = {2023},\r\n}\r\n```\r\n\r\nThe paper for the main idea of this repository https://link.springer.com/article/10.1007/s11633-023-1423-y.\r\n\r\n```\r\n@article{wu2023miryunet,\r\n\ttitle     = {YuNet: A Tiny Millisecond-level Face Detector},\r\n\tauthor    = {Wu, Wei and Peng, Hanyang and Yu, Shiqi},\r\n\tjournal   = {Machine Intelligence Research},\r\n\tpages     = {1--10},\r\n\tyear      = {2023},\r\n\tdoi       = {10.1007/s11633-023-1423-y},\r\n\tpublisher = {Springer}\r\n}\r\n```\r\n\r\nThe survey paper on face detection to evaluate different methods. It can be open-accessed at https://ieeexplore.ieee.org/document/9580485\r\n```\r\n@article{feng2022face,\r\n\tauthor  = {Feng, Yuantao and Yu, Shiqi and Peng, Hanyang and Li, Yan-Ran and Zhang, Jianguo},\r\n\tjournal = {IEEE Transactions on Biometrics, Behavior, and Identity Science}, \r\n\ttitle   = {Detect Faces Efficiently: A Survey and Evaluations}, \r\n\tyear    = {2022},\r\n\tvolume  = {4},\r\n\tnumber  = {1},\r\n\tpages   = {1-18},\r\n\tdoi     = {10.1109/TBIOM.2021.3120412}\r\n}\r\n```\r\n\r\nThe loss used in training is EIoU, a novel extended IoU. The paper can be open-accessed at https://ieeexplore.ieee.org/document/9429909.\r\n```\r\n@article{peng2021eiou,\r\n\tauthor  = {Peng, Hanyang and Yu, Shiqi},\r\n\tjournal = {IEEE Transactions on Image Processing}, \r\n\ttitle   = {A Systematic IoU-Related Method: Beyond Simplified Regression for Better Localization}, \r\n\tyear    = {2021},\r\n\tvolume  = {30},\r\n\tpages   = {5032-5044},\r\n\tdoi     = {10.1109/TIP.2021.3077144}\r\n}\r\n```\r\n",
+        "releases": [
+            {
+                "name": "20210920-release",
+                "date": "2021-09-24T16:29:39Z"
+            },
+            {
+                "name": "2021209-release",
+                "date": "2021-02-09T04:34:25Z"
+            }
+        ]
+    }
+}

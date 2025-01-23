@@ -1,0 +1,49 @@
+{
+    "https://api.github.com/repos/Netflix/falcor": {
+        "forks": 448,
+        "watchers": 10494,
+        "stars": 10494,
+        "languages": {
+            "JavaScript": 2983862,
+            "Shell": 1858
+        },
+        "commits": [
+            "2021-05-06T18:59:28Z",
+            "2021-05-06T17:38:34Z",
+            "2021-03-29T21:53:20Z",
+            "2021-03-29T21:53:14Z",
+            "2021-03-29T21:47:00Z",
+            "2021-03-29T21:44:34Z",
+            "2021-03-29T21:12:27Z",
+            "2021-03-29T21:10:21Z",
+            "2021-03-29T21:07:54Z",
+            "2021-03-29T19:32:54Z",
+            "2021-03-29T19:12:08Z",
+            "2021-03-29T19:08:57Z",
+            "2021-03-29T18:58:15Z",
+            "2021-03-29T18:50:23Z",
+            "2021-03-29T18:32:20Z",
+            "2021-03-29T18:31:03Z",
+            "2021-03-27T22:32:19Z",
+            "2021-03-08T16:21:16Z",
+            "2021-03-08T16:15:42Z",
+            "2021-01-20T22:44:23Z",
+            "2021-01-20T22:29:57Z",
+            "2020-12-10T17:30:41Z",
+            "2020-12-10T17:16:03Z",
+            "2020-10-29T22:23:27Z",
+            "2020-10-29T22:23:14Z",
+            "2020-10-29T22:17:51Z",
+            "2020-10-29T22:15:33Z",
+            "2020-10-29T22:04:14Z",
+            "2020-10-28T17:27:49Z",
+            "2020-10-28T17:27:42Z"
+        ],
+        "creation_date": "2015-02-13T00:17:50Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 654,
+        "readme": "<p align=\"center\">\n  <img src=\"https://cloud.githubusercontent.com/assets/1016365/8711049/66438ebc-2b03-11e5-8a8a-75934f7ca7ec.png\">\n</p>\n\n# Falcor\n\n[![Build Status](https://travis-ci.org/Netflix/falcor.svg)](https://travis-ci.org/Netflix/falcor)\n[![Coverage Status](https://coveralls.io/repos/Netflix/falcor/badge.svg?branch=master&service=github)](https://coveralls.io/github/Netflix/falcor?branch=master)\n\n## 2.0\n\n**2.0** is the current stable Falcor release. **0.x** and **1.x** users are\nwelcome to upgrade.\n\n-   [Breaking changes between **1.x** and **2.0**](https://github.com/Netflix/falcor/blob/master/MIGRATIONS.md).\n-   [Breaking changes between **0.x** and **1.x**](https://github.com/Netflix/falcor/blob/1.0.0/MIGRATIONS.md).\n\n## Roadmap\n\nIssues we're tracking as part of our roadmap are tagged with the\n[roadmap](https://github.com/Netflix/falcor/issues?q=is%3Aopen+is%3Aissue+label%3Aroadmap)\nlabel. They are split into\n[enhancement](https://github.com/Netflix/falcor/issues?q=is%3Aopen+is%3Aissue+label%3Aroadmap+label%3Aenhancement),\n[stability](https://github.com/Netflix/falcor/issues?q=is%3Aopen+is%3Aissue+label%3Aroadmap+label%3Astability),\n[performance](https://github.com/Netflix/falcor/issues?q=is%3Aopen+is%3Aissue+label%3Aroadmap+label%3Aperformance),\n[tooling](https://github.com/Netflix/falcor/issues?q=is%3Aopen+is%3Aissue+label%3Aroadmap+label%3Atooling),\n[infrastructure](https://github.com/Netflix/falcor/issues?q=is%3Aopen+is%3Aissue+label%3Aroadmap+label%3Ainfrastructure)\nand\n[documentation](https://github.com/Netflix/falcor/issues?q=is%3Aopen+is%3Aissue+label%3Aroadmap+label%3Adocumentation)\ncategories, with near, medium and longer term labels to convey a broader sense\nof the order in which we plan to approach them.\n\n## Getting Started\n\nYou can check out [a working example server for Netflix-like application](https://github.com/netflix/falcor-express-demo) right now. Alternately, you\ncan go through this barebones tutorial in which we use the Falcor Router to\ncreate a Virtual JSON resource. In this tutorial we will use Falcor's express\nmiddleware to serve the Virtual JSON resource on an application server at the\nURL `/model.json`. We will also host a static web page on the same server which\nretrieves data from the Virtual JSON resource.\n\n### Creating a Virtual JSON Resource\n\nIn this example we will use the falcor Router to build a Virtual JSON resource\non an app server and host it at `/model.json`. The JSON resource will contain\nthe following contents:\n\n```js\n{\n  \"greeting\": \"Hello World\"\n}\n```\n\nNormally, Routers retrieve the data for their Virtual JSON resource from backend\ndatastores or other web services on-demand. However, in this simple tutorial, the\nRouter will simply return static data for a single key.\n\nFirst we create a folder for our application server.\n\n```bash\n$ mkdir falcor-app-server\n$ cd falcor-app-server\n$ npm init\n```\n\nNow we install the falcor Router.\n\n```bash\n$ npm install falcor-router --save\n```\n\nThen install express and falcor-express. Support for restify is also available,\nas is support for hapi via a [third-party\nimplementation](https://github.com/Netflix/falcor-hapi).\n\n```bash\n$ npm install express --save\n$ npm install falcor-express --save\n```\n\nNow we create an `index.js` file with the following contents:\n\n```js\n// index.js\nconst falcorExpress = require(\"falcor-express\");\nconst Router = require(\"falcor-router\");\n\nconst express = require(\"express\");\nconst app = express();\n\napp.use(\n    \"/model.json\",\n    falcorExpress.dataSourceRoute(function (req, res) {\n        // create a Virtual JSON resource with single key ('greeting')\n        return new Router([\n            {\n                // match a request for the key 'greeting'\n                route: \"greeting\",\n                // respond with a PathValue with the value of 'Hello World.'\n                get: () => ({ path: [\"greeting\"], value: \"Hello World\" }),\n            },\n        ]);\n    })\n);\n\n// serve static files from current directory\napp.use(express.static(__dirname + \"/\"));\n\napp.listen(3000);\n```\n\nNow we run the server, which will listen on port `3000` for requests for\n`/model.json`.\n\n```bash\n$ node index.js\n```\n\n### Retrieving Data from the Virtual JSON resource\n\nNow that we've built a simple virtual JSON document with a single read-only key\n`greeting`, we will create a test web page and retrieve this key from the\nserver.\n\nCreate an `index.html` file with the following contents:\n\n```html\n<!-- index.html -->\n<html>\n    <head>\n        <!-- Do _not_  rely on this URL in production. Use only during development.  -->\n        <script src=\"https://netflix.github.io/falcor/build/falcor.browser.js\"></script>\n        <!-- For production use. -->\n        <!-- <script src=\"https://cdn.jsdelivr.net/falcor/{VERSION}/falcor.browser.min.js\"></script> -->\n        <script>\n            var model = falcor({\n                source: new falcor.HttpDataSource(\"/model.json\"),\n            });\n\n            // retrieve the \"greeting\" key from the root of the Virtual JSON resource\n            model.get(\"greeting\").then(function (response) {\n                document.write(response.json.greeting);\n            });\n        </script>\n    </head>\n    <body></body>\n</html>\n```\n\nNow visit `http://localhost:3000/index.html` and you should see the message\nretrieved from the server:\n\n```\nHello World\n```\n\n## Steps to publish new version\n\n-   Make pull request with feature/bug fix and tests\n-   Merge pull request into master after code review and passing Travis CI checks\n-   Run `git checkout master` to open `master` branch locally\n-   Run `git pull` to merge latest code, including built `dist/` and `docs/` by Travis\n-   Run `npm run dist` to build `dist/` locally\n    -   Ensure the built files are not different from those built by Travis CI, hence creating no change to commit\n-   Update CHANGELOG with features/bug fixes to be released in the new version and commit\n-   Run `npm version patch` (or `minor`, `major`, etc) to create a new git commit and tag\n-   Run `git push origin master && git push --tags` to push code and tags to github\n-   Run `npm publish` to publish the latest version to NPM\n\n## Additional Resources\n\n-   For detailed high-level documentation explaining the Model, the Router, and JSON\n    Graph check out the [Falcor website](https://netflix.github.io/falcor).\n\n-   [API documentation](https://netflix.github.io/falcor/doc/Model.html)\n\n-   For a working example of a Router, check out the\n    [falcor-router-demo](https://github.com/netflix/falcor-router-demo).\n\n-   For questions and discussion, use [Stack\n    Overflow](https://stackoverflow.com/questions/tagged/falcor).\n",
+        "releases": []
+    }
+}

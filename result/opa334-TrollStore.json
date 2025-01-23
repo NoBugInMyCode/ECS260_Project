@@ -1,0 +1,240 @@
+{
+    "https://api.github.com/repos/opa334/TrollStore": {
+        "forks": 1168,
+        "watchers": 18876,
+        "stars": 18876,
+        "languages": {
+            "Objective-C": 278973,
+            "C": 262106,
+            "Makefile": 8868,
+            "Shell": 1948
+        },
+        "commits": [
+            "2024-09-02T11:27:04Z",
+            "2024-03-30T17:31:09Z",
+            "2024-03-30T17:24:27Z",
+            "2024-03-30T12:08:58Z",
+            "2024-03-27T22:39:42Z",
+            "2024-03-23T21:20:16Z",
+            "2024-03-23T19:37:15Z",
+            "2024-03-22T21:50:21Z",
+            "2024-03-22T21:46:18Z",
+            "2024-03-03T09:16:06Z",
+            "2024-03-02T19:35:47Z",
+            "2024-02-16T01:07:16Z",
+            "2024-02-16T01:05:15Z",
+            "2024-02-13T09:22:28Z",
+            "2024-02-09T20:13:18Z",
+            "2024-02-09T19:58:29Z",
+            "2024-02-01T21:46:06Z",
+            "2024-02-01T21:42:51Z",
+            "2024-02-01T21:40:23Z",
+            "2024-01-30T07:49:03Z",
+            "2024-01-30T07:05:28Z",
+            "2024-01-27T15:50:09Z",
+            "2024-01-27T02:09:56Z",
+            "2024-01-27T00:53:38Z",
+            "2024-01-27T00:52:58Z",
+            "2024-01-27T00:49:53Z",
+            "2024-01-27T00:27:40Z",
+            "2024-01-26T15:47:29Z",
+            "2024-01-26T15:46:50Z",
+            "2024-01-26T15:36:00Z"
+        ],
+        "creation_date": "2022-09-02T15:17:20Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 326,
+        "readme": "# TrollStore\n\nTrollStore is a permasigned jailed app that can permanently install any IPA you open in it.\n\nIt works because of an AMFI/CoreTrust bug where iOS does not correctly verify code signatures of binaries in which there are multiple signers.\n\nSupported versions: 14.0 beta 2 - 16.6.1, 16.7 RC (20H18), 17.0\n\n## Installing TrollStore\n\nFor installing TrollStore, refer to the guides at [ios.cfw.guide](https://ios.cfw.guide/installing-trollstore)\n\n16.7.x (excluding 16.7 RC) and 17.0.1+ will NEVER be supported (unless a third CoreTrust bug is discovered, which is unlikely).\n\n## Updating TrollStore\n\nWhen a new TrollStore update is available, a button to install it will appear at the top in the TrollStore settings. After tapping the button, TrollStore will automatically download the update, install it, and respring.\n\nAlternatively (if anything goes wrong), you can download the TrollStore.tar file under Releases and open it in TrollStore, TrollStore will install the update and respring.\n\n## Uninstalling an app\n\nApps installed from TrollStore can only be uninstalled from TrollStore itself, tap an app or swipe it to the left in the 'Apps' tab to delete it.\n\n## Persistence Helper\n\nThe CoreTrust bug used in TrollStore is only enough to install \"System\" apps, this is because FrontBoard has an additional security check (it calls libmis) every time before a user app is launched. Unfortunately it is not possible to install new \"System\" apps that stay through an icon cache reload. Therefore, when iOS reloads the icon cache, all TrollStore installed apps including TrollStore itself will revert back to \"User\" state and will no longer launch.\n\nThe only way to work around this is to install a persistence helper into a system app, this helper can then be used to reregister TrollStore and its installed apps as \"System\" so that they become launchable again, an option for this is available in TrollStore settings.\n\nOn jailbroken iOS 14 when TrollHelper is used for installation, it is located in /Applications and will persist as a \"System\" app through icon cache reloads, therefore TrollHelper is used as the persistence helper on iOS 14.\n\n## URL Scheme\n\nAs of version 1.3, TrollStore replaces the system URL scheme \"apple-magnifier\" (this is done so \"jailbreak\" detections can't detect TrollStore like they could if TrollStore had a unique URL scheme). This URL scheme can be used to install applications right from the browser, or to enable JIT from the app itself (only 2.0.12 and above), the format goes as follows:\n\n- `apple-magnifier://install?url=<URL_to_IPA>`\n- `apple-magnifier://enable-jit?bundle-id=<Bundle_ID>`\n\nOn devices that don't have TrollStore (1.3+) installed, this will just open the magnifier app.\n\n## Features\n\nThe binaries inside an IPA can have arbitrary entitlements, fakesign them with ldid and the entitlements you want (`ldid -S<path/to/entitlements.plist> <path/to/binary>`) and TrollStore will preserve the entitlements when resigning them with the fake root certificate on installation. This gives you a lot of possibilities, some of which are explained below.\n\n### Banned entitlements\n\niOS 15 on A12+ has banned the following three entitlements related to running unsigned code, these are impossible to get without a PPL bypass, apps signed with them will crash on launch.\n\n`com.apple.private.cs.debugger`\n\n`dynamic-codesigning`\n\n`com.apple.private.skip-library-validation`\n\n### Unsandboxing\n\nYour app can run unsandboxed using one of the following entitlements:\n\n```xml\n<key>com.apple.private.security.container-required</key>\n<false/>\n```\n\n```xml\n<key>com.apple.private.security.no-container</key>\n<true/>\n```\n\n```xml\n<key>com.apple.private.security.no-sandbox</key>\n<true/>\n```\n\nThe third one is recommended if you still want a sandbox container for your application.\n\nYou might also need the platform-application entitlement in order for these to work properly:\n\n```xml\n<key>platform-application</key>\n<true/>\n```\n\nPlease note that the platform-application entitlement causes side effects such as some parts of the sandbox becoming tighter, so you may need additional private entitlements to circumvent that. (For example afterwards you need an exception entitlement for every single IOKit user client class you want to access).\n\nIn order for an app with `com.apple.private.security.no-sandbox` and `platform-application` to be able to access it's own data container, you might need the additional entitlement:\n\n```xml\n<key>com.apple.private.security.storage.AppDataContainers</key>\n<true/>\n```\n\n### Root Helpers\n\nWhen your app is not sandboxed, you can spawn other binaries using posix_spawn, you can also spawn binaries as root with the following entitlement:\n\n```xml\n<key>com.apple.private.persona-mgmt</key>\n<true/>\n```\n\nYou can also add your own binaries into your app bundle.\n\nAfterwards you can use the [spawnRoot function in TSUtil.m](./Shared/TSUtil.m#L79) to spawn the binary as root.\n\n### Things that are not possible using TrollStore\n\n- Getting proper platformization (`TF_PLATFORM` / `CS_PLATFORMIZED`)\n- Spawning a launch daemon (Would need `CS_PLATFORMIZED`)\n- Injecting a tweak into a system process (Would need `TF_PLATFORM`, a userland PAC bypass and a PMAP trust level bypass)\n\n### Compilation\n\nTo compile TrollStore, ensure [theos](https://theos.dev/docs/installation) is installed. Additionaly ensure [brew](https://brew.sh/) is installed and install [libarchive](https://formulae.brew.sh/formula/libarchive) from brew.\n\n## Credits and Further Reading\n\n[@alfiecg_dev](https://twitter.com/alfiecg_dev/) - Found the CoreTrust bug that allows TrollStore to work through patchdiffing and worked on automating the bypass.\n\nGoogle Threat Analysis Group - Found the CoreTrust bug as part of an in-the-wild spyware chain and reported it to Apple.\n\n[@LinusHenze](https://twitter.com/LinusHenze) - Found the installd bypass used to install TrollStore on iOS 14-15.6.1 via TrollHelperOTA, as well as the original CoreTrust bug used in TrollStore 1.0.\n\n[Fugu15 Presentation](https://youtu.be/rPTifU1lG7Q)\n\n[Write-Up on the first CoreTrust bug with more information](https://worthdoingbadly.com/coretrust/).\n",
+        "releases": [
+            {
+                "name": "2.1",
+                "date": "2024-09-02T11:28:18Z"
+            },
+            {
+                "name": "2.0.15",
+                "date": "2024-03-30T17:44:49Z"
+            },
+            {
+                "name": "2.0.14",
+                "date": "2024-03-27T22:42:58Z"
+            },
+            {
+                "name": "2.0.13",
+                "date": "2024-03-03T11:36:05Z"
+            },
+            {
+                "name": "2.0.12",
+                "date": "2024-01-27T01:12:49Z"
+            },
+            {
+                "name": "2.0.11",
+                "date": "2024-01-12T20:49:21Z"
+            },
+            {
+                "name": "2.0.10",
+                "date": "2024-01-12T17:10:53Z"
+            },
+            {
+                "name": "2.0.9",
+                "date": "2024-01-11T19:26:17Z"
+            },
+            {
+                "name": "2.0.8",
+                "date": "2023-11-29T17:50:43Z"
+            },
+            {
+                "name": "2.0.7",
+                "date": "2023-11-28T13:16:41Z"
+            },
+            {
+                "name": "2.0.6",
+                "date": "2023-11-28T11:51:36Z"
+            },
+            {
+                "name": "2.0.5",
+                "date": "2023-11-28T02:38:51Z"
+            },
+            {
+                "name": "2.0.4",
+                "date": "2023-11-28T02:07:03Z"
+            },
+            {
+                "name": "2.0.3",
+                "date": "2023-11-28T01:44:43Z"
+            },
+            {
+                "name": "2.0.2",
+                "date": "2023-11-28T00:07:08Z"
+            },
+            {
+                "name": "2.0.1",
+                "date": "2023-11-27T21:55:22Z"
+            },
+            {
+                "name": "2.0",
+                "date": "2023-11-27T20:02:34Z"
+            },
+            {
+                "name": "1.5.1",
+                "date": "2023-02-14T19:00:04Z"
+            },
+            {
+                "name": "1.5.0",
+                "date": "2023-01-29T08:57:46Z"
+            },
+            {
+                "name": "1.4.5",
+                "date": "2022-12-01T22:25:44Z"
+            },
+            {
+                "name": "1.4.4",
+                "date": "2022-11-22T19:49:30Z"
+            },
+            {
+                "name": "1.4.3",
+                "date": "2022-11-21T12:28:17Z"
+            },
+            {
+                "name": "1.4.2",
+                "date": "2022-11-20T17:29:11Z"
+            },
+            {
+                "name": "1.4.1",
+                "date": "2022-11-20T14:36:40Z"
+            },
+            {
+                "name": "1.4",
+                "date": "2022-11-19T22:40:00Z"
+            },
+            {
+                "name": "1.3.5",
+                "date": "2022-11-06T00:00:40Z"
+            },
+            {
+                "name": "1.3.4",
+                "date": "2022-10-31T22:52:26Z"
+            },
+            {
+                "name": "1.3.2",
+                "date": "2022-10-30T19:48:17Z"
+            },
+            {
+                "name": "1.3.1",
+                "date": "2022-10-30T11:49:13Z"
+            },
+            {
+                "name": "1.3",
+                "date": "2022-10-29T22:58:30Z"
+            },
+            {
+                "name": "1.2.2",
+                "date": "2022-10-18T19:45:27Z"
+            },
+            {
+                "name": "1.2.1",
+                "date": "2022-10-17T18:37:56Z"
+            },
+            {
+                "name": "1.2",
+                "date": "2022-10-11T21:14:30Z"
+            },
+            {
+                "name": "1.1.2",
+                "date": "2022-09-30T18:50:47Z"
+            },
+            {
+                "name": "1.1.1",
+                "date": "2022-09-29T19:05:02Z"
+            },
+            {
+                "name": "1.1",
+                "date": "2022-09-22T15:49:18Z"
+            },
+            {
+                "name": "1.0.10",
+                "date": "2022-09-12T22:09:25Z"
+            },
+            {
+                "name": "1.0.9",
+                "date": "2022-09-12T18:59:34Z"
+            },
+            {
+                "name": "1.0.8",
+                "date": "2022-09-09T18:27:04Z"
+            },
+            {
+                "name": "1.0.7",
+                "date": "2022-09-05T23:10:29Z"
+            },
+            {
+                "name": "1.0.6",
+                "date": "2022-09-05T13:18:54Z"
+            },
+            {
+                "name": "1.0.5",
+                "date": "2022-09-04T13:45:54Z"
+            },
+            {
+                "name": "1.0.4",
+                "date": "2022-09-04T01:05:30Z"
+            },
+            {
+                "name": "1.0.3",
+                "date": "2022-09-03T22:57:43Z"
+            },
+            {
+                "name": "1.0.2",
+                "date": "2022-09-03T16:56:13Z"
+            },
+            {
+                "name": "1.0.1",
+                "date": "2022-09-03T01:14:54Z"
+            },
+            {
+                "name": "1.0",
+                "date": "2022-09-02T15:26:19Z"
+            }
+        ]
+    }
+}

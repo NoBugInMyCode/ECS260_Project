@@ -1,0 +1,72 @@
+{
+    "https://api.github.com/repos/academicpages/academicpages.github.io": {
+        "forks": 45164,
+        "watchers": 13016,
+        "stars": 13016,
+        "languages": {
+            "JavaScript": 81619,
+            "HTML": 78079,
+            "SCSS": 67374,
+            "Jupyter Notebook": 44218,
+            "Python": 15111,
+            "CSS": 12513,
+            "Dockerfile": 610,
+            "Ruby": 208
+        },
+        "commits": [
+            "2024-12-30T00:17:21Z",
+            "2024-12-30T00:17:06Z",
+            "2024-12-29T20:37:12Z",
+            "2024-12-29T20:36:39Z",
+            "2024-12-28T21:13:37Z",
+            "2024-12-28T21:12:57Z",
+            "2024-12-28T00:19:28Z",
+            "2024-12-27T20:42:31Z",
+            "2024-12-18T01:37:13Z",
+            "2024-12-17T04:58:14Z",
+            "2024-12-17T04:08:06Z",
+            "2024-12-16T18:02:14Z",
+            "2024-12-15T20:46:51Z",
+            "2024-12-02T21:07:54Z",
+            "2024-12-02T19:43:23Z",
+            "2024-12-01T21:30:27Z",
+            "2024-12-01T03:01:26Z",
+            "2024-11-30T22:09:37Z",
+            "2024-11-30T22:06:08Z",
+            "2024-11-24T23:59:02Z",
+            "2024-11-23T20:50:50Z",
+            "2024-11-17T17:30:21Z",
+            "2024-11-17T16:05:31Z",
+            "2024-11-11T15:26:35Z",
+            "2024-10-29T01:46:53Z",
+            "2024-10-29T01:40:15Z",
+            "2024-10-29T01:36:05Z",
+            "2024-10-29T01:33:02Z",
+            "2024-10-28T02:38:38Z",
+            "2024-10-27T18:43:00Z"
+        ],
+        "creation_date": "2016-09-15T11:16:04Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 92,
+        "readme": "# Academic Pages\n**Academic Pages is a Github Pages template for academic websites.**\n\n![Academic Pages template example](images/homepage.png \"Academic Pages template example\")\n\n# Getting Started\n\n1. Register a GitHub account if you don't have one and confirm your e-mail (required!)\n1. Click the \"Use this template\" button in the top right.\n1. On the \"New repository\" page, enter your repository name as \"[your GitHub username].github.io\", which will also be your website's URL.\n1. Set site-wide configuration and add your content.\n1. Upload any files (like PDFs, .zip files, etc.) to the `files/` directory. They will appear at https://[your GitHub username].github.io/files/example.pdf.\n1. Check status by going to the repository settings, in the \"GitHub pages\" section\n1. (Optional) Use the Jupyter notebooks or python scripts in the `markdown_generator` folder to generate markdown files for publications and talks from a TSV file.\n\nSee more info at https://academicpages.github.io/\n\n## Running locally\n\nWhen you are initially working your website, it is very useful to be able to preview the changes locally before pushing them to GitHub. To work locally you will need to:\n\n1. Clone the repository and made updates as detailed above.\n1. Make sure you have ruby-dev, bundler, and nodejs installed\n    \n    On most Linux distribution and [Windows Subsystem Linux](https://learn.microsoft.com/en-us/windows/wsl/about) the command is:\n    ```bash\n    sudo apt install ruby-dev ruby-bundler nodejs\n    ```\n    On MacOS the commands are:\n    ```bash\n    brew install ruby\n    brew install node\n    gem install bundler\n    ```\n1. Run `bundle install` to install ruby dependencies. If you get errors, delete Gemfile.lock and try again.\n1. Run `jekyll serve -l -H localhost` to generate the HTML and serve it from `localhost:4000` the local server will automatically rebuild and refresh the pages on change.\n\nIf you are running on Linux it may be necessary to install some additional dependencies prior to being able to run locally: `sudo apt install build-essential gcc make`\n\n## Using Docker\n\nWorking from a different OS, or just want to avoid installing dependencies? You can use the provided `Dockerfile` to build a container that will run the site for you if you have [Docker](https://www.docker.com/) installed.\n\nStart by build the container:\n\n```bash\ndocker build -t jekyll-site .\n```\n\nNext, run the container:\n```bash\ndocker run -p 4000:4000 --rm -v $(pwd):/usr/src/app jekyll-site\n```\n\nTo run the `docker run` command on Windows, you need to adjust the syntax for the volume mapping (`-v`) as Windows uses different path formats. Here's how to run your command on Windows:\n\n### Steps for Windows:\n1. **Check Docker Installation**: Ensure Docker is installed and running.\n2. **Adjust Path for Volume Mapping**:\n\n   - On Windows, replace `$(pwd)` with the full absolute path to your current directory. For example:\n\n     ```bash\n     -v C:\\path\\to\\your\\site:/usr/src/app\n     ```\n\n### Full Command Example:\n```bash\ndocker run -p 4000:4000 --rm -v C:\\path\\to\\your\\site:/usr/src/app jekyll-site\n```\n\n### Things to Keep in Mind:\n1. **Use PowerShell**:\n   - If you are using PowerShell, you can use `${PWD}` for the current directory:\n     ```bash\n     docker run -p 4000:4000 --rm -v ${PWD}:/usr/src/app jekyll-site\n     ```\n\n2. **Enable Docker File Sharing**:\n   - If your volume doesn't map correctly, ensure Docker has access to the drive where your project resides. To do this:\n     - Open Docker Desktop.\n     - Go to *Settings* \u2192 *Resources* \u2192 *File Sharing*.\n     - Add your drive (e.g., `C:`).\n\n3. **Run in Command Prompt or PowerShell**:\n   - In *Command Prompt*:\n   \n     ```bash\n     docker run -p 4000:4000 --rm -v C:\\path\\to\\your\\site:/usr/src/app jekyll-site\n     ```\n   - In *PowerShell*:\n\n     ```bash\n     docker run -p 4000:4000 --rm -v ${PWD}:/usr/src/app jekyll-site\n     ```\n\n# Maintenance\n\nBug reports and feature requests to the template should be [submitted via GitHub](https://github.com/academicpages/academicpages.github.io/issues/new/choose). For questions concerning how to style the template, please feel free to start a [new discussion on GitHub](https://github.com/academicpages/academicpages.github.io/discussions).\n\nThis repository was forked (then detached) by [Stuart Geiger](https://github.com/staeiou) from the [Minimal Mistakes Jekyll Theme](https://mmistakes.github.io/minimal-mistakes/), which is \u00a9 2016 Michael Rose and released under the MIT License (see LICENSE.md). It is currently being maintained by [Robert Zupko](https://github.com/rjzupkoii) and additional maintainers would be welcomed.\n\n## Bugfixes and enhancements\n\nIf you have bugfixes and enhancements that you would like to submit as a pull request, you will need to [fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) this repository as opposed to using it as a template. This will also allow you to [synchronize your copy](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork) of template to your fork as well.\n\nUnfortunately, one logistical issue with a template theme like Academic Pages that makes it a little tricky to get bug fixes and updates to the core theme. If you use this template and customize it, you will probably get merge conflicts if you attempt to synchronize. If you want to save your various .yml configuration files and markdown files, you can delete the repository and fork it again. Or you can manually patch.\n\n---\n<div align=\"center\">\n    \n![pages-build-deployment](https://github.com/academicpages/academicpages.github.io/actions/workflows/pages/pages-build-deployment/badge.svg)\n[![GitHub contributors](https://img.shields.io/github/contributors/academicpages/academicpages.github.io.svg)](https://github.com/academicpages/academicpages.github.io/graphs/contributors)\n[![GitHub release](https://img.shields.io/github/v/release/academicpages/academicpages.github.io)](https://github.com/academicpages/academicpages.github.io/releases/latest)\n[![GitHub license](https://img.shields.io/github/license/academicpages/academicpages.github.io?color=blue)](https://github.com/academicpages/academicpages.github.io/blob/master/LICENSE)\n\n[![GitHub stars](https://img.shields.io/github/stars/academicpages/academicpages.github.io)](https://github.com/academicpages/academicpages.github.io)\n[![GitHub forks](https://img.shields.io/github/forks/academicpages/academicpages.github.io)](https://github.com/academicpages/academicpages.github.io/fork)\n</div>\n",
+        "releases": [
+            {
+                "name": "v0.8.2",
+                "date": "2024-04-14T15:17:21Z"
+            },
+            {
+                "name": "v0.8.1.1",
+                "date": "2024-02-14T23:51:01Z"
+            },
+            {
+                "name": "v0.8.1",
+                "date": "2017-10-01T21:38:24Z"
+            },
+            {
+                "name": "v0.8.0",
+                "date": "2017-10-01T21:17:48Z"
+            }
+        ]
+    }
+}

@@ -1,0 +1,53 @@
+{
+    "https://api.github.com/repos/umdjs/umd": {
+        "forks": 424,
+        "watchers": 7422,
+        "stars": 7422,
+        "languages": {
+            "JavaScript": 11928
+        },
+        "commits": [
+            "2024-11-26T23:55:09Z",
+            "2023-10-13T20:56:09Z",
+            "2017-10-13T17:48:50Z",
+            "2017-09-08T22:23:17Z",
+            "2017-09-05T23:36:07Z",
+            "2017-09-05T19:26:35Z",
+            "2017-09-05T19:26:11Z",
+            "2017-07-14T00:15:14Z",
+            "2017-07-08T07:42:55Z",
+            "2017-03-23T10:13:23Z",
+            "2016-11-12T05:31:54Z",
+            "2016-05-10T16:01:48Z",
+            "2016-05-10T16:01:34Z",
+            "2016-03-16T14:50:22Z",
+            "2016-01-15T18:48:37Z",
+            "2015-11-10T18:07:53Z",
+            "2015-11-09T03:41:26Z",
+            "2015-11-08T21:15:17Z",
+            "2015-11-08T20:46:55Z",
+            "2015-11-08T20:39:11Z",
+            "2015-11-08T20:32:35Z",
+            "2015-11-08T20:28:40Z",
+            "2015-11-08T20:23:53Z",
+            "2015-11-08T19:28:53Z",
+            "2015-11-08T17:48:26Z",
+            "2015-11-08T17:44:16Z",
+            "2015-11-08T17:43:31Z",
+            "2015-11-08T17:36:14Z",
+            "2015-11-08T17:33:17Z",
+            "2015-11-03T23:18:39Z"
+        ],
+        "creation_date": "2011-10-21T14:08:25Z",
+        "contributors": 24,
+        "topics": [],
+        "subscribers": 195,
+        "readme": "## UMD (Universal Module Definition)\n\n[![Build Status](https://travis-ci.org/umdjs/umd.svg)](https://travis-ci.org/umdjs/umd)\n\nThis repository formalizes the design and implementation of the Universal Module Definition (UMD) API for JavaScript modules. These are modules which are capable of working everywhere, be it in the client, on the server or elsewhere.\n\nThe UMD pattern typically attempts to offer compatibility with the most popular script loaders of the day (e.g RequireJS amongst others). The repository aims to formalize the *definition* of *universal modules*. It does not provide a *universal definition*. The standard was written at the time because everyone defined their universal modules differently - there were some common approaches, with varying support for different environments, but nothing really established.\n\nA universal module, as already noted, works in multiple environments. Before universal modules, libraries would distribute separate files for the different environments, e.g. `library.amd.js`, `library.common.js` and `library.global.js`. This was a hassle for maintainers, since it required the usage of a build tool (which JavaScript <s>does</s> did generally not need) and extra documentation. So the aim was to define a universal module, a single file, which was all that was needed for the author to write and distribute and for the user to (down)load. Notice this was before package managers and repositories were common (or: when they started to become more popular, and you had to change your library into a module to support them).\n\nYet, there were still variations. Modules written for web browsers did not need to consider supporting the commonjs format, as they wouldn't work in Node.JS anyway. Modules that had no dependencies wouldn't need a UMD pattern that supported `require`. Modules that did not use circular dependencies wouldn't need a pattern that supports a mutable `exports` object. You can find the explanation of these differences, and their trade-offs, in the comments documenting the patterns below. A library author can read through them and pick the right one for their supported environments.\n\nIn many cases, UMD uses [AMD](https://github.com/amdjs/amdjs-api/wiki/AMD) as a base, with special-casing added to handle [CommonJS](http://wiki.commonjs.org/wiki/CommonJS) compatibility.\n\n### Variations\n\n#### Regular Module\n\n* [amdWeb.js](https://github.com/umdjs/umd/blob/master/templates/amdWeb.js) -\n  Defines a module that works with AMD and browser globals. If you also want\n  to export a global even when AMD is in play (useful if you are loading other\n  scripts that still expect that global), use\n  [amdWebGlobal.js](https://github.com/umdjs/umd/blob/master/templates/amdWebGlobal.js).\n* [returnExports.js](https://github.com/umdjs/umd/blob/master/templates/returnExports.js) -\n  Defines a module that works in Node, AMD and browser globals. If you also want\n  to export a global even when AMD is in play (useful if you are loading other\n  scripts that still expect that global), use\n  [returnExportsGlobal.js](https://github.com/umdjs/umd/blob/master/templates/returnExportsGlobal.js).\n* [commonjsStrict.js](https://github.com/umdjs/umd/blob/master/templates/commonjsStrict.js) -\n  Defines a module that works with more CommonJS runtimes, and for modules that\n  will have a circular dependency. If you also want\n  to export a global even when AMD is in play (useful if you are loading other\n  scripts that still expect that global), use\n  [commonjsStrictGlobal.js](https://github.com/umdjs/umd/blob/master/templates/commonjsStrictGlobal.js)\n\n#### jQuery Plugin\n\n* [jqueryPlugin.js](https://github.com/umdjs/umd/blob/master/templates/jqueryPlugin.js) -\n  Defines a jQuery plugin that works with AMD and browser globals.\n\n#### AMD with simple Node/CommonJS adapter\n\nThese are useful for using AMD style while still making modules that can be\nused in Node and installed via npm without extra dependencies to set up the\nfull AMD API.\n\nThis approach does not allow the use of [AMD loader plugins](https://github.com/amdjs/amdjs-api/wiki/Loader-Plugins),\njust basic JS module dependencies. It also does not support the\n[callback-style require](https://github.com/amdjs/amdjs-api/wiki/require) that\nis usable in AMD.\n\n* [nodeAdapter.js](https://github.com/umdjs/umd/blob/master/templates/nodeAdapter.js) -\n  Best for when using AMD style but want it to work in Node without a helper library\n  that sets up AMD.\n* [commonjsAdapter.js](https://github.com/umdjs/umd/blob/master/templates/commonjsAdapter.js) -\n  Similar to nodeAdapter.js, but compatible with more CommonJS runtimes, and if\n  you want to define a circular dependency.\n\n### Tooling\n\n#### Build tools\n\n* [docpad-plugin-umd](https://github.com/docpad/docpad-plugin-umd) is a [DocPad](http://docpad.org) plugin for surrounding JavaScript code with UMD boilerplate\n* [grunt-umd](https://github.com/alexlawrence/grunt-umd) is a [Grunt](http://gruntjs.com) task for surrounding JavaScript code with UMD boilerplate\n* [gulp-umd](https://github.com/eduardolundgren/gulp-umd) is a [Gulp](http://gulpjs.com/) task for surrounding JavaScript code with UMD boilerplate\n* [grunt-urequire](https://github.com/aearly/grunt-urequire) is a Grunt wrapper for [uRequire](https://github.com/anodynos/uRequire) a conversion tool for universal JavaScript modules.\n* [generator-umd](https://github.com/ruyadorno/generator-umd) is an Yeoman Generator that creates a single module project with UMD boilerplate\n\n\n#### Testing\n\n* [Unit testing UMD with grunt-contrib-jasmine](http://stackoverflow.com/questions/16940548/grunt-test-for-umd)\n\n### Resources\n\n* [Browserify and the Universal Module Definition](http://dontkry.com/posts/code/browserify-and-the-universal-module-definition.html)\n\n### Todos\n\n* noConflict. Although with AMD loaders and build tools, it should be possible to get version specific bindings,\n  maybe show a version that has a noConflict option.\n* Variation with attaching some functionality to a $ impersonator. Although, it is\ntempting to say for that case, ask for 'jquery' as a dependency, and if the developer\nwants to use something different than the actual 'jquery', map that file to the 'jquery' name.\nThat is one of the strengths of module names, they can be mapped to different implementations.\n* Usage examples\n    * Further justifications for usage\n    * Gotchas/custom-tweaks we're aware of, but would rather not apply to the default UMD boilerplate\n\n### Influences\n\nThe basic pattern for the UMD variations in this repository was derived from the approach [@kriskowal](https://github.com/kriskowal) used for the [Q promise library](https://github.com/kriskowal/q).\n\nEarlier UMD variations were also of influence, ranging from Kit-Cambridge's\n[UMD](https://gist.github.com/1251221), through to [patterns](https://github.com/addyosmani/jquery-plugin-patterns/issues/1) discussed by Addy Osmani, Thomas Davis and Ryan Florence and most recently the UMD patterns proposed by [James Burke](https://gist.github.com/1262861).\n\n### License\n\nCopyright (c) the UMD contributors\n\nLicensed under the [MIT License](https://github.com/umdjs/umd/blob/master/LICENSE.md).\n",
+        "releases": [
+            {
+                "name": "1.0.0",
+                "date": "2015-11-14T16:59:27Z"
+            }
+        ]
+    }
+}

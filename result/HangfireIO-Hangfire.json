@@ -1,0 +1,676 @@
+{
+    "https://api.github.com/repos/HangfireIO/Hangfire": {
+        "forks": 1709,
+        "watchers": 9526,
+        "stars": 9526,
+        "languages": {
+            "C#": 2990623,
+            "HTML": 119371,
+            "TSQL": 60936,
+            "CSS": 29438,
+            "JavaScript": 24249,
+            "PowerShell": 6201,
+            "Shell": 560,
+            "Batchfile": 375
+        },
+        "commits": [
+            "2025-01-22T10:52:18Z",
+            "2025-01-22T10:52:02Z",
+            "2025-01-17T05:28:38Z",
+            "2025-01-07T08:50:02Z",
+            "2024-12-16T07:22:53Z",
+            "2024-12-16T07:11:46Z",
+            "2024-12-16T03:10:41Z",
+            "2024-12-16T03:08:40Z",
+            "2024-12-11T08:30:49Z",
+            "2024-12-11T05:09:09Z",
+            "2024-12-10T04:43:47Z",
+            "2024-12-10T04:37:06Z",
+            "2024-12-09T10:26:45Z",
+            "2024-12-03T10:58:49Z",
+            "2024-12-03T10:55:24Z",
+            "2024-11-26T10:44:50Z",
+            "2024-11-26T10:28:45Z",
+            "2024-11-26T03:35:22Z",
+            "2024-11-26T03:28:15Z",
+            "2024-11-26T03:28:03Z",
+            "2024-11-26T03:14:09Z",
+            "2024-11-26T02:45:43Z",
+            "2024-11-25T09:49:54Z",
+            "2024-11-25T09:35:53Z",
+            "2024-11-25T08:40:37Z",
+            "2024-11-22T10:56:56Z",
+            "2024-11-22T10:50:55Z",
+            "2024-11-22T10:08:37Z",
+            "2024-11-22T09:04:08Z",
+            "2024-11-22T05:58:38Z"
+        ],
+        "creation_date": "2013-08-06T09:43:04Z",
+        "contributors": 30,
+        "topics": [
+            "background-jobs",
+            "background-thread",
+            "background-worker",
+            "dotnet",
+            "dotnet-core",
+            "hangfire",
+            "scheduled-jobs"
+        ],
+        "subscribers": 309,
+        "readme": "Hangfire \n=========\n\n[![Official Site](https://img.shields.io/badge/site-hangfire.io-blue.svg)](https://www.hangfire.io) [![Latest version](https://img.shields.io/nuget/v/Hangfire.svg?label=release)](https://www.nuget.org/packages?q=hangfire) [![Downloads](https://img.shields.io/nuget/dt/Hangfire.Core.svg)](https://www.nuget.org/packages/Hangfire.Core/) [![License LGPLv3](https://img.shields.io/badge/license-LGPLv3-green.svg)](https://www.gnu.org/licenses/lgpl-3.0.html) [![Coverity Scan](https://scan.coverity.com/projects/4423/badge.svg?flat=1)](https://scan.coverity.com/projects/hangfireio-hangfire)\n\n## Build Status\n\n&nbsp; | `main` | `dev`\n--- | --- | --- \n**AppVeyor** | [![Windows Build Status](https://ci.appveyor.com/api/projects/status/70m632jkycqpnsp9/branch/main?svg=true)](https://ci.appveyor.com/project/HangfireIO/hangfire-525)  | [![Windows Build Status](https://ci.appveyor.com/api/projects/status/70m632jkycqpnsp9/branch/dev?svg=true)](https://ci.appveyor.com/project/HangfireIO/hangfire-525) \n\n## Overview\n\nIncredibly easy way to perform **fire-and-forget**, **delayed** and **recurring jobs** in **.NET applications**. CPU and I/O intensive, long-running and short-running jobs are supported. No Windows Service / Task Scheduler required. Backed by Redis, SQL Server, SQL Azure and MSMQ.\n\nHangfire provides a unified programming model to handle background tasks in a **reliable way** and run them on shared hosting, dedicated hosting or in cloud. You can start with a simple setup and grow computational power for background jobs with time for these scenarios:\n\n- mass notifications/newsletters\n- batch import from xml, csv or json\n- creation of archives\n- firing off web hooks\n- deleting users\n- building different graphs\n- image/video processing\n- purging temporary files\n- recurring automated reports\n- database maintenance\n- *\u2026and so on*\n\nHangfire is a .NET alternative to [Resque](https://github.com/resque/resque), [Sidekiq](https://sidekiq.org), [delayed_job](https://github.com/collectiveidea/delayed_job), [Celery](https://www.celeryproject.org).\n\n![Hangfire Dashboard](https://www.hangfire.io/img/ui/dashboard-sm.png)\n\nInstallation\n-------------\n\nHangfire is available as a NuGet package. You can install it using the NuGet Package Console window:\n\n```\nPM> Install-Package Hangfire\n```\n\nAfter installation, update your existing [OWIN Startup](https://www.asp.net/aspnet/overview/owin-and-katana/owin-startup-class-detection) file with the following lines of code. If you do not have this class in your project or don't know what is it, please read the [Quick start](https://docs.hangfire.io/en/latest/getting-started/index.html) guide to learn about how to install Hangfire.\n\n```csharp\npublic void Configuration(IAppBuilder app)\n{\n    GlobalConfiguration.Configuration.UseSqlServerStorage(\"<connection string or its name>\");\n    \n    app.UseHangfireServer();\n    app.UseHangfireDashboard();\n}\n```\n\nUsage\n------\n\nThis is an incomplete list of features; to see all of them, check the [official site](https://www.hangfire.io) and the [documentation](https://docs.hangfire.io).\n\n[**Fire-and-forget tasks**](https://docs.hangfire.io/en/latest/background-methods/calling-methods-in-background.html)\n\nDedicated worker pool threads execute queued background jobs as soon as possible, shortening your request's processing time.\n\n```csharp\nBackgroundJob.Enqueue(() => Console.WriteLine(\"Simple!\"));\n```\n\n[**Delayed tasks**](https://docs.hangfire.io/en/latest/background-methods/calling-methods-with-delay.html)\n\nScheduled background jobs are executed only after a given amount of time.\n\n```csharp\nBackgroundJob.Schedule(() => Console.WriteLine(\"Reliable!\"), TimeSpan.FromDays(7));\n```\n\n[**Recurring tasks**](https://docs.hangfire.io/en/latest/background-methods/performing-recurrent-tasks.html)\n\nRecurring jobs have never been simpler; just call the following method to perform any kind of recurring task using the [CRON expressions](https://en.wikipedia.org/wiki/Cron#CRON_expression).\n\n```csharp\nRecurringJob.AddOrUpdate(() => Console.WriteLine(\"Transparent!\"), Cron.Daily);\n```\n\n**Continuations**\n\nContinuations allow you to define complex workflows by chaining multiple background jobs together.\n\n```csharp\nvar id = BackgroundJob.Enqueue(() => Console.WriteLine(\"Hello, \"));\nBackgroundJob.ContinueWith(id, () => Console.WriteLine(\"world!\"));\n```\n\n**Process background tasks inside a web application\u2026**\n\nYou can process background tasks in any OWIN-compatible application framework, including [ASP.NET MVC](https://www.asp.net/mvc), [ASP.NET Web API](https://www.asp.net/web-api), [FubuMvc](https://fubu-project.org), [Nancy](https://nancyfx.org), etc. Forget about [AppDomain unloads, Web Garden & Web Farm issues](https://haacked.com/archive/2011/10/16/the-dangers-of-implementing-recurring-background-tasks-in-asp-net.aspx/) \u2013 Hangfire is reliable for web applications from scratch, even on shared hosting.\n\n```csharp\napp.UseHangfireServer();\n```\n\n**\u2026 or anywhere else**\n\nIn console applications, Windows Service, Azure Worker Role, etc.\n\n```csharp\nusing (new BackgroundJobServer())\n{\n    Console.WriteLine(\"Hangfire Server started. Press ENTER to exit...\");\n    Console.ReadLine();\n}\n```\n\nQuestions? Problems?\n---------------------\n\nOpen-source projects develop more smoothly when discussions are public.\n\nIf you have any questions, problems related to Hangfire usage or if you want to discuss new features, please visit the [discussion forum](https://discuss.hangfire.io). You can sign in there using your existing Google or GitHub account, so it's very simple to start using it.\n\nIf you've discovered a bug, please report it to the [Hangfire GitHub Issues](https://github.com/HangfireIO/Hangfire/issues?state=open). Detailed reports with stack traces, actual and expected behaviours are welcome.\n\nRelated Projects\n-----------------\n\nPlease see the [Extensions](https://www.hangfire.io/extensions.html) page on the official site.\n\nBuilding the sources\n---------------------\n\nPrerequisites:\n* [Razor Generator](https://marketplace.visualstudio.com/items?itemName=DavidEbbo.RazorGenerator): Required if you intend to edit the cshtml files.\n* Install the MSMQ service (Microsoft Message Queue Server), if not already installed.\n\nThen, create an environment variable with Variable name `Hangfire_SqlServer_ConnectionStringTemplate` and put your connection string in the Variable value field. Example:\n\n* Variable name: `Hangfire_SqlServer_ConnectionStringTemplate`\n* Variable value: `Data Source=.\\sqlexpress;Initial Catalog=Hangfire.SqlServer.Tests;Integrated Security=True;`\n\nTo build a solution and get assembly files, just run the following command. All build artifacts, including `*.pdb` files, will be placed into the `build` folder. **Before proposing a pull request, please use this command to ensure everything is ok.** Btw, you can execute this command from the Package Manager Console window.\n\n```\nbuild\n```\n\nTo build NuGet packages as well as an archive file, use the `pack` command as shown below. You can find the result files in the `build` folder.\n\n```\nbuild pack\n```\n\nTo see the full list of available commands, pass the `-docs` switch:\n\n```\nbuild -docs\n```\n\nHangfire uses [psake](https://github.com/psake/psake) build automation tool. All psake tasks and functions defined in `psake-build.ps1` (for this project) and `psake-common.ps1` (for other Hangfire projects) files. Thanks to the psake project, they are very simple to use and modify!\n\nRazor templates are compiled upon save with the [Razor Generator Visual Studio extension](https://marketplace.visualstudio.com/items?itemName=DavidEbbo.RazorGenerator).  You will need this installed if you want to modify the Dashboard UI.\n\nReporting security issues \n--------------------------\n\nIn order to give the community time to respond and upgrade we strongly urge you report all security issues privately. Please email us at [security@hangfire.io](mailto:security@hangfire.io) with details and we will respond ASAP. Security issues always take precedence over bug fixes and feature work. We can and do mark releases as \"urgent\" if they contain serious security fixes. \n\nLicense\n--------\n\nCopyright \u00a9 2013-2025 Hangfire O\u00dc.\n\nThis program is free software: you can redistribute it and/or modify\nit under the terms of the GNU Lesser General Public License as published by\nthe Free Software Foundation, either version 3 of the License, or\n(at your option) any later version.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\nGNU Lesser General Public License for more details.\n\nYou should have received a copy of the GNU Lesser General Public License\nalong with this program.  If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses).\n\nLegal\n------\n\nBy submitting a Pull Request, you disavow any rights or claims to any changes submitted to the Hangfire project and assign the copyright of those changes to Hangfire O\u00dc.\n\nIf you cannot or do not want to reassign those rights (your employment contract for your employer may not allow this), you should not submit a PR. Open an issue and someone else can do the work.\n\nThis is a legal way of saying \"If you submit a PR to us, that code becomes ours\". 99.9% of the time that's what you intend anyways; we hope it doesn't scare you away from contributing.\n",
+        "releases": [
+            {
+                "name": "1.8.17",
+                "date": "2024-12-03T11:19:49Z"
+            },
+            {
+                "name": "1.8.16",
+                "date": "2024-11-27T04:02:06Z"
+            },
+            {
+                "name": "1.8.15",
+                "date": "2024-10-23T06:18:49Z"
+            },
+            {
+                "name": "1.8.13 & 1.8.14",
+                "date": "2024-06-11T06:53:08Z"
+            },
+            {
+                "name": "1.7.37",
+                "date": "2024-04-08T06:44:07Z"
+            },
+            {
+                "name": "1.8.12",
+                "date": "2024-04-03T11:34:42Z"
+            },
+            {
+                "name": "1.8.11",
+                "date": "2024-02-23T12:41:44Z"
+            },
+            {
+                "name": "1.8.10",
+                "date": "2024-02-12T10:00:33Z"
+            },
+            {
+                "name": "1.8.9",
+                "date": "2024-01-24T05:26:22Z"
+            },
+            {
+                "name": "1.8.7",
+                "date": "2023-12-29T07:33:37Z"
+            },
+            {
+                "name": "1.8.6",
+                "date": "2023-10-18T10:28:34Z"
+            },
+            {
+                "name": "1.8.5",
+                "date": "2023-08-11T10:44:38Z"
+            },
+            {
+                "name": "1.8.4",
+                "date": "2023-07-27T10:49:03Z"
+            },
+            {
+                "name": "1.7.36",
+                "date": "2023-06-29T04:43:11Z"
+            },
+            {
+                "name": "1.8.3",
+                "date": "2023-06-27T08:52:33Z"
+            },
+            {
+                "name": "1.8.2",
+                "date": "2023-05-26T11:23:00Z"
+            },
+            {
+                "name": "1.8.1",
+                "date": "2023-05-18T10:44:31Z"
+            },
+            {
+                "name": "1.7.35",
+                "date": "2023-05-18T10:22:40Z"
+            },
+            {
+                "name": "1.8.0",
+                "date": "2023-04-28T06:34:26Z"
+            },
+            {
+                "name": "1.8.0-rc4",
+                "date": "2023-04-25T07:50:46Z"
+            },
+            {
+                "name": "1.8.0-rc3",
+                "date": "2023-03-30T04:59:38Z"
+            },
+            {
+                "name": "1.7.34",
+                "date": "2023-03-30T04:28:56Z"
+            },
+            {
+                "name": "1.7.33",
+                "date": "2023-01-31T05:41:31Z"
+            },
+            {
+                "name": "1.8.0-rc2",
+                "date": "2022-11-23T11:38:42Z"
+            },
+            {
+                "name": "1.7.32",
+                "date": "2022-11-21T09:22:39Z"
+            },
+            {
+                "name": "1.7.31",
+                "date": "2022-08-19T07:08:08Z"
+            },
+            {
+                "name": "1.8.0-rc1",
+                "date": "2022-06-13T12:43:54Z"
+            },
+            {
+                "name": "1.7.30",
+                "date": "2022-06-10T07:47:02Z"
+            },
+            {
+                "name": "1.7.29",
+                "date": "2022-05-23T08:36:12Z"
+            },
+            {
+                "name": "1.7.28",
+                "date": "2021-12-18T21:06:32Z"
+            },
+            {
+                "name": "1.8.0-beta4",
+                "date": "2021-11-12T12:30:48Z"
+            },
+            {
+                "name": "1.7.27",
+                "date": "2021-11-03T12:11:09Z"
+            },
+            {
+                "name": "1.7.26",
+                "date": "2021-10-27T15:56:17Z"
+            },
+            {
+                "name": "1.7.25",
+                "date": "2021-08-30T11:02:55Z"
+            },
+            {
+                "name": "1.8.0-beta3",
+                "date": "2021-07-05T14:39:38Z"
+            },
+            {
+                "name": "1.7.24",
+                "date": "2021-06-28T12:29:15Z"
+            },
+            {
+                "name": "1.7.23",
+                "date": "2021-05-28T12:40:06Z"
+            },
+            {
+                "name": "1.6.30",
+                "date": "2021-04-29T12:20:20Z"
+            },
+            {
+                "name": "1.8.0-beta2",
+                "date": "2021-04-15T14:46:38Z"
+            },
+            {
+                "name": "1.7.22",
+                "date": "2021-04-13T10:10:29Z"
+            },
+            {
+                "name": "1.7.21",
+                "date": "2021-04-12T14:07:03Z"
+            },
+            {
+                "name": "1.8.0-beta1",
+                "date": "2021-03-19T14:46:34Z"
+            },
+            {
+                "name": "1.7.20",
+                "date": "2021-03-19T14:08:46Z"
+            },
+            {
+                "name": "1.7.19",
+                "date": "2021-01-15T12:30:38Z"
+            },
+            {
+                "name": "1.7.18",
+                "date": "2020-11-20T16:32:21Z"
+            },
+            {
+                "name": "1.7.17",
+                "date": "2020-10-20T15:02:22Z"
+            },
+            {
+                "name": "1.7.16",
+                "date": "2020-10-14T12:49:45Z"
+            },
+            {
+                "name": "1.7.15",
+                "date": "2020-10-08T08:42:58Z"
+            },
+            {
+                "name": "1.7.14",
+                "date": "2020-09-24T12:07:10Z"
+            },
+            {
+                "name": "1.7.13",
+                "date": "2020-09-15T13:24:36Z"
+            },
+            {
+                "name": "1.7.12",
+                "date": "2020-07-24T15:02:03Z"
+            },
+            {
+                "name": "1.7.11",
+                "date": "2020-04-15T11:29:47Z"
+            },
+            {
+                "name": "1.6.29",
+                "date": "2020-04-15T11:22:20Z"
+            },
+            {
+                "name": "1.7.10",
+                "date": "2020-04-02T07:53:37Z"
+            },
+            {
+                "name": "1.7.9",
+                "date": "2020-01-20T09:00:03Z"
+            },
+            {
+                "name": "1.6.28",
+                "date": "2020-01-14T11:36:46Z"
+            },
+            {
+                "name": "1.7.8",
+                "date": "2019-12-05T14:53:36Z"
+            },
+            {
+                "name": "1.7.7",
+                "date": "2019-10-22T15:06:35Z"
+            },
+            {
+                "name": "1.7.6",
+                "date": "2019-08-05T14:57:28Z"
+            },
+            {
+                "name": "1.7.5",
+                "date": "2019-07-18T16:16:24Z"
+            },
+            {
+                "name": "1.7.4",
+                "date": "2019-06-28T16:32:52Z"
+            },
+            {
+                "name": "1.6.27",
+                "date": "2019-06-27T11:04:31Z"
+            },
+            {
+                "name": "1.7.3",
+                "date": "2019-05-23T15:09:12Z"
+            },
+            {
+                "name": "1.6.26",
+                "date": "2019-05-23T14:59:01Z"
+            },
+            {
+                "name": "1.7.2",
+                "date": "2019-04-29T14:57:05Z"
+            },
+            {
+                "name": "1.7.1",
+                "date": "2019-04-16T15:27:01Z"
+            },
+            {
+                "name": "1.6.25",
+                "date": "2019-04-09T15:29:58Z"
+            },
+            {
+                "name": "1.7.0",
+                "date": "2019-03-29T08:22:24Z"
+            },
+            {
+                "name": "1.6.24",
+                "date": "2019-03-27T08:53:21Z"
+            },
+            {
+                "name": "1.7.0-rc2",
+                "date": "2019-03-22T14:12:30Z"
+            },
+            {
+                "name": "1.7.0-rc1",
+                "date": "2019-03-15T13:57:43Z"
+            },
+            {
+                "name": "1.6.23",
+                "date": "2019-03-13T14:21:53Z"
+            },
+            {
+                "name": "1.7.0-beta4",
+                "date": "2019-02-18T11:47:39Z"
+            },
+            {
+                "name": "1.7.0-beta3",
+                "date": "2019-02-15T17:17:08Z"
+            },
+            {
+                "name": "1.6.22",
+                "date": "2019-01-25T15:50:06Z"
+            },
+            {
+                "name": "1.6.21",
+                "date": "2018-11-01T15:29:37Z"
+            },
+            {
+                "name": "1.7.0-beta2",
+                "date": "2018-09-01T15:20:45Z"
+            },
+            {
+                "name": "1.6.20",
+                "date": "2018-07-31T10:04:42Z"
+            },
+            {
+                "name": "1.6.19",
+                "date": "2018-04-06T18:33:46Z"
+            },
+            {
+                "name": "1.6.18",
+                "date": "2018-04-05T14:50:54Z"
+            },
+            {
+                "name": "1.7.0-beta1",
+                "date": "2018-03-02T16:09:14Z"
+            },
+            {
+                "name": "1.6.17",
+                "date": "2017-09-19T15:54:47Z"
+            },
+            {
+                "name": "1.6.16",
+                "date": "2017-09-02T11:33:31Z"
+            },
+            {
+                "name": "1.6.15",
+                "date": "2017-08-08T15:13:03Z"
+            },
+            {
+                "name": "1.6.14",
+                "date": "2017-06-16T09:45:56Z"
+            },
+            {
+                "name": "1.6.13",
+                "date": "2017-06-07T15:55:14Z"
+            },
+            {
+                "name": "1.6.12",
+                "date": "2017-03-22T14:01:58Z"
+            },
+            {
+                "name": "1.6.11",
+                "date": "2017-03-14T09:39:51Z"
+            },
+            {
+                "name": "1.6.10",
+                "date": "2017-03-13T17:50:44Z"
+            },
+            {
+                "name": "1.6.9",
+                "date": "2017-03-02T16:30:10Z"
+            },
+            {
+                "name": "1.6.8",
+                "date": "2016-12-21T14:25:18Z"
+            },
+            {
+                "name": "1.6.7",
+                "date": "2016-11-25T09:03:32Z"
+            },
+            {
+                "name": "1.6.6",
+                "date": "2016-10-13T13:53:43Z"
+            },
+            {
+                "name": "1.6.5",
+                "date": "2016-09-24T10:49:22Z"
+            },
+            {
+                "name": "1.6.4",
+                "date": "2016-08-30T17:16:32Z"
+            },
+            {
+                "name": "1.6.3",
+                "date": "2016-08-19T16:27:29Z"
+            },
+            {
+                "name": "1.6.2",
+                "date": "2016-08-05T11:03:59Z"
+            },
+            {
+                "name": "1.6.1",
+                "date": "2016-07-27T08:54:32Z"
+            },
+            {
+                "name": "1.6.0",
+                "date": "2016-07-15T12:45:23Z"
+            },
+            {
+                "name": "1.5.9",
+                "date": "2016-07-11T15:05:27Z"
+            },
+            {
+                "name": "1.5.8",
+                "date": "2016-06-17T13:18:28Z"
+            },
+            {
+                "name": "1.6.0-beta3",
+                "date": "2016-05-31T14:10:19Z"
+            },
+            {
+                "name": "1.5.7",
+                "date": "2016-05-30T13:30:40Z"
+            },
+            {
+                "name": "1.6.0-beta2",
+                "date": "2016-04-27T08:55:48Z"
+            },
+            {
+                "name": "1.5.6",
+                "date": "2016-04-22T15:05:28Z"
+            },
+            {
+                "name": "1.5.5",
+                "date": "2016-04-14T23:11:44Z"
+            },
+            {
+                "name": "1.6.0-beta1",
+                "date": "2016-03-31T15:02:24Z"
+            },
+            {
+                "name": "1.5.4",
+                "date": "2016-03-22T17:34:55Z"
+            },
+            {
+                "name": "1.5.3",
+                "date": "2015-11-06T16:28:18Z"
+            },
+            {
+                "name": "1.5.2",
+                "date": "2015-10-15T14:28:08Z"
+            },
+            {
+                "name": "1.5.1",
+                "date": "2015-10-14T12:53:55Z"
+            },
+            {
+                "name": "1.5.0",
+                "date": "2015-10-01T14:15:12Z"
+            },
+            {
+                "name": "1.4.7",
+                "date": "2015-10-01T12:01:31Z"
+            },
+            {
+                "name": "1.5.0-beta4",
+                "date": "2015-09-29T15:16:15Z"
+            },
+            {
+                "name": "1.5.0-beta3",
+                "date": "2015-08-29T16:44:30Z"
+            },
+            {
+                "name": "1.4.6",
+                "date": "2015-08-29T12:39:25Z"
+            },
+            {
+                "name": "1.5.0-beta2",
+                "date": "2015-08-01T15:48:16Z"
+            },
+            {
+                "name": "1.4.5",
+                "date": "2015-07-24T12:22:33Z"
+            },
+            {
+                "name": "1.4.4",
+                "date": "2015-07-23T14:55:34Z"
+            },
+            {
+                "name": "1.5.0-beta1",
+                "date": "2015-07-21T11:00:10Z"
+            },
+            {
+                "name": "1.4.3",
+                "date": "2015-05-27T16:08:00Z"
+            },
+            {
+                "name": "1.4.2",
+                "date": "2015-05-06T14:52:21Z"
+            },
+            {
+                "name": "1.4.1",
+                "date": "2015-04-14T14:51:39Z"
+            },
+            {
+                "name": "1.4.0",
+                "date": "2015-04-13T16:27:41Z"
+            },
+            {
+                "name": "1.4.0-rc2",
+                "date": "2015-04-11T16:27:28Z"
+            },
+            {
+                "name": "1.4.0-rc1",
+                "date": "2015-04-09T15:39:01Z"
+            },
+            {
+                "name": "1.4.0-beta1",
+                "date": "2015-03-19T15:07:28Z"
+            },
+            {
+                "name": "1.3.4",
+                "date": "2015-02-04T18:34:46Z"
+            },
+            {
+                "name": "1.3.3",
+                "date": "2015-01-28T21:56:33Z"
+            },
+            {
+                "name": "1.3.2",
+                "date": "2015-01-27T12:26:50Z"
+            },
+            {
+                "name": "1.3.1",
+                "date": "2015-01-13T17:13:53Z"
+            },
+            {
+                "name": "1.3.0",
+                "date": "2014-12-10T15:13:56Z"
+            },
+            {
+                "name": "1.2.2",
+                "date": "2014-11-24T13:54:57Z"
+            },
+            {
+                "name": "1.2.1",
+                "date": "2014-11-22T18:24:14Z"
+            },
+            {
+                "name": "1.2.0",
+                "date": "2014-11-17T20:16:49Z"
+            },
+            {
+                "name": "1.1.1",
+                "date": "2014-09-05T13:57:51Z"
+            },
+            {
+                "name": "1.1.0",
+                "date": "2014-09-03T17:38:59Z"
+            },
+            {
+                "name": "1.0.2",
+                "date": "2014-07-01T20:13:04Z"
+            },
+            {
+                "name": "1.0.0",
+                "date": "2014-06-30T08:07:42Z"
+            },
+            {
+                "name": "0.9.1",
+                "date": "2014-06-12T09:55:32Z"
+            },
+            {
+                "name": "0.9",
+                "date": "2014-06-07T14:46:36Z"
+            },
+            {
+                "name": "0.8.3",
+                "date": "2014-05-23T18:32:48Z"
+            },
+            {
+                "name": "0.8.2",
+                "date": "2014-05-21T08:36:22Z"
+            },
+            {
+                "name": "0.8.1",
+                "date": "2014-05-17T05:23:41Z"
+            },
+            {
+                "name": "0.8",
+                "date": "2014-05-02T13:10:50Z"
+            },
+            {
+                "name": "0.7.5",
+                "date": "2014-04-10T15:55:01Z"
+            },
+            {
+                "name": "0.7.4",
+                "date": "2014-04-07T13:34:08Z"
+            },
+            {
+                "name": "0.7.3",
+                "date": "2014-04-04T20:01:03Z"
+            },
+            {
+                "name": "0.7.1",
+                "date": "2014-04-01T14:39:34Z"
+            },
+            {
+                "name": "0.7",
+                "date": "2014-03-13T16:09:19Z"
+            },
+            {
+                "name": "0.6.2",
+                "date": "2014-01-28T11:24:47Z"
+            },
+            {
+                "name": "0.6",
+                "date": "2013-12-26T12:04:56Z"
+            },
+            {
+                "name": "0.5",
+                "date": "2013-11-10T13:09:07Z"
+            }
+        ]
+    }
+}

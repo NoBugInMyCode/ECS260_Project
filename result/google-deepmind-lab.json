@@ -1,0 +1,100 @@
+{
+    "https://api.github.com/repos/deepmind/lab": {
+        "forks": 1369,
+        "watchers": 7162,
+        "stars": 7162,
+        "languages": {
+            "C": 12886842,
+            "Lua": 1325159,
+            "C++": 1025625,
+            "GLSL": 151382,
+            "Python": 140986,
+            "ShaderLab": 109219,
+            "Starlark": 87059,
+            "HTML": 69263,
+            "Assembly": 25861,
+            "Roff": 21060,
+            "Shell": 6050,
+            "Yacc": 4260,
+            "Objective-C": 3253,
+            "Perl": 944,
+            "Makefile": 829
+        },
+        "commits": [
+            "2023-01-04T15:19:06Z",
+            "2023-01-03T21:27:34Z",
+            "2023-01-03T21:25:43Z",
+            "2023-01-03T21:20:35Z",
+            "2022-05-19T15:35:04Z",
+            "2023-01-03T15:27:48Z",
+            "2023-01-03T15:19:39Z",
+            "2019-05-02T08:14:28Z",
+            "2022-08-23T15:31:04Z",
+            "2022-05-19T15:36:05Z",
+            "2022-10-15T00:29:02Z",
+            "2022-02-28T23:46:34Z",
+            "2022-12-13T21:12:12Z",
+            "2023-01-03T10:37:34Z",
+            "2023-01-01T01:05:13Z",
+            "2022-06-09T15:33:29Z",
+            "2022-01-04T23:03:55Z",
+            "2022-01-05T11:38:38Z",
+            "2022-01-05T10:44:31Z",
+            "2022-01-05T12:08:56Z",
+            "2021-08-02T14:31:54Z",
+            "2021-07-14T15:23:28Z",
+            "2021-07-14T15:08:08Z",
+            "2021-07-01T16:12:16Z",
+            "2021-07-01T16:20:37Z",
+            "2021-03-05T10:19:50Z",
+            "2021-05-27T11:51:03Z",
+            "2021-03-04T16:15:11Z",
+            "2019-10-31T19:58:07Z",
+            "2019-10-30T20:50:06Z"
+        ],
+        "creation_date": "2016-11-30T13:41:26Z",
+        "contributors": 7,
+        "topics": [
+            "artificial-intelligence",
+            "deep-learning",
+            "machine-learning",
+            "neural-networks"
+        ],
+        "subscribers": 464,
+        "readme": "# <img src=\"/docs/template/logo.png\" alt=\"DeepMind Lab\">\n\n*DeepMind Lab* is a 3D learning environment based on id Software's\n[Quake III Arena](https://github.com/id-Software/Quake-III-Arena) via\n[ioquake3](https://github.com/ioquake/ioq3) and\n[other open source software](#upstream-sources).\n\n<div align=\"center\">\n  <a href=\"https://www.youtube.com/watch?v=M40rN7afngY\" target=\"_blank\">\n    <img src=\"http://img.youtube.com/vi/M40rN7afngY/0.jpg\"\n         alt=\"DeepMind Lab - Nav Maze Level 1\"\n         width=\"240\" height=\"180\" border=\"10\" />\n  </a>\n  <a href=\"https://www.youtube.com/watch?v=gC_e8AHzvOw\" target=\"_blank\">\n    <img src=\"http://img.youtube.com/vi/gC_e8AHzvOw/0.jpg\"\n         alt=\"DeepMind Lab - Stairway to Melon Level\"\n         width=\"240\" height=\"180\" border=\"10\" />\n  </a>\n  <a href=\"https://www.youtube.com/watch?v=7syZ42HWhHE\" target=\"_blank\">\n    <img src=\"http://img.youtube.com/vi/7syZ42HWhHE/0.jpg\"\n         alt=\"DeepMind Lab - Laser Tag Space Bounce Level (Hard)\"\n         width=\"240\" height=\"180\" border=\"10\" />\n  </a>\n  <br /><br />\n</div>\n\n*DeepMind Lab* provides a suite of challenging 3D navigation and puzzle-solving\ntasks for learning agents. Its primary purpose is to act as a testbed for\nresearch in artificial intelligence, especially deep reinforcement learning.\n\n## About\n\nDisclaimer: This is not an official Google product.\n\nIf you use *DeepMind Lab* in your research and would like to cite\nthe *DeepMind Lab* environment, we suggest you cite\nthe [DeepMind Lab paper](https://arxiv.org/abs/1612.03801).\n\nYou can reach us at [lab@deepmind.com](mailto:lab@deepmind.com).\n\n## Getting started on Linux\n\n* Get [Bazel from bazel.io](https://docs.bazel.build/versions/master/install.html).\n\n* Clone DeepMind Lab, e.g. by running\n\n```shell\n$ git clone https://github.com/deepmind/lab\n$ cd lab\n```\n\nFor a live example of a random agent, run\n\n```shell\nlab$ bazel run :python_random_agent --define graphics=sdl -- \\\n               --length=10000 --width=640 --height=480\n```\n\nHere is some [more detailed build documentation](/docs/users/build.md),\nincluding how to install dependencies if you don't have them.\n\nTo enable compiler optimizations, pass the flag `--compilation_mode=opt`, or\n`-c opt` for short, to each `bazel build`, `bazel test` and `bazel run` command.\nThe flag is omitted from the examples here for brevity, but it should be used\nfor real training and evaluation where performance matters.\n\n### Play as a human\n\nTo test the game using human input controls, run\n\n```shell\nlab$ bazel run :game -- --level_script=tests/empty_room_test --level_setting=logToStdErr=true\n# or:\nlab$ bazel run :game -- -l tests/empty_room_test -s logToStdErr=true\n```\n\nLeave the `logToStdErr` setting off to disable most log output.\n\nThe values of observations that the environment exposes can be printed at every\nstep by adding a flag `--observation OBSERVATION_NAME` for each observation of\ninterest.\n\n```shell\nlab$ bazel run :game -- --level_script=lt_chasm --observation VEL.TRANS --observation VEL.ROT\n```\n\n### Train an agent\n\n*DeepMind Lab* ships with an example random agent in\n[`python/random_agent.py`](python/random_agent.py)\nwhich can be used as a starting point for implementing a learning agent. To let\nthis agent interact with DeepMind Lab for training, run\n\n```shell\nlab$ bazel run :python_random_agent\n```\n\nThe [Python API](/docs/users/python_api.md) is\nused for agent-environment interactions. We also provide bindings to DeepMind's\n\"[dm_env](https://github.com/deepmind/dm_env)\" general API for reinforcement\nlearning, as well as a way to build a self-contained PIP package; see the\n[separate documentation](python/pip_package/README.md)\nfor details.\n\n*DeepMind Lab* ships with [different\nlevels](/docs/levels.md) implementing different\ntasks. These tasks can be configured using Lua scripts, as described in the [Lua\nAPI](/docs/developers/reference/lua_api.md).\n\n-----------------\n\n## Upstream sources\n\n*DeepMind Lab* is built from the *ioquake3* game engine, and it uses the tools\n*q3map2* and *bspc* for map creation. Bug fixes and cleanups that originate\nwith those projects are best fixed upstream and then merged into *DeepMind Lab*.\n\n* *bspc* is taken from [github.com/TTimo/bspc](https://github.com/TTimo/bspc),\n  revision d9a372db3fb6163bc49ead41c76c801a3d14cf80. There are virtually no\n  local modifications, although we integrate this code with the main ioq3 code\n  and do not use their copy in the `deps` directory. We expect this code to be\n  stable.\n\n* *q3map2* is taken from\n  [github.com/TTimo/GtkRadiant](https://github.com/TTimo/GtkRadiant),\n  revision d3d00345c542c8d7cc74e2e8a577bdf76f79c701. A few minor local\n  modifications add synchronization. We also expect this code to be stable.\n\n* *ioquake3* is taken from\n  [github.com/ioquake/ioq3](https://github.com/ioquake/ioq3),\n  revision 29db64070aa0bae49953bddbedbed5e317af48ba. The code contains extensive\n  modifications and additions. We aim to merge upstream changes occasionally.\n\nWe are very grateful to the maintainers of these repositories for all their hard\nwork on maintaining high-quality code bases.\n\n## External dependencies, prerequisites and porting notes\n\n*DeepMind Lab* currently ships as source code only. It depends on a few external\nsoftware libraries, which we ship in several different ways:\n\n * The `zlib`, `glib`, `libxml2`, `jpeg` and `png` libraries are referenced as\n   external Bazel sources, and Bazel BUILD files are provided. The dependent\n   code itself should be fairly portable, but the BUILD rules we ship are\n   specific to Linux on x86. To build on a different platform you will most\n   likely have to edit those BUILD files.\n\n * Message digest algorithms are included in this package (in\n   [`//third_party/md`](third_party/md)), taken from the reference\n   implementations of their respective RFCs. A \"generic reinforcement learning\n   API\" is included in [`//third_party/rl_api`](third_party/rl_api), which has\n   also been created by the *DeepMind Lab* authors. This code is portable.\n\n * EGL headers are included in this package (in\n   `//third_party/GL/{`[`EGL`](third_party/GL/EGL)`,`[`KHR`](third_party/GL/KHR)`}`),\n   taken from the Khronos OpenGL/OpenGL ES XML API Registry at\n   [www.khronos.org/registry/EGL](http://www.khronos.org/registry/EGL/). The\n   headers have been modified slightly to remove the dependency of EGL on X.\n\n * Several additional libraries are required but are not shipped in any form;\n   they must be present on your system:\n   * SDL 2\n   * gettext (required by `glib`)\n   * OpenGL: A hardware driver and library are needed for hardware-accelerated\n     human play. The headless library that machine learning agents will want to\n     use can use either hardware-accelerated rendering via EGL or GLX or\n     software rendering via OSMesa, depending on the `--define headless=...`\n     build setting.\n   * Python 2.7 (other versions might work, too) with NumPy, PIL (a few tests\n     require a NumPy version of at least 1.8), or Python 3 (at least 3.5) with\n     NumPy and Pillow.\n\nThe build rules are using a few compiler settings that are specific to GCC. If\nsome flags are not recognized by your compiler (typically those would be\nspecific warning suppressions), you may have to edit those flags. The warnings\nshould be noisy but harmless.\n",
+        "releases": [
+            {
+                "name": "December 2020 release",
+                "date": "2020-12-07T11:26:33Z"
+            },
+            {
+                "name": "October 2019 release",
+                "date": "2019-10-07T17:44:15Z"
+            },
+            {
+                "name": "February 2019 release",
+                "date": "2019-02-04T17:02:17Z"
+            },
+            {
+                "name": "June 2018 release",
+                "date": "2018-06-20T12:36:08Z"
+            },
+            {
+                "name": "May 2018 release",
+                "date": "2018-05-15T00:37:01Z"
+            },
+            {
+                "name": "February 2018 release",
+                "date": "2018-02-07T16:53:10Z"
+            },
+            {
+                "name": "January 2018 release",
+                "date": "2018-01-26T14:18:04Z"
+            },
+            {
+                "name": "Initial release",
+                "date": "2016-12-08T21:58:37Z"
+            }
+        ]
+    }
+}

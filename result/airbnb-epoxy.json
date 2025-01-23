@@ -1,0 +1,357 @@
+{
+    "https://api.github.com/repos/airbnb/epoxy": {
+        "forks": 730,
+        "watchers": 8537,
+        "stars": 8537,
+        "languages": {
+            "Java": 3068841,
+            "Kotlin": 1113764,
+            "JavaScript": 5252,
+            "HTML": 2958,
+            "CSS": 2695
+        },
+        "commits": [
+            "2024-01-25T20:48:21Z",
+            "2024-01-25T19:37:48Z",
+            "2023-05-19T19:45:44Z",
+            "2023-05-19T19:32:06Z",
+            "2023-05-19T19:29:50Z",
+            "2023-05-19T18:54:43Z",
+            "2023-05-19T18:52:58Z",
+            "2023-05-19T18:48:19Z",
+            "2023-05-19T18:09:24Z",
+            "2023-04-04T20:43:56Z",
+            "2022-11-03T22:09:28Z",
+            "2022-10-28T23:27:52Z",
+            "2022-10-22T05:19:18Z",
+            "2022-09-29T22:15:15Z",
+            "2022-09-24T00:53:09Z",
+            "2022-08-15T16:43:46Z",
+            "2022-08-10T05:03:02Z",
+            "2022-07-06T17:26:46Z",
+            "2022-03-30T06:06:12Z",
+            "2022-02-25T21:31:58Z",
+            "2022-02-25T20:08:46Z",
+            "2022-01-28T20:03:56Z",
+            "2022-01-11T06:03:05Z",
+            "2021-12-15T18:29:52Z",
+            "2021-11-19T22:06:10Z",
+            "2021-11-12T20:50:38Z",
+            "2021-11-10T00:14:03Z",
+            "2021-11-03T04:48:41Z",
+            "2021-10-02T03:13:00Z",
+            "2021-09-28T00:32:35Z"
+        ],
+        "creation_date": "2016-08-08T23:05:11Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 156,
+        "readme": "[![Build Status](https://travis-ci.com/airbnb/epoxy.svg?branch=master)](https://travis-ci.com/github/airbnb/epoxy)\n[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.airbnb.android/epoxy/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.airbnb.android/epoxy)\n[![GitHub license](https://img.shields.io/github/license/airbnb/epoxy)](https://github.com/airbnb/epoxy/blob/master/LICENSE)\n![GitHub contributors](https://img.shields.io/github/contributors/airbnb/epoxy)\n\n# Epoxy\n\nEpoxy is an Android library for building complex screens in a RecyclerView. Models are automatically generated from custom views or databinding layouts via annotation processing. These models are then used in an EpoxyController to declare what items to show in the RecyclerView.\n\nThis abstracts the boilerplate of view holders, diffing items and binding payload changes, item types, item ids, span counts, and more, in order to simplify building screens with multiple view types. Additionally, Epoxy adds support for saving view state and automatic diffing of item changes.\n\n[We developed Epoxy at Airbnb](https://medium.com/airbnb-engineering/epoxy-airbnbs-view-architecture-on-android-c3e1af150394#.xv4ymrtmk) to simplify the process of working with RecyclerViews, and to add the missing functionality we needed. We now use Epoxy for most of the main screens in our app and it has improved our developer experience greatly.\n\n* [Installation](#installation)\n* [Basic Usage](#basic-usage)\n* [Documentation](#documentation)\n* [Min SDK](#min-sdk)\n* [Contributing](#contributing)\n* [Sample App](https://github.com/airbnb/epoxy/wiki/Sample-App)\n\n## Installation\n\nGradle is the only supported build configuration, so just add the dependency to your project `build.gradle` file:\n\n```groovy\ndependencies {\n  implementation \"com.airbnb.android:epoxy:$epoxyVersion\"\n  // Add the annotation processor if you are using Epoxy's annotations (recommended)\n  annotationProcessor \"com.airbnb.android:epoxy-processor:$epoxyVersion\"\n}\n```\n\nReplace the variable `$epoxyVersion` with the latest version : [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.airbnb.android/epoxy/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.airbnb.android/epoxy)\n\nSee the [releases page](https://github.com/airbnb/epoxy/releases) for up to date release versions and details\n\n#### Kotlin\nIf you are using Kotlin you should also add\n```\napply plugin: 'kotlin-kapt'\n\nkapt {\n    correctErrorTypes = true\n}\n```\n\nso that `AutoModel` annotations work properly. More information [here](https://github.com/airbnb/epoxy/wiki/Epoxy-Controller#usage-with-kotlin)\n\nAlso, make sure to use `kapt` instead of `annotationProcessor` in your dependencies in the `build.gradle` file.\n\n## Library Projects\nIf you are using layout resources in Epoxy annotations then for library projects add [Butterknife's gradle plugin](https://github.com/JakeWharton/butterknife#library-projects) to your `buildscript`.\n\n```yaml\nbuildscript {\n  repositories {\n    mavenCentral()\n   }\n  dependencies {\n    classpath 'com.jakewharton:butterknife-gradle-plugin:10.1.0'\n  }\n}\n```\n\nand then apply it in your module:\n```yaml\napply plugin: 'com.android.library'\napply plugin: 'com.jakewharton.butterknife'\n```\n\nNow make sure you use R2 instead of R inside all Epoxy annotations.\n```java\n@ModelView(defaultLayout = R2.layout.view_holder_header)\npublic class HeaderView extends LinearLayout {\n   ....\n}\n```\n\nThis is not necessary if you don't use resources as annotation parameters, such as with [custom view models](https://github.com/airbnb/epoxy/wiki/Generating-Models-from-View-Annotations).\n\n## Basic Usage\nThere are two main components of Epoxy:\n\n1. The `EpoxyModel`s that describe how your views should be displayed in the RecyclerView.\n2. The `EpoxyController` where the models are used to describe what items to show and with what data.\n\n### Creating Models\nEpoxy generates models for you based on your view or layout. Generated model classes are suffixed with an underscore (`_`) are used directly in your EpoxyController classes.\n\n#### From Custom Views\nAdd the `@ModelView` annotation on a view class. Then, add a \"prop\" annotation on each setter method to mark it as a property for the model.\n\n```java\n@ModelView(autoLayout = Size.MATCH_WIDTH_WRAP_HEIGHT)\npublic class HeaderView extends LinearLayout {\n\n  ... // Initialization omitted\n\n  @TextProp\n  public void setTitle(CharSequence text) {\n    titleView.setText(text);\n  }\n}\n```\n\nA `HeaderViewModel_` is then generated in the same package.\n\n[More Details](https://github.com/airbnb/epoxy/wiki/Generating-Models-from-View-Annotations)\n\n#### From DataBinding\n\nIf you use Android DataBinding you can simply set up your xml layouts like normal:\n\n```xml\n<layout xmlns:android=\"http://schemas.android.com/apk/res/android\">\n    <data>\n        <variable name=\"title\" type=\"String\" />\n    </data>\n\n    <TextView\n        android:layout_width=\"120dp\"\n        android:layout_height=\"40dp\"\n        android:text=\"@{title}\" />\n</layout>\n```\n\nThen, create an interface or class in any package and add an `EpoxyDataBindingLayouts` annotation to declare your databinding layouts.\n\n```java\npackage com.airbnb.epoxy.sample;\n\nimport com.airbnb.epoxy.EpoxyDataBindingLayouts;\n\n@EpoxyDataBindingLayouts({R.layout.header_view, ... // other layouts })\ninterface EpoxyConfig {}\n```\n\nFrom this layout name Epoxy generates a `HeaderViewBindingModel_`.\n\n[More Details](https://github.com/airbnb/epoxy/wiki/Data-Binding-Support)\n\n#### From ViewHolders\nIf you use xml layouts without databinding you can create a model class to do the  binding.\n\n```java\n@EpoxyModelClass(layout = R.layout.header_view)\npublic abstract class HeaderModel extends EpoxyModelWithHolder<Holder> {\n  @EpoxyAttribute String title;\n\n  @Override\n  public void bind(Holder holder) {\n    holder.header.setText(title);\n  }\n\n  static class Holder extends BaseEpoxyHolder {\n    @BindView(R.id.text) TextView header;\n  }\n}\n```\n\nA `HeaderModel_` class is generated that subclasses HeaderModel and implements the model details.\n\n[More Details](https://github.com/airbnb/epoxy/wiki/ViewHolder-Models)\n\n### Using your models in a controller\n\nA controller defines what items should be shown in the RecyclerView, by adding the corresponding models in the desired order.\n\n The controller's `buildModels` method declares which items to show. You are responsible for calling `requestModelBuild` whenever your data changes, which triggers `buildModels` to run again. Epoxy tracks changes in the models and automatically binds and updates views.\n\nAs an example, our `PhotoController` shows a header, a list of photos, and a loader (if more photos are being loaded). The controller's `setData(photos, loadingMore)` method is called whenever photos are loaded, which triggers a call to `buildModels` so models representing the state of the new data can be built.\n\n```java\npublic class PhotoController extends Typed2EpoxyController<List<Photo>, Boolean> {\n    @AutoModel HeaderModel_ headerModel;\n    @AutoModel LoaderModel_ loaderModel;\n\n    @Override\n    protected void buildModels(List<Photo> photos, Boolean loadingMore) {\n      headerModel\n          .title(\"My Photos\")\n          .description(\"My album description!\")\n          .addTo(this);\n\n      for (Photo photo : photos) {\n        new PhotoModel()\n           .id(photo.id())\n           .url(photo.url())\n           .addTo(this);\n      }\n\n      loaderModel\n          .addIf(loadingMore, this);\n    }\n  }\n```\n\n#### Or with Kotlin\nAn extension function is generated for each model so we can write this:\n```kotlin\nclass PhotoController : Typed2EpoxyController<List<Photo>, Boolean>() {\n\n    override fun buildModels(photos: List<Photo>, loadingMore: Boolean) {\n        header {\n            id(\"header\")\n            title(\"My Photos\")\n            description(\"My album description!\")\n        }\n\n        photos.forEach {\n            photoView {\n                id(it.id())\n                url(it.url())\n            }\n        }\n\n        if (loadingMore) loaderView { id(\"loader\") }\n    }\n}\n```\n\n### Integrating with RecyclerView\n\nGet the backing adapter off the EpoxyController to set up your RecyclerView:\n```java\nMyController controller = new MyController();\nrecyclerView.setAdapter(controller.getAdapter());\n\n// Request a model build whenever your data changes\ncontroller.requestModelBuild();\n\n// Or if you are using a TypedEpoxyController\ncontroller.setData(myData);\n```\n\nIf you are using the [EpoxyRecyclerView](https://github.com/airbnb/epoxy/wiki/EpoxyRecyclerView) integration is easier.\n\n```java\nepoxyRecyclerView.setControllerAndBuildModels(new MyController());\n\n// Request a model build on the recyclerview when data changes\nepoxyRecyclerView.requestModelBuild();\n```\n\n#### Kotlin\nOr use [Kotlin Extensions](https://github.com/airbnb/epoxy/wiki/EpoxyRecyclerView#kotlin-extensions) to simplify further and remove the need for a controller class.\n```kotlin\nepoxyRecyclerView.withModels {\n        header {\n            id(\"header\")\n            title(\"My Photos\")\n            description(\"My album description!\")\n        }\n\n        photos.forEach {\n            photoView {\n                id(it.id())\n                url(it.url())\n            }\n        }\n\n        if (loadingMore) loaderView { id(\"loader\") }\n    }\n}\n```\n\n\n### More Reading\nAnd that's it! The controller's declarative style makes it very easy to visualize what the RecyclerView will look like, even when many different view types or items are used. Epoxy handles everything else. If a view only partially changes, such as the description, only that new value is set on the view, so the system is very efficient\n\nEpoxy handles much more than these basics, and is highly configurable. See [the wiki](https://github.com/airbnb/epoxy/wiki) for in depth documentation.\n\n## Documentation\nSee examples and browse complete documentation at the [Epoxy Wiki](https://github.com/airbnb/epoxy/wiki)\n\nIf you still have questions, feel free to create a new issue.\n\n## Min SDK\nWe support a minimum SDK of 14. However, Epoxy is based on the v7 support libraries so it should work with lower versions if you care to override the min sdk level in the manifest.\n\n## Contributing\nPull requests are welcome! We'd love help improving this library. Feel free to browse through open issues to look for things that need work. If you have a feature request or bug, please open a new issue so we can track it.\n\n## License\n\n```\nCopyright 2016 Airbnb, Inc.\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n   http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n",
+        "releases": [
+            {
+                "name": "5.1.4",
+                "date": "2024-01-25T20:51:24Z"
+            },
+            {
+                "name": "5.1.3",
+                "date": "2023-05-19T19:46:07Z"
+            },
+            {
+                "name": "5.1.2",
+                "date": "2023-04-04T23:44:05Z"
+            },
+            {
+                "name": "5.1.1",
+                "date": "2022-11-03T22:09:55Z"
+            },
+            {
+                "name": "5.1.0",
+                "date": "2022-10-21T02:21:03Z"
+            },
+            {
+                "name": "5.0.0",
+                "date": "2022-09-29T22:15:44Z"
+            },
+            {
+                "name": "5.0.0-beta03",
+                "date": "2021-11-10T00:15:20Z"
+            },
+            {
+                "name": "5.0.0-beta02",
+                "date": "2021-11-03T04:51:32Z"
+            },
+            {
+                "name": "4.6.3",
+                "date": "2021-09-09T04:50:32Z"
+            },
+            {
+                "name": "4.6.2",
+                "date": "2021-06-11T17:42:11Z"
+            },
+            {
+                "name": "4.6.1",
+                "date": "2021-05-13T16:41:11Z"
+            },
+            {
+                "name": "4.6.0",
+                "date": "2021-05-13T16:03:33Z"
+            },
+            {
+                "name": "4.5.0",
+                "date": "2021-04-14T23:14:05Z"
+            },
+            {
+                "name": "4.4.4",
+                "date": "2021-03-24T20:38:15Z"
+            },
+            {
+                "name": "4.4.3",
+                "date": "2021-03-18T17:50:38Z"
+            },
+            {
+                "name": "4.4.2",
+                "date": "2021-03-17T19:51:30Z"
+            },
+            {
+                "name": "4.4.1",
+                "date": "2021-02-19T00:00:28Z"
+            },
+            {
+                "name": "4.3.1",
+                "date": "2020-12-02T18:41:32Z"
+            },
+            {
+                "name": "4.2.0",
+                "date": "2020-11-11T22:51:59Z"
+            },
+            {
+                "name": "4.1.0",
+                "date": "2020-09-18T19:47:23Z"
+            },
+            {
+                "name": "4.0.0",
+                "date": "2020-09-08T17:41:07Z"
+            },
+            {
+                "name": "4.0.0-beta6",
+                "date": "2020-08-06T17:50:23Z"
+            },
+            {
+                "name": "4.0.0-beta5",
+                "date": "2020-07-10T17:01:03Z"
+            },
+            {
+                "name": "4.0.0-beta4",
+                "date": "2020-06-02T03:53:48Z"
+            },
+            {
+                "name": "4.0.0-beta3",
+                "date": "2020-06-01T18:11:05Z"
+            },
+            {
+                "name": "4.0.0-beta1",
+                "date": "2020-05-23T17:35:17Z"
+            },
+            {
+                "name": "3.11.0",
+                "date": "2020-05-21T15:04:51Z"
+            },
+            {
+                "name": "3.10.0",
+                "date": "2020-05-16T00:37:49Z"
+            },
+            {
+                "name": "3.9.0",
+                "date": "2019-12-17T21:38:46Z"
+            },
+            {
+                "name": "3.8.0",
+                "date": "2019-09-16T20:35:52Z"
+            },
+            {
+                "name": "3.7.0",
+                "date": "2019-07-01T16:43:50Z"
+            },
+            {
+                "name": "3.6.0",
+                "date": "2019-06-18T15:48:43Z"
+            },
+            {
+                "name": "3.5.1",
+                "date": "2019-06-05T18:53:09Z"
+            },
+            {
+                "name": "3.5.0",
+                "date": "2019-05-14T14:14:10Z"
+            },
+            {
+                "name": "3.4.2",
+                "date": "2019-04-18T19:09:40Z"
+            },
+            {
+                "name": "3.4.1",
+                "date": "2019-04-16T22:50:27Z"
+            },
+            {
+                "name": "3.4.0",
+                "date": "2019-04-12T13:56:57Z"
+            },
+            {
+                "name": "3.3.0",
+                "date": "2019-02-05T22:15:30Z"
+            },
+            {
+                "name": "3.2.0",
+                "date": "2019-01-22T04:55:32Z"
+            },
+            {
+                "name": "3.1.0",
+                "date": "2019-01-22T04:55:12Z"
+            },
+            {
+                "name": "3.0.0",
+                "date": "2018-11-13T21:25:21Z"
+            },
+            {
+                "name": "2.19.0",
+                "date": "2018-10-18T15:36:28Z"
+            },
+            {
+                "name": "2.18.0",
+                "date": "2018-09-26T18:53:51Z"
+            },
+            {
+                "name": "2.17.0",
+                "date": "2018-09-06T14:15:06Z"
+            },
+            {
+                "name": "3.0.0-rc1",
+                "date": "2018-09-04T14:19:43Z"
+            },
+            {
+                "name": "2.16.4",
+                "date": "2018-08-29T14:21:48Z"
+            },
+            {
+                "name": "2.16.2",
+                "date": "2018-08-24T01:46:56Z"
+            },
+            {
+                "name": "2.16.1",
+                "date": "2018-08-22T23:46:42Z"
+            },
+            {
+                "name": "2.16.0",
+                "date": "2018-08-08T17:36:46Z"
+            },
+            {
+                "name": "2.15.1",
+                "date": "2018-08-06T20:59:05Z"
+            },
+            {
+                "name": "2.14.0",
+                "date": "2018-06-28T01:02:31Z"
+            },
+            {
+                "name": "2.13.0",
+                "date": "2018-06-19T20:57:12Z"
+            },
+            {
+                "name": "2.12.0",
+                "date": "2018-04-18T20:07:59Z"
+            },
+            {
+                "name": "2.11.0",
+                "date": "2018-04-08T04:29:03Z"
+            },
+            {
+                "name": "2.10.0",
+                "date": "2018-03-07T23:40:08Z"
+            },
+            {
+                "name": "2.9.0",
+                "date": "2018-01-30T05:45:11Z"
+            },
+            {
+                "name": "2.8.0",
+                "date": "2017-12-22T23:09:41Z"
+            },
+            {
+                "name": "2.7.3",
+                "date": "2017-11-21T19:27:46Z"
+            },
+            {
+                "name": "2.7.2",
+                "date": "2017-10-29T02:46:36Z"
+            },
+            {
+                "name": "2.7.1",
+                "date": "2017-10-25T05:47:37Z"
+            },
+            {
+                "name": "2.7.0",
+                "date": "2017-10-18T04:26:47Z"
+            },
+            {
+                "name": "2.6.0",
+                "date": "2017-10-11T20:00:34Z"
+            },
+            {
+                "name": "2.5.1",
+                "date": "2017-10-02T22:46:58Z"
+            },
+            {
+                "name": "2.5.0",
+                "date": "2017-09-15T00:51:13Z"
+            },
+            {
+                "name": "2.4.0",
+                "date": "2017-09-04T17:49:48Z"
+            },
+            {
+                "name": "2.3.0",
+                "date": "2017-08-16T00:32:03Z"
+            },
+            {
+                "name": "2.2.0",
+                "date": "2017-06-19T20:42:45Z"
+            },
+            {
+                "name": "2.1.0",
+                "date": "2017-05-10T18:50:33Z"
+            },
+            {
+                "name": "2.0.0",
+                "date": "2017-04-10T16:37:08Z"
+            },
+            {
+                "name": "1.7.5",
+                "date": "2017-02-21T19:27:16Z"
+            },
+            {
+                "name": "1.6.1",
+                "date": "2017-02-08T01:27:51Z"
+            },
+            {
+                "name": "1.5.0",
+                "date": "2016-11-23T23:47:56Z"
+            },
+            {
+                "name": "1.4.0",
+                "date": "2016-10-18T07:18:10Z"
+            },
+            {
+                "name": "1.3.1",
+                "date": "2016-09-17T02:57:47Z"
+            },
+            {
+                "name": "1.2.0",
+                "date": "2016-09-09T00:28:11Z"
+            },
+            {
+                "name": "1.1.0 - Initial public release",
+                "date": "2016-08-24T23:34:37Z"
+            }
+        ]
+    }
+}

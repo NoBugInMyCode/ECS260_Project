@@ -1,0 +1,329 @@
+{
+    "https://api.github.com/repos/actix/actix": {
+        "forks": 656,
+        "watchers": 8726,
+        "stars": 8726,
+        "languages": {
+            "Rust": 345467,
+            "Just": 1861
+        },
+        "commits": [
+            "2024-12-23T09:58:07Z",
+            "2024-12-10T11:46:35Z",
+            "2024-12-02T09:14:05Z",
+            "2024-12-02T08:08:14Z",
+            "2024-12-02T08:07:29Z",
+            "2024-11-18T11:12:56Z",
+            "2024-10-07T04:35:35Z",
+            "2024-10-07T04:35:25Z",
+            "2024-09-23T15:17:13Z",
+            "2024-09-23T15:05:21Z",
+            "2024-09-12T20:20:29Z",
+            "2024-09-12T20:19:52Z",
+            "2024-09-12T20:17:58Z",
+            "2024-06-17T09:05:17Z",
+            "2024-06-10T04:17:04Z",
+            "2024-06-09T18:40:41Z",
+            "2024-06-09T01:56:10Z",
+            "2024-06-09T01:51:45Z",
+            "2024-06-09T01:05:38Z",
+            "2024-06-09T01:05:16Z",
+            "2024-06-09T01:01:06Z",
+            "2024-06-09T00:34:28Z",
+            "2024-05-27T18:24:24Z",
+            "2024-05-27T18:15:34Z",
+            "2024-05-02T02:38:56Z",
+            "2024-05-02T00:50:14Z",
+            "2024-05-02T00:33:18Z",
+            "2024-03-04T07:28:42Z",
+            "2024-03-02T14:36:20Z",
+            "2024-03-01T18:33:11Z"
+        ],
+        "creation_date": "2017-09-18T05:13:28Z",
+        "contributors": 30,
+        "topics": [
+            "actix",
+            "actor",
+            "actor-model",
+            "concurrency",
+            "hacktoberfest",
+            "rust"
+        ],
+        "subscribers": 139,
+        "readme": "<div align=\"center\">\n  <h1>Actix</h1>\n  <p>\n    <strong>Actor framework for Rust</strong>\n  </p>\n  <p>\n\n<!-- prettier-ignore-start -->\n\n[![crates.io](https://img.shields.io/crates/v/actix?label=latest)](https://crates.io/crates/actix)\n[![Documentation](https://docs.rs/actix/badge.svg?version=0.13.5)](https://docs.rs/actix/0.13.5)\n![Minimum Supported Rust Version](https://img.shields.io/badge/rustc-1.68+-ab6000.svg)\n![License](https://img.shields.io/crates/l/actix.svg)\n[![Dependency Status](https://deps.rs/crate/actix/0.13.5/status.svg)](https://deps.rs/crate/actix/0.13.5)\n<br />\n[![CI](https://github.com/actix/actix/actions/workflows/ci.yml/badge.svg)](https://github.com/actix/actix/actions/workflows/ci.yml)\n[![codecov](https://codecov.io/gh/actix/actix/branch/master/graph/badge.svg)](https://codecov.io/gh/actix/actix)\n![Downloads](https://img.shields.io/crates/d/actix.svg)\n[![Chat on Discord](https://img.shields.io/discord/771444961383153695?label=chat&logo=discord)](https://discord.gg/GMuKN5b8aR)\n\n<!-- prettier-ignore-end -->\n\n  </p>\n</div>\n\n## Documentation\n\n- [User Guide](https://actix.rs/docs/actix)\n- [API Documentation](https://docs.rs/actix)\n\n## Features\n\n- Async and sync actors\n- Actor communication in a local/thread context\n- Uses [futures](https://crates.io/crates/futures) for asynchronous message handling\n- Actor supervision\n- Typed messages (No `Any` type)\n- Runs on stable Rust 1.68+\n\n## Usage\n\nTo use `actix`, add this to your `Cargo.toml`:\n\n```toml\n[dependencies]\nactix = \"0.13\"\n```\n\n### Initialize Actix\n\nIn order to use actix you first need to create a `System`.\n\n```rust,ignore\nfn main() {\n    let system = actix::System::new();\n\n    system.run();\n}\n```\n\nActix uses the [Tokio](https://github.com/tokio-rs/tokio) runtime. `System::new()` creates a new event loop. `System.run()` starts the Tokio event loop, and will finish once the `System` actor receives the `SystemExit` message.\n\n### Implementing an Actor\n\nIn order to define an actor you need to define a struct and have it implement the [`Actor`](https://docs.rs/actix/latest/actix/trait.Actor.html) trait.\n\n```rust\nuse actix::{Actor, Context, System};\n\nstruct MyActor;\n\nimpl Actor for MyActor {\n    type Context = Context<Self>;\n\n    fn started(&mut self, _ctx: &mut Self::Context) {\n        println!(\"I am alive!\");\n        System::current().stop(); // <- stop system\n    }\n}\n\nfn main() {\n    let system = System::new();\n\n    let _addr = system.block_on(async { MyActor.start() });\n\n    system.run().unwrap();\n}\n```\n\nSpawning a new actor is achieved via the `start` and `create` methods of the [Actor trait]. It provides several different ways of creating actors; for details, check the docs. You can implement the `started`, `stopping` and `stopped` methods of the Actor trait. `started` gets called when the actor starts and `stopping` when the actor finishes. Check the API docs for more information on [the actor lifecycle].\n\n[Actor trait]: https://docs.rs/actix/latest/actix/trait.Actor.html\n[the actor lifecycle]: https://actix.rs/docs/actix/actor#actor-lifecycle\n\n### Handle Messages\n\nAn Actor communicates with another Actor by sending messages. In actix all messages are typed. Let's define a simple `Sum` message with two `usize` parameters and an actor which will accept this message and return the sum of those two numbers. Here we use the `#[actix::main]` attribute as an easier way to start our `System` and drive our main function so we can easily `.await` for the responses sent back from the `Actor`.\n\n```rust\nuse actix::prelude::*;\n\n// this is our Message\n// we have to define the response type (rtype)\n#[derive(Message)]\n#[rtype(usize)]\nstruct Sum(usize, usize);\n\n// Actor definition\nstruct Calculator;\n\nimpl Actor for Calculator {\n    type Context = Context<Self>;\n}\n\n// now we need to implement `Handler` on `Calculator` for the `Sum` message.\nimpl Handler<Sum> for Calculator {\n    type Result = usize; // <- Message response type\n\n    fn handle(&mut self, msg: Sum, _ctx: &mut Context<Self>) -> Self::Result {\n        msg.0 + msg.1\n    }\n}\n\n#[actix::main] // <- starts the system and block until future resolves\nasync fn main() {\n    let addr = Calculator.start();\n    let res = addr.send(Sum(10, 5)).await; // <- send message and get future for result\n\n    match res {\n        Ok(result) => println!(\"SUM: {}\", result),\n        _ => println!(\"Communication to the actor has failed\"),\n    }\n}\n```\n\nAll communications with actors go through an `Addr` object. You can `do_send` a message without waiting for a response, or you can `send` an actor a specific message. The `Message` trait defines the result type for a message.\n\n### Actor State And Subscription For Specific Messages\n\nYou may have noticed that the methods of the `Actor` and `Handler` traits accept `&mut self`, so you are welcome to store anything in an actor and mutate it whenever necessary.\n\nAddress objects require an actor type, but if we just want to send a specific message to an actor that can handle the message, we can use the `Recipient` interface. Let's create a new actor that uses `Recipient`.\n\n```rust\nuse actix::prelude::*;\nuse std::time::Duration;\n\n#[derive(Message)]\n#[rtype(result = \"()\")]\nstruct Ping {\n    pub id: usize,\n}\n\n// Actor definition\nstruct Game {\n    counter: usize,\n    name: String,\n    recipient: Recipient<Ping>,\n}\n\nimpl Actor for Game {\n    type Context = Context<Game>;\n}\n\n// simple message handler for Ping message\nimpl Handler<Ping> for Game {\n    type Result = ();\n\n    fn handle(&mut self, msg: Ping, ctx: &mut Context<Self>) {\n        self.counter += 1;\n\n        if self.counter > 10 {\n            System::current().stop();\n        } else {\n            println!(\"[{0}] Ping received {1}\", self.name, msg.id);\n\n            // wait 100 nanoseconds\n            ctx.run_later(Duration::new(0, 100), move |act, _| {\n                act.recipient.do_send(Ping { id: msg.id + 1 });\n            });\n        }\n    }\n}\n\nfn main() {\n    let system = System::new();\n\n    system.block_on(async {\n        // To create a cyclic game link, we need to use a different constructor\n        // method to get access to its recipient before it starts.\n        let _game = Game::create(|ctx| {\n            // now we can get an address of the first actor and create the second actor\n            let addr = ctx.address();\n\n            let addr2 = Game {\n                counter: 0,\n                name: String::from(\"Game 2\"),\n                recipient: addr.recipient(),\n            }\n            .start();\n\n            // let's start pings\n            addr2.do_send(Ping { id: 10 });\n\n            // now we can finally create first actor\n            Game {\n                counter: 0,\n                name: String::from(\"Game 1\"),\n                recipient: addr2.recipient(),\n            }\n        });\n    });\n\n    // let the actors all run until they've shut themselves down\n    system.run().unwrap();\n}\n```\n\n### Chat Example\n\nSee this [chat example] which shows more comprehensive usage in a networking client/server service.\n\n[chat example]: https://github.com/actix/examples/tree/HEAD/websockets/chat-tcp\n\n## Contributing\n\nAll contributions are welcome, if you have a feature request don't hesitate to open an issue!\n\n## License\n\nThis project is licensed under either of\n\n- Apache License, Version 2.0, ([LICENSE-APACHE](LICENSE-APACHE) or https://www.apache.org/licenses/LICENSE-2.0)\n- MIT license ([LICENSE-MIT](LICENSE-MIT) or https://opensource.org/licenses/MIT)\n\nat your option.\n\n## Code of Conduct\n\nContribution to the actix repo is organized under the terms of the Contributor Covenant. The Actix team promises to intervene to uphold that code of conduct.\n",
+        "releases": [
+            {
+                "name": "actix_derive: v0.6.2",
+                "date": "2024-09-12T20:20:46Z"
+            },
+            {
+                "name": "actix: v0.13.5",
+                "date": "2024-06-09T18:40:54Z"
+            },
+            {
+                "name": "actix: v0.13.4",
+                "date": "2024-06-09T01:05:45Z"
+            },
+            {
+                "name": "actix: v0.13.3",
+                "date": "2024-02-07T05:21:18Z"
+            },
+            {
+                "name": "actix: v0.13.2",
+                "date": "2024-02-01T05:19:38Z"
+            },
+            {
+                "name": "actix_derive: v0.6.1",
+                "date": "2023-09-10T01:44:09Z"
+            },
+            {
+                "name": "actix: v0.13.1",
+                "date": "2023-08-30T13:48:51Z"
+            },
+            {
+                "name": "actix-broker: v0.4.3",
+                "date": "2022-05-24T22:28:04Z"
+            },
+            {
+                "name": "actix-broker: v0.4.2",
+                "date": "2022-05-23T15:13:25Z"
+            },
+            {
+                "name": "actix: v0.13.0",
+                "date": "2022-05-23T15:13:16Z"
+            },
+            {
+                "name": "actix: v0.12.0",
+                "date": "2021-06-08T11:50:28Z"
+            },
+            {
+                "name": "actix-broker: v0.4.1",
+                "date": "2021-06-08T11:50:35Z"
+            },
+            {
+                "name": "actix: v0.11.1",
+                "date": "2021-03-23T23:44:04Z"
+            },
+            {
+                "name": "actix: v0.11.0",
+                "date": "2021-03-21T08:09:52Z"
+            },
+            {
+                "name": "actix-broker: v0.4.0",
+                "date": "2021-03-21T08:10:29Z"
+            },
+            {
+                "name": "actix-broker: v0.4.0-beta.1",
+                "date": "2021-03-03T17:37:31Z"
+            },
+            {
+                "name": "actix: v0.11.0-beta.3",
+                "date": "2021-03-03T17:21:06Z"
+            },
+            {
+                "name": "actix: v0.11.0-beta.2",
+                "date": "2021-02-10T12:25:35Z"
+            },
+            {
+                "name": "actix: v0.11.0-beta.1",
+                "date": "2021-01-02T00:35:09Z"
+            },
+            {
+                "name": "Actix v0.10.0",
+                "date": "2020-09-11T08:36:51Z"
+            },
+            {
+                "name": "Actix v0.10.0-alpha.3",
+                "date": "2020-05-12T16:10:47Z"
+            },
+            {
+                "name": "Actix v0.10.0-alpha.2",
+                "date": "2020-03-05T07:25:43Z"
+            },
+            {
+                "name": "Actix v0.10.0-alpha.1",
+                "date": "2020-02-25T03:12:59Z"
+            },
+            {
+                "name": "Actix v0.9.0",
+                "date": "2019-12-20T11:29:33Z"
+            },
+            {
+                "name": "Actix v0.9.0 alpha.1",
+                "date": "2019-12-15T16:42:25Z"
+            },
+            {
+                "name": "Actix v0.8.3",
+                "date": "2019-05-29T23:11:14Z"
+            },
+            {
+                "name": "Actix 0.8.2",
+                "date": "2019-05-13T04:30:49Z"
+            },
+            {
+                "name": "Actix 0.8.1",
+                "date": "2019-04-17T00:26:45Z"
+            },
+            {
+                "name": "Actix v0.8.0",
+                "date": "2019-04-15T03:56:09Z"
+            },
+            {
+                "name": "Actix 0.8.0 alpha.3",
+                "date": "2019-04-12T20:30:40Z"
+            },
+            {
+                "name": "Actix 0.8.0 alpha.2",
+                "date": "2019-03-29T18:22:44Z"
+            },
+            {
+                "name": "Actix 0.8.0 alpha.1",
+                "date": "2019-03-28T19:39:04Z"
+            },
+            {
+                "name": "Actix 0.7.10",
+                "date": "2019-01-16T05:53:59Z"
+            },
+            {
+                "name": "Actix 0.7.9",
+                "date": "2018-12-11T15:22:45Z"
+            },
+            {
+                "name": "0.7.8",
+                "date": "2018-12-05T15:31:02Z"
+            },
+            {
+                "name": "Actix 0.7.7",
+                "date": "2018-11-22T17:12:50Z"
+            },
+            {
+                "name": "Actix 0.7.6",
+                "date": "2018-11-08T18:01:35Z"
+            },
+            {
+                "name": "Actix 0.7.5",
+                "date": "2018-10-10T15:15:01Z"
+            },
+            {
+                "name": "Actix 0.7.4",
+                "date": "2018-08-27T17:07:03Z"
+            },
+            {
+                "name": "Actix 0.7.3",
+                "date": "2018-07-30T19:31:46Z"
+            },
+            {
+                "name": "Actix 0.7.2",
+                "date": "2018-07-24T22:01:24Z"
+            },
+            {
+                "name": "Actix 0.7.1",
+                "date": "2018-07-20T20:49:25Z"
+            },
+            {
+                "name": "Actix 0.7.0",
+                "date": "2018-07-05T05:53:40Z"
+            },
+            {
+                "name": "Actix 0.6.1",
+                "date": "2018-06-19T05:52:07Z"
+            },
+            {
+                "name": "Actix 0.6.0",
+                "date": "2018-06-18T02:58:28Z"
+            },
+            {
+                "name": "Actix 0.5.8",
+                "date": "2018-06-08T21:25:21Z"
+            },
+            {
+                "name": "Actix 0.5.7",
+                "date": "2018-05-17T16:52:52Z"
+            },
+            {
+                "name": "Actix 0.5.6",
+                "date": "2018-04-17T20:09:11Z"
+            },
+            {
+                "name": "Actix 0.5.5",
+                "date": "2018-03-19T20:08:26Z"
+            },
+            {
+                "name": "Actix 0.5.4",
+                "date": "2018-03-16T20:34:00Z"
+            },
+            {
+                "name": "Actix 0.5.3",
+                "date": "2018-03-08T18:08:47Z"
+            },
+            {
+                "name": "Actix 0.5.2",
+                "date": "2018-03-07T06:41:18Z"
+            },
+            {
+                "name": "Actix 0.5.1",
+                "date": "2018-03-03T05:59:21Z"
+            },
+            {
+                "name": "Actix 0.5.0",
+                "date": "2018-02-17T21:00:51Z"
+            },
+            {
+                "name": "Actix 0.4.5",
+                "date": "2018-01-23T17:18:15Z"
+            },
+            {
+                "name": "Actix 0.4.4",
+                "date": "2018-01-19T23:02:31Z"
+            },
+            {
+                "name": "Actix 0.4.3",
+                "date": "2018-01-09T22:58:12Z"
+            },
+            {
+                "name": "Actix 0.4.2",
+                "date": "2018-01-08T03:08:45Z"
+            },
+            {
+                "name": "Actix 0.4.1",
+                "date": "2018-01-06T08:45:49Z"
+            },
+            {
+                "name": "Actix 0.4.0",
+                "date": "2018-01-05T21:15:17Z"
+            },
+            {
+                "name": "Actix 0.3.5",
+                "date": "2017-12-24T01:20:38Z"
+            },
+            {
+                "name": "Actix 0.3.4",
+                "date": "2017-12-20T19:32:45Z"
+            },
+            {
+                "name": "Actix 0.3.3",
+                "date": "2017-11-21T15:55:16Z"
+            },
+            {
+                "name": "Actix 0.3.2",
+                "date": "2017-11-06T23:09:33Z"
+            },
+            {
+                "name": "Actix 0.3.1",
+                "date": "2017-10-31T03:29:20Z"
+            },
+            {
+                "name": "Actix 0.3.0",
+                "date": "2017-10-23T16:51:11Z"
+            },
+            {
+                "name": "Actix 0.2.0",
+                "date": "2017-10-17T20:54:33Z"
+            },
+            {
+                "name": "Actin 0.1.0",
+                "date": "2017-10-12T02:12:21Z"
+            }
+        ]
+    }
+}

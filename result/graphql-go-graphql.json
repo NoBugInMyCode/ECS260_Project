@@ -1,0 +1,109 @@
+{
+    "https://api.github.com/repos/graphql-go/graphql": {
+        "forks": 842,
+        "watchers": 9964,
+        "stars": 9964,
+        "languages": {
+            "Go": 1103570
+        },
+        "commits": [
+            "2024-10-12T20:17:02Z",
+            "2024-10-12T20:14:15Z",
+            "2024-03-25T03:20:59Z",
+            "2023-11-27T05:59:18Z",
+            "2023-10-25T16:08:08Z",
+            "2023-10-25T16:24:55Z",
+            "2023-07-22T02:51:56Z",
+            "2023-07-20T13:26:06Z",
+            "2023-04-10T18:12:29Z",
+            "2023-04-10T18:05:26Z",
+            "2023-02-25T21:44:01Z",
+            "2023-02-25T21:42:44Z",
+            "2023-02-25T18:27:05Z",
+            "2023-02-25T18:19:56Z",
+            "2023-02-25T16:59:08Z",
+            "2019-03-26T14:47:14Z",
+            "2022-10-18T18:17:27Z",
+            "2022-10-17T15:09:00Z",
+            "2022-07-29T22:02:06Z",
+            "2022-06-14T21:07:43Z",
+            "2022-06-12T23:20:50Z",
+            "2022-06-12T22:37:06Z",
+            "2022-01-14T19:15:11Z",
+            "2021-08-21T23:33:55Z",
+            "2021-04-11T21:28:52Z",
+            "2021-04-11T02:25:16Z",
+            "2021-04-11T02:10:17Z",
+            "2021-02-24T00:36:36Z",
+            "2021-02-07T01:12:42Z",
+            "2021-01-31T03:46:19Z"
+        ],
+        "creation_date": "2015-07-19T12:25:43Z",
+        "contributors": 30,
+        "topics": [
+            "graphql",
+            "graphql-go",
+            "subscriptions"
+        ],
+        "subscribers": 143,
+        "readme": "# graphql [![CircleCI](https://circleci.com/gh/graphql-go/graphql/tree/master.svg?style=svg)](https://circleci.com/gh/graphql-go/graphql/tree/master) [![Go Reference](https://pkg.go.dev/badge/github.com/graphql-go/graphql.svg)](https://pkg.go.dev/github.com/graphql-go/graphql) [![Coverage Status](https://coveralls.io/repos/github/graphql-go/graphql/badge.svg?branch=master)](https://coveralls.io/github/graphql-go/graphql?branch=master) [![Join the chat at https://gitter.im/graphql-go/graphql](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/graphql-go/graphql?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)\n\nAn implementation of GraphQL in Go. Follows the official reference implementation [`graphql-js`](https://github.com/graphql/graphql-js).\n\nSupports: queries, mutations & subscriptions.\n\n### Documentation\n\ngodoc: https://pkg.go.dev/github.com/graphql-go/graphql\n\n### Getting Started\n\nTo install the library, run:\n```bash\ngo get github.com/graphql-go/graphql\n```\n\nThe following is a simple example which defines a schema with a single `hello` string-type field and a `Resolve` method which returns the string `world`. A GraphQL query is performed against this schema with the resulting output printed in JSON format.\n\n```go\npackage main\n\nimport (\n\t\"encoding/json\"\n\t\"fmt\"\n\t\"log\"\n\n\t\"github.com/graphql-go/graphql\"\n)\n\nfunc main() {\n\t// Schema\n\tfields := graphql.Fields{\n\t\t\"hello\": &graphql.Field{\n\t\t\tType: graphql.String,\n\t\t\tResolve: func(p graphql.ResolveParams) (interface{}, error) {\n\t\t\t\treturn \"world\", nil\n\t\t\t},\n\t\t},\n\t}\n\trootQuery := graphql.ObjectConfig{Name: \"RootQuery\", Fields: fields}\n\tschemaConfig := graphql.SchemaConfig{Query: graphql.NewObject(rootQuery)}\n\tschema, err := graphql.NewSchema(schemaConfig)\n\tif err != nil {\n\t\tlog.Fatalf(\"failed to create new schema, error: %v\", err)\n\t}\n\n\t// Query\n\tquery := `\n\t\t{\n\t\t\thello\n\t\t}\n\t`\n\tparams := graphql.Params{Schema: schema, RequestString: query}\n\tr := graphql.Do(params)\n\tif len(r.Errors) > 0 {\n\t\tlog.Fatalf(\"failed to execute graphql operation, errors: %+v\", r.Errors)\n\t}\n\trJSON, _ := json.Marshal(r)\n\tfmt.Printf(\"%s \\n\", rJSON) // {\"data\":{\"hello\":\"world\"}}\n}\n```\nFor more complex examples, refer to the [examples/](https://github.com/graphql-go/graphql/tree/master/examples/) directory and [graphql_test.go](https://github.com/graphql-go/graphql/blob/master/graphql_test.go).\n\n### Third Party Libraries\n| Name          | Author        | Description  |\n|:-------------:|:-------------:|:------------:|\n| [graphql-go-handler](https://github.com/graphql-go/graphql-go-handler) | [Hafiz Ismail](https://github.com/sogko) | Middleware to handle GraphQL queries through HTTP requests. |\n| [graphql-relay-go](https://github.com/graphql-go/graphql-relay-go) | [Hafiz Ismail](https://github.com/sogko) | Lib to construct a graphql-go server supporting react-relay. |\n| [golang-relay-starter-kit](https://github.com/sogko/golang-relay-starter-kit) | [Hafiz Ismail](https://github.com/sogko) | Barebones starting point for a Relay application with Golang GraphQL server. |\n| [dataloader](https://github.com/nicksrandall/dataloader) | [Nick Randall](https://github.com/nicksrandall) | [DataLoader](https://github.com/facebook/dataloader) implementation in Go. |\n\n### Blog Posts\n- [Golang + GraphQL + Relay](https://wehavefaces.net/learn-golang-graphql-relay-1-e59ea174a902)\n\n",
+        "releases": [
+            {
+                "name": "v0.8.1",
+                "date": "2023-04-10T18:20:23Z"
+            },
+            {
+                "name": "v0.8.0",
+                "date": "2021-08-29T00:10:34Z"
+            },
+            {
+                "name": "v0.7.9",
+                "date": "2020-02-08T20:52:07Z"
+            },
+            {
+                "name": "v0.7.8",
+                "date": "2019-03-28T10:12:24Z"
+            },
+            {
+                "name": "v0.7.7",
+                "date": "2018-12-03T01:27:27Z"
+            },
+            {
+                "name": "v0.7.6",
+                "date": "2018-08-19T02:36:22Z"
+            },
+            {
+                "name": "v0.7.5",
+                "date": "2018-03-08T23:27:48Z"
+            },
+            {
+                "name": "v0.7.4",
+                "date": "2018-01-07T21:00:31Z"
+            },
+            {
+                "name": "v0.7.3",
+                "date": "2017-09-28T20:45:29Z"
+            },
+            {
+                "name": "v0.7.2",
+                "date": "2017-08-06T00:34:15Z"
+            },
+            {
+                "name": "v0.7.1",
+                "date": "2017-07-24T18:13:39Z"
+            },
+            {
+                "name": "v0.7.0",
+                "date": "2017-07-23T00:13:22Z"
+            },
+            {
+                "name": "v0.5.0",
+                "date": "2017-01-28T00:07:07Z"
+            },
+            {
+                "name": "",
+                "date": "2016-05-31T01:10:41Z"
+            }
+        ]
+    }
+}

@@ -1,0 +1,73 @@
+{
+    "https://api.github.com/repos/fchollet/deep-learning-models": {
+        "forks": 2457,
+        "watchers": 7321,
+        "stars": 7321,
+        "languages": {
+            "Python": 112830
+        },
+        "commits": [
+            "2017-09-08T21:10:49Z",
+            "2017-06-30T20:57:09Z",
+            "2017-06-30T20:54:43Z",
+            "2017-06-30T18:46:31Z",
+            "2017-03-15T06:15:48Z",
+            "2017-03-14T20:32:44Z",
+            "2017-03-11T04:28:22Z",
+            "2016-10-31T20:19:47Z",
+            "2016-10-25T00:32:07Z",
+            "2016-10-19T20:34:44Z",
+            "2016-10-19T20:34:23Z",
+            "2016-10-19T20:34:11Z",
+            "2016-10-01T07:04:07Z",
+            "2016-08-09T17:54:07Z",
+            "2016-08-09T17:54:02Z",
+            "2016-08-09T17:18:19Z",
+            "2016-08-09T17:17:57Z",
+            "2016-08-06T19:17:32Z",
+            "2016-08-03T21:37:11Z",
+            "2016-08-03T21:01:55Z",
+            "2016-08-03T20:59:29Z",
+            "2016-08-03T20:58:19Z"
+        ],
+        "creation_date": "2016-08-03T20:59:28Z",
+        "contributors": 2,
+        "topics": [],
+        "subscribers": 297,
+        "readme": "# Trained image classification models for Keras\n\n**THIS REPOSITORY IS DEPRECATED. USE THE MODULE `keras.applications` INSTEAD.**\n\nPull requests will not be reviewed nor merged. Direct any PRs to `keras.applications`. Issues are not monitored either.\n\n----\n\nThis repository contains code for the following Keras models:\n\n- VGG16\n- VGG19\n- ResNet50\n- Inception v3\n- CRNN for music tagging\n\nAll architectures are compatible with both TensorFlow and Theano, and upon instantiation the models will be built according to the image dimension ordering set in your Keras configuration file at `~/.keras/keras.json`. For instance, if you have set `image_dim_ordering=tf`, then any model loaded from this repository will get built according to the TensorFlow dimension ordering convention, \"Width-Height-Depth\".\n\nPre-trained weights can be automatically loaded upon instantiation (`weights='imagenet'` argument in model constructor for all image models, `weights='msd'` for the music tagging model). Weights are automatically downloaded if necessary, and cached locally in `~/.keras/models/`.\n\n## Examples\n\n### Classify images\n\n```python\nfrom resnet50 import ResNet50\nfrom keras.preprocessing import image\nfrom imagenet_utils import preprocess_input, decode_predictions\n\nmodel = ResNet50(weights='imagenet')\n\nimg_path = 'elephant.jpg'\nimg = image.load_img(img_path, target_size=(224, 224))\nx = image.img_to_array(img)\nx = np.expand_dims(x, axis=0)\nx = preprocess_input(x)\n\npreds = model.predict(x)\nprint('Predicted:', decode_predictions(preds))\n# print: [[u'n02504458', u'African_elephant']]\n```\n\n### Extract features from images\n\n```python\nfrom vgg16 import VGG16\nfrom keras.preprocessing import image\nfrom imagenet_utils import preprocess_input\n\nmodel = VGG16(weights='imagenet', include_top=False)\n\nimg_path = 'elephant.jpg'\nimg = image.load_img(img_path, target_size=(224, 224))\nx = image.img_to_array(img)\nx = np.expand_dims(x, axis=0)\nx = preprocess_input(x)\n\nfeatures = model.predict(x)\n```\n\n### Extract features from an arbitrary intermediate layer\n\n```python\nfrom vgg19 import VGG19\nfrom keras.preprocessing import image\nfrom imagenet_utils import preprocess_input\nfrom keras.models import Model\n\nbase_model = VGG19(weights='imagenet')\nmodel = Model(input=base_model.input, output=base_model.get_layer('block4_pool').output)\n\nimg_path = 'elephant.jpg'\nimg = image.load_img(img_path, target_size=(224, 224))\nx = image.img_to_array(img)\nx = np.expand_dims(x, axis=0)\nx = preprocess_input(x)\n\nblock4_pool_features = model.predict(x)\n```\n\n## References\n\n- [Very Deep Convolutional Networks for Large-Scale Image Recognition](https://arxiv.org/abs/1409.1556) - please cite this paper if you use the VGG models in your work.\n- [Deep Residual Learning for Image Recognition](https://arxiv.org/abs/1512.03385) - please cite this paper if you use the ResNet model in your work.\n- [Rethinking the Inception Architecture for Computer Vision](http://arxiv.org/abs/1512.00567) - please cite this paper if you use the Inception v3 model in your work.\n- [Music-auto_tagging-keras](https://github.com/keunwoochoi/music-auto_tagging-keras)\n\nAdditionally, don't forget to [cite Keras](https://keras.io/getting-started/faq/#how-should-i-cite-keras) if you use these models.\n\n\n## License\n\n- All code in this repository is under the MIT license as specified by the LICENSE file.\n- The ResNet50 weights are ported from the ones [released by Kaiming He](https://github.com/KaimingHe/deep-residual-networks) under the [MIT license](https://github.com/KaimingHe/deep-residual-networks/blob/master/LICENSE).\n- The VGG16 and VGG19 weights are ported from the ones [released by VGG at Oxford](http://www.robots.ox.ac.uk/~vgg/research/very_deep/) under the [Creative Commons Attribution License](https://creativecommons.org/licenses/by/4.0/).\n- The Inception v3 weights are trained by ourselves and are released under the MIT license.\n",
+        "releases": [
+            {
+                "name": "New weights files: NASNet, DenseNet",
+                "date": "2018-01-16T04:51:32Z"
+            },
+            {
+                "name": "Add InceptionResNetV2",
+                "date": "2017-09-08T21:30:22Z"
+            },
+            {
+                "name": "MobileNet",
+                "date": "2017-06-30T18:48:35Z"
+            },
+            {
+                "name": "Keras 2 API, new Inception V3 weights",
+                "date": "2017-03-11T04:34:24Z"
+            },
+            {
+                "name": "Xception model",
+                "date": "2016-10-19T20:38:17Z"
+            },
+            {
+                "name": "Music tagger model",
+                "date": "2016-10-01T07:08:29Z"
+            },
+            {
+                "name": "InceptionV3, updated ResNet50",
+                "date": "2016-08-09T17:36:55Z"
+            },
+            {
+                "name": "VGG16, VGG19, and ResNet50",
+                "date": "2016-08-03T21:16:54Z"
+            }
+        ]
+    }
+}

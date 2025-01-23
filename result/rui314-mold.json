@@ -1,0 +1,260 @@
+{
+    "https://api.github.com/repos/rui314/mold": {
+        "forks": 481,
+        "watchers": 14713,
+        "stars": 14713,
+        "languages": {
+            "C++": 1023360,
+            "Shell": 258843,
+            "CMake": 20923,
+            "C": 3638
+        },
+        "commits": [
+            "2025-01-21T04:40:27Z",
+            "2025-01-21T03:07:56Z",
+            "2025-01-20T23:01:24Z",
+            "2025-01-20T11:14:53Z",
+            "2025-01-20T11:11:37Z",
+            "2025-01-20T01:10:17Z",
+            "2025-01-20T09:49:48Z",
+            "2025-01-20T01:52:05Z",
+            "2025-01-20T00:11:48Z",
+            "2025-01-19T12:29:56Z",
+            "2025-01-19T11:47:54Z",
+            "2025-01-19T03:07:56Z",
+            "2025-01-19T01:33:47Z",
+            "2025-01-19T00:47:04Z",
+            "2025-01-17T14:06:07Z",
+            "2025-01-17T12:41:41Z",
+            "2025-01-17T10:02:04Z",
+            "2025-01-16T09:09:04Z",
+            "2025-01-16T23:40:57Z",
+            "2025-01-15T02:21:24Z",
+            "2025-01-15T00:36:03Z",
+            "2025-01-15T00:37:45Z",
+            "2025-01-14T23:15:35Z",
+            "2025-01-14T22:27:38Z",
+            "2025-01-14T05:08:22Z",
+            "2025-01-14T04:25:32Z",
+            "2025-01-14T03:41:29Z",
+            "2025-01-13T08:39:42Z",
+            "2025-01-11T12:26:40Z",
+            "2025-01-11T10:48:02Z"
+        ],
+        "creation_date": "2020-09-29T05:12:48Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 113,
+        "readme": "# mold: A Modern Linker\n\nmold is a faster drop-in replacement for existing Unix linkers. It is several\ntimes quicker than the LLVM lld linker, the second-fastest open-source linker,\nwhich I initially developed a few years ago. mold aims to enhance developer\nproductivity by minimizing build time, particularly in rapid\ndebug-edit-rebuild cycles.\n\nHere is a performance comparison of GNU ld, GNU gold, LLVM lld, and\nmold when linking final debuginfo-enabled executables for major large\nprograms on a simulated 16-core, 32-thread machine.\n\n![Link speed comparison](docs/chart.svg)\n\n| Program (linker output size)  | GNU ld | GNU gold | LLVM lld | mold\n|-------------------------------|--------|----------|----------|------\n| MySQL 8.3 (0.47 GiB)          | 10.84s | 7.47s    | 1.64s    | 0.46s\n| Clang 19 (1.56 GiB)           | 42.07s | 33.13s   | 5.20s    | 1.35s\n| Chromium 124 (1.35 GiB)       | N/A    | 27.40s   | 6.10s    | 1.52s\n\nmold is so fast that it is only 2x _slower_ than the `cp` command on the same\nmachine. If you find that mold is not faster than other linkers, feel\nfree to [file a bug report](https://github.com/rui314/mold/issues).\n\nmold supports x86-64, i386, ARM64, ARM32, 64-bit/32-bit little/big-endian\nRISC-V, 32-bit PowerPC, 64-bit big-endian PowerPC ELFv1, 64-bit little-endian\nPowerPC ELFv2, s390x, 64-bit/32-bit LoongArch, SPARC64, m68k, and SH-4.\n\n## Why does linking speed matter?\n\nIf you are using a compiled language such as C, C++, or Rust, a build consists\nof two phases. In the first phase, a compiler compiles source files into\nobject files (`.o` files). In the second phase, a linker takes all object\nfiles and combines them into a single executable or shared library file.\n\nThe second phase can be time-consuming if your build output is large. mold can\nspeed up this process, saving you time and preventing distractions while\nwaiting for a lengthy build to finish. The difference is most noticeable\nduring rapid debug-edit-rebuild cycles.\n\n## Installation\n\nBinary packages for the following systems are currently available:\n\n[![Packaging status](https://repology.org/badge/vertical-allrepos/mold.svg)](https://repology.org/project/mold/versions)\n\n## How to Build\n\nmold is written in C++20, so if you build mold yourself, you will need a\nrecent version of a C++ compiler and a C++ standard library. We recommend GCC\n10.2 or Clang 12.0.0 (or later) and libstdc++ 10 or libc++ 7 (or later).\n\n### Install Dependencies\n\nTo install build dependencies, run `./install-build-deps.sh` in this\ndirectory. It will detect your Linux distribution and attempt to install the\nnecessary packages. You may need to run it as root.\n\n### Compile mold\n\n```shell\ngit clone --branch stable https://github.com/rui314/mold.git\ncd mold\n./install-build-deps.sh\ncmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=c++ -B build\ncmake --build build -j$(nproc)\nsudo cmake --build build --target install\n```\n\nYou might need to pass a C++20 compiler command name to `cmake`. In the\nexample above, `c++` is passed. If that doesn't work for you, try a specific\nversion of a compiler, such as `g++-10` or `clang++-12`.\n\nBy default, `mold` is installed to `/usr/local/bin`. You can change the\ninstallation location by passing `-DCMAKE_INSTALL_PREFIX=<directory>`.\nFor other cmake options, see the comments in `CMakeLists.txt`.\n\nIf you are not using a recent enough Linux distribution, or if `cmake` does\nnot work for you for any reason, you can use Docker to build mold in a Docker\nenvironment. To do so, run `./dist.sh` in this directory instead of using\n`cmake`. The shell script will pull a Docker image, build mold and auxiliary\nfiles inside it, and package them into a single tar file named\n`mold-$version-$arch-linux.tar.gz`. You can extract the tar file anywhere and\nuse the mold executable within it.\n\n## How to use\n\n<details><summary>A classic way to use mold</summary>\n\nOn Unix, the linker command (usually `/usr/bin/ld`) is indirectly invoked by\nthe compiler driver (typically `cc`, `gcc`, or `clang`), which is in turn\nindirectly invoked by `make` or other build system commands.\n\nIf you can specify an additional command line option for your compiler driver\nby modifying the build system's config files, add one of the following flags\nto use mold instead of `/usr/bin/ld`:\n\n- For Clang: pass `-fuse-ld=mold`\n\n- For GCC 12.1.0 or later: pass `-fuse-ld=mold`\n\n- For GCC before 12.1.0: the `-fuse-ld` option does not accept `mold` as a\n  valid argument, so you need to use the `-B` option instead. The `-B` option\n  tells GCC where to look for external commands like `ld`.\n\n  If you have installed mold with `make install`, there should be a directory\n  named `/usr/libexec/mold` (or `/usr/local/libexec/mold`, depending on your\n  `$PREFIX`), and the `ld` command should be there. The `ld` is actually a\n  symlink to `mold`. So, all you need is to pass `-B/usr/libexec/mold` (or\n  `-B/usr/local/libexec/mold`) to GCC.\n\nIf you haven't installed `ld.mold` to any `$PATH`, you can still pass\n`-fuse-ld=/absolute/path/to/mold` to clang to use mold. However, GCC does not\naccept an absolute path as an argument for `-fuse-ld`.\n\n</details>\n\n<details><summary>If you are using Rust</summary>\n\nCreate `.cargo/config.toml` in your project directory with the following:\n\n```toml\n[target.x86_64-unknown-linux-gnu]\nlinker = \"clang\"\nrustflags = [\"-C\", \"link-arg=-fuse-ld=/path/to/mold\"]\n```\n\nwhere `/path/to/mold` is an absolute path to the mold executable. In the\nexample above, we use `clang` as a linker driver since it always accepts the\n`-fuse-ld` option. If your GCC is recent enough to recognize the option, you\nmay be able to remove the `linker = \"clang\"` line.\n\n```toml\n[target.x86_64-unknown-linux-gnu]\nrustflags = [\"-C\", \"link-arg=-fuse-ld=mold\"]\n```\n\nIf you want to use mold for all projects, add the above snippet to\n`~/.cargo/config.toml`.\n\n</details>\n\n<details><summary>If you are using Nim</summary>\n\nCreate `config.nims` in your project directory with the following:\n\n```nim\nwhen findExe(\"mold\").len > 0 and defined(linux):\n  switch(\"passL\", \"-fuse-ld=mold\")\n```\n\nwhere `mold` must be included in the `PATH` environment variable. In this\nexample, `gcc` is used as the linker driver. Use the `-fuse-ld` option if your\nGCC is recent enough to recognize this option.\n\nIf you want to use mold for all projects, add the above snippet to\n`~/.config/config.nims`.\n\n</details>\n\n<details><summary>mold -run</summary>\n\nIt is sometimes very hard to pass an appropriate command line option to `cc`\nto specify an alternative linker. To address this situation, mold has a\nfeature to intercept all invocations of `ld`, `ld.bfd`, `ld.lld`, or `ld.gold`\nand redirect them to itself. To use this feature, run `make` (or another build\ncommand) as a subcommand of mold as follows:\n\n```shell\nmold -run make <make-options-if-any>\n```\n\nInternally, mold invokes a given command with the `LD_PRELOAD` environment\nvariable set to its companion shared object file. The shared object file\nintercepts all function calls to `exec(3)`-family functions to replace\n`argv[0]` with `mold` if it is `ld`, `ld.bf`, `ld.gold`, or `ld.lld`.\n\n</details>\n\n<details><summary>GitHub Actions</summary>\n\nYou can use our [setup-mold](https://github.com/rui314/setup-mold) GitHub\nAction to speed up GitHub-hosted continuous builds. Although GitHub Actions\nrun on a 4 core machine, mold is still significantly faster than the default\nGNU linker, especially when linking large programs.\n\n</details>\n\n<details><summary>Verify that you are using mold</summary>\n\nmold leaves its identification string in the `.comment` section of an output\nfile. You can print it out to verify that you are actually using mold.\n\n```shell\n$ readelf -p .comment <executable-file>\n\nString dump of section '.comment':\n  [     0]  GCC: (Ubuntu 10.2.0-5ubuntu1~20.04) 10.2.0\n  [    2b]  mold 9a1679b47d9b22012ec7dfbda97c8983956716f7\n```\n\nIf `mold` is present in the `.comment` section, the file was created by mold.\n\n</details>\n\n<details><summary>Online manual</summary>\n\nSince mold is a drop-in replacement, you should be able to use it without\nreading its manual. However, if you need it, [mold's man page](docs/mold.md)\nis available online. You can read the same manual by running `man mold`.\n\n</details>\n\n## Why is mold so fast?\n\nOne reason is that it utilizes faster algorithms and more efficient data\nstructures compared to other linkers. Another reason is that mold is highly\nparallelized.\n\nHere is a side-by-side comparison of per-core CPU usage for lld (left) and\nmold (right), linking the same program, a Chromium executable.\n\n![CPU usage comparison in htop animation](docs/htop.gif)\n\nAs you can see, mold uses all available cores throughout its execution and\nfinishes quickly. In contrast, lld fails to utilize available cores most of\nthe time. In this demo, the maximum parallelism is artificially capped at 16,\nso that the bars fit in the GIF.\n\nFor details, please see the [design notes](docs/design.md).\n\n## Sponsors\n\nIt is taken for granted nowadays that compiler toolchains can be easily\ninstalled and used for free, and people may not think too much about the\nindividuals behind these \"free tools\". mold supports many projects, but it\nis essentially a one-person project. This situation is similar to the one\ndepicted in the following xkcd illustration.\n\n[![xkcd 2347](https://imgs.xkcd.com/comics/dependency.png)](https://xkcd.com/2347)\n\nIf you think that the \"Nebraska guy\" should be rewarded, please consider\nbecoming our [GitHub sponsor](https://github.com/sponsors/rui314)!\n\nWe thank everyone who sponsors our project. In particular, we'd like to acknowledge\nthe following people and organizations who have sponsored $128/month or more:\n\n### Corporate sponsors\n\n<a href=\"https://mercury.com\"><img src=\"docs/mercury-logo.png\" align=center height=120 width=400 alt=Mercury></a>\n\n<a href=\"https://cybozu-global.com\"><img src=\"docs/cyboze-logo.png\" align=center height=120 width=133 alt=Cybozu></a>\n\n<a href=\"https://www.emergetools.com\"><img src=\"docs/emerge-tools-logo.png\" align=center height=120 width=240 alt=\"Emerge Tools\"></a><br>\n\n- [G-Research](https://www.gresearch.co.uk)\n- [Signal Slot Inc.](https://github.com/signal-slot)\n- [GlareDB](https://github.com/GlareDB)\n\n### Individual sponsors\n\n- [Wei Wu](https://github.com/lazyparser)\n- [kyle-elliott](https://github.com/kyle-elliott)\n- [Bryant Biggs](https://github.com/bryantbiggs)\n- [kraptor23](https://github.com/kraptor23)\n- [Jinkyu Yi](https://github.com/jincreator)\n- [Pedro Navarro](https://github.com/pedronavf)\n",
+        "releases": [
+            {
+                "name": "mold 2.36.0",
+                "date": "2025-01-09T07:46:38Z"
+            },
+            {
+                "name": "mold 2.35.1",
+                "date": "2024-12-16T12:37:38Z"
+            },
+            {
+                "name": "mold 2.35.0",
+                "date": "2024-12-08T08:11:06Z"
+            },
+            {
+                "name": "mold 2.34.1",
+                "date": "2024-10-04T09:21:37Z"
+            },
+            {
+                "name": "mold 2.34.0",
+                "date": "2024-09-25T05:04:28Z"
+            },
+            {
+                "name": "mold 2.33.0",
+                "date": "2024-08-07T06:22:45Z"
+            },
+            {
+                "name": "mold 2.32.1",
+                "date": "2024-06-27T06:43:25Z"
+            },
+            {
+                "name": "mold 2.32.0",
+                "date": "2024-06-09T06:54:11Z"
+            },
+            {
+                "name": "mold 2.31.0",
+                "date": "2024-05-03T05:27:35Z"
+            },
+            {
+                "name": "mold 2.30.0",
+                "date": "2024-03-16T00:08:15Z"
+            },
+            {
+                "name": "mold 2.4.1",
+                "date": "2024-03-01T06:03:56Z"
+            },
+            {
+                "name": "mold 2.4.0",
+                "date": "2023-11-30T02:25:13Z"
+            },
+            {
+                "name": "mold 2.3.3",
+                "date": "2023-11-14T13:10:25Z"
+            },
+            {
+                "name": "mold 2.3.2",
+                "date": "2023-11-04T13:21:20Z"
+            },
+            {
+                "name": "mold 2.3.1",
+                "date": "2023-10-20T07:29:16Z"
+            },
+            {
+                "name": "mold 2.3.0",
+                "date": "2023-10-18T11:12:15Z"
+            },
+            {
+                "name": "mold 2.2.0",
+                "date": "2023-09-24T07:18:55Z"
+            },
+            {
+                "name": "mold 2.1.0",
+                "date": "2023-08-13T05:10:15Z"
+            },
+            {
+                "name": "mold 2.0.0",
+                "date": "2023-07-26T12:37:07Z"
+            },
+            {
+                "name": "mold 1.11.0",
+                "date": "2023-03-16T08:58:28Z"
+            },
+            {
+                "name": "mold 1.10.1",
+                "date": "2023-01-22T02:48:28Z"
+            },
+            {
+                "name": "mold 1.10.0",
+                "date": "2023-01-20T08:09:14Z"
+            },
+            {
+                "name": "mold 1.9.0",
+                "date": "2023-01-06T09:31:09Z"
+            },
+            {
+                "name": "mold 1.8.0",
+                "date": "2022-12-26T07:10:11Z"
+            },
+            {
+                "name": "mold 1.7.1",
+                "date": "2022-11-18T11:56:39Z"
+            },
+            {
+                "name": "mold 1.7.0",
+                "date": "2022-11-13T05:40:57Z"
+            },
+            {
+                "name": "mold 1.6.0",
+                "date": "2022-10-19T07:47:05Z"
+            },
+            {
+                "name": "mold 1.6.0-pre.1",
+                "date": "2022-10-17T08:34:56Z"
+            },
+            {
+                "name": "mold 1.5.1",
+                "date": "2022-09-29T02:34:16Z"
+            },
+            {
+                "name": "mold 1.5.0",
+                "date": "2022-09-27T06:29:14Z"
+            },
+            {
+                "name": "mold 1.4.2",
+                "date": "2022-09-04T05:59:25Z"
+            },
+            {
+                "name": "mold 1.4.1",
+                "date": "2022-08-18T08:46:42Z"
+            },
+            {
+                "name": "mold 1.4.0",
+                "date": "2022-08-05T02:54:54Z"
+            },
+            {
+                "name": "mold 1.3.1",
+                "date": "2022-07-01T08:27:59Z"
+            },
+            {
+                "name": "mold 1.3.0",
+                "date": "2022-06-18T04:05:27Z"
+            },
+            {
+                "name": "mold 1.2.1",
+                "date": "2022-04-28T12:09:36Z"
+            },
+            {
+                "name": "mold 1.2.0",
+                "date": "2022-04-15T11:49:36Z"
+            },
+            {
+                "name": "mold 1.1.1",
+                "date": "2022-03-08T01:04:29Z"
+            },
+            {
+                "name": "mold 1.1",
+                "date": "2022-02-21T01:19:10Z"
+            },
+            {
+                "name": "mold 1.0.3",
+                "date": "2022-01-30T10:46:16Z"
+            },
+            {
+                "name": "mold 1.0.2",
+                "date": "2022-01-23T08:49:14Z"
+            },
+            {
+                "name": "mold 1.0.1",
+                "date": "2021-12-31T05:20:43Z"
+            },
+            {
+                "name": "mold 1.0",
+                "date": "2021-12-15T13:58:34Z"
+            },
+            {
+                "name": "mold 0.9.6",
+                "date": "2021-09-27T11:37:01Z"
+            },
+            {
+                "name": "mold 0.9.5",
+                "date": "2021-09-07T07:27:22Z"
+            },
+            {
+                "name": "mold 0.9.4",
+                "date": "2021-08-28T12:12:54Z"
+            },
+            {
+                "name": "mold 0.9.3",
+                "date": "2021-07-21T11:17:08Z"
+            },
+            {
+                "name": "mold 0.9.2",
+                "date": "2021-07-12T04:58:58Z"
+            },
+            {
+                "name": "mold 0.9.1",
+                "date": "2021-06-29T23:14:26Z"
+            },
+            {
+                "name": "mold 0.9",
+                "date": "2021-06-29T13:38:53Z"
+            },
+            {
+                "name": "mold 0.1.1",
+                "date": "2021-05-21T04:59:29Z"
+            },
+            {
+                "name": "mold 0.1",
+                "date": "2021-05-04T11:05:17Z"
+            }
+        ]
+    }
+}

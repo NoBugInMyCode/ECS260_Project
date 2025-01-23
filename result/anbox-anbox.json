@@ -1,0 +1,61 @@
+{
+    "https://api.github.com/repos/anbox/anbox": {
+        "forks": 1160,
+        "watchers": 8946,
+        "stars": 8946,
+        "languages": {
+            "C++": 2632485,
+            "C": 393985,
+            "Makefile": 48663,
+            "Java": 48473,
+            "Shell": 41521,
+            "CMake": 28120,
+            "Python": 21810,
+            "Dockerfile": 831,
+            "Scala": 192
+        },
+        "commits": [
+            "2023-02-03T14:00:27Z",
+            "2023-02-03T13:30:09Z",
+            "2022-09-13T06:55:32Z",
+            "2022-09-13T06:47:56Z",
+            "2022-09-13T06:47:14Z",
+            "2022-09-07T08:04:20Z",
+            "2022-04-18T09:35:05Z",
+            "2022-04-18T09:33:42Z",
+            "2021-10-20T09:53:13Z",
+            "2021-10-20T06:42:40Z",
+            "2021-10-05T12:17:39Z",
+            "2021-09-27T13:13:51Z",
+            "2021-09-27T12:39:29Z",
+            "2021-09-02T19:53:50Z",
+            "2021-04-29T15:35:04Z",
+            "2021-08-24T12:57:17Z",
+            "2021-06-25T10:28:06Z",
+            "2021-05-26T14:37:05Z",
+            "2021-05-26T14:25:14Z",
+            "2021-05-13T19:52:51Z",
+            "2021-05-13T19:50:11Z",
+            "2021-05-09T17:42:28Z",
+            "2021-03-20T09:36:51Z",
+            "2021-03-20T09:35:54Z",
+            "2021-03-20T09:35:19Z",
+            "2021-03-09T10:04:39Z",
+            "2021-03-09T10:03:56Z",
+            "2021-03-09T10:03:19Z",
+            "2021-03-09T01:18:49Z",
+            "2021-03-09T01:09:07Z"
+        ],
+        "creation_date": "2017-02-22T05:59:40Z",
+        "contributors": 30,
+        "topics": [
+            "anbox",
+            "android",
+            "linux",
+            "snap"
+        ],
+        "subscribers": 217,
+        "readme": "## IMPORTANT - Hi there \ud83d\udc4b\n\n\nThe Anbox project [was once ago created in 2017](https://www.omgubuntu.co.uk/2017/04/android-apps-linux-desktop-anbox) to bring Android to any Linux based desktop operating system. It's development has however stalled in the past years and it's only fair to say that now in 2023 it's no longer actively developed.\n\nIn the past years new alternatives have came up which are carrying the same idea of a containerized Android forward:\n\nIf you're looking for a solution to run Android on your Linux desktop:\n\n* [Waydroid](https://waydro.id/) is rebuilding the original idea behind Anbox with explicit focus on modern [Wayland](https://wayland.freedesktop.org/) powered desktop environments.\n\nIf you're looking for a solution to run Android in the cloud:\n\n* [Anbox Cloud](https://anbox-cloud.io) as a solution developed by [Canonical](https://canonical.com), the company behind [Ubuntu](https://ubuntu.com), to bring Android at scale to any cloud with support for ultra low latency video streaming and recent Android versions.\n\nThe existing repositories will remain as is but no active maintence will be applied going forward.\n\n*Thank you all for your support!*\n\n----\n\n# Anbox\n\nAnbox is a container-based approach to boot a full Android system on a\nregular GNU/Linux system like Ubuntu. In other words: Anbox will let\nyou run Android on your Linux system without the slowness of\nvirtualization.\n\n## Overview\n\nAnbox uses Linux namespaces (user, pid, uts, net, mount, ipc) to run a\nfull Android system in a container and provide Android applications on\nany GNU/Linux-based platform.\n\nThe Android inside the container has no direct access to any hardware.\nAll hardware access is going through the anbox daemon on the host. We're\nreusing what Android implemented within the QEMU-based emulator for OpenGL\nES accelerated rendering. The Android system inside the container uses\ndifferent pipes to communicate with the host system and sends all hardware\naccess commands through these.\n\nFor more details have a look at the following documentation pages:\n\n * [Android Hardware OpenGL ES emulation design overview](https://android.googlesource.com/platform/external/qemu/+/emu-master-dev/android/android-emugl/DESIGN)\n * [Android QEMU fast pipes](https://android.googlesource.com/platform/external/qemu/+/emu-master-dev/android/docs/ANDROID-QEMU-PIPE.TXT)\n * [The Android \"qemud\" multiplexing daemon](https://android.googlesource.com/platform/external/qemu/+/emu-master-dev/android/docs/ANDROID-QEMUD.TXT)\n * [Android qemud services](https://android.googlesource.com/platform/external/qemu/+/emu-master-dev/android/docs/ANDROID-QEMUD-SERVICES.TXT)\n\nAnbox is currently suited for the desktop use case but can be used on mobile\noperating systems like [Ubuntu Touch](https://ubuntu-touch.io/) or\n[postmarketOS](https://postmarketos.org)\n([installation instructions](https://wiki.postmarketos.org/wiki/Anbox)).\nHowever this is still a work in progress.\n\nThe Android runtime environment ships with a minimal customized Android system\nimage based on the [Android Open Source Project](https://source.android.com/).\nThe used image is currently based on Android 7.1.1\n\n## Installation\n\nSee our [installation instructions](docs/install.md) for details.\n\n## Supported Linux Distributions\n\nAt the moment we officially support the following Linux distributions:\n\n * Ubuntu 18.04 (bionic)\n * Ubuntu 20.04 (focal)\n\nHowever all other distributions supporting snap packages should work as\nwell as long as they provide the mandatory kernel support (see [documentation](docs/install.md)).\n\n## Install and Run Android Applications\n\nYou can install Android applications from the command line using adb.\n\n```sh\nadb install xyz.apk\n```\n\nThe apk files you will sometimes find on the internet tend to only have arm\nsupport, and will therefore not work on x86\\_64.\n\nYou may want to install [F-Droid](https://f-droid.org/) to get applications\ngraphically. Note that the Google Play Store will not work as is, because it\nrelies on the proprietary Google Play Services, which are not installed.\n\n## Build from source\n\n### Requirements\n\nTo build the Anbox runtime itself there is nothing special to know. We're using\ncmake as build system. A few build dependencies need to be present on your host\nsystem:\n\n * libdbus\n * google-mock\n * google-test\n * libboost\n * libboost-filesystem\n * libboost-log\n * libboost-iostreams\n * libboost-program-options\n * libboost-system\n * libboost-test\n * libboost-thread\n * libcap\n * libexpat1-dev\n * libsystemd\n * mesa (libegl1, libgles2)\n * libglm\n * libsdl2\n * libprotobuf\n * protobuf-compiler\n * python3\n * lxc (>= 3.0)\n\nOn an Ubuntu system you can install all build dependencies with the following\ncommand:\n\n```\n$ sudo apt install build-essential cmake cmake-data debhelper dbus google-mock \\\n    libboost-dev libboost-filesystem-dev libboost-log-dev libboost-iostreams-dev \\\n    libboost-program-options-dev libboost-system-dev libboost-test-dev \\\n    libboost-thread-dev libcap-dev libexpat1-dev libsystemd-dev libegl1-mesa-dev \\\n    libgles2-mesa-dev libglm-dev libgtest-dev liblxc1 \\\n    libproperties-cpp-dev libprotobuf-dev libsdl2-dev libsdl2-image-dev lxc-dev \\\n    pkg-config protobuf-compiler python3-minimal\n```\nWe recommend Ubuntu 20.04 (focal) as your build environment.\n\n\n### Build\n\nAfterwards you can build Anbox with\n\n```\n$ git clone https://github.com/anbox/anbox.git --recurse-submodules\n$ cd anbox\n$ mkdir build\n$ cd build\n$ cmake ..\n$ make\n```\n\nA simple\n\n```\n$ sudo make install\n```\n\nwill install the necessary bits into your system.\n\nIf you want to build the anbox snap instead you can do this with the following\nsteps:\n\n```\n$ ARCH=$(uname -m)\n$ cp /path/to/android.img data/android-images/android-$ARCH.img\n$ snapcraft\n```\n\nThe result will be a .snap file you can install on a system supporting snaps\n\n```\n$ snap install --dangerous --devmode anbox_1_amd64.snap\n```\n\n## Run Anbox\n\nRunning Anbox from a local build requires a few more things you need to know\nabout. Please have a look at the [\"Runtime Setup\"](docs/runtime-setup.md)\ndocumentation.\n\n## Documentation\n\nYou will find additional documentation for Anbox in the *docs* subdirectory\nof the project source.\n\nInteresting things to have a look at\n\n * [Runtime Setup](docs/runtime-setup.md)\n * [Build Android image](docs/build-android.md)\n * [Generate Android emugl source](docs/generate-emugl-source.md)\n * [DBUS interface](docs/dbus.md)\n\n## Reporting bugs\n\nIf you have found an issue with Anbox, please [file a bug](https://github.com/anbox/anbox/issues/new).\n\n## Get in Touch\n\nIf you want to get in contact with the developers please feel free to join the\n*#anbox* IRC channel on [Libera.Chat](https://libera.chat).\n\n## Copyright and Licensing\n\nAnbox reuses code from other projects like the Android QEMU emulator. These\nprojects are available in the external/ subdirectory with the licensing terms\nincluded.\n\nThe Anbox source itself, if not stated differently in the relevant source files,\nis licensed under the terms of the GPLv3 license.\n",
+        "releases": []
+    }
+}

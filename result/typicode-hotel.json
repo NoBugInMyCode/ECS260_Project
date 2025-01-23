@@ -1,0 +1,65 @@
+{
+    "https://api.github.com/repos/typicode/hotel": {
+        "forks": 424,
+        "watchers": 9992,
+        "stars": 9992,
+        "languages": {
+            "JavaScript": 48354,
+            "TypeScript": 11184,
+            "CSS": 3620,
+            "Pug": 1897,
+            "HTML": 472
+        },
+        "commits": [
+            "2023-10-23T16:23:50Z",
+            "2023-10-23T16:23:25Z",
+            "2023-10-23T16:22:49Z",
+            "2023-10-23T16:22:07Z",
+            "2023-10-23T16:12:44Z",
+            "2019-07-29T12:47:54Z",
+            "2019-06-05T16:23:50Z",
+            "2018-10-12T04:46:43Z",
+            "2018-10-12T04:46:23Z",
+            "2018-10-12T04:43:48Z",
+            "2018-10-12T04:38:23Z",
+            "2018-10-05T12:48:34Z",
+            "2018-07-19T04:08:57Z",
+            "2018-06-28T23:36:34Z",
+            "2018-06-28T23:35:59Z",
+            "2018-06-17T14:31:37Z",
+            "2018-06-17T14:29:32Z",
+            "2018-06-17T14:27:53Z",
+            "2018-05-26T22:48:04Z",
+            "2018-04-25T23:09:42Z",
+            "2018-04-25T23:09:03Z",
+            "2018-04-25T23:05:11Z",
+            "2018-04-12T20:32:08Z",
+            "2018-02-25T16:17:22Z",
+            "2018-02-25T16:15:09Z",
+            "2018-02-18T02:10:31Z",
+            "2018-02-18T02:00:14Z",
+            "2018-02-18T00:35:02Z",
+            "2018-02-09T01:31:13Z",
+            "2018-01-23T12:04:18Z"
+        ],
+        "creation_date": "2015-05-27T08:24:07Z",
+        "contributors": 30,
+        "topics": [
+            "devtools",
+            "front-end",
+            "https",
+            "local",
+            "local-domain",
+            "process-manager",
+            "proxy"
+        ],
+        "subscribers": 118,
+        "readme": "# hotel [![](https://badge.fury.io/js/hotel.svg)](https://www.npmjs.com/package/hotel)\n\n> Start apps from your browser and use local domains/https automatically\n\n![](https://i.imgur.com/eDLgWMj.png)\n\n_Tip: if you don't enable local domains, hotel can still be used as a **catalog of local servers**._\n\nHotel works great on any OS (macOS, Linux, Windows) and with __all servers :heart:__\n* Node (Express, Webpack)\n* PHP (Laravel, Symfony)\n* Ruby (Rails, Sinatra, Jekyll)\n* Python (Django)\n* Docker\n* Go\n* Apache, Nginx\n* ...\n\n_To all the amazing people who have answered the Hotel survey, thanks so much <3 !_\n\n## v0.8.0 upgrade\n\n`.localhost` replaces `.dev` local domain and is the new default. See https://ma.ttias.be/chrome-force-dev-domains-https-via-preloaded-hsts/ for context.\n\nIf you're upgrading, please be sure to:\n1. Remove `\"tld\": \"dev\"` from your `~/.hotel/conf.json` file\n2. Run `hotel stop && hotel start`\n3. Refresh your network settings\n\n## Support\n\nIf you are benefiting from hotel, you can support its development on [Patreon](https://patreon.com/typicode).\n\nYou can view the list of Supporters here https://thanks.typicode.com.\n\n## Video\n\n* [Starting apps with Hotel - Spacedojo Code Kata by Josh Owens](https://www.youtube.com/watch?v=BHW4tzctQ0k)\n\n## Features\n\n* __Local domains__ - `http://project.localhost`\n* __HTTPS via local self-signed SSL certificate__ - `https://project.localhost`\n* __Wildcard subdomains__ - `http://*.project.localhost`\n* __Works everywhere__ - macOS, Linux and Windows\n* __Works with any server__ - Node, Ruby, PHP, ...\n* __Proxy__ - Map local domains to remote servers\n* __System-friendly__ - No messing with `port 80`, `/etc/hosts`, `sudo` or additional software\n* Fallback URL - `http://localhost:2000/project`\n* Servers are only started when you access them\n* Plays nice with other servers (Apache, Nginx, ...)\n* Random or fixed ports\n\n## Install\n\n```sh\nnpm install -g hotel && hotel start\n```\n\nHotel requires Node to be installed, if you don't have it, you can simply install it using one of the following method:\n\n* https://github.com/creationix/nvm `nvm install stable`\n* https://brew.sh `brew install node`\n\nYou can also visit https://nodejs.org.\n\n## Quick start\n\n### Local domains (optional)\n\nTo use local `.localhost` domains, you need to configure your network or browser to use hotel's proxy auto-config file or you can skip this step for the moment and go directly to http://localhost:2000\n\n[__See instructions here__](https://github.com/typicode/hotel/blob/master/docs/README.md).\n\n### Add your servers\n\n```sh\n# Add your server to hotel\n~/projects/one$ hotel add 'npm start'\n# Or start your server in the terminal as usual and get a temporary local domain\n~/projects/two$ hotel run 'npm start' \n```\n\nVisit [localhost:2000](http://localhost:2000) or [http(s)://hotel.localhost](http://hotel.localhost).\n\nAlternatively you can directly go to\n\n```\nhttp://localhost:2000/one\nhttp://localhost:2000/two\n```\n\n```\nhttp(s)://one.localhost\nhttp(s)://two.localhost \n```\n\n#### Popular servers examples\n\nUsing other servers? Here are some examples to get you started :)\n\n```sh\nhotel add 'ember server'                               # Ember\nhotel add 'jekyll serve --port $PORT'                  # Jekyll\nhotel add 'rails server -p $PORT -b 127.0.0.1'         # Rails\nhotel add 'python -m SimpleHTTPServer $PORT'           # static file server (Python)\nhotel add 'php -S 127.0.0.1:$PORT'                     # PHP\nhotel add 'docker-compose up'                          # docker-compose\nhotel add 'python manage.py runserver 127.0.0.1:$PORT' # Django\n# ...\n```\n\nOn __Windows__ use `\"%PORT%\"` instead of `'$PORT'`\n\n[__See a Docker example here.__](https://github.com/typicode/hotel/blob/master/docs/Docker.md).\n\n### Proxy requests to remote servers\n\nAdd your remote servers\n\n```sh\n~$ hotel add http://192.168.1.12:1337 --name aliased-address\n~$ hotel add http://google.com --name aliased-domain \n```\n\nYou can now access them using\n\n```sh\nhttp://aliased-address.localhost # will proxy requests to http://192.168.1.12:1337\nhttp://aliased-domain.localhost # will proxy requests to http://google.com\n```\n\n## CLI usage and options\n\n```sh\nhotel add <cmd|url> [opts]\nhotel run <cmd> [opts]\n\n# Examples\n\nhotel add 'nodemon app.js' --out dev.log  # Set output file (default: none)\nhotel add 'nodemon app.js' --name name    # Set custom name (default: current dir name)\nhotel add 'nodemon app.js' --port 3000    # Set a fixed port (default: random port)\nhotel add 'nodemon app.js' --env PATH     # Store PATH environment variable in server config\nhotel add http://192.168.1.10 --name app  # map local domain to URL\n\nhotel run 'nodemon app.js'                # Run server and get a temporary local domain\n\n# Other commands\n\nhotel ls     # List servers\nhotel rm     # Remove server\nhotel start  # Start hotel daemon\nhotel stop   # Stop hotel daemon\n```\n\nTo get help\n\n```sh\nhotel --help\nhotel --help <cmd>\n```\n\n## Port\n\nFor `hotel` to work, your servers need to listen on the PORT environment variable.\nHere are some examples showing how you can do it from your code or the command-line:\n\n```js\nvar port = process.env.PORT || 3000\nserver.listen(port)\n```\n\n```sh\nhotel add 'cmd -p $PORT'  # OS X, Linux\nhotel add \"cmd -p %PORT%\" # Windows\n```\n\n## Fallback URL\n\nIf you're offline or can't configure your browser to use `.localhost` domains, you can __always__ access your local servers by going to [localhost:2000](http://localhost:2000).\n\n## Configurations, logs and self-signed SSL certificate\n\nYou can find hotel related files in `~/.hotel` :\n\n```sh\n~/.hotel/conf.json\n~/.hotel/daemon.log\n~/.hotel/daemon.pid\n~/.hotel/key.pem\n~/.hotel/cert.pem\n~/.hotel/servers/<app-name>.json\n```\n\nBy default, `hotel` uses the following configuration values:\n\n```js\n{\n  \"port\": 2000,\n  \"host\": '127.0.0.1',\n  \n  // Timeout when proxying requests to local domains\n  \"timeout\": 5000,\n  \n  // Change this if you want to use another tld than .localhost\n  \"tld\": 'localhost', \n  \n  // If you're behind a corporate proxy, replace this with your network proxy IP (example: \"1.2.3.4:5000\")\n  \"proxy\": false\n}\n```\n\nTo override a value, simply add it to `~/.hotel/conf.json` and run `hotel stop && hotel start`\n\n## Third-party tools\n\n* [Hotelier](https://github.com/macav/hotelier) Hotelier (Mac & Windows Tray App)\n* [Hotel Clerk](https://github.com/therealklanni/hotel-clerk) OS X menubar\n* [HotelX](https://github.com/djyde/HotelX) Another OS X menubar (only 1.6MB)\n* [alfred-hotel](https://github.com/exah/alfred-hotel) Alfred 3 workflow\n* [Hotel Manager](https://github.com/hardpixel/hotel-manager) Gnome Shell extension\n\n## FAQ\n\n#### Setting a fixed port\n\n```sh\nhotel add --port 3000 'server-cmd $PORT' \n```\n\n#### Adding `X-Forwarded-*` headers to requests\n\n```sh\nhotel add --xfwd 'server-cmd'\n```\n\n#### Setting `HTTP_PROXY` env\n\nUse `--http-proxy-env` flag when adding your server or edit your server configuration in `~/.hotel/servers`\n\n```sh\nhotel add --http-proxy-env 'server-cmd'\n```\n\n#### Proxying requests to a remote `https` server\n\n```sh\nhotel add --change-origin 'https://jsonplaceholder.typicode.com'\n```\n\n_When proxying to a `https` server, you may get an error because your `.localhost` domain doesn't match the host defined in the server certificate. With this flag, `host` header is changed to match the target URL._\n\n#### `ENOSPC` and `EACCES` errors\n\nIf you're seeing one of these errors in `~/.hotel/daemon.log`, this usually means that there's some permissions issues. `hotel` daemon should be started without `sudo` and `~/.hotel` should belong to `$USER`.\n\n```sh\n# to fix permissions\nsudo chown -R $USER: $HOME/.hotel\n```\n\nSee also, https://docs.npmjs.com/getting-started/fixing-npm-permissions\n\n#### Configuring a network proxy IP\n\nIf you're behind a corporate proxy, replace `\"proxy\"` with your network proxy IP in `~/.hotel/conf.json`. For example:\n\n```json\n{\n  \"proxy\": \"1.2.3.4:5000\"\n}\n```\n\n## License\n\nMIT\n\n[Patreon](https://www.patreon.com/typicode) - [Supporters](https://thanks.typicode.com) \u2728\n",
+        "releases": [
+            {
+                "name": "",
+                "date": "2023-10-23T16:26:20Z"
+            }
+        ]
+    }
+}

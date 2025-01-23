@@ -1,0 +1,643 @@
+{
+    "https://api.github.com/repos/neondatabase/neon": {
+        "forks": 476,
+        "watchers": 15885,
+        "stars": 15885,
+        "languages": {
+            "Rust": 9053276,
+            "Python": 2361150,
+            "C": 616019,
+            "Dockerfile": 88038,
+            "TLA": 43377,
+            "Makefile": 19386,
+            "Shell": 18396,
+            "Jsonnet": 17127,
+            "JavaScript": 15433,
+            "PLpgSQL": 12562,
+            "Swift": 3309,
+            "HTML": 1328,
+            "Java": 970,
+            "Emacs Lisp": 730,
+            "C#": 678,
+            "Awk": 632,
+            "RenderScript": 1
+        },
+        "commits": [
+            "2025-01-22T10:10:43Z",
+            "2025-01-22T09:15:52Z",
+            "2025-01-21T22:01:27Z",
+            "2025-01-21T21:18:09Z",
+            "2025-01-21T20:56:34Z",
+            "2025-01-21T19:29:38Z",
+            "2025-01-21T19:17:14Z",
+            "2025-01-21T16:50:44Z",
+            "2025-01-21T15:40:04Z",
+            "2025-01-21T12:45:21Z",
+            "2025-01-20T21:57:15Z",
+            "2025-01-20T20:44:12Z",
+            "2025-01-20T18:29:21Z",
+            "2025-01-20T17:51:30Z",
+            "2025-01-20T17:33:07Z",
+            "2025-01-20T14:37:24Z",
+            "2025-01-20T12:50:44Z",
+            "2025-01-20T09:47:23Z",
+            "2025-01-20T09:20:31Z",
+            "2025-01-17T21:43:52Z",
+            "2025-01-17T14:51:33Z",
+            "2025-01-17T14:21:30Z",
+            "2025-01-16T20:46:53Z",
+            "2025-01-16T20:34:02Z",
+            "2025-01-16T19:49:04Z",
+            "2025-01-16T19:00:16Z",
+            "2025-01-16T18:51:56Z",
+            "2025-01-16T17:33:46Z",
+            "2025-01-16T16:56:44Z",
+            "2025-01-16T15:33:37Z"
+        ],
+        "creation_date": "2021-03-26T14:20:47Z",
+        "contributors": 30,
+        "topics": [
+            "database",
+            "postgres",
+            "postgresql",
+            "rust",
+            "serverless"
+        ],
+        "subscribers": 102,
+        "readme": "[![Neon](https://github.com/neondatabase/neon/assets/11527560/f15a17f0-836e-40c5-b35d-030606a6b660)](https://neon.tech)\n\n\n\n# Neon\n\nNeon is a serverless open-source alternative to AWS Aurora Postgres. It separates storage and compute and substitutes the PostgreSQL storage layer by redistributing data across a cluster of nodes.\n\n## Quick start\nTry the [Neon Free Tier](https://neon.tech/github) to create a serverless Postgres instance. Then connect to it with your preferred Postgres client (psql, dbeaver, etc) or use the online [SQL Editor](https://neon.tech/docs/get-started-with-neon/query-with-neon-sql-editor/). See [Connect from any application](https://neon.tech/docs/connect/connect-from-any-app/) for connection instructions.\n\nAlternatively, compile and run the project [locally](#running-local-installation).\n\n## Architecture overview\n\nA Neon installation consists of compute nodes and the Neon storage engine. Compute nodes are stateless PostgreSQL nodes backed by the Neon storage engine.\n\nThe Neon storage engine consists of two major components:\n- Pageserver: Scalable storage backend for the compute nodes.\n- Safekeepers: The safekeepers form a redundant WAL service that received WAL from the compute node, and stores it durably until it has been processed by the pageserver and uploaded to cloud storage.\n\nSee developer documentation in [SUMMARY.md](/docs/SUMMARY.md) for more information.\n\n## Running local installation\n\n\n#### Installing dependencies on Linux\n1. Install build dependencies and other applicable packages\n\n* On Ubuntu or Debian, this set of packages should be sufficient to build the code:\n```bash\napt install build-essential libtool libreadline-dev zlib1g-dev flex bison libseccomp-dev \\\nlibssl-dev clang pkg-config libpq-dev cmake postgresql-client protobuf-compiler \\\nlibprotobuf-dev libcurl4-openssl-dev openssl python3-poetry lsof libicu-dev\n```\n* On Fedora, these packages are needed:\n```bash\ndnf install flex bison readline-devel zlib-devel openssl-devel \\\n  libseccomp-devel perl clang cmake postgresql postgresql-contrib protobuf-compiler \\\n  protobuf-devel libcurl-devel openssl poetry lsof libicu-devel libpq-devel python3-devel \\\n  libffi-devel\n```\n* On Arch based systems, these packages are needed:\n```bash\npacman -S base-devel readline zlib libseccomp openssl clang \\\npostgresql-libs cmake postgresql protobuf curl lsof\n```\n\nBuilding Neon requires 3.15+ version of `protoc` (protobuf-compiler). If your distribution provides an older version, you can install a newer version from [here](https://github.com/protocolbuffers/protobuf/releases).\n\n2. [Install Rust](https://www.rust-lang.org/tools/install)\n```\n# recommended approach from https://www.rust-lang.org/tools/install\ncurl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh\n```\n\n#### Installing dependencies on macOS (12.3.1)\n1. Install XCode and dependencies\n```\nxcode-select --install\nbrew install protobuf openssl flex bison icu4c pkg-config m4\n\n# add openssl to PATH, required for ed25519 keys generation in neon_local\necho 'export PATH=\"$(brew --prefix openssl)/bin:$PATH\"' >> ~/.zshrc\n```\n\nIf you get errors about missing `m4` you may have to install it manually:\n```\nbrew install m4\nbrew link --force m4\n```\n\n2. [Install Rust](https://www.rust-lang.org/tools/install)\n```\n# recommended approach from https://www.rust-lang.org/tools/install\ncurl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh\n```\n\n3. Install PostgreSQL Client\n```\n# from https://stackoverflow.com/questions/44654216/correct-way-to-install-psql-without-full-postgres-on-macos\nbrew install libpq\nbrew link --force libpq\n```\n\n#### Rustc version\n\nThe project uses [rust toolchain file](./rust-toolchain.toml) to define the version it's built with in CI for testing and local builds.\n\nThis file is automatically picked up by [`rustup`](https://rust-lang.github.io/rustup/overrides.html#the-toolchain-file) that installs (if absent) and uses the toolchain version pinned in the file.\n\nrustup users who want to build with another toolchain can use the [`rustup override`](https://rust-lang.github.io/rustup/overrides.html#directory-overrides) command to set a specific toolchain for the project's directory.\n\nnon-rustup users most probably are not getting the same toolchain automatically from the file, so are responsible to manually verify that their toolchain matches the version in the file.\nNewer rustc versions most probably will work fine, yet older ones might not be supported due to some new features used by the project or the crates.\n\n#### Building on Linux\n\n1. Build neon and patched postgres\n```\n# Note: The path to the neon sources can not contain a space.\n\ngit clone --recursive https://github.com/neondatabase/neon.git\ncd neon\n\n# The preferred and default is to make a debug build. This will create a\n# demonstrably slower build than a release build. For a release build,\n# use \"BUILD_TYPE=release make -j`nproc` -s\"\n# Remove -s for the verbose build log\n\nmake -j`nproc` -s\n```\n\n#### Building on OSX\n\n1. Build neon and patched postgres\n```\n# Note: The path to the neon sources can not contain a space.\n\ngit clone --recursive https://github.com/neondatabase/neon.git\ncd neon\n\n# The preferred and default is to make a debug build. This will create a\n# demonstrably slower build than a release build. For a release build,\n# use \"BUILD_TYPE=release make -j`sysctl -n hw.logicalcpu` -s\"\n# Remove -s for the verbose build log\n\nmake -j`sysctl -n hw.logicalcpu` -s\n```\n\n#### Dependency installation notes\nTo run the `psql` client, install the `postgresql-client` package or modify `PATH` and `LD_LIBRARY_PATH` to include `pg_install/bin` and `pg_install/lib`, respectively.\n\nTo run the integration tests or Python scripts (not required to use the code), install\nPython (3.11 or higher), and install the python3 packages using `./scripts/pysync` (requires [poetry>=1.8](https://python-poetry.org/)) in the project directory.\n\n\n#### Running neon database\n1. Start pageserver and postgres on top of it (should be called from repo root):\n```sh\n# Create repository in .neon with proper paths to binaries and data\n# Later that would be responsibility of a package install script\n> cargo neon init\nInitializing pageserver node 1 at '127.0.0.1:64000' in \".neon\"\n\n# start pageserver, safekeeper, and broker for their intercommunication\n> cargo neon start\nStarting neon broker at 127.0.0.1:50051.\nstorage_broker started, pid: 2918372\nStarting pageserver node 1 at '127.0.0.1:64000' in \".neon\".\npageserver started, pid: 2918386\nStarting safekeeper at '127.0.0.1:5454' in '.neon/safekeepers/sk1'.\nsafekeeper 1 started, pid: 2918437\n\n# create initial tenant and use it as a default for every future neon_local invocation\n> cargo neon tenant create --set-default\ntenant 9ef87a5bf0d92544f6fafeeb3239695c successfully created on the pageserver\nCreated an initial timeline 'de200bd42b49cc1814412c7e592dd6e9' at Lsn 0/16B5A50 for tenant: 9ef87a5bf0d92544f6fafeeb3239695c\nSetting tenant 9ef87a5bf0d92544f6fafeeb3239695c as a default one\n\n# create postgres compute node\n> cargo neon endpoint create main\n\n# start postgres compute node\n> cargo neon endpoint start main\nStarting new endpoint main (PostgreSQL v14) on timeline de200bd42b49cc1814412c7e592dd6e9 ...\nStarting postgres at 'postgresql://cloud_admin@127.0.0.1:55432/postgres'\n\n# check list of running postgres instances\n> cargo neon endpoint list\n ENDPOINT  ADDRESS          TIMELINE                          BRANCH NAME  LSN        STATUS\n main      127.0.0.1:55432  de200bd42b49cc1814412c7e592dd6e9  main         0/16B5BA8  running\n```\n\n2. Now, it is possible to connect to postgres and run some queries:\n```text\n> psql -p 55432 -h 127.0.0.1 -U cloud_admin postgres\npostgres=# CREATE TABLE t(key int primary key, value text);\nCREATE TABLE\npostgres=# insert into t values(1,1);\nINSERT 0 1\npostgres=# select * from t;\n key | value\n-----+-------\n   1 | 1\n(1 row)\n```\n\n3. And create branches and run postgres on them:\n```sh\n# create branch named migration_check\n> cargo neon timeline branch --branch-name migration_check\nCreated timeline 'b3b863fa45fa9e57e615f9f2d944e601' at Lsn 0/16F9A00 for tenant: 9ef87a5bf0d92544f6fafeeb3239695c. Ancestor timeline: 'main'\n\n# check branches tree\n> cargo neon timeline list\n(L) main [de200bd42b49cc1814412c7e592dd6e9]\n(L) \u2517\u2501 @0/16F9A00: migration_check [b3b863fa45fa9e57e615f9f2d944e601]\n\n# create postgres on that branch\n> cargo neon endpoint create migration_check --branch-name migration_check\n\n# start postgres on that branch\n> cargo neon endpoint start migration_check\nStarting new endpoint migration_check (PostgreSQL v14) on timeline b3b863fa45fa9e57e615f9f2d944e601 ...\nStarting postgres at 'postgresql://cloud_admin@127.0.0.1:55434/postgres'\n\n# check the new list of running postgres instances\n> cargo neon endpoint list\n ENDPOINT         ADDRESS          TIMELINE                          BRANCH NAME      LSN        STATUS\n main             127.0.0.1:55432  de200bd42b49cc1814412c7e592dd6e9  main             0/16F9A38  running\n migration_check  127.0.0.1:55434  b3b863fa45fa9e57e615f9f2d944e601  migration_check  0/16F9A70  running\n\n# this new postgres instance will have all the data from 'main' postgres,\n# but all modifications would not affect data in original postgres\n> psql -p 55434 -h 127.0.0.1 -U cloud_admin postgres\npostgres=# select * from t;\n key | value\n-----+-------\n   1 | 1\n(1 row)\n\npostgres=# insert into t values(2,2);\nINSERT 0 1\n\n# check that the new change doesn't affect the 'main' postgres\n> psql -p 55432 -h 127.0.0.1 -U cloud_admin postgres\npostgres=# select * from t;\n key | value\n-----+-------\n   1 | 1\n(1 row)\n```\n\n4. If you want to run tests afterwards (see below), you must stop all the running pageserver, safekeeper, and postgres instances\n   you have just started. You can terminate them all with one command:\n```sh\n> cargo neon stop\n```\n\nMore advanced usages can be found at [Control Plane and Neon Local](./control_plane/README.md).\n\n#### Handling build failures\n\nIf you encounter errors during setting up the initial tenant, it's best to stop everything (`cargo neon stop`) and remove the `.neon` directory. Then fix the problems, and start the setup again.\n\n## Running tests\n\n### Rust unit tests\n\nWe are using [`cargo-nextest`](https://nexte.st/) to run the tests in Github Workflows.\nSome crates do not support running plain `cargo test` anymore, prefer `cargo nextest run` instead.\nYou can install `cargo-nextest` with `cargo install cargo-nextest`.\n\n### Integration tests\n\nEnsure your dependencies are installed as described [here](https://github.com/neondatabase/neon#dependency-installation-notes).\n\n```sh\ngit clone --recursive https://github.com/neondatabase/neon.git\n\nCARGO_BUILD_FLAGS=\"--features=testing\" make\n\n./scripts/pytest\n```\n\nBy default, this runs both debug and release modes, and all supported postgres versions. When\ntesting locally, it is convenient to run just one set of permutations, like this:\n\n```sh\nDEFAULT_PG_VERSION=16 BUILD_TYPE=release ./scripts/pytest\n```\n\n## Flamegraphs\n\nYou may find yourself in need of flamegraphs for software in this repository.\nYou can use [`flamegraph-rs`](https://github.com/flamegraph-rs/flamegraph) or the original [`flamegraph.pl`](https://github.com/brendangregg/FlameGraph). Your choice!\n\n>[!IMPORTANT]\n> If you're using `lld` or `mold`, you need the `--no-rosegment` linker argument.\n> It's a [general thing with Rust / lld / mold](https://crbug.com/919499#c16), not specific to this repository.\n> See [this PR for further instructions](https://github.com/neondatabase/neon/pull/6764).\n\n## Cleanup\n\nFor cleaning up the source tree from build artifacts, run `make clean` in the source directory.\n\nFor removing every artifact from build and configure steps, run `make distclean`, and also consider removing the cargo binaries in the `target` directory, as well as the database in the `.neon` directory. Note that removing the `.neon` directory will remove your database, with all data in it. You have been warned!\n\n## Documentation\n\n[docs](/docs) Contains a top-level overview of all available markdown documentation.\n\n- [sourcetree.md](/docs/sourcetree.md) contains overview of source tree layout.\n\nTo view your `rustdoc` documentation in a browser, try running `cargo doc --no-deps --open`\n\nSee also README files in some source directories, and `rustdoc` style documentation comments.\n\nOther resources:\n\n- [SELECT 'Hello, World'](https://neon.tech/blog/hello-world/): Blog post by Nikita Shamgunov on the high level architecture\n- [Architecture decisions in Neon](https://neon.tech/blog/architecture-decisions-in-neon/): Blog post by Heikki Linnakangas\n- [Neon: Serverless PostgreSQL!](https://www.youtube.com/watch?v=rES0yzeERns): Presentation on storage system by Heikki Linnakangas in the CMU Database Group seminar series\n\n### Postgres-specific terms\n\nDue to Neon's very close relation with PostgreSQL internals, numerous specific terms are used.\nThe same applies to certain spelling: i.e. we use MB to denote 1024 * 1024 bytes, while MiB would be technically more correct, it's inconsistent with what PostgreSQL code and its documentation use.\n\nTo get more familiar with this aspect, refer to:\n\n- [Neon glossary](/docs/glossary.md)\n- [PostgreSQL glossary](https://www.postgresql.org/docs/14/glossary.html)\n- Other PostgreSQL documentation and sources (Neon fork sources can be found [here](https://github.com/neondatabase/postgres))\n\n## Join the development\n\n- Read [CONTRIBUTING.md](/CONTRIBUTING.md) to learn about project code style and practices.\n- To get familiar with a source tree layout, use [sourcetree.md](/docs/sourcetree.md).\n- To learn more about PostgreSQL internals, check http://www.interdb.jp/pg/index.html\n",
+        "releases": [
+            {
+                "name": "release-compute-7588",
+                "date": "2025-01-22T10:55:03Z"
+            },
+            {
+                "name": "release-7576",
+                "date": "2025-01-20T15:44:08Z"
+            },
+            {
+                "name": "release-7574",
+                "date": "2025-01-20T15:18:40Z"
+            },
+            {
+                "name": "release-7496",
+                "date": "2025-01-20T15:13:05Z"
+            },
+            {
+                "name": "release-7451",
+                "date": "2025-01-03T20:16:15Z"
+            },
+            {
+                "name": "release-7381",
+                "date": "2024-12-13T13:01:05Z"
+            },
+            {
+                "name": "release-7336",
+                "date": "2024-12-11T18:46:05Z"
+            },
+            {
+                "name": "release-7332",
+                "date": "2024-12-11T07:59:29Z"
+            },
+            {
+                "name": "release-7330",
+                "date": "2024-12-09T19:00:41Z"
+            },
+            {
+                "name": "release-7327",
+                "date": "2024-12-09T13:15:37Z"
+            },
+            {
+                "name": "release-7261",
+                "date": "2024-12-05T12:12:46Z"
+            },
+            {
+                "name": "release-7245",
+                "date": "2024-11-29T08:45:09Z"
+            },
+            {
+                "name": "release-7215",
+                "date": "2024-11-25T18:50:38Z"
+            },
+            {
+                "name": "release-7145",
+                "date": "2024-11-18T10:06:23Z"
+            },
+            {
+                "name": "release-7125",
+                "date": "2024-11-13T18:54:03Z"
+            },
+            {
+                "name": "release-7097",
+                "date": "2024-11-11T20:12:45Z"
+            },
+            {
+                "name": "release-7095",
+                "date": "2024-11-11T16:52:39Z"
+            },
+            {
+                "name": "release-7044",
+                "date": "2024-11-04T17:33:46Z"
+            },
+            {
+                "name": "release-7011",
+                "date": "2024-10-30T13:37:30Z"
+            },
+            {
+                "name": "release-7009",
+                "date": "2024-10-29T19:36:18Z"
+            },
+            {
+                "name": "release-6981",
+                "date": "2024-10-25T21:33:39Z"
+            },
+            {
+                "name": "release-6935",
+                "date": "2024-10-22T10:53:16Z"
+            },
+            {
+                "name": "release-6933",
+                "date": "2024-10-20T14:55:09Z"
+            },
+            {
+                "name": "release-6911",
+                "date": "2024-10-18T16:24:15Z"
+            },
+            {
+                "name": "release-6872",
+                "date": "2024-10-14T15:06:43Z"
+            },
+            {
+                "name": "release-6812",
+                "date": "2024-10-08T08:51:26Z"
+            },
+            {
+                "name": "release-6777",
+                "date": "2024-10-03T11:27:32Z"
+            },
+            {
+                "name": "release-6773",
+                "date": "2024-10-01T21:19:12Z"
+            },
+            {
+                "name": "release-6745",
+                "date": "2024-09-30T16:22:36Z"
+            },
+            {
+                "name": "release-6715",
+                "date": "2024-09-26T08:21:55Z"
+            },
+            {
+                "name": "release-6694",
+                "date": "2024-09-24T18:24:30Z"
+            },
+            {
+                "name": "release-6667",
+                "date": "2024-09-20T20:55:26Z"
+            },
+            {
+                "name": "release-6616",
+                "date": "2024-09-16T14:28:26Z"
+            },
+            {
+                "name": "release-6594",
+                "date": "2024-09-07T13:52:59Z"
+            },
+            {
+                "name": "release-6548",
+                "date": "2024-09-02T15:58:11Z"
+            },
+            {
+                "name": "release-6514",
+                "date": "2024-08-29T12:24:52Z"
+            },
+            {
+                "name": "release-6506",
+                "date": "2024-08-26T10:55:11Z"
+            },
+            {
+                "name": "release-6450",
+                "date": "2024-08-21T04:09:53Z"
+            },
+            {
+                "name": "release-6299",
+                "date": "2024-08-12T13:33:07Z"
+            },
+            {
+                "name": "release-proxy-6107",
+                "date": "2024-08-11T12:29:08Z"
+            },
+            {
+                "name": "release-6250",
+                "date": "2024-08-07T19:33:24Z"
+            },
+            {
+                "name": "release-6248",
+                "date": "2024-08-05T13:11:54Z"
+            },
+            {
+                "name": "release-6210",
+                "date": "2024-07-29T17:45:49Z"
+            },
+            {
+                "name": "release-6144",
+                "date": "2024-07-26T17:33:10Z"
+            },
+            {
+                "name": "release-6142",
+                "date": "2024-07-25T23:08:58Z"
+            },
+            {
+                "name": "release-6138",
+                "date": "2024-07-24T11:37:17Z"
+            },
+            {
+                "name": "release-6136",
+                "date": "2024-07-22T18:35:04Z"
+            },
+            {
+                "name": "release-5940",
+                "date": "2024-07-15T15:43:28Z"
+            },
+            {
+                "name": "release-5889",
+                "date": "2024-07-08T21:31:48Z"
+            },
+            {
+                "name": "release-5837",
+                "date": "2024-07-04T19:42:13Z"
+            },
+            {
+                "name": "release-5779",
+                "date": "2024-06-24T10:36:01Z"
+            },
+            {
+                "name": "release-5733",
+                "date": "2024-06-17T14:35:03Z"
+            },
+            {
+                "name": "release-5691",
+                "date": "2024-06-10T17:51:22Z"
+            },
+            {
+                "name": "release-5657",
+                "date": "2024-06-04T03:41:33Z"
+            },
+            {
+                "name": "release-5625",
+                "date": "2024-05-31T12:25:47Z"
+            },
+            {
+                "name": "release-5623",
+                "date": "2024-05-27T18:13:50Z"
+            },
+            {
+                "name": "release-5579",
+                "date": "2024-05-23T21:44:27Z"
+            },
+            {
+                "name": "release-5578",
+                "date": "2024-05-23T21:18:48Z"
+            },
+            {
+                "name": "release-5577",
+                "date": "2024-05-22T18:50:03Z"
+            },
+            {
+                "name": "release-5545",
+                "date": "2024-05-20T17:25:28Z"
+            },
+            {
+                "name": "release-5493",
+                "date": "2024-05-13T16:04:21Z"
+            },
+            {
+                "name": "release-5434",
+                "date": "2024-05-07T08:18:06Z"
+            },
+            {
+                "name": "release-5373",
+                "date": "2024-04-29T13:45:16Z"
+            },
+            {
+                "name": "release-5324",
+                "date": "2024-04-22T13:44:41Z"
+            },
+            {
+                "name": "release-5294",
+                "date": "2024-04-15T13:22:12Z"
+            },
+            {
+                "name": "release-5269",
+                "date": "2024-04-11T17:28:48Z"
+            },
+            {
+                "name": "release-5267",
+                "date": "2024-04-08T12:46:26Z"
+            },
+            {
+                "name": "release-5227",
+                "date": "2024-04-02T16:27:23Z"
+            },
+            {
+                "name": "release-proxy-5201",
+                "date": "2024-03-27T17:21:22Z"
+            },
+            {
+                "name": "release-compute-only-5213",
+                "date": "2024-03-27T19:24:01Z"
+            },
+            {
+                "name": "release-5201",
+                "date": "2024-03-26T15:56:18Z"
+            },
+            {
+                "name": "release-5189",
+                "date": "2024-03-25T13:00:04Z"
+            },
+            {
+                "name": "release-proxy-5147",
+                "date": "2024-03-27T17:21:00Z"
+            },
+            {
+                "name": "release-5147",
+                "date": "2024-03-19T11:40:12Z"
+            },
+            {
+                "name": "release-proxy-5115",
+                "date": "2024-03-27T17:20:40Z"
+            },
+            {
+                "name": "release-5090",
+                "date": "2024-03-11T13:18:01Z"
+            },
+            {
+                "name": "release-proxy-5070",
+                "date": "2024-03-27T17:19:17Z"
+            },
+            {
+                "name": "release-proxy-5036",
+                "date": "2024-03-27T17:18:26Z"
+            },
+            {
+                "name": "release-5037",
+                "date": "2024-03-04T12:57:59Z"
+            },
+            {
+                "name": "release-5018",
+                "date": "2024-02-29T17:56:17Z"
+            },
+            {
+                "name": "release-4983",
+                "date": "2024-02-26T18:06:37Z"
+            },
+            {
+                "name": "release-4917",
+                "date": "2024-02-22T10:27:10Z"
+            },
+            {
+                "name": "release-4916",
+                "date": "2024-02-19T13:34:29Z"
+            },
+            {
+                "name": "release-4862",
+                "date": "2024-02-15T10:16:48Z"
+            },
+            {
+                "name": "release-4854",
+                "date": "2024-02-12T10:16:45Z"
+            },
+            {
+                "name": "release-4781",
+                "date": "2024-02-05T14:22:54Z"
+            },
+            {
+                "name": "release-4713",
+                "date": "2024-01-29T10:51:26Z"
+            },
+            {
+                "name": "release-4642",
+                "date": "2024-01-22T18:42:43Z"
+            },
+            {
+                "name": "release-4604",
+                "date": "2024-01-15T15:20:30Z"
+            },
+            {
+                "name": "release-4525",
+                "date": "2024-01-08T10:06:01Z"
+            },
+            {
+                "name": "release-4524",
+                "date": "2024-01-02T08:50:36Z"
+            },
+            {
+                "name": "release-4517",
+                "date": "2024-01-01T09:33:23Z"
+            },
+            {
+                "name": "release-4459",
+                "date": "2023-12-19T16:57:20Z"
+            },
+            {
+                "name": "release-4456",
+                "date": "2023-12-18T20:57:12Z"
+            },
+            {
+                "name": "release-4454",
+                "date": "2023-12-18T14:16:29Z"
+            },
+            {
+                "name": "release-4449",
+                "date": "2023-12-18T13:00:19Z"
+            },
+            {
+                "name": "release-4414",
+                "date": "2023-12-13T12:04:06Z"
+            },
+            {
+                "name": "release-4394",
+                "date": "2023-12-12T11:41:34Z"
+            },
+            {
+                "name": "release-4344",
+                "date": "2023-12-06T16:16:17Z"
+            },
+            {
+                "name": "release-4342",
+                "date": "2023-12-05T15:52:23Z"
+            },
+            {
+                "name": "release-4277",
+                "date": "2023-12-01T14:24:50Z"
+            },
+            {
+                "name": "release-4275",
+                "date": "2023-11-30T08:46:12Z"
+            },
+            {
+                "name": "release-4273",
+                "date": "2023-11-28T06:42:59Z"
+            },
+            {
+                "name": "release-4270",
+                "date": "2023-11-27T08:24:59Z"
+            },
+            {
+                "name": "release-4245",
+                "date": "2023-11-20T07:48:28Z"
+            },
+            {
+                "name": "release-4179",
+                "date": "2023-11-03T16:15:28Z"
+            },
+            {
+                "name": "release-4108",
+                "date": "2023-10-27T10:12:22Z"
+            },
+            {
+                "name": "release-4105",
+                "date": "2023-10-26T07:33:43Z"
+            },
+            {
+                "name": "release-4103",
+                "date": "2023-10-24T09:36:09Z"
+            },
+            {
+                "name": "release-4053",
+                "date": "2023-10-20T07:37:15Z"
+            },
+            {
+                "name": "release-4049",
+                "date": "2023-10-17T11:07:55Z"
+            },
+            {
+                "name": "release-4030",
+                "date": "2023-10-11T08:56:25Z"
+            },
+            {
+                "name": "release-4023",
+                "date": "2023-10-10T12:07:09Z"
+            },
+            {
+                "name": "release-3985",
+                "date": "2023-10-04T12:02:04Z"
+            },
+            {
+                "name": "release-3960",
+                "date": "2023-09-28T18:12:03Z"
+            },
+            {
+                "name": "release-3957",
+                "date": "2023-09-26T12:44:27Z"
+            },
+            {
+                "name": "release-3940",
+                "date": "2023-09-19T09:45:23Z"
+            },
+            {
+                "name": "release-3916",
+                "date": "2023-09-15T16:30:32Z"
+            },
+            {
+                "name": "release-3913",
+                "date": "2023-09-15T10:53:47Z"
+            },
+            {
+                "name": "release-3909",
+                "date": "2023-09-13T11:30:37Z"
+            },
+            {
+                "name": "release-3898",
+                "date": "2023-09-12T12:19:17Z"
+            },
+            {
+                "name": "release-3836",
+                "date": "2023-09-07T17:01:39Z"
+            },
+            {
+                "name": "release-3819",
+                "date": "2023-09-07T17:01:28Z"
+            },
+            {
+                "name": "release-3808",
+                "date": "2023-09-07T17:01:17Z"
+            },
+            {
+                "name": "release-3795",
+                "date": "2023-09-07T17:01:05Z"
+            },
+            {
+                "name": "release-3759",
+                "date": "2023-09-07T17:00:39Z"
+            },
+            {
+                "name": "release-3756",
+                "date": "2023-09-07T17:00:21Z"
+            },
+            {
+                "name": "release-3714",
+                "date": "2023-09-07T17:00:09Z"
+            },
+            {
+                "name": "release-3710",
+                "date": "2023-09-07T16:59:43Z"
+            },
+            {
+                "name": "release-3668",
+                "date": "2023-09-07T16:59:22Z"
+            },
+            {
+                "name": "release-3666",
+                "date": "2023-09-07T16:59:06Z"
+            },
+            {
+                "name": "release-3665",
+                "date": "2023-09-07T16:58:29Z"
+            },
+            {
+                "name": "release-3634",
+                "date": "2023-09-07T16:58:16Z"
+            },
+            {
+                "name": "release-3633",
+                "date": "2023-09-07T16:57:59Z"
+            },
+            {
+                "name": "release-3632",
+                "date": "2023-09-07T16:57:47Z"
+            },
+            {
+                "name": "release-3592",
+                "date": "2023-09-07T16:57:18Z"
+            },
+            {
+                "name": "release-3568",
+                "date": "2023-09-07T16:56:36Z"
+            },
+            {
+                "name": "release-3509",
+                "date": "2023-09-07T16:55:50Z"
+            },
+            {
+                "name": "release-3506",
+                "date": "2023-09-07T16:55:31Z"
+            },
+            {
+                "name": "release-3504",
+                "date": "2023-09-07T16:55:10Z"
+            },
+            {
+                "name": "release-3465",
+                "date": "2023-09-07T16:54:44Z"
+            },
+            {
+                "name": "release-3441",
+                "date": "2023-09-07T16:54:10Z"
+            },
+            {
+                "name": "release-3439",
+                "date": "2023-09-07T16:53:16Z"
+            }
+        ]
+    }
+}

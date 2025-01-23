@@ -1,0 +1,460 @@
+{
+    "https://api.github.com/repos/pedroslopez/whatsapp-web.js": {
+        "forks": 3842,
+        "watchers": 15924,
+        "stars": 15924,
+        "languages": {
+            "JavaScript": 340927,
+            "Shell": 1966
+        },
+        "commits": [
+            "2024-12-23T17:33:08Z",
+            "2024-11-22T21:56:19Z",
+            "2024-11-22T21:55:58Z",
+            "2024-11-22T21:55:13Z",
+            "2024-10-04T04:29:49Z",
+            "2024-10-04T04:29:29Z",
+            "2024-10-04T04:26:27Z",
+            "2024-10-04T04:22:19Z",
+            "2024-10-04T04:21:07Z",
+            "2024-09-30T17:34:39Z",
+            "2024-09-30T17:33:31Z",
+            "2024-09-30T17:31:46Z",
+            "2024-09-26T03:50:39Z",
+            "2024-09-26T03:35:32Z",
+            "2024-09-25T20:58:43Z",
+            "2024-09-25T17:33:04Z",
+            "2024-09-25T15:31:35Z",
+            "2024-09-23T14:14:41Z",
+            "2024-09-23T14:12:17Z",
+            "2024-09-20T08:29:08Z",
+            "2024-09-18T20:52:50Z",
+            "2024-09-18T20:51:12Z",
+            "2024-09-18T07:33:23Z",
+            "2024-09-15T10:09:15Z",
+            "2024-09-15T09:30:21Z",
+            "2024-09-14T22:46:09Z",
+            "2024-09-14T22:44:07Z",
+            "2024-09-14T17:43:21Z",
+            "2024-07-24T01:36:56Z",
+            "2024-07-24T01:19:22Z"
+        ],
+        "creation_date": "2019-02-17T02:16:02Z",
+        "contributors": 30,
+        "topics": [
+            "api",
+            "bot",
+            "bot-api",
+            "hacktoberfest",
+            "whatsapp",
+            "whatsapp-api",
+            "whatsapp-bot",
+            "whatsapp-web",
+            "whatsapp-web-api"
+        ],
+        "subscribers": 337,
+        "readme": "<div align=\"center\">\n    <br />\n    <p>\n        <a href=\"https://wwebjs.dev\"><img src=\"https://github.com/wwebjs/logos/blob/main/4_Full%20Logo%20Lockup_Small/small_banner_blue.png?raw=true\" title=\"whatsapp-web.js\" alt=\"WWebJS Website\" width=\"500\" /></a>\n    </p>\n    <br />\n    <p>\n\t\t<a href=\"https://www.npmjs.com/package/whatsapp-web.js\"><img src=\"https://img.shields.io/npm/v/whatsapp-web.js.svg\" alt=\"npm\" /></a>\n        <a href=\"https://depfu.com/github/pedroslopez/whatsapp-web.js?project_id=9765\"><img src=\"https://badges.depfu.com/badges/4a65a0de96ece65fdf39e294e0c8dcba/overview.svg\" alt=\"Depfu\" /></a>\n        <img src=\"https://img.shields.io/badge/WhatsApp_Web-2.3000.1017054665-brightgreen.svg\" alt=\"WhatsApp_Web 2.2346.52\" />\n        <a href=\"https://discord.gg/H7DqQs4\"><img src=\"https://img.shields.io/discord/698610475432411196.svg?logo=discord\" alt=\"Discord server\" /></a>\n\t</p>\n    <br />\n</div>\n\n## About\n**A WhatsApp API client that connects through the WhatsApp Web browser app**\n\nThe library works by launching the WhatsApp Web browser application and managing it using Puppeteer to create an instance of WhatsApp Web, thereby mitigating the risk of being blocked. The WhatsApp API client connects through the WhatsApp Web browser app, accessing its internal functions. This grants you access to nearly all the features available on WhatsApp Web, enabling dynamic handling similar to any other Node.js application.\n\n> [!IMPORTANT]\n> **It is not guaranteed you will not be blocked by using this method. WhatsApp does not allow bots or unofficial clients on their platform, so this shouldn't be considered totally safe.**\n\n## Links\n\n* [Website][website]\n* [Guide][guide] ([source][guide-source]) _(work in progress)_\n* [Documentation][documentation] ([source][documentation-source])\n* [WWebJS Discord][discord]\n* [GitHub][gitHub]\n* [npm][npm]\n\n## Installation\n\nThe module is now available on npm! `npm i whatsapp-web.js`\n\n> [!NOTE]\n> **Node ``v18+`` is required.**\n\n## QUICK STEPS TO UPGRADE NODE\n\n### Windows\n\n#### Manual\nJust get the latest LTS from the [official node website][nodejs].\n\n#### npm\n```powershell\nsudo npm install -g n\nsudo n stable\n```\n\n#### Choco\n```powershell\nchoco install nodejs-lts\n```\n\n#### Winget\n```powershell\nwinget install OpenJS.NodeJS.LTS\n```\n\n### Ubuntu / Debian\n```bash\ncurl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - &&\\\nsudo apt-get install -y nodejs\n```\n\n## Example usage\n\n```js\nconst { Client } = require('whatsapp-web.js');\n\nconst client = new Client();\n\nclient.on('qr', (qr) => {\n    // Generate and scan this code with your phone\n    console.log('QR RECEIVED', qr);\n});\n\nclient.on('ready', () => {\n    console.log('Client is ready!');\n});\n\nclient.on('message', msg => {\n    if (msg.body == '!ping') {\n        msg.reply('pong');\n    }\n});\n\nclient.initialize();\n```\n\nTake a look at [example.js][examples] for another examples with additional use cases.  \nFor further details on saving and restoring sessions, explore the provided [Authentication Strategies][auth-strategies].\n\n\n## Supported features\n\n| Feature  | Status |\n| ------------- | ------------- |\n| Multi Device  | \u2705  |\n| Send messages  | \u2705  |\n| Receive messages  | \u2705  |\n| Send media (images/audio/documents)  | \u2705  |\n| Send media (video)  | \u2705 [(requires Google Chrome)][google-chrome]  |\n| Send stickers | \u2705 |\n| Receive media (images/audio/video/documents)  | \u2705  |\n| Send contact cards | \u2705 |\n| Send location | \u2705 |\n| Send buttons | \u274c  [(DEPRECATED)][deprecated-video] |\n| Send lists | \u274c  [(DEPRECATED)][deprecated-video] |\n| Receive location | \u2705 | \n| Message replies | \u2705 |\n| Join groups by invite  | \u2705 |\n| Get invite for group  | \u2705 |\n| Modify group info (subject, description)  | \u2705  |\n| Modify group settings (send messages, edit info)  | \u2705  |\n| Add group participants  | \u2705  |\n| Kick group participants  | \u2705  |\n| Promote/demote group participants | \u2705 |\n| Mention users | \u2705 |\n| Mention groups | \u2705 |\n| Mute/unmute chats | \u2705 |\n| Block/unblock contacts | \u2705 |\n| Get contact info | \u2705 |\n| Get profile pictures | \u2705 |\n| Set user status message | \u2705 |\n| React to messages | \u2705 |\n| Create polls | \u2705 |\n| Vote in polls | \ud83d\udd1c |\n| Communities | \ud83d\udd1c |\n| Channels | \ud83d\udd1c |\n\nSomething missing? Make an issue and let us know!\n\n## Contributing\n\nFeel free to open pull requests; we welcome contributions! However, for significant changes, it's best to open an issue beforehand. Make sure to review our [contribution guidelines][contributing] before creating a pull request. Before creating your own issue or pull request, always check to see if one already exists!\n\n## Supporting the project\n\nYou can support the maintainer of this project through the links below\n\n- [Support via GitHub Sponsors][gitHub-sponsors]\n- [Support via PayPal][support-payPal]\n- [Sign up for DigitalOcean][digitalocean] and get $200 in credit when you sign up (Referral)\n\n## Disclaimer\n\nThis project is not affiliated, associated, authorized, endorsed by, or in any way officially connected with WhatsApp or any of its subsidiaries or its affiliates. The official WhatsApp website can be found at [whatsapp.com][whatsapp]. \"WhatsApp\" as well as related names, marks, emblems and images are registered trademarks of their respective owners. Also it is not guaranteed you will not be blocked by using this method. WhatsApp does not allow bots or unofficial clients on their platform, so this shouldn't be considered totally safe.\n\n## License\n\nCopyright 2019 Pedro S Lopez  \n\nLicensed under the Apache License, Version 2.0 (the \"License\");  \nyou may not use this project except in compliance with the License.  \nYou may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.  \n\nUnless required by applicable law or agreed to in writing, software  \ndistributed under the License is distributed on an \"AS IS\" BASIS,  \nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  \nSee the License for the specific language governing permissions and  \nlimitations under the License.  \n\n\n[website]: https://wwebjs.dev\n[guide]: https://guide.wwebjs.dev/guide\n[guide-source]: https://github.com/wwebjs/wwebjs.dev/tree/main\n[documentation]: https://docs.wwebjs.dev/\n[documentation-source]: https://github.com/pedroslopez/whatsapp-web.js/tree/main/docs\n[discord]: https://discord.gg/H7DqQs4\n[gitHub]: https://github.com/pedroslopez/whatsapp-web.js\n[npm]: https://npmjs.org/package/whatsapp-web.js\n[nodejs]: https://nodejs.org/en/download/\n[examples]: https://github.com/pedroslopez/whatsapp-web.js/blob/master/example.js\n[auth-strategies]: https://wwebjs.dev/guide/creating-your-bot/authentication.html\n[google-chrome]: https://wwebjs.dev/guide/creating-your-bot/handling-attachments.html#caveat-for-sending-videos-and-gifs\n[deprecated-video]: https://www.youtube.com/watch?v=hv1R1rLeVVE\n[gitHub-sponsors]: https://github.com/sponsors/pedroslopez\n[support-payPal]: https://www.paypal.me/psla/\n[digitalocean]: https://m.do.co/c/73f906a36ed4\n[contributing]: https://github.com/pedroslopez/whatsapp-web.js/blob/main/CODE_OF_CONDUCT.md\n[whatsapp]: https://whatsapp.com\n",
+        "releases": [
+            {
+                "name": "v1.26.1-alpha.3",
+                "date": "2024-11-22T21:56:23Z"
+            },
+            {
+                "name": "v1.26.1-alpha.2",
+                "date": "2024-10-04T04:29:54Z"
+            },
+            {
+                "name": "v1.26.1-alpha.1",
+                "date": "2024-09-26T03:50:44Z"
+            },
+            {
+                "name": "v1.26.1-alpha.0",
+                "date": "2024-09-25T20:58:48Z"
+            },
+            {
+                "name": "v1.26.0",
+                "date": "2024-09-18T20:52:54Z"
+            },
+            {
+                "name": "v1.25.0",
+                "date": "2024-07-24T01:37:01Z"
+            },
+            {
+                "name": "v1.24.0",
+                "date": "2024-06-09T16:52:39Z"
+            },
+            {
+                "name": "v1.23.1-alpha.6",
+                "date": "2024-04-30T19:30:18Z"
+            },
+            {
+                "name": "v1.23.1-alpha.5",
+                "date": "2024-03-01T14:12:09Z"
+            },
+            {
+                "name": "v1.23.1-alpha.4",
+                "date": "2024-01-14T06:49:02Z"
+            },
+            {
+                "name": "v1.23.1-alpha.3",
+                "date": "2024-01-02T18:47:25Z"
+            },
+            {
+                "name": "v1.23.1-alpha.2",
+                "date": "2023-12-17T07:52:23Z"
+            },
+            {
+                "name": "v1.23.1-alpha.1",
+                "date": "2023-12-12T08:36:12Z"
+            },
+            {
+                "name": "v1.23.1-alpha.0",
+                "date": "2023-10-22T11:08:36Z"
+            },
+            {
+                "name": "v1.23.0",
+                "date": "2023-10-21T15:42:23Z"
+            },
+            {
+                "name": "v1.22.2-alpha.4",
+                "date": "2023-10-19T16:39:29Z"
+            },
+            {
+                "name": "v1.22.2-alpha.3",
+                "date": "2023-10-11T14:55:39Z"
+            },
+            {
+                "name": "v1.22.2-alpha.2",
+                "date": "2023-10-11T13:11:54Z"
+            },
+            {
+                "name": "v1.22.2-alpha.1",
+                "date": "2023-09-20T17:22:01Z"
+            },
+            {
+                "name": "v1.22.2-alpha.0",
+                "date": "2023-08-25T14:00:56Z"
+            },
+            {
+                "name": "v1.22.1",
+                "date": "2023-08-10T04:55:21Z"
+            },
+            {
+                "name": "v1.21.1-alpha.1",
+                "date": "2023-08-09T16:28:43Z"
+            },
+            {
+                "name": "v1.21.1-alpha.0",
+                "date": "2023-08-07T17:28:38Z"
+            },
+            {
+                "name": "v1.21.0",
+                "date": "2023-05-29T06:54:05Z"
+            },
+            {
+                "name": "v1.20.0",
+                "date": "2023-05-20T04:00:13Z"
+            },
+            {
+                "name": "v1.19.5",
+                "date": "2023-03-18T22:20:09Z"
+            },
+            {
+                "name": "v1.19.4",
+                "date": "2023-02-11T23:29:11Z"
+            },
+            {
+                "name": "v1.19.3",
+                "date": "2023-01-28T04:36:24Z"
+            },
+            {
+                "name": "v1.20.0-alpha.0",
+                "date": "2023-01-26T21:54:28Z"
+            },
+            {
+                "name": "v1.19.2",
+                "date": "2023-01-15T22:01:01Z"
+            },
+            {
+                "name": "v1.19.1",
+                "date": "2023-01-15T18:56:36Z"
+            },
+            {
+                "name": "v1.19.0",
+                "date": "2023-01-15T18:40:26Z"
+            },
+            {
+                "name": "v1.18.4",
+                "date": "2022-11-26T09:28:40Z"
+            },
+            {
+                "name": "v1.18.3",
+                "date": "2022-11-14T02:21:28Z"
+            },
+            {
+                "name": "v1.18.3-alpha.0",
+                "date": "2022-11-13T17:54:07Z"
+            },
+            {
+                "name": "v1.18.2",
+                "date": "2022-10-27T03:33:49Z"
+            },
+            {
+                "name": "v1.18.1",
+                "date": "2022-10-27T02:46:06Z"
+            },
+            {
+                "name": "v1.18.0",
+                "date": "2022-10-21T04:28:01Z"
+            },
+            {
+                "name": "v1.18.0-alpha.1",
+                "date": "2022-08-15T07:54:44Z"
+            },
+            {
+                "name": "v1.18.0-alpha.0",
+                "date": "2022-08-15T07:33:22Z"
+            },
+            {
+                "name": "v1.17.1",
+                "date": "2022-07-10T06:26:26Z"
+            },
+            {
+                "name": "v1.17.0",
+                "date": "2022-06-21T05:38:49Z"
+            },
+            {
+                "name": "v1.16.7",
+                "date": "2022-06-10T04:00:31Z"
+            },
+            {
+                "name": "v1.16.6",
+                "date": "2022-04-21T22:01:28Z"
+            },
+            {
+                "name": "v1.16.5",
+                "date": "2022-03-29T03:51:32Z"
+            },
+            {
+                "name": "v1.16.4",
+                "date": "2022-03-09T22:31:37Z"
+            },
+            {
+                "name": "v1.16.3",
+                "date": "2022-03-07T03:32:35Z"
+            },
+            {
+                "name": "v1.16.2",
+                "date": "2022-03-02T03:25:11Z"
+            },
+            {
+                "name": "v1.16.1",
+                "date": "2022-02-28T04:54:07Z"
+            },
+            {
+                "name": "v1.16.0 - Multi Device Support",
+                "date": "2022-02-28T03:51:33Z"
+            },
+            {
+                "name": "v1.15.8",
+                "date": "2022-02-25T21:47:41Z"
+            },
+            {
+                "name": "v1.15.7",
+                "date": "2022-02-19T19:50:01Z"
+            },
+            {
+                "name": "v1.15.6",
+                "date": "2022-02-09T02:42:25Z"
+            },
+            {
+                "name": "v1.15.5",
+                "date": "2022-02-07T02:24:05Z"
+            },
+            {
+                "name": "v1.15.4",
+                "date": "2022-01-26T00:53:24Z"
+            },
+            {
+                "name": "v1.15.3",
+                "date": "2021-12-08T03:09:31Z"
+            },
+            {
+                "name": "v1.15.2",
+                "date": "2021-11-24T13:57:06Z"
+            },
+            {
+                "name": "v1.15.1",
+                "date": "2021-10-30T04:47:23Z"
+            },
+            {
+                "name": "v1.15.0",
+                "date": "2021-10-30T04:21:28Z"
+            },
+            {
+                "name": "v1.14.1",
+                "date": "2021-09-01T13:21:46Z"
+            },
+            {
+                "name": "v1.14.0",
+                "date": "2021-08-02T04:39:17Z"
+            },
+            {
+                "name": "v1.13.2",
+                "date": "2021-07-09T14:25:58Z"
+            },
+            {
+                "name": "v1.12.6",
+                "date": "2021-04-21T03:04:10Z"
+            },
+            {
+                "name": "v1.12.5 - WhatsApp Web v2.2106.5",
+                "date": "2021-02-25T04:55:29Z"
+            },
+            {
+                "name": "v1.12.4",
+                "date": "2021-02-11T22:51:37Z"
+            },
+            {
+                "name": "v1.12.3 - TS typedef fix for some users",
+                "date": "2021-02-09T19:54:48Z"
+            },
+            {
+                "name": "v1.12.2 - Fix download/send media on WhatsApp Web v2.2104.6",
+                "date": "2021-02-09T04:53:36Z"
+            },
+            {
+                "name": "v1.12.0",
+                "date": "2020-12-29T05:01:45Z"
+            },
+            {
+                "name": "v1.11.2",
+                "date": "2020-12-22T02:18:43Z"
+            },
+            {
+                "name": "v1.11.1 - WhatsApp Web v2.2047.10 compatibility",
+                "date": "2020-11-19T19:12:02Z"
+            },
+            {
+                "name": "v1.11.0 - WhatsApp Web v2.2045.15 compatibility, Contact features",
+                "date": "2020-11-05T06:23:06Z"
+            },
+            {
+                "name": "v1.10.0 - Send media fix, modify group settings, pin chats",
+                "date": "2020-10-21T19:29:42Z"
+            },
+            {
+                "name": "v1.9.0 - message_ack fix, chat mute timestamps",
+                "date": "2020-10-09T06:49:55Z"
+            },
+            {
+                "name": "v1.8.2",
+                "date": "2020-09-01T19:27:11Z"
+            },
+            {
+                "name": "v1.8.1 - Typescript fix",
+                "date": "2020-08-29T03:07:20Z"
+            },
+            {
+                "name": "v1.8.0",
+                "date": "2020-08-26T03:22:29Z"
+            },
+            {
+                "name": "v1.7.0",
+                "date": "2020-06-18T05:46:25Z"
+            },
+            {
+                "name": "v1.6.1 - WhatsApp v2.2023.2 compatibility",
+                "date": "2020-06-05T00:22:03Z"
+            },
+            {
+                "name": "v1.6.0",
+                "date": "2020-05-24T05:09:46Z"
+            },
+            {
+                "name": "v1.5.1 - Link previews fix",
+                "date": "2020-04-15T02:49:16Z"
+            },
+            {
+                "name": "v1.5.0 - Session takeover, link previews, send online status",
+                "date": "2020-04-11T23:59:24Z"
+            },
+            {
+                "name": "v1.4.1 - Fix sending media",
+                "date": "2020-04-11T19:03:45Z"
+            },
+            {
+                "name": "v1.4.0 - Create groups, listen for battery changes",
+                "date": "2020-04-06T03:43:46Z"
+            },
+            {
+                "name": "v1.3.1",
+                "date": "2020-04-02T06:35:13Z"
+            },
+            {
+                "name": "v1.3.0",
+                "date": "2020-03-30T03:57:28Z"
+            },
+            {
+                "name": "v1.2.5 - Fix for error thrown when trying to download nonexistent media",
+                "date": "2020-03-15T19:36:32Z"
+            },
+            {
+                "name": "v1.2.4 - Fix for downloading old media messages",
+                "date": "2020-03-14T21:45:28Z"
+            },
+            {
+                "name": "v1.2.3 - Performance issue fix part 2",
+                "date": "2020-03-13T21:52:03Z"
+            },
+            {
+                "name": "v1.2.2 - Performance issue fix",
+                "date": "2020-03-13T04:17:17Z"
+            },
+            {
+                "name": "v1.2.1 - Fix fetch messages",
+                "date": "2020-03-06T01:22:55Z"
+            },
+            {
+                "name": "v1.2.0 - Fetch chat messages, group events, state updates",
+                "date": "2020-03-01T19:13:04Z"
+            },
+            {
+                "name": "v1.1.0 - Delete chats/messages, detect message reads and more",
+                "date": "2020-02-27T03:49:36Z"
+            },
+            {
+                "name": "v1.0.2 - More stable connection",
+                "date": "2020-02-11T01:59:08Z"
+            },
+            {
+                "name": "v1.0.1 - Fix sending media",
+                "date": "2020-02-10T01:35:09Z"
+            },
+            {
+                "name": "v1.0.0 - We're stable!",
+                "date": "2020-02-09T05:16:17Z"
+            },
+            {
+                "name": "v0.3.2 - Hotfix",
+                "date": "2020-01-18T02:08:51Z"
+            },
+            {
+                "name": "v0.3.1 - Headless mode fix",
+                "date": "2019-12-04T07:02:53Z"
+            },
+            {
+                "name": "v0.3.0 - Download attachments (images, documents and more!)",
+                "date": "2019-11-24T08:29:55Z"
+            },
+            {
+                "name": "v0.2.0",
+                "date": "2019-10-11T02:10:59Z"
+            },
+            {
+                "name": "v0.1.2 - Fix WhatsApp Web Changes",
+                "date": "2019-05-30T04:01:53Z"
+            }
+        ]
+    }
+}

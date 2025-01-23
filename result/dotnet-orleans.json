@@ -1,0 +1,647 @@
+{
+    "https://api.github.com/repos/dotnet/orleans": {
+        "forks": 2046,
+        "watchers": 10197,
+        "stars": 10197,
+        "languages": {
+            "C#": 11743715,
+            "PLpgSQL": 46471,
+            "TSQL": 43259,
+            "PLSQL": 20518,
+            "HTML": 16225,
+            "F#": 11866,
+            "PowerShell": 6069,
+            "CSS": 2910,
+            "Shell": 2686,
+            "Batchfile": 2546,
+            "Smalltalk": 1436,
+            "JavaScript": 938,
+            "Dockerfile": 780
+        },
+        "commits": [
+            "2025-01-16T19:27:37Z",
+            "2025-01-08T17:24:05Z",
+            "2025-01-04T20:00:12Z",
+            "2024-12-05T01:32:50Z",
+            "2024-12-02T23:37:43Z",
+            "2024-11-26T16:59:54Z",
+            "2024-11-26T00:22:44Z",
+            "2024-11-22T22:18:33Z",
+            "2024-11-18T03:43:04Z",
+            "2024-11-14T16:04:26Z",
+            "2024-11-14T15:00:33Z",
+            "2024-11-14T14:32:45Z",
+            "2024-11-14T14:31:57Z",
+            "2024-11-12T20:17:10Z",
+            "2024-11-12T19:52:33Z",
+            "2024-11-12T16:03:28Z",
+            "2024-11-12T15:43:26Z",
+            "2024-11-07T21:07:41Z",
+            "2024-11-05T15:56:14Z",
+            "2024-11-02T02:24:58Z",
+            "2024-11-02T01:35:02Z",
+            "2024-11-02T01:09:35Z",
+            "2024-11-02T00:15:23Z",
+            "2024-10-30T08:16:16Z",
+            "2024-10-22T14:38:51Z",
+            "2024-10-21T18:14:35Z",
+            "2024-10-20T19:11:19Z",
+            "2024-10-18T17:46:14Z",
+            "2024-10-16T19:29:36Z",
+            "2024-10-16T18:52:11Z"
+        ],
+        "creation_date": "2014-12-19T14:32:50Z",
+        "contributors": 30,
+        "topics": [
+            "actor-model",
+            "actors",
+            "cloud-computing",
+            "cloud-native",
+            "concurrency",
+            "distributed-actors",
+            "distributed-systems",
+            "dotnet",
+            "orleans"
+        ],
+        "subscribers": 501,
+        "readme": "<p align=\"center\">\n  <image src=\"https://raw.githubusercontent.com/dotnet/orleans/gh-pages/assets/logo_full.png\" alt=\"Orleans logo\" width=\"600px\">\n</p>\n\n[![NuGet](https://img.shields.io/nuget/v/Microsoft.Orleans.Core.svg?style=flat)](http://www.nuget.org/profiles/Orleans)\n[![Follow on Twitter](https://img.shields.io/twitter/follow/msftorleans.svg?style=social&logo=twitter)](https://twitter.com/intent/follow?screen_name=msftorleans)\n\n[![Discord](https://discordapp.com/api/guilds/333727978460676096/widget.png?style=banner2)](https://aka.ms/orleans-discord)\n\n### Orleans is a cross-platform framework for building robust, scalable distributed applications\n\nOrleans builds on the developer productivity of .NET and brings it to the world of distributed applications, such as cloud services. Orleans scales from a single on-premises server to globally distributed, highly-available applications in the cloud.\n\nOrleans takes familiar concepts like objects, interfaces, async/await, and try/catch and extends them to multi-server environments. As such, it helps developers experienced with single-server applications transition to building resilient, scalable cloud services and other distributed applications. For this reason, Orleans has often been referred to as \"Distributed .NET\".\n\nIt was created by [Microsoft Research](http://research.microsoft.com/projects/orleans/) and introduced the [Virtual Actor Model](http://research.microsoft.com/apps/pubs/default.aspx?id=210931) as a novel approach to building a new generation of distributed systems for the Cloud era. The core contribution of Orleans is its programming model which tames the complexity inherent to highly-parallel distributed systems without restricting capabilities or imposing onerous constraints on the developer.\n\n## Grains\n\n![A grain is composed of a stable identity, behavior, and state](assets/grain_formulation.svg)\n\nThe fundamental building block in any Orleans application is a *grain*. Grains are entities comprising user-defined identity, behavior, and state. Grain identities are user-defined keys which make Grains always available for invocation. Grains can be invoked by other grains or by external clients such as Web frontends, via strongly-typed communication interfaces (contracts). Each grain is an instance of a class which implements one or more of these interfaces.\n\nGrains can have volatile and/or persistent state that can be stored in any storage system. As such, grains implicitly partition application state, enabling automatic scalability and simplifying recovery from failures. Grain state is kept in memory while the grain is active, leading to lower latency and less load on data stores.\n\n<p align=\"center\">\n  <image src=\"assets/managed_lifecycle.svg\" alt=\"A diagram showing the managed lifecycle of a grain\">\n</p>\n\nInstantiation of grains is automatically performed on demand by the Orleans runtime. Grains which are not used for a while are automatically removed from memory to free up resources. This is possible because of their stable identity, which allows invoking grains whether they are already loaded into memory or not. This also allows for transparent recovery from failure because the caller does not need to know on which server a grain is instantiated on at any point in time. Grains have a managed lifecycle, with the Orleans runtime responsible for activating/deactivating, and placing/locating grains as needed. This allows the developer to write code as if all grains were always in-memory.\n\nTaken together, the stable identity, statefulness, and managed lifecycle of Grains are core factors that make systems built on Orleans scalable, performant, &amp; reliable without forcing developers to write complex distributed systems code.\n\n### Example: IoT cloud backend\n\nConsider a cloud backend for an [Internet of Things](https://en.wikipedia.org/wiki/Internet_of_things) system. This application needs to process incoming device data, filter, aggregate, and process this information, and enable sending commands to devices. In Orleans, it is natural to model each device with a grain which becomes a *digital twin* of the physical device it corresponds to. These grains keep the latest device data in memory, so that they can be quickly queried and processed without the need to communicate with the physical device directly. By observing streams of time-series data from the device, the grain can detect changes in conditions, such as measurements exceeding a threshold, and trigger an action.\n\nA simple thermostat could be modeled as follows:\n\n```csharp\npublic interface IThermostat : IGrainWithStringKey\n{\n    Task<List<Command>> OnUpdate(ThermostatStatus update);\n}\n```\n\nEvents arriving from the thermostat from a Web frontend can be sent to its grain by invoking the `OnUpdate` method which optionally returns a command back to the device.\n\n```csharp\nvar thermostat = client.GetGrain<IThermostat>(id);\nreturn await thermostat.OnUpdate(update);\n```\n\nThe same thermostat grain can implement a separate interface for control systems to interact with:\n\n```csharp\npublic interface IThermostatControl : IGrainWithStringKey\n{\n    Task<ThermostatStatus> GetStatus();\n\n    Task UpdateConfiguration(ThermostatConfiguration config);\n}\n```\n\nThese two interfaces (`IThermostat` and `IThermostatControl`) are implemented by a single implementation class:\n\n```csharp\npublic class ThermostatGrain : Grain, IThermostat, IThermostatControl\n{\n    private ThermostatStatus _status;\n    private List<Command> _commands;\n\n    public Task<List<Command>> OnUpdate(ThermostatStatus status)\n    {\n        _status = status;\n        var result = _commands;\n        _commands = new List<Command>();\n        return Task.FromResult(result);\n    }\n    \n    public Task<ThermostatStatus> GetStatus() => Task.FromResult(_status);\n    \n    public Task UpdateConfiguration(ThermostatConfiguration config)\n    {\n        _commands.Add(new ConfigUpdateCommand(config));\n        return Task.CompletedTask;\n    }\n}\n```\n\nThe `Grain` class above does not persist its state. A more thorough example demonstrating state persistence is available in the docs, for more information see [Microsoft Orleans: Grain Persistence](https://docs.microsoft.com/dotnet/orleans/grains/grain-persistence).\n\n## Orleans runtime\n\nThe Orleans runtime is what implements the programming model for applications. The main component of the runtime is the *silo*, which is responsible for hosting grains. Typically, a group of silos run as a cluster for scalability and fault-tolerance. When run as a cluster, silos coordinate with each other to distribute work, detect and recover from failures. The runtime enables grains hosted in the cluster to communicate with each other as if they are within a single process.\n\nIn addition to the core programming model, the silo provides grains with a set of runtime services, such as timers, reminders (persistent timers), persistence, transactions, streams, and more. See the [features section](#features) below for more detail.\n\nWeb frontends and other external clients call grains in the cluster using the client library which automatically manages network communication. Clients can also be co-hosted in the same process with silos for simplicity.\n\nOrleans is compatible with .NET Standard 2.0 and above, running on Windows, Linux, and macOS, in full .NET Framework or .NET Core.\n\n## Features\n\nOrleans is a feature-rich framework. It provides a set of services that enable the development of distributed systems. The following sections describe the features of Orleans.\n\n### Persistence\n\nOrleans provides a simple persistence model which ensures that state is available to a grain before requests are processed and that consistency is maintained. Grains can have multiple named persistent data objects, for example, one called \"profile\" for a user's profile and one called \"inventory\" for their inventory. This state can be stored in any storage system. For example, profile data may be stored in one database and inventory in another. While a grain is running, this state is kept in memory so that read requests can be served without accessing storage. When the grain updates its state, a `state.WriteStateAsync()` call ensures that the backing store is updated for durability and consistency. For more information see [Microsoft Orleans: Grain Persistence](https://docs.microsoft.com/dotnet/orleans/grains/grain-persistence).\n\n### Distributed ACID transactions\n\nIn addition to the simple persistence model described above, grains can have *transactional state*. Multiple grains can participate in [ACID](https://en.wikipedia.org/wiki/ACID) transactions together regardless of where their state is ultimately stored. Transactions in Orleans are distributed and decentralized (there is no central transaction manager or transaction coordinator) and have [serializable isolation](https://en.wikipedia.org/wiki/Isolation_(database_systems)#Isolation_levels). For more information, see the [Microsoft Orleans: Transactions](https://docs.microsoft.com/dotnet/orleans/grains/transactions).\n\n### Streams\n\nStreams help developers to process series of data items in near-real time. Streams in Orleans are *managed*: streams do not need to be created or registered before a grain or client publishes to a stream or subscribes to a stream. This allows for greater decoupling of stream producers and consumers from each other and from the infrastructure. Stream processing is reliable: grains can store checkpoints (cursors) and reset to a stored checkpoint during activation or at any point afterwards.\n\nStreams supports batch delivery of messages to consumers to improve efficiency and recovery performance.\nStreams are backed by queueing services such as Azure Event Hubs, Amazon Kinesis, and others. An arbitrary number of streams can be multiplexed onto a smaller number of queues and the responsibility for processing these queues is balanced evenly across the cluster.\n\n### Timers &amp; reminders\n\nReminders are a durable scheduling mechanism for grains. They can be used to ensure that some action is completed at a future point even if the grain is not currently activated at that time. Timers are the non-durable counterpart to reminders and can be used for high-frequency events which do not require reliability. For more information, see [Microsoft Orleans: Timers and reminders](https://docs.microsoft.com/dotnet/orleans/grains/timers-and-reminders).\n\n### Flexible grain placement\n\nWhen a grain is activated in Orleans, the runtime decides which server (silo) to activate that grain on. This is called grain placement. The placement process in Orleans is fully configurable: developers can choose from a set of out-of-the-box placement policies such as random, prefer-local, and load-based, or custom logic can be configured. This allows for full flexibility in deciding where grains are created. For example, grains can be placed on a server close to resources which they need to operate on or other grains which they communicate with.\n\n### Grain versioning &amp; heterogeneous clusters\n\nApplication code evolves over time and upgrading live, production systems in a manner which safely accounts for these changes can be challenging, particularly in stateful systems. Grain interfaces in Orleans can be optionally versioned. The cluster maintains a mapping of which grain implementations are available on which silos in the cluster and the versions of those implementations. This version information is used by the runtime in conjunction with placement strategies to make placement decisions when routing calls to grains. In addition to safe update of versioned grains, this also enables heterogeneous clusters, where different silos have different sets of grain implementations available. For more information, see [Microsoft Orleans: Grain interface versioning](https://docs.microsoft.com/dotnet/orleans/grains/grain-versioning/grain-versioning).\n\n### Elastic scalability &amp; fault tolerance\n\nOrleans is designed to scale elastically. When a silo joins a cluster it is able to accept new activations and when a silo leaves the cluster (either because of scale down or a machine failure) the grains which were activated on that silo will be re-activated on remaining silos as needed. An Orleans cluster can be scaled down to a single silo. The same properties which enable elastic scalability also enable fault tolerance: the cluster automatically detects and quickly recovers from failures.\n\n### Run anywhere\n\nOrleans runs anywhere that .NET Core or .NET Framework are supported. This includes hosting on Linux, Windows, and macOS and deploying to Kubernetes, virtual or physical machines, on premises or in the cloud, and PaaS services such as Azure Cloud Services.\n\n### Stateless workers\n\nStateless workers are specially marked grains which do not have any associated state and can be activated on multiple silos simultaneously. This enables increased parallelism for stateless functions. For more information, see [Microsoft Orleans: Stateless worker grains](https://docs.microsoft.com/dotnet/orleans/grains/stateless-worker-grains) documentation.\n\n### Grain call filters\n\nLogic which is common to many grains can be expressed as [an interceptor, or Grain call filter](https://docs.microsoft.com/dotnet/orleans/grains/interceptors). Orleans supports filters for both incoming and outgoing calls. Some common use-cases of filters are: authorization, logging and telemetry, and error handling.\n\n### Request context\n\nMetadata and other information can be passed along a series of requests using [request context](https://docs.microsoft.com/dotnet/orleans/grains/request-context). Request context can be used for holding distributed tracing information or any other user-defined values.\n\n## Documentation\n\nThe official documentation for Microsoft Orleans is available at <https://docs.microsoft.com/dotnet/orleans>.\n\n## [Samples](./samples/#readme)\n\nA variety of samples are available in the official [.NET Samples Browser](https://docs.microsoft.com/samples/browse/?terms=orleans).\n\n## Get started\n\nPlease see the [getting started tutorial](https://docs.microsoft.com/dotnet/orleans/tutorials-and-samples/tutorial-1).\n\n### Building\n\nOn Windows, run the `build.cmd` script to build the NuGet packages locally, then reference the required NuGet packages from `/Artifacts/Release/*`.\nYou can run `Test.cmd` to run all BVT tests, and `TestAll.cmd` to also run Functional tests.\n\nOn Linux and macOS, run `dotnet build` to build Orleans.\n\n## Official builds\n\nThe latest stable, production-quality release is located [here](https://github.com/dotnet/orleans/releases/latest).\n\nNightly builds are published to [a NuGet feed](https://pkgs.dev.azure.com/dnceng/public/_packaging/orleans-nightly/nuget/v3/index.json). These builds pass all functional tests, but are not thoroughly tested as the stable builds or pre-release builds published to NuGet.\n\n<details>\n<summary>\nUsing the nightly build packages in your project\n</summary>\n\nTo use nightly builds in your project, add the MyGet feed using either of the following methods:\n\n1. Changing the .csproj file to include this section:\n\n```xml\n<ItemGroup>\n  <RestoreSources>\n    $(RestoreSources);\n    https://pkgs.dev.azure.com/dnceng/public/_packaging/orleans-nightly/nuget/v3/index.json\n  </RestoreSources>\n</ItemGroup>\n```\n\nor\n\n1. Creating a `NuGet.config` file in the solution directory with the following contents:\n\n```xml\n<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<configuration>\n  <packageSources>\n    <clear /> \n    <add key=\"orleans-nightly\" value=\"https://pkgs.dev.azure.com/dnceng/public/_packaging/orleans-nightly/nuget/v3/index.json\" />\n    <add key=\"nuget\" value=\"https://api.nuget.org/v3/index.json\" />\n  </packageSources>\n</configuration>\n```\n\n</details>\n\n## Community\n\n[![Discord](https://discordapp.com/api/guilds/333727978460676096/widget.png?style=banner4)](https://aka.ms/orleans-discord)\n    \n* Ask questions by [opening an issue on GitHub](https://github.com/dotnet/orleans/issues) or on [Stack Overflow](https://stackoverflow.com/questions/ask?tags=orleans)\n* [Chat on Discord](https://aka.ms/orleans-discord)\n* Follow the [@msftorleans](https://twitter.com/msftorleans) Twitter account for Orleans announcements.\n* [OrleansContrib - GitHub organization for community add-ons to Orleans](https://github.com/OrleansContrib/) Various community projects, including Monitoring, Design Patterns, Storage Providers, etc.\n* Guidelines for developers wanting to [contribute code changes to Orleans](CONTRIBUTING.md).\n* You are also encouraged to report bugs or start a technical discussion by starting a new [thread](https://github.com/dotnet/orleans/issues) on GitHub.\n\n## License\n\nThis project is licensed under the [MIT license](LICENSE).\n\n## Quick links\n\n* [Microsoft Research project home](http://research.microsoft.com/projects/orleans/)\n* Technical Report: [Distributed Virtual Actors for Programmability and Scalability](http://research.microsoft.com/apps/pubs/default.aspx?id=210931)\n* [Microsoft Orleans: Documentation](https://docs.microsoft.com/dotnet/orleans/)\n* [Contributing](CONTRIBUTING.md)\n",
+        "releases": [
+            {
+                "name": "v9.0.1",
+                "date": "2024-11-23T17:30:27Z"
+            },
+            {
+                "name": "v9.0.0",
+                "date": "2024-11-14T19:07:34Z"
+            },
+            {
+                "name": "v7.2.7",
+                "date": "2024-10-15T23:00:36Z"
+            },
+            {
+                "name": "v8.2.0",
+                "date": "2024-07-12T21:54:17Z"
+            },
+            {
+                "name": "v8.2.0-preview1",
+                "date": "2024-05-22T23:40:09Z"
+            },
+            {
+                "name": "v3.7.2",
+                "date": "2024-05-10T18:45:07Z"
+            },
+            {
+                "name": "v8.1.0",
+                "date": "2024-04-17T16:29:30Z"
+            },
+            {
+                "name": "v7.2.6",
+                "date": "2024-03-10T18:45:43Z"
+            },
+            {
+                "name": "v8.1.0-preview3",
+                "date": "2024-03-11T16:11:38Z"
+            },
+            {
+                "name": "v8.1.0-preview2",
+                "date": "2024-02-23T00:46:30Z"
+            },
+            {
+                "name": "v7.2.5",
+                "date": "2024-02-22T23:51:42Z"
+            },
+            {
+                "name": "v8.1.0-preview1",
+                "date": "2024-02-13T15:58:57Z"
+            },
+            {
+                "name": "v8.0.0",
+                "date": "2024-01-05T20:28:07Z"
+            },
+            {
+                "name": "v8.0.0-rc2",
+                "date": "2023-12-20T20:36:59Z"
+            },
+            {
+                "name": "v8.0.0-rc1",
+                "date": "2023-12-04T19:48:58Z"
+            },
+            {
+                "name": "v7.2.4",
+                "date": "2023-12-02T08:09:06Z"
+            },
+            {
+                "name": "v7.2.3",
+                "date": "2023-11-03T20:35:16Z"
+            },
+            {
+                "name": "v7.2.2",
+                "date": "2023-10-16T17:45:52Z"
+            },
+            {
+                "name": "v7.2.1",
+                "date": "2023-07-11T15:18:53Z"
+            },
+            {
+                "name": "v7.2.0",
+                "date": "2023-07-07T16:58:41Z"
+            },
+            {
+                "name": "v3.7.1",
+                "date": "2023-05-27T16:06:33Z"
+            },
+            {
+                "name": "v7.1.2",
+                "date": "2023-04-19T22:28:55Z"
+            },
+            {
+                "name": "v3.7.0",
+                "date": "2023-03-23T20:31:07Z"
+            },
+            {
+                "name": "v7.1.1",
+                "date": "2023-03-23T20:34:14Z"
+            },
+            {
+                "name": "v7.1.0",
+                "date": "2023-02-01T20:52:00Z"
+            },
+            {
+                "name": "v7.0.0",
+                "date": "2022-11-08T18:48:33Z"
+            },
+            {
+                "name": "v7.0.0-rc2",
+                "date": "2022-10-19T18:26:56Z"
+            },
+            {
+                "name": "v3.6.5",
+                "date": "2022-08-15T15:45:47Z"
+            },
+            {
+                "name": "v3.6.4",
+                "date": "2022-08-10T17:48:08Z"
+            },
+            {
+                "name": "v4.0.0-preview2",
+                "date": "2022-08-04T21:44:17Z"
+            },
+            {
+                "name": "v3.6.3",
+                "date": "2022-08-04T22:20:46Z"
+            },
+            {
+                "name": "v3.6.2",
+                "date": "2022-04-15T21:51:49Z"
+            },
+            {
+                "name": "v3.6.1",
+                "date": "2022-04-05T15:48:34Z"
+            },
+            {
+                "name": "v4.0.0-preview1",
+                "date": "2022-02-16T00:02:16Z"
+            },
+            {
+                "name": "v3.6.0",
+                "date": "2022-01-20T16:59:04Z"
+            },
+            {
+                "name": "v3.5.1",
+                "date": "2021-11-08T17:18:13Z"
+            },
+            {
+                "name": "v3.4.4",
+                "date": "2021-10-04T16:01:10Z"
+            },
+            {
+                "name": "v3.5.0",
+                "date": "2021-09-03T13:42:30Z"
+            },
+            {
+                "name": "v3.4.3",
+                "date": "2021-08-24T14:28:30Z"
+            },
+            {
+                "name": "v3.4.2",
+                "date": "2021-04-05T17:54:01Z"
+            },
+            {
+                "name": "v3.4.1",
+                "date": "2021-02-03T20:43:26Z"
+            },
+            {
+                "name": "v3.4.0",
+                "date": "2021-01-06T20:27:55Z"
+            },
+            {
+                "name": "v3.4.0 RC1",
+                "date": "2020-12-10T00:22:42Z"
+            },
+            {
+                "name": "v3.3.0",
+                "date": "2020-09-09T20:34:04Z"
+            },
+            {
+                "name": "v3.3.0-rc2",
+                "date": "2020-09-03T00:20:11Z"
+            },
+            {
+                "name": "v3.3.0-rc1",
+                "date": "2020-08-19T18:25:05Z"
+            },
+            {
+                "name": "v3.2.2",
+                "date": "2020-07-22T23:07:11Z"
+            },
+            {
+                "name": "v3.2.1",
+                "date": "2020-07-06T19:09:30Z"
+            },
+            {
+                "name": "v3.2.0",
+                "date": "2020-06-05T00:01:16Z"
+            },
+            {
+                "name": "v3.2.0-rc2",
+                "date": "2020-05-20T01:11:40Z"
+            },
+            {
+                "name": "v3.1.7",
+                "date": "2020-05-19T21:43:25Z"
+            },
+            {
+                "name": "v3.2.0-rc1",
+                "date": "2020-05-08T00:51:05Z"
+            },
+            {
+                "name": "v3.1.6",
+                "date": "2020-04-16T18:52:38Z"
+            },
+            {
+                "name": "v3.1.5",
+                "date": "2020-04-09T19:27:29Z"
+            },
+            {
+                "name": "v3.1.4",
+                "date": "2020-03-26T20:18:27Z"
+            },
+            {
+                "name": "v3.1.3",
+                "date": "2020-03-18T16:18:04Z"
+            },
+            {
+                "name": "v3.1.2",
+                "date": "2020-03-05T01:38:14Z"
+            },
+            {
+                "name": "v3.1.0",
+                "date": "2020-02-23T23:23:49Z"
+            },
+            {
+                "name": "v3.1.0-rc3",
+                "date": "2020-02-13T04:41:50Z"
+            },
+            {
+                "name": "v3.1.0-rc2",
+                "date": "2020-02-12T04:21:31Z"
+            },
+            {
+                "name": "v3.1.0-rc1",
+                "date": "2020-02-11T00:42:57Z"
+            },
+            {
+                "name": "v2.4.5",
+                "date": "2019-12-29T04:16:45Z"
+            },
+            {
+                "name": "v3.0.2",
+                "date": "2019-12-12T00:26:43Z"
+            },
+            {
+                "name": "v3.0.1",
+                "date": "2019-11-27T21:02:56Z"
+            },
+            {
+                "name": "v2.4.4",
+                "date": "2019-11-27T19:32:16Z"
+            },
+            {
+                "name": "v3.0.0",
+                "date": "2019-10-26T00:18:22Z"
+            },
+            {
+                "name": "v3.0.0-rc2",
+                "date": "2019-10-16T15:52:33Z"
+            },
+            {
+                "name": "v2.4.3",
+                "date": "2019-10-10T03:45:16Z"
+            },
+            {
+                "name": "v1.5.10",
+                "date": "2019-10-10T18:05:33Z"
+            },
+            {
+                "name": "v3.0.0-rc1",
+                "date": "2019-10-09T16:07:29Z"
+            },
+            {
+                "name": "v1.5.9",
+                "date": "2019-09-03T16:15:04Z"
+            },
+            {
+                "name": "v2.4.2",
+                "date": "2019-09-03T16:13:14Z"
+            },
+            {
+                "name": "v3.0.0-beta1",
+                "date": "2019-08-18T23:58:58Z"
+            },
+            {
+                "name": "v2.4.1",
+                "date": "2019-08-14T17:03:56Z"
+            },
+            {
+                "name": "v2.4.0",
+                "date": "2019-08-08T17:55:41Z"
+            },
+            {
+                "name": "v2.3.6",
+                "date": "2019-07-24T15:49:03Z"
+            },
+            {
+                "name": "v2.3.5",
+                "date": "2019-06-14T18:17:07Z"
+            },
+            {
+                "name": "v2.3.4",
+                "date": "2019-06-04T04:39:38Z"
+            },
+            {
+                "name": "v2.3.3",
+                "date": "2019-06-02T03:18:55Z"
+            },
+            {
+                "name": "v1.5.8",
+                "date": "2019-05-31T03:06:27Z"
+            },
+            {
+                "name": "v2.3.2",
+                "date": "2019-05-09T16:03:07Z"
+            },
+            {
+                "name": "v2.3.1",
+                "date": "2019-04-26T20:24:28Z"
+            },
+            {
+                "name": "v2.3.0",
+                "date": "2019-03-20T19:46:15Z"
+            },
+            {
+                "name": "v2.3.0-rc2",
+                "date": "2019-03-14T01:26:08Z"
+            },
+            {
+                "name": "v2.3.0-rc1",
+                "date": "2019-03-05T21:58:57Z"
+            },
+            {
+                "name": "v1.5.7",
+                "date": "2019-02-28T17:20:13Z"
+            },
+            {
+                "name": "v2.2.4",
+                "date": "2019-02-25T03:50:50Z"
+            },
+            {
+                "name": "v.2.2.3",
+                "date": "2019-01-18T02:29:00Z"
+            },
+            {
+                "name": "v2.2.2",
+                "date": "2019-01-10T18:55:08Z"
+            },
+            {
+                "name": "v2.2.1",
+                "date": "2019-01-04T18:42:24Z"
+            },
+            {
+                "name": "v2.2.0",
+                "date": "2018-12-13T19:05:47Z"
+            },
+            {
+                "name": "v2.2.0-rc1",
+                "date": "2018-12-05T00:39:15Z"
+            },
+            {
+                "name": "v2.2.0-beta1",
+                "date": "2018-10-22T16:24:01Z"
+            },
+            {
+                "name": "v2.1.2",
+                "date": "2018-10-11T02:13:04Z"
+            },
+            {
+                "name": "v2.1.1",
+                "date": "2018-10-03T16:10:11Z"
+            },
+            {
+                "name": "v2.1.0",
+                "date": "2018-09-28T18:17:36Z"
+            },
+            {
+                "name": "v1.5.6",
+                "date": "2018-09-28T02:47:12Z"
+            },
+            {
+                "name": "v2.1.0-rc2",
+                "date": "2018-09-21T21:37:30Z"
+            },
+            {
+                "name": "v2.1.0-rc1",
+                "date": "2018-09-14T18:42:27Z"
+            },
+            {
+                "name": "v1.5.5",
+                "date": "2018-09-08T00:36:20Z"
+            },
+            {
+                "name": "v2.0.5",
+                "date": "2018-08-29T17:51:53Z"
+            },
+            {
+                "name": "v2.1.0-beta1",
+                "date": "2018-08-28T23:16:31Z"
+            },
+            {
+                "name": "v2.0.4",
+                "date": "2018-08-07T21:54:36Z"
+            },
+            {
+                "name": "v1.5.4",
+                "date": "2018-06-13T21:01:01Z"
+            },
+            {
+                "name": "v2.0.3",
+                "date": "2018-05-14T20:18:14Z"
+            },
+            {
+                "name": "v2.0.0",
+                "date": "2018-03-28T18:26:58Z"
+            },
+            {
+                "name": "v2.0.0-rc2",
+                "date": "2018-03-13T03:15:48Z"
+            },
+            {
+                "name": "v2.0.0-rc1",
+                "date": "2018-02-27T19:26:04Z"
+            },
+            {
+                "name": "v2.0.0-beta3",
+                "date": "2017-12-21T21:17:04Z"
+            },
+            {
+                "name": "v2.0.0-beta2",
+                "date": "2017-12-12T22:48:49Z"
+            },
+            {
+                "name": "v1.5.3",
+                "date": "2017-12-09T01:05:07Z"
+            },
+            {
+                "name": "v2.0.0-beta1",
+                "date": "2017-10-26T23:19:43Z"
+            },
+            {
+                "name": "v1.5.2",
+                "date": "2017-10-17T19:23:35Z"
+            },
+            {
+                "name": "v1.5.1",
+                "date": "2017-08-28T22:23:31Z"
+            },
+            {
+                "name": "v1.5.0",
+                "date": "2017-07-06T21:23:31Z"
+            },
+            {
+                "name": "v1.5.0-RC",
+                "date": "2017-06-21T17:12:18Z"
+            },
+            {
+                "name": "v1.4.2",
+                "date": "2017-06-09T18:27:11Z"
+            },
+            {
+                "name": "v1.5.0-beta1",
+                "date": "2017-04-29T00:39:31Z"
+            },
+            {
+                "name": "v1.4.1",
+                "date": "2017-03-28T22:25:59Z"
+            },
+            {
+                "name": "v1.4.0",
+                "date": "2017-02-21T23:17:17Z"
+            },
+            {
+                "name": "v1.4.0-beta",
+                "date": "2017-02-01T23:41:01Z"
+            },
+            {
+                "name": "v1.3.1",
+                "date": "2016-11-15T22:32:13Z"
+            },
+            {
+                "name": "v1.3.0",
+                "date": "2016-10-12T15:31:10Z"
+            },
+            {
+                "name": "v1.2.4",
+                "date": "2016-10-05T22:25:24Z"
+            },
+            {
+                "name": "v1.3.0-beta2",
+                "date": "2016-09-27T21:06:16Z"
+            },
+            {
+                "name": "v1.3.0-beta1",
+                "date": "2016-07-30T00:33:50Z"
+            },
+            {
+                "name": "v1.2.3",
+                "date": "2016-07-12T18:47:20Z"
+            },
+            {
+                "name": "v1.2.2",
+                "date": "2016-06-14T20:22:19Z"
+            },
+            {
+                "name": "v1.2.1",
+                "date": "2016-05-18T21:51:16Z"
+            },
+            {
+                "name": "v1.2.0",
+                "date": "2016-05-02T23:48:09Z"
+            },
+            {
+                "name": "v1.2.0-beta",
+                "date": "2016-04-19T04:10:08Z"
+            },
+            {
+                "name": "v1.1.3",
+                "date": "2016-03-09T19:28:30Z"
+            },
+            {
+                "name": "v1.1.2",
+                "date": "2016-01-20T05:41:11Z"
+            },
+            {
+                "name": "v1.1.1",
+                "date": "2016-01-11T16:25:02Z"
+            },
+            {
+                "name": "v1.1.0",
+                "date": "2015-12-14T23:06:19Z"
+            },
+            {
+                "name": "v1.1.0-beta2",
+                "date": "2015-12-03T19:00:16Z"
+            },
+            {
+                "name": "v1.1.0-beta1",
+                "date": "2015-11-03T23:56:25Z"
+            },
+            {
+                "name": "v1.0.10",
+                "date": "2015-09-22T21:21:15Z"
+            },
+            {
+                "name": "v1.0.9",
+                "date": "2015-07-16T01:21:44Z"
+            },
+            {
+                "name": "v1.0.8",
+                "date": "2015-05-27T16:49:52Z"
+            },
+            {
+                "name": "v1.0.7",
+                "date": "2015-05-15T21:33:16Z"
+            },
+            {
+                "name": "v1.0.5",
+                "date": "2015-03-20T23:31:31Z"
+            },
+            {
+                "name": "v1.0.0 updated to include Newtonsoft.Json.dll",
+                "date": "2015-02-09T21:24:32Z"
+            },
+            {
+                "name": "v1.0.0",
+                "date": "2015-02-06T18:41:37Z"
+            }
+        ]
+    }
+}

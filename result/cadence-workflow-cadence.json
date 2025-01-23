@@ -1,0 +1,408 @@
+{
+    "https://api.github.com/repos/uber/cadence": {
+        "forks": 809,
+        "watchers": 8439,
+        "stars": 8439,
+        "languages": {
+            "Go": 19336561,
+            "Makefile": 40196,
+            "Shell": 32187,
+            "Dockerfile": 5015
+        },
+        "commits": [
+            "2025-01-21T12:09:29Z",
+            "2025-01-16T22:23:46Z",
+            "2025-01-16T20:58:38Z",
+            "2025-01-16T20:55:08Z",
+            "2025-01-16T19:29:29Z",
+            "2025-01-16T18:33:44Z",
+            "2025-01-16T12:34:59Z",
+            "2025-01-15T22:38:28Z",
+            "2025-01-15T21:21:52Z",
+            "2025-01-15T12:34:04Z",
+            "2025-01-15T11:34:00Z",
+            "2025-01-15T10:21:51Z",
+            "2025-01-15T08:08:33Z",
+            "2025-01-14T22:05:17Z",
+            "2025-01-14T14:05:57Z",
+            "2025-01-14T08:40:02Z",
+            "2025-01-13T17:34:50Z",
+            "2025-01-11T01:01:37Z",
+            "2025-01-10T23:15:50Z",
+            "2025-01-10T22:06:28Z",
+            "2025-01-10T21:52:50Z",
+            "2025-01-10T21:50:34Z",
+            "2025-01-10T15:06:29Z",
+            "2025-01-10T01:58:36Z",
+            "2025-01-10T00:39:44Z",
+            "2025-01-09T23:25:14Z",
+            "2025-01-09T07:43:47Z",
+            "2025-01-08T21:23:04Z",
+            "2025-01-08T18:03:03Z",
+            "2025-01-08T17:31:54Z"
+        ],
+        "creation_date": "2017-02-21T16:10:18Z",
+        "contributors": 30,
+        "topics": [
+            "cadence",
+            "distributed-systems",
+            "golang",
+            "java",
+            "orchestration-engine",
+            "service-bus",
+            "service-fabric",
+            "services-platform",
+            "uber",
+            "workflow-automation",
+            "workflows"
+        ],
+        "subscribers": 1445,
+        "readme": "# Cadence\n[![Build Status](https://badge.buildkite.com/159887afd42000f11126f85237317d4090de97b26c287ebc40.svg?theme=github&branch=master)](https://buildkite.com/uberopensource/cadence-server)\n[![Coverage](https://codecov.io/gh/cadence-workflow/cadence/graph/badge.svg?token=7SD244ImNF)](https://codecov.io/gh/cadence-workflow/cadence)\n[![Slack Status](https://img.shields.io/badge/slack-join_chat-white.svg?logo=slack&style=social)](http://t.uber.com/cadence-slack)\n[![Github release](https://img.shields.io/github/v/release/cadence-workflow/cadence.svg)](https://github.com/cadence-workflow/cadence/releases)\n[![License](https://img.shields.io/github/license/cadence-workflow/cadence.svg)](http://www.apache.org/licenses/LICENSE-2.0)\n\nCadence Workflow is an open-source platform since 2017 for building and running scalable, fault-tolerant, and long-running workflows. This repository contains the core orchestration engine and tools including CLI, schema managment, benchmark and canary.\n\n\n## Getting Started\n\nCadence backend consists of multiple services, a database (Cassandra/MySQL/PostgreSQL) and optionally Kafka+Elasticsearch.\nAs a user, you need a worker which contains your workflow implementation.\nOnce you have Cadence backend and worker(s) running, you can trigger workflows by using SDKs or via CLI.\n\n1. Start cadence backend components locally\n\n```\ndocker-compose -f docker/docker-compose.yml up\n```\n\n2. Run the Samples\n\nTry out the sample recipes for [Go](https://github.com/cadence-workflow/cadence-samples) or [Java](https://github.com/cadence-workflow/cadence-java-samples).\n\n3. Visit UI\n\nVisit http://localhost:8080 to check workflow histories and detailed traces.\n\n\n### Client Libraries\nYou can implement your workflows with one of our client libraries:\n- [Official Cadence Go SDK](https://github.com/cadence-workflow/cadence-go-client)\n- [Official Cadence Java SDK](https://github.com/cadence-workflow/cadence-java-client)\nThere are also unofficial [Python](https://github.com/firdaus/cadence-python) and [Ruby](https://github.com/coinbase/cadence-ruby) SDKs developed by the community.\n\nYou can also use [iWF](https://github.com/indeedeng/iwf) as a DSL framework on top of Cadence.\n\n### CLI\n\nCadence CLI can be used to operate workflows, tasklist, domain and even the clusters.\n\nYou can use the following ways to install Cadence CLI:\n* Use brew to install CLI: `brew install cadence-workflow`\n  * Follow the [instructions](https://github.com/cadence-workflow/cadence/discussions/4457) if you need to install older versions of CLI via homebrew. Usually this is only needed when you are running a server of a too old version.\n* Use docker image for CLI: `docker run --rm ubercadence/cli:<releaseVersion>`  or `docker run --rm ubercadence/cli:master ` . Be sure to update your image when you want to try new features: `docker pull ubercadence/cli:master `\n* Build the CLI binary yourself, check out the repo and run `make cadence` to build all tools. See [CONTRIBUTING](CONTRIBUTING.md) for prerequisite of make command.\n* Build the CLI image yourself, see [instructions](docker/README.md#diy-building-an-image-for-any-tag-or-branch)\n\nCadence CLI is a powerful tool. The commands are organized by tabs. E.g. `workflow`->`batch`->`start`, or `admin`->`workflow`->`describe`.\n\nPlease read the [documentation](https://cadenceworkflow.io/docs/cli/#documentation) and always try out `--help` on any tab to learn & explore.\n\n### UI\n\nTry out [Cadence Web UI](https://github.com/cadence-workflow/cadence-web) to view your workflows on Cadence.\n(This is already available at localhost:8088 if you run Cadence with docker compose)\n\n\n### Other binaries in this repo\n\n#### Bench/stress test workflow tools\nSee [bench documentation](./bench/README.md).\n\n#### Periodical feature health check workflow tools(aka Canary)\nSee [canary documentation](./canary/README.md).\n\n#### Schema tools for SQL and Cassandra\nThe tools are for [manual setup or upgrading database schema](docs/persistence.md)\n\n  * If server runs with Cassandra, Use [Cadence Cassandra tool](tools/cassandra/README.md)\n  * If server runs with SQL database, Use [Cadence SQL tool](tools/sql/README.md)\n\nThe easiest way to get the schema tool is via homebrew.\n\n`brew install cadence-workflow` also includes `cadence-sql-tool` and `cadence-cassandra-tool`.\n * The schema files are located at `/usr/local/etc/cadence/schema/`.\n * To upgrade, make sure you remove the old ElasticSearch schema first: `mv /usr/local/etc/cadence/schema/elasticsearch /usr/local/etc/cadence/schema/elasticsearch.old && brew upgrade cadence-workflow`. Otherwise ElasticSearch schemas may not be able to get updated.\n * Follow the [instructions](https://github.com/cadence-workflow/cadence/discussions/4457) if you need to install older versions of schema tools via homebrew.\n However, easier way is to use new versions of schema tools with old versions of schemas.\n All you need is to check out the older version of schemas from this repo. Run `git checkout v0.21.3` to get the v0.21.3 schemas in [the schema folder](/schema).\n\n\n## Contributing\n\nWe'd love your help in making Cadence great. Please review our [contribution guide](CONTRIBUTING.md).\n\nIf you'd like to propose a new feature, first join the [Slack channel](http://t.uber.com/cadence-slack) to start a discussion.\n\nPlease visit our [documentation](https://cadenceworkflow.io/docs/operation-guide/) site for production/cluster setup.\n\n\n### Learning Resources\nSee Maxim's talk at [Data@Scale Conference](https://atscaleconference.com/videos/cadence-microservice-architecture-beyond-requestreply) for an architectural overview of Cadence.\n\nVisit [cadenceworkflow.io](https://cadenceworkflow.io) to learn more about Cadence. Join us in [Cadence Documentation](https://github.com/cadence-workflow/Cadence-Docs) project. Feel free to raise an Issue or Pull Request there.\n\n### Community\n* [Github Discussion](https://github.com/cadence-workflow/cadence/discussions)\n  * Best for Q&A, support/help, general discusion, and annoucement\n* [Github Issues](https://github.com/cadence-workflow/cadence/issues)\n  * Best for reporting bugs and feature requests\n* [StackOverflow](https://stackoverflow.com/questions/tagged/cadence-workflow)\n  * Best for Q&A and general discusion\n* [Slack](http://t.uber.com/cadence-slack)\n  * Best for contributing/development discussion\n\n\n## Stars over time\n[![Stargazers over time](https://starchart.cc/uber/cadence.svg?variant=adaptive)](https://starchart.cc/uber/cadence)\n\n\n## License\n\nMIT License, please see [LICENSE](https://github.com/cadence-workflow/cadence/blob/master/LICENSE) for details.\n",
+        "releases": [
+            {
+                "name": "v1.2.14",
+                "date": "2024-11-13T18:50:33Z"
+            },
+            {
+                "name": "v1.2.13",
+                "date": "2024-09-25T16:57:40Z"
+            },
+            {
+                "name": "v1.2.12",
+                "date": "2024-08-19T22:54:51Z"
+            },
+            {
+                "name": "v1.2.11",
+                "date": "2024-07-10T19:20:07Z"
+            },
+            {
+                "name": "v1.2.10",
+                "date": "2024-06-04T19:57:59Z"
+            },
+            {
+                "name": "v1.2.9",
+                "date": "2024-05-01T17:46:11Z"
+            },
+            {
+                "name": "v1.2.8",
+                "date": "2024-03-26T18:46:36Z"
+            },
+            {
+                "name": "v1.2.7",
+                "date": "2024-02-09T19:00:03Z"
+            },
+            {
+                "name": "v1.2.6",
+                "date": "2023-12-14T22:11:35Z"
+            },
+            {
+                "name": "v1.2.5",
+                "date": "2023-11-02T19:07:26Z"
+            },
+            {
+                "name": "v1.2.4",
+                "date": "2023-09-27T19:03:01Z"
+            },
+            {
+                "name": "v1.2.3 (Retracted, please use v1.2.4)",
+                "date": "2023-09-15T22:10:15Z"
+            },
+            {
+                "name": "v1.2.2",
+                "date": "2023-09-19T16:34:30Z"
+            },
+            {
+                "name": "v1.2.1",
+                "date": "2023-09-19T03:56:18Z"
+            },
+            {
+                "name": "v1.0.0",
+                "date": "2023-04-26T19:59:49Z"
+            },
+            {
+                "name": "v0.25.0",
+                "date": "2023-01-31T23:49:30Z"
+            },
+            {
+                "name": "v0.24.0 Release",
+                "date": "2022-05-24T08:47:59Z"
+            },
+            {
+                "name": "v0.23.2 Patch Release",
+                "date": "2021-12-02T02:09:33Z"
+            },
+            {
+                "name": "v0.23.1 Release",
+                "date": "2021-11-19T01:50:04Z"
+            },
+            {
+                "name": "v0.22.4 Patch Release",
+                "date": "2021-11-11T21:54:29Z"
+            },
+            {
+                "name": "v0.22.3 Patch Release",
+                "date": "2021-10-14T17:09:42Z"
+            },
+            {
+                "name": "v0.22.2 Patch Release",
+                "date": "2021-10-14T16:16:30Z"
+            },
+            {
+                "name": "v0.22.1 Patch Release",
+                "date": "2021-10-08T21:35:29Z"
+            },
+            {
+                "name": "v0.22.0 Minor Release",
+                "date": "2021-08-20T20:56:36Z"
+            },
+            {
+                "name": "v0.21.3 Release",
+                "date": "2021-06-17T18:40:05Z"
+            },
+            {
+                "name": "v0.21.0 Release",
+                "date": "2021-05-07T18:56:34Z"
+            },
+            {
+                "name": "v0.20.0 Release",
+                "date": "2021-04-16T21:56:54Z"
+            },
+            {
+                "name": "v0.19.2 Release",
+                "date": "2021-04-16T18:36:55Z"
+            },
+            {
+                "name": "v0.19.1 Release",
+                "date": "2021-03-30T01:07:56Z"
+            },
+            {
+                "name": "v0.18.2 Release",
+                "date": "2021-03-17T19:25:13Z"
+            },
+            {
+                "name": "v0.18.1 Release",
+                "date": "2021-03-01T18:31:00Z"
+            },
+            {
+                "name": "v0.18.0 Release",
+                "date": "2021-01-22T21:05:43Z"
+            },
+            {
+                "name": "v0.16.1 Release",
+                "date": "2021-01-21T23:31:29Z"
+            },
+            {
+                "name": "v0.17.0 Release",
+                "date": "2021-01-13T23:58:14Z"
+            },
+            {
+                "name": "v0.16.0 Release",
+                "date": "2020-12-11T00:11:43Z"
+            },
+            {
+                "name": "v0.15.1 Release",
+                "date": "2020-10-22T21:53:32Z"
+            },
+            {
+                "name": "v0.15.0 Release",
+                "date": "2020-10-08T21:36:31Z"
+            },
+            {
+                "name": "v0.14.2 Release",
+                "date": "2020-09-22T21:14:26Z"
+            },
+            {
+                "name": "v0.14.0 Release",
+                "date": "2020-09-14T17:59:24Z"
+            },
+            {
+                "name": "v0.13.0 Release",
+                "date": "2020-07-07T21:01:04Z"
+            },
+            {
+                "name": "v0.12.0 Release ",
+                "date": "2020-05-27T01:05:49Z"
+            },
+            {
+                "name": "v0.11.0 Release ",
+                "date": "2020-02-15T01:29:17Z"
+            },
+            {
+                "name": "v0.10.3 Release",
+                "date": "2019-12-04T22:32:15Z"
+            },
+            {
+                "name": "v0.10.2 Release",
+                "date": "2019-11-27T23:35:31Z"
+            },
+            {
+                "name": "v0.10.1 Release",
+                "date": "2019-11-21T01:08:01Z"
+            },
+            {
+                "name": "v0.9.8 Release",
+                "date": "2019-11-21T01:53:53Z"
+            },
+            {
+                "name": "v0.9.5 Release",
+                "date": "2019-10-18T22:13:10Z"
+            },
+            {
+                "name": "v0.9.4 Release",
+                "date": "2019-10-14T18:38:07Z"
+            },
+            {
+                "name": "v0.9.0 Release",
+                "date": "2019-09-24T00:11:57Z"
+            },
+            {
+                "name": "v0.8.6 Release",
+                "date": "2019-08-29T20:08:22Z"
+            },
+            {
+                "name": "v0.8.5 Release",
+                "date": "2019-08-27T01:36:03Z"
+            },
+            {
+                "name": "v0.8.4 Patch Release",
+                "date": "2019-08-26T23:48:59Z"
+            },
+            {
+                "name": "v0.8.3 Release",
+                "date": "2019-08-15T17:57:44Z"
+            },
+            {
+                "name": "v0.7.3 Patch Release",
+                "date": "2019-08-08T21:00:28Z"
+            },
+            {
+                "name": "v0.7.2 Patch Release",
+                "date": "2019-08-08T20:51:33Z"
+            },
+            {
+                "name": "v0.7.1 Patch Release",
+                "date": "2019-08-06T05:01:47Z"
+            },
+            {
+                "name": "v0.7.0 release",
+                "date": "2019-08-05T19:45:57Z"
+            },
+            {
+                "name": "v0.6.1 Patch Release",
+                "date": "2019-07-30T17:51:44Z"
+            },
+            {
+                "name": "v0.6.0 Release",
+                "date": "2019-07-25T14:56:27Z"
+            },
+            {
+                "name": "v0.5.9 Release",
+                "date": "2019-06-17T22:45:23Z"
+            },
+            {
+                "name": "v0.5.8 Release",
+                "date": "2019-05-22T19:19:10Z"
+            },
+            {
+                "name": "v0.5.7 Release",
+                "date": "2019-05-08T21:57:15Z"
+            },
+            {
+                "name": "v0.5.5 Release",
+                "date": "2019-03-12T17:42:51Z"
+            },
+            {
+                "name": "v0.5.4 Release",
+                "date": "2019-03-08T18:58:21Z"
+            },
+            {
+                "name": "v0.5.3 Release",
+                "date": "2019-02-23T02:32:31Z"
+            },
+            {
+                "name": "v0.5.2 Release",
+                "date": "2019-02-20T06:34:25Z"
+            },
+            {
+                "name": "Release bug fix patch 0.5.1",
+                "date": "2019-01-18T19:45:23Z"
+            },
+            {
+                "name": "V0.5.0 Release - Please use 0.5.1",
+                "date": "2019-01-15T23:02:05Z"
+            },
+            {
+                "name": "v0.4.0 Release",
+                "date": "2018-10-23T22:41:03Z"
+            },
+            {
+                "name": "v0.3.15 Release",
+                "date": "2018-07-27T18:43:06Z"
+            },
+            {
+                "name": "v0.3.14 Release",
+                "date": "2018-07-24T22:17:45Z"
+            },
+            {
+                "name": "v0.3.13 Release",
+                "date": "2018-06-11T19:50:28Z"
+            },
+            {
+                "name": "v0.3.12 Release",
+                "date": "2018-05-26T04:10:02Z"
+            },
+            {
+                "name": "v0.3.11 Release",
+                "date": "2018-04-18T00:39:49Z"
+            },
+            {
+                "name": "v0.3.9 Release",
+                "date": "2018-03-14T19:28:05Z"
+            },
+            {
+                "name": "v0.3.8 Release",
+                "date": "2018-03-13T23:42:17Z"
+            },
+            {
+                "name": "v0.3.7 Release",
+                "date": "2018-03-13T16:11:30Z"
+            },
+            {
+                "name": "v0.3.6 Release",
+                "date": "2018-01-31T19:47:58Z"
+            },
+            {
+                "name": "v0.3.5 Release",
+                "date": "2018-01-18T01:35:49Z"
+            },
+            {
+                "name": "v0.3.4 Release",
+                "date": "2017-12-13T00:38:56Z"
+            },
+            {
+                "name": "v0.3.3 Release",
+                "date": "2017-12-05T22:42:48Z"
+            },
+            {
+                "name": "v0.3.2 Release",
+                "date": "2017-10-03T17:42:22Z"
+            },
+            {
+                "name": "v0.3.1 Release",
+                "date": "2017-08-15T19:09:10Z"
+            },
+            {
+                "name": "v0.2.0",
+                "date": "2017-08-09T14:52:18Z"
+            },
+            {
+                "name": "v0.3.0 Release",
+                "date": "2017-08-09T14:57:41Z"
+            },
+            {
+                "name": "v0.1.1-beta release",
+                "date": "2017-06-07T01:13:09Z"
+            }
+        ]
+    }
+}

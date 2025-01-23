@@ -1,0 +1,305 @@
+{
+    "https://api.github.com/repos/fengyuanchen/viewerjs": {
+        "forks": 1247,
+        "watchers": 7931,
+        "stars": 7931,
+        "languages": {
+            "JavaScript": 218705,
+            "SCSS": 7478,
+            "CSS": 7028,
+            "Shell": 125
+        },
+        "commits": [
+            "2025-01-05T14:18:15Z",
+            "2024-12-14T09:28:38Z",
+            "2024-11-24T04:35:10Z",
+            "2024-11-24T04:03:07Z",
+            "2024-11-24T04:00:31Z",
+            "2024-11-24T03:44:55Z",
+            "2024-11-23T13:14:26Z",
+            "2024-11-23T12:45:23Z",
+            "2024-11-23T12:44:21Z",
+            "2024-11-23T12:31:58Z",
+            "2024-11-23T12:17:31Z",
+            "2023-09-17T03:19:36Z",
+            "2023-09-17T03:03:32Z",
+            "2023-08-26T07:32:46Z",
+            "2023-08-13T13:56:54Z",
+            "2023-07-23T07:48:44Z",
+            "2023-07-23T07:31:57Z",
+            "2023-03-05T07:00:53Z",
+            "2023-02-25T12:30:49Z",
+            "2023-01-01T10:14:28Z",
+            "2023-01-01T10:04:48Z",
+            "2022-12-10T05:28:32Z",
+            "2022-11-06T05:21:10Z",
+            "2022-11-06T05:14:47Z",
+            "2022-10-16T06:45:21Z",
+            "2022-10-05T13:49:32Z",
+            "2022-10-05T12:57:43Z",
+            "2022-10-05T12:10:46Z",
+            "2022-10-05T11:51:41Z",
+            "2022-10-05T10:40:54Z"
+        ],
+        "creation_date": "2015-12-24T07:27:47Z",
+        "contributors": 20,
+        "topics": [
+            "image",
+            "image-viewer",
+            "javascript",
+            "viewer"
+        ],
+        "subscribers": 122,
+        "readme": "# Viewer.js\n\n[![Downloads](https://img.shields.io/npm/dm/viewerjs.svg)](https://www.npmjs.com/package/viewerjs) [![Version](https://img.shields.io/npm/v/viewerjs.svg)](https://www.npmjs.com/package/viewerjs) [![Gzip Size](https://img.shields.io/bundlephobia/minzip/viewerjs.svg)](https://unpkg.com/viewerjs/dist/viewer.common.js)\n\n> JavaScript image viewer.\n\n- [Website](https://fengyuanchen.github.io/viewerjs)\n- [jquery-viewer](https://github.com/fengyuanchen/jquery-viewer) - A jQuery plugin wrapper for Viewer.js.\n\n## Table of contents\n\n- [Features](#features)\n- [Main Files](#main-files)\n- [Getting started](#getting-started)\n- [Keyboard support](#keyboard-support)\n- [Options](#options)\n- [Methods](#methods)\n- [Events](#events)\n- [No conflict](#no-conflict)\n- [Browser support](#browser-support)\n- [Contributing](#contributing)\n- [Versioning](#versioning)\n- [License](#license)\n\n## Features\n\n- Supports 53 [options](#options)\n- Supports 23 [methods](#methods)\n- Supports 17 [events](#events)\n- Supports modal and inline modes\n- Supports touch\n- Supports move\n- Supports zoom\n- Supports rotation\n- Supports scale (flip)\n- Supports keyboard\n- Cross-browser support\n\n## Main files\n\n```text\ndist/\n\u251c\u2500\u2500 viewer.css\n\u251c\u2500\u2500 viewer.min.css   (compressed)\n\u251c\u2500\u2500 viewer.js        (UMD)\n\u251c\u2500\u2500 viewer.min.js    (UMD, compressed)\n\u251c\u2500\u2500 viewer.common.js (CommonJS, default)\n\u2514\u2500\u2500 viewer.esm.js    (ES Module)\n```\n\n## Getting started\n\n### Installation\n\n```shell\nnpm install viewerjs\n```\n\nIn browser:\n\n```html\n<link  href=\"/path/to/viewer.css\" rel=\"stylesheet\">\n<script src=\"/path/to/viewer.js\"></script>\n```\n\nThe [cdnjs](https://github.com/cdnjs/cdnjs) provides CDN support for Viewer.js's CSS and JavaScript. You can find the links [here](https://cdnjs.com/libraries/viewerjs).\n\n### Usage\n\n#### Syntax\n\n```js\nnew Viewer(element[, options])\n```\n\n- **element**\n  - Type: `HTMLElement`\n  - The target image or container of images for viewing.\n\n- **options** (optional)\n  - Type: `Object`\n  - The options for viewing. Check out the available [options](#options).\n\n#### Example\n\n```html\n<!-- a block container is required -->\n<div>\n  <img id=\"image\" src=\"picture.jpg\" alt=\"Picture\">\n</div>\n\n<div>\n  <ul id=\"images\">\n    <li><img src=\"picture-1.jpg\" alt=\"Picture 1\"></li>\n    <li><img src=\"picture-2.jpg\" alt=\"Picture 2\"></li>\n    <li><img src=\"picture-3.jpg\" alt=\"Picture 3\"></li>\n  </ul>\n</div>\n```\n\n```js\n// You should import the CSS file.\n// import 'viewerjs/dist/viewer.css';\nimport Viewer from 'viewerjs';\n\n// View an image.\nconst viewer = new Viewer(document.getElementById('image'), {\n  inline: true,\n  viewed() {\n    viewer.zoomTo(1);\n  },\n});\n// Then, show the image by clicking it, or call `viewer.show()`.\n\n// View a list of images.\n// Note: All images within the container will be found by calling `element.querySelectorAll('img')`.\nconst gallery = new Viewer(document.getElementById('images'));\n// Then, show one image by click it, or call `gallery.show()`.\n```\n\n## Keyboard support\n\n> Only available in modal mode.\n\n- `Esc`: Exit full screen or close the viewer or exit modal mode or stop play.\n- `Space`: Stop play.\n- `Tab`: Switch the focus state on the buttons in the viewer.\n- `Enter`: Trigger the click event handler on the button.\n- `\u2190`: View the previous image.\n- `\u2192`: View the next image.\n- `\u2191`: Zoom in the image.\n- `\u2193`: Zoom out the image.\n- `Ctrl + 0`: Zoom out to initial size.\n- `Ctrl + 1`: Zoom in to natural size.\n\n[\u2b06 back to top](#table-of-contents)\n\n## Options\n\nYou may set viewer options with `new Viewer(image, options)`.\nIf you want to change the global default options, You may use `Viewer.setDefaults(options)`.\n\n### backdrop\n\n- Type: `Boolean` or `String`\n- Default: `true`\n\nEnable the modal backdrop, specify `static` for the backdrop that will not close the modal on click.\n\n### button\n\n- Type: `Boolean`\n- Default: `true`\n\nShow the button on the top-right of the viewer.\n\n### navbar\n\n- Type: `Boolean` or `Number`\n- Default: `true`\n- Options:\n  - `0` or `false`: hide the navbar\n  - `1` or `true`: show the navbar\n  - `2`: show the navbar only when the screen width is greater than 768 pixels\n  - `3`: show the navbar only when the screen width is greater than 992 pixels\n  - `4`: show the navbar only when the screen width is greater than 1200 pixels\n\nSpecify the visibility of the navbar.\n\n### title\n\n- Type: `Boolean` or `Number` or `Function` or `Array`\n- Default: `true`\n- Options:\n  - `0` or `false`: hide the title\n  - `1` or `true` or `Function` or `Array`: show the title\n  - `2`: show the title only when the screen width is greater than 768 pixels\n  - `3`: show the title only when the screen width is greater than 992 pixels\n  - `4`: show the title only when the screen width is greater than 1200 pixels\n  - `Function`: customize the title content\n  - `[Number, Function]`: the first element indicate the visibility, the second element customize the title content\n\nSpecify the visibility and the content of the title.\n\n> The name comes from the `alt` attribute of an image element or the image name parsed from its URL.\n\nFor example, `title: 4` equals to:\n\n```js\nnew Viewer(image, {\n  title: [4, (image, imageData) => `${image.alt} (${imageData.naturalWidth} \u00d7 ${imageData.naturalHeight})`]\n});\n```\n\n### toolbar\n\n- Type: `Boolean` or `Number` or `Object`\n- Default: `true`\n- Options:\n  - `0` or `false`: hide the toolbar.\n  - `1` or `true`: show the toolbar.\n  - `2`: show the toolbar only when the screen width is greater than 768 pixels.\n  - `3`: show the toolbar only when the screen width is greater than 992 pixels.\n  - `4`: show the toolbar only when the screen width is greater than 1200 pixels.\n  - `{ key: Boolean | Number }`: show or hide the toolbar.\n  - `{ key: String }`: customize the size of the button.\n  - `{ key: Function }`: customize the click handler of the button.\n  - `{ key: { show: Boolean | Number, size: String, click: Function }`: customize each property of the button.\n  - Available built-in keys: \"zoomIn\", \"zoomOut\", \"oneToOne\", \"reset\", \"prev\", \"play\", \"next\", \"rotateLeft\", \"rotateRight\", \"flipHorizontal\", \"flipVertical\".\n  - Available built-in sizes: \"small\", \"medium\" (default) and \"large\".\n\nSpecify the visibility and layout of the toolbar its buttons.\n\nFor example, `toolbar: 4` equals to:\n\n```js\nnew Viewer(image, {\n  toolbar: {\n    zoomIn: 4,\n    zoomOut: 4,\n    oneToOne: 4,\n    reset: 4,\n    prev: 4,\n    play: {\n      show: 4,\n      size: 'large',\n    },\n    next: 4,\n    rotateLeft: 4,\n    rotateRight: 4,\n    flipHorizontal: 4,\n    flipVertical: 4,\n  },\n});\n```\n\n> see more for [custom toolbar](docs/examples/custom-toolbar.html).\n\n### className\n\n- Type: `String`\n- Default: `''`\n\nCustom class name(s) to add to the viewer's root element.\n\n### container\n\n- Type: `Element` or `String`\n- Default: `'body'`\n- An element or a valid selector for [Document.querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector)\n\nContainer to place the viewer in the modal mode.\n\n> Only available when the `inline` option is set to `false`.\n\n### filter\n\n- Type: `Function`\n- Default: `null`\n\nFilter the images for viewing (should return `true` if the image is viewable, return `false` to ignore the image).\n\nFor example:\n\n```js\nnew Viewer(image, {\n  filter(image) {\n    return image.complete;\n  },\n});\n```\n\n> Note that images without the `src` attribute set will be ignored by default.\n\n### fullscreen\n\n- Type: `Boolean` or [`FullscreenOptions`](https://developer.mozilla.org/en-US/docs/Web/API/FullscreenOptions)\n- Default: `true`\n\nEnable to request full screen when play.\n\n> Requires the browser supports [Fullscreen API](https://caniuse.com/fullscreen).\n\n### inheritedAttributes\n\n- Type: `Array`\n- Default: `['crossOrigin', 'decoding', 'isMap', 'loading', 'referrerPolicy', 'sizes', 'srcset', 'useMap']`\n\nDefine the extra attributes to inherit from the original image.\n\n> Note that the basic attributes `src` and `alt` will always inherit from the original image.\n\n### initialCoverage\n\n- Type: `Number`\n- Default: `0.9`\n\nDefine the initial coverage of the viewing image. It must a positive number between 0 (0%) and 1 (100%).\n\n### initialViewIndex\n\n- Type: `Number`\n- Default: `0`\n\nDefine the initial index of the image for viewing.\n\n> Also used as the default parameter value of the `view` method.\n\n### inline\n\n- Type: `Boolean`\n- Default: `false`\n\nEnable inline mode.\n\n### interval\n\n- Type: `Number`\n- Default: `5000`\n\nThe amount of time to delay between automatically cycling an image when playing.\n\n### keyboard\n\n- Type: `Boolean`\n- Default: `true`\n\nEnable keyboard support.\n\n### focus\n\n- Type: `Boolean`\n- Default: `true`\n\nFocus the active item in the navbar when initialized.\n\n> Requires the `keyboard` option set to `true`.\n\n### loading\n\n- Type: `Boolean`\n- Default: `true`\n\nIndicate if showing a loading spinner when loading the image or not.\n\n### loop\n\n- Type: `Boolean`\n- Default: `true`\n\nIndicate if enabling loop viewing or not.\n\n> If the current image is the last one, then the next one to view is the first one, and vice versa.\n\n### minWidth\n\n- Type: `Number`\n- Default: 200\n\nDefine the minimum width of the viewer.\n\n> Only available in inline mode (set the `inline` option to `true`).\n\n### minHeight\n\n- Type: `Number`\n- Default: 100\n\nDefine the minimum height of the viewer.\n\n> Only available in inline mode (set the `inline` option to `true`).\n\n### movable\n\n- Type: `Boolean`\n- Default: `true`\n\nEnable to move the image.\n\n### rotatable\n\n- Type: `Boolean`\n- Default: `true`\n\nEnable to rotate the image.\n\n### scalable\n\n- Type: `Boolean`\n- Default: `true`\n\nEnable to scale the image.\n\n### zoomable\n\n- Type: `Boolean`\n- Default: `true`\n\nEnable to zoom the image.\n\n### zoomOnTouch\n\n- Type: `Boolean`\n- Default: `true`\n\nEnable to zoom the current image by dragging on the touch screen.\n\n### zoomOnWheel\n\n- Type: `Boolean`\n- Default: `true`\n\nEnable to zoom the image by wheeling the mouse.\n\n### slideOnTouch\n\n- Type: `Boolean`\n- Default: `true`\n\nEnable to slide to the next or previous image by swiping on the touch screen.\n\n### toggleOnDblclick\n\n- Type: `Boolean`\n- Default: `true`\n\nIndicate if toggle the image size between its natural size and initial size when double click on the image or not.\n\nIn other words, call the [`toggle`](#toggle) method automatically when double click on the image.\n\n> Requires [`dblclick`](https://developer.mozilla.org/en-US/docs/Web/Events/dblclick) event support.\n\n### tooltip\n\n- Type: `Boolean`\n- Default: `true`\n\nShow the tooltip with image ratio (percentage) when zooming in or zooming out.\n\n### transition\n\n- Type: `Boolean`\n- Default: `true`\n\nEnable CSS3 Transition for some special elements.\n\n### zIndex\n\n- Type: `Number`\n- Default: `2015`\n\nDefine the CSS `z-index` value of the viewer in modal mode.\n\n### zIndexInline\n\n- Type: `Number`\n- Default: `0`\n\nDefine the CSS `z-index` value of the viewer in inline mode.\n\n### zoomRatio\n\n- Type: `Number`\n- Default: `0.1`\n\nDefine the ratio when zooming the image by wheeling the mouse.\n\n### minZoomRatio\n\n- Type: `Number`\n- Default: `0.01`\n\nDefine the min ratio of the image when zooming out.\n\n### maxZoomRatio\n\n- Type: `Number`\n- Default: `100`\n\nDefine the max ratio of the image when zooming in.\n\n### url\n\n- Type: `String` or `Function`\n- Default: `'src'`\n\nDefine where to get the original image URL for viewing.\n\n> If it is a string, it should be one of the attributes of each image element.\n> If it is a function, it should return a valid image URL.\n\nFor example:\n\n```html\n<img src=\"picture.jpg?size=160\">\n```\n\n```js\nnew Viewer(image, {\n  url(image) {\n    return image.src.replace('?size=160', '');\n  },\n});\n```\n\n### ready\n\n- Type: `Function`\n- Default: `null`\n\nShortcut of the `ready` event.\n\n### show\n\n- Type: `Function`\n- Default: `null`\n\nShortcut of the `show` event.\n\n### shown\n\n- Type: `Function`\n- Default: `null`\n\nShortcut of the `shown` event.\n\n### hide\n\n- Type: `Function`\n- Default: `null`\n\nShortcut of the `hide` event.\n\n### hidden\n\n- Type: `Function`\n- Default: `null`\n\nShortcut of the `hidden` event.\n\n### view\n\n- Type: `Function`\n- Default: `null`\n\nShortcut of the `view` event.\n\n### viewed\n\n- Type: `Function`\n- Default: `null`\n\nShortcut of the `viewed` event.\n\n### move\n\n- Type: `Function`\n- Default: `null`\n\nShortcut of the `move` event.\n\n### moved\n\n- Type: `Function`\n- Default: `null`\n\nShortcut of the `moved` event.\n\n### rotate\n\n- Type: `Function`\n- Default: `null`\n\nShortcut of the `rotate` event.\n\n### rotated\n\n- Type: `Function`\n- Default: `null`\n\nShortcut of the `rotated` event.\n\n### scale\n\n- Type: `Function`\n- Default: `null`\n\nShortcut of the `scale` event.\n\n### scaled\n\n- Type: `Function`\n- Default: `null`\n\nShortcut of the `scaled` event.\n\n### zoom\n\n- Type: `Function`\n- Default: `null`\n\nShortcut of the `zoom` event.\n\n### zoomed\n\n- Type: `Function`\n- Default: `null`\n\nShortcut of the `zoomed` event.\n\n### play\n\n- Type: `Function`\n- Default: `null`\n\nShortcut of the `play` event.\n\n### stop\n\n- Type: `Function`\n- Default: `null`\n\nShortcut of the `stop` event.\n\n[\u2b06 back to top](#table-of-contents)\n\n## Methods\n\nAll methods allow chain composition.\n\nAs there are some **asynchronous** processes when start the viewer, you should call a method only when it is available, see the following **lifecycle**:\n\n```js\nnew Viewer(image, {\n  ready() {\n    // 2 methods are available here: \"show\" and \"destroy\".\n  },\n  shown() {\n    // 9 methods are available here: \"hide\", \"view\", \"prev\", \"next\", \"play\", \"stop\", \"full\", \"exit\" and \"destroy\".\n  },\n  viewed() {\n    // All methods are available here except \"show\".\n    this.viewer.zoomTo(1).rotateTo(180);\n  }\n});\n```\n\n### show([immediate])\n\n- **immediate** (optional):\n  - Type: `Boolean`\n  - Default: `false`\n  - Indicates if show the viewer immediately or not.\n\nShow the viewer.\n\n> Only available in modal mode.\n\n### hide([immediate])\n\n- **immediate** (optional):\n  - Type: `Boolean`\n  - Default: `false`\n  - Indicates if hide the viewer immediately or not.\n\nHide the viewer.\n\n> Only available in modal mode.\n\n### view([index])\n\n- **index** (optional):\n  - Type: `Number`\n  - Default: `0` (inherits from the `initialViewIndex` option)\n  - The index of the image for viewing\n\nView one of the images with the image index. If the viewer is hidden, it will be shown first.\n\n```js\nviewer.view(1); // View the second image\n```\n\n### prev([loop=false])\n\n- **loop** (optional):\n  - Type: `Boolean`\n  - Default: `false`\n  - Indicate if turn to view the last one when it is the first one at present.\n\nView the previous image.\n\n### next([loop=false])\n\n- **loop** (optional):\n  - Type: `Boolean`\n  - Default: `false`\n  - Indicate if turn to view the first one  when it is the last one at present.\n\nView the next image.\n\n### move(x[, y = x])\n\n- **x**:\n  - Type: `Number`\n  - The moving distance in the horizontal direction.\n\n- **y** (optional):\n  - Type: `Number`\n  - The moving distance in the vertical direction.\n  - If not present, its default value is `x`\n\nMove the image with relative offsets.\n\n```js\nviewer.move(1);\nviewer.move(-1, 0); // Move left\nviewer.move(1, 0);  // Move right\nviewer.move(0, -1); // Move up\nviewer.move(0, 1);  // Move down\n```\n\n### moveTo(x[, y = x])\n\n- **x**:\n  - Type: `Number`\n  - The new position in the horizontal direction.\n\n- **y** (optional):\n  - Type: `Number`\n  - The new position in the vertical direction.\n  - If not present, its default value is `x`.\n\nMove the image to an absolute point.\n\n### rotate(degree)\n\n- **degree**:\n  - Type: `Number`\n  - Rotate right: requires a positive number (degree > 0)\n  - Rotate left: requires a negative number (degree < 0)\n\nRotate the image with a relative degree.\n\n```js\nviewer.rotate(90);\nviewer.rotate(-90);\n```\n\n### rotateTo(degree)\n\n- **degree**:\n  - Type: `Number`\n\nRotate the image to an absolute degree.\n\n```js\nviewer.rotateTo(0); // Reset to zero degree\nviewer.rotateTo(360); // Rotate a full round\n```\n\n### scale(scaleX[, scaleY])\n\n- **scaleX**:\n  - Type: `Number`\n  - Default: `1`\n  - The scaling factor to apply on the abscissa of the image\n  - When equal to `1` it does nothing.\n\n- **scaleY** (optional):\n  - Type: `Number`\n  - The scaling factor to apply on the ordinate of the image\n  - If not present, its default value is `scaleX`.\n\nScale the image.\n\n```js\nviewer.scale(-1); // Flip both horizontal and vertical\nviewer.scale(-1, 1); // Flip horizontal\nviewer.scale(1, -1); // Flip vertical\n```\n\n### scaleX(scaleX)\n\n- **scaleX**:\n  - Type: `Number`\n  - Default: `1`\n  - The scaling factor to apply on the abscissa of the image\n  - When equal to `1` it does nothing\n\nScale the abscissa of the image.\n\n```js\nviewer.scaleX(-1); // Flip horizontal\n```\n\n### scaleY(scaleY)\n\n- **scaleY**:\n  - Type: `Number`\n  - Default: `1`\n  - The scaling factor to apply on the ordinate of the image\n  - When equal to `1` it does nothing\n\nScale the ordinate of the image.\n\n```js\nviewer.scaleY(-1); // Flip vertical\n```\n\n### zoom(ratio[, showTooltip[, pivot]])\n\n- **ratio**:\n  - Type: `Number`\n  - Zoom in: requires a positive number (ratio > 0)\n  - Zoom out: requires a negative number (ratio < 0)\n\n- **showTooltip** (optional):\n  - Type: `Boolean`\n  - Default: `false`\n  - Indicates whether to show the tooltip.\n\n- **pivot** (optional):\n  - Type: `Object`\n  - Default: `null`\n  - Schema: `{ x: Number, y: Number }`\n  - The pivot point coordinate for zooming.\n\nZoom the image with a relative ratio\n\n```js\nviewer.zoom(0.1);\nviewer.zoom(-0.1);\n```\n\n### zoomTo(ratio[, showTooltip[, pivot]])\n\n- **ratio**:\n  - Type: `Number`\n  - Requires a positive number (ratio > 0)\n\n- **showTooltip** (optional):\n  - Type: `Boolean`\n  - Default: `false`\n  - Indicates whether to show the tooltip.\n\n- **pivot** (optional):\n  - Type: `Object`\n  - Default: `null`\n  - Schema: `{ x: Number, y: Number }`\n  - The pivot point coordinate for zooming.\n\nZoom the image to an absolute ratio.\n\n```js\nviewer.zoomTo(0); // Zoom to zero size (0%)\nviewer.zoomTo(1); // Zoom to natural size (100%)\n\n// Zoom to 50% from the center of the window.\nviewer.zoomTo(.5, {\n  x: window.innerWidth / 2,\n  y: viewer.innerHeight / 2,\n});\n```\n\n### play([fullscreen])\n\n- **fullscreen** (optional):\n  - Type: `Boolean` or [`FullscreenOptions`](https://developer.mozilla.org/en-US/docs/Web/API/FullscreenOptions)\n  - Default: `false`\n  - Indicate if request fullscreen or not.\n\nPlay the images.\n\n### stop()\n\nStop play.\n\n### full()\n\nEnter the modal mode.\n\n> Only available in inline mode.\n\n### exit()\n\nExit the modal mode.\n\n> Only available in inline mode.\n\n### tooltip()\n\nShow the current ratio of the image by percentage.\n\n> Requires the `tooltip` option set to `true`.\n\n### toggle()\n\nToggle the image size between its current size and natural size.\n\n> Used by the [`toggleOnDblclick`](#toggleOnDblclick) option.\n\n### reset()\n\nReset the image to its initial state.\n\n### update()\n\nUpdate the viewer instance when the source images changed (added, removed, or sorted).\n\n> If you load images dynamically (with XMLHTTPRequest), you can use this method to add the new images to the viewer instance.\n\n### destroy()\n\nDestroy the viewer and remove the instance.\n\n[\u2b06 back to top](#table-of-contents)\n\n## Events\n\nAll events can access the viewer instance with `this.viewer` in its handler.\n\n> Be careful to use these events with other components which have the same event names, e.g.: [Bootstrap](https://getbootstrap.com/)'s modal.\n\n```js\nlet viewer;\n\nimage.addEventListener('viewed', function () {\n  console.log(this.viewer === viewer);\n  // > true\n});\n\nviewer = new Viewer(image);\n```\n\n### ready\n\n- **event.bubbles**: `true`\n- **event.cancelable**: `true`\n- **event.detail**: `null`\n\nThis event fires when a viewer instance is ready for viewing.\n\n> In modal mode, this event will not be triggered until you click on one of the images.\n\n### show\n\n- **event.bubbles**: `true`\n- **event.cancelable**: `true`\n- **event.detail**: `null`\n\nThis event fires when the viewer modal starts to show.\n\n> Only available in modal mode.\n\n### shown\n\n- **event.bubbles**: `true`\n- **event.cancelable**: `true`\n- **event.detail**: `null`\n\nThis event fires when the viewer modal has shown.\n\n> Only available in modal mode.\n\n### hide\n\n- **event.bubbles**: `true`\n- **event.cancelable**: `true`\n- **event.detail**: `null`\n\nThis event fires when the viewer modal starts to hide.\n\n> Only available in modal mode.\n\n### hidden\n\n- **event.bubbles**: `true`\n- **event.cancelable**: `false`\n- **event.detail**: `null`\n\nThis event fires when the viewer modal has hidden.\n\n> Only available in modal mode.\n\n### view\n\n- **event.bubbles**: `true`\n- **event.cancelable**: `true`\n- **event.detail.index**:\n  - Type: `Number`\n  - The index of the original image.\n- **event.detail.image**:\n  - Type: `HTMLImageElement`\n  - The current image (a clone of the original image).\n- **event.detail.originalImage**:\n  - Type: `HTMLImageElement`\n  - The original image.\n\nThis event fires when a viewer starts to show (view) an image.\n\n### viewed\n\n- **event.bubbles**: `true`\n- **event.cancelable**: `false`\n- **event.detail**: the same as the `view` event.\n\nThis event fires when a viewer has shown (viewed) an image.\n\n### move\n\n- **event.bubbles**: `true`\n- **event.cancelable**: `true`\n- **event.detail.x**:\n  - Type: `Number`\n  - The new position in the horizontal direction.\n- **event.detail.y**:\n  - Type: `Number`\n  - The new position in the vertical direction.\n- **event.detail.oldX**:\n  - Type: `Number`\n  - The old position in the horizontal direction.\n- **event.detail.oldY**:\n  - Type: `Number`\n  - The old position in the vertical direction.\n- **event.detail.originalEvent**:\n  - Type: `Event` or `null`\n  - Options: `pointermove`, `touchmove`, and `mousemove`.\n\nThis event fires when a viewer starts to move an image.\n\n### moved\n\n- **event.bubbles**: `true`\n- **event.cancelable**: `false`\n- **event.detail**: the same as the `move` event.\n\nThis event fires when a viewer has moved an image.\n\n### rotate\n\n- **event.bubbles**: `true`\n- **event.cancelable**: `true`\n- **event.detail.degree**:\n  - Type: `Number`\n  - The new rotation degrees.\n- **event.detail.oldDegree**:\n  - Type: `Number`\n  - The old rotation degrees.\n\nThis event fires when a viewer starts to rotate an image.\n\n### rotated\n\n- **event.bubbles**: `true`\n- **event.cancelable**: `false`\n- **event.detail**: the same as the `rotate` event.\n\nThis event fires when a viewer has rotated an image.\n\n### scale\n\n- **event.bubbles**: `true`\n- **event.cancelable**: `true`\n- **event.detail.scaleX**:\n  - Type: `Number`\n  - The new scaling factor in the horizontal direction.\n- **event.detail.scaleY**:\n  - Type: `Number`\n  - The new scaling factor in the vertical direction.\n- **event.detail.oldScaleX**:\n  - Type: `Number`\n  - The old scaling factor in the horizontal direction.\n- **event.detail.oldScaleY**:\n  - Type: `Number`\n  - The old scaling factor in the vertical direction.\n\nThis event fires when a viewer starts to scale an image.\n\n### scaled\n\n- **event.bubbles**: `true`\n- **event.cancelable**: `false`\n- **event.detail**: the same as the `scale` event.\n\nThis event fires when a viewer has scaled an image.\n\n### zoom\n\n- **event.bubbles**: `true`\n- **event.cancelable**: `true`\n- **event.detail.ratio**:\n  - Type: `Number`\n  - The new (next) ratio of the image (`imageData.width / imageData.naturalWidth`).\n- **event.detail.oldRatio**:\n  - Type: `Number`\n  - The old (current) ratio of the image.\n- **event.detail.originalEvent**:\n  - Type: `Event` or `null`\n  - Options: `wheel`, `pointermove`, `touchmove`, and `mousemove`.\n\nThis event fires when a viewer starts to zoom (in or out) an image.\n\n### zoomed\n\n- **event.bubbles**: `true`\n- **event.cancelable**: `false`\n- **event.detail**: the same as the `zoom` event.\n\nThis event fires when a viewer has zoomed (in or out) an image.\n\n### play\n\n- **event.bubbles**: `true`\n- **event.cancelable**: `true`\n- **event.detail**: `null`\n\nThis event fires when the viewer starts to play.\n\n> You can abort the playing process by calling `event.preventDefault()`.\n\n### stop\n\n- **event.bubbles**: `true`\n- **event.cancelable**: `true`\n- **event.detail**: `null`\n\nThis event fires when the viewer starts to stop.\n\n> You can abort the stopping process by calling `event.preventDefault()`.\n\n[\u2b06 back to top](#table-of-contents)\n\n## No conflict\n\nIf you have to use another viewer with the same namespace, call the `Viewer.noConflict` static method to revert to it.\n\n```html\n<script src=\"other-viewer.js\"></script>\n<script src=\"viewer.js\"></script>\n<script>\n  Viewer.noConflict();\n  // Code that uses other `Viewer` can follow here.\n</script>\n```\n\n## Browser support\n\n- Chrome (latest)\n- Firefox (latest)\n- Safari (latest)\n- Opera (latest)\n- Edge (latest)\n- Internet Explorer 9+\n\n## Contributing\n\nPlease read through our [contributing guidelines](.github/CONTRIBUTING.md).\n\n## Versioning\n\nMaintained under the [Semantic Versioning guidelines](https://semver.org/).\n\n## License\n\n[MIT](https://opensource.org/licenses/MIT) \u00a9 [Chen Fengyuan](https://chenfengyuan.com/)\n\n[\u2b06 back to top](#table-of-contents)\n",
+        "releases": [
+            {
+                "name": "v1.11.7",
+                "date": "2024-11-24T04:40:55Z"
+            },
+            {
+                "name": "v1.11.6",
+                "date": "2023-09-17T03:23:35Z"
+            },
+            {
+                "name": "v1.11.5",
+                "date": "2023-08-26T07:44:33Z"
+            },
+            {
+                "name": "v1.11.4",
+                "date": "2023-07-23T07:54:01Z"
+            },
+            {
+                "name": "v1.11.3",
+                "date": "2023-03-05T07:14:27Z"
+            },
+            {
+                "name": "v1.11.2",
+                "date": "2023-01-01T10:19:43Z"
+            },
+            {
+                "name": "v1.11.1",
+                "date": "2022-11-06T05:22:56Z"
+            },
+            {
+                "name": "v1.11.0",
+                "date": "2022-10-16T06:49:20Z"
+            },
+            {
+                "name": "v1.10.5",
+                "date": "2022-04-05T08:26:14Z"
+            },
+            {
+                "name": "v1.10.4",
+                "date": "2022-02-13T09:11:43Z"
+            },
+            {
+                "name": "v1.10.3",
+                "date": "2022-02-02T06:33:11Z"
+            },
+            {
+                "name": "v1.10.2",
+                "date": "2021-10-22T14:05:47Z"
+            },
+            {
+                "name": "v1.10.1",
+                "date": "2021-08-01T13:42:12Z"
+            },
+            {
+                "name": "v1.10.0",
+                "date": "2021-06-12T08:06:55Z"
+            },
+            {
+                "name": "v1.9.2",
+                "date": "2021-05-29T03:55:03Z"
+            },
+            {
+                "name": "v1.9.1",
+                "date": "2021-05-22T07:30:12Z"
+            },
+            {
+                "name": "v1.9.0",
+                "date": "2020-12-06T11:39:04Z"
+            },
+            {
+                "name": "v1.8.0",
+                "date": "2020-11-08T05:40:55Z"
+            },
+            {
+                "name": "v1.7.1",
+                "date": "2020-09-29T13:49:37Z"
+            },
+            {
+                "name": "v1.7.0",
+                "date": "2020-09-26T07:22:21Z"
+            },
+            {
+                "name": "v1.6.2",
+                "date": "2020-08-30T02:37:08Z"
+            },
+            {
+                "name": "v1.6.1",
+                "date": "2020-06-14T07:51:18Z"
+            },
+            {
+                "name": "v1.6.0",
+                "date": "2020-06-06T11:33:30Z"
+            },
+            {
+                "name": "v1.5.0",
+                "date": "2019-11-23T05:16:22Z"
+            },
+            {
+                "name": "v1.4.0",
+                "date": "2019-10-26T07:36:28Z"
+            },
+            {
+                "name": "v1.3.7",
+                "date": "2019-10-02T09:46:32Z"
+            },
+            {
+                "name": "v1.3.6",
+                "date": "2019-07-04T11:24:19Z"
+            },
+            {
+                "name": "v1.3.5",
+                "date": "2019-06-29T10:36:30Z"
+            },
+            {
+                "name": "v1.3.4",
+                "date": "2019-06-01T03:35:34Z"
+            },
+            {
+                "name": "v1.3.3",
+                "date": "2019-04-06T14:17:39Z"
+            },
+            {
+                "name": "v1.3.2",
+                "date": "2019-01-24T11:32:54Z"
+            },
+            {
+                "name": "v1.3.1",
+                "date": "2018-12-09T07:53:55Z"
+            },
+            {
+                "name": "v1.3.0",
+                "date": "2018-10-25T12:50:11Z"
+            },
+            {
+                "name": "v1.2.1",
+                "date": "2018-10-20T09:36:05Z"
+            },
+            {
+                "name": "v1.2.0",
+                "date": "2018-07-15T10:30:08Z"
+            },
+            {
+                "name": "v1.1.0",
+                "date": "2018-05-27T07:54:42Z"
+            },
+            {
+                "name": "v1.0.1",
+                "date": "2018-05-20T10:08:46Z"
+            },
+            {
+                "name": "v1.0.0",
+                "date": "2018-04-01T05:44:09Z"
+            },
+            {
+                "name": "v1.0.0-rc.1",
+                "date": "2018-03-13T14:10:44Z"
+            },
+            {
+                "name": "v1.0.0-rc",
+                "date": "2018-03-10T13:17:49Z"
+            },
+            {
+                "name": "v1.0.0-beta.2",
+                "date": "2018-02-13T13:39:39Z"
+            },
+            {
+                "name": "v1.0.0-beta.1",
+                "date": "2017-12-23T04:38:32Z"
+            },
+            {
+                "name": "v1.0.0-beta",
+                "date": "2017-12-17T10:39:21Z"
+            },
+            {
+                "name": "v0.10.0",
+                "date": "2017-11-05T04:41:20Z"
+            },
+            {
+                "name": "v0.9.0",
+                "date": "2017-11-04T13:57:46Z"
+            },
+            {
+                "name": "v0.8.0",
+                "date": "2017-10-08T11:51:20Z"
+            },
+            {
+                "name": "v0.7.2",
+                "date": "2017-08-19T07:09:14Z"
+            },
+            {
+                "name": "v0.7.1",
+                "date": "2017-05-14T07:13:32Z"
+            },
+            {
+                "name": "v0.7.0",
+                "date": "2017-04-30T03:42:28Z"
+            },
+            {
+                "name": "v0.6.2",
+                "date": "2017-03-04T08:21:35Z"
+            },
+            {
+                "name": "v0.6.1",
+                "date": "2017-02-18T06:42:24Z"
+            },
+            {
+                "name": "v0.6.0",
+                "date": "2017-01-24T06:55:58Z"
+            },
+            {
+                "name": "v0.5.1",
+                "date": "2017-01-02T13:15:18Z"
+            },
+            {
+                "name": "v0.5.0",
+                "date": "2016-07-22T09:08:06Z"
+            },
+            {
+                "name": "v0.4.0",
+                "date": "2016-03-20T07:27:04Z"
+            },
+            {
+                "name": "v0.3.3",
+                "date": "2016-03-19T03:43:07Z"
+            },
+            {
+                "name": "v0.3.2",
+                "date": "2016-03-11T08:10:50Z"
+            },
+            {
+                "name": "v0.3.1",
+                "date": "2016-02-03T06:36:15Z"
+            },
+            {
+                "name": "v0.3.0",
+                "date": "2016-01-21T11:06:33Z"
+            },
+            {
+                "name": "v0.2.0",
+                "date": "2016-01-01T04:46:51Z"
+            },
+            {
+                "name": "v0.1.1",
+                "date": "2015-12-28T03:24:27Z"
+            },
+            {
+                "name": "v0.1.0",
+                "date": "2015-12-24T07:32:49Z"
+            }
+        ]
+    }
+}

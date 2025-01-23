@@ -1,0 +1,177 @@
+{
+    "https://api.github.com/repos/ReactiveX/RxKotlin": {
+        "forks": 456,
+        "watchers": 7053,
+        "stars": 7053,
+        "languages": {
+            "Kotlin": 141592,
+            "Shell": 1041
+        },
+        "commits": [
+            "2023-10-16T06:34:13Z",
+            "2020-10-03T06:42:46Z",
+            "2020-09-19T18:46:50Z",
+            "2020-09-19T18:41:24Z",
+            "2020-09-01T10:10:06Z",
+            "2020-08-26T20:57:13Z",
+            "2020-03-22T17:39:46Z",
+            "2020-03-22T15:57:21Z",
+            "2020-03-21T10:19:21Z",
+            "2020-03-21T10:17:47Z",
+            "2020-03-21T10:06:25Z",
+            "2020-02-17T08:20:52Z",
+            "2020-02-15T11:10:43Z",
+            "2020-02-15T11:03:42Z",
+            "2020-02-14T15:11:06Z",
+            "2020-02-14T14:31:15Z",
+            "2020-02-01T15:39:25Z",
+            "2020-02-01T17:24:48Z",
+            "2020-02-01T15:20:37Z",
+            "2020-01-31T22:32:24Z",
+            "2019-07-28T13:04:56Z",
+            "2019-07-28T11:46:41Z",
+            "2019-07-27T21:42:43Z",
+            "2019-07-12T20:41:12Z",
+            "2019-06-28T21:35:00Z",
+            "2019-06-28T20:50:37Z",
+            "2019-06-28T20:10:58Z",
+            "2019-06-28T20:16:28Z",
+            "2019-06-28T19:40:05Z",
+            "2019-06-28T19:32:58Z"
+        ],
+        "creation_date": "2014-08-19T03:45:59Z",
+        "contributors": 30,
+        "topics": [
+            "kotlin",
+            "rxjava"
+        ],
+        "subscribers": 210,
+        "readme": "# RxKotlin\n\n[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.reactivex.rxjava3/rxkotlin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.reactivex.rxjava3/rxkotlin)\n\n## Kotlin Extensions for RxJava\n\nRxKotlin is a lightweight library that adds convenient extension functions to [RxJava](https://github.com/ReactiveX/RxJava). You can use RxJava with Kotlin out-of-the-box, but Kotlin has language features (such as [extension functions](https://kotlinlang.org/docs/reference/extensions.html)) that can streamline usage of RxJava even more. RxKotlin aims to conservatively collect these conveniences in one centralized library, and standardize conventions for using RxJava with Kotlin. \n\n\n```kotlin\nimport io.reactivex.rxjava3.kotlin.subscribeBy\nimport io.reactivex.rxjava3.kotlin.toObservable\n\nfun main() {\n\n    val list = listOf(\"Alpha\", \"Beta\", \"Gamma\", \"Delta\", \"Epsilon\")\n\n    list.toObservable() // extension function for Iterables\n            .filter { it.length >= 5 }\n            .subscribeBy(  // named arguments for lambda Subscribers\n                    onNext = { println(it) },\n                    onError =  { it.printStackTrace() },\n                    onComplete = { println(\"Done!\") }\n            )\n\n}\n```\n\n## Contributing\n\n:warning: (16/10/2023) We are currently not accepting contributions due to lack of developers capable of handling them in a reasonable manner.\n\nSince Kotlin makes it easy to implement extensions for anything and everything, this project has to be conservative in what features are in scope. Intentions to create syntactic sugar can quickly regress into [syntactic saccharin](https://en.wikipedia.org/wiki/Syntactic_sugar#Syntactic_saccharin), and such personal preferences belong in one's internal domain rather than an OSS library. \n\nHere are some basic guidelines to determine whether your contribution might be in scope for RxKotlin: \n\n* Is this intended feature already in RxJava?\n\t- If no, propose the operator in RxJava. \n\t- If yes, can Kotlin streamline the operator further? \n\t\n* Does this substantially reduce the amount of boilerplate code?\n* Does this make an existing operator easier to use?\n* Does RxJava not contain this feature due to Java language limitations, or because of a deliberate decision to not include it?\n\n### Kotlin Slack Channel\n\nJoin us on the #rx channel in Kotlin Slack!\n\nhttps://kotlinlang.slack.com/messages/rx\n\n\n## Support for RxJava 3.x, RxJava 2.x and RxJava 1.x\n\n**Use RxKotlin 3.x versions to target RxJava 3.x.**\n- The 3.x version is active.\n\nUse RxKotlin 2.x versions to target RxJava 2.x.\n- The 2.x version of RxJava and RxKotlin is in maintenance mode and will be supported only through bugfixes. No new features or behavior changes will be accepted or applied.\n\nUse RxKotlin 1.x versions to target RxJava 1.x.\n- The 1.x version of RxJava and RxKotlin reached end-of-life. No further development, support, maintenance, PRs or updates will happen.\n\nThe maintainers do not update the RxJava dependency version for every minor or patch RxJava release, so you should explicitly add the desired RxJava dependency version to your `pom.xml` or `build.gradle(.kts)`.\n\n## Binaries\n\nBinaries and dependency information for Maven, Ivy, Gradle and others can be found at [http://search.maven.org](http://search.maven.org/#search%7Cga%7C1%7Crxkotlin).\n\n### RxKotlin 3.x [![Build Status](https://travis-ci.org/ReactiveX/RxKotlin.svg?branch=3.x)](https://travis-ci.org/ReactiveX/RxKotlin)\n\nExample for Maven:\n\n```xml\n<dependency>\n    <groupId>io.reactivex.rxjava3</groupId>\n    <artifactId>rxkotlin</artifactId>\n    <version>3.x.y</version>\n</dependency>\n```\n\nExample for Gradle:\n\n```kotlin\nimplementation(\"io.reactivex.rxjava3:rxkotlin:3.x.y\")\n```\n\n### RxKotlin 2.x [![Build Status](https://travis-ci.org/ReactiveX/RxKotlin.svg?branch=2.x)](https://travis-ci.org/ReactiveX/RxKotlin)\n\nExample for Maven:\n\n```xml\n<dependency>\n    <groupId>io.reactivex.rxjava2</groupId>\n    <artifactId>rxkotlin</artifactId>\n    <version>2.x.y</version>\n</dependency>\n```\n\nExample for Gradle:\n\n```kotlin\nimplementation(\"io.reactivex.rxjava2:rxkotlin:2.x.y\")\n```\n\n### RxKotlin 1.x \n\nExample for Maven:\n\n```xml\n<dependency>\n    <groupId>io.reactivex</groupId>\n    <artifactId>rxkotlin</artifactId>\n    <version>1.x.y</version>\n</dependency>\n```\n\nExample for Gradle:\n\n```kotlin\nimplementation(\"io.reactivex:rxkotlin:1.x.y\")\n```\n\n### Building with JitPack\n\nYou can also use Gradle or Maven with [JitPack](https://jitpack.io/) to build directly off a snapshot, branch, or commit of this repository.\n\nFor example, to build off the 3.x branch, use this setup for Gradle:\n\n```groovy\nrepositories {\n    maven { url 'https://jitpack.io' }\n}\n\ndependencies {\n    implementation 'com.github.ReactiveX:RxKotlin:3.x-SNAPSHOT'\n}\n```\n\nUse this setup for Maven:\n\n```xml\n\t<repositories>\n\t\t<repository>\n\t\t    <id>jitpack.io</id>\n\t\t    <url>https://jitpack.io</url>\n\t\t</repository>\n\t</repositories>\n\n    <dependency>\n\t    <groupId>com.github.ReactiveX</groupId>\n\t    <artifactId>RxKotlin</artifactId>\n\t    <version>3.x-SNAPSHOT</version>\n\t</dependency>\n```\n\nLearn more about building this project with JitPack [here](https://jitpack.io/#ReactiveX/RxKotlin).\n\n\n\n## Extensions \n\n|Target Type|Method|Return Type|Description|\n|---|---|---|---|\n|BooleanArray|toObservable()|Observable<Boolean>|Turns a Boolean array into an Observable|\n|ByteArray|toObservable()|Observable<Byte>|Turns a Byte array into an Observable|\n|ShortArray|toObservable()|Observable<Short>|Turns a Short array into an Observable|\n|IntArray|toObservable()|Observable<Int>|Turns an Int array into an Observable|\n|LongArray|toObservable()|Observable<Long>|Turns a Long array into an Observable|\n|FloatArray|toObservable()|Observable<Float>|Turns a Float array into an Observable|\n|DoubleArray|toObservable()|Observable<Double>|Turns a Double array into an Observable|\n|Array<T>|toObservable()|Observable<Double>|Turns a `T` array into an Observable|\n|IntProgression|toObservable()|Observable<Int>|Turns an `IntProgression` into an Observable|\n|Iterable<T>|toObservable()|Observable<T>|Turns an `Iterable<T>` into an Observable|\n|Iterator<T>|toObservable()|Observable<T>|Turns an `Iterator<T>` into an Observable|\n|Observable<T>|flatMapSequence()|Observable<R>|Flat maps each `T` emission to a `Sequence<R>`|\n|Observable<Pair<A,B>>|toMap()|Single<Map<A,B>>|Collects `Pair<A,B>` emissions into a `Map<A,B>`|\n|Observable<Pair<A,B>>|toMultimap()|`Single<Map<A, List<B>>`|Collects `Pair<A,B>` emissions into a `Map<A,List<B>>`|\n|Observable<Observable<T>>|mergeAll()|Observable<T>|Merges all Observables emitted from an Observable|\n|Observable<Observable<T>>|concatAll()|Observable<T>|Concatenates all Observables emitted from an Observable|\n|Observable<Observable<T>>|switchLatest()|Observable<T>|Emits from the last emitted Observable|\n|Observable<*>|cast()|Observable<R>|Casts all emissions to the reified type|\n|Observable<*>|ofType()|Observable<R>|Filters all emissions to only the reified type|\n|Iterable<Observable<out T>>|merge()|Observable<T>|Merges an Iterable of Observables into a single Observable|\n|Iterable<Observable<out T>>|mergeDelayError()|Observable<T>|Merges an Iterable of Observables into a single Observable, but delays any error|\n|BooleanArray|toFlowable()|Flowable<Boolean>|Turns a Boolean array into an Flowable|\n|ByteArray|toFlowable()|Flowable<Byte>|Turns a Byte array into an Flowable|\n|ShortArray|toFlowable()|Flowable<Short>|Turns a Short array into an Flowable|\n|IntArray|toFlowable()|Flowable<Int>|Turns an Int array into an Flowable|\n|LongArray|toFlowable()|Flowable<Long>|Turns a Long array into an Flowable|\n|FloatArray|toFlowable()|Flowable<Float>|Turns a Float array into an Flowable|\n|DoubleArray|toFlowable()|Flowable<Double>|Turns a Double array into an Flowable|\n|Array<T>|toFlowable()|Flowable<Double>|Turns a `T` array into an Flowable|\n|IntProgression|toFlowable()|Flowable<Int>|Turns an `IntProgression` into an Flowable|\n|Iterable<T>|toFlowable()|Flowable<T>|Turns an `Iterable<T>` into an Flowable|\n|Iterator<T>|toFlowable()|Flowable<T>|Turns an `Iterator<T>` into an Flowable|\n|Flowable<T>|flatMapSequence()|Flowable<R>|Flat maps each `T` emission to a `Sequence<R>`|\n|Flowable<Pair<A,B>>|toMap()|Single<Map<A,B>>|Collects `Pair<A,B>` emissions into a `Map<A,B>`|\n|Flowable<Pair<A,B>>|toMultimap()|`Single<Map<A, List<B>>>`|Collects `Pair<A,B>` emissions into a `Map<A,List<B>>`|\n|Flowable<Flowable<T>>|mergeAll()|Flowable<T>|Merges all Flowables emitted from an Flowable|\n|Flowable<Flowable<T>>|concatAll()|Flowable<T>|Concatenates all Flowables emitted from an Flowable|\n|Flowable<Flowable<T>>|switchLatest()|Flowable<T>|Emits from the last emitted Flowable|\n|Flowable<Any>|cast()|Flowable<R>|Casts all emissions to the reified type|\n|Flowable<Any>|ofType()|Flowable<R>|Filters all emissions to only the reified type|\n|Iterable<Flowable<out T>>|merge()|Flowable<T>|Merges an Iterable of Flowables into a single Flowable|\n|Iterable<Flowable<out T>>|mergeDelayError()|Flowable<T>|Merges an Iterable of Flowables into a single Flowable, but delays any error|\n|Single<Any>|cast()|Single<R>|Casts all emissions to the reified type|\n|Observable<Single<T>>|mergeAllSingles()|Observable<R>|Merges all Singles emitted from an Observable|\n|Flowable<Single<T>>|mergeAllSingles()|Flowable<R>|Merges all Singles emitted from a Flowable|\n|Maybe<Any>|cast()|Maybe<R>|Casts any emissions to the reified type|\n|Maybe<Any>|ofType()|Maybe<R>|Filters any emission that is the reified type|\n|Observable<Maybe<T>>|mergeAllMaybes()|Observable<T>|Merges all emitted Maybes|\n|Flowable<Maybe<T>>|mergeAllMaybes()|Flowable<T>|Merges all emitted Maybes|\n|Action|toCompletable()|Completable|Turns an `Action` into a `Completable`|\n|Callable<out Any>|toCompletable()|Completable|Turns a `Callable` into a `Completable`|\n|Future<out Any>|toCompletable()|Completable|Turns a `Future` into a `Completable`|\n|(() -> Any)|toCompletable()|Completable|Turns a `(() -> Any)` into a `Completable`|\n|Observable<Completable>|mergeAllCompletables()|Completable>|Merges all emitted Completables|\n|Flowable<Completable>|mergeAllCompletables()|Completable|Merges all emitted Completables|\n|Observable<T>|subscribeBy()|Disposable|Allows named arguments to construct an Observer|\n|Flowable<T>|subscribeBy()|Disposable|Allows named arguments to construct a Subscriber|\n|Single<T>|subscribeBy()|Disposable|Allows named arguments to construct a SingleObserver|\n|Maybe<T>|subscribeBy()|Disposable|Allows named arguments to construct a MaybeObserver|\n|Completable|subscribeBy()|Disposable|Allows named arguments to construct a CompletableObserver|\n|Observable<T>|blockingSubscribeBy()|Unit|Allows named arguments to construct a blocking Observer|\n|Flowable<T>|blockingSubscribeBy()|Unit|Allows named arguments to construct a blocking Subscriber|\n|Single<T>|blockingSubscribeBy()|Unit|Allows named arguments to construct a blocking SingleObserver|\n|Maybe<T>|blockingSubscribeBy()|Unit|Allows named arguments to construct a blocking MaybeObserver|\n|Completable<T>|blockingSubscribeBy()|Unit|Allows named arguments to construct a blocking CompletableObserver|\n|Disposable|addTo()|Disposable|Adds a `Disposable` to the specified `CompositeDisposable`|\n|CompositeDisposable|plusAssign()|Disposable|Operator function to add a `Disposable` to this`CompositeDisposable`|\n\n\n\n## SAM Helpers (made obsolete since Kotlin 1.4)\n\n_These methods have been made obsolete with new type inference algorithm in Kotlin 1.4.\nThey will be removed in some future RxKotlin version._\n\nTo help cope with the [SAM ambiguity issue](https://youtrack.jetbrains.com/issue/KT-14984) when using RxJava with Kotlin, there are a number of helper factories and extension functions to workaround the affected operators. \n\n```\nObservables.zip()\nObservables.combineLatest()\nObservable#zipWith()\nObservable#withLatestFrom()\nFlowables.zip()\nFlowables.combineLatest()\nFlowable#zipWith()\nFlowable#withLatestFrom()\nSingles.zip()\nSingle#zipWith()\nMaybes.zip()\n```\n\n## Usage with Other Rx Libraries\n\nRxKotlin can be used in conjunction with other Rx and Kotlin libraries, such as [RxAndroid](https://github.com/ReactiveX/RxAndroid), [RxBinding](https://github.com/JakeWharton/RxBinding), and [TornadoFX](https://github.com/edvin/tornadofx)/[RxKotlinFX](https://github.com/thomasnield/RxKotlinFX). These libraries and RxKotlin are modular, and RxKotlin is merely a set of extension functions to RxJava that can be used with these other libraries. There should be no overlap or dependency issues. \n\n\n## Other Resources\n\n### _Learning RxJava_ Packt Book\n\nChapter 12 of [_Learning RxJava_](https://www.packtpub.com/application-development/learning-rxjava) covers RxKotlin and Kotlin idioms with RxJava. \n\n[![](https://d255esdrn735hr.cloudfront.net/sites/default/files/imagecache/ppv4_main_book_cover/B06263_cover.png)](https://www.packtpub.com/application-development/learning-rxjava) \n\n### _Reactive Programming in Kotlin_ Packt Book\n\nThe book [_Reactive Programming in Kotlin_](https://www.packtpub.com/application-development/reactive-programming-kotlin) mainly focuses on RxKotlin, as well as learning reactive programming with Kotlin. \n\n[![](https://i.imgur.com/0GjGMn5.png)](https://www.packtpub.com/application-development/reactive-programming-kotlin) \n\n",
+        "releases": [
+            {
+                "name": "RxKotlin 3.0.1",
+                "date": "2020-09-19T20:07:25Z"
+            },
+            {
+                "name": "RxKotlin 3.0.0",
+                "date": "2020-03-21T14:43:24Z"
+            },
+            {
+                "name": "RxKotlin 3.0.0-RC1",
+                "date": "2020-02-01T18:10:47Z"
+            },
+            {
+                "name": "RxKotlin 2.4.0",
+                "date": "2019-07-28T13:31:06Z"
+            },
+            {
+                "name": "RxKotlin 2.4.0-beta.1",
+                "date": "2019-06-28T21:58:24Z"
+            },
+            {
+                "name": "RxKotlin 2.3.0",
+                "date": "2018-08-10T14:55:26Z"
+            },
+            {
+                "name": "RxKotlin 2.2.0",
+                "date": "2017-11-27T01:02:12Z"
+            },
+            {
+                "name": "RxKotlin 2.1.0",
+                "date": "2017-06-24T20:16:21Z"
+            },
+            {
+                "name": "RxKotlin 2.0.3",
+                "date": "2017-05-18T00:33:42Z"
+            },
+            {
+                "name": "RxKotlin 2.0.2",
+                "date": "2017-05-03T02:49:59Z"
+            },
+            {
+                "name": "RxKotlin 2.0.1",
+                "date": "2017-05-02T00:19:25Z"
+            },
+            {
+                "name": "RxJava 2.x SAM Fixes (RC1)",
+                "date": "2017-04-24T23:25:13Z"
+            },
+            {
+                "name": "RxKotlin 2.0 Official Release",
+                "date": "2017-03-20T03:00:14Z"
+            },
+            {
+                "name": "RxKotlin 2.0 RC3",
+                "date": "2017-03-14T01:39:51Z"
+            },
+            {
+                "name": "RxKotlin 1.0 Official Release",
+                "date": "2017-03-17T02:27:49Z"
+            },
+            {
+                "name": "RxKotlin 1.0 RC3",
+                "date": "2017-03-14T01:37:07Z"
+            },
+            {
+                "name": "RxKotlin 2.0 RC1",
+                "date": "2017-03-11T04:34:49Z"
+            },
+            {
+                "name": "RxKotlin 1.0 RC2",
+                "date": "2017-03-07T04:24:00Z"
+            },
+            {
+                "name": "RxKotlin 1.0 RC1",
+                "date": "2017-03-07T03:49:55Z"
+            },
+            {
+                "name": "v0.60.0",
+                "date": "2016-06-13T01:14:49Z"
+            },
+            {
+                "name": "v0.55.0",
+                "date": "2016-03-20T03:17:24Z"
+            },
+            {
+                "name": "v0.50",
+                "date": "2016-02-17T00:58:34Z"
+            },
+            {
+                "name": "v0.30.1",
+                "date": "2015-11-20T01:20:39Z"
+            },
+            {
+                "name": "v0.24.100",
+                "date": "2015-10-23T15:06:21Z"
+            },
+            {
+                "name": "v0.23.100",
+                "date": "2015-10-23T00:47:49Z"
+            },
+            {
+                "name": "0.22.14",
+                "date": "2015-10-03T23:59:10Z"
+            },
+            {
+                "name": "0.22.13",
+                "date": "2015-09-17T22:50:47Z"
+            },
+            {
+                "name": "0.22.12",
+                "date": "2015-06-02T20:37:12Z"
+            },
+            {
+                "name": "0.22.11",
+                "date": "2015-06-02T19:05:12Z"
+            },
+            {
+                "name": "0.21.0",
+                "date": "2014-10-01T04:00:14Z"
+            },
+            {
+                "name": "0.20.4",
+                "date": "2014-10-01T03:59:25Z"
+            }
+        ]
+    }
+}

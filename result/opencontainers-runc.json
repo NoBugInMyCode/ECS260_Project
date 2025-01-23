@@ -1,0 +1,262 @@
+{
+    "https://api.github.com/repos/opencontainers/runc": {
+        "forks": 2134,
+        "watchers": 12063,
+        "stars": 12063,
+        "languages": {
+            "Go": 1253071,
+            "Shell": 305324,
+            "C": 45119,
+            "Makefile": 7226,
+            "Dockerfile": 2644,
+            "Ruby": 2035
+        },
+        "commits": [
+            "2025-01-22T01:18:42Z",
+            "2025-01-21T17:58:31Z",
+            "2025-01-16T12:34:13Z",
+            "2025-01-16T04:05:13Z",
+            "2025-01-10T20:23:22Z",
+            "2025-01-09T10:45:31Z",
+            "2024-06-23T23:31:57Z",
+            "2024-12-23T01:32:02Z",
+            "2024-12-21T19:52:25Z",
+            "2024-12-21T03:00:03Z",
+            "2024-06-24T07:13:56Z",
+            "2025-01-09T04:16:44Z",
+            "2025-01-08T04:16:24Z",
+            "2025-01-07T06:37:38Z",
+            "2025-01-07T04:35:23Z",
+            "2025-01-06T23:23:26Z",
+            "2025-01-06T04:55:38Z",
+            "2025-01-04T04:39:05Z",
+            "2025-01-03T21:43:22Z",
+            "2024-12-31T17:06:45Z",
+            "2024-12-31T17:06:31Z",
+            "2024-12-29T05:36:49Z",
+            "2024-12-25T15:41:27Z",
+            "2024-12-24T04:33:24Z",
+            "2024-12-25T11:28:13Z",
+            "2024-10-21T22:15:14Z",
+            "2024-10-21T22:00:11Z",
+            "2024-06-27T00:22:02Z",
+            "2024-06-26T23:17:36Z",
+            "2024-06-26T23:14:44Z"
+        ],
+        "creation_date": "2015-06-05T23:30:45Z",
+        "contributors": 30,
+        "topics": [
+            "containers",
+            "docker",
+            "oci"
+        ],
+        "subscribers": 380,
+        "readme": "# runc\n\n[![Go Report Card](https://goreportcard.com/badge/github.com/opencontainers/runc)](https://goreportcard.com/report/github.com/opencontainers/runc)\n[![Go Reference](https://pkg.go.dev/badge/github.com/opencontainers/runc.svg)](https://pkg.go.dev/github.com/opencontainers/runc)\n[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/588/badge)](https://bestpractices.coreinfrastructure.org/projects/588)\n[![gha/validate](https://github.com/opencontainers/runc/workflows/validate/badge.svg)](https://github.com/opencontainers/runc/actions?query=workflow%3Avalidate)\n[![gha/ci](https://github.com/opencontainers/runc/workflows/ci/badge.svg)](https://github.com/opencontainers/runc/actions?query=workflow%3Aci)\n[![CirrusCI](https://api.cirrus-ci.com/github/opencontainers/runc.svg)](https://cirrus-ci.com/github/opencontainers/runc)\n<a href=\"https://actuated.dev\"><img alt=\"Arm CI sponsored by Actuated\" src=\"https://docs.actuated.dev/images/actuated-badge.png\" width=\"120px\"></img></a>\n\n## Introduction\n\n`runc` is a CLI tool for spawning and running containers on Linux according to the OCI specification.\n\n## Releases\n\nYou can find official releases of `runc` on the [release](https://github.com/opencontainers/runc/releases) page.\n\nAll releases are signed by one of the keys listed in the [`runc.keyring` file in the root of this repository](runc.keyring).\n\n## Security\n\nThe reporting process and disclosure communications are outlined [here](https://github.com/opencontainers/org/blob/master/SECURITY.md).\n\n### Security Audit\nA third party security audit was performed by Cure53, you can see the full report [here](https://github.com/opencontainers/runc/blob/master/docs/Security-Audit.pdf).\n\n## Building\n\n`runc` only supports Linux. See the header of [`go.mod`](./go.mod) for the required Go version.\n\n### Pre-Requisites\n\n#### Utilities and Libraries\n\nIn addition to Go, building `runc` requires multiple utilities and libraries to be installed on your system.\n\nOn Ubuntu/Debian, you can install the required dependencies with:\n\n```bash\napt update && apt install -y make gcc linux-libc-dev libseccomp-dev pkg-config git\n```\n\nOn CentOS/Fedora, you can install the required dependencies with:\n\n```bash\nyum install -y make gcc kernel-headers libseccomp-devel pkg-config git\n```\n\nOn Alpine Linux, you can install the required dependencies with:\n\n```bash\napk --update add bash make gcc libseccomp-dev musl-dev linux-headers git\n```\n\nThe following dependencies are optional:\n\n* `libseccomp` - only required if you enable seccomp support; to disable, see [Build Tags](#build-tags)\n\n### Build\n\n```bash\n# create a 'github.com/opencontainers' in your GOPATH/src\ncd github.com/opencontainers\ngit clone https://github.com/opencontainers/runc\ncd runc\n\nmake\nsudo make install\n```\n\nYou can also use `go get` to install to your `GOPATH`, assuming that you have a `github.com` parent folder already created under `src`:\n\n```bash\ngo get github.com/opencontainers/runc\ncd $GOPATH/src/github.com/opencontainers/runc\nmake\nsudo make install\n```\n\n`runc` will be installed to `/usr/local/sbin/runc` on your system.\n\n#### Version string customization\n\nYou can see the runc version by running `runc --version`. You can append a custom string to the\nversion using the `EXTRA_VERSION` make variable when building, e.g.:\n\n```bash\nmake EXTRA_VERSION=\"+build-1\"\n```\n\nBear in mind to include some separator for readability.\n\n#### Build Tags\n\n`runc` supports optional build tags for compiling support of various features,\nwith some of them enabled by default (see `BUILDTAGS` in top-level `Makefile`).\n\nTo change build tags from the default, set the `BUILDTAGS` variable for make,\ne.g. to disable seccomp:\n\n```bash\nmake BUILDTAGS=\"\"\n```\n\nTo add some more build tags to the default set, use the `EXTRA_BUILDTAGS`\nmake variable, e.g. to disable checkpoint/restore:\n\n```bash\nmake EXTRA_BUILDTAGS=\"runc_nocriu\"\n```\n\n| Build Tag     | Feature                               | Enabled by Default | Dependencies        |\n|---------------|---------------------------------------|--------------------|---------------------|\n| `seccomp`     | Syscall filtering using `libseccomp`. | yes                | `libseccomp`        |\n| `runc_nocriu` | **Disables** runc checkpoint/restore. | no                 | `criu`              |\n\nThe following build tags were used earlier, but are now obsoleted:\n - **runc_nodmz** (since runc v1.2.1 runc dmz binary is dropped)\n - **nokmem** (since runc v1.0.0-rc94 kernel memory settings are ignored)\n - **apparmor** (since runc v1.0.0-rc93 the feature is always enabled)\n - **selinux**  (since runc v1.0.0-rc93 the feature is always enabled)\n\n### Running the test suite\n\n`runc` currently supports running its test suite via Docker.\nTo run the suite just type `make test`.\n\n```bash\nmake test\n```\n\nThere are additional make targets for running the tests outside of a container but this is not recommended as the tests are written with the expectation that they can write and remove anywhere.\n\nYou can run a specific test case by setting the `TESTFLAGS` variable.\n\n```bash\n# make test TESTFLAGS=\"-run=SomeTestFunction\"\n```\n\nYou can run a specific integration test by setting the `TESTPATH` variable.\n\n```bash\n# make test TESTPATH=\"/checkpoint.bats\"\n```\n\nYou can run a specific rootless integration test by setting the `ROOTLESS_TESTPATH` variable.\n\n```bash\n# make test ROOTLESS_TESTPATH=\"/checkpoint.bats\"\n```\n\nYou can run a test using your container engine's flags by setting `CONTAINER_ENGINE_BUILD_FLAGS` and `CONTAINER_ENGINE_RUN_FLAGS` variables.\n\n```bash\n# make test CONTAINER_ENGINE_BUILD_FLAGS=\"--build-arg http_proxy=http://yourproxy/\" CONTAINER_ENGINE_RUN_FLAGS=\"-e http_proxy=http://yourproxy/\"\n```\n\n### Go Dependencies Management\n\n`runc` uses [Go Modules](https://github.com/golang/go/wiki/Modules) for dependencies management.\nPlease refer to [Go Modules](https://github.com/golang/go/wiki/Modules) for how to add or update\nnew dependencies.\n\n```\n# Update vendored dependencies\nmake vendor\n# Verify all dependencies\nmake verify-dependencies\n```\n\n## Using runc\n\nPlease note that runc is a low level tool not designed with an end user\nin mind. It is mostly employed by other higher level container software.\n\nTherefore, unless there is some specific use case that prevents the use\nof tools like Docker or Podman, it is not recommended to use runc directly.\n\nIf you still want to use runc, here's how.\n\n### Creating an OCI Bundle\n\nIn order to use runc you must have your container in the format of an OCI bundle.\nIf you have Docker installed you can use its `export` method to acquire a root filesystem from an existing Docker container.\n\n```bash\n# create the top most bundle directory\nmkdir /mycontainer\ncd /mycontainer\n\n# create the rootfs directory\nmkdir rootfs\n\n# export busybox via Docker into the rootfs directory\ndocker export $(docker create busybox) | tar -C rootfs -xvf -\n```\n\nAfter a root filesystem is populated you just generate a spec in the format of a `config.json` file inside your bundle.\n`runc` provides a `spec` command to generate a base template spec that you are then able to edit.\nTo find features and documentation for fields in the spec please refer to the [specs](https://github.com/opencontainers/runtime-spec) repository.\n\n```bash\nrunc spec\n```\n\n### Running Containers\n\nAssuming you have an OCI bundle from the previous step you can execute the container in two different ways.\n\nThe first way is to use the convenience command `run` that will handle creating, starting, and deleting the container after it exits.\n\n```bash\n# run as root\ncd /mycontainer\nrunc run mycontainerid\n```\n\nIf you used the unmodified `runc spec` template this should give you a `sh` session inside the container.\n\nThe second way to start a container is using the specs lifecycle operations.\nThis gives you more power over how the container is created and managed while it is running.\nThis will also launch the container in the background so you will have to edit\nthe `config.json` to remove the `terminal` setting for the simple examples\nbelow (see more details about [runc terminal handling](docs/terminals.md)).\nYour process field in the `config.json` should look like this below with `\"terminal\": false` and `\"args\": [\"sleep\", \"5\"]`.\n\n\n```json\n        \"process\": {\n                \"terminal\": false,\n                \"user\": {\n                        \"uid\": 0,\n                        \"gid\": 0\n                },\n                \"args\": [\n                        \"sleep\", \"5\"\n                ],\n                \"env\": [\n                        \"PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\",\n                        \"TERM=xterm\"\n                ],\n                \"cwd\": \"/\",\n                \"capabilities\": {\n                        \"bounding\": [\n                                \"CAP_AUDIT_WRITE\",\n                                \"CAP_KILL\",\n                                \"CAP_NET_BIND_SERVICE\"\n                        ],\n                        \"effective\": [\n                                \"CAP_AUDIT_WRITE\",\n                                \"CAP_KILL\",\n                                \"CAP_NET_BIND_SERVICE\"\n                        ],\n                        \"inheritable\": [\n                                \"CAP_AUDIT_WRITE\",\n                                \"CAP_KILL\",\n                                \"CAP_NET_BIND_SERVICE\"\n                        ],\n                        \"permitted\": [\n                                \"CAP_AUDIT_WRITE\",\n                                \"CAP_KILL\",\n                                \"CAP_NET_BIND_SERVICE\"\n                        ],\n                        \"ambient\": [\n                                \"CAP_AUDIT_WRITE\",\n                                \"CAP_KILL\",\n                                \"CAP_NET_BIND_SERVICE\"\n                        ]\n                },\n                \"rlimits\": [\n                        {\n                                \"type\": \"RLIMIT_NOFILE\",\n                                \"hard\": 1024,\n                                \"soft\": 1024\n                        }\n                ],\n                \"noNewPrivileges\": true\n        },\n```\n\nNow we can go through the lifecycle operations in your shell.\n\n\n```bash\n# run as root\ncd /mycontainer\nrunc create mycontainerid\n\n# view the container is created and in the \"created\" state\nrunc list\n\n# start the process inside the container\nrunc start mycontainerid\n\n# after 5 seconds view that the container has exited and is now in the stopped state\nrunc list\n\n# now delete the container\nrunc delete mycontainerid\n```\n\nThis allows higher level systems to augment the containers creation logic with setup of various settings after the container is created and/or before it is deleted. For example, the container's network stack is commonly set up after `create` but before `start`.\n\n#### Rootless containers\n`runc` has the ability to run containers without root privileges. This is called `rootless`. You need to pass some parameters to `runc` in order to run rootless containers. See below and compare with the previous version.\n\n**Note:** In order to use this feature, \"User Namespaces\" must be compiled and enabled in your kernel. There are various ways to do this depending on your distribution:\n- Confirm `CONFIG_USER_NS=y` is set in your kernel configuration (normally found in `/proc/config.gz`)\n- Arch/Debian: `echo 1 > /proc/sys/kernel/unprivileged_userns_clone`\n- RHEL/CentOS 7: `echo 28633 > /proc/sys/user/max_user_namespaces`\n\nRun the following commands as an ordinary user:\n```bash\n# Same as the first example\nmkdir ~/mycontainer\ncd ~/mycontainer\nmkdir rootfs\ndocker export $(docker create busybox) | tar -C rootfs -xvf -\n\n# The --rootless parameter instructs runc spec to generate a configuration for a rootless container, which will allow you to run the container as a non-root user.\nrunc spec --rootless\n\n# The --root parameter tells runc where to store the container state. It must be writable by the user.\nrunc --root /tmp/runc run mycontainerid\n```\n\n#### Supervisors\n\n`runc` can be used with process supervisors and init systems to ensure that containers are restarted when they exit.\nAn example systemd unit file looks something like this.\n\n```systemd\n[Unit]\nDescription=Start My Container\n\n[Service]\nType=forking\nExecStart=/usr/local/sbin/runc run -d --pid-file /run/mycontainerid.pid mycontainerid\nExecStopPost=/usr/local/sbin/runc delete mycontainerid\nWorkingDirectory=/mycontainer\nPIDFile=/run/mycontainerid.pid\n\n[Install]\nWantedBy=multi-user.target\n```\n\n## More documentation\n\n* [Spec conformance](./docs/spec-conformance.md)\n* [cgroup v2](./docs/cgroup-v2.md)\n* [Checkpoint and restore](./docs/checkpoint-restore.md)\n* [systemd cgroup driver](./docs/systemd.md)\n* [Terminals and standard IO](./docs/terminals.md)\n* [Experimental features](./docs/experimental.md)\n\n## License\n\nThe code and docs are released under the [Apache 2.0 license](LICENSE).\n",
+        "releases": [
+            {
+                "name": "runc v1.2.4 -- \"\u0425\u0440\u0438\u0441\u0442\u043e\u0441 \u0441\u0435 \u0440\u043e\u0434\u0438!\"",
+                "date": "2025-01-07T06:29:57Z"
+            },
+            {
+                "name": "runc v1.2.3 -- \"Winter is not a season, it's a celebration.\"",
+                "date": "2024-12-11T02:02:41Z"
+            },
+            {
+                "name": "runc v1.2.2 -- \"Specialization is for insects.\"",
+                "date": "2024-11-16T01:54:06Z"
+            },
+            {
+                "name": "runc v1.2.1 -- \"No existe una escuela que ense\u00f1e a vivir.\"",
+                "date": "2024-11-01T22:23:57Z"
+            },
+            {
+                "name": "runc v1.2.0 -- \"\u3067\u304d\u308b\u3068\u304d\u306b\u3067\u304d\u308b\u3053\u3068\u3092\u3084\u308b\u3093\u3060\u3002\u305d\u308c\u304c\u4eca\u3060\u3002\"",
+                "date": "2024-10-22T09:12:21Z"
+            },
+            {
+                "name": "v1.1.15 -- \"How, dear sir, did you cross the flood? By not stopping, friend, and by not straining I crossed the flood.\"",
+                "date": "2024-10-07T21:38:10Z"
+            },
+            {
+                "name": "runc v1.2.0-rc.3 -- \"The supreme happiness of life is the conviction that we are loved.\"",
+                "date": "2024-09-03T01:42:32Z"
+            },
+            {
+                "name": "runc v1.1.14 -- \"\u5e74\u3092\u53d6\u3063\u3066\u3044\u3044\u3053\u3068\u306f\u3001\u9a5a\u304b\u306a\u304f\u306a\u308b\u3053\u3068\u306d\u3002\"",
+                "date": "2024-09-03T01:26:22Z"
+            },
+            {
+                "name": "runc v1.2.0-rc.2 -- \"TRUE or FALSE, it's a problem!\"",
+                "date": "2024-06-26T18:14:13Z"
+            },
+            {
+                "name": "runc 1.1.13 -- \"There is no certainty in the world. This is the only certainty I have.\"",
+                "date": "2024-06-13T16:03:53Z"
+            },
+            {
+                "name": "runc 1.2.0-rc.1 -- \"There's a frood who really knows where his towel is.\"",
+                "date": "2024-04-03T11:13:03Z"
+            },
+            {
+                "name": "runc 1.1.12 -- \"Now you're thinking with Portals\u2122!\"",
+                "date": "2024-01-31T20:06:08Z"
+            },
+            {
+                "name": "runc 1.1.11 -- \"Happy New Year!\"",
+                "date": "2024-01-02T03:00:18Z"
+            },
+            {
+                "name": "runc 1.1.10 -- \"\u015aruba, przykr\u0119cona we \u015bnie, nie zmieni sytuacji, jaka panuje na jawie.\"",
+                "date": "2023-11-01T07:28:10Z"
+            },
+            {
+                "name": "runc 1.1.9 -- \"There is a crack in everything. That's how the light gets in.\"",
+                "date": "2023-08-11T01:58:52Z"
+            },
+            {
+                "name": "runc 1.1.8 -- \"\u6d77\u7eb3\u767e\u5ddd \u6709\u5bb9\u4e43\u5927\"",
+                "date": "2023-07-19T13:59:36Z"
+            },
+            {
+                "name": "runc 1.1.7 -- \"\u041d\u043e\u0447\u0435\u0432\u0430\u043b\u0430 \u0442\u0443\u0447\u043a\u0430 \u0437\u043e\u043b\u043e\u0442\u0430\u044f \u043d\u0430 \u0433\u0440\u0443\u0434\u0438 \u0443\u0442\u0435\u0441\u0430-\u0432\u0435\u043b\u0438\u043a\u0430\u043d\u0430.\"",
+                "date": "2023-04-27T09:40:34Z"
+            },
+            {
+                "name": "runc 1.1.6 -- \"In this world nothing is certain but death and taxes.\"",
+                "date": "2023-04-12T04:15:49Z"
+            },
+            {
+                "name": "runc 1.1.5 -- \"\u56da\u308f\u308c\u305f\u5c48\u8fb1\u306f\u3000\u53cd\u6483\u306e\u5686\u77e2\u3060\"",
+                "date": "2023-03-29T07:03:44Z"
+            },
+            {
+                "name": "runc 1.1.4 -- \"If you look for perfection, you'll never be content.\"",
+                "date": "2022-08-25T21:18:42Z"
+            },
+            {
+                "name": "runc 1.1.3 -- \"In the beginning there was nothing, which exploded.\"",
+                "date": "2022-06-09T00:17:58Z"
+            },
+            {
+                "name": "runc 1.1.2 -- \"I should think I\u2019m going to be a perpetual student.\"",
+                "date": "2022-05-11T22:44:43Z"
+            },
+            {
+                "name": "runc 1.1.1 -- \"Violence is the last refuge of the incompetent.\"",
+                "date": "2022-03-29T03:30:12Z"
+            },
+            {
+                "name": "runc 1.1 -- \"A plan depends as much upon execution as it does upon concept.\"",
+                "date": "2022-01-17T22:50:18Z"
+            },
+            {
+                "name": "runc 1.1-rc1 -- \"He who controls the spice controls the universe.\"",
+                "date": "2021-12-14T04:28:13Z"
+            },
+            {
+                "name": "runc 1.0.3 -- \"If you were waiting for the opportune moment, that was it.\"",
+                "date": "2021-12-06T04:31:14Z"
+            },
+            {
+                "name": "runc 1.0.2 -- \"Given the right lever, you can move a planet.\"",
+                "date": "2021-08-23T08:11:14Z"
+            },
+            {
+                "name": "runc 1.0.1 -- \"If in doubt, Meriadoc, always follow your nose.\"",
+                "date": "2021-07-16T15:02:49Z"
+            },
+            {
+                "name": "runc 1.0 -- \"A wizard is never late, nor is he early, he arrives precisely when he means to.\"",
+                "date": "2021-06-22T06:09:37Z"
+            },
+            {
+                "name": "runc 1.0-rc95 -- \"Just when I thought I was out, they pull me back in.\"",
+                "date": "2021-05-19T10:04:23Z"
+            },
+            {
+                "name": "runc 1.0-rc94 -- \"Time is an illusion. Lunchtime doubly so.\"",
+                "date": "2021-05-10T14:43:53Z"
+            },
+            {
+                "name": "runc 1.0-rc93 -- \"I never could get the hang of Thursdays.\"",
+                "date": "2021-02-04T00:18:12Z"
+            },
+            {
+                "name": "runc 1.0-rc92 -- \"Almost, but not quite, entirely unlike tea.\"",
+                "date": "2020-08-06T05:22:08Z"
+            },
+            {
+                "name": "runc 1.0-rc91 -- \"Just Hook a Right Over Here\"",
+                "date": "2020-07-02T01:20:49Z"
+            },
+            {
+                "name": "runc 1.0-rc90 -- \"We Have To Go Back!\"",
+                "date": "2020-06-02T03:07:19Z"
+            },
+            {
+                "name": "runc 1.0-rc10 -- \"Procfs Strikes Back\"",
+                "date": "2020-01-24T03:04:47Z"
+            },
+            {
+                "name": "runc 1.0-rc9 -- \"Watch out for that first step, it's a doozy!\"",
+                "date": "2019-10-05T11:38:02Z"
+            },
+            {
+                "name": "runc 1.0-rc8 -- \"Oops, We Did It Again!\"",
+                "date": "2019-04-26T05:07:58Z"
+            },
+            {
+                "name": "runc 1.0-rc7 -- \"The Eleventh Hour\"",
+                "date": "2019-03-28T17:06:31Z"
+            },
+            {
+                "name": "runc 1.0-rc6 -- \"For Real This Time\"",
+                "date": "2018-11-22T11:50:08Z"
+            },
+            {
+                "name": "runc 1.0-rc5 -- \"The Final Stretch\"",
+                "date": "2018-02-27T17:31:45Z"
+            },
+            {
+                "name": "runc 1.0-rc4",
+                "date": "2017-08-10T14:33:31Z"
+            },
+            {
+                "name": "runc 1.0-rc3",
+                "date": "2017-03-21T20:44:03Z"
+            },
+            {
+                "name": "runc 1.0-rc2",
+                "date": "2016-10-01T08:34:55Z"
+            },
+            {
+                "name": "runc 1.0-rc1",
+                "date": "2016-06-03T23:08:55Z"
+            },
+            {
+                "name": "runc 0.1.1",
+                "date": "2016-04-25T23:27:51Z"
+            },
+            {
+                "name": "Runc v0.1.0",
+                "date": "2016-04-12T21:48:04Z"
+            },
+            {
+                "name": "runc 0.0.9 and specification 0.4.0",
+                "date": "2016-03-11T01:02:52Z"
+            },
+            {
+                "name": "Release 0.0.8 for runc and specification 0.3.0",
+                "date": "2016-02-10T22:31:14Z"
+            },
+            {
+                "name": "Release v0.0.7",
+                "date": "2016-01-26T22:50:24Z"
+            },
+            {
+                "name": "Release v0.0.6",
+                "date": "2015-12-11T19:07:02Z"
+            }
+        ]
+    }
+}

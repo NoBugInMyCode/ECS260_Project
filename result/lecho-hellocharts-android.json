@@ -1,0 +1,108 @@
+{
+    "https://api.github.com/repos/lecho/hellocharts-android": {
+        "forks": 1615,
+        "watchers": 7438,
+        "stars": 7438,
+        "languages": {
+            "Java": 483094
+        },
+        "commits": [
+            "2018-03-18T20:35:52Z",
+            "2017-08-24T22:20:58Z",
+            "2017-01-25T19:46:45Z",
+            "2017-01-17T19:12:51Z",
+            "2016-05-22T18:58:30Z",
+            "2016-04-13T19:17:34Z",
+            "2016-04-11T20:23:16Z",
+            "2016-04-10T15:22:30Z",
+            "2016-04-09T14:37:18Z",
+            "2016-03-21T20:45:46Z",
+            "2016-03-20T21:32:35Z",
+            "2016-03-20T19:06:29Z",
+            "2016-03-21T20:11:59Z",
+            "2016-03-21T20:11:32Z",
+            "2016-03-21T19:43:52Z",
+            "2016-03-19T19:04:51Z",
+            "2016-03-14T18:08:26Z",
+            "2016-03-14T16:27:11Z",
+            "2015-10-05T21:35:22Z",
+            "2015-10-05T15:04:47Z",
+            "2015-09-27T15:29:56Z",
+            "2015-09-27T15:29:14Z",
+            "2015-09-27T15:27:09Z",
+            "2015-09-18T21:02:10Z",
+            "2015-09-02T17:28:14Z",
+            "2015-09-02T17:25:48Z",
+            "2015-09-02T17:21:31Z",
+            "2015-09-02T17:21:09Z",
+            "2015-07-02T18:21:07Z",
+            "2015-07-02T18:15:01Z"
+        ],
+        "creation_date": "2014-10-12T09:12:37Z",
+        "contributors": 13,
+        "topics": [
+            "android",
+            "chart"
+        ],
+        "subscribers": 271,
+        "readme": "# HelloCharts for Android\n\nCharting library for Android compatible with API 8+(Android 2.2).\nWorks best when hardware acceleration is available, so API 14+(Android 4.0) is recommended.\nApache License 2.0.\n\n[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-HelloCharts%20for%20Android-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1068)\n<a href=\"https://scan.coverity.com/projects/4121\">\n  <img alt=\"Coverity Scan Build Status\"\n       src=\"https://scan.coverity.com/projects/4121/badge.svg\"/>\n</a>\n[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.lecho/hellocharts-library/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.lecho/hellocharts-library)\n[![Release](https://img.shields.io/github/release/lecho/hellocharts-android.svg?label=JitPack.io)](https://jitpack.io/#lecho/hellocharts-android)\n\n## Features\n\n - Line chart(cubic lines, filled lines, scattered points)\n - Column chart(grouped, stacked, negative values)\n - Pie chart\n - Bubble chart\n - Combo chart(columns/lines)\n - Preview charts(for column chart and line chart)\n - Zoom(pinch to zoom, double tap zoom), scroll and fling\n - Custom and auto-generated axes(top, bottom, left, right, inside)\n - Animations\n\n## Screens and Demos\n\n - Code of a demo application is in `hellocharts-samples` directory, requires appcompat v21. \n - The **demo app** is also ready for download on [**Google Play**](https://play.google.com/store/apps/details?id=lecho.lib.hellocharts.samples).  \n - Short **video** is available on [**YouTube**](https://www.youtube.com/watch?v=xbSBjyjH2SY).\n\n![](screens/scr_dependecy_preview.gif)\n\n![](screens/scr-tempo.png)\n\n![](screens/scr-dependency.png)\n\n![](screens/scr-preview-column.png)\n\n![](screens/scr-pie1.png)\n\n![](screens/scr-bubble1.png)\n\n![](screens/scr-combo.png)\n\n## Download and Import\n\n#### Android Studio/Gradle\n\n - Maven Central/jCenter, add dependency to your `build.gradle`:\n \n ```groovy\n\tdependencies{\n \t\tcompile 'com.github.lecho:hellocharts-library:1.5.8@aar'\n\t}\n ```\n \n - JitPack.io, add `jitpack.io` repositiory and dependency to your `build.gradle`:\n \n ```groovy\n    repositories {\n        maven {\n            url \"https://jitpack.io\"\n        }\n    }\n\t\n    dependencies {\n        compile 'com.github.lecho:hellocharts-android:v1.5.8'\n    }\n ```\n \n#### Eclipse/ADT\n\n - Download the latest [release jar file](https://github.com/lecho/hellocharts-android/releases).\n - Copy `hellocharts-library-<version>.jar` into the `libs` folder of your application project.\n\n## Usage\n\nEvery chart view can be defined in layout xml file:\n\n ```xml\n    <lecho.lib.hellocharts.view.LineChartView\n        android:id=\"@+id/chart\"\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"match_parent\" />\n ```\n\n or created in code and added to layout later:\n\n ```java\n    LineChartView chart = new LineChartView(context);\n    layout.addView(chart);\n ```\n\n Use methods from *Chart classes to define chart behaviour, example methods:\n\n ```java\n    Chart.setInteractive(boolean isInteractive);\n    Chart.setZoomType(ZoomType zoomType);\n    Chart.setContainerScrollEnabled(boolean isEnabled, ContainerScrollType type);\n ```\n\n Use methods from data models to define how chart looks like, example methods:\n\n ```java\n    ChartData.setAxisXBottom(Axis axisX);\n    ColumnChartData.setStacked(boolean isStacked);\n    Line.setStrokeWidth(int strokeWidthDp);\n ```\n\n Every chart has its own method to set chart data and its own data model, example for line chart:\n\n ```java\n    List<PointValue> values = new ArrayList<PointValue>();\n    values.add(new PointValue(0, 2));\n    values.add(new PointValue(1, 4));\n    values.add(new PointValue(2, 3));\n    values.add(new PointValue(3, 4));\n\n    //In most cased you can call data model methods in builder-pattern-like manner.\n    Line line = new Line(values).setColor(Color.BLUE).setCubic(true);\n    List<Line> lines = new ArrayList<Line>();\n    lines.add(line);\n\n    LineChartData data = new LineChartData();\n    data.setLines(lines);\n\n\tLineChartView chart = new LineChartView(context);\n    chart.setLineChartData(data);\n ```\n\n After the chart data has been set you can still modify its attributes but right after that you should call\n `set*ChartData()` method again to let chart recalculate and redraw data. There is also an option to use copy constructor for deep copy of\n chart data. You can safely modify copy in other threads and pass it to `set*ChartData()` method later.\n\n\n## Contributing\n\nYes:) If you found a bug, have an idea how to improve library or have a question, please create new issue or comment existing one. If you would like to contribute code fork the repository and send a pull request.\n\n# License\n\n\tHelloCharts\t\n    Copyright 2014 Leszek Wach\n\n    Licensed under the Apache License, Version 2.0 (the \"License\");\n    you may not use this file except in compliance with the License.\n    You may obtain a copy of the License at\n\n       http://www.apache.org/licenses/LICENSE-2.0\n\n    Unless required by applicable law or agreed to in writing, software\n    distributed under the License is distributed on an \"AS IS\" BASIS,\n    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n    See the License for the specific language governing permissions and\n    limitations under the License.\n\n---\n     HelloCharts library uses code from InteractiveChart sample available \n     on Android Developers page:\n\t \n       http://developer.android.com/training/gestures/scale.html\n",
+        "releases": [
+            {
+                "name": "Release 1.5.8",
+                "date": "2015-09-27T15:32:33Z"
+            },
+            {
+                "name": "Release 1.5.7",
+                "date": "2015-09-02T17:27:09Z"
+            },
+            {
+                "name": "Release 1.5.6",
+                "date": "2015-07-02T18:23:31Z"
+            },
+            {
+                "name": "Release 1.5.5",
+                "date": "2015-05-17T18:06:20Z"
+            },
+            {
+                "name": "Release 1.5.4",
+                "date": "2015-05-03T19:19:48Z"
+            },
+            {
+                "name": "Release 1.5.3",
+                "date": "2015-03-09T19:37:52Z"
+            },
+            {
+                "name": "Release 1.5.2",
+                "date": "2015-03-07T16:41:21Z"
+            },
+            {
+                "name": "Release 1.5.0",
+                "date": "2015-02-11T21:15:14Z"
+            },
+            {
+                "name": "Release 1.4",
+                "date": "2015-02-01T19:55:08Z"
+            },
+            {
+                "name": "Release 1.3",
+                "date": "2014-12-18T20:15:17Z"
+            },
+            {
+                "name": "Release 1.2",
+                "date": "2014-11-30T19:40:50Z"
+            },
+            {
+                "name": "Release 1.1",
+                "date": "2014-10-25T16:37:56Z"
+            },
+            {
+                "name": "Release 1.0 - the first stable;)",
+                "date": "2014-10-12T10:45:11Z"
+            },
+            {
+                "name": "Custom viewport model",
+                "date": "2014-10-12T10:48:40Z"
+            }
+        ]
+    }
+}

@@ -1,0 +1,1116 @@
+{
+    "https://api.github.com/repos/kubernetes-sigs/kustomize": {
+        "forks": 2275,
+        "watchers": 11184,
+        "stars": 11184,
+        "languages": {
+            "Go": 3531027,
+            "PureBasic": 3469475,
+            "Shell": 49337,
+            "Makefile": 28447,
+            "HTML": 11054,
+            "Dockerfile": 7644,
+            "PowerShell": 2159,
+            "Starlark": 355,
+            "SCSS": 96
+        },
+        "commits": [
+            "2025-01-20T07:22:35Z",
+            "2025-01-17T13:56:36Z",
+            "2025-01-16T05:54:26Z",
+            "2025-01-16T02:40:34Z",
+            "2025-01-15T20:17:23Z",
+            "2025-01-14T15:54:33Z",
+            "2025-01-14T15:37:09Z",
+            "2025-01-14T15:08:34Z",
+            "2025-01-14T14:54:58Z",
+            "2025-01-14T14:50:33Z",
+            "2025-01-14T14:42:16Z",
+            "2025-01-14T14:22:33Z",
+            "2025-01-14T14:14:25Z",
+            "2025-01-07T18:58:29Z",
+            "2025-01-07T02:48:28Z",
+            "2024-12-17T12:46:53Z",
+            "2024-12-15T11:52:17Z",
+            "2024-12-15T11:50:43Z",
+            "2024-12-13T12:55:18Z",
+            "2024-12-13T03:26:25Z",
+            "2024-12-12T23:48:06Z",
+            "2024-12-12T05:02:53Z",
+            "2024-11-30T19:00:58Z",
+            "2024-11-25T07:44:36Z",
+            "2024-10-10T21:04:21Z",
+            "2024-10-09T14:26:16Z",
+            "2024-10-09T13:38:23Z",
+            "2024-10-09T13:20:42Z",
+            "2024-10-09T13:08:22Z",
+            "2024-10-09T12:58:41Z"
+        ],
+        "creation_date": "2018-05-11T17:09:33Z",
+        "contributors": 30,
+        "topics": [
+            "hacktoberfest",
+            "k8s-sig-cli"
+        ],
+        "subscribers": 114,
+        "readme": "# kustomize\n\n`kustomize` lets you customize raw, template-free YAML\nfiles for multiple purposes, leaving the original YAML\nuntouched and usable as is.\n\n`kustomize` targets kubernetes; it understands and can\npatch [kubernetes style] API objects.  It's like\n[`make`], in that what it does is declared in a file,\nand it's like [`sed`], in that it emits edited text.\n\nThis tool is sponsored by [sig-cli] ([KEP]).\n\n - [Installation instructions](https://kubectl.docs.kubernetes.io/installation/kustomize/)\n - [General documentation](https://kubectl.docs.kubernetes.io/references/kustomize/)\n - [Examples](examples)\n\n[![Build Status](https://prow.k8s.io/badge.svg?jobs=kustomize-presubmit-master)](https://prow.k8s.io/job-history/kubernetes-jenkins/pr-logs/directory/kustomize-presubmit-master)\n[![Go Report Card](https://goreportcard.com/badge/github.com/kubernetes-sigs/kustomize)](https://goreportcard.com/report/github.com/kubernetes-sigs/kustomize)\n\n## kubectl integration\n\nTo find the kustomize version embedded in recent versions of kubectl, run `kubectl version`:\n\n```sh\n> kubectl version --client\nClient Version: v1.31.0\nKustomize Version: v5.4.2\n```\n\nThe kustomize build flow at [v2.0.3] was added\nto [kubectl v1.14][kubectl announcement].  The kustomize\nflow in kubectl remained frozen at v2.0.3 until kubectl v1.21,\nwhich [updated it to v4.0.5][kust-in-kubectl update]. It will\nbe updated on a regular basis going forward, and such updates\nwill be reflected in the Kubernetes release notes.\n\n| Kubectl version | Kustomize version |\n| --------------- | ----------------- |\n| < v1.14         | n/a               |\n| v1.14-v1.20     | v2.0.3            |\n| v1.21           | v4.0.5            |\n| v1.22           | v4.2.0            |\n| v1.23           | v4.4.1            |\n| v1.24           | v4.5.4            |\n| v1.25           | v4.5.7            |\n| v1.26           | v4.5.7            |\n| v1.27           | v5.0.1            |\n\n[v2.0.3]: https://github.com/kubernetes-sigs/kustomize/releases/tag/v2.0.3\n[#2506]: https://github.com/kubernetes-sigs/kustomize/issues/2506\n[#1500]: https://github.com/kubernetes-sigs/kustomize/issues/1500\n[kust-in-kubectl update]: https://github.com/kubernetes/kubernetes/blob/4d75a6238a6e330337526e0513e67d02b1940b63/CHANGELOG/CHANGELOG-1.21.md#kustomize-updates-in-kubectl\n\nFor examples and guides for using the kubectl integration please\nsee the [kubernetes documentation].\n\n## Usage\n\n\n### 1) Make a [kustomization] file\n\nIn some directory containing your YAML [resource]\nfiles (deployments, services, configmaps, etc.), create a\n[kustomization] file.\n\nThis file should declare those resources, and any\ncustomization to apply to them, e.g. _add a common\nlabel_.\n\n```\n\nbase: kustomization + resources\n\nkustomization.yaml                                      deployment.yaml                                                 service.yaml\n+---------------------------------------------+         +-------------------------------------------------------+       +-----------------------------------+\n| apiVersion: kustomize.config.k8s.io/v1beta1 |         | apiVersion: apps/v1                                   |       | apiVersion: v1                    |\n| kind: Kustomization                         |         | kind: Deployment                                      |       | kind: Service                     |\n| labels:                                     |         | metadata:                                             |       | metadata:                         |\n| - includeSelectors: true                    |         |   name: myapp                                         |       |   name: myapp                     |\n|   pairs:                                    |         | spec:                                                 |       | spec:                             |\n|     app: myapp                              |         |   selector:                                           |       |   selector:                       |\n| resources:                                  |         |     matchLabels:                                      |       |     app: myapp                    |\n|   - deployment.yaml                         |         |       app: myapp                                      |       |   ports:                          |\n|   - service.yaml                            |         |   template:                                           |       |     - port: 6060                  |\n| configMapGenerator:                         |         |     metadata:                                         |       |       targetPort: 6060            |\n|   - name: myapp-map                         |         |       labels:                                         |       +-----------------------------------+\n|     literals:                               |         |         app: myapp                                    |\n|       - KEY=value                           |         |     spec:                                             |\n+---------------------------------------------+         |       containers:                                     |\n                                                        |         - name: myapp                                 |\n                                                        |           image: myapp                                |\n                                                        |           resources:                                  |\n                                                        |             limits:                                   |\n                                                        |               memory: \"128Mi\"                         |\n                                                        |               cpu: \"500m\"                             |\n                                                        |           ports:                                      |\n                                                        |             - containerPort: 6060                     |\n                                                        +-------------------------------------------------------+\n\n```\n\nFile structure:\n\n> ```\n> ~/someApp\n> \u251c\u2500\u2500 deployment.yaml\n> \u251c\u2500\u2500 kustomization.yaml\n> \u2514\u2500\u2500 service.yaml\n> ```\n\nThe resources in this directory could be a fork of\nsomeone else's configuration.  If so, you can easily\nrebase from the source material to capture\nimprovements, because you don't modify the resources\ndirectly.\n\nGenerate customized YAML with:\n\n```\nkustomize build ~/someApp\n```\n\nThe YAML can be directly [applied] to a cluster:\n\n> ```\n> kustomize build ~/someApp | kubectl apply -f -\n> ```\n\n\n### 2) Create [variants] using [overlays]\n\nManage traditional [variants] of a configuration - like\n_development_, _staging_ and _production_ - using\n[overlays] that modify a common [base].\n\n```\n\noverlay: kustomization + patches\n\nkustomization.yaml                                      replica_count.yaml                      cpu_count.yaml\n+-----------------------------------------------+       +-------------------------------+       +------------------------------------------+\n| apiVersion: kustomize.config.k8s.io/v1beta1   |       | apiVersion: apps/v1           |       | apiVersion: apps/v1                      |\n| kind: Kustomization                           |       | kind: Deployment              |       | kind: Deployment                         |\n| labels:                                       |       | metadata:                     |       | metadata:                                |\n|  - includeSelectors: true                     |       |   name: myapp                 |       |   name: myapp                            |\n|    pairs:                                     |       | spec:                         |       | spec:                                    |\n|      variant: prod                            |       |   replicas: 80                |       |  template:                               |\n| resources:                                    |       +-------------------------------+       |     spec:                                |\n|   - ../../base                                |                                               |       containers:                        |\n| patches:                                      |                                               |         - name: myapp                    |\n|   - path: replica_count.yaml                  |                                               |           resources:                     |\n|   - path: cpu_count.yaml                      |                                               |             limits:                      |\n+-----------------------------------------------+                                               |               memory: \"128Mi\"            |\n                                                                                                |               cpu: \"7000m\"               |\n                                                                                                +------------------------------------------+\n```\n\n\nFile structure:\n> ```\n> ~/someApp\n> \u251c\u2500\u2500 base\n> \u2502   \u251c\u2500\u2500 deployment.yaml\n> \u2502   \u251c\u2500\u2500 kustomization.yaml\n> \u2502   \u2514\u2500\u2500 service.yaml\n> \u2514\u2500\u2500 overlays\n>     \u251c\u2500\u2500 development\n>     \u2502   \u251c\u2500\u2500 cpu_count.yaml\n>     \u2502   \u251c\u2500\u2500 kustomization.yaml\n>     \u2502   \u2514\u2500\u2500 replica_count.yaml\n>     \u2514\u2500\u2500 production\n>         \u251c\u2500\u2500 cpu_count.yaml\n>         \u251c\u2500\u2500 kustomization.yaml\n>         \u2514\u2500\u2500 replica_count.yaml\n> ```\n\nTake the work from step (1) above, move it into a\n`someApp` subdirectory called `base`, then\nplace overlays in a sibling directory.\n\nAn overlay is just another kustomization, referring to\nthe base, and referring to patches to apply to that\nbase.\n\nThis arrangement makes it easy to manage your\nconfiguration with `git`.  The base could have files\nfrom an upstream repository managed by someone else.\nThe overlays could be in a repository you own.\nArranging the repo clones as siblings on disk avoids\nthe need for git submodules (though that works fine, if\nyou are a submodule fan).\n\nGenerate YAML with\n\n```sh\nkustomize build ~/someApp/overlays/production\n```\n\nThe YAML can be directly [applied] to a cluster:\n\n> ```sh\n> kustomize build ~/someApp/overlays/production | kubectl apply -f -\n> ```\n\n## Community\n\n- [file a bug](https://kubectl.docs.kubernetes.io/contributing/kustomize/bugs/)\n- [contribute a feature](https://kubectl.docs.kubernetes.io/contributing/kustomize/features/)\n- [propose a larger enhancement](https://github.com/kubernetes-sigs/kustomize/tree/master/proposals)\n\n### Code of conduct\n\nParticipation in the Kubernetes community\nis governed by the [Kubernetes Code of Conduct].\n\n[`make`]: https://www.gnu.org/software/make\n[`sed`]: https://www.gnu.org/software/sed\n[DAM]: https://kubectl.docs.kubernetes.io/references/kustomize/glossary/#declarative-application-management\n[KEP]: https://github.com/kubernetes/enhancements/blob/master/keps/sig-cli/2377-Kustomize/README.md\n[Kubernetes Code of Conduct]: code-of-conduct.md\n[applied]: https://kubectl.docs.kubernetes.io/references/kustomize/glossary/#apply\n[base]: https://kubectl.docs.kubernetes.io/references/kustomize/glossary/#base\n[declarative configuration]: https://kubectl.docs.kubernetes.io/references/kustomize/glossary/#declarative-application-management\n[kubectl announcement]: https://kubernetes.io/blog/2019/03/25/kubernetes-1-14-release-announcement\n[kubernetes documentation]: https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/\n[kubernetes style]: https://kubectl.docs.kubernetes.io/references/kustomize/glossary/#kubernetes-style-object\n[kustomization]: https://kubectl.docs.kubernetes.io/references/kustomize/glossary/#kustomization\n[overlay]: https://kubectl.docs.kubernetes.io/references/kustomize/glossary/#overlay\n[overlays]: https://kubectl.docs.kubernetes.io/references/kustomize/glossary/#overlay\n[release page]: https://github.com/kubernetes-sigs/kustomize/releases\n[resource]: https://kubectl.docs.kubernetes.io/references/kustomize/glossary/#resource\n[resources]: https://kubectl.docs.kubernetes.io/references/kustomize/glossary/#resource\n[sig-cli]: https://github.com/kubernetes/community/blob/master/sig-cli/README.md\n[variants]: https://kubectl.docs.kubernetes.io/references/kustomize/glossary/#variant\n",
+        "releases": [
+            {
+                "name": "kyaml/v0.19.0",
+                "date": "2025-01-14T14:12:39Z"
+            },
+            {
+                "name": "kustomize/v5.6.0",
+                "date": "2025-01-14T15:32:11Z"
+            },
+            {
+                "name": "cmd/config/v0.19.0",
+                "date": "2025-01-14T14:41:06Z"
+            },
+            {
+                "name": "api/v0.19.0",
+                "date": "2025-01-14T14:53:53Z"
+            },
+            {
+                "name": "kyaml/v0.18.1",
+                "date": "2024-10-09T12:19:08Z"
+            },
+            {
+                "name": "kustomize/v5.5.0",
+                "date": "2024-10-09T13:17:14Z"
+            },
+            {
+                "name": "cmd/config/v0.15.0",
+                "date": "2024-10-09T12:36:08Z"
+            },
+            {
+                "name": "api/v0.18.0",
+                "date": "2024-10-09T12:58:00Z"
+            },
+            {
+                "name": "kyaml/v0.18.0",
+                "date": "2024-10-09T12:10:20Z"
+            },
+            {
+                "name": "kyaml/v0.17.2",
+                "date": "2024-07-19T15:26:01Z"
+            },
+            {
+                "name": "kustomize/v5.4.3",
+                "date": "2024-07-19T16:52:40Z"
+            },
+            {
+                "name": "cmd/config/v0.14.2",
+                "date": "2024-07-19T15:54:27Z"
+            },
+            {
+                "name": "api/v0.17.3",
+                "date": "2024-07-19T16:12:55Z"
+            },
+            {
+                "name": "kyaml/v0.17.1",
+                "date": "2024-05-22T14:23:36Z"
+            },
+            {
+                "name": "kustomize/v5.4.2",
+                "date": "2024-05-22T15:28:37Z"
+            },
+            {
+                "name": "cmd/config/v0.14.1",
+                "date": "2024-05-22T14:40:00Z"
+            },
+            {
+                "name": "api/v0.17.2",
+                "date": "2024-05-22T15:00:47Z"
+            },
+            {
+                "name": "kyaml/v0.17.0",
+                "date": "2024-04-04T12:58:42Z"
+            },
+            {
+                "name": "kustomize/v5.4.1",
+                "date": "2024-04-04T17:18:31Z"
+            },
+            {
+                "name": "kustomize/v5.4.0",
+                "date": "2024-04-04T14:32:00Z"
+            },
+            {
+                "name": "cmd/config/v0.14.0",
+                "date": "2024-04-04T13:23:42Z"
+            },
+            {
+                "name": "api/v0.17.1",
+                "date": "2024-04-04T16:58:40Z"
+            },
+            {
+                "name": "api/v0.17.0",
+                "date": "2024-04-04T13:42:51Z"
+            },
+            {
+                "name": "kyaml/v0.16.0",
+                "date": "2023-12-07T09:58:49Z"
+            },
+            {
+                "name": "kustomize/v5.3.0",
+                "date": "2023-12-07T10:53:09Z"
+            },
+            {
+                "name": "cmd/config/v0.13.0",
+                "date": "2023-12-07T10:15:38Z"
+            },
+            {
+                "name": "api/v0.16.0",
+                "date": "2023-12-07T10:29:32Z"
+            },
+            {
+                "name": "kyaml/v0.15.0",
+                "date": "2023-10-19T16:05:02Z"
+            },
+            {
+                "name": "kustomize/v5.2.1",
+                "date": "2023-10-19T20:22:10Z"
+            },
+            {
+                "name": "kustomize/v5.2.0",
+                "date": "2023-10-19T18:18:14Z"
+            },
+            {
+                "name": "cmd/config/v0.12.0",
+                "date": "2023-10-19T17:09:40Z"
+            },
+            {
+                "name": "api/v0.15.0",
+                "date": "2023-10-19T17:35:47Z"
+            },
+            {
+                "name": "kustomize/v5.1.1",
+                "date": "2023-07-31T17:20:01Z"
+            },
+            {
+                "name": "kyaml/v0.14.3",
+                "date": "2023-06-19T15:42:48Z"
+            },
+            {
+                "name": "kustomize/v5.1.0",
+                "date": "2023-06-19T17:03:14Z"
+            },
+            {
+                "name": "cmd/config/v0.11.3",
+                "date": "2023-06-19T16:06:39Z"
+            },
+            {
+                "name": "api/v0.14.0",
+                "date": "2023-06-19T16:30:50Z"
+            },
+            {
+                "name": "kustomize/v5.0.3",
+                "date": "2023-05-09T20:13:29Z"
+            },
+            {
+                "name": "api/v0.13.4",
+                "date": "2023-05-09T19:46:21Z"
+            },
+            {
+                "name": "kyaml/v0.14.2",
+                "date": "2023-05-05T19:30:11Z"
+            },
+            {
+                "name": "kustomize/v5.0.2",
+                "date": "2023-05-05T20:36:14Z"
+            },
+            {
+                "name": "cmd/config/v0.11.2",
+                "date": "2023-05-05T19:48:16Z"
+            },
+            {
+                "name": "api/v0.13.3",
+                "date": "2023-05-05T20:09:47Z"
+            },
+            {
+                "name": "kustomize/v5.0.1",
+                "date": "2023-03-14T01:41:45Z"
+            },
+            {
+                "name": "cmd/config/v0.11.1",
+                "date": "2023-03-14T00:26:47Z"
+            },
+            {
+                "name": "api/v0.13.2",
+                "date": "2023-03-14T01:06:45Z"
+            },
+            {
+                "name": "kyaml/v0.14.1",
+                "date": "2023-03-13T23:23:45Z"
+            },
+            {
+                "name": "kustomize/v5.0.0",
+                "date": "2023-02-02T17:19:31Z"
+            },
+            {
+                "name": "api/v0.13.1",
+                "date": "2023-02-02T15:44:57Z"
+            },
+            {
+                "name": "kyaml/v0.14.0",
+                "date": "2023-02-01T21:37:14Z"
+            },
+            {
+                "name": "cmd/config/v0.11.0",
+                "date": "2023-02-01T22:21:54Z"
+            },
+            {
+                "name": "api/v0.13.0",
+                "date": "2023-02-01T23:36:23Z"
+            },
+            {
+                "name": "kyaml/v0.13.10",
+                "date": "2022-11-16T19:50:43Z"
+            },
+            {
+                "name": "kyaml/v0.13.9",
+                "date": "2022-08-02T15:18:41Z"
+            },
+            {
+                "name": "kustomize/v4.5.7",
+                "date": "2022-08-02T16:39:10Z"
+            },
+            {
+                "name": "cmd/config/v0.10.9",
+                "date": "2022-08-02T15:45:21Z"
+            },
+            {
+                "name": "api/v0.12.1",
+                "date": "2022-08-02T16:12:53Z"
+            },
+            {
+                "name": "kyaml/v0.13.8",
+                "date": "2022-07-29T19:41:21Z"
+            },
+            {
+                "name": "kustomize/v4.5.6",
+                "date": "2022-07-29T20:50:14Z"
+            },
+            {
+                "name": "cmd/config/v0.10.8",
+                "date": "2022-07-29T20:04:30Z"
+            },
+            {
+                "name": "api/v0.12.0",
+                "date": "2022-07-29T20:21:49Z"
+            },
+            {
+                "name": "kyaml/v0.13.7",
+                "date": "2022-05-20T18:43:02Z"
+            },
+            {
+                "name": "kustomize/v4.5.5",
+                "date": "2022-05-20T20:34:44Z"
+            },
+            {
+                "name": "cmd/config/v0.10.7",
+                "date": "2022-05-20T19:01:37Z"
+            },
+            {
+                "name": "api/v0.11.5",
+                "date": "2022-05-20T19:21:17Z"
+            },
+            {
+                "name": "kyaml/v0.13.6",
+                "date": "2022-03-28T21:06:30Z"
+            },
+            {
+                "name": "kustomize/v4.5.4",
+                "date": "2022-03-28T23:20:18Z"
+            },
+            {
+                "name": "cmd/config/v0.10.6",
+                "date": "2022-03-28T21:56:26Z"
+            },
+            {
+                "name": "api/v0.11.4",
+                "date": "2022-03-28T22:25:33Z"
+            },
+            {
+                "name": "kyaml/v0.13.4",
+                "date": "2022-03-24T19:58:11Z"
+            },
+            {
+                "name": "kustomize/v4.5.3",
+                "date": "2022-03-24T21:02:46Z"
+            },
+            {
+                "name": "cmd/config/v0.10.5",
+                "date": "2022-03-24T20:14:45Z"
+            },
+            {
+                "name": "api/v0.11.3",
+                "date": "2022-03-24T20:33:49Z"
+            },
+            {
+                "name": "kustomize/v4.5.2",
+                "date": "2022-02-10T00:15:04Z"
+            },
+            {
+                "name": "api/v0.11.2",
+                "date": "2022-02-09T23:09:18Z"
+            },
+            {
+                "name": "kyaml/v0.13.3",
+                "date": "2022-02-02T18:35:48Z"
+            },
+            {
+                "name": "kustomize/v4.5.1",
+                "date": "2022-02-02T19:40:33Z"
+            },
+            {
+                "name": "kustomize/v4.5.0",
+                "date": "2022-02-02T00:30:54Z"
+            },
+            {
+                "name": "cmd/config/v0.10.4",
+                "date": "2022-02-02T18:44:31Z"
+            },
+            {
+                "name": "api/v0.11.1",
+                "date": "2022-02-02T19:01:15Z"
+            },
+            {
+                "name": "kyaml/v0.13.2",
+                "date": "2022-02-01T22:36:04Z"
+            },
+            {
+                "name": "cmd/config/v0.10.3",
+                "date": "2022-02-01T23:29:05Z"
+            },
+            {
+                "name": "api/v0.11.0",
+                "date": "2022-02-02T00:07:37Z"
+            },
+            {
+                "name": "kyaml/v0.13.1",
+                "date": "2021-12-23T18:30:32Z"
+            },
+            {
+                "name": "kyaml/v0.13.0",
+                "date": "2021-11-11T22:11:28Z"
+            },
+            {
+                "name": "kustomize/v4.4.1",
+                "date": "2021-11-11T23:47:06Z"
+            },
+            {
+                "name": "cmd/config/v0.10.2",
+                "date": "2021-11-11T22:52:34Z"
+            },
+            {
+                "name": "api/v0.10.1",
+                "date": "2021-11-11T23:17:38Z"
+            },
+            {
+                "name": "kustomize/v4.4.0",
+                "date": "2021-09-27T16:31:08Z"
+            },
+            {
+                "name": "kyaml/v0.12.0",
+                "date": "2021-09-24T15:59:29Z"
+            },
+            {
+                "name": "cmd/config/v0.10.1",
+                "date": "2021-09-24T23:06:09Z"
+            },
+            {
+                "name": "api/v0.10.0",
+                "date": "2021-09-24T23:57:46Z"
+            },
+            {
+                "name": "kyaml/v0.11.1",
+                "date": "2021-08-24T17:46:21Z"
+            },
+            {
+                "name": "kustomize/v4.3.0",
+                "date": "2021-08-24T19:32:46Z"
+            },
+            {
+                "name": "cmd/config/v0.10.0",
+                "date": "2021-08-24T18:26:08Z"
+            },
+            {
+                "name": "api/v0.9.0",
+                "date": "2021-08-24T18:53:43Z"
+            },
+            {
+                "name": "kyaml/v0.11.0",
+                "date": "2021-06-30T18:21:28Z"
+            },
+            {
+                "name": "kustomize/v4.2.0",
+                "date": "2021-07-01T21:41:07Z"
+            },
+            {
+                "name": "cmd/config/v0.9.13",
+                "date": "2021-06-30T19:14:15Z"
+            },
+            {
+                "name": "api/v0.8.11",
+                "date": "2021-06-30T19:40:45Z"
+            },
+            {
+                "name": "kyaml/v0.10.21",
+                "date": "2021-06-08T21:01:40Z"
+            },
+            {
+                "name": "kyaml/v0.10.20",
+                "date": "2021-05-20T20:15:04Z"
+            },
+            {
+                "name": "kustomize/v4.1.3",
+                "date": "2021-05-20T21:23:15Z"
+            },
+            {
+                "name": "cmd/config/v0.9.12",
+                "date": "2021-05-20T20:15:17Z"
+            },
+            {
+                "name": "api/v0.8.10",
+                "date": "2021-05-20T20:16:04Z"
+            },
+            {
+                "name": "kyaml/v0.10.19",
+                "date": "2021-05-01T05:24:50Z"
+            },
+            {
+                "name": "kyaml/v0.10.18",
+                "date": "2021-05-01T00:12:17Z"
+            },
+            {
+                "name": "cmd/config/v0.9.11",
+                "date": "2021-05-01T01:37:06Z"
+            },
+            {
+                "name": "api/v0.8.9",
+                "date": "2021-05-01T02:23:29Z"
+            },
+            {
+                "name": "kustomize/v4.1.2",
+                "date": "2021-04-15T20:51:21Z"
+            },
+            {
+                "name": "kustomize/v4.1.1",
+                "date": "2021-04-15T03:18:05Z"
+            },
+            {
+                "name": "api/v0.8.8",
+                "date": "2021-04-15T20:20:28Z"
+            },
+            {
+                "name": "api/v0.8.7",
+                "date": "2021-04-15T02:40:24Z"
+            },
+            {
+                "name": "kyaml/v0.10.17",
+                "date": "2021-04-13T16:21:59Z"
+            },
+            {
+                "name": "kustomize/v4.1.0",
+                "date": "2021-04-13T20:48:59Z"
+            },
+            {
+                "name": "cmd/config/v0.9.10",
+                "date": "2021-04-13T18:23:04Z"
+            },
+            {
+                "name": "api/v0.8.6",
+                "date": "2021-04-13T18:58:26Z"
+            },
+            {
+                "name": "cmd/config/v0.9.9",
+                "date": "2021-04-03T00:38:19Z"
+            },
+            {
+                "name": "cmd/config/v0.9.8",
+                "date": "2021-04-02T23:52:11Z"
+            },
+            {
+                "name": "kyaml/v0.10.16",
+                "date": "2021-03-30T21:33:39Z"
+            },
+            {
+                "name": "kyaml/v0.10.15",
+                "date": "2021-03-08T19:18:00Z"
+            },
+            {
+                "name": "kustomize/v4.0.5",
+                "date": "2021-03-08T21:10:54Z"
+            },
+            {
+                "name": "cmd/config/v0.9.6",
+                "date": "2021-03-08T02:20:32Z"
+            },
+            {
+                "name": "api/v0.8.5",
+                "date": "2021-03-08T19:46:18Z"
+            },
+            {
+                "name": "kyaml/v0.10.14",
+                "date": "2021-03-08T02:02:56Z"
+            },
+            {
+                "name": "kyaml/v0.10.13",
+                "date": "2021-02-28T20:02:58Z"
+            },
+            {
+                "name": "kustomize/v4.0.4",
+                "date": "2021-02-28T20:37:16Z"
+            },
+            {
+                "name": "cmd/config/v0.9.5",
+                "date": "2021-02-28T20:03:04Z"
+            },
+            {
+                "name": "api/v0.8.4",
+                "date": "2021-02-28T20:22:05Z"
+            },
+            {
+                "name": "kustomize/v4.0.3",
+                "date": "2021-02-27T01:10:19Z"
+            },
+            {
+                "name": "api/v0.8.3",
+                "date": "2021-02-27T00:49:31Z"
+            },
+            {
+                "name": "kyaml/v0.10.12",
+                "date": "2021-02-26T23:51:12Z"
+            },
+            {
+                "name": "cmd/config/v0.9.4",
+                "date": "2021-02-27T00:30:56Z"
+            },
+            {
+                "name": "kyaml/v0.10.11",
+                "date": "2021-02-25T05:29:44Z"
+            },
+            {
+                "name": "kustomize/v4.0.2",
+                "date": "2021-02-25T19:30:13Z"
+            },
+            {
+                "name": "cmd/config/v0.9.3",
+                "date": "2021-02-25T15:59:07Z"
+            },
+            {
+                "name": "api/v0.8.2",
+                "date": "2021-02-25T16:00:44Z"
+            },
+            {
+                "name": "kustomize/v4.0.1",
+                "date": "2021-02-13T21:26:45Z"
+            },
+            {
+                "name": "kyaml/v0.10.10",
+                "date": "2021-02-12T20:28:16Z"
+            },
+            {
+                "name": "kustomize/v4.0.0",
+                "date": "2021-02-12T23:05:18Z"
+            },
+            {
+                "name": "cmd/config/v0.9.2",
+                "date": "2021-02-12T20:28:29Z"
+            },
+            {
+                "name": "api/v0.8.1",
+                "date": "2021-02-12T20:38:46Z"
+            },
+            {
+                "name": "kustomize/v3.10.0",
+                "date": "2021-02-10T00:12:36Z"
+            },
+            {
+                "name": "kyaml/v0.10.9",
+                "date": "2021-02-09T17:39:05Z"
+            },
+            {
+                "name": "kyaml/v0.10.8",
+                "date": "2021-02-09T00:01:49Z"
+            },
+            {
+                "name": "kustomize/v3.9.4",
+                "date": "2021-02-09T19:36:03Z"
+            },
+            {
+                "name": "cmd/config/v0.9.1",
+                "date": "2021-02-09T18:16:32Z"
+            },
+            {
+                "name": "cmd/config/v0.9.0",
+                "date": "2021-02-09T01:02:15Z"
+            },
+            {
+                "name": "api/v0.8.0",
+                "date": "2021-02-09T22:42:20Z"
+            },
+            {
+                "name": "api/v0.7.4",
+                "date": "2021-02-09T18:57:42Z"
+            },
+            {
+                "name": "kustomize/v3.9.3",
+                "date": "2021-02-07T18:13:27Z"
+            },
+            {
+                "name": "kustomize/v3.8.10",
+                "date": "2021-02-07T16:11:35Z"
+            },
+            {
+                "name": "api/v0.7.3",
+                "date": "2021-02-07T16:39:57Z"
+            },
+            {
+                "name": "kyaml/v0.10.7",
+                "date": "2021-02-06T02:24:21Z"
+            },
+            {
+                "name": "cmd/config/v0.8.9",
+                "date": "2021-02-06T05:39:17Z"
+            },
+            {
+                "name": "api/v0.6.9",
+                "date": "2021-02-06T15:41:18Z"
+            },
+            {
+                "name": "kyaml/v0.10.6",
+                "date": "2021-01-17T05:05:06Z"
+            },
+            {
+                "name": "kustomize/v3.9.2",
+                "date": "2021-01-17T18:06:28Z"
+            },
+            {
+                "name": "cmd/config/v0.8.8",
+                "date": "2021-01-17T15:32:59Z"
+            },
+            {
+                "name": "api/v0.7.2",
+                "date": "2021-01-17T17:16:20Z"
+            },
+            {
+                "name": "kyaml/v0.10.5",
+                "date": "2020-12-29T02:25:09Z"
+            },
+            {
+                "name": "kustomize/v3.9.1",
+                "date": "2020-12-29T19:47:21Z"
+            },
+            {
+                "name": "kustomize/v3.8.9",
+                "date": "2020-12-29T16:04:07Z"
+            },
+            {
+                "name": "cmd/config/v0.8.7",
+                "date": "2020-12-29T05:25:34Z"
+            },
+            {
+                "name": "api/v0.7.1",
+                "date": "2020-12-29T17:21:50Z"
+            },
+            {
+                "name": "api/v0.6.8",
+                "date": "2020-12-29T15:21:45Z"
+            },
+            {
+                "name": "kyaml/v0.10.4",
+                "date": "2020-12-28T21:45:56Z"
+            },
+            {
+                "name": "kyaml/v0.9.5",
+                "date": "2020-12-22T19:36:27Z"
+            },
+            {
+                "name": "kustomize/v3.8.8",
+                "date": "2020-12-10T18:44:11Z"
+            },
+            {
+                "name": "api/v0.7.0",
+                "date": "2020-12-10T18:45:00Z"
+            },
+            {
+                "name": "api/v0.6.7",
+                "date": "2020-12-10T02:29:48Z"
+            },
+            {
+                "name": "cmd/config/v0.8.6",
+                "date": "2020-12-08T01:01:12Z"
+            },
+            {
+                "name": "api/v0.6.6",
+                "date": "2020-12-08T01:28:07Z"
+            },
+            {
+                "name": "kyaml/v0.10.3",
+                "date": "2020-12-07T21:54:16Z"
+            },
+            {
+                "name": "kyaml/v0.9.4",
+                "date": "2020-11-11T20:49:02Z"
+            },
+            {
+                "name": "kustomize/v3.8.7",
+                "date": "2020-11-11T23:27:27Z"
+            },
+            {
+                "name": "cmd/config/v0.8.5",
+                "date": "2020-11-11T22:32:32Z"
+            },
+            {
+                "name": "api/v0.6.5",
+                "date": "2020-11-11T22:54:06Z"
+            },
+            {
+                "name": "kyaml/v0.9.3",
+                "date": "2020-10-29T20:21:21Z"
+            },
+            {
+                "name": "kustomize/v3.8.6",
+                "date": "2020-10-29T23:16:40Z"
+            },
+            {
+                "name": "cmd/config/v0.8.4",
+                "date": "2020-10-29T22:12:05Z"
+            },
+            {
+                "name": "api/v0.6.4",
+                "date": "2020-10-29T22:34:54Z"
+            },
+            {
+                "name": "kyaml/v0.9.2",
+                "date": "2020-10-15T20:21:38Z"
+            },
+            {
+                "name": "cmd/config/v0.8.3",
+                "date": "2020-10-15T21:06:16Z"
+            },
+            {
+                "name": "kustomize/v3.8.5",
+                "date": "2020-10-08T03:21:28Z"
+            },
+            {
+                "name": "api/v0.6.3",
+                "date": "2020-10-08T02:12:24Z"
+            },
+            {
+                "name": "kyaml/v0.9.1",
+                "date": "2020-10-07T21:50:09Z"
+            },
+            {
+                "name": "cmd/config/v0.8.2",
+                "date": "2020-10-07T23:55:11Z"
+            },
+            {
+                "name": "kyaml/v0.9.0",
+                "date": "2020-10-02T22:34:02Z"
+            },
+            {
+                "name": "kustomize/v3.8.4",
+                "date": "2020-09-19T18:32:37Z"
+            },
+            {
+                "name": "cmd/config/v0.8.1",
+                "date": "2020-09-19T01:29:27Z"
+            },
+            {
+                "name": "api/v0.6.2",
+                "date": "2020-09-19T14:45:40Z"
+            },
+            {
+                "name": "kyaml/v0.8.1",
+                "date": "2020-09-18T19:04:49Z"
+            },
+            {
+                "name": "kustomize/v3.8.3",
+                "date": "2020-09-18T00:45:37Z"
+            },
+            {
+                "name": "api/v0.6.1",
+                "date": "2020-09-17T18:52:29Z"
+            },
+            {
+                "name": "kyaml/v0.8.0",
+                "date": "2020-09-16T02:00:59Z"
+            },
+            {
+                "name": "cmd/config/v0.8.0",
+                "date": "2020-09-16T05:24:09Z"
+            },
+            {
+                "name": "cmd/config/v0.7.0",
+                "date": "2020-08-31T20:17:37Z"
+            },
+            {
+                "name": "kyaml/v0.7.1",
+                "date": "2020-08-29T00:35:50Z"
+            },
+            {
+                "name": "kustomize/v3.8.2",
+                "date": "2020-08-31T23:35:24Z"
+            },
+            {
+                "name": "api/v0.6.0",
+                "date": "2020-08-29T02:37:05Z"
+            },
+            {
+                "name": "kyaml/v0.7.0",
+                "date": "2020-08-28T19:04:08Z"
+            },
+            {
+                "name": "kyaml/v0.6.1",
+                "date": "2020-08-23T01:18:10Z"
+            },
+            {
+                "name": "kyaml/v0.6.0",
+                "date": "2020-08-13T22:20:18Z"
+            },
+            {
+                "name": "cmd/config/v0.6.0",
+                "date": "2020-08-13T22:20:10Z"
+            },
+            {
+                "name": "kyaml/v0.5.0",
+                "date": "2020-08-07T20:54:42Z"
+            },
+            {
+                "name": "cmd/config/v0.5.0",
+                "date": "2020-08-07T22:35:13Z"
+            },
+            {
+                "name": "kyaml/v0.4.2",
+                "date": "2020-07-24T19:23:29Z"
+            },
+            {
+                "name": "cmd/config/v0.4.2",
+                "date": "2020-08-07T20:49:06Z"
+            },
+            {
+                "name": "kustomize/v3.8.1",
+                "date": "2020-07-16T01:33:49Z"
+            },
+            {
+                "name": "api/v0.5.1",
+                "date": "2020-07-16T00:56:51Z"
+            },
+            {
+                "name": "kustomize/v3.8.0",
+                "date": "2020-07-05T14:29:48Z"
+            },
+            {
+                "name": "api/v0.5.0",
+                "date": "2020-07-05T00:30:30Z"
+            },
+            {
+                "name": "kustomize/v3.7.0",
+                "date": "2020-07-04T19:33:40Z"
+            },
+            {
+                "name": "api/v0.4.2",
+                "date": "2020-07-04T16:48:42Z"
+            },
+            {
+                "name": "kustomize/v3.6.1",
+                "date": "2020-05-27T21:03:56Z"
+            },
+            {
+                "name": "api/v0.4.1",
+                "date": "2020-05-27T20:33:51Z"
+            },
+            {
+                "name": "kustomize/v3.6.0",
+                "date": "2020-05-27T19:59:42Z"
+            },
+            {
+                "name": "api/v0.4.0",
+                "date": "2020-05-24T16:40:04Z"
+            },
+            {
+                "name": "kustomize/v3.5.5",
+                "date": "2020-05-11T16:56:17Z"
+            },
+            {
+                "name": "api/v0.3.3",
+                "date": "2020-05-11T15:31:29Z"
+            },
+            {
+                "name": "kustomize/v3.5.4",
+                "date": "2020-01-11T03:21:35Z"
+            },
+            {
+                "name": "api/v0.3.2",
+                "date": "2020-01-10T23:19:32Z"
+            },
+            {
+                "name": "kustomize/v3.5.3",
+                "date": "2019-12-17T22:04:56Z"
+            },
+            {
+                "name": "kustomize/v3.5.2",
+                "date": "2019-12-17T04:14:57Z"
+            },
+            {
+                "name": "api/v0.3.1",
+                "date": "2019-12-17T21:59:20Z"
+            },
+            {
+                "name": "pluginator/v2.1.0",
+                "date": "2019-12-13T01:15:14Z"
+            },
+            {
+                "name": "kustomize/v3.5.1",
+                "date": "2019-12-13T21:21:18Z"
+            },
+            {
+                "name": "api/v0.3.0",
+                "date": "2019-12-13T00:59:36Z"
+            },
+            {
+                "name": "pseudo/k8s/v0.1.0",
+                "date": "2019-11-12T01:37:11Z"
+            },
+            {
+                "name": "pluginator/v2.0.0",
+                "date": "2019-11-12T05:48:42Z"
+            },
+            {
+                "name": "kustomize/v3.4.0",
+                "date": "2019-11-12T05:16:56Z"
+            },
+            {
+                "name": "api/v0.2.0",
+                "date": "2019-11-12T02:30:14Z"
+            },
+            {
+                "name": "pluginator/v1.1.0",
+                "date": "2019-10-24T19:32:34Z"
+            },
+            {
+                "name": "kustomize/v3.3.0",
+                "date": "2019-10-24T18:22:44Z"
+            },
+            {
+                "name": "api/v0.1.1",
+                "date": "2019-10-22T19:24:23Z"
+            },
+            {
+                "name": "v3.3.1",
+                "date": "2019-10-08T23:11:40Z"
+            },
+            {
+                "name": "kustomize/v3.2.3",
+                "date": "2019-10-08T23:33:54Z"
+            },
+            {
+                "name": "v3.3.0",
+                "date": "2019-10-07T22:59:11Z"
+            },
+            {
+                "name": "kustomize/v3.2.2",
+                "date": "2019-10-07T23:19:04Z"
+            },
+            {
+                "name": "kustomize/v3.2.1",
+                "date": "2019-09-27T00:14:01Z"
+            },
+            {
+                "name": "pluginator/v1.0.0",
+                "date": "2019-09-24T21:45:06Z"
+            },
+            {
+                "name": "v3.2.0",
+                "date": "2019-09-18T16:25:51Z"
+            },
+            {
+                "name": "v3.1.0",
+                "date": "2019-07-26T18:10:33Z"
+            },
+            {
+                "name": "v3.0.3",
+                "date": "2019-07-18T17:44:35Z"
+            },
+            {
+                "name": "v3.0.2",
+                "date": "2019-07-12T20:43:17Z"
+            },
+            {
+                "name": "v3.0.1",
+                "date": "2019-07-10T21:54:34Z"
+            },
+            {
+                "name": "v3.0.0",
+                "date": "2019-07-03T18:24:14Z"
+            },
+            {
+                "name": "v2.1.0",
+                "date": "2019-06-18T22:04:29Z"
+            },
+            {
+                "name": "v2.0.3",
+                "date": "2019-03-05T20:40:17Z"
+            },
+            {
+                "name": "v2.0.2",
+                "date": "2019-02-25T16:56:07Z"
+            },
+            {
+                "name": "v2.0.1",
+                "date": "2019-02-08T00:59:42Z"
+            },
+            {
+                "name": "v2.0.0",
+                "date": "2019-02-06T17:46:56Z"
+            },
+            {
+                "name": "v1.0.11",
+                "date": "2018-12-04T18:45:08Z"
+            },
+            {
+                "name": "v1.0.10",
+                "date": "2018-10-26T23:15:15Z"
+            },
+            {
+                "name": "v1.0.9",
+                "date": "2018-10-24T21:29:41Z"
+            },
+            {
+                "name": "v1.0.8",
+                "date": "2018-09-13T19:17:13Z"
+            },
+            {
+                "name": "v1.0.7",
+                "date": "2018-08-27T16:12:41Z"
+            },
+            {
+                "name": "v1.0.6",
+                "date": "2018-08-10T16:48:46Z"
+            },
+            {
+                "name": "v1.0.5",
+                "date": "2018-07-25T17:55:27Z"
+            },
+            {
+                "name": "v1.0.4",
+                "date": "2018-07-17T21:54:30Z"
+            },
+            {
+                "name": "v1.0.3",
+                "date": "2018-06-29T19:02:56Z"
+            },
+            {
+                "name": "v1.0.2",
+                "date": "2018-06-11T22:26:21Z"
+            },
+            {
+                "name": "v1.0.1",
+                "date": "2018-05-21T22:11:43Z"
+            }
+        ]
+    }
+}

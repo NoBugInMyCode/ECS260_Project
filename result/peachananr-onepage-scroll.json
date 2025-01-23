@@ -1,0 +1,70 @@
+{
+    "https://api.github.com/repos/peachananr/onepage-scroll": {
+        "forks": 2059,
+        "watchers": 9535,
+        "stars": 9535,
+        "languages": {
+            "JavaScript": 15636,
+            "CSS": 1731
+        },
+        "commits": [
+            "2020-05-08T01:15:08Z",
+            "2020-05-08T01:11:22Z",
+            "2020-05-08T01:09:47Z",
+            "2020-05-07T10:38:24Z",
+            "2020-05-07T09:17:57Z",
+            "2020-05-07T09:14:07Z",
+            "2020-05-06T11:43:37Z",
+            "2014-08-26T03:51:25Z",
+            "2014-08-26T03:49:25Z",
+            "2014-06-04T03:29:37Z",
+            "2014-06-04T02:39:05Z",
+            "2014-05-28T12:07:00Z",
+            "2014-05-13T16:20:48Z",
+            "2014-05-13T12:06:35Z",
+            "2014-05-13T06:10:54Z",
+            "2014-05-04T20:20:54Z",
+            "2014-05-04T20:20:54Z",
+            "2014-05-04T19:45:04Z",
+            "2014-03-23T06:39:42Z",
+            "2014-03-23T06:35:55Z",
+            "2014-03-02T02:18:49Z",
+            "2014-02-08T19:41:09Z",
+            "2014-02-08T19:23:07Z",
+            "2014-02-08T19:14:02Z",
+            "2014-01-26T04:41:52Z",
+            "2014-01-26T03:59:43Z",
+            "2014-01-26T03:51:01Z",
+            "2014-01-26T03:47:47Z",
+            "2014-01-26T03:25:21Z",
+            "2014-01-26T03:19:42Z"
+        ],
+        "creation_date": "2013-09-12T14:07:28Z",
+        "contributors": 6,
+        "topics": [],
+        "subscribers": 373,
+        "readme": "#One Page Scroll 1.3.1 by Pete R.\nCreate an Apple-like one page scroll website (iPhone 5S website) with One Page Scroll plugin\nCreated by [Pete R.](http://www.thepetedesign.com), Founder of [BucketListly](http://www.bucketlistly.com)\n\nLicense: [Attribution-ShareAlike 4.0 International](http://creativecommons.org/licenses/by-sa/4.0/deed.en_US)\n\n\n## Requirement\n\njQuery (1.9.0 or later)\n\nnote: jQuery 1.9.0 or later is strongly recommended because using jQuery less than 1.8.3 and jquery.onepage-scroll.js together turns out to be a hash-based XSS vulnerabiliry.\n\nsee: http://jsfiddle.net/33WJx/\n\n## Demo\n[View demo](http://peachananr.github.io/onepage-scroll/Demo/demo.html)\n\n## Compatibility\nModern browsers such as Chrome, Firefox, and Safari on both desktop and smartphones have been tested. Should work fine on IE8 and IE9 as well.\n\n## Basic Usage\nOne Page Scroll let you transform your website into a one page scroll website that allows users to scroll one page at a time. It is perfect for creating a website in which you want to present something to the viewers. For example, [Apple's iPhone 5S website](http://www.apple.com/iphone-5s/) uses the same technique.\n\n\nTo add this to your website, simply include the latest jQuery library together with `jquery.onepage-scroll.js`, `onepage-scroll.css` into your document's `<head>` and call the function as follows:\n\n````html\n<body>\n  ...\n  <div class=\"main\">\n    <section>...</section>\n    <section>...</section>\n    ...\n  </div>\n  ...\n</body>\n````\nContainer \"Main\" must be one level below the `body` tag in order to make it work full page. Now call the function to activate as follows:\n\n````javascript\n$(\".main\").onepage_scroll({\n   sectionContainer: \"section\",     // sectionContainer accepts any kind of selector in case you don't want to use section\n   easing: \"ease\",                  // Easing options accepts the CSS3 easing animation such \"ease\", \"linear\", \"ease-in\",\n                                    // \"ease-out\", \"ease-in-out\", or even cubic bezier value such as \"cubic-bezier(0.175, 0.885, 0.420, 1.310)\"\n   animationTime: 1000,             // AnimationTime let you define how long each section takes to animate\n   pagination: true,                // You can either show or hide the pagination. Toggle true for show, false for hide.\n   updateURL: false,                // Toggle this true if you want the URL to be updated automatically when the user scroll to each page.\n   beforeMove: function(index) {},  // This option accepts a callback function. The function will be called before the page moves.\n   afterMove: function(index) {},   // This option accepts a callback function. The function will be called after the page moves.\n   loop: false,                     // You can have the page loop back to the top/bottom when the user navigates at up/down on the first/last page.\n   keyboard: true,                  // You can activate the keyboard controls\n   responsiveFallback: false,        // You can fallback to normal page scroll by defining the width of the browser in which\n                                    // you want the responsive fallback to be triggered. For example, set this to 600 and whenever\n                                    // the browser's width is less than 600, the fallback will kick in.\n   direction: \"vertical\"            // You can now define the direction of the One Page Scroll animation. Options available are \"vertical\" and \"horizontal\". The default value is \"vertical\".  \n});\n````\nAnd that's it. Now, your website should work the same way Apple's iPhone 5S website does. You should be able to swipe up/down as well (thanks to [Eike Send](https://github.com/eikes) for his swipe events!) when viewing your website on mobile phones.\n\n## Keyboard Shortcuts\nYou can trigger page move with hotkeys as well:\n\n### Up arrow / Page Up\nPressing the up arrow or the page up key allows you to move the page up by one.\n\n\n### Down arrow / Page Donw\nPressing the down arrow or the page down key allows you to move the page down by one.\n\n### Spacebar\nPressing the space key allows you to move the page down by one.\n\n### Home\nPressing the home key brings you back to the first page.\n\n\n### End\nPressing the end key brings you to the last page.\n\n## Public Methods\nYou can also trigger page move programmatically as well:\n\n### $.fn.moveUp()\nThis method allows you to move the page up by one. This action is equivalent to scrolling up/swiping down.\n\n````javascript\n  $(\".main\").moveUp();\n````\n\n### $.fn.moveDown()\nThis method allows you to move the page down by one. This action is equivalent to scrolling down/swiping up.\n\n````javascript\n  $(\".main\").moveDown();\n````\n\n### $.fn.moveTo(page_index)\nThis method allows you to move to the specified page index programatically.\n\n````javascript\n  $(\".main\").moveTo(3);\n````\n\n## Callbacks\nYou can use callbacks to perform actions before or after the page move.\n\n### beforeMove(current_page_index)\nThis callback gets called before the plugin performs its move.\n\n````javascript\n  $(\".main\").onepage_scroll({\n    beforeMove: function(index) {\n      ...\n    }\n  });\n````\n\n### afterMove(next_page_index)\nThis callback gets called after the move animation was performed.\n\n````javascript\n  $(\".main\").onepage_scroll({\n    afterMove: function(index) {\n      ...\n    }\n  });\n````\n\nIf you want to see more of my plugins, visit [The Pete Design](http://www.thepetedesign.com/#design), or follow me on [Twitter](http://www.twitter.com/peachananr) and [Github](http://www.github.com/peachananr).\n\n## Other Resources\n- [OnePageScroll.js: Creating an Apple\u2019s iPhone 5S Website](http://www.onextrapixel.com/2013/09/18/onepagescroll-js-creating-an-apples-iphone-5s-website/)\n- [Eike Send's jQuery Swipe Events](https://github.com/eikes/jquery.swipe-events.js)\n- [CSS Easing generator by Matthew Lein](http://matthewlein.com/ceaser/)\n",
+        "releases": [
+            {
+                "name": "Add IE8+ Support, Spacebar shortcut key, Fixed Bower",
+                "date": "2014-08-26T03:52:27Z"
+            },
+            {
+                "name": "New direction option, more keyboard shortcuts etc.",
+                "date": "2014-06-04T03:31:04Z"
+            },
+            {
+                "name": "v1.2 Release",
+                "date": "2013-11-05T05:06:08Z"
+            },
+            {
+                "name": "Fix bugs from v1.1",
+                "date": "2013-10-15T02:12:32Z"
+            },
+            {
+                "name": "V1.1 Released: Added New Features",
+                "date": "2013-10-14T08:38:36Z"
+            }
+        ]
+    }
+}

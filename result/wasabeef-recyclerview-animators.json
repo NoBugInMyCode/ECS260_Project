@@ -1,0 +1,56 @@
+{
+    "https://api.github.com/repos/wasabeef/recyclerview-animators": {
+        "forks": 1976,
+        "watchers": 11524,
+        "stars": 11524,
+        "languages": {
+            "Kotlin": 81082,
+            "Java": 348
+        },
+        "commits": [
+            "2021-02-14T13:34:32Z",
+            "2021-02-11T07:24:03Z",
+            "2021-02-11T06:54:20Z",
+            "2021-02-11T06:54:01Z",
+            "2021-02-11T06:30:54Z",
+            "2021-02-11T06:27:13Z",
+            "2021-02-10T08:34:01Z",
+            "2021-02-09T06:42:00Z",
+            "2020-09-29T04:06:14Z",
+            "2020-09-29T04:05:32Z",
+            "2020-08-28T17:13:53Z",
+            "2020-08-28T16:56:11Z",
+            "2020-08-28T16:54:31Z",
+            "2020-08-28T16:53:47Z",
+            "2020-08-28T10:44:47Z",
+            "2020-08-27T10:21:11Z",
+            "2020-08-27T09:37:34Z",
+            "2020-08-27T09:31:40Z",
+            "2020-08-27T09:29:50Z",
+            "2020-08-25T17:26:20Z",
+            "2020-07-28T13:55:30Z",
+            "2020-07-28T13:54:06Z",
+            "2020-03-09T06:29:18Z",
+            "2020-03-09T06:28:22Z",
+            "2019-06-26T06:33:50Z",
+            "2018-11-16T06:04:37Z",
+            "2018-11-15T08:09:23Z",
+            "2018-11-15T07:55:16Z",
+            "2018-11-15T07:54:06Z",
+            "2018-11-15T05:27:36Z"
+        ],
+        "creation_date": "2014-12-22T14:07:08Z",
+        "contributors": 28,
+        "topics": [
+            "android",
+            "android-library",
+            "animation",
+            "java",
+            "kotlin",
+            "recyclerview"
+        ],
+        "subscribers": 309,
+        "readme": "RecyclerView Animators\n======================\n<p align=\"center\">\n  <img src=\"art/logo.jpg\" width=\"80%\">\n</p>\n\n[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-recyclerview--animators-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1327)\n[![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)\n[![Maven Central](https://maven-badges.herokuapp.com/maven-central/jp.wasabeef/recyclerview-animators/badge.svg)](https://search.maven.org/artifact/jp.wasabeef/recyclerview-animators)\n\nRecyclerView Animators is an Android library that allows developers to easily create RecyclerView with animations.\n\nPlease feel free to use this.\n\n# Features\n\n* Animate addition and removal of [`ItemAnimator`](#itemanimator-1)\n* Appearance animations for items in [`RecyclerView.Adapter`](#recyclerviewadapter)\n\n# Demo\n\n### ItemAnimator\n<img src=\"art/demo.gif\" width=\"32%\"> <img src=\"art/demo2.gif\" width=\"32%\"> <img src=\"art/demo3.gif\" width=\"32%\">\n\n### Adapters\n<img src=\"art/demo4.gif\" width=\"32%\"> <img src=\"art/demo5.gif\" width=\"32%\">\n\n# How do I use it?\n\n## Setup\n\n#### Gradle\n\nOn your module's `build.gradle` file add this implementation statement to the `dependencies` section:\n\n```groovy\ndependencies {\n  // Kotlin\n  implementation 'jp.wasabeef:recyclerview-animators:4.0.2'\n}\n```\n\nAlso make sure that the `repositories` section includes not only `\"mavenCentral()\"` but also a `maven` section with the `\"google()\"` endpoint. \n\n```\nrepositories {\n  google()\n  mavenCentral()\n  jcenter()\n}\n```\n\n## ItemAnimator\n### Step 1\n\nSet RecyclerView ItemAnimator.\n\n```kotlin\nval recyclerView = findViewById<RecyclerView>(R.id.list)\nrecyclerView.itemAnimator = SlideInLeftAnimator()\n```\n\n```kotlin\nval recyclerView = findViewById<RecyclerView>(R.id.list)\nrecyclerView.itemAnimator = SlideInUpAnimator(OvershootInterpolator(1f))\n```\n\n## Step 2\nPlease use the following  \n`notifyItemChanged(int)`  \n`notifyItemInserted(int)`  \n`notifyItemRemoved(int)`  \n`notifyItemRangeChanged(int, int)`  \n`notifyItemRangeInserted(int, int)`  \n`notifyItemRangeRemoved(int, int)`  \n\n> If you want your animations to work, do not rely on calling `notifyDataSetChanged()`; \n> as it is the RecyclerView's default behavior, animations are not triggered to start inside this method.\n\n```kotlin\nfun remove(position: Int) {\n  dataSet.removeAt(position)\n  notifyItemRemoved(position)\n}\n\nfun add(text: String, position: Int) {\n  dataSet.add(position, text)\n  notifyItemInserted(position)\n}\n```\n\n### Advanced Step 3\n\nYou can change the durations.\n\n```kotlin\nrecyclerView.itemAnimator?.apply {\n  addDuration = 1000\n  removeDuration = 100\n  moveDuration = 1000\n  changeDuration = 100\n}\n```\n\n### Advanced Step 4\n\nChange the interpolator.\n\n```kotlin\nrecyclerView.itemAnimator = SlideInLeftAnimator().apply {\n  setInterpolator(OvershootInterpolator())\n}\n```\n\n### Advanced Step 5\n\nBy implementing AnimateViewHolder, you can override preset animation.\nSo, custom animation can be set depending on view holder.\n\n```kotlin\nclass MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), AnimateViewHolder {\n\n  override fun preAnimateRemoveImpl(holder: RecyclerView.ViewHolder) {\n    // do something\n  }\n\n  override fun animateRemoveImpl(holder: RecyclerView.ViewHolder, listener: ViewPropertyAnimatorListener) {\n    itemView.animate().apply {\n      translationY(-itemView.height * 0.3f)\n      alpha(0f)\n      duration = 300\n      setListener(listener)\n    }.start()\n  }\n\n  override fun preAnimateAddImpl(holder: RecyclerView.ViewHolder) {\n    itemView.setTranslationY(-itemView.height * 0.3f)\n    itemView.setAlpha(0f)\n  }\n\n  override fun animateAddImpl(holder: RecyclerView.ViewHolder, listener: ViewPropertyAnimatorListener) {\n    itemView.animate().apply {\n      translationY(0f)\n      alpha(1f)\n      duration = 300\n      setListener(listener)\n    }.start()\n  }\n}\n```\n\n### Animators\n\n#### Cool\n`LandingAnimator`\n\n##### Scale\n`ScaleInAnimator`, `ScaleInTopAnimator`, `ScaleInBottomAnimator`  \n`ScaleInLeftAnimator`, `ScaleInRightAnimator`\n\n\n##### Fade\n`FadeInAnimator`, `FadeInDownAnimator`, `FadeInUpAnimator`  \n`FadeInLeftAnimator`, `FadeInRightAnimator`\n\n##### Flip\n`FlipInTopXAnimator`, `FlipInBottomXAnimator`  \n`FlipInLeftYAnimator`, `FlipInRightYAnimator`\n\n##### Slide\n`SlideInLeftAnimator`, `SlideInRightAnimator`, `OvershootInLeftAnimator`, `OvershootInRightAnimator`  \n`SlideInUpAnimator`, `SlideInDownAnimator`\n\n## RecyclerView.Adapter\n### Step 1\n\nSet RecyclerView ItemAnimator.\n\n```kotlin\nval recyclerView = findViewById<RecyclerView>(R.id.list)\nrecyclerView.adapter = AlphaInAnimationAdapter(MyAdapter())\n```\n\n#### Java\n```java\nRecyclerView recyclerView = findViewById(R.id.list);\nrecyclerView.setAdapter(new AlphaInAnimationAdapter(MyAdapter());\n```\n\n### Advanced Step 2\n\n```kotlin\nrecyclerView.adapter = AlphaInAnimationAdapter(MyAdapter()).apply {\n  // Change the durations.\n  setDuration(1000)\n  // Change the interpolator.\n  setInterpolator(vershootInterpolator())\n  // Disable the first scroll mode.\n  setFirstOnly(false)\n}\n```\n\n#### Java\n```java\nAlphaInAnimationAdapter alphaInAnimationAdapter = new AlphaInAnimationAdapter(new MyAdapter());\nalphaInAnimationAdapter.setDuration(1000);\nalphaInAnimationAdapter.setInterpolator(new OvershootInterpolator());\nalphaInAnimationAdapter.setFirstOnly(false);\n```\n\n### Advanced Step 3\n\nMultiple Animations\n\n```kotlin\nval alphaAdapter = AlphaInAnimationAdapter(MyAdapter())\nrecyclerView.adapter = ScaleInAnimationAdapter(alphaAdapter)\n```\n\n#### Java\n```java\nrecyclerView.setAdapter(new ScaleInAnimationAdapter(alphaInAnimationAdapter));\n```\n\n### Adapters\n\n#### Alpha\n`AlphaInAnimationAdapter`\n\n#### Scale\n`ScaleInAnimationAdapter`\n\n#### Slide\n`SlideInBottomAnimationAdapter`  \n`SlideInRightAnimationAdapter`, `SlideInLeftAnimationAdapter`\n\nApplications using RecyclerView Animators\n---\n\nPlease [ping](mailto:dadadada.chop@gmail.com) me or send a pull request if you would like to be added here.\n\nIcon | Application\n------------ | -------------\n<img src=\"https://play-lh.googleusercontent.com/6zKH_uQY1bxCwXL4DLo_uoFEOXdShi3BgmN6XRHlaJ-oA1svmq6y1PZkmO50nWQn2Lg=s180-rw\" width=\"48\" height=\"48\" /> | [Ameba Ownd](https://play.google.com/store/apps/details?id=jp.co.cyberagent.madrid)\n<img src=\"https://lh3.googleusercontent.com/DHtrq5MZQ6aYGbmUSB8WNiOv-Oz9R4TyMCnzzYSjIqT3earlej7eq5DUudnN0bhSOeg=s180-rw\" width=\"48\" height=\"48\" /> | [QuitNow!](https://play.google.com/store/apps/details?id=com.EAGINsoftware.dejaloYa)\n<img src=\"https://lh3.googleusercontent.com/yFhps2nQ3q7QcpqZhMWYP5_ltMWJekX2eOiE0oWORUsP8CiwWkRtRlxVgiRtCZXUdQ=s180-rw\" width=\"48\" height=\"48\" /> | [AbemaTV](https://play.google.com/store/apps/details?id=tv.abema)\n<img src=\"https://lh3.googleusercontent.com/S8r0TL8pJ8PGWh_IOkULOHY3MhWvv1LSAOZ3uWJXwpfRq7icS79cPrqH8R5MeXWgAOo=s180-rw\" width=\"48\" height=\"48\" /> | [CL](https://play.google.com/store/apps/details?id=com.cllive)\n\nDeveloped By\n-------\nDaichi Furiya (Wasabeef) - <dadadada.chop@gmail.com>\n\n<a href=\"https://twitter.com/wasabeef_jp\">\n<img alt=\"Follow me on Twitter\"\nsrc=\"https://raw.githubusercontent.com/wasabeef/art/master/twitter.png\" width=\"75\"/>\n</a>\n\nContributions\n-------\n\nAny contributions are welcome!\n\nContributers\n-------\n\n* [craya1982](https://github.com/craya1982)\n\nThanks\n-------\n\n* Inspired by `AndroidViewAnimations` in [daimajia](https://github.com/daimajia).\n\nLicense\n-------\n\n    Copyright 2020 Daichi Furiya / Wasabeef\n\n    Licensed under the Apache License, Version 2.0 (the \"License\");\n    you may not use this file except in compliance with the License.\n    You may obtain a copy of the License at\n\n       http://www.apache.org/licenses/LICENSE-2.0\n\n    Unless required by applicable law or agreed to in writing, software\n    distributed under the License is distributed on an \"AS IS\" BASIS,\n    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n    See the License for the specific language governing permissions and\n    limitations under the License.\n",
+        "releases": []
+    }
+}

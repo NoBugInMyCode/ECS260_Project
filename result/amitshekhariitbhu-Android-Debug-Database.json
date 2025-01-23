@@ -1,0 +1,122 @@
+{
+    "https://api.github.com/repos/amitshekhariitbhu/Android-Debug-Database": {
+        "forks": 871,
+        "watchers": 8435,
+        "stars": 8435,
+        "languages": {
+            "Java": 142430,
+            "JavaScript": 42526,
+            "HTML": 6178,
+            "CSS": 1025
+        },
+        "commits": [
+            "2024-08-18T16:36:37Z",
+            "2024-08-18T16:25:26Z",
+            "2024-08-18T15:47:51Z",
+            "2024-07-07T03:42:23Z",
+            "2023-12-13T02:05:21Z",
+            "2023-12-12T10:02:49Z",
+            "2023-01-18T08:06:22Z",
+            "2022-11-17T13:04:26Z",
+            "2022-11-17T13:04:04Z",
+            "2022-09-16T08:54:50Z",
+            "2022-09-04T05:33:24Z",
+            "2022-05-28T11:40:49Z",
+            "2020-04-20T17:51:18Z",
+            "2020-03-26T12:48:24Z",
+            "2020-03-05T10:10:04Z",
+            "2019-03-07T09:58:09Z",
+            "2019-03-07T09:50:58Z",
+            "2019-03-07T09:46:56Z",
+            "2019-02-23T04:50:26Z",
+            "2019-02-18T08:39:59Z",
+            "2019-02-18T08:11:57Z",
+            "2019-02-18T07:59:33Z",
+            "2019-02-16T05:03:07Z",
+            "2019-02-16T04:11:37Z",
+            "2019-02-15T14:11:24Z",
+            "2019-02-15T14:08:34Z",
+            "2019-02-14T07:48:20Z",
+            "2019-01-19T19:51:51Z",
+            "2019-01-19T19:40:35Z",
+            "2019-01-19T19:22:58Z"
+        ],
+        "creation_date": "2016-11-16T14:20:24Z",
+        "contributors": 12,
+        "topics": [
+            "android",
+            "android-debug-database",
+            "awesome",
+            "database",
+            "database-values",
+            "debug",
+            "debugging",
+            "emulator",
+            "room",
+            "room-database",
+            "room-persistence-library",
+            "sharedpreferences",
+            "sqlite"
+        ],
+        "subscribers": 180,
+        "readme": "<img src=https://raw.githubusercontent.com/amitshekhariitbhu/Android-Debug-Database/master/assets/debug_db_banner.png >\n\n# Android Debug Database\n\n## Android Debug Database is a powerful library for debugging databases and shared preferences in Android applications\n\n### Android Debug Database allows you to view databases and shared preferences directly in your browser in a very simple way\n\n### What can Android Debug Database do?\n\n* See all the databases.\n* See all the data in the shared preferences used in your application.\n* Run any sql query on the given database to update and delete your data.\n* Directly edit the database values.\n* Directly edit the shared preferences.\n* Directly add a row in the database.\n* Directly add a key-value in the shared preferences.\n* Delete database rows and shared preferences.\n* Search in your data.\n* Sort data.\n* Download database.\n* Debug Room inMemory database.\n\n## About me\n\nHi, I am Amit Shekhar, Co-Founder @ [Outcome School](https://outcomeschool.com) \u2022 IIT 2010-14 \u2022 I have taught and mentored many developers, and their efforts landed them high-paying tech jobs, helped many tech companies in solving their unique problems, and created many open-source libraries being used by top companies. I am passionate about sharing knowledge through open-source, blogs, and videos.\n\nYou can connect with me on:\n\n- [Twitter](https://twitter.com/amitiitbhu)\n- [YouTube](https://www.youtube.com/@amitshekhar)\n- [LinkedIn](https://www.linkedin.com/in/amit-shekhar-iitbhu)\n- [GitHub](https://github.com/amitshekhariitbhu)\n\n## [Outcome School Blog](https://outcomeschool.com/blog) - High-quality content to learn Android concepts.\n\n### All these features work without rooting your device -> No need of rooted device\n\n### Using Android Debug Database Library in your application\n\nAdd this in your `settings.gradle`:\n```groovy\nmaven { url 'https://jitpack.io' }\n```\n\nIf you are using `settings.gradle.kts`, add the following:\n```kotlin\nmaven { setUrl(\"https://jitpack.io\") }\n```\n\nAdd this in your `build.gradle`\n```groovy\ndebugImplementation 'com.github.amitshekhariitbhu.Android-Debug-Database:debug-db:1.0.7'\n```\n\nIf you are using `build.gradle.kts`, add the following:\n```kotlin\ndebugImplementation(\"com.github.amitshekhariitbhu.Android-Debug-Database:debug-db:1.0.7\")\n```\n\nUsing the Android Debug Database with encrypted database\n\nAdd this in your `build.gradle`\n```groovy\ndebugImplementation 'com.github.amitshekhariitbhu.Android-Debug-Database:debug-db-encrypt:1.0.7'\n```\n\nIf you are using `build.gradle.kts`, add the following:\n```kotlin\ndebugImplementation(\"com.github.amitshekhariitbhu.Android-Debug-Database:debug-db-encrypt:1.0.7\")\n```\n\nAnd to provide the password for the DB, you should add this in the Gradle:\nDB_PASSWORD_{VARIABLE}, if for example, PERSON is the database name: DB_PASSWORD_PERSON\n```groovy\ndebug {\n    resValue(\"string\", \"DB_PASSWORD_PERSON\", \"password\")\n}\n```\n\nUse `debugImplementation` so that it will only compile in your debug build and not in your release build.\n\nThat\u2019s all, just start the application, you will see in the logcat an entry like follows :\n\n* D/DebugDB: Open http://XXX.XXX.X.XXX:8080 in your browser\n\n* You can also always get the debug address url from your code by calling the method `DebugDB.getAddressLog();`\n\nNow open the provided link in your browser.\n\nImportant:\n\n* Your Android phone and laptop should be connected to the same Network (Wifi or LAN).\n* If you are using it over usb, run `adb forward tcp:8080 tcp:8080`\n\nNote      : If you want use different port other than 8080.\n            In the app build.gradle file under buildTypes do the following change\n\n```groovy\ndebug {\n    resValue(\"string\", \"PORT_NUMBER\", \"8081\")\n}\n```\n\nYou will see something like this :\n\n### Seeing values\n\n<img src=https://raw.githubusercontent.com/amitshekhariitbhu/Android-Debug-Database/master/assets/debugdb.png >\n\n### Editing values\n\n<img src=https://raw.githubusercontent.com/amitshekhariitbhu/Android-Debug-Database/master/assets/debugdb_edit.png >\n\n### Working with emulator\n\n* Android Default Emulator: Run the command in the terminal - `adb forward tcp:8080 tcp:8080` and open http://localhost:8080\n* Genymotion Emulator: Enable bridge from configure virtual device (option available in genymotion)\n\n### Getting address with toast, in case you missed the address log in logcat\n\nAs this library is auto-initialize, if you want to get the address log, add the following method and call (we have to do like this to avoid build error in release build as this library will not be included in the release build) using reflection.\n\n```java\npublic static void showDebugDBAddressLogToast(Context context) {\n    if (BuildConfig.DEBUG) {\n       try {\n            Class<?> debugDB = Class.forName(\"com.amitshekhar.DebugDB\");\n            Method getAddressLog = debugDB.getMethod(\"getAddressLog\");\n            Object value = getAddressLog.invoke(null);\n            Toast.makeText(context, (String) value, Toast.LENGTH_LONG).show();\n       } catch (Exception ignore) {\n\n       }\n    }\n}\n```\n\n### Adding custom database files\n\nAs this library is auto-initialize, if you want to debug custom database files, add the following method and call\n\n```java\npublic static void setCustomDatabaseFiles(Context context) {\n    if (BuildConfig.DEBUG) {\n        try {\n            Class<?> debugDB = Class.forName(\"com.amitshekhar.DebugDB\");\n            Class[] argTypes = new Class[]{HashMap.class};\n            Method setCustomDatabaseFiles = debugDB.getMethod(\"setCustomDatabaseFiles\", argTypes);\n            HashMap<String, Pair<File, String>> customDatabaseFiles = new HashMap<>();\n            // set your custom database files\n            customDatabaseFiles.put(ExtTestDBHelper.DATABASE_NAME,\n                    new Pair<>(new File(context.getFilesDir() + \"/\" + ExtTestDBHelper.DIR_NAME +\n                                                    \"/\" + ExtTestDBHelper.DATABASE_NAME), \"\"));\n            setCustomDatabaseFiles.invoke(null, customDatabaseFiles);\n        } catch (Exception ignore) {\n\n        }\n    }\n}\n```\n\n### Adding InMemory Room databases\n\nAs this library is auto-initialize, if you want to debug inMemory Room databases, add the following method and call\n\n```java\npublic static void setInMemoryRoomDatabases(SupportSQLiteDatabase... database) {\n    if (BuildConfig.DEBUG) {\n        try {\n            Class<?> debugDB = Class.forName(\"com.amitshekhar.DebugDB\");\n            Class[] argTypes = new Class[]{HashMap.class};\n            HashMap<String, SupportSQLiteDatabase> inMemoryDatabases = new HashMap<>();\n            // set your inMemory databases\n            inMemoryDatabases.put(\"InMemoryOne.db\", database[0]);\n            Method setRoomInMemoryDatabase = debugDB.getMethod(\"setInMemoryRoomDatabases\", argTypes);\n            setRoomInMemoryDatabase.invoke(null, inMemoryDatabases);\n        } catch (Exception ignore) {\n\n        }\n    }\n}\n```\n\n### Find this project useful ? :heart:\n\n* Support it by clicking the :star: button on the upper right of this page. :v:\n\n### TODO\n\n* Simplify emulator issue [Issue Link](https://github.com/amitshekhariitbhu/Android-Debug-Database/issues/6)\n* And of course many more features and bug fixes.\n\nYou can connect with me on:\n\n- [Twitter](https://twitter.com/amitiitbhu)\n- [LinkedIn](https://www.linkedin.com/in/amit-shekhar-iitbhu)\n- [GitHub](https://github.com/amitshekhariitbhu)\n- [Facebook](https://www.facebook.com/amit.shekhar.iitbhu)\n\n[**Read all of our blogs here.**](https://outcomeschool.com/blog)\n\n### License\n\n```\n   Copyright (C) 2024 Amit Shekhar\n\n   Licensed under the Apache License, Version 2.0 (the \"License\");\n   you may not use this file except in compliance with the License.\n   You may obtain a copy of the License at\n\n       http://www.apache.org/licenses/LICENSE-2.0\n\n   Unless required by applicable law or agreed to in writing, software\n   distributed under the License is distributed on an \"AS IS\" BASIS,\n   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n   See the License for the specific language governing permissions and\n   limitations under the License.\n```\n\n### Contributing to Android Debug Database\n\nAll pull requests are welcome, make sure to follow the [contribution guidelines](CONTRIBUTING.md)\nwhen you submit pull request.\n",
+        "releases": [
+            {
+                "name": "Release v1.0.7",
+                "date": "2024-08-18T16:26:33Z"
+            },
+            {
+                "name": "Release 1.0.7",
+                "date": "2024-08-18T16:37:52Z"
+            },
+            {
+                "name": "Fix query & class not found error",
+                "date": "2019-03-07T09:58:43Z"
+            },
+            {
+                "name": "Reduce library size",
+                "date": "2019-02-18T08:42:05Z"
+            },
+            {
+                "name": "Fix for Room Database",
+                "date": "2018-06-23T06:04:36Z"
+            },
+            {
+                "name": "Add support for debugging inMemory Room Database",
+                "date": "2018-02-12T16:36:23Z"
+            },
+            {
+                "name": "Add SqlCipher support",
+                "date": "2018-01-08T14:17:22Z"
+            },
+            {
+                "name": "Add row feature and bug fixes",
+                "date": "2017-06-23T00:41:52Z"
+            },
+            {
+                "name": "Editing Values and Offline Support",
+                "date": "2017-02-08T03:44:27Z"
+            },
+            {
+                "name": "Export DB and other fixes",
+                "date": "2017-01-21T10:03:08Z"
+            },
+            {
+                "name": "Merged Pull Requests",
+                "date": "2016-11-29T05:31:15Z"
+            },
+            {
+                "name": "Custom Port",
+                "date": "2016-11-23T10:00:19Z"
+            },
+            {
+                "name": "Bug Fix And Method for getting Address Log",
+                "date": "2016-11-17T07:30:40Z"
+            },
+            {
+                "name": "Initial Release",
+                "date": "2016-11-16T17:29:29Z"
+            }
+        ]
+    }
+}

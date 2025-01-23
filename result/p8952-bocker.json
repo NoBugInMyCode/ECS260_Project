@@ -1,0 +1,48 @@
+{
+    "https://api.github.com/repos/p8952/bocker": {
+        "forks": 744,
+        "watchers": 12158,
+        "stars": 12158,
+        "languages": {
+            "Shell": 9828
+        },
+        "commits": [
+            "2015-08-12T18:01:32Z",
+            "2015-08-06T17:24:11Z",
+            "2015-08-05T19:23:14Z",
+            "2015-08-05T19:10:30Z",
+            "2015-08-05T19:09:25Z",
+            "2015-08-05T18:11:27Z",
+            "2015-08-05T17:44:19Z",
+            "2015-08-03T21:18:53Z",
+            "2015-08-03T18:27:20Z",
+            "2015-08-03T18:23:21Z",
+            "2015-08-03T18:23:02Z",
+            "2015-08-03T18:22:07Z",
+            "2015-08-03T18:16:10Z",
+            "2015-08-03T18:04:28Z",
+            "2015-07-31T21:59:07Z",
+            "2015-07-31T19:35:42Z",
+            "2015-07-31T18:12:59Z",
+            "2015-07-31T16:50:45Z",
+            "2015-07-31T16:17:06Z",
+            "2015-07-27T18:51:59Z",
+            "2015-07-27T18:50:29Z",
+            "2015-07-27T18:44:16Z",
+            "2015-07-27T18:18:43Z",
+            "2015-07-27T18:09:33Z",
+            "2015-07-27T18:09:20Z",
+            "2015-07-27T18:04:14Z",
+            "2015-07-27T16:51:08Z",
+            "2015-07-27T16:31:08Z",
+            "2015-07-27T00:05:06Z",
+            "2015-07-26T21:15:18Z"
+        ],
+        "creation_date": "2015-07-14T22:33:49Z",
+        "contributors": 9,
+        "topics": [],
+        "subscribers": 273,
+        "readme": "# Bocker\nDocker implemented in around 100 lines of bash.\n\n  * [Prerequisites](#prerequisites)\n  * [Example Usage](#example-usage)\n  * [Functionality: Currently Implemented](#functionality-currently-implemented)\n  * [Functionality: Not Yet Implemented](#functionality-not-yet-implemented)\n  * [License](#license)\n\n## Prerequisites\n\nThe following packages are needed to run bocker.\n\n* btrfs-progs\n* curl\n* iproute2\n* iptables\n* libcgroup-tools\n* util-linux >= 2.25.2\n* coreutils >= 7.5\n\nBecause most distributions do not ship a new enough version of util-linux you will probably need to grab the sources from [here](https://www.kernel.org/pub/linux/utils/util-linux/v2.25/) and compile it yourself.\n\nAdditionally your system will need to be configured with the following:\n\n* A btrfs filesystem mounted under `/var/bocker`\n* A network bridge called `bridge0` and an IP of 10.0.0.1/24\n* IP forwarding enabled in `/proc/sys/net/ipv4/ip_forward`\n* A firewall routing traffic from `bridge0` to a physical interface.\n\nFor ease of use a Vagrantfile is included which will build the needed environment.\n\nEven if you meet the above prerequisites you probably still want to **run bocker in a virtual machine**. Bocker runs as root and among other things needs to make changes to your network interfaces, routing table, and firewall rules. **I can make no guarantees that it won't trash your system**.\n\n## Example Usage\n\n```\n$ bocker pull centos 7\n######################################################################## 100.0%\n######################################################################## 100.0%\n######################################################################## 100.0%\nCreated: img_42150\n\n$ bocker images\nIMAGE_ID        SOURCE\nimg_42150       centos:7\n\n$ bocker run img_42150 cat /etc/centos-release\nCentOS Linux release 7.1.1503 (Core)\n\n$ bocker ps\nCONTAINER_ID       COMMAND\nps_42045           cat /etc/centos-release\n\n$ bocker logs ps_42045\nCentOS Linux release 7.1.1503 (Core)\n\n$ bocker rm ps_42045\nRemoved: ps_42045\n\n$ bocker run img_42150 which wget\nwhich: no wget in (/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin)\n\n$ bocker run img_42150 yum install -y wget\nInstalling : wget-1.14-10.el7_0.1.x86_64                                  1/1\nVerifying  : wget-1.14-10.el7_0.1.x86_64                                  1/1\nInstalled  : wget.x86_64 0:1.14-10.el7_0.1\nComplete!\n\n$ bocker ps\nCONTAINER_ID       COMMAND\nps_42018           yum install -y wget\nps_42182           which wget\n\n$ bocker commit ps_42018 img_42150\nRemoved: img_42150\nCreated: img_42150\n\n$ bocker run img_42150 which wget\n/usr/bin/wget\n\n$ bocker run img_42150 cat /proc/1/cgroup\n...\n4:memory:/ps_42152\n3:cpuacct,cpu:/ps_42152\n\n$ cat /sys/fs/cgroup/cpu/ps_42152/cpu.shares\n512\n\n$ cat /sys/fs/cgroup/memory/ps_42152/memory.limit_in_bytes\n512000000\n\n$ BOCKER_CPU_SHARE=1024 \\\n\tBOCKER_MEM_LIMIT=1024 \\\n\tbocker run img_42150 cat /proc/1/cgroup\n...\n4:memory:/ps_42188\n3:cpuacct,cpu:/ps_42188\n\n$ cat /sys/fs/cgroup/cpu/ps_42188/cpu.shares\n1024\n\n$ cat /sys/fs/cgroup/memory/ps_42188/memory.limit_in_bytes\n1024000000\n```\n\n## Functionality: Currently Implemented\n\n* `docker build` \u2020\n* `docker pull`\n* `docker images`\n* `docker ps`\n* `docker run`\n* `docker exec`\n* `docker logs`\n* `docker commit`\n* `docker rm` / `docker rmi`\n* Networking\n* Quota Support / CGroups\n\n\u2020 `bocker init` provides a very limited implementation of `docker build`\n\n## Functionality: Not Yet Implemented\n\n* Data Volume Containers\n* Data Volumes\n* Port Forwarding\n\n## License\n\nCopyright (C) 2015 Peter Wilmott\n\nThis program is free software: you can redistribute it and/or modify\nit under the terms of the GNU General Public License as published by\nthe Free Software Foundation, either version 3 of the License, or\n(at your option) any later version.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\nGNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with this program.  If not, see <http://www.gnu.org/licenses/>.\n",
+        "releases": []
+    }
+}

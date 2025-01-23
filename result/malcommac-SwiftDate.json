@@ -1,0 +1,252 @@
+{
+    "https://api.github.com/repos/malcommac/SwiftDate": {
+        "forks": 769,
+        "watchers": 7645,
+        "stars": 7645,
+        "languages": {
+            "Swift": 419579,
+            "Ruby": 767,
+            "Shell": 169
+        },
+        "commits": [
+            "2022-09-12T06:55:22Z",
+            "2022-09-10T15:13:03Z",
+            "2022-09-10T14:53:13Z",
+            "2022-09-10T14:41:27Z",
+            "2020-11-22T09:08:26Z",
+            "2020-11-22T09:08:13Z",
+            "2020-11-22T09:07:58Z",
+            "2020-11-22T08:59:28Z",
+            "2020-11-15T11:29:46Z",
+            "2020-11-15T11:21:47Z",
+            "2020-11-15T11:15:46Z",
+            "2020-11-15T11:15:24Z",
+            "2020-11-15T11:13:48Z",
+            "2020-11-15T11:13:48Z",
+            "2020-11-15T11:13:18Z",
+            "2020-11-15T11:04:04Z",
+            "2020-11-15T10:58:43Z",
+            "2020-11-15T10:57:53Z",
+            "2020-11-15T10:57:12Z",
+            "2020-11-15T10:56:13Z",
+            "2020-11-15T10:54:29Z",
+            "2020-11-15T10:53:46Z",
+            "2020-11-15T10:46:52Z",
+            "2020-11-15T10:45:39Z",
+            "2020-11-15T10:44:40Z",
+            "2020-11-15T10:43:42Z",
+            "2020-11-09T11:25:30Z",
+            "2020-10-24T12:53:12Z",
+            "2020-10-05T08:23:19Z",
+            "2020-10-05T07:11:39Z"
+        ],
+        "creation_date": "2015-05-06T06:46:24Z",
+        "contributors": 30,
+        "topics": [
+            "date",
+            "date-formatting",
+            "date-time",
+            "nsdate",
+            "nsdate-category",
+            "swift",
+            "swiftdate",
+            "timezone"
+        ],
+        "subscribers": 118,
+        "readme": "<p align=\"center\" >\n  <img src=\"banner.png\" width=300px alt=\"SwiftDate\" title=\"SwiftDate\">\n</p>\n\n<p align=\"center\"><strong>Toolkit to parse, validate, manipulate, compare and display dates, time & timezones in Swift.</strong></p>\n\n## What's This?\n\nSwiftDate is the **definitive toolchain to manipulate and display dates and time zones** on all Apple platform and even on Linux and Swift Server Side frameworks like Vapor or Kitura.  \n**Over 3 million of downloads on [CocoaPods](https://cocoapods.org/pods/SwiftDate).**\n\nFrom simple date manipulation to complex business logic SwiftDate maybe the right choice for your next project.\n\n- [x] **Easy Date Parsing** (custom formats, iso8601, rss & many more)\n- [x] **Easy Date Formatting** even with colloquial formatter and 140+ supported languages\n- [x] **Easy math operations with time units** (`2.hours + 5.minutes`...)\n- [x] **Intuitive components extraction** (`day, hour, nearestHour, weekdayNameShort` etc.)\n- [x] **Derivated dates generation** (`nextWeek, nextMonth, nextWeekday, tomorrow`...)\n- [x] Over **20+ fine grained date comparison** functions (`isToday, isTomorrow, isSameWeek, isNextYear`...)\n- [x] Swift 4's **Codable Support**\n- [x] **Random dates** generation\n- [x] **Fine grained date enumeration** functions\n- [x] **Time period** support\n- [x] **Convert TimeIntervals** to other units (`2.hours.toUnits(.minutes)`)\n\nand of course...\n\n- **IT'S TESTED!**. As 5.x the project has 90% of code coverage (want help us? write some unit tests and make a PR)\n- **IT'S FULLY DOCUMENTED!**, [both with a complete guide](/Documentation/Index.md) and with Jazzy!\n- **WE LOVE PLAYGROUND!** [Check out](/Playgrounds/SwiftDate.playground) our interactive playground!\n\n\n## Start with SwiftDate\n\nThe entire library is fully documented both via XCode method inspector and a complete markdown documentation you can found below.\n\n- \u2192 **[Full Documentation](/Documentation/Index.md)**\n- \u2192 **[Requirements, Install, License & More](/Documentation/0.Informations.md)**\n- \u2192 **[Upgrading from SwiftDate 4](/Documentation/10.Upgrading_SwiftDate4.md)**\n\n### Explore SwiftDate\n\nFrom simple date manipulation to complex business logic SwiftDate maybe the right choice for your next project.\n\nLet me show to you the main features of the library:\n\n- [Date Parsing](#1)\n- [Date Manipulation](#2)\n- [Date Comparsion](#3)\n- [Date Creation with Region (Timezone, Calendar & Locale)](#4)\n- [Derivated Dates](#5)\n- [Components Extraction](#6)\n- [Switch between timezones/locale and calendars](#7)\n- [Date Formatting](#8)\n- [Relative Date Formatting (fully customizable!)](#9)\n- [Codable Support](#10)\n- [Time Periods](#11)\n\n<a name=\"1\"/>\n\n### 1. Date Parsing\nSwiftDate can recognize all the major datetime formats  automatically (ISO8601, RSS, Alt RSS, .NET, SQL, HTTP...) and you can also provide your own formats.\nCreating a new date has never been so easy!\n\n```swift\n// All default datetime formats (15+) are recognized automatically\nlet _ = \"2010-05-20 15:30:00\".toDate()\n// You can also provide your own format!\nlet _ = \"2010-05-20 15:30\".toDate(\"yyyy-MM-dd HH:mm\")\n// All ISO8601 variants are supported too with timezone parsing!\nlet _ = \"2017-09-17T11:59:29+02:00\".toISODate()\n// RSS, Extended, HTTP, SQL, .NET and all the major variants are supported!\nlet _ = \"19 Nov 2015 22:20:40 +0100\".toRSS(alt: true)\n\n```\n\n<a name=\"2\"/>\n\n### 2. Date Manipulation\nDate can be manipulated by adding or removing time components using a natural language; time unit extraction is also easy and includes the support for timezone, calendar and locales!\n\nManipulation can be done with standard math operators and between dates, time intervals, date components and relevant time units!\n\n```swift\n// Math operations support time units\nlet _ = (\"2010-05-20 15:30:00\".toDate() + 3.months - 2.days)\nlet _ = Date() + 3.hours\nlet _ = date1 + [.year:1, .month:2, .hour:5]\nlet _ = date1 + date2\n// extract single time unit components from date manipulation\nlet over1Year = (date3 - date2).year > 1\n```\n<a name=\"3\"/>\n\n### 3. Date Comparison\nSwiftDate include an extensive set of comparison functions; you can compare two dates by granularity, check if a date is an particular day, range and practically any other comparison you ever need.\n\nComparison is also available via standard math operators like (`>, >=, <, <=`).\n\n```swift\n// Standard math comparison is allowed\nlet _ = dateA >= dateB || dateC < dateB\n\n// Complex comparisons includes granularity support\nlet _ = dateA.compare(toDate: dateB, granularity: .hour) == .orderedSame\nlet _ = dateA.isAfterDate(dateB, orEqual: true, granularity: .month) // > until month granularity\nlet _ = dateC.isInRange(date: dateA, and: dateB, orEqual: true, granularity: .day) // > until day granularity\nlet _ = dateA.earlierDate(dateB) // earlier date\nlet _ = dateA.laterDate(dateB) // later date\n\n// Check if date is close to another with a given precision\nlet _ = dateA.compareCloseTo(dateB, precision: 1.hours.timeInterval\n\n// Compare for relevant events:\n// .isToday, .isYesterday, .isTomorrow, .isWeekend, isNextWeek\n// .isSameDay, .isMorning, .isWeekday ...\nlet _ = date.compare(.isToday)\nlet _ = date.compare(.isNight)\nlet _ = date.compare(.isNextWeek)\nlet _ = date.compare(.isThisMonth)\nlet _ = date.compare(.startOfWeek)\nlet _ = date.compare(.isNextYear)\n// ...and MORE THAN 30 OTHER COMPARISONS BUILT IN\n\n// Operation in arrays (oldestIn, newestIn, sortedByNewest, sortedByOldest...)\nlet _ = DateInRegion.oldestIn(list: datesArray)\nlet _ = DateInRegion.sortedByNewest(list: datesArray)\n```\n\n<a name=\"4\"/>\n\n### 4. Date Creation with Region (Timezone, Calendar & Locale)\nYou can create new dates from a string, time intervals or using date components. SwiftDate offers a wide set of functions to create and derivate your dates even with random generation!\n\n```swift\n// All dates includes timezone, calendar and locales!\n// Create from string\nlet rome = Region(calendar: Calendars.gregorian, zone: Zones.europeRome, locale: Locales.italian)\nlet date1 = DateInRegion(\"2010-01-01 00:00:00\", region: rome)!\n\n// Create date from intervals\nlet _ = DateInRegion(seconds: 39940, region: rome)\nlet _ = DateInRegion(milliseconds: 5000, region: rome)\n\n// Date from components\nlet _ = DateInRegion(components: {\n\t$0.year = 2001\n\t$0.month = 9\n\t$0.day = 11\n\t$0.hour = 12\n\t$0.minute = 0\n}, region: rome)\nlet _ = DateInRegion(year: 2001, month: 1, day: 5, hour: 23, minute: 30, second: 0, region: rome)\n\n// Random date generation with/without bounds\nlet _ = DateInRegion.randomDate(region: rome)\nlet _ = DateInRegion.randomDate(withinDaysBeforeToday: 5)\nlet _ = DateInRegion.randomDates(count: 50, between: lowerLimitDate, and: upperLimitDate, region: rome)\n```\n<a name=\"5\"/>\n\n### 5. Derivated Dates\nDate can be also generated starting from other dates; SwiftDate includes an extensive set of functions to generate.\nOver 20 different derivated dates can be created easily using `dateAt()` function.\n\n```swift\nlet _ = DateInRegion().dateAt(.endOfDay) // today at the end of the day\n// Over 20 different relevant dates including .startOfDay,\n// .endOfDay, .startOfWeek, .tomorrow, .nextWeekday, .nextMonth, .prevYear, .nearestMinute and many others!\nlet _ = dateA.nextWeekday(.friday) // the next friday after dateA\nlet _ = (date.dateAt(.startOfMonth) - 3.days)\nlet _ = dateA.compare(.endOfWeek)\n\n// Enumerate dates in range by providing your own custom\n// increment expressed in date components\nlet from = DateInRegion(\"2015-01-01 10:00:00\", region: rome)!\nlet to = DateInRegion(\"2015-01-02 03:00:00\", region: rome)!\nlet increment2 = DateComponents.create {\n\t$0.hour = 1\n\t$0.minute = 30\n\t$0.second = 10\n}\n// generate dates in range by incrementing +1h,30m,10s each new date\nlet dates = DateInRegion.enumerateDates(from: fromDate2, to: toDate2, increment: increment2)\n\n// Get all mondays in Jan 2019\nlet mondaysInJan2019 = Date.datesForWeekday(.monday, inMonth: 1, ofYear: 2019)\n\n// Altering time components\nlet _ = dateA.dateBySet(hour: 10, min: 0, secs: 0)\n\n// Truncating a date\nlet _ = dateA.dateTruncated(at: [.year,.month,.day]) // reset all time components keeping only date\n\n// Rounding a date\nlet _ = dateA.dateRoundedAt(.toMins(10))\nlet _ = dateA.dateRoundedAt(.toFloor30Mins)\n\n// Adding components\nlet _ = dateA.dateByAdding(5,.year)\n\n// Date at the start/end of any time component\nlet _ = dateA.dateAtEndOf(.year) // 31 of Dec at 23:59:59\nlet _ = dateA.dateAtStartOf(.day) // at 00:00:00 of the same day\nlet _ = dateA.dateAtStartOf(.month) // at 00:00:00 of the first day of the month\n```\n\n<a name=\"6\"/>\n\n### 6. Components Extraction\nYou can extract components directly from dates and it includes the right value expressed in date's region (the right timezone and set locale!).\n\n```swift\n// Create a date in a region, London but with the lcoale set to IT\nlet london = Region(calendar: .gregorian, zone: .europeLondon, locale: .italian)\nlet date = DateInRegion(\"2018-02-05 23:14:45\", format: dateFormat, region: london)!\n\n// You can extract any of the all available time units.\n// VALUES ARE EXPRESSED IN THE REGION OF THE DATE (THE RIGHT TIMEZONE).\n// (you can still get the UTC/absolute value by getting the inner's absoluteDate).\n\nlet _ = date.year // 2018\nlet _ = date.month // 2\nlet _ = date.monthNameDefault // 'Febbraio' as the locale is the to IT!\nlet _ = date.firstDayOfWeek // 5\nlet _ = date.weekdayNameShort // 'Lun' as locale is the to IT\n// ... all components are supported: .year, .month, .day, .hour, .minute, .second,\n// .monthName, .weekday, .nearestHour, .firstDayOfWeek. .quarter and so on...\n```\n\n<a name=\"7\"/>\n\n### 7. Switch between timezones/locale and calendars\nYou can easily convert any date to another region (aka another calendar, locale or timezone) easily!\nNew date contains all values expressed into the destination reason\n\n```swift\n// Conversion between timezones is easy using convertTo(region:) function\nlet rNY = Region(calendar: Calendars.gregorian, zone: Zones.americaNewYork, locale: Locales.english)\nlet rRome = Region(calendar: Calendars.gregorian, zone: Zones.europeRome, locale: Locales.italian)\nlet dateInNY = \"2017-01-01 00:00:00\".toDate(region: rNY)\nlet dateInRome = dateInNY?.convertTo(region: rRome)!\nprint(dateInRome.toString()) // \"dom gen 01 06:00:00 +0100 2017\\n\"\n\n// You can also convert single region's attributes\nlet dateInIndia = dateInNY?.convertTo(timezone: Zones.indianChristmas, locale: Locales.nepaliIndia)\nprint(\"\\(dateInIndia!.toString())\") // \"\u0906\u0907\u0924 \u091c\u0928\u0935\u0930\u0940 \u0966\u0967 \u0967\u0968:\u0966\u0966:\u0966\u0966 +0700 \u0968\u0966\u0967\u096d\\n\"\n```\n\n<a name=\"8\"/>\n\n### 8. Date Formatting\nDate formatting is easy, you can specify your own format, locale or use any of the provided ones.\n\n```swift\n// Date Formatting\nlet london = Region(calendar: .gregorian, zone: .europeLondon, locale: .english)\nlet date = ... // 2017-07-22T18:27:02+02:00 in london region\nlet _ = date.toDotNET() // /Date(1500740822000+0200)/\nlet _ = date.toISODate() // 2017-07-22T18:27:02+02:00\nlet _ = date.toFormat(\"dd MMM yyyy 'at' HH:mm\") // \"22 July 2017 at 18:27\"\n\n// You can also easily change locale when formatting a region\nlet _ = date.toFormat(\"dd MMM\", locale: .italian) // \"22 Luglio\"\n\n// Time Interval Formatting as Countdown\nlet interval: TimeInterval = (2.hours.timeInterval) + (34.minutes.timeInterval) + (5.seconds.timeInterval)\nlet _ = interval.toClock() // \"2:34:05\"\n\n// Time Interval Formatting by Components\nlet _ = interval.toString {\n\t$0.maximumUnitCount = 4\n\t$0.allowedUnits = [.day, .hour, .minute]\n\t$0.collapsesLargestUnit = true\n\t$0.unitsStyle = .abbreviated\n} // \"2h 34m\"\n```\n\n<a name=\"9\"/>\n\n### 9. Relative Date Formatting (fully customizable!)\nRelative formatting is all new in SwiftDate; it supports 120+ languages with two different styles (`.default, .twitter`), 9 flavours (`.long, .longTime, .longConvenient, .short, .shortTime, .shortConvenient, .narrow, .tiny, .quantify`) and all of them are customizable as you need.\nThe extensible format allows you to provide your own translations and rules to override the default behaviour.\n\n```swift\n// Twitter Style\nlet _ = (Date() - 3.minutes).toRelative(style: RelativeFormatter.twitterStyle(), locale: Locales.english) // \"3m\"\nlet _ = (Date() - 6.minutes).toRelative(style: RelativeFormatter.twitterStyle(), locale: Locales.italian) // \"6 min fa\"\n\n// Default Style\nlet _ = (now2 - 5.hours).toRelative(style: RelativeFormatter.defaultStyle(), locale: Locales.english) // \"5 hours ago\"\nlet y = (now2 - 40.minutes).toRelative(style: RelativeFormatter.defaultStyle(), locale: Locales.italian) // \"45 minuti fa\"\n```\n<a name=\"10\"/>\n\n### 10. Codable Support\nBoth `DateInRegion` and `Region` fully support the new Swift's `Codable` protocol. This mean you can safely encode/decode them:\n\n```swift\n// Encoding/Decoding a Region\nlet region = Region(calendar: Calendars.gregorian, zone: Zones.europeOslo, locale: Locales.english)\nlet encodedJSON = try JSONEncoder().encode(region)\nlet decodedRegion = try JSONDecoder().decode(Region.self, from: encodedJSON)\n\n// Encoding/Decoding a DateInRegion\nlet date = DateInRegion(\"2015-09-24T13:20:55\", region: region)\nlet encodedDate = try JSONEncoder().encode(date)\nlet decodedDate = try JSONDecoder().decode(DateInRegion.self, from: encodedDate)\n```\n\n<a name=\"11\"/>\n\n### 11. Time Periods\nSwiftDate integrates the great Matthew York's [DateTools](https://github.com/MatthewYork/DateTools) module in order to support Time Periods.\n\nSee [Time Periods](/Documentation/12.Timer_Periods.md) section of the documentation.\n",
+        "releases": [
+            {
+                "name": "7.0.0",
+                "date": "2022-09-12T07:00:48Z"
+            },
+            {
+                "name": "SwiftDate 6.3.1 - (Swift 5.x+)",
+                "date": "2020-11-22T09:09:50Z"
+            },
+            {
+                "name": "SwiftDate 6.3.0 - (Swift 5.x+)",
+                "date": "2020-11-15T11:19:33Z"
+            },
+            {
+                "name": "SwiftDate 6.2.0 - (Swift 5.x+)",
+                "date": "2020-09-16T14:40:56Z"
+            },
+            {
+                "name": "SwiftDate 6.1.0 - (Swift 5.x+)",
+                "date": "2019-09-14T14:24:42Z"
+            },
+            {
+                "name": "SwiftDate 6.0.3",
+                "date": "2019-05-11T23:05:06Z"
+            },
+            {
+                "name": "SwiftDate 6.0.2",
+                "date": "2019-04-16T17:43:46Z"
+            },
+            {
+                "name": "SwiftDate 6.0.1 (Swift 5.0+)",
+                "date": "2019-03-28T07:25:56Z"
+            },
+            {
+                "name": "SwiftDate 6.0.0 (Swift 5.0+)",
+                "date": "2019-03-27T22:35:41Z"
+            },
+            {
+                "name": "SwiftDate 5.1.0 (Swift 4.0+)",
+                "date": "2019-01-20T12:58:58Z"
+            },
+            {
+                "name": "SwiftDate 5.0.13",
+                "date": "2018-10-28T07:56:20Z"
+            },
+            {
+                "name": "SwiftDate 5.0.12",
+                "date": "2018-10-26T19:19:55Z"
+            },
+            {
+                "name": "SwiftDate 5.0.11",
+                "date": "2018-10-26T15:01:23Z"
+            },
+            {
+                "name": "SwiftDate 5.0.10",
+                "date": "2018-10-13T12:07:01Z"
+            },
+            {
+                "name": "SwiftDate 5.0.9 (Swift 4.2+)",
+                "date": "2018-09-18T21:29:05Z"
+            },
+            {
+                "name": "SwiftDate 5.0.7",
+                "date": "2018-08-24T09:08:08Z"
+            },
+            {
+                "name": "SwiftDate 5.0.6",
+                "date": "2018-08-21T15:40:38Z"
+            },
+            {
+                "name": "SwiftDate 5.0.5",
+                "date": "2018-08-03T16:06:40Z"
+            },
+            {
+                "name": "SwiftDate 5.0.4",
+                "date": "2018-07-18T07:40:31Z"
+            },
+            {
+                "name": "SwiftDate 5.0.3",
+                "date": "2018-07-13T07:40:56Z"
+            },
+            {
+                "name": "SwiftDate 5.0.2",
+                "date": "2018-07-12T08:06:26Z"
+            },
+            {
+                "name": "SwiftDate 5.0.1",
+                "date": "2018-07-05T19:29:57Z"
+            },
+            {
+                "name": "SwiftDate 5.0.0",
+                "date": "2018-07-03T20:28:13Z"
+            },
+            {
+                "name": "SwiftDate 4.5.0 - Swift 4",
+                "date": "2017-11-26T12:06:09Z"
+            },
+            {
+                "name": "SwiftDate 4.4.2 - Swift 4",
+                "date": "2017-10-26T17:47:06Z"
+            },
+            {
+                "name": "SwiftDate 4.4.1 - (Swift 4.x)",
+                "date": "2017-09-15T06:01:29Z"
+            },
+            {
+                "name": "SwiftDate 4.4.0 - First Swift 4.x compatible version",
+                "date": "2017-09-14T18:18:21Z"
+            },
+            {
+                "name": "SwiftDate 4.3.0 - Latest Swift 3.x release",
+                "date": "2017-09-14T18:18:01Z"
+            },
+            {
+                "name": "SwiftDate 4.1.11",
+                "date": "2017-09-05T21:16:13Z"
+            },
+            {
+                "name": "SwiftDate 4.1.10",
+                "date": "2017-09-03T18:32:27Z"
+            },
+            {
+                "name": "SwiftDate 4.1.6",
+                "date": "2017-07-06T20:16:18Z"
+            },
+            {
+                "name": "SwiftDate 4.1.2",
+                "date": "2017-05-08T22:07:41Z"
+            },
+            {
+                "name": "SwiftDate 4.1.1",
+                "date": "2017-04-06T18:21:27Z"
+            },
+            {
+                "name": "SwiftDate 4.1.0",
+                "date": "2017-03-31T18:37:23Z"
+            },
+            {
+                "name": "SwiftDate 4.0.14",
+                "date": "2017-03-31T18:33:31Z"
+            },
+            {
+                "name": "SwiftDate 4.0.13",
+                "date": "2017-02-12T10:35:59Z"
+            },
+            {
+                "name": "SwiftDate 4.0.12",
+                "date": "2017-01-31T09:04:55Z"
+            },
+            {
+                "name": "4.0.11",
+                "date": "2017-01-08T17:21:13Z"
+            },
+            {
+                "name": "SwiftDate 4.0.8",
+                "date": "2016-11-30T13:36:12Z"
+            },
+            {
+                "name": "SwiftDate 4.0.7",
+                "date": "2016-10-24T11:06:39Z"
+            },
+            {
+                "name": "SwiftDate 4.0.6",
+                "date": "2016-10-17T18:36:20Z"
+            },
+            {
+                "name": "SwiftDate 4.0.5",
+                "date": "2016-10-10T12:15:17Z"
+            },
+            {
+                "name": "SwiftDate 4.0.4",
+                "date": "2016-10-04T09:46:25Z"
+            },
+            {
+                "name": "SwiftDate 4.0.3",
+                "date": "2016-10-02T11:39:28Z"
+            },
+            {
+                "name": "SwiftDate 4.0.2",
+                "date": "2016-09-30T15:48:04Z"
+            },
+            {
+                "name": "SwiftDate 4.0.0",
+                "date": "2016-09-29T21:51:08Z"
+            },
+            {
+                "name": "",
+                "date": "2016-10-06T15:35:50Z"
+            },
+            {
+                "name": "1.0.9",
+                "date": "2015-06-06T07:35:08Z"
+            }
+        ]
+    }
+}

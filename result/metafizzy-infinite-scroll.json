@@ -1,0 +1,92 @@
+{
+    "https://api.github.com/repos/metafizzy/infinite-scroll": {
+        "forks": 1734,
+        "watchers": 7432,
+        "stars": 7432,
+        "languages": {
+            "HTML": 91046,
+            "JavaScript": 81016,
+            "CSS": 2145
+        },
+        "commits": [
+            "2021-01-03T19:57:17Z",
+            "2021-01-03T03:55:21Z",
+            "2021-01-02T01:12:45Z",
+            "2021-01-01T22:27:04Z",
+            "2021-01-01T17:23:27Z",
+            "2021-01-01T02:11:33Z",
+            "2020-12-31T12:09:57Z",
+            "2020-12-26T19:07:32Z",
+            "2020-12-26T17:41:46Z",
+            "2020-12-26T17:41:05Z",
+            "2020-12-26T17:28:14Z",
+            "2020-12-25T20:34:31Z",
+            "2020-12-24T02:41:41Z",
+            "2020-12-24T02:36:29Z",
+            "2020-12-24T02:30:33Z",
+            "2020-12-23T12:48:48Z",
+            "2020-12-23T12:38:05Z",
+            "2020-12-20T02:53:38Z",
+            "2020-12-20T02:53:08Z",
+            "2020-12-20T00:09:57Z",
+            "2020-12-19T13:36:49Z",
+            "2020-12-19T02:58:18Z",
+            "2020-12-17T03:56:00Z",
+            "2020-12-17T03:51:57Z",
+            "2020-12-17T03:32:15Z",
+            "2020-12-17T03:14:00Z",
+            "2020-12-16T11:51:24Z",
+            "2020-12-16T03:15:08Z",
+            "2020-12-16T02:39:32Z",
+            "2020-12-16T01:16:09Z"
+        ],
+        "creation_date": "2010-05-04T17:28:57Z",
+        "contributors": 30,
+        "topics": [
+            "ajax",
+            "javascript-plugin",
+            "jquery-plugin",
+            "ui"
+        ],
+        "subscribers": 228,
+        "readme": "# Infinite Scroll\n\n_Automatically add next page_\n\nSee [infinite-scroll.com](https://infinite-scroll.com) for complete docs and demos.\n\n## Install\n\n### Download\n\n- [infinite-scroll.pkgd.min.js](https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.min.js) minified, or\n- [infinite-scroll.pkgd.js](https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.js) un-minified\n\n### CDN\n\nLink directly to Infinite Scroll files on [unpkg](https://unpkg.com).\n\n``` html\n<script src=\"https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.min.js\"></script>\n<!-- or -->\n<script src=\"https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.js\"></script>\n```\n\n### Package managers\n\nnpm: `npm install infinite-scroll`\n\nYarn: `yarn add infinite-scroll`\n\n## License\n\n### Commercial license\n\nIf you want to use Infinite Scroll to develop commercial sites, themes, projects, and applications, the Commercial license is the appropriate license. With this option, your source code is kept proprietary. Purchase an Infinite Scroll Commercial License at [infinite-scroll.com](https://infinite-scroll.com/#commercial-license)\n\n### Open source license\n\nIf you are creating an open source application under a license compatible with the [GNU GPL license v3](https://www.gnu.org/licenses/gpl-3.0.html), you may use Infinite Scroll under the terms of the GPLv3.\n\n[Read more about Infinite Scroll's license](https://infinite-scroll.com/license.html).\n\n## Usage\n\nInfinite Scroll works on a container element with its child item elements\n\n``` html\n<div class=\"container\">\n  <article class=\"post\">...</article>\n  <article class=\"post\">...</article>\n  <article class=\"post\">...</article>\n  ...\n</div>\n```\n\n### Options\n\n``` js\nlet infScroll = new InfiniteScroll( '.container', {\n  // defaults listed\n\n  path: undefined,\n  // REQUIRED. Determines the URL for the next page\n  // Set to selector string to use the href of the next page's link\n  // path: '.pagination__next'\n  // Or set with {{#}} in place of the page number in the url\n  // path: '/blog/page/{{#}}'\n  // or set with function\n  // path: function() {\n  //   return return '/articles/P' + ( ( this.loadCount + 1 ) * 10 );\n  // }\n\n  append: undefined,\n  // REQUIRED for appending content\n  // Appends selected elements from loaded page to the container\n\n  checkLastPage: true,\n  // Checks if page has path selector element\n  // Set to string if path is not set as selector string:\n  //   checkLastPage: '.pagination__next'\n\n  prefill: false,\n  // Loads and appends pages on intialization until scroll requirement is met.\n\n  responseBody: 'text',\n  // Sets the method used on the response.\n  // Set to 'json' to load JSON.\n\n  domParseResponse: true,\n  // enables parsing response body into a DOM\n  // disable to load flat text\n\n  fetchOptions: undefined,\n  // sets custom settings for the fetch() request\n  // for setting headers, cors, or POST method\n  // can be set to an object, or a function that returns an object\n\n  outlayer: false,\n  // Integrates Masonry, Isotope or Packery\n  // Appended items will be added to the layout\n\n  scrollThreshold: 400,\n  // Sets the distance between the viewport to scroll area\n  // for scrollThreshold event to be triggered.\n\n  elementScroll: false,\n  // Sets scroller to an element for overflow element scrolling\n\n  loadOnScroll: true,\n  // Loads next page when scroll crosses over scrollThreshold\n\n  history: 'replace',\n  // Changes the browser history and URL.\n  // Set to 'push' to use history.pushState()\n  //    to create new history entries for each page change.\n\n  historyTitle: true,\n  // Updates the window title. Requires history enabled.\n\n  hideNav: undefined,\n  // Hides navigation element\n\n  status: undefined,\n  // Displays status elements indicating state of page loading:\n  // .infinite-scroll-request, .infinite-scroll-load, .infinite-scroll-error\n  // status: '.page-load-status'\n\n  button: undefined,\n  // Enables a button to load pages on click\n  // button: '.load-next-button'\n\n  onInit: undefined,\n  // called on initialization\n  // useful for binding events on init\n  // onInit: function() {\n  //   this.on( 'append', function() {...})\n  // }\n\n  debug: false,\n  // Logs events and state changes to the console.\n})\n```\n\n## Browser support\n\nInfinite Scroll v4 supports Chrome 60+, Edge 79+, Firefox 55+, Safari 11+.\n\nFor IE10 and Android 4 support, try [Infinite Scroll v3](https://v3.infinite-scroll.com/).\n\n## Development\n\nThis package is developed with Node.js v14 and npm v6. Manage Node and npm version with [nvm](https://github.com/nvm-sh/nvm).\n\n``` sh\nnvm use\n```\n\nInstall dependencies\n\n``` sh\nnpm install\n```\n\nLint\n\n``` sh\nnpm run lint\n```\n\nRun tests\n\n``` sh\nnpm test\n```\n\n---\n\nBy [Metafizzy \ud83c\udf08\ud83d\udc3b](https://metafizzy.co)\n",
+        "releases": [
+            {
+                "name": "",
+                "date": "2021-01-04T03:39:44Z"
+            },
+            {
+                "name": "v4.0.0 - ES2018 refactor; fetch() & Promises",
+                "date": "2021-01-01T22:30:55Z"
+            },
+            {
+                "name": "",
+                "date": "2019-04-27T19:44:26Z"
+            },
+            {
+                "name": "",
+                "date": "2018-08-28T18:41:14Z"
+            },
+            {
+                "name": "",
+                "date": "2018-04-13T13:55:35Z"
+            },
+            {
+                "name": "",
+                "date": "2018-04-13T13:54:00Z"
+            },
+            {
+                "name": "",
+                "date": "2017-09-20T16:25:31Z"
+            },
+            {
+                "name": "",
+                "date": "2017-08-04T13:48:40Z"
+            },
+            {
+                "name": "v3.0.0 - All new re-write",
+                "date": "2017-06-27T00:17:39Z"
+            }
+        ]
+    }
+}

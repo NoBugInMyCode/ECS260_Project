@@ -1,0 +1,242 @@
+{
+    "https://api.github.com/repos/getmoto/moto": {
+        "forks": 2067,
+        "watchers": 7741,
+        "stars": 7741,
+        "languages": {
+            "Python": 22906183,
+            "ANTLR": 30223,
+            "HCL": 25870,
+            "Java": 17363,
+            "Shell": 14363,
+            "HTML": 5964,
+            "C#": 4065,
+            "Jinja": 2284,
+            "JavaScript": 2116,
+            "Makefile": 2018,
+            "Ruby": 1319,
+            "Scala": 782,
+            "Dockerfile": 364
+        },
+        "commits": [
+            "2025-01-20T23:33:40Z",
+            "2025-01-20T21:39:25Z",
+            "2025-01-20T18:48:24Z",
+            "2025-01-20T08:44:35Z",
+            "2025-01-20T01:23:10Z",
+            "2025-01-19T22:24:19Z",
+            "2025-01-19T22:19:07Z",
+            "2025-01-19T22:15:36Z",
+            "2025-01-19T20:19:26Z",
+            "2025-01-19T20:19:07Z",
+            "2025-01-19T20:18:46Z",
+            "2025-01-19T13:47:41Z",
+            "2025-01-19T13:47:15Z",
+            "2025-01-19T13:46:47Z",
+            "2025-01-18T19:13:28Z",
+            "2025-01-16T21:36:30Z",
+            "2025-01-15T21:56:44Z",
+            "2025-01-15T21:35:49Z",
+            "2025-01-15T07:47:35Z",
+            "2025-01-14T17:38:21Z",
+            "2025-01-14T16:10:56Z",
+            "2025-01-13T21:22:13Z",
+            "2025-01-13T21:21:37Z",
+            "2025-01-13T21:21:15Z",
+            "2025-01-13T20:13:09Z",
+            "2025-01-12T12:28:48Z",
+            "2025-01-11T20:47:38Z",
+            "2025-01-10T18:48:09Z",
+            "2025-01-10T18:42:35Z",
+            "2025-01-08T20:15:37Z"
+        ],
+        "creation_date": "2013-02-18T21:10:59Z",
+        "contributors": 30,
+        "topics": [
+            "aws",
+            "boto",
+            "ec2",
+            "s3"
+        ],
+        "subscribers": 65,
+        "readme": "# Moto - Mock AWS Services\n\n[![Join the chat at https://gitter.im/awsmoto/Lobby](https://badges.gitter.im/awsmoto/Lobby.svg)](https://gitter.im/awsmoto/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)\n\n[![Build Status](https://github.com/getmoto/moto/workflows/TestNDeploy/badge.svg)](https://github.com/getmoto/moto/actions)\n[![Coverage Status](https://codecov.io/gh/getmoto/moto/branch/master/graph/badge.svg)](https://codecov.io/gh/getmoto/moto)\n[![Docs](https://readthedocs.org/projects/pip/badge/?version=stable)](http://docs.getmoto.org)\n[![PyPI](https://img.shields.io/pypi/v/moto.svg)](https://pypi.org/project/moto/)\n[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/moto.svg)](#)\n[![PyPI - Downloads](https://img.shields.io/pypi/dw/moto.svg)](https://pypistats.org/packages/moto)\n[![Code style: Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)\n[![Financial Contributors](https://opencollective.com/moto/tiers/badge.svg)](https://opencollective.com/moto)\n\n\n## Install\n\n```console\n$ pip install 'moto[ec2,s3,all]'\n```\n\n## In a nutshell\n\n\nMoto is a library that allows your tests to easily mock out AWS Services.\n\nImagine you have the following python code that you want to test:\n\n```python\nimport boto3\n\n\nclass MyModel:\n    def __init__(self, name, value):\n        self.name = name\n        self.value = value\n\n    def save(self):\n        s3 = boto3.client(\"s3\", region_name=\"us-east-1\")\n        s3.put_object(Bucket=\"mybucket\", Key=self.name, Body=self.value)\n```\n\nTake a minute to think how you would have tested that in the past.\n\nNow see how you could test it with Moto:\n\n```python\nimport boto3\nfrom moto import mock_aws\nfrom mymodule import MyModel\n\n\n@mock_aws\ndef test_my_model_save():\n    conn = boto3.resource(\"s3\", region_name=\"us-east-1\")\n    # We need to create the bucket since this is all in Moto's 'virtual' AWS account\n    conn.create_bucket(Bucket=\"mybucket\")\n    model_instance = MyModel(\"steve\", \"is awesome\")\n    model_instance.save()\n    body = conn.Object(\"mybucket\", \"steve\").get()[\"Body\"].read().decode(\"utf-8\")\n    assert body == \"is awesome\"\n```\n\nWith the decorator wrapping the test, all the calls to s3 are automatically mocked out. The mock keeps track of the state of the buckets and keys.\n\nFor a full list of which services and features are covered, please see our [implementation coverage](https://github.com/getmoto/moto/blob/master/IMPLEMENTATION_COVERAGE.md).\n\n\n### Documentation\nThe full documentation can be found here:\n\n[http://docs.getmoto.org/en/latest/](http://docs.getmoto.org/en/latest/)\n\n\n### Financial Contributions\nSupport this project and its continued development, by sponsoring us!\n\nClick the `Sponsor`-button at the top of the page for more information.\n\nOur finances are managed by OpenCollective, which means you have full visibility into all our contributions and expenses:\nhttps://opencollective.com/moto\n\n### Security contact information\n\nTo report a security vulnerability, please use the\n[Tidelift security contact](https://tidelift.com/security).\nTidelift will coordinate the fix and disclosure.\n",
+        "releases": [
+            {
+                "name": "5.0.27",
+                "date": "2025-01-19T22:19:25Z"
+            },
+            {
+                "name": "5.0.26",
+                "date": "2025-01-05T21:06:41Z"
+            },
+            {
+                "name": "5.0.25",
+                "date": "2024-12-26T23:11:34Z"
+            },
+            {
+                "name": "5.0.24",
+                "date": "2024-12-18T22:41:32Z"
+            },
+            {
+                "name": "5.0.23",
+                "date": "2024-12-15T19:55:16Z"
+            },
+            {
+                "name": "5.0.22",
+                "date": "2024-12-01T18:41:55Z"
+            },
+            {
+                "name": "5.0.21",
+                "date": "2024-11-17T13:37:22Z"
+            },
+            {
+                "name": "5.0.20",
+                "date": "2024-11-04T17:15:19Z"
+            },
+            {
+                "name": "5.0.19",
+                "date": "2024-11-03T10:43:31Z"
+            },
+            {
+                "name": "5.0.18",
+                "date": "2024-10-20T14:46:01Z"
+            },
+            {
+                "name": "5.0.17",
+                "date": "2024-10-13T13:41:17Z"
+            },
+            {
+                "name": "5.0.16",
+                "date": "2024-09-29T13:31:28Z"
+            },
+            {
+                "name": "5.0.15",
+                "date": "2024-09-22T19:01:23Z"
+            },
+            {
+                "name": "5.0.14",
+                "date": "2024-09-08T17:56:15Z"
+            },
+            {
+                "name": "5.0.13",
+                "date": "2024-08-17T20:25:48Z"
+            },
+            {
+                "name": "5.0.12",
+                "date": "2024-08-03T19:05:07Z"
+            },
+            {
+                "name": "5.0.11",
+                "date": "2024-07-07T21:14:14Z"
+            },
+            {
+                "name": "5.0.10",
+                "date": "2024-06-29T20:35:17Z"
+            },
+            {
+                "name": "5.0.9",
+                "date": "2024-05-30T21:25:39Z"
+            },
+            {
+                "name": "5.0.8",
+                "date": "2024-05-26T22:07:27Z"
+            },
+            {
+                "name": "5.0.7",
+                "date": "2024-05-12T11:03:24Z"
+            },
+            {
+                "name": "5.0.6",
+                "date": "2024-04-28T11:11:25Z"
+            },
+            {
+                "name": "5.0.5",
+                "date": "2024-04-06T19:17:47Z"
+            },
+            {
+                "name": "5.0.4",
+                "date": "2024-03-27T08:09:51Z"
+            },
+            {
+                "name": "5.0.3",
+                "date": "2024-03-09T22:12:16Z"
+            },
+            {
+                "name": "5.0.2",
+                "date": "2024-02-18T17:18:53Z"
+            },
+            {
+                "name": "5.0.1",
+                "date": "2024-02-05T00:20:01Z"
+            },
+            {
+                "name": "5.0.0",
+                "date": "2024-01-27T20:24:39Z"
+            },
+            {
+                "name": "4.2.14",
+                "date": "2024-01-27T12:34:52Z"
+            },
+            {
+                "name": "5.0.0alpha3",
+                "date": "2024-01-21T10:46:08Z"
+            },
+            {
+                "name": "5.0.0alpha2",
+                "date": "2024-01-14T21:07:03Z"
+            },
+            {
+                "name": "5.0.0alpha1",
+                "date": "2024-01-07T12:36:42Z"
+            },
+            {
+                "name": "4.2.13",
+                "date": "2024-01-06T15:37:10Z"
+            },
+            {
+                "name": "4.2.12",
+                "date": "2023-12-17T18:12:20Z"
+            },
+            {
+                "name": "4.2.11",
+                "date": "2023-12-02T22:06:45Z"
+            },
+            {
+                "name": "4.2.10",
+                "date": "2023-11-24T22:16:17Z"
+            },
+            {
+                "name": "4.2.9",
+                "date": "2023-11-16T13:28:12Z"
+            },
+            {
+                "name": "4.2.8",
+                "date": "2023-11-11T09:46:16Z"
+            },
+            {
+                "name": "4.2.7",
+                "date": "2023-10-27T21:08:46Z"
+            },
+            {
+                "name": "4.2.6",
+                "date": "2023-10-15T13:49:09Z"
+            },
+            {
+                "name": "4.2.5",
+                "date": "2023-09-30T12:53:29Z"
+            },
+            {
+                "name": "4.2.4",
+                "date": "2023-09-23T08:46:15Z"
+            },
+            {
+                "name": "4.2.3",
+                "date": "2023-09-16T09:01:21Z"
+            },
+            {
+                "name": "4.2.2",
+                "date": "2023-09-02T21:30:54Z"
+            }
+        ]
+    }
+}

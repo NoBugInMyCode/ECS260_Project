@@ -1,0 +1,48 @@
+{
+    "https://api.github.com/repos/tmux-plugins/tmux-resurrect": {
+        "forks": 433,
+        "watchers": 11553,
+        "stars": 11553,
+        "languages": {
+            "Shell": 40757
+        },
+        "commits": [
+            "2023-03-06T10:20:22Z",
+            "2023-03-06T02:58:11Z",
+            "2023-01-31T09:40:52Z",
+            "2023-01-30T02:46:24Z",
+            "2023-01-30T02:31:13Z",
+            "2023-01-30T02:33:50Z",
+            "2022-10-22T14:31:55Z",
+            "2022-10-22T06:21:51Z",
+            "2022-09-22T07:14:40Z",
+            "2022-09-20T22:30:28Z",
+            "2022-08-17T07:09:56Z",
+            "2022-08-16T12:57:39Z",
+            "2022-07-16T11:55:50Z",
+            "2022-07-15T20:36:24Z",
+            "2022-06-26T07:18:44Z",
+            "2022-06-25T20:33:19Z",
+            "2022-05-01T15:17:50Z",
+            "2022-04-10T06:58:27Z",
+            "2022-04-10T06:40:19Z",
+            "2022-04-10T06:39:15Z",
+            "2022-03-28T17:09:45Z",
+            "2021-12-19T15:21:44Z",
+            "2021-12-19T15:19:30Z",
+            "2021-12-19T11:46:07Z",
+            "2021-08-30T12:09:17Z",
+            "2021-08-30T12:07:33Z",
+            "2021-08-30T12:06:58Z",
+            "2021-08-27T09:02:00Z",
+            "2021-08-27T06:57:26Z",
+            "2021-08-27T04:27:00Z"
+        ],
+        "creation_date": "2014-08-25T20:46:17Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 92,
+        "readme": "# Tmux Resurrect\n\n[![Build Status](https://travis-ci.org/tmux-plugins/tmux-resurrect.svg?branch=master)](https://travis-ci.org/tmux-plugins/tmux-resurrect)\n\nRestore `tmux` environment after system restart.\n\nTmux is great, except when you have to restart the computer. You lose all the\nrunning programs, working directories, pane layouts etc.\nThere are helpful management tools out there, but they require initial\nconfiguration and continuous updates as your workflow evolves or you start new\nprojects.\n\n`tmux-resurrect` saves all the little details from your tmux environment so it\ncan be completely restored after a system restart (or when you feel like it).\nNo configuration is required. You should feel like you never quit tmux.\n\nIt even (optionally)\n[restores vim and neovim sessions](docs/restoring_vim_and_neovim_sessions.md)!\n\nAutomatic restoring and continuous saving of tmux env is also possible with\n[tmux-continuum](https://github.com/tmux-plugins/tmux-continuum) plugin.\n\n### Screencast\n\n[![screencast screenshot](/video/screencast_img.png)](https://vimeo.com/104763018)\n\n### Key bindings\n\n- `prefix + Ctrl-s` - save\n- `prefix + Ctrl-r` - restore\n\n### About\n\nThis plugin goes to great lengths to save and restore all the details from your\n`tmux` environment. Here's what's been taken care of:\n\n- all sessions, windows, panes and their order\n- current working directory for each pane\n- **exact pane layouts** within windows (even when zoomed)\n- active and alternative session\n- active and alternative window for each session\n- windows with focus\n- active pane for each window\n- \"grouped sessions\" (useful feature when using tmux with multiple monitors)\n- programs running within a pane! More details in the\n  [restoring programs doc](docs/restoring_programs.md).\n\nOptional:\n\n- [restoring vim and neovim sessions](docs/restoring_vim_and_neovim_sessions.md)\n- [restoring pane contents](docs/restoring_pane_contents.md)\n- [restoring a previously saved environment](docs/restoring_previously_saved_environment.md)\n\nRequirements / dependencies: `tmux 1.9` or higher, `bash`.\n\nTested and working on Linux, OSX and Cygwin.\n\n`tmux-resurrect` is idempotent! It will not try to restore panes or windows that\nalready exist.<br/>\nThe single exception to this is when tmux is started with only 1 pane in order\nto restore previous tmux env. Only in this case will this single pane be\noverwritten.\n\n### Installation with [Tmux Plugin Manager](https://github.com/tmux-plugins/tpm) (recommended)\n\nAdd plugin to the list of TPM plugins in `.tmux.conf`:\n\n    set -g @plugin 'tmux-plugins/tmux-resurrect'\n\nHit `prefix + I` to fetch the plugin and source it. You should now be able to\nuse the plugin.\n\n### Manual Installation\n\nClone the repo:\n\n    $ git clone https://github.com/tmux-plugins/tmux-resurrect ~/clone/path\n\nAdd this line to the bottom of `.tmux.conf`:\n\n    run-shell ~/clone/path/resurrect.tmux\n\nReload TMUX environment with: `$ tmux source-file ~/.tmux.conf`.\nYou should now be able to use the plugin.\n\n### Docs\n\n- [Guide for migrating from tmuxinator](docs/migrating_from_tmuxinator.md)\n\n**Configuration**\n\n- [Changing the default key bindings](docs/custom_key_bindings.md).\n- [Setting up hooks on save & restore](docs/hooks.md).\n- Only a conservative list of programs is restored by default:<br/>\n  `vi vim nvim emacs man less more tail top htop irssi weechat mutt`.<br/>\n  [Restoring programs doc](docs/restoring_programs.md) explains how to restore\n  additional programs.\n- [Change a directory](docs/save_dir.md) where `tmux-resurrect` saves tmux\n  environment.\n\n**Optional features**\n\n- [Restoring vim and neovim sessions](docs/restoring_vim_and_neovim_sessions.md)\n  is nice if you're a vim/neovim user.\n- [Restoring pane contents](docs/restoring_pane_contents.md) feature.\n\n### Other goodies\n\n- [tmux-copycat](https://github.com/tmux-plugins/tmux-copycat) - a plugin for\n  regex searches in tmux and fast match selection\n- [tmux-yank](https://github.com/tmux-plugins/tmux-yank) - enables copying\n  highlighted text to system clipboard\n- [tmux-open](https://github.com/tmux-plugins/tmux-open) - a plugin for quickly\n  opening highlighted file or a url\n- [tmux-continuum](https://github.com/tmux-plugins/tmux-continuum) - automatic\n  restoring and continuous saving of tmux env\n\n### Reporting bugs and contributing\n\nBoth contributing and bug reports are welcome. Please check out\n[contributing guidelines](CONTRIBUTING.md).\n\n### Credits\n\n[Mislav Marohni\u0107](https://github.com/mislav) - the idea for the plugin came from his\n[tmux-session script](https://github.com/mislav/dotfiles/blob/2036b5e03fb430bbcbc340689d63328abaa28876/bin/tmux-session).\n\n### License\n[MIT](LICENSE.md)\n",
+        "releases": []
+    }
+}

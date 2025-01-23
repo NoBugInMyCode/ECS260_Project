@@ -1,0 +1,4778 @@
+{
+    "https://api.github.com/repos/Activiti/Activiti": {
+        "forks": 6959,
+        "watchers": 10219,
+        "stars": 10219,
+        "languages": {
+            "Java": 12625758,
+            "HTML": 21882,
+            "SQLPL": 7430
+        },
+        "commits": [
+            "2025-01-20T10:14:01Z",
+            "2025-01-15T10:41:08Z",
+            "2025-01-14T11:52:25Z",
+            "2025-01-02T03:16:59Z",
+            "2024-12-18T10:39:36Z",
+            "2024-12-13T11:53:25Z",
+            "2024-12-11T09:21:11Z",
+            "2024-12-10T08:34:32Z",
+            "2024-12-10T08:34:10Z",
+            "2024-12-10T08:33:33Z",
+            "2024-12-10T08:33:04Z",
+            "2024-12-10T08:32:37Z",
+            "2024-12-09T11:49:59Z",
+            "2024-12-06T12:43:28Z",
+            "2024-12-06T09:02:46Z",
+            "2024-12-06T08:52:17Z",
+            "2024-12-06T08:50:51Z",
+            "2024-12-05T19:21:48Z",
+            "2024-12-04T12:23:26Z",
+            "2024-11-29T15:36:57Z",
+            "2024-11-26T08:44:32Z",
+            "2024-11-21T14:12:31Z",
+            "2024-11-21T14:12:00Z",
+            "2024-11-21T13:15:05Z",
+            "2024-11-21T13:14:30Z",
+            "2024-11-21T13:13:10Z",
+            "2024-11-19T10:43:18Z",
+            "2024-11-11T11:16:48Z",
+            "2024-11-11T11:15:36Z",
+            "2024-11-11T11:15:03Z"
+        ],
+        "creation_date": "2012-09-13T11:34:43Z",
+        "contributors": 30,
+        "topics": [
+            "activiti",
+            "bpm",
+            "bpmn",
+            "business-process",
+            "cloud",
+            "hxps",
+            "java",
+            "microservices",
+            "product-activiti",
+            "spring"
+        ],
+        "subscribers": 620,
+        "readme": "# Activiti\n\n[![Join Us in Gitter](https://badges.gitter.im/Activiti/Activiti7.svg)](https://gitter.im/Activiti/Activiti7?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)\n[![CI](https://github.com/Activiti/Activiti/actions/workflows/main.yml/badge.svg)](https://github.com/Activiti/Activiti/actions/workflows/main.yml)\n[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8035801ae94c441981f363fa99824a33)](https://www.codacy.com/gh/Activiti/Activiti?utm_source=github.com&utm_medium=referral&utm_content=Activiti/Activiti&utm_campaign=Badge_Grade)\n[![ASL 2.0](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/Activiti/Activiti/blob/develop/LICENSE.txt)\n[![CLA](https://cla-assistant.io/readme/badge/Activiti/Activiti)](https://cla-assistant.io/Activiti/Activiti)\n[![security status](https://www.meterian.io/badge/gh/Activiti/Activiti/security)](https://www.meterian.io/report/gh/Activiti/Activiti)\n[![stability status](https://www.meterian.io/badge/gh/Activiti/Activiti/stability)](https://www.meterian.io/report/gh/Activiti/Activiti)\n[![licensing status](https://www.meterian.io/badge/gh/Activiti/Activiti/licensing)](https://www.meterian.io/report/gh/Activiti/Activiti)\n\nHomepage: <http://activiti.org>\n\nActiviti is a light-weight workflow and Business Process Management (BPM) Platform targeted at business people, developers and system admins. Its core is a super-fast and rock-solid BPMN 2 process engine for Java. It's open-source and distributed under the Apache license. Activiti runs in any Java application, on a server, on a cluster or in the cloud. It integrates perfectly with Spring, it is extremely lightweight and based on simple concepts.\n\n\\***\\*NOTE: We moved to the master branch all the content of the development branch that we were using to design and code the next major version of the project. If you want to contribute with version 6.x please look at the 6.x branch.\\*\\***\n\nIf you want to read more about our Repositories structure you can read our [GitBook](https://activiti.gitbooks.io/activiti-7-developers-guide/content/).\n\n## Configuring IntelliJ\n\n- Force language level 21, to fail-fast when (accidentally) using features available only in newer Java versions.\n\n  - Open menu _File_, menu item _Project Structure_\n  - Click list item _Modules_, for each module, tab _Sources_, combobox _Language level_ should be automatically set to `21 ...`\n\n- Avoid that changes in some resources are ignored in the next run/debug (and you are forced to use mvn)\n\n  - Open menu _File_, menu item _Settings_ or menu _IntelliJ IDEA_, menu item _Preferences..._ if on a Mac\n  - Click tree item _Compiler_, textfield _Resource patterns_: change to `!?*.java` (remove other content)\n\n- Avoid a `StackOverflowError` when building\n\n  - Open menu _File_, menu item _Settings_ or menu _IntelliJ IDEA_, menu item _Preferences..._ if on a Mac\n  - Click tree item _Compiler_, tree item _Java Compiler_, textfield _Additional command line parameters_\n  - Add `-J-Xss1024k`\n\n- Recommended code style: use the [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html) with editorconfig\n\n  - Download the IntelliJ code style xml from: [https://google.github.io/styleguide/intellij-java-google-style.xml]\n  - Open menu _File_, menu item _Settings_ or menu _IntelliJ IDEA_, menu item _Preferences..._ if on a Mac\n  - Click tree item _Code Style_, click cogwheel and select _Import scheme_, then _IntelliJ code style xml_\n  - Browse where you downloaded the xml and open it. Check that GoogleStyle is the active scheme.\n    - Note: IntelliJ IDEA doesn't format your code automatically. You have to press Ctrl+Alt+L keyboard combination to trigger auto formatting when coding is done.\n  - There's an `.editorconfig` what has definition for indents, file encoding, line endings.\n  - If you disable it, you need to set the file encoding and number of spaces correctly manually.\n  - Eclipse code style xml: [https://google.github.io/styleguide/eclipse-java-google-style.xml]\n  - Eclipse needs [editorconfig-eclipse](https://marketplace.eclipse.org/content/editorconfig-eclipse) plugin in order to support EditorConfig files.\n\n- Set manually the correct file encoding (UTF-8 except for properties files) and end-of-line characters (unix):\n\n  - Open menu _File_, menu item _Settings_ or menu _IntelliJ IDEA_, menu item _Preferences..._ if on a Mac\n  - Click tree item _Code Style_, tree item _General_\n    - Combobox _Line separator (for new files)_: `Unix`\n  - Click tree item _File Encodings_\n    - Combobox _Global Encoding_: `UTF-8`\n    - Combobox _Default encoding for properties files_: `ISO-8859-1`\n      - Note: normal i18n properties files must be in `ISO-8859-1` as specified by the java `ResourceBundle` contract.\n\n- Set manually the correct number of spaces when pressing tab:\n\n  - Open menu _File_, menu item _Settings_ or menu _IntelliJ IDEA_, menu item _Preferences..._ if on a Mac\n  - Click tree item _Code Style_, tree item _General_\n  - Click tab _Java_\n    - Checkbox _Use tab character_: `off`\n    - Textfield _Tab size_: `4`\n    - Textfield _Indent_: `4`\n    - Textfield _Continuation indent_: `8`\n  - Open tab _XML_\n    - Checkbox _Use tab character_: `off`\n    - Textfield _Tab size_: `2`\n    - Textfield _Indent_: `2`\n    - Textfield _Continuation indent_: `4`\n\n- Set the correct file headers (do not include @author or a meaningless javadoc):\n\n  - Open menu _File_, menu item _Settings_ or menu _IntelliJ IDEA_, menu item _Preferences..._ if on a Mac\n  - Click tree item _File templates_, tab _Includes_, list item `File Header`\n  - Remove the line _@author Your Name_.\n    - We do not accept `@author` lines in source files, see FAQ below.\n  - Remove the entire javadoc as automatically templated data is meaningless.\n\n- Set the correct license header\n  - Open menu _File_, menu item _Settings_ or menu _IntelliJ IDEA_, menu item _Preferences..._ if on a Mac\n  - Click tree item _Copyright_, tree item _Copyright profiles_\n    - Click import button to import the _Copyright profile_\n    - Select the file: [Alfresco_Software.xml](./ide-configuration/intellij-configuration/copyright/Alfresco_Software.xml)\n  - Click tree item _Copyright_\n    - Combobox _Default project copyright_: `Alfresco Software`\n\n# FAQ\n\n- Why do you not accept `@author` lines in your source code?\n\n  - Because the author tags in the java files are a maintenance nightmare\n\n    - A large percentage is wrong, incomplete or inaccurate.\n    - Most of the time, it only contains the original author. Many files are completely refactored/expanded by other authors.\n    - Git is accurate, that is the canonical source to find the correct author.\n\n  - Because the author tags promote _code ownership_, which is bad in the long run.\n\n    - If people work on a piece they perceive as being owned by someone else, they tend to:\n      - only fix what they are assigned to fix, instead of everything that's broken\n      - discard responsibility if that code doesn't work properly\n      - be scared of stepping on the feet of the owner.\n\n  - Credit to the authors is given:\n    - with [Open Hub](https://www.openhub.net/p/activiti/contributors) which also has statistics\n    - in [the GitHub web interface](https://github.com/activiti).\n\n# Development commands\n\n## Add License header\n\nTo format files with the required license:\n\n```bash\nmvn license:format\n```\n\n## Checkstyle\n\nTo check if your code style respect all the rules:\n\n```bash\nmvn checkstyle:check -DskipCheckstyle=false\n```\n\n## Site\n\nTo generate the maven site:\n\n```bash\nmvn clean site site:stage\n```\n\nthe site will be generated at: `target/staging/index.html`\n\n## CI/CD\n\nRunning on GH Actions.\n\nFor Dependabot PRs to be validated by CI, the label \"CI\" should be added to the PR.\n\nRequires the following secrets to be set:\n\n| Name                         | Description                        |\n| ---------------------------- | ---------------------------------- |\n| BOT_GITHUB_TOKEN             | Token to launch other builds on GH |\n| BOT_GITHUB_USERNAME          | Username to issue propagation PRs  |\n| NEXUS_USERNAME               | Internal Maven repository username |\n| NEXUS_PASSWORD               | Internal Maven repository password |\n| SLACK_NOTIFICATION_BOT_TOKEN | Token to notify slack on failure   |\n",
+        "releases": [
+            {
+                "name": "7.19.0-rc.283",
+                "date": "2025-01-22T09:25:00Z"
+            },
+            {
+                "name": "7.19.0-rc.282",
+                "date": "2025-01-21T15:11:37Z"
+            },
+            {
+                "name": "7.19.0-rc.281",
+                "date": "2025-01-21T14:26:11Z"
+            },
+            {
+                "name": "7.19.0-rc.280",
+                "date": "2025-01-21T14:10:22Z"
+            },
+            {
+                "name": "7.19.0-rc.279",
+                "date": "2025-01-21T11:16:02Z"
+            },
+            {
+                "name": "7.19.0-rc.278",
+                "date": "2025-01-21T10:59:29Z"
+            },
+            {
+                "name": "8.7.0-alpha.51",
+                "date": "2025-01-20T10:30:46Z"
+            },
+            {
+                "name": "7.19.0-rc.277",
+                "date": "2025-01-20T10:25:21Z"
+            },
+            {
+                "name": "7.19.0-rc.276",
+                "date": "2025-01-17T18:15:10Z"
+            },
+            {
+                "name": "7.19.0-rc.275",
+                "date": "2025-01-17T17:56:59Z"
+            },
+            {
+                "name": "7.19.0-rc.274",
+                "date": "2025-01-17T14:42:53Z"
+            },
+            {
+                "name": "8.7.0-alpha.50",
+                "date": "2025-01-15T11:00:17Z"
+            },
+            {
+                "name": "7.19.0-rc.273",
+                "date": "2025-01-15T08:47:18Z"
+            },
+            {
+                "name": "8.7.0-alpha.49",
+                "date": "2025-01-14T12:08:25Z"
+            },
+            {
+                "name": "7.19.0-rc.272",
+                "date": "2025-01-14T15:29:30Z"
+            },
+            {
+                "name": "7.19.0-rc.271",
+                "date": "2025-01-10T16:41:00Z"
+            },
+            {
+                "name": "7.19.0-rc.270",
+                "date": "2025-01-09T15:19:59Z"
+            },
+            {
+                "name": "7.19.0-rc.269",
+                "date": "2025-01-09T09:41:34Z"
+            },
+            {
+                "name": "7.19.0-rc.268",
+                "date": "2025-01-08T08:39:25Z"
+            },
+            {
+                "name": "7.19.0-rc.267",
+                "date": "2025-01-07T15:43:46Z"
+            },
+            {
+                "name": "7.19.0-rc.266",
+                "date": "2025-01-06T18:09:03Z"
+            },
+            {
+                "name": "7.19.0-rc.265",
+                "date": "2025-01-06T11:58:40Z"
+            },
+            {
+                "name": "7.19.0-rc.264",
+                "date": "2025-01-06T11:45:02Z"
+            },
+            {
+                "name": "7.19.0-rc.263",
+                "date": "2025-01-03T15:08:17Z"
+            },
+            {
+                "name": "7.19.0-rc.262",
+                "date": "2025-01-03T08:33:19Z"
+            },
+            {
+                "name": "8.7.0-alpha.48",
+                "date": "2025-01-02T03:29:47Z"
+            },
+            {
+                "name": "7.19.0-rc.261",
+                "date": "2025-01-02T18:06:12Z"
+            },
+            {
+                "name": "7.19.0-rc.260",
+                "date": "2025-01-02T16:10:03Z"
+            },
+            {
+                "name": "7.19.0-rc.259",
+                "date": "2025-01-02T11:46:23Z"
+            },
+            {
+                "name": "7.19.0-rc.258",
+                "date": "2024-12-30T18:06:27Z"
+            },
+            {
+                "name": "7.19.0-rc.257",
+                "date": "2024-12-27T11:08:24Z"
+            },
+            {
+                "name": "7.19.0-rc.256",
+                "date": "2024-12-24T18:04:30Z"
+            },
+            {
+                "name": "7.19.0-rc.255",
+                "date": "2024-12-23T15:07:46Z"
+            },
+            {
+                "name": "7.19.0-rc.254",
+                "date": "2024-12-23T11:09:30Z"
+            },
+            {
+                "name": "7.19.0-rc.253",
+                "date": "2024-12-23T08:09:41Z"
+            },
+            {
+                "name": "7.19.0-rc.252",
+                "date": "2024-12-20T12:16:24Z"
+            },
+            {
+                "name": "7.19.0-rc.251",
+                "date": "2024-12-20T05:41:02Z"
+            },
+            {
+                "name": "8.7.0-alpha.47",
+                "date": "2024-12-18T10:55:31Z"
+            },
+            {
+                "name": "7.19.0-rc.250",
+                "date": "2024-12-18T11:41:53Z"
+            },
+            {
+                "name": "7.19.0-rc.249",
+                "date": "2024-12-17T18:56:44Z"
+            },
+            {
+                "name": "7.19.0-rc.248",
+                "date": "2024-12-17T15:34:58Z"
+            },
+            {
+                "name": "7.19.0-rc.247",
+                "date": "2024-12-17T11:39:59Z"
+            },
+            {
+                "name": "7.19.0-rc.246",
+                "date": "2024-12-15T21:46:31Z"
+            },
+            {
+                "name": "8.7.0-alpha.46",
+                "date": "2024-12-13T12:09:18Z"
+            },
+            {
+                "name": "7.19.0-rc.245",
+                "date": "2024-12-13T18:11:57Z"
+            },
+            {
+                "name": "7.19.0-rc.244",
+                "date": "2024-12-13T11:51:24Z"
+            },
+            {
+                "name": "7.19.0-rc.243",
+                "date": "2024-12-12T18:15:04Z"
+            },
+            {
+                "name": "7.19.0-rc.242",
+                "date": "2024-12-12T17:33:20Z"
+            },
+            {
+                "name": "7.19.0-rc.241",
+                "date": "2024-12-12T12:16:18Z"
+            },
+            {
+                "name": "7.19.0-rc.240",
+                "date": "2024-12-12T06:52:52Z"
+            },
+            {
+                "name": "7.19.0-rc.239",
+                "date": "2024-12-12T06:38:44Z"
+            },
+            {
+                "name": "8.7.0-alpha.45",
+                "date": "2024-12-11T09:34:14Z"
+            },
+            {
+                "name": "8.7.0-alpha.44",
+                "date": "2024-12-10T08:48:12Z"
+            },
+            {
+                "name": "7.19.0-rc.238",
+                "date": "2024-12-10T23:53:18Z"
+            },
+            {
+                "name": "8.7.0-alpha.43",
+                "date": "2024-12-09T12:05:18Z"
+            },
+            {
+                "name": "7.19.0-rc.237",
+                "date": "2024-12-09T15:58:34Z"
+            },
+            {
+                "name": "7.19.0-rc.236",
+                "date": "2024-12-09T12:44:06Z"
+            },
+            {
+                "name": "7.19.0-rc.235",
+                "date": "2024-12-09T10:26:05Z"
+            },
+            {
+                "name": "7.19.0-rc.234",
+                "date": "2024-12-09T06:18:46Z"
+            },
+            {
+                "name": "7.19.0-rc.233",
+                "date": "2024-12-07T21:35:32Z"
+            },
+            {
+                "name": "8.7.0-alpha.42",
+                "date": "2024-12-06T12:56:15Z"
+            },
+            {
+                "name": "8.7.0-alpha.41",
+                "date": "2024-12-06T09:15:25Z"
+            },
+            {
+                "name": "7.19.0-rc.232",
+                "date": "2024-12-06T23:03:22Z"
+            },
+            {
+                "name": "7.19.0-rc.231",
+                "date": "2024-12-06T16:11:40Z"
+            },
+            {
+                "name": "7.19.0-rc.230",
+                "date": "2024-12-06T15:57:31Z"
+            },
+            {
+                "name": "7.19.0-rc.229",
+                "date": "2024-12-06T11:13:58Z"
+            },
+            {
+                "name": "7.19.0-rc.228",
+                "date": "2024-12-06T09:52:54Z"
+            },
+            {
+                "name": "8.7.0-alpha.40",
+                "date": "2024-12-05T19:35:05Z"
+            },
+            {
+                "name": "7.19.0-rc.227",
+                "date": "2024-12-05T22:33:51Z"
+            },
+            {
+                "name": "7.19.0-rc.226",
+                "date": "2024-12-05T18:53:13Z"
+            },
+            {
+                "name": "8.7.0-alpha.39",
+                "date": "2024-12-04T12:39:43Z"
+            },
+            {
+                "name": "7.19.0-rc.224",
+                "date": "2024-12-04T11:21:51Z"
+            },
+            {
+                "name": "7.19.0-rc.223",
+                "date": "2024-12-04T10:45:46Z"
+            },
+            {
+                "name": "7.19.0-rc.222",
+                "date": "2024-12-04T10:31:32Z"
+            },
+            {
+                "name": "7.19.0-rc.221",
+                "date": "2024-12-03T18:13:43Z"
+            },
+            {
+                "name": "7.19.0-rc.220",
+                "date": "2024-12-03T16:11:38Z"
+            },
+            {
+                "name": "7.19.0-rc.219",
+                "date": "2024-12-03T11:28:58Z"
+            },
+            {
+                "name": "7.19.0-rc.218",
+                "date": "2024-12-02T14:07:12Z"
+            },
+            {
+                "name": "7.19.0-rc.217",
+                "date": "2024-12-02T13:03:47Z"
+            },
+            {
+                "name": "8.7.0-alpha.38",
+                "date": "2024-11-29T15:50:30Z"
+            },
+            {
+                "name": "7.19.0-rc.216",
+                "date": "2024-11-29T13:55:01Z"
+            },
+            {
+                "name": "7.19.0-rc.215",
+                "date": "2024-11-29T10:47:16Z"
+            },
+            {
+                "name": "7.19.0-rc.214",
+                "date": "2024-11-28T12:19:00Z"
+            },
+            {
+                "name": "7.19.0-rc.213",
+                "date": "2024-11-28T11:47:18Z"
+            },
+            {
+                "name": "7.19.0-rc.212",
+                "date": "2024-11-28T09:10:11Z"
+            },
+            {
+                "name": "7.19.0-rc.211",
+                "date": "2024-11-28T08:55:53Z"
+            },
+            {
+                "name": "7.19.0-rc.210",
+                "date": "2024-11-27T16:27:38Z"
+            },
+            {
+                "name": "7.19.0-rc.209",
+                "date": "2024-11-27T13:42:04Z"
+            },
+            {
+                "name": "7.19.0-rc.208",
+                "date": "2024-11-27T11:10:55Z"
+            },
+            {
+                "name": "8.7.0-alpha.37",
+                "date": "2024-11-26T09:00:06Z"
+            },
+            {
+                "name": "7.19.0-rc.207",
+                "date": "2024-11-26T18:08:31Z"
+            },
+            {
+                "name": "7.19.0-rc.206",
+                "date": "2024-11-26T16:39:37Z"
+            },
+            {
+                "name": "7.19.0-rc.205",
+                "date": "2024-11-26T13:09:55Z"
+            },
+            {
+                "name": "7.19.0-rc.204",
+                "date": "2024-11-25T18:19:34Z"
+            },
+            {
+                "name": "7.19.0-rc.203",
+                "date": "2024-11-25T18:03:11Z"
+            },
+            {
+                "name": "7.19.0-rc.202",
+                "date": "2024-11-25T13:24:01Z"
+            },
+            {
+                "name": "7.19.0-rc.201",
+                "date": "2024-11-25T11:56:36Z"
+            },
+            {
+                "name": "7.19.0-rc.200",
+                "date": "2024-11-24T00:56:00Z"
+            },
+            {
+                "name": "7.19.0-rc.199",
+                "date": "2024-11-23T03:12:34Z"
+            },
+            {
+                "name": "7.19.0-rc.198",
+                "date": "2024-11-22T13:03:43Z"
+            },
+            {
+                "name": "8.7.0-alpha.36",
+                "date": "2024-11-21T14:25:16Z"
+            },
+            {
+                "name": "8.7.0-alpha.35",
+                "date": "2024-11-21T13:32:39Z"
+            },
+            {
+                "name": "7.19.0-rc.197",
+                "date": "2024-11-21T19:14:05Z"
+            },
+            {
+                "name": "7.19.0-rc.196",
+                "date": "2024-11-21T14:48:06Z"
+            },
+            {
+                "name": "7.19.0-rc.195",
+                "date": "2024-11-20T14:23:43Z"
+            },
+            {
+                "name": "8.7.0-alpha.34",
+                "date": "2024-11-19T10:55:49Z"
+            },
+            {
+                "name": "7.19.0-rc.194",
+                "date": "2024-11-19T11:09:00Z"
+            },
+            {
+                "name": "7.19.0-rc.193",
+                "date": "2024-11-19T06:50:37Z"
+            },
+            {
+                "name": "7.19.0-rc.192",
+                "date": "2024-11-15T17:11:34Z"
+            },
+            {
+                "name": "7.19.0-rc.191",
+                "date": "2024-11-14T15:32:43Z"
+            },
+            {
+                "name": "7.19.0-rc.190",
+                "date": "2024-11-14T11:14:05Z"
+            },
+            {
+                "name": "7.19.0-rc.189",
+                "date": "2024-11-13T16:54:41Z"
+            },
+            {
+                "name": "7.19.0-rc.188",
+                "date": "2024-11-13T11:12:26Z"
+            },
+            {
+                "name": "7.19.0-rc.187",
+                "date": "2024-11-12T23:07:32Z"
+            },
+            {
+                "name": "7.19.0-rc.186",
+                "date": "2024-11-12T18:58:42Z"
+            },
+            {
+                "name": "7.19.0-rc.185",
+                "date": "2024-11-12T16:44:59Z"
+            },
+            {
+                "name": "8.7.0-alpha.33",
+                "date": "2024-11-11T11:32:05Z"
+            },
+            {
+                "name": "7.19.0-rc.184",
+                "date": "2024-11-08T19:41:16Z"
+            },
+            {
+                "name": "7.19.0-rc.183",
+                "date": "2024-11-07T20:33:46Z"
+            },
+            {
+                "name": "7.19.0-rc.182",
+                "date": "2024-11-07T16:00:09Z"
+            },
+            {
+                "name": "7.19.0-rc.181",
+                "date": "2024-11-07T08:19:29Z"
+            },
+            {
+                "name": "8.7.0-alpha.32",
+                "date": "2024-11-06T11:01:33Z"
+            },
+            {
+                "name": "8.7.0-alpha.31",
+                "date": "2024-11-06T09:33:27Z"
+            },
+            {
+                "name": "7.19.0-rc.180",
+                "date": "2024-11-06T19:38:39Z"
+            },
+            {
+                "name": "7.19.0-rc.179",
+                "date": "2024-11-06T05:32:40Z"
+            },
+            {
+                "name": "8.7.0-alpha.30",
+                "date": "2024-11-05T17:11:49Z"
+            },
+            {
+                "name": "8.7.0-alpha.29",
+                "date": "2024-11-05T15:52:39Z"
+            },
+            {
+                "name": "7.19.0-rc.178",
+                "date": "2024-11-05T11:47:53Z"
+            },
+            {
+                "name": "7.19.0-rc.177",
+                "date": "2024-11-05T09:37:30Z"
+            },
+            {
+                "name": "7.19.0-rc.176",
+                "date": "2024-11-04T18:10:57Z"
+            },
+            {
+                "name": "7.19.0-rc.175",
+                "date": "2024-11-04T09:59:38Z"
+            },
+            {
+                "name": "7.19.0-rc.174",
+                "date": "2024-11-01T11:50:57Z"
+            },
+            {
+                "name": "7.19.0-rc.173",
+                "date": "2024-10-30T11:38:11Z"
+            },
+            {
+                "name": "7.19.0-rc.172",
+                "date": "2024-10-29T21:22:50Z"
+            },
+            {
+                "name": "7.19.0-rc.171",
+                "date": "2024-10-29T11:10:03Z"
+            },
+            {
+                "name": "7.19.0-rc.170",
+                "date": "2024-10-25T15:12:54Z"
+            },
+            {
+                "name": "7.19.0-rc.169",
+                "date": "2024-10-25T14:19:01Z"
+            },
+            {
+                "name": "7.19.0-rc.168",
+                "date": "2024-10-25T11:12:14Z"
+            },
+            {
+                "name": "7.19.0-rc.167",
+                "date": "2024-10-24T20:34:18Z"
+            },
+            {
+                "name": "7.19.0-rc.166",
+                "date": "2024-10-24T11:26:24Z"
+            },
+            {
+                "name": "7.19.0-rc.165",
+                "date": "2024-10-23T17:25:44Z"
+            },
+            {
+                "name": "7.19.0-rc.164",
+                "date": "2024-10-23T11:19:25Z"
+            },
+            {
+                "name": "7.19.0-rc.163",
+                "date": "2024-10-22T18:13:32Z"
+            },
+            {
+                "name": "7.19.0-rc.162",
+                "date": "2024-10-22T11:22:53Z"
+            },
+            {
+                "name": "7.19.0-rc.161",
+                "date": "2024-10-22T09:57:21Z"
+            },
+            {
+                "name": "7.19.0-rc.160",
+                "date": "2024-10-21T17:53:52Z"
+            },
+            {
+                "name": "7.19.0-rc.159",
+                "date": "2024-10-21T15:19:48Z"
+            },
+            {
+                "name": "7.19.0-rc.158",
+                "date": "2024-10-21T12:37:50Z"
+            },
+            {
+                "name": "7.19.0-rc.157",
+                "date": "2024-10-20T15:53:59Z"
+            },
+            {
+                "name": "7.19.0-rc.156",
+                "date": "2024-10-18T16:54:52Z"
+            },
+            {
+                "name": "7.19.0-rc.155",
+                "date": "2024-10-18T11:42:24Z"
+            },
+            {
+                "name": "7.19.0-rc.154",
+                "date": "2024-10-18T09:19:30Z"
+            },
+            {
+                "name": "7.19.0-rc.153",
+                "date": "2024-10-18T07:17:26Z"
+            },
+            {
+                "name": "7.19.0-rc.152",
+                "date": "2024-10-17T14:11:51Z"
+            },
+            {
+                "name": "7.19.0-rc.151",
+                "date": "2024-10-17T09:42:09Z"
+            },
+            {
+                "name": "7.19.0-rc.150",
+                "date": "2024-10-16T12:54:12Z"
+            },
+            {
+                "name": "7.19.0-rc.149",
+                "date": "2024-10-16T09:42:09Z"
+            },
+            {
+                "name": "7.19.0-rc.148",
+                "date": "2024-10-16T08:20:09Z"
+            },
+            {
+                "name": "7.19.0-rc.147",
+                "date": "2024-10-16T08:10:27Z"
+            },
+            {
+                "name": "7.19.0-rc.146",
+                "date": "2024-10-16T07:57:57Z"
+            },
+            {
+                "name": "7.19.0-rc.145",
+                "date": "2024-10-15T11:16:28Z"
+            },
+            {
+                "name": "7.19.0-rc.144",
+                "date": "2024-10-14T18:16:12Z"
+            },
+            {
+                "name": "7.19.0-rc.143",
+                "date": "2024-10-14T15:18:44Z"
+            },
+            {
+                "name": "7.19.0-rc.142",
+                "date": "2024-10-14T11:17:12Z"
+            },
+            {
+                "name": "7.19.0-rc.141",
+                "date": "2024-10-14T10:42:46Z"
+            },
+            {
+                "name": "8.7.0-alpha.28",
+                "date": "2024-10-11T20:25:24Z"
+            },
+            {
+                "name": "7.19.0-rc.140",
+                "date": "2024-10-11T18:15:14Z"
+            },
+            {
+                "name": "7.19.0-rc.139",
+                "date": "2024-10-11T17:13:00Z"
+            },
+            {
+                "name": "7.19.0-rc.138",
+                "date": "2024-10-11T11:14:24Z"
+            },
+            {
+                "name": "7.19.0-rc.137",
+                "date": "2024-10-10T15:53:07Z"
+            },
+            {
+                "name": "7.19.0-rc.136",
+                "date": "2024-10-10T11:23:51Z"
+            },
+            {
+                "name": "7.19.0-rc.135",
+                "date": "2024-10-10T07:54:02Z"
+            },
+            {
+                "name": "7.19.0-rc.134",
+                "date": "2024-10-09T15:51:44Z"
+            },
+            {
+                "name": "7.19.0-rc.133",
+                "date": "2024-10-09T11:45:39Z"
+            },
+            {
+                "name": "7.19.0-rc.132",
+                "date": "2024-10-08T16:15:53Z"
+            },
+            {
+                "name": "7.19.0-rc.131",
+                "date": "2024-10-08T15:16:21Z"
+            },
+            {
+                "name": "7.19.0-rc.130",
+                "date": "2024-10-08T07:59:32Z"
+            },
+            {
+                "name": "8.7.0-alpha.27",
+                "date": "2024-10-07T06:24:04Z"
+            },
+            {
+                "name": "7.19.0-rc.129",
+                "date": "2024-10-07T18:16:05Z"
+            },
+            {
+                "name": "7.19.0-rc.128",
+                "date": "2024-10-07T15:47:10Z"
+            },
+            {
+                "name": "7.19.0-rc.127",
+                "date": "2024-10-07T15:24:51Z"
+            },
+            {
+                "name": "7.19.0-rc.126",
+                "date": "2024-10-06T15:11:52Z"
+            },
+            {
+                "name": "8.7.0-alpha.26",
+                "date": "2024-10-05T18:42:08Z"
+            },
+            {
+                "name": "7.19.0-rc.125",
+                "date": "2024-10-04T21:48:39Z"
+            },
+            {
+                "name": "7.19.0-rc.124",
+                "date": "2024-10-04T15:17:52Z"
+            },
+            {
+                "name": "7.19.0-rc.123",
+                "date": "2024-10-04T01:07:16Z"
+            },
+            {
+                "name": "7.19.0-rc.122",
+                "date": "2024-10-03T20:14:47Z"
+            },
+            {
+                "name": "7.19.0-rc.121",
+                "date": "2024-10-03T11:48:08Z"
+            },
+            {
+                "name": "7.19.0-rc.120",
+                "date": "2024-10-03T11:34:55Z"
+            },
+            {
+                "name": "7.19.0-rc.119",
+                "date": "2024-10-02T15:28:27Z"
+            },
+            {
+                "name": "7.19.0-rc.118",
+                "date": "2024-10-02T11:39:52Z"
+            },
+            {
+                "name": "7.19.0-rc.117",
+                "date": "2024-10-02T05:11:14Z"
+            },
+            {
+                "name": "7.19.0-rc.116",
+                "date": "2024-10-01T11:36:55Z"
+            },
+            {
+                "name": "8.7.0-alpha.25",
+                "date": "2024-09-30T05:43:58Z"
+            },
+            {
+                "name": "7.19.0-rc.115",
+                "date": "2024-09-30T18:50:21Z"
+            },
+            {
+                "name": "7.19.0-rc.114",
+                "date": "2024-09-30T08:51:12Z"
+            },
+            {
+                "name": "7.19.0-rc.113",
+                "date": "2024-09-27T18:31:40Z"
+            },
+            {
+                "name": "7.19.0-rc.112",
+                "date": "2024-09-27T15:22:13Z"
+            },
+            {
+                "name": "7.19.0-rc.111",
+                "date": "2024-09-27T14:03:09Z"
+            },
+            {
+                "name": "7.19.0-rc.110",
+                "date": "2024-09-27T11:59:32Z"
+            },
+            {
+                "name": "7.19.0-rc.109",
+                "date": "2024-09-26T19:10:54Z"
+            },
+            {
+                "name": "7.19.0-rc.108",
+                "date": "2024-09-26T12:08:46Z"
+            },
+            {
+                "name": "7.19.0-rc.107",
+                "date": "2024-09-26T11:06:47Z"
+            },
+            {
+                "name": "7.19.0-rc.106",
+                "date": "2024-09-25T22:36:55Z"
+            },
+            {
+                "name": "7.19.0-rc.105",
+                "date": "2024-09-25T00:11:15Z"
+            },
+            {
+                "name": "7.19.0-rc.104",
+                "date": "2024-09-24T14:43:49Z"
+            },
+            {
+                "name": "8.7.0-alpha.24",
+                "date": "2024-09-23T08:10:40Z"
+            },
+            {
+                "name": "7.19.0-rc.103",
+                "date": "2024-09-23T16:48:02Z"
+            },
+            {
+                "name": "7.19.0-rc.102",
+                "date": "2024-09-23T16:30:50Z"
+            },
+            {
+                "name": "7.19.0-rc.101",
+                "date": "2024-09-23T10:47:25Z"
+            },
+            {
+                "name": "7.19.0-rc.100",
+                "date": "2024-09-20T11:31:47Z"
+            },
+            {
+                "name": "8.7.0-alpha.23",
+                "date": "2024-09-19T14:34:28Z"
+            },
+            {
+                "name": "7.19.0-rc.99",
+                "date": "2024-09-19T18:03:53Z"
+            },
+            {
+                "name": "7.19.0-rc.98",
+                "date": "2024-09-19T13:03:26Z"
+            },
+            {
+                "name": "7.19.0-rc.97",
+                "date": "2024-09-18T18:17:03Z"
+            },
+            {
+                "name": "7.19.0-rc.96",
+                "date": "2024-09-18T16:23:40Z"
+            },
+            {
+                "name": "7.19.0-rc.95",
+                "date": "2024-09-18T14:53:39Z"
+            },
+            {
+                "name": "7.19.0-rc.94",
+                "date": "2024-09-17T18:16:59Z"
+            },
+            {
+                "name": "7.19.0-rc.93",
+                "date": "2024-09-17T12:08:37Z"
+            },
+            {
+                "name": "7.19.0-rc.92",
+                "date": "2024-09-17T09:03:49Z"
+            },
+            {
+                "name": "7.19.0-rc.91",
+                "date": "2024-09-16T11:22:01Z"
+            },
+            {
+                "name": "7.19.0-rc.90",
+                "date": "2024-09-13T11:37:30Z"
+            },
+            {
+                "name": "7.19.0-rc.89",
+                "date": "2024-09-12T14:41:02Z"
+            },
+            {
+                "name": "7.19.0-rc.88",
+                "date": "2024-09-12T12:02:22Z"
+            },
+            {
+                "name": "7.19.0-rc.87",
+                "date": "2024-09-12T11:51:55Z"
+            },
+            {
+                "name": "7.19.0-rc.86",
+                "date": "2024-09-12T08:26:16Z"
+            },
+            {
+                "name": "7.19.0-rc.85",
+                "date": "2024-09-11T16:43:25Z"
+            },
+            {
+                "name": "7.19.0-rc.84",
+                "date": "2024-09-11T12:28:28Z"
+            },
+            {
+                "name": "7.19.0-rc.83",
+                "date": "2024-09-11T12:08:57Z"
+            },
+            {
+                "name": "8.7.0-alpha.22",
+                "date": "2024-09-10T08:35:48Z"
+            },
+            {
+                "name": "7.19.0-rc.82",
+                "date": "2024-09-10T20:45:40Z"
+            },
+            {
+                "name": "7.19.0-rc.81",
+                "date": "2024-09-10T18:17:45Z"
+            },
+            {
+                "name": "7.19.0-rc.80",
+                "date": "2024-09-10T17:29:59Z"
+            },
+            {
+                "name": "7.19.0-rc.79",
+                "date": "2024-09-10T15:52:09Z"
+            },
+            {
+                "name": "7.19.0-rc.78",
+                "date": "2024-09-10T11:16:03Z"
+            },
+            {
+                "name": "7.19.0-rc.77",
+                "date": "2024-09-10T09:10:49Z"
+            },
+            {
+                "name": "7.19.0-rc.76",
+                "date": "2024-09-09T18:15:04Z"
+            },
+            {
+                "name": "7.19.0-rc.75",
+                "date": "2024-09-09T10:47:19Z"
+            },
+            {
+                "name": "7.19.0-rc.74",
+                "date": "2024-09-09T08:31:23Z"
+            },
+            {
+                "name": "7.19.0-rc.73",
+                "date": "2024-09-07T16:27:41Z"
+            },
+            {
+                "name": "7.19.0-rc.72",
+                "date": "2024-09-06T16:08:38Z"
+            },
+            {
+                "name": "7.19.0-rc.71",
+                "date": "2024-09-06T15:17:13Z"
+            },
+            {
+                "name": "7.19.0-rc.70",
+                "date": "2024-09-06T09:42:48Z"
+            },
+            {
+                "name": "7.19.0-rc.69",
+                "date": "2024-09-06T07:56:38Z"
+            },
+            {
+                "name": "8.7.0-alpha.21",
+                "date": "2024-09-04T12:53:09Z"
+            },
+            {
+                "name": "7.19.0-rc.68",
+                "date": "2024-09-03T15:16:44Z"
+            },
+            {
+                "name": "7.19.0-rc.67",
+                "date": "2024-09-03T14:42:21Z"
+            },
+            {
+                "name": "7.19.0-rc.66",
+                "date": "2024-09-03T12:31:04Z"
+            },
+            {
+                "name": "7.19.0-rc.65",
+                "date": "2024-09-02T19:07:01Z"
+            },
+            {
+                "name": "7.19.0-rc.64",
+                "date": "2024-09-02T07:32:08Z"
+            },
+            {
+                "name": "7.19.0-rc.63",
+                "date": "2024-09-02T00:44:33Z"
+            },
+            {
+                "name": "7.19.0-rc.62",
+                "date": "2024-08-30T13:55:35Z"
+            },
+            {
+                "name": "7.19.0-rc.61",
+                "date": "2024-08-30T13:43:22Z"
+            },
+            {
+                "name": "7.19.0-rc.60",
+                "date": "2024-08-30T10:15:09Z"
+            },
+            {
+                "name": "7.19.0-rc.59",
+                "date": "2024-08-30T10:02:53Z"
+            },
+            {
+                "name": "7.19.0-rc.58",
+                "date": "2024-08-29T16:57:56Z"
+            },
+            {
+                "name": "7.19.0-rc.57",
+                "date": "2024-08-29T16:25:00Z"
+            },
+            {
+                "name": "7.19.0-rc.56",
+                "date": "2024-08-28T15:23:51Z"
+            },
+            {
+                "name": "7.19.0-rc.55",
+                "date": "2024-08-28T11:36:23Z"
+            },
+            {
+                "name": "8.7.0-alpha.20",
+                "date": "2024-08-27T09:52:24Z"
+            },
+            {
+                "name": "7.19.0-rc.54",
+                "date": "2024-08-27T13:32:47Z"
+            },
+            {
+                "name": "7.19.0-rc.53",
+                "date": "2024-08-27T06:51:11Z"
+            },
+            {
+                "name": "8.7.0-alpha.19",
+                "date": "2024-08-26T11:35:04Z"
+            },
+            {
+                "name": "7.19.0-rc.52",
+                "date": "2024-08-26T10:06:19Z"
+            },
+            {
+                "name": "8.7.0-alpha.18",
+                "date": "2024-08-23T12:38:53Z"
+            },
+            {
+                "name": "7.19.0-rc.51",
+                "date": "2024-08-23T19:18:56Z"
+            },
+            {
+                "name": "7.19.0-rc.50",
+                "date": "2024-08-23T13:12:55Z"
+            },
+            {
+                "name": "8.7.0-alpha.17",
+                "date": "2024-08-22T16:38:30Z"
+            },
+            {
+                "name": "8.1.2-alpha.5",
+                "date": "2024-08-22T16:36:33Z"
+            },
+            {
+                "name": "8.1.2-alpha.4",
+                "date": "2024-08-21T13:35:59Z"
+            },
+            {
+                "name": "7.19.0-rc.49",
+                "date": "2024-08-21T18:08:36Z"
+            },
+            {
+                "name": "7.19.0-rc.48",
+                "date": "2024-08-21T15:08:05Z"
+            },
+            {
+                "name": "7.19.0-rc.47",
+                "date": "2024-08-20T18:06:13Z"
+            },
+            {
+                "name": "7.19.0-rc.46",
+                "date": "2024-08-20T11:30:24Z"
+            },
+            {
+                "name": "7.19.0-rc.45",
+                "date": "2024-08-20T12:09:32Z"
+            },
+            {
+                "name": "7.19.0-rc.44",
+                "date": "2024-08-20T09:35:08Z"
+            },
+            {
+                "name": "8.7.0-alpha.16",
+                "date": "2024-08-19T12:32:19Z"
+            },
+            {
+                "name": "7.19.0-rc.43",
+                "date": "2024-08-19T11:08:51Z"
+            },
+            {
+                "name": "7.19.0-rc.42",
+                "date": "2024-08-16T13:32:37Z"
+            },
+            {
+                "name": "8.7.0-alpha.15",
+                "date": "2024-08-14T15:52:27Z"
+            },
+            {
+                "name": "8.1.2-alpha.3",
+                "date": "2024-08-14T16:18:34Z"
+            },
+            {
+                "name": "7.19.0-rc.41",
+                "date": "2024-08-14T17:58:08Z"
+            },
+            {
+                "name": "7.19.0-rc.40",
+                "date": "2024-08-14T16:07:42Z"
+            },
+            {
+                "name": "7.19.0-rc.39",
+                "date": "2024-08-14T14:58:03Z"
+            },
+            {
+                "name": "7.19.0-rc.38",
+                "date": "2024-08-14T11:08:13Z"
+            },
+            {
+                "name": "7.19.0-rc.37",
+                "date": "2024-08-14T10:55:34Z"
+            },
+            {
+                "name": "7.11.1-alpha.15",
+                "date": "2024-08-14T17:22:31Z"
+            },
+            {
+                "name": "7.19.0-rc.36",
+                "date": "2024-08-13T15:26:59Z"
+            },
+            {
+                "name": "7.19.0-rc.35",
+                "date": "2024-08-13T11:37:03Z"
+            },
+            {
+                "name": "7.19.0-rc.34",
+                "date": "2024-08-13T09:23:13Z"
+            },
+            {
+                "name": "7.19.0-rc.33",
+                "date": "2024-08-12T18:06:57Z"
+            },
+            {
+                "name": "7.19.0-rc.32",
+                "date": "2024-08-12T13:07:15Z"
+            },
+            {
+                "name": "7.19.0-rc.31",
+                "date": "2024-08-12T11:13:16Z"
+            },
+            {
+                "name": "8.1.2-alpha.2",
+                "date": "2024-08-09T08:51:35Z"
+            },
+            {
+                "name": "8.7.0-alpha.14",
+                "date": "2024-08-08T09:34:23Z"
+            },
+            {
+                "name": "8.1.2-alpha.1",
+                "date": "2024-08-08T09:02:52Z"
+            },
+            {
+                "name": "7.19.0-rc.30",
+                "date": "2024-08-08T11:39:15Z"
+            },
+            {
+                "name": "8.7.0-alpha.13",
+                "date": "2024-08-07T10:07:00Z"
+            },
+            {
+                "name": "8.7.0-alpha.12",
+                "date": "2024-08-06T08:19:11Z"
+            },
+            {
+                "name": "7.11.1-alpha.14",
+                "date": "2024-08-06T04:47:47Z"
+            },
+            {
+                "name": "8.7.0-alpha.11",
+                "date": "2024-08-01T09:10:03Z"
+            },
+            {
+                "name": "7.19.0-rc.29",
+                "date": "2024-07-31T14:59:32Z"
+            },
+            {
+                "name": "7.19.0-rc.28",
+                "date": "2024-07-31T11:48:00Z"
+            },
+            {
+                "name": "7.19.0-rc.27",
+                "date": "2024-07-31T08:21:49Z"
+            },
+            {
+                "name": "8.7.0-alpha.10",
+                "date": "2024-07-30T04:50:24Z"
+            },
+            {
+                "name": "8.7.0-alpha.9",
+                "date": "2024-07-29T16:25:30Z"
+            },
+            {
+                "name": "8.7.0-alpha.8",
+                "date": "2024-07-29T10:51:43Z"
+            },
+            {
+                "name": "8.7.0-alpha.7",
+                "date": "2024-07-29T08:52:48Z"
+            },
+            {
+                "name": "8.7.0-alpha.6",
+                "date": "2024-07-29T07:33:26Z"
+            },
+            {
+                "name": "7.19.0-rc.26",
+                "date": "2024-07-29T08:31:44Z"
+            },
+            {
+                "name": "7.19.0-rc.25",
+                "date": "2024-07-29T08:20:48Z"
+            },
+            {
+                "name": "8.7.0-alpha.5",
+                "date": "2024-07-26T14:31:34Z"
+            },
+            {
+                "name": "7.19.0-rc.24",
+                "date": "2024-07-26T13:28:22Z"
+            },
+            {
+                "name": "7.11.1-alpha.13",
+                "date": "2024-07-25T08:39:12Z"
+            },
+            {
+                "name": "7.19.0-rc.23",
+                "date": "2024-07-24T13:13:54Z"
+            },
+            {
+                "name": "7.19.0-rc.22",
+                "date": "2024-07-24T11:21:18Z"
+            },
+            {
+                "name": "8.7.0-alpha.4",
+                "date": "2024-07-22T08:47:14Z"
+            },
+            {
+                "name": "7.19.0-rc.21",
+                "date": "2024-07-22T06:18:09Z"
+            },
+            {
+                "name": "7.19.0-rc.20",
+                "date": "2024-07-18T19:41:59Z"
+            },
+            {
+                "name": "7.19.0-rc.19",
+                "date": "2024-07-17T14:41:23Z"
+            },
+            {
+                "name": "7.19.0-rc.18",
+                "date": "2024-07-17T09:58:03Z"
+            },
+            {
+                "name": "8.7.0-alpha.3",
+                "date": "2024-07-12T11:04:29Z"
+            },
+            {
+                "name": "7.19.0-rc.17",
+                "date": "2024-07-12T16:07:39Z"
+            },
+            {
+                "name": "7.19.0-rc.16",
+                "date": "2024-07-12T14:28:06Z"
+            },
+            {
+                "name": "7.19.0-rc.15",
+                "date": "2024-07-12T09:17:10Z"
+            },
+            {
+                "name": "7.19.0-rc.14",
+                "date": "2024-07-12T02:21:05Z"
+            },
+            {
+                "name": "7.19.0-rc.13",
+                "date": "2024-07-11T12:31:09Z"
+            },
+            {
+                "name": "7.19.0-rc.12",
+                "date": "2024-07-11T08:50:00Z"
+            },
+            {
+                "name": "8.7.0-alpha.2",
+                "date": "2024-07-10T08:03:19Z"
+            },
+            {
+                "name": "7.19.0-rc.9",
+                "date": "2024-07-10T15:22:28Z"
+            },
+            {
+                "name": "7.19.0-rc.8",
+                "date": "2024-07-10T14:20:29Z"
+            },
+            {
+                "name": "7.19.0-rc.7",
+                "date": "2024-07-10T11:05:24Z"
+            },
+            {
+                "name": "7.19.0-rc.6",
+                "date": "2024-07-10T07:54:45Z"
+            },
+            {
+                "name": "7.19.0-rc.11",
+                "date": "2024-07-10T18:01:35Z"
+            },
+            {
+                "name": "7.19.0-rc.10",
+                "date": "2024-07-10T16:50:05Z"
+            },
+            {
+                "name": "8.7.0-alpha.1",
+                "date": "2024-07-09T16:53:39Z"
+            },
+            {
+                "name": "7.19.0-rc.5",
+                "date": "2024-07-09T18:06:27Z"
+            },
+            {
+                "name": "7.19.0-rc.4",
+                "date": "2024-07-09T08:30:04Z"
+            },
+            {
+                "name": "7.19.0-rc.3",
+                "date": "2024-07-08T14:46:08Z"
+            },
+            {
+                "name": "7.19.0-rc.2",
+                "date": "2024-07-08T13:02:24Z"
+            },
+            {
+                "name": "7.19.0-rc.1",
+                "date": "2024-07-08T07:13:08Z"
+            },
+            {
+                "name": "8.6.0",
+                "date": "2024-07-05T13:13:10Z"
+            },
+            {
+                "name": "7.18.0-rc.110",
+                "date": "2024-07-05T13:33:35Z"
+            },
+            {
+                "name": "7.18.0-rc.109",
+                "date": "2024-07-05T07:06:03Z"
+            },
+            {
+                "name": "7.18.0-rc.108",
+                "date": "2024-07-04T15:20:18Z"
+            },
+            {
+                "name": "7.18.0-rc.107",
+                "date": "2024-07-04T11:03:13Z"
+            },
+            {
+                "name": "7.18.0-rc.106",
+                "date": "2024-07-03T15:06:17Z"
+            },
+            {
+                "name": "7.18.0-rc.105",
+                "date": "2024-07-03T09:13:54Z"
+            },
+            {
+                "name": "8.1.1",
+                "date": "2024-07-02T11:00:23Z"
+            },
+            {
+                "name": "8.1.1-alpha.10",
+                "date": "2024-07-02T09:50:50Z"
+            },
+            {
+                "name": "7.18.0-rc.104",
+                "date": "2024-07-02T18:00:49Z"
+            },
+            {
+                "name": "7.18.0-rc.103",
+                "date": "2024-07-02T15:05:42Z"
+            },
+            {
+                "name": "7.18.0-rc.102",
+                "date": "2024-07-02T13:53:46Z"
+            },
+            {
+                "name": "7.11.1-alpha.12",
+                "date": "2024-07-02T16:50:54Z"
+            },
+            {
+                "name": "7.11.1-alpha.11",
+                "date": "2024-07-02T16:29:21Z"
+            },
+            {
+                "name": "7.18.0-rc.99",
+                "date": "2024-07-01T10:45:56Z"
+            },
+            {
+                "name": "7.18.0-rc.101",
+                "date": "2024-07-01T17:59:49Z"
+            },
+            {
+                "name": "7.18.0-rc.100",
+                "date": "2024-07-01T12:56:34Z"
+            },
+            {
+                "name": "8.3.2",
+                "date": "2024-06-28T10:57:16Z"
+            },
+            {
+                "name": "7.18.0-rc.98",
+                "date": "2024-06-28T14:57:52Z"
+            },
+            {
+                "name": "7.18.0-rc.97",
+                "date": "2024-06-28T12:39:45Z"
+            },
+            {
+                "name": "8.1.1-alpha.9",
+                "date": "2024-06-27T13:52:41Z"
+            },
+            {
+                "name": "7.18.0-rc.96",
+                "date": "2024-06-27T14:46:59Z"
+            },
+            {
+                "name": "7.18.0-rc.95",
+                "date": "2024-06-27T09:00:39Z"
+            },
+            {
+                "name": "7.18.0-rc.94",
+                "date": "2024-06-26T15:07:08Z"
+            },
+            {
+                "name": "7.18.0-rc.93",
+                "date": "2024-06-26T13:10:26Z"
+            },
+            {
+                "name": "7.18.0-rc.92",
+                "date": "2024-06-25T18:31:46Z"
+            },
+            {
+                "name": "7.18.0-rc.91",
+                "date": "2024-06-25T17:17:12Z"
+            },
+            {
+                "name": "7.18.0-rc.90",
+                "date": "2024-06-25T12:26:04Z"
+            },
+            {
+                "name": "7.18.0-rc.89",
+                "date": "2024-06-25T10:48:30Z"
+            },
+            {
+                "name": "7.18.0-rc.88",
+                "date": "2024-06-24T17:59:20Z"
+            },
+            {
+                "name": "7.18.0-rc.87",
+                "date": "2024-06-24T15:05:05Z"
+            },
+            {
+                "name": "7.18.0-rc.86",
+                "date": "2024-06-24T11:03:24Z"
+            },
+            {
+                "name": "7.18.0-rc.85",
+                "date": "2024-06-24T07:50:39Z"
+            },
+            {
+                "name": "7.18.0-rc.84",
+                "date": "2024-06-21T13:07:13Z"
+            },
+            {
+                "name": "7.18.0-rc.83",
+                "date": "2024-06-21T12:22:57Z"
+            },
+            {
+                "name": "7.18.0-rc.82",
+                "date": "2024-06-21T11:02:09Z"
+            },
+            {
+                "name": "7.18.0-rc.81",
+                "date": "2024-06-21T09:34:46Z"
+            },
+            {
+                "name": "7.18.0-rc.80",
+                "date": "2024-06-20T15:26:06Z"
+            },
+            {
+                "name": "7.18.0-rc.79",
+                "date": "2024-06-20T11:17:50Z"
+            },
+            {
+                "name": "7.18.0-rc.78",
+                "date": "2024-06-20T09:59:09Z"
+            },
+            {
+                "name": "8.6.0-alpha.6",
+                "date": "2024-06-19T17:00:51Z"
+            },
+            {
+                "name": "7.18.0-rc.77",
+                "date": "2024-06-19T16:05:41Z"
+            },
+            {
+                "name": "7.18.0-rc.76",
+                "date": "2024-06-19T15:44:53Z"
+            },
+            {
+                "name": "7.18.0-rc.75",
+                "date": "2024-06-19T15:34:48Z"
+            },
+            {
+                "name": "7.18.0-rc.74",
+                "date": "2024-06-19T11:00:49Z"
+            },
+            {
+                "name": "7.18.0-rc.73",
+                "date": "2024-06-19T08:38:18Z"
+            },
+            {
+                "name": "7.18.0-rc.72",
+                "date": "2024-06-18T19:21:45Z"
+            },
+            {
+                "name": "7.18.0-rc.71",
+                "date": "2024-06-18T17:58:40Z"
+            },
+            {
+                "name": "7.18.0-rc.70",
+                "date": "2024-06-18T15:25:00Z"
+            },
+            {
+                "name": "7.18.0-rc.69",
+                "date": "2024-06-18T13:41:02Z"
+            },
+            {
+                "name": "7.18.0-rc.67",
+                "date": "2024-06-18T11:14:49Z"
+            },
+            {
+                "name": "7.18.0-rc.66",
+                "date": "2024-06-18T06:45:32Z"
+            },
+            {
+                "name": "8.6.0-alpha.5",
+                "date": "2024-06-17T08:35:20Z"
+            },
+            {
+                "name": "7.18.0-rc.65",
+                "date": "2024-06-17T17:59:13Z"
+            },
+            {
+                "name": "7.18.0-rc.64",
+                "date": "2024-06-17T17:10:26Z"
+            },
+            {
+                "name": "7.18.0-rc.63",
+                "date": "2024-06-17T15:14:46Z"
+            },
+            {
+                "name": "7.18.0-rc.62",
+                "date": "2024-06-17T11:51:09Z"
+            },
+            {
+                "name": "7.18.0-rc.61",
+                "date": "2024-06-17T11:02:24Z"
+            },
+            {
+                "name": "7.18.0-rc.60",
+                "date": "2024-06-17T09:23:32Z"
+            },
+            {
+                "name": "8.6.0-alpha.4",
+                "date": "2024-06-14T14:49:03Z"
+            },
+            {
+                "name": "7.18.0-rc.59",
+                "date": "2024-06-14T16:41:46Z"
+            },
+            {
+                "name": "7.18.0-rc.58",
+                "date": "2024-06-14T11:25:48Z"
+            },
+            {
+                "name": "7.18.0-rc.57",
+                "date": "2024-06-14T10:47:07Z"
+            },
+            {
+                "name": "7.18.0-rc.56",
+                "date": "2024-06-14T10:33:32Z"
+            },
+            {
+                "name": "7.18.0-rc.55",
+                "date": "2024-06-14T08:50:44Z"
+            },
+            {
+                "name": "7.18.0-rc.54",
+                "date": "2024-06-14T08:02:58Z"
+            },
+            {
+                "name": "8.6.0-alpha.3",
+                "date": "2024-06-13T11:28:13Z"
+            },
+            {
+                "name": "7.18.0-rc.53",
+                "date": "2024-06-13T19:36:30Z"
+            },
+            {
+                "name": "7.18.0-rc.52",
+                "date": "2024-06-13T18:02:09Z"
+            },
+            {
+                "name": "7.18.0-rc.51",
+                "date": "2024-06-13T16:32:36Z"
+            },
+            {
+                "name": "7.18.0-rc.50",
+                "date": "2024-06-13T14:41:27Z"
+            },
+            {
+                "name": "7.18.0-rc.49",
+                "date": "2024-06-13T13:21:39Z"
+            },
+            {
+                "name": "7.18.0-rc.48",
+                "date": "2024-06-13T08:31:09Z"
+            },
+            {
+                "name": "7.18.0-rc.47",
+                "date": "2024-06-12T15:37:01Z"
+            },
+            {
+                "name": "7.18.0-rc.46",
+                "date": "2024-06-12T12:39:21Z"
+            },
+            {
+                "name": "7.18.0-rc.45",
+                "date": "2024-06-12T11:03:15Z"
+            },
+            {
+                "name": "7.18.0-rc.44",
+                "date": "2024-06-11T18:00:24Z"
+            },
+            {
+                "name": "7.18.0-rc.43",
+                "date": "2024-06-11T17:47:33Z"
+            },
+            {
+                "name": "7.18.0-rc.42",
+                "date": "2024-06-11T15:03:55Z"
+            },
+            {
+                "name": "7.18.0-rc.41",
+                "date": "2024-06-11T08:45:26Z"
+            },
+            {
+                "name": "7.18.0-rc.40",
+                "date": "2024-06-10T15:48:52Z"
+            },
+            {
+                "name": "7.18.0-rc.39",
+                "date": "2024-06-07T18:41:14Z"
+            },
+            {
+                "name": "7.18.0-rc.38",
+                "date": "2024-06-07T17:24:08Z"
+            },
+            {
+                "name": "7.18.0-rc.37",
+                "date": "2024-06-07T16:29:04Z"
+            },
+            {
+                "name": "7.18.0-rc.36",
+                "date": "2024-06-06T13:49:58Z"
+            },
+            {
+                "name": "7.18.0-rc.35",
+                "date": "2024-06-05T17:15:20Z"
+            },
+            {
+                "name": "7.18.0-rc.34",
+                "date": "2024-06-05T06:52:37Z"
+            },
+            {
+                "name": "7.18.0-rc.33",
+                "date": "2024-06-04T14:37:03Z"
+            },
+            {
+                "name": "7.18.0-rc.32",
+                "date": "2024-06-04T12:40:57Z"
+            },
+            {
+                "name": "7.18.0-rc.31",
+                "date": "2024-06-04T11:31:37Z"
+            },
+            {
+                "name": "7.18.0-rc.30",
+                "date": "2024-06-04T08:25:57Z"
+            },
+            {
+                "name": "7.18.0-rc.29",
+                "date": "2024-06-04T08:13:42Z"
+            },
+            {
+                "name": "7.18.0-rc.28",
+                "date": "2024-06-03T18:02:45Z"
+            },
+            {
+                "name": "7.18.0-rc.27",
+                "date": "2024-06-03T14:12:13Z"
+            },
+            {
+                "name": "7.18.0-rc.26",
+                "date": "2024-06-03T11:53:39Z"
+            },
+            {
+                "name": "7.18.0-rc.25",
+                "date": "2024-06-03T09:35:14Z"
+            },
+            {
+                "name": "7.18.0-rc.24",
+                "date": "2024-06-03T07:59:32Z"
+            },
+            {
+                "name": "7.18.0-rc.23",
+                "date": "2024-05-31T09:55:46Z"
+            },
+            {
+                "name": "7.18.0-rc.22",
+                "date": "2024-05-30T17:40:29Z"
+            },
+            {
+                "name": "7.18.0-rc.21",
+                "date": "2024-05-30T14:55:55Z"
+            },
+            {
+                "name": "7.18.0-rc.20",
+                "date": "2024-05-30T13:05:26Z"
+            },
+            {
+                "name": "7.18.0-rc.19",
+                "date": "2024-05-30T12:14:46Z"
+            },
+            {
+                "name": "7.18.0-rc.18",
+                "date": "2024-05-30T09:58:22Z"
+            },
+            {
+                "name": "7.18.0-rc.17",
+                "date": "2024-05-30T09:48:11Z"
+            },
+            {
+                "name": "7.18.0-rc.16",
+                "date": "2024-05-30T05:44:55Z"
+            },
+            {
+                "name": "8.6.0-alpha.2",
+                "date": "2024-05-29T09:38:04Z"
+            },
+            {
+                "name": "8.6.0-alpha.1",
+                "date": "2024-05-28T16:18:47Z"
+            },
+            {
+                "name": "7.18.0-rc.15",
+                "date": "2024-05-28T15:17:49Z"
+            },
+            {
+                "name": "7.18.0-rc.14",
+                "date": "2024-05-28T11:43:25Z"
+            },
+            {
+                "name": "7.18.0-rc.13",
+                "date": "2024-05-27T12:41:54Z"
+            },
+            {
+                "name": "7.18.0-rc.12",
+                "date": "2024-05-27T11:01:59Z"
+            },
+            {
+                "name": "7.18.0-rc.11",
+                "date": "2024-05-27T09:57:28Z"
+            },
+            {
+                "name": "7.18.0-rc.9",
+                "date": "2024-05-24T15:03:24Z"
+            },
+            {
+                "name": "7.18.0-rc.8",
+                "date": "2024-05-24T11:07:22Z"
+            },
+            {
+                "name": "7.18.0-rc.7",
+                "date": "2024-05-24T10:44:14Z"
+            },
+            {
+                "name": "7.18.0-rc.10",
+                "date": "2024-05-24T18:09:52Z"
+            },
+            {
+                "name": "7.18.0-rc.6",
+                "date": "2024-05-23T18:08:59Z"
+            },
+            {
+                "name": "7.18.0-rc.5",
+                "date": "2024-05-23T17:59:22Z"
+            },
+            {
+                "name": "7.18.0-rc.4",
+                "date": "2024-05-23T16:16:52Z"
+            },
+            {
+                "name": "7.18.0-rc.3",
+                "date": "2024-05-23T11:46:25Z"
+            },
+            {
+                "name": "7.18.0-rc.2",
+                "date": "2024-05-23T09:36:24Z"
+            },
+            {
+                "name": "8.5.0",
+                "date": "2024-05-22T08:24:25Z"
+            },
+            {
+                "name": "7.18.0-rc.1",
+                "date": "2024-05-22T15:11:56Z"
+            },
+            {
+                "name": "7.17.0-rc.92",
+                "date": "2024-05-22T12:03:22Z"
+            },
+            {
+                "name": "7.17.0-rc.91",
+                "date": "2024-05-21T16:40:47Z"
+            },
+            {
+                "name": "7.17.0-rc.90",
+                "date": "2024-05-21T15:37:34Z"
+            },
+            {
+                "name": "7.17.0-rc.89",
+                "date": "2024-05-21T11:10:59Z"
+            },
+            {
+                "name": "7.17.0-rc.88",
+                "date": "2024-05-20T18:00:04Z"
+            },
+            {
+                "name": "7.17.0-rc.87",
+                "date": "2024-05-20T15:01:43Z"
+            },
+            {
+                "name": "7.17.0-rc.86",
+                "date": "2024-05-20T11:38:55Z"
+            },
+            {
+                "name": "7.17.0-rc.85",
+                "date": "2024-05-18T17:08:07Z"
+            },
+            {
+                "name": "8.3.1",
+                "date": "2024-05-17T21:22:33Z"
+            },
+            {
+                "name": "7.17.0-rc.84",
+                "date": "2024-05-17T18:12:33Z"
+            },
+            {
+                "name": "7.17.0-rc.83",
+                "date": "2024-05-17T15:52:11Z"
+            },
+            {
+                "name": "7.17.0-rc.82",
+                "date": "2024-05-17T15:02:33Z"
+            },
+            {
+                "name": "7.17.0-rc.81",
+                "date": "2024-05-17T11:00:19Z"
+            },
+            {
+                "name": "7.17.0-rc.80",
+                "date": "2024-05-17T08:07:50Z"
+            },
+            {
+                "name": "7.17.0-rc.79",
+                "date": "2024-05-16T23:06:55Z"
+            },
+            {
+                "name": "7.17.0-rc.78",
+                "date": "2024-05-16T16:28:52Z"
+            },
+            {
+                "name": "7.17.0-rc.77",
+                "date": "2024-05-16T15:21:19Z"
+            },
+            {
+                "name": "7.17.0-rc.76",
+                "date": "2024-05-16T14:02:42Z"
+            },
+            {
+                "name": "7.17.0-rc.75",
+                "date": "2024-05-16T11:25:30Z"
+            },
+            {
+                "name": "7.17.0-rc.74",
+                "date": "2024-05-16T11:13:40Z"
+            },
+            {
+                "name": "7.11.1-alpha.10",
+                "date": "2024-05-16T10:18:22Z"
+            },
+            {
+                "name": "8.5.0-alpha.4",
+                "date": "2024-05-15T20:06:31Z"
+            },
+            {
+                "name": "7.17.0-rc.73",
+                "date": "2024-05-15T16:12:11Z"
+            },
+            {
+                "name": "7.17.0-rc.72",
+                "date": "2024-05-15T15:02:05Z"
+            },
+            {
+                "name": "7.17.0-rc.71",
+                "date": "2024-05-15T09:54:49Z"
+            },
+            {
+                "name": "7.17.0-rc.70",
+                "date": "2024-05-14T21:55:08Z"
+            },
+            {
+                "name": "7.17.0-rc.69",
+                "date": "2024-05-14T19:13:12Z"
+            },
+            {
+                "name": "7.17.0-rc.68",
+                "date": "2024-05-14T15:02:45Z"
+            },
+            {
+                "name": "7.17.0-rc.67",
+                "date": "2024-05-14T11:20:08Z"
+            },
+            {
+                "name": "7.17.0-rc.66",
+                "date": "2024-05-13T17:56:49Z"
+            },
+            {
+                "name": "7.17.0-rc.65",
+                "date": "2024-05-13T15:03:19Z"
+            },
+            {
+                "name": "7.17.0-rc.64",
+                "date": "2024-05-13T11:01:45Z"
+            },
+            {
+                "name": "7.17.0-rc.63",
+                "date": "2024-05-13T10:29:17Z"
+            },
+            {
+                "name": "8.5.0-alpha.3",
+                "date": "2024-05-10T08:07:23Z"
+            },
+            {
+                "name": "7.17.0-rc.62",
+                "date": "2024-05-10T15:21:27Z"
+            },
+            {
+                "name": "7.17.0-rc.61",
+                "date": "2024-05-10T15:09:00Z"
+            },
+            {
+                "name": "7.17.0-rc.60",
+                "date": "2024-05-10T10:51:58Z"
+            },
+            {
+                "name": "7.17.0-rc.59",
+                "date": "2024-05-10T07:45:18Z"
+            },
+            {
+                "name": "7.17.0-rc.58",
+                "date": "2024-05-09T15:14:13Z"
+            },
+            {
+                "name": "7.17.0-rc.57",
+                "date": "2024-05-09T15:02:18Z"
+            },
+            {
+                "name": "7.17.0-rc.56",
+                "date": "2024-05-09T13:56:05Z"
+            },
+            {
+                "name": "7.17.0-rc.55",
+                "date": "2024-05-09T12:32:40Z"
+            },
+            {
+                "name": "7.17.0-rc.54",
+                "date": "2024-05-09T11:05:04Z"
+            },
+            {
+                "name": "7.17.0-rc.53",
+                "date": "2024-05-08T16:54:00Z"
+            },
+            {
+                "name": "7.17.0-rc.52",
+                "date": "2024-05-08T11:56:22Z"
+            },
+            {
+                "name": "7.17.0-rc.51",
+                "date": "2024-05-08T08:45:56Z"
+            },
+            {
+                "name": "7.17.0-rc.50",
+                "date": "2024-05-07T18:01:17Z"
+            },
+            {
+                "name": "7.17.0-rc.49",
+                "date": "2024-05-06T15:05:12Z"
+            },
+            {
+                "name": "7.17.0-rc.48",
+                "date": "2024-05-03T17:57:06Z"
+            },
+            {
+                "name": "7.17.0-rc.47",
+                "date": "2024-05-03T15:20:06Z"
+            },
+            {
+                "name": "7.17.0-rc.46",
+                "date": "2024-05-03T15:03:15Z"
+            },
+            {
+                "name": "7.17.0-rc.45",
+                "date": "2024-05-03T11:48:19Z"
+            },
+            {
+                "name": "8.5.0-alpha.2",
+                "date": "2024-05-02T09:49:11Z"
+            },
+            {
+                "name": "7.17.0-rc.44",
+                "date": "2024-05-02T09:18:27Z"
+            },
+            {
+                "name": "7.17.0-rc.43",
+                "date": "2024-05-01T08:09:45Z"
+            },
+            {
+                "name": "7.17.0-rc.42",
+                "date": "2024-04-30T17:34:50Z"
+            },
+            {
+                "name": "7.17.0-rc.41",
+                "date": "2024-04-30T15:56:20Z"
+            },
+            {
+                "name": "7.17.0-rc.40",
+                "date": "2024-04-30T11:02:24Z"
+            },
+            {
+                "name": "7.17.0-rc.39",
+                "date": "2024-04-30T08:11:57Z"
+            },
+            {
+                "name": "7.17.0-rc.38",
+                "date": "2024-04-29T14:10:09Z"
+            },
+            {
+                "name": "7.17.0-rc.37",
+                "date": "2024-04-29T12:26:11Z"
+            },
+            {
+                "name": "7.17.0-rc.36",
+                "date": "2024-04-29T11:15:07Z"
+            },
+            {
+                "name": "7.17.0-rc.35",
+                "date": "2024-04-29T08:02:28Z"
+            },
+            {
+                "name": "7.17.0-rc.34",
+                "date": "2024-04-29T05:53:51Z"
+            },
+            {
+                "name": "7.17.0-rc.33",
+                "date": "2024-04-26T11:06:03Z"
+            },
+            {
+                "name": "7.17.0-rc.32",
+                "date": "2024-04-26T07:12:36Z"
+            },
+            {
+                "name": "7.17.0-rc.31",
+                "date": "2024-04-25T15:21:23Z"
+            },
+            {
+                "name": "7.17.0-rc.30",
+                "date": "2024-04-25T12:52:45Z"
+            },
+            {
+                "name": "7.17.0-rc.29",
+                "date": "2024-04-25T11:18:12Z"
+            },
+            {
+                "name": "7.17.0-rc.28",
+                "date": "2024-04-24T18:14:42Z"
+            },
+            {
+                "name": "7.17.0-rc.27",
+                "date": "2024-04-24T17:47:24Z"
+            },
+            {
+                "name": "7.17.0-rc.26",
+                "date": "2024-04-24T15:51:10Z"
+            },
+            {
+                "name": "7.17.0-rc.25",
+                "date": "2024-04-24T13:28:07Z"
+            },
+            {
+                "name": "7.17.0-rc.24",
+                "date": "2024-04-23T15:06:55Z"
+            },
+            {
+                "name": "7.17.0-rc.23",
+                "date": "2024-04-23T11:01:20Z"
+            },
+            {
+                "name": "7.17.0-rc.22",
+                "date": "2024-04-23T04:41:00Z"
+            },
+            {
+                "name": "8.5.0-alpha.1",
+                "date": "2024-04-22T09:42:08Z"
+            },
+            {
+                "name": "7.17.0-rc.21",
+                "date": "2024-04-22T16:11:16Z"
+            },
+            {
+                "name": "7.17.0-rc.20",
+                "date": "2024-04-22T12:58:27Z"
+            },
+            {
+                "name": "7.17.0-rc.19",
+                "date": "2024-04-19T21:20:22Z"
+            },
+            {
+                "name": "7.17.0-rc.18",
+                "date": "2024-04-19T16:16:40Z"
+            },
+            {
+                "name": "7.17.0-rc.17",
+                "date": "2024-04-19T11:21:03Z"
+            },
+            {
+                "name": "7.17.0-rc.16",
+                "date": "2024-04-18T18:57:38Z"
+            },
+            {
+                "name": "7.17.0-rc.15",
+                "date": "2024-04-18T13:11:41Z"
+            },
+            {
+                "name": "7.17.0-rc.9",
+                "date": "2024-04-17T00:22:03Z"
+            },
+            {
+                "name": "7.17.0-rc.14",
+                "date": "2024-04-17T14:21:56Z"
+            },
+            {
+                "name": "7.17.0-rc.13",
+                "date": "2024-04-17T11:29:56Z"
+            },
+            {
+                "name": "7.17.0-rc.12",
+                "date": "2024-04-17T08:13:09Z"
+            },
+            {
+                "name": "7.17.0-rc.11",
+                "date": "2024-04-17T07:54:37Z"
+            },
+            {
+                "name": "7.17.0-rc.10",
+                "date": "2024-04-17T06:17:18Z"
+            },
+            {
+                "name": "7.17.0-rc.8",
+                "date": "2024-04-16T17:30:38Z"
+            },
+            {
+                "name": "7.17.0-rc.7",
+                "date": "2024-04-16T14:50:48Z"
+            },
+            {
+                "name": "7.17.0-rc.6",
+                "date": "2024-04-12T11:11:10Z"
+            },
+            {
+                "name": "7.17.0-rc.5",
+                "date": "2024-04-12T04:47:30Z"
+            },
+            {
+                "name": "7.17.0-rc.4",
+                "date": "2024-04-10T14:27:46Z"
+            },
+            {
+                "name": "7.17.0-rc.3",
+                "date": "2024-04-10T13:22:20Z"
+            },
+            {
+                "name": "7.17.0-rc.2",
+                "date": "2024-04-10T12:00:19Z"
+            },
+            {
+                "name": "8.4.0",
+                "date": "2024-04-09T12:49:23Z"
+            },
+            {
+                "name": "7.17.0-rc.1",
+                "date": "2024-04-09T15:08:43Z"
+            },
+            {
+                "name": "7.16.0-rc.46",
+                "date": "2024-04-09T11:22:05Z"
+            },
+            {
+                "name": "7.16.0-rc.45",
+                "date": "2024-04-09T11:02:04Z"
+            },
+            {
+                "name": "8.4.0-alpha.9",
+                "date": "2024-04-08T11:05:38Z"
+            },
+            {
+                "name": "7.16.0-rc.44",
+                "date": "2024-04-08T16:59:14Z"
+            },
+            {
+                "name": "7.16.0-rc.43",
+                "date": "2024-04-08T15:04:11Z"
+            },
+            {
+                "name": "7.16.0-rc.42",
+                "date": "2024-04-08T11:03:49Z"
+            },
+            {
+                "name": "7.16.0-rc.41",
+                "date": "2024-04-06T09:22:01Z"
+            },
+            {
+                "name": "7.16.0-rc.40",
+                "date": "2024-04-05T18:06:25Z"
+            },
+            {
+                "name": "7.16.0-rc.39",
+                "date": "2024-04-05T15:18:16Z"
+            },
+            {
+                "name": "7.16.0-rc.38",
+                "date": "2024-04-05T11:10:03Z"
+            },
+            {
+                "name": "7.16.0-rc.37",
+                "date": "2024-04-04T18:05:50Z"
+            },
+            {
+                "name": "8.4.0-alpha.8",
+                "date": "2024-04-03T13:16:31Z"
+            },
+            {
+                "name": "7.16.0-rc.36",
+                "date": "2024-04-03T18:59:19Z"
+            },
+            {
+                "name": "7.16.0-rc.35",
+                "date": "2024-04-03T12:59:56Z"
+            },
+            {
+                "name": "7.16.0-rc.34",
+                "date": "2024-04-02T17:31:50Z"
+            },
+            {
+                "name": "7.16.0-rc.33",
+                "date": "2024-04-02T13:52:19Z"
+            },
+            {
+                "name": "7.16.0-rc.32",
+                "date": "2024-03-29T15:11:05Z"
+            },
+            {
+                "name": "7.16.0-rc.31",
+                "date": "2024-03-29T11:03:28Z"
+            },
+            {
+                "name": "7.16.0-rc.30",
+                "date": "2024-03-28T18:15:58Z"
+            },
+            {
+                "name": "7.16.0-rc.29",
+                "date": "2024-03-28T15:23:41Z"
+            },
+            {
+                "name": "7.16.0-rc.28",
+                "date": "2024-03-28T11:06:48Z"
+            },
+            {
+                "name": "7.16.0-rc.27",
+                "date": "2024-03-28T09:39:42Z"
+            },
+            {
+                "name": "7.16.0-rc.26",
+                "date": "2024-03-27T15:07:39Z"
+            },
+            {
+                "name": "7.16.0-rc.25",
+                "date": "2024-03-27T11:30:02Z"
+            },
+            {
+                "name": "8.4.0-alpha.7",
+                "date": "2024-03-25T14:17:29Z"
+            },
+            {
+                "name": "8.4.0-alpha.6",
+                "date": "2024-03-25T11:08:05Z"
+            },
+            {
+                "name": "7.16.0-rc.24",
+                "date": "2024-03-23T11:48:41Z"
+            },
+            {
+                "name": "8.4.0-alpha.5",
+                "date": "2024-03-22T13:24:53Z"
+            },
+            {
+                "name": "7.16.0-rc.23",
+                "date": "2024-03-22T15:08:24Z"
+            },
+            {
+                "name": "7.16.0-rc.22",
+                "date": "2024-03-22T12:13:33Z"
+            },
+            {
+                "name": "7.16.0-rc.21",
+                "date": "2024-03-21T15:20:22Z"
+            },
+            {
+                "name": "7.16.0-rc.20",
+                "date": "2024-03-21T11:52:01Z"
+            },
+            {
+                "name": "7.16.0-rc.19",
+                "date": "2024-03-20T18:17:31Z"
+            },
+            {
+                "name": "7.16.0-rc.18",
+                "date": "2024-03-20T12:24:07Z"
+            },
+            {
+                "name": "7.16.0-rc.17",
+                "date": "2024-03-20T12:08:13Z"
+            },
+            {
+                "name": "7.16.0-rc.16",
+                "date": "2024-03-20T11:12:55Z"
+            },
+            {
+                "name": "7.16.0-rc.15",
+                "date": "2024-03-20T08:39:43Z"
+            },
+            {
+                "name": "7.16.0-rc.14",
+                "date": "2024-03-19T15:14:18Z"
+            },
+            {
+                "name": "7.16.0-rc.13",
+                "date": "2024-03-14T10:10:12Z"
+            },
+            {
+                "name": "7.16.0-rc.12",
+                "date": "2024-03-13T15:19:41Z"
+            },
+            {
+                "name": "7.16.0-rc.11",
+                "date": "2024-03-13T11:55:36Z"
+            },
+            {
+                "name": "7.16.0-rc.9",
+                "date": "2024-03-12T11:32:07Z"
+            },
+            {
+                "name": "7.16.0-rc.10",
+                "date": "2024-03-12T15:14:34Z"
+            },
+            {
+                "name": "8.4.0-alpha.4",
+                "date": "2024-03-11T11:50:06Z"
+            },
+            {
+                "name": "7.16.0-rc.8",
+                "date": "2024-03-11T12:57:12Z"
+            },
+            {
+                "name": "7.16.0-rc.7",
+                "date": "2024-03-08T20:59:09Z"
+            },
+            {
+                "name": "8.4.0-alpha.3",
+                "date": "2024-03-07T10:31:58Z"
+            },
+            {
+                "name": "7.16.0-rc.6",
+                "date": "2024-03-07T19:26:19Z"
+            },
+            {
+                "name": "7.16.0-rc.5",
+                "date": "2024-03-07T18:09:27Z"
+            },
+            {
+                "name": "7.16.0-rc.4",
+                "date": "2024-03-07T16:51:54Z"
+            },
+            {
+                "name": "7.16.0-rc.3",
+                "date": "2024-03-07T15:07:31Z"
+            },
+            {
+                "name": "8.4.0-alpha.2",
+                "date": "2024-03-06T10:06:19Z"
+            },
+            {
+                "name": "8.4.0-alpha.1",
+                "date": "2024-03-06T08:50:47Z"
+            },
+            {
+                "name": "7.16.0-rc.2",
+                "date": "2024-03-06T11:55:05Z"
+            },
+            {
+                "name": "7.16.0-rc.1",
+                "date": "2024-03-06T11:06:35Z"
+            },
+            {
+                "name": "8.3.0",
+                "date": "2024-03-05T16:28:54Z"
+            },
+            {
+                "name": "7.15.0-rc.55",
+                "date": "2024-03-05T15:46:54Z"
+            },
+            {
+                "name": "7.15.0-rc.54",
+                "date": "2024-03-04T15:16:08Z"
+            },
+            {
+                "name": "7.15.0-rc.53",
+                "date": "2024-03-02T09:58:17Z"
+            },
+            {
+                "name": "7.15.0-rc.52",
+                "date": "2024-03-01T15:59:21Z"
+            },
+            {
+                "name": "7.15.0-rc.51",
+                "date": "2024-03-01T11:04:06Z"
+            },
+            {
+                "name": "7.15.0-rc.50",
+                "date": "2024-02-29T18:04:55Z"
+            },
+            {
+                "name": "7.15.0-rc.49",
+                "date": "2024-02-29T17:05:36Z"
+            },
+            {
+                "name": "7.15.0-rc.48",
+                "date": "2024-02-29T15:09:43Z"
+            },
+            {
+                "name": "7.15.0-rc.47",
+                "date": "2024-02-29T11:44:39Z"
+            },
+            {
+                "name": "7.15.0-rc.46",
+                "date": "2024-02-29T11:12:04Z"
+            },
+            {
+                "name": "7.15.0-rc.45",
+                "date": "2024-02-28T18:19:55Z"
+            },
+            {
+                "name": "7.15.0-rc.44",
+                "date": "2024-02-28T15:15:57Z"
+            },
+            {
+                "name": "7.15.0-rc.43",
+                "date": "2024-02-28T14:05:55Z"
+            },
+            {
+                "name": "7.15.0-rc.42",
+                "date": "2024-02-28T11:32:23Z"
+            },
+            {
+                "name": "7.15.0-rc.41",
+                "date": "2024-02-28T11:10:48Z"
+            },
+            {
+                "name": "7.15.0-rc.40",
+                "date": "2024-02-27T19:09:23Z"
+            },
+            {
+                "name": "7.15.0-rc.39",
+                "date": "2024-02-27T18:12:05Z"
+            },
+            {
+                "name": "7.15.0-rc.38",
+                "date": "2024-02-27T14:08:21Z"
+            },
+            {
+                "name": "7.15.0-rc.37",
+                "date": "2024-02-27T09:54:36Z"
+            },
+            {
+                "name": "7.15.0-rc.36",
+                "date": "2024-02-26T19:38:59Z"
+            },
+            {
+                "name": "7.15.0-rc.35",
+                "date": "2024-02-26T19:06:26Z"
+            },
+            {
+                "name": "7.15.0-rc.34",
+                "date": "2024-02-26T15:14:26Z"
+            },
+            {
+                "name": "7.15.0-rc.33",
+                "date": "2024-02-26T11:21:39Z"
+            },
+            {
+                "name": "7.15.0-rc.32",
+                "date": "2024-02-26T07:42:53Z"
+            },
+            {
+                "name": "7.15.0-rc.31",
+                "date": "2024-02-23T13:07:10Z"
+            },
+            {
+                "name": "7.15.0-rc.30",
+                "date": "2024-02-23T11:10:13Z"
+            },
+            {
+                "name": "7.15.0-rc.29",
+                "date": "2024-02-22T15:24:04Z"
+            },
+            {
+                "name": "7.15.0-rc.28",
+                "date": "2024-02-21T15:34:19Z"
+            },
+            {
+                "name": "7.15.0-rc.27",
+                "date": "2024-02-21T13:22:30Z"
+            },
+            {
+                "name": "8.3.0-alpha.12",
+                "date": "2024-02-20T15:36:57Z"
+            },
+            {
+                "name": "7.15.0-rc.26",
+                "date": "2024-02-20T09:27:08Z"
+            },
+            {
+                "name": "8.3.0-alpha.11",
+                "date": "2024-02-19T11:19:41Z"
+            },
+            {
+                "name": "8.2.1-alpha.2",
+                "date": "2024-02-19T11:19:15Z"
+            },
+            {
+                "name": "7.15.0-rc.25",
+                "date": "2024-02-19T09:33:53Z"
+            },
+            {
+                "name": "7.15.0-rc.24",
+                "date": "2024-02-16T15:05:14Z"
+            },
+            {
+                "name": "8.3.0-alpha.10",
+                "date": "2024-02-15T12:39:50Z"
+            },
+            {
+                "name": "7.15.0-rc.23",
+                "date": "2024-02-15T18:09:42Z"
+            },
+            {
+                "name": "7.15.0-rc.22",
+                "date": "2024-02-15T15:10:15Z"
+            },
+            {
+                "name": "7.15.0-rc.21",
+                "date": "2024-02-15T06:53:14Z"
+            },
+            {
+                "name": "8.3.0-alpha.9",
+                "date": "2024-02-14T12:38:57Z"
+            },
+            {
+                "name": "7.15.0-rc.20",
+                "date": "2024-02-14T12:20:29Z"
+            },
+            {
+                "name": "8.3.0-alpha.8",
+                "date": "2024-02-13T09:33:27Z"
+            },
+            {
+                "name": "7.15.0-rc.19",
+                "date": "2024-02-13T12:05:30Z"
+            },
+            {
+                "name": "7.15.0-rc.18",
+                "date": "2024-02-13T11:02:09Z"
+            },
+            {
+                "name": "7.15.0-rc.17",
+                "date": "2024-02-12T19:29:13Z"
+            },
+            {
+                "name": "7.15.0-rc.16",
+                "date": "2024-02-12T10:57:15Z"
+            },
+            {
+                "name": "7.15.0-rc.15",
+                "date": "2024-02-10T16:54:46Z"
+            },
+            {
+                "name": "7.15.0-rc.14",
+                "date": "2024-02-10T14:51:28Z"
+            },
+            {
+                "name": "7.15.0-rc.13",
+                "date": "2024-02-09T12:29:13Z"
+            },
+            {
+                "name": "8.3.0-alpha.7",
+                "date": "2024-02-08T18:21:14Z"
+            },
+            {
+                "name": "8.2.1-alpha.1",
+                "date": "2024-02-08T16:38:44Z"
+            },
+            {
+                "name": "8.1.1-alpha.8",
+                "date": "2024-02-08T16:32:58Z"
+            },
+            {
+                "name": "8.1.1-alpha.7",
+                "date": "2024-02-08T12:31:06Z"
+            },
+            {
+                "name": "8.1.1-alpha.6",
+                "date": "2024-02-08T12:14:08Z"
+            },
+            {
+                "name": "8.1.1-alpha.5",
+                "date": "2024-02-08T11:57:58Z"
+            },
+            {
+                "name": "8.1.1-alpha.4",
+                "date": "2024-02-08T11:28:58Z"
+            },
+            {
+                "name": "7.15.0-rc.12",
+                "date": "2024-02-08T16:24:36Z"
+            },
+            {
+                "name": "7.15.0-rc.11",
+                "date": "2024-02-08T12:54:42Z"
+            },
+            {
+                "name": "8.3.0-alpha.6",
+                "date": "2024-02-07T11:48:23Z"
+            },
+            {
+                "name": "8.3.0-alpha.5",
+                "date": "2024-02-07T10:51:28Z"
+            },
+            {
+                "name": "7.11.1-alpha.9",
+                "date": "2024-02-07T16:24:49Z"
+            },
+            {
+                "name": "8.3.0-alpha.4",
+                "date": "2024-02-06T17:54:41Z"
+            },
+            {
+                "name": "8.1.1-alpha.3",
+                "date": "2024-02-06T17:08:55Z"
+            },
+            {
+                "name": "7.15.0-rc.9",
+                "date": "2024-02-06T11:01:38Z"
+            },
+            {
+                "name": "7.15.0-rc.10",
+                "date": "2024-02-06T13:37:29Z"
+            },
+            {
+                "name": "8.1.1-alpha.2",
+                "date": "2024-02-05T09:48:05Z"
+            },
+            {
+                "name": "7.15.0-rc.8",
+                "date": "2024-02-05T11:03:31Z"
+            },
+            {
+                "name": "7.11.1-alpha.8",
+                "date": "2024-02-05T10:38:20Z"
+            },
+            {
+                "name": "7.15.0-rc.7",
+                "date": "2024-02-02T20:33:01Z"
+            },
+            {
+                "name": "7.15.0-rc.6",
+                "date": "2024-02-02T17:54:27Z"
+            },
+            {
+                "name": "7.15.0-rc.5",
+                "date": "2024-02-02T12:36:59Z"
+            },
+            {
+                "name": "7.15.0-rc.4",
+                "date": "2024-02-01T15:46:44Z"
+            },
+            {
+                "name": "8.3.0-alpha.3",
+                "date": "2024-01-31T12:48:25Z"
+            },
+            {
+                "name": "8.1.1-alpha.1",
+                "date": "2024-01-31T12:49:35Z"
+            },
+            {
+                "name": "7.15.0-rc.3",
+                "date": "2024-01-30T16:32:56Z"
+            },
+            {
+                "name": "7.15.0-rc.2",
+                "date": "2024-01-26T00:14:56Z"
+            },
+            {
+                "name": "8.3.0-alpha.2",
+                "date": "2024-01-25T16:30:06Z"
+            },
+            {
+                "name": "7.15.0-rc.1",
+                "date": "2024-01-25T19:09:55Z"
+            },
+            {
+                "name": "8.3.0-alpha.1",
+                "date": "2024-01-23T20:05:13Z"
+            },
+            {
+                "name": "8.2.0",
+                "date": "2024-01-22T16:36:43Z"
+            },
+            {
+                "name": "7.14.0-rc.26",
+                "date": "2024-01-19T17:11:08Z"
+            },
+            {
+                "name": "7.14.0-rc.25",
+                "date": "2024-01-19T13:10:11Z"
+            },
+            {
+                "name": "7.14.0-rc.24",
+                "date": "2024-01-18T17:02:29Z"
+            },
+            {
+                "name": "8.2.0-alpha.26",
+                "date": "2024-01-16T20:31:19Z"
+            },
+            {
+                "name": "8.2.0-alpha.25",
+                "date": "2024-01-16T09:49:04Z"
+            },
+            {
+                "name": "7.14.0-rc.23",
+                "date": "2024-01-16T23:10:04Z"
+            },
+            {
+                "name": "7.14.0-rc.22",
+                "date": "2024-01-16T10:45:27Z"
+            },
+            {
+                "name": "8.2.0-alpha.24",
+                "date": "2024-01-15T17:07:24Z"
+            },
+            {
+                "name": "8.2.0-alpha.21",
+                "date": "2024-01-15T11:41:20Z"
+            },
+            {
+                "name": "8.2.0-alpha.20",
+                "date": "2024-01-15T11:25:22Z"
+            },
+            {
+                "name": "7.14.0-rc.21",
+                "date": "2024-01-15T11:40:29Z"
+            },
+            {
+                "name": "7.14.0-rc.20",
+                "date": "2024-01-12T14:16:54Z"
+            },
+            {
+                "name": "7.14.0-rc.19",
+                "date": "2024-01-11T07:45:19Z"
+            },
+            {
+                "name": "8.2.0-alpha.19",
+                "date": "2024-01-09T08:19:29Z"
+            },
+            {
+                "name": "8.2.0-alpha.18",
+                "date": "2024-01-08T09:36:43Z"
+            },
+            {
+                "name": "8.2.0-alpha.17",
+                "date": "2024-01-08T09:16:07Z"
+            },
+            {
+                "name": "7.14.0-rc.18",
+                "date": "2024-01-07T11:46:55Z"
+            },
+            {
+                "name": "7.14.0-rc.17",
+                "date": "2024-01-05T19:27:03Z"
+            },
+            {
+                "name": "8.2.0-alpha.16",
+                "date": "2024-01-04T16:15:36Z"
+            },
+            {
+                "name": "8.2.0-alpha.15",
+                "date": "2024-01-02T11:28:43Z"
+            },
+            {
+                "name": "7.14.0-rc.16",
+                "date": "2024-01-02T09:57:03Z"
+            },
+            {
+                "name": "7.14.0-rc.15",
+                "date": "2023-12-29T06:43:26Z"
+            },
+            {
+                "name": "8.2.0-alpha.14",
+                "date": "2023-12-21T06:56:45Z"
+            },
+            {
+                "name": "8.2.0-alpha.13",
+                "date": "2023-12-19T01:32:45Z"
+            },
+            {
+                "name": "7.14.0-rc.14",
+                "date": "2023-12-18T15:48:13Z"
+            },
+            {
+                "name": "7.11.1-alpha.7",
+                "date": "2023-12-18T13:05:22Z"
+            },
+            {
+                "name": "7.14.0-rc.13",
+                "date": "2023-12-15T11:47:39Z"
+            },
+            {
+                "name": "7.14.0-rc.12",
+                "date": "2023-12-15T11:12:02Z"
+            },
+            {
+                "name": "8.2.0-alpha.12",
+                "date": "2023-12-14T10:21:21Z"
+            },
+            {
+                "name": "7.14.0-rc.11",
+                "date": "2023-12-14T10:14:29Z"
+            },
+            {
+                "name": "7.14.0-rc.10",
+                "date": "2023-12-13T15:03:07Z"
+            },
+            {
+                "name": "8.2.0-alpha.11",
+                "date": "2023-12-05T21:36:57Z"
+            },
+            {
+                "name": "8.2.0-alpha.10",
+                "date": "2023-12-04T09:44:01Z"
+            },
+            {
+                "name": "7.14.0-rc.9",
+                "date": "2023-12-04T15:10:18Z"
+            },
+            {
+                "name": "8.2.0-alpha.9",
+                "date": "2023-12-03T19:31:19Z"
+            },
+            {
+                "name": "7.14.0-rc.8",
+                "date": "2023-11-30T10:26:35Z"
+            },
+            {
+                "name": "8.2.0-alpha.8",
+                "date": "2023-11-29T19:51:44Z"
+            },
+            {
+                "name": "8.2.0-alpha.7",
+                "date": "2023-11-29T16:52:13Z"
+            },
+            {
+                "name": "8.2.0-alpha.6",
+                "date": "2023-11-29T14:17:39Z"
+            },
+            {
+                "name": "8.2.0-alpha.5",
+                "date": "2023-11-29T13:43:51Z"
+            },
+            {
+                "name": "8.2.0-alpha.4",
+                "date": "2023-11-27T12:02:18Z"
+            },
+            {
+                "name": "7.14.0-rc.7",
+                "date": "2023-11-27T12:59:39Z"
+            },
+            {
+                "name": "7.14.0-rc.6",
+                "date": "2023-11-27T11:50:01Z"
+            },
+            {
+                "name": "7.14.0-rc.5",
+                "date": "2023-11-25T19:32:14Z"
+            },
+            {
+                "name": "7.14.0-rc.4",
+                "date": "2023-11-25T07:36:31Z"
+            },
+            {
+                "name": "8.2.0-alpha.3",
+                "date": "2023-11-24T19:54:39Z"
+            },
+            {
+                "name": "7.14.0-rc.3",
+                "date": "2023-11-24T08:31:17Z"
+            },
+            {
+                "name": "7.14.0-rc.2",
+                "date": "2023-11-24T07:31:31Z"
+            },
+            {
+                "name": "8.2.0-alpha.2",
+                "date": "2023-11-23T11:09:52Z"
+            },
+            {
+                "name": "7.14.0-rc.1",
+                "date": "2023-11-23T09:35:20Z"
+            },
+            {
+                "name": "7.11.1-alpha.6",
+                "date": "2023-11-23T11:50:21Z"
+            },
+            {
+                "name": "8.2.0-alpha.1",
+                "date": "2023-11-21T21:56:23Z"
+            },
+            {
+                "name": "8.1.0",
+                "date": "2023-11-21T11:42:42Z"
+            },
+            {
+                "name": "7.13.0-rc.31",
+                "date": "2023-11-21T10:41:26Z"
+            },
+            {
+                "name": "7.13.0-rc.30",
+                "date": "2023-11-19T13:26:00Z"
+            },
+            {
+                "name": "7.13.0-rc.29",
+                "date": "2023-11-17T16:17:44Z"
+            },
+            {
+                "name": "7.13.0-rc.28",
+                "date": "2023-11-17T08:51:04Z"
+            },
+            {
+                "name": "7.13.0-rc.27",
+                "date": "2023-11-16T08:51:10Z"
+            },
+            {
+                "name": "7.13.0-rc.26",
+                "date": "2023-11-15T15:02:22Z"
+            },
+            {
+                "name": "7.13.0-rc.25",
+                "date": "2023-11-14T18:25:43Z"
+            },
+            {
+                "name": "7.13.0-rc.24",
+                "date": "2023-11-14T12:41:39Z"
+            },
+            {
+                "name": "7.13.0-rc.23",
+                "date": "2023-11-14T08:27:03Z"
+            },
+            {
+                "name": "7.13.0-rc.22",
+                "date": "2023-11-11T10:19:06Z"
+            },
+            {
+                "name": "7.13.0-rc.21",
+                "date": "2023-11-10T17:26:35Z"
+            },
+            {
+                "name": "7.13.0-rc.20",
+                "date": "2023-11-09T21:33:58Z"
+            },
+            {
+                "name": "7.13.0-rc.19",
+                "date": "2023-11-07T23:19:35Z"
+            },
+            {
+                "name": "7.13.0-rc.18",
+                "date": "2023-11-07T09:21:03Z"
+            },
+            {
+                "name": "8.1.0-alpha.13",
+                "date": "2023-11-06T14:32:28Z"
+            },
+            {
+                "name": "7.13.0-rc.17",
+                "date": "2023-11-03T12:13:08Z"
+            },
+            {
+                "name": "8.1.0-alpha.12",
+                "date": "2023-10-28T15:11:52Z"
+            },
+            {
+                "name": "7.13.0-rc.16",
+                "date": "2023-10-27T09:02:26Z"
+            },
+            {
+                "name": "7.13.0-rc.15",
+                "date": "2023-10-26T11:44:08Z"
+            },
+            {
+                "name": "8.1.0-alpha.11",
+                "date": "2023-10-25T08:09:41Z"
+            },
+            {
+                "name": "8.1.0-alpha.9",
+                "date": "2023-10-24T12:25:07Z"
+            },
+            {
+                "name": "8.1.0-alpha.10",
+                "date": "2023-10-24T13:23:53Z"
+            },
+            {
+                "name": "7.11.1-alpha.5",
+                "date": "2023-10-24T18:50:20Z"
+            },
+            {
+                "name": "8.1.0-alpha.8",
+                "date": "2023-10-22T20:15:04Z"
+            },
+            {
+                "name": "8.1.0-alpha.7",
+                "date": "2023-10-22T19:48:30Z"
+            },
+            {
+                "name": "8.1.0-alpha.6",
+                "date": "2023-10-19T08:30:12Z"
+            },
+            {
+                "name": "8.1.0-alpha.5",
+                "date": "2023-10-18T17:18:44Z"
+            },
+            {
+                "name": "8.1.0-alpha.4",
+                "date": "2023-10-13T19:57:43Z"
+            },
+            {
+                "name": "8.1.0-alpha.3",
+                "date": "2023-10-11T13:16:46Z"
+            },
+            {
+                "name": "8.1.0-alpha.2",
+                "date": "2023-10-11T12:50:20Z"
+            },
+            {
+                "name": "7.13.0-rc.14",
+                "date": "2023-10-11T16:00:15Z"
+            },
+            {
+                "name": "7.13.0-rc.13",
+                "date": "2023-10-09T15:19:28Z"
+            },
+            {
+                "name": "7.13.0-rc.9",
+                "date": "2023-10-07T07:46:14Z"
+            },
+            {
+                "name": "7.13.0-rc.8",
+                "date": "2023-10-05T12:48:43Z"
+            },
+            {
+                "name": "7.13.0-rc.7",
+                "date": "2023-10-03T12:07:46Z"
+            },
+            {
+                "name": "7.13.0-rc.6",
+                "date": "2023-10-02T12:53:19Z"
+            },
+            {
+                "name": "7.13.0-rc.5",
+                "date": "2023-10-02T09:53:55Z"
+            },
+            {
+                "name": "7.13.0-rc.4",
+                "date": "2023-10-01T07:28:08Z"
+            },
+            {
+                "name": "7.13.0-rc.3",
+                "date": "2023-09-29T14:22:59Z"
+            },
+            {
+                "name": "7.13.0-rc.2",
+                "date": "2023-09-29T12:39:26Z"
+            },
+            {
+                "name": "8.1.0-alpha.1",
+                "date": "2023-09-28T08:07:16Z"
+            },
+            {
+                "name": "7.11.1-alpha.4",
+                "date": "2023-09-28T13:04:55Z"
+            },
+            {
+                "name": "7.13.0-rc.1",
+                "date": "2023-09-27T22:28:34Z"
+            },
+            {
+                "name": "7.12.0-rc.125",
+                "date": "2023-09-27T07:18:07Z"
+            },
+            {
+                "name": "7.12.0-rc.124",
+                "date": "2023-09-26T16:12:44Z"
+            },
+            {
+                "name": "8.0.0",
+                "date": "2023-09-25T18:26:10Z"
+            },
+            {
+                "name": "7.12.0-rc.123",
+                "date": "2023-09-25T17:57:00Z"
+            },
+            {
+                "name": "7.12.0-rc.122",
+                "date": "2023-09-25T16:49:43Z"
+            },
+            {
+                "name": "7.12.0-rc.121",
+                "date": "2023-09-22T21:26:36Z"
+            },
+            {
+                "name": "7.12.0-rc.120",
+                "date": "2023-09-22T05:51:58Z"
+            },
+            {
+                "name": "7.12.0-rc.119",
+                "date": "2023-09-21T07:47:37Z"
+            },
+            {
+                "name": "7.12.0-rc.118",
+                "date": "2023-09-20T19:47:48Z"
+            },
+            {
+                "name": "7.12.0-rc.117",
+                "date": "2023-09-20T17:34:01Z"
+            },
+            {
+                "name": "7.12.0-rc.116",
+                "date": "2023-09-20T14:28:45Z"
+            },
+            {
+                "name": "7.12.0-rc.113",
+                "date": "2023-09-20T12:15:41Z"
+            },
+            {
+                "name": "8.0.0-alpha.16",
+                "date": "2023-09-18T10:20:36Z"
+            },
+            {
+                "name": "7.12.0-rc.112",
+                "date": "2023-09-18T15:07:57Z"
+            },
+            {
+                "name": "7.12.0-rc.111",
+                "date": "2023-09-15T17:00:08Z"
+            },
+            {
+                "name": "7.12.0-rc.110",
+                "date": "2023-09-15T11:24:16Z"
+            },
+            {
+                "name": "7.12.0-rc.108",
+                "date": "2023-09-14T13:26:54Z"
+            },
+            {
+                "name": "7.12.0-rc.107",
+                "date": "2023-09-13T16:42:56Z"
+            },
+            {
+                "name": "7.12.0-rc.106",
+                "date": "2023-09-13T15:15:13Z"
+            },
+            {
+                "name": "7.12.0-rc.105",
+                "date": "2023-09-13T12:26:07Z"
+            },
+            {
+                "name": "7.12.0-rc.104",
+                "date": "2023-09-13T06:25:45Z"
+            },
+            {
+                "name": "7.12.0-rc.103",
+                "date": "2023-09-11T22:01:26Z"
+            },
+            {
+                "name": "7.12.0-rc.102",
+                "date": "2023-09-11T10:39:29Z"
+            },
+            {
+                "name": "8.0.0-alpha.15",
+                "date": "2023-09-08T15:42:24Z"
+            },
+            {
+                "name": "7.12.0-rc.101",
+                "date": "2023-09-08T18:52:05Z"
+            },
+            {
+                "name": "7.11.1-alpha.3",
+                "date": "2023-09-08T11:02:13Z"
+            },
+            {
+                "name": "7.11.1-alpha.2",
+                "date": "2023-09-08T09:31:55Z"
+            },
+            {
+                "name": "8.0.0-alpha.14",
+                "date": "2023-09-06T10:39:12Z"
+            },
+            {
+                "name": "7.12.0-rc.99",
+                "date": "2023-09-05T14:48:25Z"
+            },
+            {
+                "name": "7.12.0-rc.100",
+                "date": "2023-09-05T20:24:31Z"
+            },
+            {
+                "name": "7.12.0-rc.98",
+                "date": "2023-09-04T07:23:08Z"
+            },
+            {
+                "name": "7.12.0-rc.97",
+                "date": "2023-09-01T09:28:15Z"
+            },
+            {
+                "name": "8.0.0-alpha.13",
+                "date": "2023-08-25T10:39:19Z"
+            },
+            {
+                "name": "7.12.0-rc.95",
+                "date": "2023-08-25T10:53:11Z"
+            },
+            {
+                "name": "7.12.0-rc.94",
+                "date": "2023-08-22T13:35:42Z"
+            },
+            {
+                "name": "7.12.0-rc.93",
+                "date": "2023-08-17T07:53:56Z"
+            },
+            {
+                "name": "7.12.0-rc.92",
+                "date": "2023-08-17T07:48:19Z"
+            },
+            {
+                "name": "7.12.0-rc.91",
+                "date": "2023-08-12T09:26:28Z"
+            },
+            {
+                "name": "8.0.0-alpha.12",
+                "date": "2023-08-11T16:33:02Z"
+            },
+            {
+                "name": "8.0.0-alpha.11",
+                "date": "2023-08-11T15:29:10Z"
+            },
+            {
+                "name": "7.12.0-rc.90",
+                "date": "2023-08-11T07:32:13Z"
+            },
+            {
+                "name": "7.12.0-rc.89",
+                "date": "2023-08-10T10:52:57Z"
+            },
+            {
+                "name": "7.12.0-rc.88",
+                "date": "2023-08-09T10:16:12Z"
+            },
+            {
+                "name": "7.12.0-rc.87",
+                "date": "2023-08-09T10:08:27Z"
+            },
+            {
+                "name": "8.0.0-alpha.10",
+                "date": "2023-08-08T15:57:02Z"
+            },
+            {
+                "name": "7.12.0-rc.86",
+                "date": "2023-08-08T18:35:51Z"
+            },
+            {
+                "name": "8.0.0-alpha.9",
+                "date": "2023-08-07T17:50:47Z"
+            },
+            {
+                "name": "8.0.0-alpha.8",
+                "date": "2023-08-07T17:14:02Z"
+            },
+            {
+                "name": "8.0.0-alpha.7",
+                "date": "2023-08-07T15:12:05Z"
+            },
+            {
+                "name": "7.12.0-rc.85",
+                "date": "2023-08-02T11:10:46Z"
+            },
+            {
+                "name": "7.12.0-rc.84",
+                "date": "2023-08-01T07:37:00Z"
+            },
+            {
+                "name": "7.12.0-rc.83",
+                "date": "2023-07-31T10:39:43Z"
+            },
+            {
+                "name": "7.12.0-rc.82",
+                "date": "2023-07-31T08:40:26Z"
+            },
+            {
+                "name": "7.11.1-alpha.1",
+                "date": "2023-07-31T09:46:11Z"
+            },
+            {
+                "name": "7.12.0-rc.81",
+                "date": "2023-07-28T18:59:15Z"
+            },
+            {
+                "name": "7.12.0-rc.80",
+                "date": "2023-07-28T06:58:50Z"
+            },
+            {
+                "name": "7.12.0-rc.79",
+                "date": "2023-07-27T11:54:48Z"
+            },
+            {
+                "name": "7.12.0-rc.78",
+                "date": "2023-07-26T17:22:29Z"
+            },
+            {
+                "name": "7.12.0-rc.77",
+                "date": "2023-07-26T16:20:45Z"
+            },
+            {
+                "name": "7.12.0-rc.76",
+                "date": "2023-07-26T10:24:52Z"
+            },
+            {
+                "name": "7.12.0-rc.75",
+                "date": "2023-07-26T05:18:32Z"
+            },
+            {
+                "name": "7.12.0-rc.74",
+                "date": "2023-07-25T15:25:11Z"
+            },
+            {
+                "name": "7.12.0-rc.73",
+                "date": "2023-07-25T10:54:18Z"
+            },
+            {
+                "name": "7.12.0-rc.72",
+                "date": "2023-07-24T17:01:18Z"
+            },
+            {
+                "name": "7.12.0-rc.71",
+                "date": "2023-07-24T14:33:01Z"
+            },
+            {
+                "name": "7.12.0-rc.70",
+                "date": "2023-07-24T13:26:54Z"
+            },
+            {
+                "name": "7.12.0-rc.69",
+                "date": "2023-07-24T12:26:00Z"
+            },
+            {
+                "name": "8.0.0-alpha.6",
+                "date": "2023-07-20T08:34:50Z"
+            },
+            {
+                "name": "7.12.0-rc.68",
+                "date": "2023-07-20T07:32:30Z"
+            },
+            {
+                "name": "7.12.0-rc.67",
+                "date": "2023-07-19T13:02:54Z"
+            },
+            {
+                "name": "7.12.0-rc.66",
+                "date": "2023-07-19T12:37:06Z"
+            },
+            {
+                "name": "7.12.0-rc.65",
+                "date": "2023-07-19T09:48:56Z"
+            },
+            {
+                "name": "7.12.0-rc.38",
+                "date": "2023-07-18T14:47:09Z"
+            },
+            {
+                "name": "7.12.0-rc.37",
+                "date": "2023-07-18T12:48:31Z"
+            },
+            {
+                "name": "7.12.0-rc.18",
+                "date": "2023-07-17T17:25:34Z"
+            },
+            {
+                "name": "7.12.0-rc.17",
+                "date": "2023-07-16T20:23:19Z"
+            },
+            {
+                "name": "7.12.0-rc.16",
+                "date": "2023-07-14T09:20:46Z"
+            },
+            {
+                "name": "8.0.0-alpha.5",
+                "date": "2023-07-13T11:25:14Z"
+            },
+            {
+                "name": "7.12.0-rc.15",
+                "date": "2023-07-13T08:57:06Z"
+            },
+            {
+                "name": "7.12.0-rc.14",
+                "date": "2023-07-12T13:39:49Z"
+            },
+            {
+                "name": "7.12.0-rc.13",
+                "date": "2023-07-11T02:34:56Z"
+            },
+            {
+                "name": "7.12.0-rc.12",
+                "date": "2023-07-07T11:20:43Z"
+            },
+            {
+                "name": "7.12.0-rc.11",
+                "date": "2023-07-06T13:24:41Z"
+            },
+            {
+                "name": "7.12.0-rc.9",
+                "date": "2023-07-05T10:49:09Z"
+            },
+            {
+                "name": "7.12.0-rc.10",
+                "date": "2023-07-05T21:20:18Z"
+            },
+            {
+                "name": "7.12.0-rc.8",
+                "date": "2023-07-04T12:58:05Z"
+            },
+            {
+                "name": "7.11.1-rc.1",
+                "date": "2023-07-04T16:51:38Z"
+            },
+            {
+                "name": "7.12.0-rc.7",
+                "date": "2023-07-03T15:50:27Z"
+            },
+            {
+                "name": "7.12.0-rc.6",
+                "date": "2023-06-29T07:54:57Z"
+            },
+            {
+                "name": "8.0.0-alpha.4",
+                "date": "2023-06-23T08:51:46Z"
+            },
+            {
+                "name": "8.0.0-alpha.3",
+                "date": "2023-06-21T17:17:58Z"
+            },
+            {
+                "name": "7.12.0-rc.5",
+                "date": "2023-06-20T19:29:36Z"
+            },
+            {
+                "name": "8.0.0-alpha.2",
+                "date": "2023-06-16T11:44:00Z"
+            },
+            {
+                "name": "7.12.0-rc.4",
+                "date": "2023-06-12T15:19:38Z"
+            },
+            {
+                "name": "7.12.0-rc.2",
+                "date": "2023-06-12T13:58:16Z"
+            },
+            {
+                "name": "8.0.0-alpha.1",
+                "date": "2023-06-08T19:30:28Z"
+            },
+            {
+                "name": "7.12.0-rc.1",
+                "date": "2023-06-08T18:39:19Z"
+            },
+            {
+                "name": "7.12.0-alpha.1",
+                "date": "2023-06-07T23:30:52Z"
+            },
+            {
+                "name": "7.11.0",
+                "date": "2023-06-07T12:42:54Z"
+            },
+            {
+                "name": "7.11.0-rc.22",
+                "date": "2023-06-07T20:40:40Z"
+            },
+            {
+                "name": "7.11.0-rc.21",
+                "date": "2023-06-06T16:51:58Z"
+            },
+            {
+                "name": "7.11.0-rc.20",
+                "date": "2023-05-31T17:25:05Z"
+            },
+            {
+                "name": "7.11.0-rc.19",
+                "date": "2023-05-31T16:04:04Z"
+            },
+            {
+                "name": "7.11.0-rc.18",
+                "date": "2023-05-31T14:41:02Z"
+            },
+            {
+                "name": "7.11.0-rc.17",
+                "date": "2023-05-31T12:35:30Z"
+            },
+            {
+                "name": "7.11.0-rc.16",
+                "date": "2023-05-31T08:09:49Z"
+            },
+            {
+                "name": "7.11.0-rc.15",
+                "date": "2023-05-29T11:36:43Z"
+            },
+            {
+                "name": "7.11.0-rc.14",
+                "date": "2023-05-27T00:21:46Z"
+            },
+            {
+                "name": "7.11.0-rc.13",
+                "date": "2023-05-26T21:23:30Z"
+            },
+            {
+                "name": "7.11.0-rc.12",
+                "date": "2023-05-26T11:06:33Z"
+            },
+            {
+                "name": "7.11.0-rc.11",
+                "date": "2023-05-25T17:18:47Z"
+            },
+            {
+                "name": "7.11.0-rc.10",
+                "date": "2023-05-23T09:46:50Z"
+            },
+            {
+                "name": "7.11.0-rc.9",
+                "date": "2023-05-22T10:11:36Z"
+            },
+            {
+                "name": "7.11.0-rc.8",
+                "date": "2023-05-19T10:28:24Z"
+            },
+            {
+                "name": "7.11.0-alpha.2",
+                "date": "2023-05-19T15:10:46Z"
+            },
+            {
+                "name": "7.11.0-rc.7",
+                "date": "2023-05-18T14:48:21Z"
+            },
+            {
+                "name": "7.11.0-rc.6",
+                "date": "2023-05-10T10:06:06Z"
+            },
+            {
+                "name": "7.11.0-alpha.1",
+                "date": "2023-05-10T09:59:31Z"
+            },
+            {
+                "name": "7.11.0-rc.5",
+                "date": "2023-05-09T08:49:34Z"
+            },
+            {
+                "name": "7.11.0-rc.4",
+                "date": "2023-05-09T06:55:58Z"
+            },
+            {
+                "name": "7.11.0-rc.3",
+                "date": "2023-05-05T23:38:39Z"
+            },
+            {
+                "name": "7.11.0-rc.2",
+                "date": "2023-05-05T18:39:20Z"
+            },
+            {
+                "name": "7.11.0-rc.1",
+                "date": "2023-05-05T13:27:18Z"
+            },
+            {
+                "name": "Release 7.10.0",
+                "date": "2023-05-04T19:14:15Z"
+            },
+            {
+                "name": "7.10.0-rc.38",
+                "date": "2023-05-04T14:51:28Z"
+            },
+            {
+                "name": "7.10.0-rc.37",
+                "date": "2023-05-04T05:51:28Z"
+            },
+            {
+                "name": "7.10.0-rc.36",
+                "date": "2023-05-03T12:09:51Z"
+            },
+            {
+                "name": "7.10.0-alpha.6",
+                "date": "2023-05-03T07:43:05Z"
+            },
+            {
+                "name": "7.10.0-rc.35",
+                "date": "2023-05-02T17:38:51Z"
+            },
+            {
+                "name": "7.10.0-rc.34",
+                "date": "2023-05-02T15:08:20Z"
+            },
+            {
+                "name": "7.10.0-rc.33",
+                "date": "2023-04-27T20:46:13Z"
+            },
+            {
+                "name": "7.10.0-rc.32",
+                "date": "2023-04-26T19:43:14Z"
+            },
+            {
+                "name": "7.10.0-rc.31",
+                "date": "2023-04-26T17:31:05Z"
+            },
+            {
+                "name": "7.10.0-rc.30",
+                "date": "2023-04-26T15:43:20Z"
+            },
+            {
+                "name": "7.10.0-rc.29",
+                "date": "2023-04-26T15:36:06Z"
+            },
+            {
+                "name": "7.10.0-rc.28",
+                "date": "2023-04-26T11:53:09Z"
+            },
+            {
+                "name": "7.10.0-rc.27",
+                "date": "2023-04-25T18:27:41Z"
+            },
+            {
+                "name": "7.10.0-rc.26",
+                "date": "2023-04-25T16:03:08Z"
+            },
+            {
+                "name": "7.10.0-rc.25",
+                "date": "2023-04-24T15:27:56Z"
+            },
+            {
+                "name": "7.10.0-rc.24",
+                "date": "2023-04-24T11:03:13Z"
+            },
+            {
+                "name": "7.10.0-rc.23",
+                "date": "2023-04-21T19:19:16Z"
+            },
+            {
+                "name": "7.10.0-rc.22",
+                "date": "2023-04-20T22:18:32Z"
+            },
+            {
+                "name": "7.10.0-rc.21",
+                "date": "2023-04-20T21:17:08Z"
+            },
+            {
+                "name": "7.10.0-rc.20",
+                "date": "2023-04-20T18:21:55Z"
+            },
+            {
+                "name": "7.10.0-rc.19",
+                "date": "2023-04-20T18:03:52Z"
+            },
+            {
+                "name": "7.10.0-rc.18",
+                "date": "2023-04-20T14:28:40Z"
+            },
+            {
+                "name": "7.10.0-rc.17",
+                "date": "2023-04-20T08:19:03Z"
+            },
+            {
+                "name": "7.9.2-rc.2",
+                "date": "2023-04-19T22:03:03Z"
+            },
+            {
+                "name": "7.9.2-rc.1",
+                "date": "2023-04-19T09:33:43Z"
+            },
+            {
+                "name": "7.10.0-rc.16",
+                "date": "2023-04-12T18:59:14Z"
+            },
+            {
+                "name": "7.10.0-rc.15",
+                "date": "2023-04-12T12:07:45Z"
+            },
+            {
+                "name": "7.10.0-alpha.5",
+                "date": "2023-04-12T11:29:19Z"
+            },
+            {
+                "name": "7.10.0-rc.14",
+                "date": "2023-04-07T18:46:34Z"
+            },
+            {
+                "name": "7.10.0-rc.13",
+                "date": "2023-04-07T14:43:30Z"
+            },
+            {
+                "name": "7.10.0-rc.12",
+                "date": "2023-04-07T13:18:56Z"
+            },
+            {
+                "name": "7.10.0-rc.11",
+                "date": "2023-04-06T19:03:20Z"
+            },
+            {
+                "name": "7.10.0-rc.10",
+                "date": "2023-04-06T17:10:27Z"
+            },
+            {
+                "name": "7.10.0-alpha.4",
+                "date": "2023-04-04T08:58:54Z"
+            },
+            {
+                "name": "7.10.0-rc.9",
+                "date": "2023-04-03T12:43:53Z"
+            },
+            {
+                "name": "7.10.0-rc.8",
+                "date": "2023-03-30T15:16:57Z"
+            },
+            {
+                "name": "7.10.0-rc.7",
+                "date": "2023-03-30T13:51:37Z"
+            },
+            {
+                "name": "7.10.0-rc.6",
+                "date": "2023-03-30T12:09:16Z"
+            },
+            {
+                "name": "7.10.0-rc.5",
+                "date": "2023-03-30T12:01:56Z"
+            },
+            {
+                "name": "7.10.0-rc.4",
+                "date": "2023-03-29T12:30:37Z"
+            },
+            {
+                "name": "7.10.0-alpha.3",
+                "date": "2023-03-27T16:48:33Z"
+            },
+            {
+                "name": "7.10.0-rc.3",
+                "date": "2023-03-24T10:27:25Z"
+            },
+            {
+                "name": "7.9.1",
+                "date": "2023-03-23T12:24:06Z"
+            },
+            {
+                "name": "7.9.1-rc.3",
+                "date": "2023-03-23T11:05:37Z"
+            },
+            {
+                "name": "7.9.1-rc.2",
+                "date": "2023-03-22T19:40:13Z"
+            },
+            {
+                "name": "7.9.1-rc.1",
+                "date": "2023-03-22T08:17:36Z"
+            },
+            {
+                "name": "7.9.1-alpha.1",
+                "date": "2023-03-20T15:19:43Z"
+            },
+            {
+                "name": "7.10.0-alpha.2",
+                "date": "2023-03-17T10:10:14Z"
+            },
+            {
+                "name": "7.10.0-rc.2",
+                "date": "2023-03-16T11:05:50Z"
+            },
+            {
+                "name": "7.10.0-rc.1",
+                "date": "2023-03-15T14:49:41Z"
+            },
+            {
+                "name": "7.10.0-alpha.1",
+                "date": "2023-03-06T11:19:25Z"
+            },
+            {
+                "name": "7.9.0-rc.40",
+                "date": "2023-03-02T15:06:31Z"
+            },
+            {
+                "name": "7.9.0",
+                "date": "2023-03-01T16:30:12Z"
+            },
+            {
+                "name": "7.9.0-rc.39",
+                "date": "2023-03-01T22:28:10Z"
+            },
+            {
+                "name": "7.9.0-rc.38",
+                "date": "2023-03-01T00:23:32Z"
+            },
+            {
+                "name": "7.9.0-rc.37",
+                "date": "2023-02-28T16:14:59Z"
+            },
+            {
+                "name": "7.9.0-rc.36",
+                "date": "2023-02-28T10:06:12Z"
+            },
+            {
+                "name": "7.9.0-rc.35",
+                "date": "2023-02-27T17:51:52Z"
+            },
+            {
+                "name": "7.9.0-rc.34",
+                "date": "2023-02-27T15:53:35Z"
+            },
+            {
+                "name": "7.9.0-rc.33",
+                "date": "2023-02-27T13:01:19Z"
+            },
+            {
+                "name": "7.9.0-alpha.6",
+                "date": "2023-02-24T09:36:19Z"
+            },
+            {
+                "name": "7.9.0-rc.32",
+                "date": "2023-02-23T00:24:30Z"
+            },
+            {
+                "name": "7.9.0-rc.31",
+                "date": "2023-02-22T19:38:20Z"
+            },
+            {
+                "name": "7.9.0-rc.30",
+                "date": "2023-02-22T15:34:57Z"
+            },
+            {
+                "name": "7.9.0-rc.29",
+                "date": "2023-02-22T11:01:36Z"
+            },
+            {
+                "name": "7.9.0-rc.28",
+                "date": "2023-02-21T16:49:58Z"
+            },
+            {
+                "name": "7.9.0-rc.27",
+                "date": "2023-02-21T12:10:25Z"
+            },
+            {
+                "name": "7.9.0-alpha.5",
+                "date": "2023-02-21T19:39:21Z"
+            },
+            {
+                "name": "7.9.0-rc.26",
+                "date": "2023-02-20T16:27:57Z"
+            },
+            {
+                "name": "7.9.0-rc.25",
+                "date": "2023-02-20T14:21:56Z"
+            },
+            {
+                "name": "7.9.0-rc.24",
+                "date": "2023-02-20T13:21:36Z"
+            },
+            {
+                "name": "7.9.0-rc.23",
+                "date": "2023-02-20T12:46:01Z"
+            },
+            {
+                "name": "7.9.0-alpha.4",
+                "date": "2023-02-20T15:25:50Z"
+            },
+            {
+                "name": "7.9.0-rc.22",
+                "date": "2023-02-17T16:44:50Z"
+            },
+            {
+                "name": "7.9.0-rc.21",
+                "date": "2023-02-17T13:43:49Z"
+            },
+            {
+                "name": "7.9.0-rc.20",
+                "date": "2023-02-17T09:23:40Z"
+            },
+            {
+                "name": "7.9.0-rc.19",
+                "date": "2023-02-16T17:11:31Z"
+            },
+            {
+                "name": "7.9.0-rc.18",
+                "date": "2023-02-16T10:10:35Z"
+            },
+            {
+                "name": "7.9.0-alpha.3",
+                "date": "2023-02-16T14:01:50Z"
+            },
+            {
+                "name": "7.9.0-rc.17",
+                "date": "2023-02-15T13:26:24Z"
+            },
+            {
+                "name": "7.9.0-rc.16",
+                "date": "2023-02-15T10:08:16Z"
+            },
+            {
+                "name": "7.9.0-rc.15",
+                "date": "2023-02-14T16:49:49Z"
+            },
+            {
+                "name": "7.9.0-rc.14",
+                "date": "2023-02-14T14:48:35Z"
+            },
+            {
+                "name": "7.9.0-rc.13",
+                "date": "2023-02-14T13:28:53Z"
+            },
+            {
+                "name": "7.9.0-rc.12",
+                "date": "2023-02-14T12:32:54Z"
+            },
+            {
+                "name": "7.9.0-rc.11",
+                "date": "2023-02-13T13:39:24Z"
+            },
+            {
+                "name": "7.9.0-rc.9",
+                "date": "2023-02-10T13:21:26Z"
+            },
+            {
+                "name": "7.9.0-rc.10",
+                "date": "2023-02-10T18:20:21Z"
+            },
+            {
+                "name": "7.9.0-alpha.2",
+                "date": "2023-02-10T10:00:29Z"
+            },
+            {
+                "name": "7.9.0-rc.8",
+                "date": "2023-02-09T11:59:21Z"
+            },
+            {
+                "name": "7.9.0-rc.7",
+                "date": "2023-02-08T12:47:13Z"
+            },
+            {
+                "name": "7.9.0-rc.6",
+                "date": "2023-02-08T10:11:53Z"
+            },
+            {
+                "name": "7.9.0-rc.5",
+                "date": "2023-02-07T18:22:21Z"
+            },
+            {
+                "name": "7.9.0-rc.4",
+                "date": "2023-02-07T16:19:50Z"
+            },
+            {
+                "name": "7.9.0-rc.3",
+                "date": "2023-02-01T20:39:11Z"
+            },
+            {
+                "name": "7.9.0-rc.2",
+                "date": "2023-02-01T16:08:53Z"
+            },
+            {
+                "name": "7.9.0-rc.1",
+                "date": "2023-01-26T10:43:20Z"
+            },
+            {
+                "name": "7.9.0-alpha.1",
+                "date": "2023-01-25T10:13:57Z"
+            },
+            {
+                "name": "7.8.0",
+                "date": "2023-01-20T15:12:17Z"
+            },
+            {
+                "name": "7.8.0-rc.55",
+                "date": "2023-01-20T11:10:57Z"
+            },
+            {
+                "name": "7.8.0-rc.54",
+                "date": "2023-01-19T15:38:28Z"
+            },
+            {
+                "name": "7.8.0-rc.53",
+                "date": "2023-01-18T11:14:57Z"
+            },
+            {
+                "name": "7.8.0-rc.52",
+                "date": "2023-01-17T11:27:11Z"
+            },
+            {
+                "name": "7.8.0-alpha.8",
+                "date": "2023-01-17T09:22:44Z"
+            },
+            {
+                "name": "7.8.0-rc.51",
+                "date": "2023-01-16T17:52:48Z"
+            },
+            {
+                "name": "7.8.0-rc.50",
+                "date": "2023-01-16T10:55:15Z"
+            },
+            {
+                "name": "7.8.0-rc.49",
+                "date": "2023-01-13T22:59:34Z"
+            },
+            {
+                "name": "7.8.0-rc.48",
+                "date": "2023-01-13T17:35:40Z"
+            },
+            {
+                "name": "7.8.0-rc.47",
+                "date": "2023-01-13T16:04:57Z"
+            },
+            {
+                "name": "7.8.0-alpha.7",
+                "date": "2023-01-13T12:23:12Z"
+            },
+            {
+                "name": "7.8.0-alpha.6",
+                "date": "2023-01-13T10:38:19Z"
+            },
+            {
+                "name": "7.8.0-rc.46",
+                "date": "2023-01-12T20:20:44Z"
+            },
+            {
+                "name": "7.8.0-rc.45",
+                "date": "2023-01-12T18:36:39Z"
+            },
+            {
+                "name": "7.8.0-rc.44",
+                "date": "2023-01-12T08:56:24Z"
+            },
+            {
+                "name": "7.8.0-rc.43",
+                "date": "2023-01-11T18:40:47Z"
+            },
+            {
+                "name": "7.8.0-rc.42",
+                "date": "2023-01-11T17:29:18Z"
+            },
+            {
+                "name": "7.8.0-rc.41",
+                "date": "2023-01-11T16:57:27Z"
+            },
+            {
+                "name": "7.8.0-rc.40",
+                "date": "2023-01-11T12:34:57Z"
+            },
+            {
+                "name": "7.8.0-rc.39",
+                "date": "2023-01-11T01:45:13Z"
+            },
+            {
+                "name": "7.8.0-rc.38",
+                "date": "2023-01-10T19:15:30Z"
+            },
+            {
+                "name": "7.8.0-rc.37",
+                "date": "2023-01-10T09:28:50Z"
+            },
+            {
+                "name": "7.8.0-rc.36",
+                "date": "2023-01-09T19:58:29Z"
+            },
+            {
+                "name": "7.8.0-rc.35",
+                "date": "2023-01-09T11:51:30Z"
+            },
+            {
+                "name": "7.8.0-rc.34",
+                "date": "2023-01-06T14:57:13Z"
+            },
+            {
+                "name": "7.8.0-rc.33",
+                "date": "2023-01-06T13:50:33Z"
+            },
+            {
+                "name": "7.8.0-rc.32",
+                "date": "2023-01-04T18:22:49Z"
+            },
+            {
+                "name": "7.8.0-rc.31",
+                "date": "2023-01-04T15:07:13Z"
+            },
+            {
+                "name": "7.8.0-rc.30",
+                "date": "2023-01-03T17:46:38Z"
+            },
+            {
+                "name": "7.8.0-rc.29",
+                "date": "2023-01-03T15:40:37Z"
+            },
+            {
+                "name": "7.8.0-rc.28",
+                "date": "2023-01-03T15:13:36Z"
+            },
+            {
+                "name": "7.8.0-rc.27",
+                "date": "2023-01-03T12:38:51Z"
+            },
+            {
+                "name": "7.8.0-alpha.5",
+                "date": "2023-01-03T12:23:40Z"
+            },
+            {
+                "name": "7.8.0-alpha.4",
+                "date": "2023-01-03T11:51:56Z"
+            },
+            {
+                "name": "7.8.0-alpha.3",
+                "date": "2023-01-03T10:15:04Z"
+            },
+            {
+                "name": "7.8.0-rc.26",
+                "date": "2022-12-29T23:41:39Z"
+            },
+            {
+                "name": "7.8.0-rc.25",
+                "date": "2022-12-29T18:12:53Z"
+            },
+            {
+                "name": "7.8.0-rc.24",
+                "date": "2022-12-29T16:44:55Z"
+            },
+            {
+                "name": "7.8.0-rc.23",
+                "date": "2022-12-29T15:08:39Z"
+            },
+            {
+                "name": "7.8.0-rc.22",
+                "date": "2022-12-29T03:50:02Z"
+            },
+            {
+                "name": "7.8.0-rc.21",
+                "date": "2022-12-28T21:33:03Z"
+            },
+            {
+                "name": "7.8.0-alpha.2",
+                "date": "2022-12-28T15:06:00Z"
+            },
+            {
+                "name": "7.8.0-rc.20",
+                "date": "2022-12-27T15:32:34Z"
+            },
+            {
+                "name": "7.8.0-rc.19",
+                "date": "2022-12-27T14:39:05Z"
+            },
+            {
+                "name": "7.8.0-rc.18",
+                "date": "2022-12-27T10:47:32Z"
+            },
+            {
+                "name": "7.8.0-rc.17",
+                "date": "2022-12-23T16:40:12Z"
+            },
+            {
+                "name": "7.8.0-rc.16",
+                "date": "2022-12-22T18:26:38Z"
+            },
+            {
+                "name": "7.8.0-rc.15",
+                "date": "2022-12-22T15:27:12Z"
+            },
+            {
+                "name": "7.8.0-rc.14",
+                "date": "2022-12-22T09:32:16Z"
+            },
+            {
+                "name": "7.8.0-rc.13",
+                "date": "2022-12-21T23:14:51Z"
+            },
+            {
+                "name": "7.8.0-rc.12",
+                "date": "2022-12-21T16:58:29Z"
+            },
+            {
+                "name": "7.8.0-rc.11",
+                "date": "2022-12-21T02:54:04Z"
+            },
+            {
+                "name": "7.8.0-rc.10",
+                "date": "2022-12-21T02:24:47Z"
+            },
+            {
+                "name": "7.8.0-alpha.1",
+                "date": "2022-12-21T16:58:49Z"
+            },
+            {
+                "name": "7.7.0",
+                "date": "2022-12-16T10:37:50Z"
+            },
+            {
+                "name": "7.7.0-rc.76",
+                "date": "2022-12-15T18:01:49Z"
+            },
+            {
+                "name": "7.7.0-rc.75",
+                "date": "2022-12-15T16:37:50Z"
+            },
+            {
+                "name": "7.7.0-rc.74",
+                "date": "2022-12-15T11:18:55Z"
+            },
+            {
+                "name": "7.7.0-rc.73",
+                "date": "2022-12-15T05:18:11Z"
+            },
+            {
+                "name": "7.7.0-rc.72",
+                "date": "2022-12-15T00:55:54Z"
+            },
+            {
+                "name": "7.7.0-rc.71",
+                "date": "2022-12-14T09:38:53Z"
+            },
+            {
+                "name": "7.7.0-rc.70",
+                "date": "2022-12-13T18:12:01Z"
+            },
+            {
+                "name": "7.7.0-rc.69",
+                "date": "2022-12-13T17:46:20Z"
+            },
+            {
+                "name": "7.7.0-rc.68",
+                "date": "2022-12-08T02:48:35Z"
+            },
+            {
+                "name": "7.7.0-rc.67",
+                "date": "2022-12-08T02:09:45Z"
+            },
+            {
+                "name": "7.7.0-rc.66",
+                "date": "2022-12-07T14:20:58Z"
+            },
+            {
+                "name": "7.7.0-rc.65",
+                "date": "2022-12-07T13:14:34Z"
+            },
+            {
+                "name": "7.7.0-rc.64",
+                "date": "2022-12-02T20:18:30Z"
+            },
+            {
+                "name": "7.7.0-rc.63",
+                "date": "2022-12-02T19:04:51Z"
+            },
+            {
+                "name": "7.7.0-rc.62",
+                "date": "2022-12-02T10:46:27Z"
+            },
+            {
+                "name": "7.7.0-rc.61",
+                "date": "2022-12-02T03:00:08Z"
+            },
+            {
+                "name": "7.7.0-rc.60",
+                "date": "2022-12-02T00:02:07Z"
+            },
+            {
+                "name": "7.7.0-rc.59",
+                "date": "2022-12-01T23:22:50Z"
+            },
+            {
+                "name": "7.7.0-rc.58",
+                "date": "2022-12-01T17:35:05Z"
+            },
+            {
+                "name": "7.7.0-rc.57",
+                "date": "2022-11-30T14:21:11Z"
+            },
+            {
+                "name": "7.7.0-alpha.13",
+                "date": "2022-11-30T10:32:02Z"
+            },
+            {
+                "name": "7.7.0-rc.56",
+                "date": "2022-11-29T19:20:49Z"
+            },
+            {
+                "name": "7.7.0-rc.55",
+                "date": "2022-11-29T15:42:23Z"
+            },
+            {
+                "name": "7.7.0-rc.54",
+                "date": "2022-11-29T13:38:22Z"
+            },
+            {
+                "name": "7.7.0-rc.53",
+                "date": "2022-11-29T08:45:17Z"
+            },
+            {
+                "name": "7.7.0-rc.51",
+                "date": "2022-11-29T03:14:56Z"
+            },
+            {
+                "name": "7.7.0-alpha.12",
+                "date": "2022-11-29T12:19:51Z"
+            },
+            {
+                "name": "7.7.0-rc.50",
+                "date": "2022-11-28T15:56:10Z"
+            },
+            {
+                "name": "7.7.0-rc.49",
+                "date": "2022-11-28T14:18:12Z"
+            },
+            {
+                "name": "7.7.0-rc.48",
+                "date": "2022-11-28T02:39:17Z"
+            },
+            {
+                "name": "7.7.0-rc.47",
+                "date": "2022-11-28T02:15:16Z"
+            },
+            {
+                "name": "7.7.0-rc.46",
+                "date": "2022-11-28T01:57:44Z"
+            },
+            {
+                "name": "7.7.0-rc.45",
+                "date": "2022-11-25T16:12:48Z"
+            },
+            {
+                "name": "7.7.0-rc.44",
+                "date": "2022-11-25T12:28:17Z"
+            },
+            {
+                "name": "7.7.0-rc.43",
+                "date": "2022-11-25T09:12:07Z"
+            },
+            {
+                "name": "7.7.0-rc.42",
+                "date": "2022-11-24T19:03:44Z"
+            },
+            {
+                "name": "7.7.0-rc.41",
+                "date": "2022-11-24T14:33:07Z"
+            },
+            {
+                "name": "7.7.0-rc.40",
+                "date": "2022-11-24T14:24:18Z"
+            },
+            {
+                "name": "7.7.0-rc.39",
+                "date": "2022-11-24T14:03:36Z"
+            },
+            {
+                "name": "7.7.0-rc.38",
+                "date": "2022-11-24T11:02:47Z"
+            },
+            {
+                "name": "7.7.0-rc.37",
+                "date": "2022-11-24T02:11:57Z"
+            },
+            {
+                "name": "7.7.0-rc.36",
+                "date": "2022-11-24T01:27:08Z"
+            },
+            {
+                "name": "7.7.0-alpha.11",
+                "date": "2022-11-23T10:17:29Z"
+            },
+            {
+                "name": "7.6.1",
+                "date": "2022-11-23T13:43:24Z"
+            },
+            {
+                "name": "7.7.0-rc.34",
+                "date": "2022-11-22T18:49:12Z"
+            },
+            {
+                "name": "7.7.0-rc.33",
+                "date": "2022-11-22T09:48:43Z"
+            },
+            {
+                "name": "7.7.0-rc.32",
+                "date": "2022-11-21T17:31:53Z"
+            },
+            {
+                "name": "7.7.0-rc.31",
+                "date": "2022-11-21T15:45:48Z"
+            },
+            {
+                "name": "7.7.0-rc.30",
+                "date": "2022-11-21T13:45:02Z"
+            },
+            {
+                "name": "7.7.0-rc.29",
+                "date": "2022-11-18T20:10:52Z"
+            },
+            {
+                "name": "7.7.0-rc.28",
+                "date": "2022-11-18T16:01:12Z"
+            },
+            {
+                "name": "7.7.0-rc.27",
+                "date": "2022-11-17T19:57:45Z"
+            },
+            {
+                "name": "7.7.0-rc.26",
+                "date": "2022-11-17T17:51:04Z"
+            },
+            {
+                "name": "7.7.0-rc.25",
+                "date": "2022-11-17T17:32:00Z"
+            },
+            {
+                "name": "7.7.0-alpha.9",
+                "date": "2022-11-14T08:30:49Z"
+            },
+            {
+                "name": "7.7.0-alpha.10",
+                "date": "2022-11-14T10:33:51Z"
+            },
+            {
+                "name": "7.7.0-alpha.8",
+                "date": "2022-11-10T04:53:58Z"
+            },
+            {
+                "name": "7.7.0-alpha.7",
+                "date": "2022-11-09T07:51:58Z"
+            },
+            {
+                "name": "7.7.0-alpha.6",
+                "date": "2022-11-09T07:29:55Z"
+            },
+            {
+                "name": "7.7.0-alpha.5",
+                "date": "2022-11-09T04:43:19Z"
+            },
+            {
+                "name": "7.7.0-alpha.4",
+                "date": "2022-11-08T15:46:12Z"
+            },
+            {
+                "name": "7.7.0-alpha.3",
+                "date": "2022-11-02T15:06:25Z"
+            },
+            {
+                "name": "7.7.0-alpha.2",
+                "date": "2022-10-27T14:40:18Z"
+            },
+            {
+                "name": "7.7.0-alpha.1",
+                "date": "2022-10-27T13:19:41Z"
+            },
+            {
+                "name": "7.6.1-alpha.1",
+                "date": "2022-10-27T13:18:27Z"
+            },
+            {
+                "name": "7.6.0",
+                "date": "2022-10-27T13:41:31Z"
+            },
+            {
+                "name": "7.6.0-alpha.15",
+                "date": "2022-10-21T12:35:42Z"
+            },
+            {
+                "name": "7.6.0-alpha.14",
+                "date": "2022-10-19T14:54:19Z"
+            },
+            {
+                "name": "7.6.0-alpha.13",
+                "date": "2022-10-19T10:22:12Z"
+            },
+            {
+                "name": "7.6.0-alpha.12",
+                "date": "2022-10-18T15:34:45Z"
+            },
+            {
+                "name": "7.6.0-alpha.11",
+                "date": "2022-10-17T13:22:36Z"
+            },
+            {
+                "name": "7.5.1",
+                "date": "2022-09-23T10:01:46Z"
+            },
+            {
+                "name": null,
+                "date": "2022-09-12T14:01:39Z"
+            },
+            {
+                "name": null,
+                "date": "2022-06-27T13:02:11Z"
+            },
+            {
+                "name": null,
+                "date": "2022-05-10T13:57:02Z"
+            },
+            {
+                "name": "",
+                "date": "2022-03-31T08:00:11Z"
+            },
+            {
+                "name": "",
+                "date": "2022-02-02T13:36:37Z"
+            },
+            {
+                "name": "",
+                "date": "2021-11-23T17:40:09Z"
+            },
+            {
+                "name": "",
+                "date": "2021-10-08T13:23:46Z"
+            },
+            {
+                "name": "",
+                "date": "2021-07-13T08:18:15Z"
+            },
+            {
+                "name": "",
+                "date": "2021-05-25T12:45:29Z"
+            },
+            {
+                "name": "7.1.0-M12",
+                "date": "2021-03-16T14:27:54Z"
+            },
+            {
+                "name": "",
+                "date": "2020-12-22T15:37:18Z"
+            },
+            {
+                "name": "",
+                "date": "2019-08-16T08:00:43Z"
+            },
+            {
+                "name": "",
+                "date": "2019-07-31T09:24:49Z"
+            },
+            {
+                "name": "Activiti 6.0.0",
+                "date": "2017-05-26T14:00:47Z"
+            },
+            {
+                "name": "Activiti 6.0.0.RC1",
+                "date": "2017-05-02T17:15:36Z"
+            },
+            {
+                "name": "Activiti 5.22.0",
+                "date": "2016-11-04T15:43:35Z"
+            },
+            {
+                "name": "Activiti 6.0.0.Beta4",
+                "date": "2016-09-07T14:39:46Z"
+            },
+            {
+                "name": "Activiti 6.0.0.Beta3",
+                "date": "2016-08-31T10:16:28Z"
+            },
+            {
+                "name": "Activiti 5.21.0",
+                "date": "2016-06-13T08:15:38Z"
+            },
+            {
+                "name": "Activiti 5.20.0",
+                "date": "2016-04-18T15:14:19Z"
+            },
+            {
+                "name": "Activiti 5.19.0.2",
+                "date": "2016-01-29T14:55:46Z"
+            },
+            {
+                "name": "Activiti 6.0.0.Beta2",
+                "date": "2015-12-23T13:37:15Z"
+            },
+            {
+                "name": "Activiti 5.19.0",
+                "date": "2015-11-05T13:50:44Z"
+            },
+            {
+                "name": "Activiti 6.0.0.Beta1",
+                "date": "2015-09-02T11:46:32Z"
+            },
+            {
+                "name": "Activiti 5.18.0",
+                "date": "2015-07-31T09:33:48Z"
+            },
+            {
+                "name": "Activiti 5.17.0",
+                "date": "2014-12-18T10:18:20Z"
+            },
+            {
+                "name": "Activiti 5.16.4",
+                "date": "2014-10-16T08:32:24Z"
+            },
+            {
+                "name": "Activiti 5.16.3",
+                "date": "2014-09-17T07:34:22Z"
+            },
+            {
+                "name": "Activiti 5.16.2",
+                "date": "2014-08-28T18:31:29Z"
+            },
+            {
+                "name": "Activiti 5.16.1",
+                "date": "2014-08-15T07:16:38Z"
+            },
+            {
+                "name": "Activiti 5.16",
+                "date": "2014-07-23T07:28:07Z"
+            },
+            {
+                "name": "Activiti 5.15.1",
+                "date": "2014-04-01T15:06:57Z"
+            },
+            {
+                "name": "Activiti 5.15",
+                "date": "2014-03-21T12:46:44Z"
+            },
+            {
+                "name": "Activiti 5.14",
+                "date": "2014-03-19T09:15:25Z"
+            }
+        ]
+    }
+}

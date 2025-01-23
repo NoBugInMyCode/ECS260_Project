@@ -1,0 +1,415 @@
+{
+    "https://api.github.com/repos/robotframework/robotframework": {
+        "forks": 2363,
+        "watchers": 10175,
+        "stars": 10175,
+        "languages": {
+            "Python": 3295743,
+            "RobotFramework": 1404104,
+            "TypeScript": 688083,
+            "HTML": 246811,
+            "JavaScript": 167386,
+            "CSS": 54192
+        },
+        "commits": [
+            "2025-01-14T14:48:56Z",
+            "2025-01-14T13:29:20Z",
+            "2025-01-14T13:25:58Z",
+            "2025-01-14T11:04:49Z",
+            "2025-01-14T11:04:03Z",
+            "2025-01-14T09:13:27Z",
+            "2025-01-14T09:13:16Z",
+            "2025-01-14T09:08:58Z",
+            "2025-01-14T06:26:58Z",
+            "2025-01-14T06:25:08Z",
+            "2025-01-13T19:13:30Z",
+            "2025-01-13T19:11:26Z",
+            "2025-01-13T19:09:14Z",
+            "2025-01-13T18:52:15Z",
+            "2025-01-13T09:58:57Z",
+            "2025-01-11T14:29:35Z",
+            "2024-12-31T13:04:43Z",
+            "2025-01-10T15:17:23Z",
+            "2025-01-09T13:01:53Z",
+            "2025-01-08T13:40:25Z",
+            "2025-01-10T15:10:30Z",
+            "2025-01-06T20:20:29Z",
+            "2025-01-02T13:52:32Z",
+            "2024-12-31T09:46:06Z",
+            "2024-12-31T09:42:16Z",
+            "2024-12-31T09:41:49Z",
+            "2024-12-30T23:54:43Z",
+            "2024-12-30T23:04:26Z",
+            "2024-12-30T22:47:25Z",
+            "2024-12-30T22:34:11Z"
+        ],
+        "creation_date": "2014-06-27T11:10:38Z",
+        "contributors": 30,
+        "topics": [
+            "attd",
+            "automation",
+            "bdd",
+            "python",
+            "robotframework",
+            "rpa",
+            "testautomation",
+            "testing"
+        ],
+        "subscribers": 485,
+        "readme": "Robot Framework\n===============\n\n.. contents::\n   :local:\n\nIntroduction\n------------\n\n`Robot Framework <http://robotframework.org>`_ |r| is a generic open source\nautomation framework for acceptance testing, acceptance test driven\ndevelopment (ATDD), and robotic process automation (RPA). It has simple plain\ntext syntax and it can be extended easily with generic and custom libraries.\n\nRobot Framework is operating system and application independent. It is\nimplemented using `Python <http://python.org>`_ which is also the primary\nlanguage to extend it. The framework has a rich ecosystem around it consisting\nof various generic libraries and tools that are developed as separate projects.\nFor more information about Robot Framework and the ecosystem, see\nhttp://robotframework.org.\n\nRobot Framework project is hosted on GitHub_ where you can find source code,\nan issue tracker, and some further documentation. Downloads are hosted on PyPI_.\n\nRobot Framework development is sponsored by non-profit `Robot Framework Foundation\n<http://robotframework.org/foundation>`_. If you are using the framework\nand benefiting from it, consider joining the foundation to help maintaining\nthe framework and developing it further.\n\n.. _GitHub: https://github.com/robotframework/robotframework\n.. _PyPI: https://pypi.python.org/pypi/robotframework\n\n.. image:: https://img.shields.io/pypi/v/robotframework.svg?label=version\n   :target: https://pypi.python.org/pypi/robotframework\n   :alt: Latest version\n\n.. image:: https://img.shields.io/pypi/l/robotframework.svg\n   :target: http://www.apache.org/licenses/LICENSE-2.0.html\n   :alt: License\n\nInstallation\n------------\n\nIf you already have Python_ with `pip <https://pip.pypa.io>`_ installed,\nyou can simply run::\n\n    pip install robotframework\n\nFor more detailed installation instructions, including installing Python, see\n`<INSTALL.rst>`__.\n\nRobot Framework requires Python 3.8 or newer and runs also on `PyPy <http://pypy.org>`_.\nThe latest version that supports Python 3.6 and 3.7 is `Robot Framework 6.1.1`__.\nIf you need to use Python 2, `Jython <http://jython.org>`_ or\n`IronPython <http://ironpython.net>`_, you can use `Robot Framework 4.1.3`__.\n\n__ https://github.com/robotframework/robotframework/tree/v6.1.1#readme\n__ https://github.com/robotframework/robotframework/tree/v4.1.3#readme\n\nExample\n-------\n\nBelow is a simple example test case for testing login to some system.\nYou can find more examples with links to related demo projects from\nhttp://robotframework.org.\n\n.. code:: robotframework\n\n    *** Settings ***\n    Documentation     A test suite with a single test for valid login.\n    ...\n    ...               This test has a workflow that is created using keywords in\n    ...               the imported resource file.\n    Resource          login.resource\n\n    *** Test Cases ***\n    Valid Login\n        Open Browser To Login Page\n        Input Username    demo\n        Input Password    mode\n        Submit Credentials\n        Welcome Page Should Be Open\n        [Teardown]    Close Browser\n\nUsage\n-----\n\nTests (or tasks) are executed from the command line using the ``robot``\ncommand or by executing the ``robot`` module directly like ``python -m robot`` .\n\nThe basic usage is giving a path to a test (or task) file or directory as an\nargument with possible command line options before the path::\n\n    robot tests.robot\n    robot --variable BROWSER:Firefox --outputdir results path/to/tests/\n\nAdditionally, there is the ``rebot`` tool for combining results and otherwise\npost-processing outputs::\n\n    rebot --name Example output1.xml output2.xml\n\nRun ``robot --help`` and ``rebot --help`` for more information about the command\nline usage. For a complete reference manual see `Robot Framework User Guide`_.\n\nDocumentation\n-------------\n\n- `Robot Framework User Guide\n  <http://robotframework.org/robotframework/#user-guide>`_\n- `Standard libraries\n  <http://robotframework.org/robotframework/#standard-libraries>`_\n- `API documentation <http://robot-framework.readthedocs.org>`_\n- `General documentation <http://robotframework.org/>`_\n\nSupport and Contact\n-------------------\n\n- `Slack <http://slack.robotframework.org/>`_\n- `Forum <https://forum.robotframework.org/>`_\n- `robotframework-users\n  <https://groups.google.com/group/robotframework-users/>`_ mailing list\n\nContributing\n------------\n\nInterested to contribute to Robot Framework? Great! In that case it is a good\nstart by looking at the `<CONTRIBUTING.rst>`__. If you\ndo not already have an issue you would like to work on, you can check\nissues with `good new issue`__ and `help wanted`__ labels.\n\nRemember also that there are many other tools and libraries in the wider\n`Robot Framework ecosystem <http://robotframework.org>`_ that you can\ncontribute to!\n\n__ https://github.com/robotframework/robotframework/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22\n__ https://github.com/robotframework/robotframework/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22\n\nLicense and Trademark\n---------------------\n\nRobot Framework is open source software provided under the `Apache License 2.0`__.\nRobot Framework documentation and other similar content use the\n`Creative Commons Attribution 3.0 Unported`__ license. Most libraries and tools\nin the ecosystem are also open source, but they may use different licenses.\n\nRobot Framework trademark is owned by `Robot Framework Foundation`_.\n\n__ http://apache.org/licenses/LICENSE-2.0\n__ http://creativecommons.org/licenses/by/3.0\n\n.. |r| unicode:: U+00AE\n",
+        "releases": [
+            {
+                "name": "Robot Framework 7.2",
+                "date": "2025-01-14T14:54:23Z"
+            },
+            {
+                "name": "Robot Framework 7.2 release candidate 1",
+                "date": "2024-12-31T09:49:10Z"
+            },
+            {
+                "name": "Robot Framework 7.2 beta 1",
+                "date": "2024-12-18T22:38:41Z"
+            },
+            {
+                "name": "Robot Framework 7.1.1",
+                "date": "2024-10-19T12:32:22Z"
+            },
+            {
+                "name": "Robot Framework 7.1",
+                "date": "2024-09-10T11:10:25Z"
+            },
+            {
+                "name": "Robot Framework 7.1 release candidate 2",
+                "date": "2024-09-03T12:48:27Z"
+            },
+            {
+                "name": "Robot Framework 7.1 release candidate 1",
+                "date": "2024-08-30T08:29:44Z"
+            },
+            {
+                "name": "Robot Framework 7.0.1",
+                "date": "2024-06-10T20:07:39Z"
+            },
+            {
+                "name": "Robot Framework 7.0.1 release candidate 2",
+                "date": "2024-06-07T15:31:49Z"
+            },
+            {
+                "name": "Robot Framework 7.0",
+                "date": "2024-01-11T16:01:12Z"
+            },
+            {
+                "name": "Robot Framework 7.0 release candidate 3",
+                "date": "2024-01-08T09:50:48Z"
+            },
+            {
+                "name": "Robot Framework 7.0 release candidate 2",
+                "date": "2024-01-04T18:26:36Z"
+            },
+            {
+                "name": "Robot Framework 7.0 release candidate 1",
+                "date": "2023-12-21T20:41:23Z"
+            },
+            {
+                "name": "Robot Framework 7.0 beta 1",
+                "date": "2023-12-15T22:58:10Z"
+            },
+            {
+                "name": "Robot Framework 7.0 alpha 2",
+                "date": "2023-11-22T20:55:19Z"
+            },
+            {
+                "name": "Robot Framework 7.0 alpha 1",
+                "date": "2023-11-09T21:57:30Z"
+            },
+            {
+                "name": "Robot Framework 6.1.1",
+                "date": "2023-07-28T19:29:00Z"
+            },
+            {
+                "name": "Robot Framework 6.1",
+                "date": "2023-06-12T09:41:48Z"
+            },
+            {
+                "name": "Robot Framework 6.1 release candidate 1",
+                "date": "2023-06-05T15:39:56Z"
+            },
+            {
+                "name": "Robot Framework 6.1 beta 1",
+                "date": "2023-05-05T20:39:58Z"
+            },
+            {
+                "name": "Robot Framework 6.1 alpha 1",
+                "date": "2023-03-17T12:04:54Z"
+            },
+            {
+                "name": "Robot Framework 6.0.2",
+                "date": "2023-01-08T19:24:02Z"
+            },
+            {
+                "name": "Robot Framework 6.0.1",
+                "date": "2022-11-03T16:21:34Z"
+            },
+            {
+                "name": "Robot Framework 6.0",
+                "date": "2022-10-19T10:31:50Z"
+            },
+            {
+                "name": "Robot Framework 6.0 rc 2",
+                "date": "2022-10-11T19:55:27Z"
+            },
+            {
+                "name": "Robot Framework 6.0 rc 1",
+                "date": "2022-09-29T22:41:01Z"
+            },
+            {
+                "name": "Robot Framework 5.1 beta 2",
+                "date": "2022-09-21T20:27:25Z"
+            },
+            {
+                "name": "Robot Framework 5.1 beta 1",
+                "date": "2022-09-02T18:08:19Z"
+            },
+            {
+                "name": "Robot Framework 5.1 alpha 2",
+                "date": "2022-07-21T18:03:54Z"
+            },
+            {
+                "name": "Robot Framework 5.1 alpha 1",
+                "date": "2022-07-15T12:22:05Z"
+            },
+            {
+                "name": "Robot Framework 5.0.1",
+                "date": "2022-05-16T07:55:33Z"
+            },
+            {
+                "name": "Robot Framework 5.0.1 rc 1",
+                "date": "2022-05-09T18:20:29Z"
+            },
+            {
+                "name": "Robot Framework 5.0",
+                "date": "2022-03-23T16:07:03Z"
+            },
+            {
+                "name": "Robot Framework 5.0 release candidate 2",
+                "date": "2022-03-18T14:13:52Z"
+            },
+            {
+                "name": "Robot Framework 5.0 beta 1",
+                "date": "2022-02-11T16:01:15Z"
+            },
+            {
+                "name": "Robot Framework 5.0 alpha 1",
+                "date": "2022-01-27T21:50:23Z"
+            },
+            {
+                "name": "Robot Framework 4.1.3",
+                "date": "2021-12-15T19:00:16Z"
+            },
+            {
+                "name": "Robot Framework 4.1.2",
+                "date": "2021-10-15T08:56:42Z"
+            },
+            {
+                "name": "Robot Framework 4.1.1",
+                "date": "2021-09-08T10:04:10Z"
+            },
+            {
+                "name": "Robot Framework 4.1",
+                "date": "2021-07-19T10:40:50Z"
+            },
+            {
+                "name": "Robot Framework 4.0.3",
+                "date": "2021-05-25T11:27:33Z"
+            },
+            {
+                "name": "Robot Framework 4.0.2",
+                "date": "2021-05-11T12:28:27Z"
+            },
+            {
+                "name": "Robot Framework 4.0.1",
+                "date": "2021-04-08T20:19:00Z"
+            },
+            {
+                "name": "Robot Framework 4.0.1 beta 1",
+                "date": "2021-04-01T15:49:04Z"
+            },
+            {
+                "name": "Robot Framework 4.0",
+                "date": "2021-03-11T11:39:04Z"
+            },
+            {
+                "name": "Robot Framework 4.0 rc 2",
+                "date": "2021-03-10T15:07:08Z"
+            },
+            {
+                "name": "Robot Framework 4.0 rc 1",
+                "date": "2021-03-05T16:27:08Z"
+            },
+            {
+                "name": "Robot Framework 4.0 beta 3",
+                "date": "2021-02-16T20:04:45Z"
+            },
+            {
+                "name": "Robot Framework 4.0 beta 1",
+                "date": "2020-11-30T19:25:01Z"
+            },
+            {
+                "name": "Robot Framework 3.2.2",
+                "date": "2020-09-01T18:17:36Z"
+            },
+            {
+                "name": "Robot Framework 3.2.1",
+                "date": "2020-07-30T11:48:48Z"
+            },
+            {
+                "name": "Robot Framework 3.2",
+                "date": "2020-04-27T13:27:22Z"
+            },
+            {
+                "name": "Robot Framework 3.2 rc 2",
+                "date": "2020-04-27T13:25:28Z"
+            },
+            {
+                "name": "Robot Framework 3.2 rc 1",
+                "date": "2020-04-03T18:55:29Z"
+            },
+            {
+                "name": "Robot Framework 3.2 beta 2",
+                "date": "2020-02-14T10:24:31Z"
+            },
+            {
+                "name": "Robot Framework 3.2 beta 1",
+                "date": "2020-01-13T10:41:34Z"
+            },
+            {
+                "name": "Robot Framework 3.2 alpha 1",
+                "date": "2019-11-12T14:34:49Z"
+            },
+            {
+                "name": "Robot Framework 3.1.2",
+                "date": "2019-05-24T08:22:44Z"
+            },
+            {
+                "name": "Robot Framework 3.1.2 release candidate 1",
+                "date": "2019-05-16T21:04:06Z"
+            },
+            {
+                "name": "Robot Framework 3.1.1",
+                "date": "2019-01-08T14:48:34Z"
+            },
+            {
+                "name": "Robot Framework 3.1.1 release candidate 1",
+                "date": "2018-12-31T15:55:22Z"
+            },
+            {
+                "name": "Robot Framework 3.1",
+                "date": "2018-12-06T17:38:42Z"
+            },
+            {
+                "name": "Robot Framework 3.1 release candidate 2",
+                "date": "2018-12-03T21:51:45Z"
+            },
+            {
+                "name": "Robot Framework 3.1 release candidate 1",
+                "date": "2018-11-25T14:52:32Z"
+            },
+            {
+                "name": "Robot Framework 3.1 beta 1",
+                "date": "2018-10-26T19:13:33Z"
+            },
+            {
+                "name": "Robot Framework 3.1 alpha 2",
+                "date": "2018-10-26T19:12:23Z"
+            },
+            {
+                "name": "Robot Framework 3.1 alpha 1",
+                "date": "2018-06-06T21:39:32Z"
+            },
+            {
+                "name": "Robot Framework 3.0.4",
+                "date": "2018-04-25T20:37:06Z"
+            },
+            {
+                "name": "Robot Framework 3.0.4 RC 1",
+                "date": "2018-04-22T21:05:14Z"
+            },
+            {
+                "name": "Robot Framework 3.0.3",
+                "date": "2018-04-06T22:37:56Z"
+            },
+            {
+                "name": "Robot Framework 3.0.3 RC 1",
+                "date": "2018-03-30T18:18:26Z"
+            },
+            {
+                "name": "Robot Framework 3.0.2",
+                "date": "2017-02-07T06:49:01Z"
+            },
+            {
+                "name": "Robot Framework 3.0.1",
+                "date": "2017-02-07T06:49:26Z"
+            },
+            {
+                "name": "Robot Framework 3.0",
+                "date": "2015-12-31T10:55:11Z"
+            },
+            {
+                "name": "Robot Framework 3.0 beta 1",
+                "date": "2015-12-22T22:42:04Z"
+            },
+            {
+                "name": "Robot Framework 3.0 alpha 2",
+                "date": "2015-12-10T15:47:38Z"
+            },
+            {
+                "name": "Robot Framework 3.0 alpha 1",
+                "date": "2015-11-19T15:50:39Z"
+            },
+            {
+                "name": "Robot Framework 2.9.2",
+                "date": "2015-10-09T09:12:20Z"
+            },
+            {
+                "name": "Robot Framework 2.9.1",
+                "date": "2015-08-28T13:16:31Z"
+            },
+            {
+                "name": "Robot Framework 2.9",
+                "date": "2015-07-30T23:42:55Z"
+            },
+            {
+                "name": "Robot Framework 2.9  release candidate 1",
+                "date": "2015-07-14T23:08:28Z"
+            },
+            {
+                "name": "Robot Framework 2.9 beta 2",
+                "date": "2015-07-02T12:33:34Z"
+            },
+            {
+                "name": "Robot Framework 2.9 beta 1",
+                "date": "2015-06-26T12:12:27Z"
+            },
+            {
+                "name": "Robot Framework 2.9 alpha 3",
+                "date": "2015-06-18T09:56:01Z"
+            },
+            {
+                "name": "Robot Framework 2.9 alpha 2",
+                "date": "2015-06-05T09:14:40Z"
+            },
+            {
+                "name": "Robot Framework 2.9 alpha 1",
+                "date": "2015-04-10T12:39:17Z"
+            },
+            {
+                "name": "Robot Framework 2.8.7",
+                "date": "2015-01-16T09:52:10Z"
+            },
+            {
+                "name": "Robot Framework 2.8.6",
+                "date": "2014-10-07T15:12:32Z"
+            }
+        ]
+    }
+}

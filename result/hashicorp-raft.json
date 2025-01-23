@@ -1,0 +1,151 @@
+{
+    "https://api.github.com/repos/hashicorp/raft": {
+        "forks": 1007,
+        "watchers": 8379,
+        "stars": 8379,
+        "languages": {
+            "Go": 583994,
+            "Makefile": 1325,
+            "Shell": 465
+        },
+        "commits": [
+            "2025-01-09T20:56:26Z",
+            "2025-01-09T16:33:23Z",
+            "2024-12-12T13:19:17Z",
+            "2024-11-19T08:49:01Z",
+            "2024-11-19T08:46:49Z",
+            "2024-11-18T22:23:40Z",
+            "2024-11-18T18:50:03Z",
+            "2024-11-18T04:08:38Z",
+            "2024-11-18T04:05:40Z",
+            "2024-10-10T16:57:40Z",
+            "2024-09-24T12:23:22Z",
+            "2024-08-28T17:20:42Z",
+            "2024-08-22T17:01:12Z",
+            "2024-08-22T16:35:07Z",
+            "2024-08-20T15:16:18Z",
+            "2024-06-11T15:19:51Z",
+            "2024-06-10T16:04:01Z",
+            "2024-06-06T21:36:18Z",
+            "2024-06-06T14:40:17Z",
+            "2024-06-06T00:45:09Z",
+            "2024-06-01T09:36:56Z",
+            "2024-04-26T14:48:52Z",
+            "2024-04-23T09:57:29Z",
+            "2024-04-03T13:59:24Z",
+            "2024-03-25T13:48:29Z",
+            "2024-01-09T00:37:57Z",
+            "2023-12-21T00:46:44Z",
+            "2023-12-04T14:38:08Z",
+            "2023-11-20T18:25:35Z",
+            "2023-11-15T17:39:53Z"
+        ],
+        "creation_date": "2013-11-05T00:41:20Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 418,
+        "readme": "raft [![Build Status](https://github.com/hashicorp/raft/workflows/ci/badge.svg)](https://github.com/hashicorp/raft/actions)\n====\n\nraft is a [Go](http://www.golang.org) library that manages a replicated\nlog and can be used with an FSM to manage replicated state machines. It\nis a library for providing [consensus](http://en.wikipedia.org/wiki/Consensus_(computer_science)).\n\nThe use cases for such a library are far-reaching, such as replicated state\nmachines which are a key component of many distributed systems. They enable\nbuilding Consistent, Partition Tolerant (CP) systems, with limited\nfault tolerance as well.\n\n## Building\n\nIf you wish to build raft you'll need Go version 1.16+ installed.\n\nPlease check your installation with:\n\n```\ngo version\n```\n\n## Documentation\n\nFor complete documentation, see the associated [Godoc](http://godoc.org/github.com/hashicorp/raft).\n\nTo prevent complications with cgo, the primary backend `MDBStore` is in a separate repository,\ncalled [raft-mdb](http://github.com/hashicorp/raft-mdb). That is the recommended implementation\nfor the `LogStore` and `StableStore`.\n\nA pure Go backend using [Bbolt](https://github.com/etcd-io/bbolt) is also available called\n[raft-boltdb](https://github.com/hashicorp/raft-boltdb). It can also be used as a `LogStore`\nand `StableStore`.\n\n\n## Community Contributed Examples \n- [Raft gRPC Example](https://github.com/Jille/raft-grpc-example) - Utilizing the Raft repository with gRPC\n- [Raft-based KV-store Example](https://github.com/otoolep/hraftd) - Uses Hashicorp Raft to build a distributed key-value store\n\n\n## Tagged Releases\n\nAs of September 2017, HashiCorp will start using tags for this library to clearly indicate\nmajor version updates. We recommend you vendor your application's dependency on this library.\n\n* v0.1.0 is the original stable version of the library that was in main and has been maintained\nwith no breaking API changes. This was in use by Consul prior to version 0.7.0.\n\n* v1.0.0 takes the changes that were staged in the library-v2-stage-one branch. This version\nmanages server identities using a UUID, so introduces some breaking API changes. It also versions\nthe Raft protocol, and requires some special steps when interoperating with Raft servers running\nolder versions of the library (see the detailed comment in config.go about version compatibility).\nYou can reference https://github.com/hashicorp/consul/pull/2222 for an idea of what was required\nto port Consul to these new interfaces.\n\n    This version includes some new features as well, including non voting servers, a new address\n    provider abstraction in the transport layer, and more resilient snapshots.\n\n## Protocol\n\nraft is based on [\"Raft: In Search of an Understandable Consensus Algorithm\"](https://raft.github.io/raft.pdf)\n\nA high level overview of the Raft protocol is described below, but for details please read the full\n[Raft paper](https://raft.github.io/raft.pdf)\nfollowed by the raft source. Any questions about the raft protocol should be sent to the\n[raft-dev mailing list](https://groups.google.com/forum/#!forum/raft-dev).\n\n### Protocol Description\n\nRaft nodes are always in one of three states: follower, candidate or leader. All\nnodes initially start out as a follower. In this state, nodes can accept log entries\nfrom a leader and cast votes. If no entries are received for some time, nodes\nself-promote to the candidate state. In the candidate state nodes request votes from\ntheir peers. If a candidate receives a quorum of votes, then it is promoted to a leader.\nThe leader must accept new log entries and replicate to all the other followers.\nIn addition, if stale reads are not acceptable, all queries must also be performed on\nthe leader.\n\nOnce a cluster has a leader, it is able to accept new log entries. A client can\nrequest that a leader append a new log entry, which is an opaque binary blob to\nRaft. The leader then writes the entry to durable storage and attempts to replicate\nto a quorum of followers. Once the log entry is considered *committed*, it can be\n*applied* to a finite state machine. The finite state machine is application specific,\nand is implemented using an interface.\n\nAn obvious question relates to the unbounded nature of a replicated log. Raft provides\na mechanism by which the current state is snapshotted, and the log is compacted. Because\nof the FSM abstraction, restoring the state of the FSM must result in the same state\nas a replay of old logs. This allows Raft to capture the FSM state at a point in time,\nand then remove all the logs that were used to reach that state. This is performed automatically\nwithout user intervention, and prevents unbounded disk usage as well as minimizing\ntime spent replaying logs.\n\nLastly, there is the issue of updating the peer set when new servers are joining\nor existing servers are leaving. As long as a quorum of nodes is available, this\nis not an issue as Raft provides mechanisms to dynamically update the peer set.\nIf a quorum of nodes is unavailable, then this becomes a very challenging issue.\nFor example, suppose there are only 2 peers, A and B. The quorum size is also\n2, meaning both nodes must agree to commit a log entry. If either A or B fails,\nit is now impossible to reach quorum. This means the cluster is unable to add,\nor remove a node, or commit any additional log entries. This results in *unavailability*.\nAt this point, manual intervention would be required to remove either A or B,\nand to restart the remaining node in bootstrap mode.\n\nA Raft cluster of 3 nodes can tolerate a single node failure, while a cluster\nof 5 can tolerate 2 node failures. The recommended configuration is to either\nrun 3 or 5 raft servers. This maximizes availability without\ngreatly sacrificing performance.\n\nIn terms of performance, Raft is comparable to Paxos. Assuming stable leadership,\ncommitting a log entry requires a single round trip to half of the cluster.\nThus performance is bound by disk I/O and network latency.\n\n\n  ## Metrics Emission and Compatibility\n\n  This library can emit metrics using either `github.com/armon/go-metrics` or `github.com/hashicorp/go-metrics`. Choosing between the libraries is controlled via build tags. \n\n  **Build Tags**\n  * `armonmetrics` - Using this tag will cause metrics to be routed to `armon/go-metrics`\n  * `hashicorpmetrics` - Using this tag will cause all metrics to be routed to `hashicorp/go-metrics`\n\n  If no build tag is specified, the default behavior is to use `armon/go-metrics`. \n\n  **Deprecating `armon/go-metrics`**\n\n  Emitting metrics to `armon/go-metrics` is officially deprecated. Usage of `armon/go-metrics` will remain the default until mid-2025 with opt-in support continuing to the end of 2025.\n\n  **Migration**\n  To migrate an application currently using the older `armon/go-metrics` to instead use `hashicorp/go-metrics` the following should be done.\n\n  1. Upgrade libraries using `armon/go-metrics` to consume `hashicorp/go-metrics/compat` instead. This should involve only changing import statements. All repositories in the `hashicorp` namespace\n  2. Update an applications library dependencies to those that have the compatibility layer configured.\n  3. Update the application to use `hashicorp/go-metrics` for configuring metrics export instead of `armon/go-metrics`\n     * Replace all application imports of `github.com/armon/go-metrics` with `github.com/hashicorp/go-metrics`\n     * Instrument your build system to build with the `hashicorpmetrics` tag.\n\n  Eventually once the default behavior changes to use `hashicorp/go-metrics` by default (mid-2025), you can drop the `hashicorpmetrics` build tag.\n",
+        "releases": [
+            {
+                "name": "v1.7.2",
+                "date": "2025-01-09T20:58:13Z"
+            },
+            {
+                "name": "v1.7.1",
+                "date": "2024-08-29T11:34:45Z"
+            },
+            {
+                "name": "v1.7.0 (June 6th, 2024)",
+                "date": "2024-06-06T21:39:06Z"
+            },
+            {
+                "name": "v1.6.1 (January 8th, 2024)",
+                "date": "2024-06-06T00:42:47Z"
+            },
+            {
+                "name": "1.6.0",
+                "date": "2023-11-15T17:45:30Z"
+            },
+            {
+                "name": "v1.5.0",
+                "date": "2023-04-21T12:29:03Z"
+            },
+            {
+                "name": "",
+                "date": "2023-03-17T20:28:56Z"
+            },
+            {
+                "name": "v1.3.11",
+                "date": "2022-10-05T18:13:16Z"
+            },
+            {
+                "name": "v1.3.10",
+                "date": "2022-08-05T16:35:18Z"
+            },
+            {
+                "name": "v1.3.9",
+                "date": "2022-04-27T14:47:21Z"
+            },
+            {
+                "name": "v1.3.8",
+                "date": "2022-04-25T13:47:10Z"
+            },
+            {
+                "name": "v1.3.7",
+                "date": "2022-04-14T13:35:16Z"
+            },
+            {
+                "name": "v1.3.6",
+                "date": "2022-03-02T22:36:34Z"
+            },
+            {
+                "name": "v1.3.5",
+                "date": "2022-02-11T21:41:51Z"
+            },
+            {
+                "name": "v1.3.4",
+                "date": "2022-02-07T19:50:47Z"
+            },
+            {
+                "name": "v1.3.3",
+                "date": "2022-01-06T16:21:25Z"
+            },
+            {
+                "name": "v1.2.1",
+                "date": "2021-10-14T18:00:46Z"
+            },
+            {
+                "name": "v1.1.4",
+                "date": "2021-10-12T20:22:45Z"
+            },
+            {
+                "name": "v1.1.3",
+                "date": "2021-10-12T18:03:47Z"
+            },
+            {
+                "name": "v1.3.2",
+                "date": "2021-10-21T02:03:37Z"
+            },
+            {
+                "name": "v1.3.1",
+                "date": "2021-10-21T02:01:54Z"
+            },
+            {
+                "name": "",
+                "date": "2021-04-22T16:57:21Z"
+            },
+            {
+                "name": "",
+                "date": "2020-10-05T19:35:26Z"
+            },
+            {
+                "name": "Version 1.1.0",
+                "date": "2019-05-23T15:35:53Z"
+            },
+            {
+                "name": "Version 1.0.1",
+                "date": "2019-04-12T16:57:41Z"
+            }
+        ]
+    }
+}

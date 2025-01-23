@@ -1,0 +1,630 @@
+{
+    "https://api.github.com/repos/coleifer/peewee": {
+        "forks": 1373,
+        "watchers": 11330,
+        "stars": 11330,
+        "languages": {
+            "Python": 1674581,
+            "Cython": 55078,
+            "C": 9175,
+            "Shell": 1033
+        },
+        "commits": [
+            "2024-12-14T17:14:44Z",
+            "2024-12-12T17:15:30Z",
+            "2024-12-12T17:09:40Z",
+            "2024-11-12T16:58:25Z",
+            "2024-11-12T16:49:37Z",
+            "2024-11-10T21:56:57Z",
+            "2024-10-30T16:58:40Z",
+            "2024-10-24T14:06:21Z",
+            "2024-10-23T21:51:42Z",
+            "2024-10-17T14:45:41Z",
+            "2024-10-17T13:01:27Z",
+            "2024-10-17T12:56:23Z",
+            "2024-10-15T13:04:26Z",
+            "2024-10-15T12:52:34Z",
+            "2024-10-15T12:37:10Z",
+            "2024-10-13T19:56:54Z",
+            "2024-10-10T20:46:05Z",
+            "2024-10-10T18:55:16Z",
+            "2024-09-22T17:09:02Z",
+            "2024-09-22T03:01:20Z",
+            "2024-09-14T12:21:05Z",
+            "2024-09-13T02:29:17Z",
+            "2024-08-08T15:14:57Z",
+            "2024-07-12T16:20:30Z",
+            "2024-07-06T17:11:45Z",
+            "2024-07-01T16:26:41Z",
+            "2024-07-01T16:12:40Z",
+            "2024-07-01T15:57:48Z",
+            "2024-06-17T13:48:46Z",
+            "2024-06-17T13:37:40Z"
+        ],
+        "creation_date": "2010-10-11T20:14:11Z",
+        "contributors": 30,
+        "topics": [
+            "dank",
+            "gametight",
+            "peewee",
+            "python",
+            "sqlite"
+        ],
+        "subscribers": 197,
+        "readme": ".. image:: https://media.charlesleifer.com/blog/photos/peewee3-logo.png\n\npeewee\n======\n\nPeewee is a simple and small ORM. It has few (but expressive) concepts, making it easy to learn and intuitive to use.\n\n* a small, expressive ORM\n* python 2.7+ and 3.4+\n* supports sqlite, mysql, mariadb, postgresql\n* tons of `extensions <http://docs.peewee-orm.com/en/latest/peewee/playhouse.html>`_\n\nNew to peewee? These may help:\n\n* `Quickstart <http://docs.peewee-orm.com/en/latest/peewee/quickstart.html#quickstart>`_\n* `Example twitter app <http://docs.peewee-orm.com/en/latest/peewee/example.html>`_\n* `Using peewee interactively <http://docs.peewee-orm.com/en/latest/peewee/interactive.html>`_\n* `Models and fields <http://docs.peewee-orm.com/en/latest/peewee/models.html>`_\n* `Querying <http://docs.peewee-orm.com/en/latest/peewee/querying.html>`_\n* `Relationships and joins <http://docs.peewee-orm.com/en/latest/peewee/relationships.html>`_\n\nExamples\n--------\n\nDefining models is similar to Django or SQLAlchemy:\n\n.. code-block:: python\n\n    from peewee import *\n    import datetime\n\n\n    db = SqliteDatabase('my_database.db')\n\n    class BaseModel(Model):\n        class Meta:\n            database = db\n\n    class User(BaseModel):\n        username = CharField(unique=True)\n\n    class Tweet(BaseModel):\n        user = ForeignKeyField(User, backref='tweets')\n        message = TextField()\n        created_date = DateTimeField(default=datetime.datetime.now)\n        is_published = BooleanField(default=True)\n\nConnect to the database and create tables:\n\n.. code-block:: python\n\n    db.connect()\n    db.create_tables([User, Tweet])\n\nCreate a few rows:\n\n.. code-block:: python\n\n    charlie = User.create(username='charlie')\n    huey = User(username='huey')\n    huey.save()\n\n    # No need to set `is_published` or `created_date` since they\n    # will just use the default values we specified.\n    Tweet.create(user=charlie, message='My first tweet')\n\nQueries are expressive and composable:\n\n.. code-block:: python\n\n    # A simple query selecting a user.\n    User.get(User.username == 'charlie')\n\n    # Get tweets created by one of several users.\n    usernames = ['charlie', 'huey', 'mickey']\n    users = User.select().where(User.username.in_(usernames))\n    tweets = Tweet.select().where(Tweet.user.in_(users))\n\n    # We could accomplish the same using a JOIN:\n    tweets = (Tweet\n              .select()\n              .join(User)\n              .where(User.username.in_(usernames)))\n\n    # How many tweets were published today?\n    tweets_today = (Tweet\n                    .select()\n                    .where(\n                        (Tweet.created_date >= datetime.date.today()) &\n                        (Tweet.is_published == True))\n                    .count())\n\n    # Paginate the user table and show me page 3 (users 41-60).\n    User.select().order_by(User.username).paginate(3, 20)\n\n    # Order users by the number of tweets they've created:\n    tweet_ct = fn.Count(Tweet.id)\n    users = (User\n             .select(User, tweet_ct.alias('ct'))\n             .join(Tweet, JOIN.LEFT_OUTER)\n             .group_by(User)\n             .order_by(tweet_ct.desc()))\n\n    # Do an atomic update (for illustrative purposes only, imagine a simple\n    # table for tracking a \"count\" associated with each URL). We don't want to\n    # naively get the save in two separate steps since this is prone to race\n    # conditions.\n    Counter.update(count=Counter.count + 1).where(Counter.url == request.url)\n\nCheck out the `example twitter app <http://docs.peewee-orm.com/en/latest/peewee/example.html>`_.\n\nLearning more\n-------------\n\nCheck the `documentation <http://docs.peewee-orm.com/>`_ for more examples.\n\nSpecific question? Come hang out in the #peewee channel on irc.libera.chat, or post to the mailing list, http://groups.google.com/group/peewee-orm . If you would like to report a bug, `create a new issue <https://github.com/coleifer/peewee/issues/new>`_ on GitHub.\n\nStill want more info?\n---------------------\n\n.. image:: https://media.charlesleifer.com/blog/photos/wat.jpg\n\nI've written a number of blog posts about building applications and web-services with peewee (and usually Flask). If you'd like to see some real-life applications that use peewee, the following resources may be useful:\n\n* `Building a note-taking app with Flask and Peewee <https://charlesleifer.com/blog/saturday-morning-hack-a-little-note-taking-app-with-flask/>`_ as well as `Part 2 <https://charlesleifer.com/blog/saturday-morning-hacks-revisiting-the-notes-app/>`_ and `Part 3 <https://charlesleifer.com/blog/saturday-morning-hacks-adding-full-text-search-to-the-flask-note-taking-app/>`_.\n* `Analytics web service built with Flask and Peewee <https://charlesleifer.com/blog/saturday-morning-hacks-building-an-analytics-app-with-flask/>`_.\n* `Personalized news digest (with a boolean query parser!) <https://charlesleifer.com/blog/saturday-morning-hack-personalized-news-digest-with-boolean-query-parser/>`_.\n* `Structuring Flask apps with Peewee <https://charlesleifer.com/blog/structuring-flask-apps-a-how-to-for-those-coming-from-django/>`_.\n* `Creating a lastpass clone with Flask and Peewee <https://charlesleifer.com/blog/creating-a-personal-password-manager/>`_.\n* `Creating a bookmarking web-service that takes screenshots of your bookmarks <https://charlesleifer.com/blog/building-bookmarking-service-python-and-phantomjs/>`_.\n* `Building a pastebin, wiki and a bookmarking service using Flask and Peewee <https://charlesleifer.com/blog/dont-sweat-small-stuff-use-flask-blueprints/>`_.\n* `Encrypted databases with Python and SQLCipher <https://charlesleifer.com/blog/encrypted-sqlite-databases-with-python-and-sqlcipher/>`_.\n* `Dear Diary: An Encrypted, Command-Line Diary with Peewee <https://charlesleifer.com/blog/dear-diary-an-encrypted-command-line-diary-with-python/>`_.\n* `Query Tree Structures in SQLite using Peewee and the Transitive Closure Extension <https://charlesleifer.com/blog/querying-tree-structures-in-sqlite-using-python-and-the-transitive-closure-extension/>`_.\n",
+        "releases": [
+            {
+                "name": "3.17.8",
+                "date": "2024-11-12T16:59:43Z"
+            },
+            {
+                "name": "3.17.7",
+                "date": "2024-10-15T12:42:30Z"
+            },
+            {
+                "name": "3.17.6",
+                "date": "2024-07-06T17:14:31Z"
+            },
+            {
+                "name": "3.17.5",
+                "date": "2024-05-10T13:47:32Z"
+            },
+            {
+                "name": "3.17.4",
+                "date": "2024-05-10T13:06:48Z"
+            },
+            {
+                "name": "3.17.3",
+                "date": "2024-04-17T15:30:49Z"
+            },
+            {
+                "name": "3.17.2",
+                "date": "2024-04-17T15:30:25Z"
+            },
+            {
+                "name": "3.17.1",
+                "date": "2024-02-05T15:05:06Z"
+            },
+            {
+                "name": "3.17.0",
+                "date": "2023-10-13T15:46:19Z"
+            },
+            {
+                "name": "3.16.3",
+                "date": "2023-08-14T14:19:40Z"
+            },
+            {
+                "name": "3.16.2",
+                "date": "2023-04-21T20:18:22Z"
+            },
+            {
+                "name": "3.16.1",
+                "date": "2023-04-18T17:11:51Z"
+            },
+            {
+                "name": "3.16.0",
+                "date": "2023-02-28T15:33:59Z"
+            },
+            {
+                "name": "3.15.4",
+                "date": "2022-11-11T14:34:36Z"
+            },
+            {
+                "name": "3.15.3",
+                "date": "2022-09-22T02:58:37Z"
+            },
+            {
+                "name": "3.15.2",
+                "date": "2022-09-22T02:57:59Z"
+            },
+            {
+                "name": "3.15.1",
+                "date": "2022-07-12T13:24:47Z"
+            },
+            {
+                "name": "3.15.0",
+                "date": "2022-06-17T12:57:33Z"
+            },
+            {
+                "name": "3.14.10",
+                "date": "2022-03-07T17:19:45Z"
+            },
+            {
+                "name": "3.14.9",
+                "date": "2022-02-22T15:43:34Z"
+            },
+            {
+                "name": "3.14.8",
+                "date": "2021-10-28T14:29:58Z"
+            },
+            {
+                "name": "3.14.7",
+                "date": "2021-10-27T12:59:21Z"
+            },
+            {
+                "name": "3.14.6",
+                "date": "2021-10-27T03:06:47Z"
+            },
+            {
+                "name": "3.14.5",
+                "date": "2021-10-27T03:01:44Z"
+            },
+            {
+                "name": "3.14.4",
+                "date": "2021-03-19T15:54:38Z"
+            },
+            {
+                "name": "3.14.3",
+                "date": "2021-03-11T15:06:17Z"
+            },
+            {
+                "name": "3.14.2",
+                "date": "2021-03-04T15:06:20Z"
+            },
+            {
+                "name": "3.14.1",
+                "date": "2021-02-07T22:52:56Z"
+            },
+            {
+                "name": "3.14.0",
+                "date": "2020-11-07T18:48:43Z"
+            },
+            {
+                "name": "3.13.3",
+                "date": "2020-04-24T00:36:44Z"
+            },
+            {
+                "name": "3.13.2",
+                "date": "2020-03-27T16:52:12Z"
+            },
+            {
+                "name": "3.13.1",
+                "date": "2019-12-06T15:44:21Z"
+            },
+            {
+                "name": "3.13.0",
+                "date": "2019-12-06T01:34:22Z"
+            },
+            {
+                "name": "3.12.0",
+                "date": "2019-11-24T23:58:39Z"
+            },
+            {
+                "name": "3.11.2",
+                "date": "2019-09-24T15:58:19Z"
+            },
+            {
+                "name": "3.11.1",
+                "date": "2019-09-23T14:03:01Z"
+            },
+            {
+                "name": "3.11.0",
+                "date": "2019-09-19T11:42:27Z"
+            },
+            {
+                "name": "3.10.0",
+                "date": "2019-08-03T09:47:40Z"
+            },
+            {
+                "name": "3.9.6",
+                "date": "2019-06-03T14:57:21Z"
+            },
+            {
+                "name": "3.9.5",
+                "date": "2019-04-26T19:29:40Z"
+            },
+            {
+                "name": "3.9.4",
+                "date": "2019-04-14T15:54:13Z"
+            },
+            {
+                "name": "3.9.3",
+                "date": "2019-03-23T03:20:58Z"
+            },
+            {
+                "name": "3.9.2",
+                "date": "2019-03-06T14:28:57Z"
+            },
+            {
+                "name": "3.9.1",
+                "date": "2019-03-06T13:11:02Z"
+            },
+            {
+                "name": "3.9.0",
+                "date": "2019-03-06T04:54:46Z"
+            },
+            {
+                "name": "3.8.2",
+                "date": "2019-01-17T22:51:51Z"
+            },
+            {
+                "name": "3.8.1",
+                "date": "2019-01-07T16:33:17Z"
+            },
+            {
+                "name": "3.8.0",
+                "date": "2018-12-16T23:17:52Z"
+            },
+            {
+                "name": "3.7.1",
+                "date": "2018-10-05T20:51:20Z"
+            },
+            {
+                "name": "3.7.0",
+                "date": "2018-09-06T19:50:34Z"
+            },
+            {
+                "name": "3.6.4",
+                "date": "2018-08-07T21:32:19Z"
+            },
+            {
+                "name": "3.6.3",
+                "date": "2018-07-18T16:36:42Z"
+            },
+            {
+                "name": "3.6.2",
+                "date": "2018-07-18T15:22:59Z"
+            },
+            {
+                "name": "3.6.1",
+                "date": "2018-07-17T21:32:08Z"
+            },
+            {
+                "name": "3.6.0",
+                "date": "2018-07-17T21:09:07Z"
+            },
+            {
+                "name": "3.5.2",
+                "date": "2018-07-03T21:13:30Z"
+            },
+            {
+                "name": "3.5.1",
+                "date": "2018-06-27T15:33:16Z"
+            },
+            {
+                "name": "3.5.0",
+                "date": "2018-05-29T20:37:11Z"
+            },
+            {
+                "name": "3.4.0",
+                "date": "2018-05-20T03:57:00Z"
+            },
+            {
+                "name": "3.3.4",
+                "date": "2018-05-04T14:01:31Z"
+            },
+            {
+                "name": "3.3.3",
+                "date": "2018-05-03T16:34:38Z"
+            },
+            {
+                "name": "3.3.2",
+                "date": "2018-05-01T15:49:05Z"
+            },
+            {
+                "name": "3.3.1",
+                "date": "2018-04-26T21:12:11Z"
+            },
+            {
+                "name": "3.3.0",
+                "date": "2018-04-24T21:25:55Z"
+            },
+            {
+                "name": "3.2.5",
+                "date": "2018-04-19T16:10:11Z"
+            },
+            {
+                "name": "3.2.4",
+                "date": "2018-04-18T19:05:48Z"
+            },
+            {
+                "name": "3.2.3",
+                "date": "2018-04-16T02:45:56Z"
+            },
+            {
+                "name": "3.2.2",
+                "date": "2018-04-01T14:23:08Z"
+            },
+            {
+                "name": "3.2.1",
+                "date": "2018-03-31T14:22:01Z"
+            },
+            {
+                "name": "3.2.0",
+                "date": "2018-03-28T19:46:33Z"
+            },
+            {
+                "name": "3.1.7",
+                "date": "2018-03-28T19:46:12Z"
+            },
+            {
+                "name": "3.1.6",
+                "date": "2018-03-26T18:30:52Z"
+            },
+            {
+                "name": "3.1.5",
+                "date": "2018-03-14T19:52:46Z"
+            },
+            {
+                "name": "3.1.4 (released on \u03c0-day!)",
+                "date": "2018-03-14T19:49:01Z"
+            },
+            {
+                "name": "3.1.3",
+                "date": "2018-03-10T22:23:36Z"
+            },
+            {
+                "name": "3.1.2",
+                "date": "2018-02-28T15:06:40Z"
+            },
+            {
+                "name": "3.1.1",
+                "date": "2018-02-27T22:32:35Z"
+            },
+            {
+                "name": "3.1.0",
+                "date": "2018-02-23T17:10:46Z"
+            },
+            {
+                "name": "3.0.20",
+                "date": "2018-02-22T20:09:12Z"
+            },
+            {
+                "name": "3.0.19",
+                "date": "2018-02-21T16:00:19Z"
+            },
+            {
+                "name": "3.0.18",
+                "date": "2018-02-14T15:05:01Z"
+            },
+            {
+                "name": "3.0.17",
+                "date": "2018-02-10T21:47:55Z"
+            },
+            {
+                "name": "3.0.16",
+                "date": "2018-02-08T20:02:02Z"
+            },
+            {
+                "name": "3.0.15",
+                "date": "2018-02-08T03:59:50Z"
+            },
+            {
+                "name": "3.0.14",
+                "date": "2018-02-07T19:43:54Z"
+            },
+            {
+                "name": "3.0.13",
+                "date": "2018-02-06T01:59:36Z"
+            },
+            {
+                "name": "3.0.12",
+                "date": "2018-02-06T01:59:17Z"
+            },
+            {
+                "name": "3.0.11",
+                "date": "2018-02-04T14:23:04Z"
+            },
+            {
+                "name": "3.0.10",
+                "date": "2018-02-02T15:48:40Z"
+            },
+            {
+                "name": "3.0.9",
+                "date": "2018-02-01T20:56:34Z"
+            },
+            {
+                "name": "3.0.8",
+                "date": "2018-01-31T23:27:03Z"
+            },
+            {
+                "name": "3.0.7",
+                "date": "2018-01-31T12:29:37Z"
+            },
+            {
+                "name": "3.0.6",
+                "date": "2018-01-30T21:37:53Z"
+            },
+            {
+                "name": "3.0.5",
+                "date": "2018-01-30T17:55:49Z"
+            },
+            {
+                "name": "3.0.4",
+                "date": "2018-01-30T16:14:52Z"
+            },
+            {
+                "name": "3.0.3",
+                "date": "2018-01-30T15:49:30Z"
+            },
+            {
+                "name": "3.0.2",
+                "date": "2018-01-29T19:03:09Z"
+            },
+            {
+                "name": "3.0.0",
+                "date": "2018-01-29T15:16:49Z"
+            },
+            {
+                "name": "2.10.2",
+                "date": "2017-10-08T16:32:04Z"
+            },
+            {
+                "name": "2.10.1",
+                "date": "2017-10-08T16:31:46Z"
+            },
+            {
+                "name": "",
+                "date": "2017-05-08T21:11:12Z"
+            },
+            {
+                "name": "2.9.2",
+                "date": "2017-04-20T00:37:37Z"
+            },
+            {
+                "name": "2.9.1",
+                "date": "2017-04-20T00:37:27Z"
+            },
+            {
+                "name": "2.9.0",
+                "date": "2017-04-20T00:37:12Z"
+            },
+            {
+                "name": "2.8.8",
+                "date": "2017-04-20T00:36:45Z"
+            },
+            {
+                "name": "2.8.7",
+                "date": "2017-04-20T00:36:27Z"
+            },
+            {
+                "name": "2.8.5",
+                "date": "2017-04-20T00:35:59Z"
+            },
+            {
+                "name": "2.8.4",
+                "date": "2017-04-20T00:35:47Z"
+            },
+            {
+                "name": "2.8.3",
+                "date": "2017-04-20T00:35:33Z"
+            },
+            {
+                "name": "2.8.2",
+                "date": "2016-08-09T05:35:09Z"
+            },
+            {
+                "name": "2.8.1",
+                "date": "2016-08-07T21:04:50Z"
+            },
+            {
+                "name": "2.8.0",
+                "date": "2016-01-14T05:02:08Z"
+            },
+            {
+                "name": "2.7.3",
+                "date": "2015-11-21T19:42:53Z"
+            },
+            {
+                "name": "2.7.2",
+                "date": "2015-11-21T19:43:23Z"
+            },
+            {
+                "name": "2.7.1",
+                "date": "2015-11-21T19:46:10Z"
+            },
+            {
+                "name": "2.7.0",
+                "date": "2015-11-20T04:23:29Z"
+            },
+            {
+                "name": "2.6.4",
+                "date": "2015-09-22T02:33:28Z"
+            },
+            {
+                "name": "2.6.2",
+                "date": "2015-07-02T22:37:12Z"
+            },
+            {
+                "name": "2.6.1",
+                "date": "2015-05-29T04:20:11Z"
+            },
+            {
+                "name": "2.6.0",
+                "date": "2015-04-22T00:34:22Z"
+            },
+            {
+                "name": "2.5.1",
+                "date": "2015-04-05T04:14:51Z"
+            },
+            {
+                "name": "2.5.0",
+                "date": "2015-04-05T04:02:42Z"
+            },
+            {
+                "name": "2.4.7",
+                "date": "2015-02-04T23:37:55Z"
+            },
+            {
+                "name": "2.4.6",
+                "date": "2015-01-22T02:10:07Z"
+            },
+            {
+                "name": "2.4.5",
+                "date": "2014-12-22T06:12:47Z"
+            },
+            {
+                "name": "2.4.4",
+                "date": "2014-12-03T03:29:19Z"
+            },
+            {
+                "name": "2.4.3",
+                "date": "2014-11-22T18:58:34Z"
+            },
+            {
+                "name": "2.4.2",
+                "date": "2014-11-09T19:21:46Z"
+            },
+            {
+                "name": "2.4.1",
+                "date": "2014-10-28T16:16:26Z"
+            },
+            {
+                "name": "2.4.0",
+                "date": "2014-10-18T16:33:32Z"
+            },
+            {
+                "name": "2.3.3",
+                "date": "2014-09-30T01:43:04Z"
+            },
+            {
+                "name": "2.3.2",
+                "date": "2014-09-15T16:00:21Z"
+            },
+            {
+                "name": "2.3.0",
+                "date": "2014-08-12T03:49:55Z"
+            },
+            {
+                "name": "2.2.5",
+                "date": "2014-07-08T10:52:44Z"
+            },
+            {
+                "name": "2.2.4",
+                "date": "2014-05-14T17:19:54Z"
+            },
+            {
+                "name": "2.2.3",
+                "date": "2014-04-21T00:49:03Z"
+            },
+            {
+                "name": "2.2.1",
+                "date": "2014-02-11T03:11:42Z"
+            },
+            {
+                "name": "2.2.0",
+                "date": "2014-01-29T15:03:58Z"
+            },
+            {
+                "name": "2.1.7",
+                "date": "2013-12-24T18:29:55Z"
+            },
+            {
+                "name": "2.1.6",
+                "date": "2013-11-19T12:04:16Z"
+            },
+            {
+                "name": "2.1.5",
+                "date": "2013-10-19T14:56:17Z"
+            },
+            {
+                "name": "",
+                "date": "2013-08-06T02:30:21Z"
+            },
+            {
+                "name": "",
+                "date": "2013-07-03T18:37:41Z"
+            }
+        ]
+    }
+}

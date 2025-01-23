@@ -1,0 +1,53 @@
+{
+    "https://api.github.com/repos/sebastianbergmann/diff": {
+        "forks": 86,
+        "watchers": 7595,
+        "stars": 7595,
+        "languages": {
+            "PHP": 173989
+        },
+        "commits": [
+            "2025-01-16T08:25:47Z",
+            "2025-01-16T08:21:04Z",
+            "2025-01-01T09:33:55Z",
+            "2025-01-01T09:33:46Z",
+            "2024-12-13T08:48:10Z",
+            "2024-12-13T08:26:44Z",
+            "2024-12-13T07:57:47Z",
+            "2024-11-17T09:59:04Z",
+            "2024-11-17T09:48:31Z",
+            "2024-11-17T09:48:18Z",
+            "2024-11-17T09:48:09Z",
+            "2024-09-29T06:58:52Z",
+            "2024-09-29T06:58:49Z",
+            "2024-09-07T12:38:05Z",
+            "2024-09-07T12:37:00Z",
+            "2024-09-07T12:36:20Z",
+            "2024-09-07T12:36:15Z",
+            "2024-08-21T07:25:16Z",
+            "2024-08-21T07:25:11Z",
+            "2024-08-21T07:24:50Z",
+            "2024-08-21T07:24:10Z",
+            "2024-08-21T07:14:54Z",
+            "2024-08-13T08:53:16Z",
+            "2024-07-17T06:30:15Z",
+            "2024-07-17T06:30:13Z",
+            "2024-07-15T07:01:34Z",
+            "2024-07-05T05:38:21Z",
+            "2024-07-03T10:50:42Z",
+            "2024-07-03T08:03:10Z",
+            "2024-07-03T04:53:05Z"
+        ],
+        "creation_date": "2013-02-12T08:34:51Z",
+        "contributors": 21,
+        "topics": [],
+        "subscribers": 28,
+        "readme": "[![Latest Stable Version](https://poser.pugx.org/sebastian/diff/v)](https://packagist.org/packages/sebastian/diff)\n[![CI Status](https://github.com/sebastianbergmann/diff/workflows/CI/badge.svg)](https://github.com/sebastianbergmann/diff/actions)\n[![codecov](https://codecov.io/gh/sebastianbergmann/diff/branch/main/graph/badge.svg)](https://codecov.io/gh/sebastianbergmann/diff)\n\n# sebastian/diff\n\nDiff implementation for PHP, factored out of PHPUnit into a stand-alone component.\n\n## Installation\n\nYou can add this library as a local, per-project dependency to your project using [Composer](https://getcomposer.org/):\n\n```\ncomposer require sebastian/diff\n```\n\nIf you only need this library during development, for instance to run your project's test suite, then you should add it as a development-time dependency:\n\n```\ncomposer require --dev sebastian/diff\n```\n\n### Usage\n\n#### Generating diff\n\nThe `Differ` class can be used to generate a textual representation of the difference between two strings:\n\n```php\n<?php declare(strict_types=1);\nuse SebastianBergmann\\Diff\\Differ;\nuse SebastianBergmann\\Diff\\Output\\UnifiedDiffOutputBuilder;\n\n$differ = new Differ(new UnifiedDiffOutputBuilder);\n\nprint $differ->diff('foo', 'bar');\n```\n\nThe code above yields the output below:\n\n```diff\n--- Original\n+++ New\n@@ @@\n-foo\n+bar\n```\n\nThe `UnifiedDiffOutputBuilder` used in the example above generates output in \"unified diff\"\nformat and is used by PHPUnit, for example.\n\nThe `StrictUnifiedDiffOutputBuilder` generates output in \"strict unified diff\" format with\nhunks,  similar to `diff -u` and compatible with `patch` or `git apply`.\n\nThe `DiffOnlyOutputBuilder` generates output that only contains the lines that differ.\n\nIf none of these three output builders match your use case then you can implement\n`DiffOutputBuilderInterface` to generate custom output.\n\n#### Parsing diff\n\nThe `Parser` class can be used to parse a unified diff into an object graph:\n\n```php\nuse SebastianBergmann\\Diff\\Parser;\nuse SebastianBergmann\\Git;\n\n$git = new Git('/usr/local/src/money');\n\n$diff = $git->getDiff(\n  '948a1a07768d8edd10dcefa8315c1cbeffb31833',\n  'c07a373d2399f3e686234c4f7f088d635eb9641b'\n);\n\n$parser = new Parser;\n\nprint_r($parser->parse($diff));\n```\n\nThe code above yields the output below:\n\n    Array\n    (\n        [0] => SebastianBergmann\\Diff\\Diff Object\n            (\n                [from:SebastianBergmann\\Diff\\Diff:private] => a/tests/MoneyTest.php\n                [to:SebastianBergmann\\Diff\\Diff:private] => b/tests/MoneyTest.php\n                [chunks:SebastianBergmann\\Diff\\Diff:private] => Array\n                    (\n                        [0] => SebastianBergmann\\Diff\\Chunk Object\n                            (\n                                [start:SebastianBergmann\\Diff\\Chunk:private] => 87\n                                [startRange:SebastianBergmann\\Diff\\Chunk:private] => 7\n                                [end:SebastianBergmann\\Diff\\Chunk:private] => 87\n                                [endRange:SebastianBergmann\\Diff\\Chunk:private] => 7\n                                [lines:SebastianBergmann\\Diff\\Chunk:private] => Array\n                                    (\n                                        [0] => SebastianBergmann\\Diff\\Line Object\n                                            (\n                                                [type:SebastianBergmann\\Diff\\Line:private] => 3\n                                                [content:SebastianBergmann\\Diff\\Line:private] =>      * @covers SebastianBergmann\\Money\\Money::add\n                                            )\n\n                                        [1] => SebastianBergmann\\Diff\\Line Object\n                                            (\n                                                [type:SebastianBergmann\\Diff\\Line:private] => 3\n                                                [content:SebastianBergmann\\Diff\\Line:private] =>      * @covers SebastianBergmann\\Money\\Money::newMoney\n                                            )\n\n                                        [2] => SebastianBergmann\\Diff\\Line Object\n                                            (\n                                                [type:SebastianBergmann\\Diff\\Line:private] => 3\n                                                [content:SebastianBergmann\\Diff\\Line:private] =>      */\n                                            )\n\n                                        [3] => SebastianBergmann\\Diff\\Line Object\n                                            (\n                                                [type:SebastianBergmann\\Diff\\Line:private] => 2\n                                                [content:SebastianBergmann\\Diff\\Line:private] =>     public function testAnotherMoneyWithSameCurrencyObjectCanBeAdded()\n                                            )\n\n                                        [4] => SebastianBergmann\\Diff\\Line Object\n                                            (\n                                                [type:SebastianBergmann\\Diff\\Line:private] => 1\n                                                [content:SebastianBergmann\\Diff\\Line:private] =>     public function testAnotherMoneyObjectWithSameCurrencyCanBeAdded()\n                                            )\n\n                                        [5] => SebastianBergmann\\Diff\\Line Object\n                                            (\n                                                [type:SebastianBergmann\\Diff\\Line:private] => 3\n                                                [content:SebastianBergmann\\Diff\\Line:private] =>     {\n                                            )\n\n                                        [6] => SebastianBergmann\\Diff\\Line Object\n                                            (\n                                                [type:SebastianBergmann\\Diff\\Line:private] => 3\n                                                [content:SebastianBergmann\\Diff\\Line:private] =>         $a = new Money(1, new Currency('EUR'));\n                                            )\n\n                                        [7] => SebastianBergmann\\Diff\\Line Object\n                                            (\n                                                [type:SebastianBergmann\\Diff\\Line:private] => 3\n                                                [content:SebastianBergmann\\Diff\\Line:private] =>         $b = new Money(2, new Currency('EUR'));\n                                            )\n                                    )\n                            )\n                    )\n            )\n    )\n\nNote: If the chunk size is 0 lines, i.e., `getStartRange()` or `getEndRange()` return 0, the number of line returned by `getStart()` or `getEnd()` is one lower than one would expect. It is the line number after which the chunk should be inserted or deleted; in all other cases, it gives the first line number of the replaced range of lines.\n",
+        "releases": [
+            {
+                "name": "sebastian/diff 6.0.2",
+                "date": "2024-07-03T04:53:30Z"
+            }
+        ]
+    }
+}

@@ -1,0 +1,497 @@
+{
+    "https://api.github.com/repos/xtaci/kcptun": {
+        "forks": 2555,
+        "watchers": 14021,
+        "stars": 14021,
+        "languages": {
+            "Go": 57811,
+            "Shell": 15108,
+            "Dockerfile": 640
+        },
+        "commits": [
+            "2024-12-27T14:27:05Z",
+            "2024-12-27T14:23:36Z",
+            "2024-12-23T08:46:45Z",
+            "2024-12-16T12:08:18Z",
+            "2024-12-05T08:03:04Z",
+            "2024-11-19T05:56:48Z",
+            "2024-11-19T05:56:32Z",
+            "2024-11-19T04:43:15Z",
+            "2024-11-14T02:57:05Z",
+            "2024-11-07T14:26:00Z",
+            "2024-10-23T08:44:17Z",
+            "2024-10-14T08:19:32Z",
+            "2024-10-14T08:03:13Z",
+            "2024-10-04T06:00:38Z",
+            "2024-10-01T09:20:09Z",
+            "2024-09-19T10:32:31Z",
+            "2024-09-19T06:28:28Z",
+            "2024-09-15T14:12:27Z",
+            "2024-09-06T08:22:53Z",
+            "2024-09-02T09:26:37Z",
+            "2024-09-02T09:24:19Z",
+            "2024-08-31T04:39:15Z",
+            "2024-08-31T03:48:08Z",
+            "2024-08-31T03:46:23Z",
+            "2024-08-31T03:39:39Z",
+            "2024-08-30T16:17:47Z",
+            "2024-08-30T09:30:18Z",
+            "2024-08-30T08:28:33Z",
+            "2024-08-28T07:49:44Z",
+            "2024-08-28T07:49:30Z"
+        ],
+        "creation_date": "2016-02-26T09:54:46Z",
+        "contributors": 20,
+        "topics": [
+            "forward-error-correction",
+            "multiplex-networks",
+            "network-acceleration",
+            "quantum-permutation-pad",
+            "quantum-resistant-cryptosystems",
+            "reed-solomon-codes",
+            "reliable-udp",
+            "secure-tunnel",
+            "shannon-coding"
+        ],
+        "subscribers": 575,
+        "readme": "# <img src=\"assets/logo.png\" alt=\"kcptun\" height=\"54px\" /> \n\n[![Release][13]][14] [![Powered][17]][18] [![MIT licensed][11]][12] [![Build Status][3]][4] [![Go Report Card][5]][6] [![Downloads][15]][16] [![Docker][1]][2] \n\n[1]: https://img.shields.io/docker/pulls/xtaci/kcptun\n[2]: https://hub.docker.com/r/xtaci/kcptun\n[3]: https://img.shields.io/github/created-at/xtaci/kcptun\n[4]: https://img.shields.io/github/created-at/xtaci/kcptun\n[5]: https://goreportcard.com/badge/github.com/xtaci/kcptun\n[6]: https://goreportcard.com/report/github.com/xtaci/kcptun\n[11]: https://img.shields.io/github/license/xtaci/kcptun\n[12]: LICENSE.md\n[13]: https://img.shields.io/github/v/release/xtaci/kcptun?color=orange\n[14]: https://github.com/xtaci/kcptun/releases/latest\n[15]: https://img.shields.io/github/downloads/xtaci/kcptun/total.svg?maxAge=1800&color=orange\n[16]: https://github.com/xtaci/kcptun/releases\n[17]: https://img.shields.io/badge/KCP-Powered-blue.svg\n[18]: https://github.com/skywind3000/kcp\n\n<img src=\"assets/kcptun.png\" alt=\"kcptun\" height=\"300px\"/>\n\n> *Disclaimer: kcptun maintains a single website \u2014 [github.com/xtaci/kcptun](https://github.com/xtaci/kcptun). Any websites other than [github.com/xtaci/kcptun](https://github.com/xtaci/kcptun) are not endorsed by xtaci.*\n\n### Requirements\n\n| Target | Minimum | Recommended |\n| --- | --- | --- |\n| System | aix darwin dragonfly freebsd linux netbsd openbsd solaris windows | linux |\n| Memory | >20MB | >32MB |\n| CPU | ANY | amd64 with AES-NI & AVX2 |\n\n*NOTE: if you are using kvm, make sure the guest os can do AES instructions*\n<img src=\"https://github.com/xtaci/kcptun/assets/2346725/9358e8e5-2a4a-4be9-9859-62f1aaa553b0\" alt=\"cpuinfo\" height=\"400px\"/>\n\n### QuickStart\n\nDownload:\n\n`curl -L  https://raw.githubusercontent.com/xtaci/kcptun/master/download.sh | sh`\n\nIncrease the number of open files on your server, as:\n\n`ulimit -n 65535`, or write it in `~/.bashrc`.\n\nSuggested `sysctl.conf` parameters for better handling of UDP packets:\n\n```\nnet.core.rmem_max=26214400 // BDP - bandwidth delay product\nnet.core.rmem_default=26214400\nnet.core.wmem_max=26214400\nnet.core.wmem_default=26214400\nnet.core.netdev_max_backlog=2048 // proportional to -rcvwnd\n```\n\nYou can also increase the per-socket buffer by adding parameter(default 4MB):\n```\n-sockbuf 16777217\n```\nfor **slow processors**, increasing this buffer is **CRITICAL** to receive packets properly.\n\nDownload a corresponding one from precompiled [Releases](https://github.com/xtaci/kcptun/releases).\n\n```\nKCP Client: ./client_darwin_amd64 -r \"KCP_SERVER_IP:4000\" -l \":8388\" -mode fast3 -nocomp -autoexpire 900 -sockbuf 16777217 -dscp 46\nKCP Server: ./server_linux_amd64 -t \"TARGET_IP:8388\" -l \":4000\" -mode fast3 -nocomp -sockbuf 16777217 -dscp 46\n```\nThe above commands will establish port forwarding channel for 8388/tcp as:\n\n> Application -> **KCP Client(8388/tcp) -> KCP Server(4000/udp)** -> Target Server(8388/tcp) \n\nwhich tunnels the original connection:\n\n> Application -> Target Server(8388/tcp) \n\n### Build from source\n\n```\n$ git clone https://github.com/xtaci/kcptun.git\n$ cd kcptun\n$ ./build-release.sh\n$ cd build\n```\n\nAll precompiled releases are generated from `build-release.sh` script.\n\n### Performance\n\n<img src=\"assets/fast.png\" alt=\"fast.com\" height=\"256px\" />  \n\n![bandwidth](assets/bw.png)\n\n![flame](assets/flame.png)\n\n> Practical bandwidth graph with parameters:  -mode fast3 -ds 10 -ps 3\n\n\n\n### Basic Tuning Guide\n\n#### Improving Throughput\n\n> **Q: I have a high-speed network link. How can I maximize bandwidth?**\n\n> **A:** Increase `-rcvwnd` on the KCP Client and `-sndwnd` on the KCP Server **simultaneously and gradually**. The minimum of these values determines the maximum transfer rate of the link, as `wnd * mtu / rtt`. Then, try downloading something to see if it meets your requirements. (The MTU is adjustable with `-mtu`.)\n\n#### Improving Latency\n\n> **Q: I'm using kcptun for gaming and want to avoid any lag.**\n\n> **A:** Lag often indicates packet loss. You can reduce lag by changing the `-mode` parameter. \n\n> For example: `-mode fast3`\n\n> Aggressiveness/Responsiveness on retransmission for embedded modes:\n\n> *fast3 > fast2 > fast > normal > default*\n\n#### Head-of-Line Blocking (HOLB)\n\nSince streams are multiplexed into a single physical channel, head-of-line blocking may occur. Increasing `-smuxbuf` to a larger value (default is 4MB) may mitigate this problem, though it will use more memory.\n\nFor versions >= v20190924, you can switch to smux version 2. Smux v2 has options to limit per-stream memory usage. Set `-smuxver 2` to enable smux v2, and adjust `-streambuf` to limit per-stream memory usage. For example: `-streambuf 2097152` limits per-stream memory usage to 2MB. Limiting the stream buffer on the receiver side applies back-pressure to the sender, preventing the sender from overwhelming the buffer along the link. (The `-smuxver` setting **MUST** be **IDENTICAL** on both sides, the default is 1.)\n\n#### Slow Devices\n\nkcptun uses **Reed-Solomon Codes** to recover lost packets, which requires substantial computation. Low-end ARM devices may not perform well with kcptun. For optimal performance, a multi-core x86 home server CPU like AMD Opteron is recommended. If you must use ARM routers, it's best to disable `FEC` and use `salsa20` as the encryption method.\n\n### Expert Tuning Guide\n\n#### Overview\n\n<p align=\"left\"><img src=\"assets/layeredparams.png\" alt=\"params\" height=\"450px\"/></p>\n\n#### Usage\n\n```\n> ./client_freebsd_amd64 -h\nNAME:\n   kcptun - client(with SMUX)\n\nUSAGE:\n   client_freebsd_amd64 [global options] command [command options] [arguments...]\n\nVERSION:\n   20240729\n\nCOMMANDS:\n   help, h  Shows a list of commands or help for one command\n\nGLOBAL OPTIONS:\n   --localaddr value, -l value      local listen address (default: \":12948\")\n   --remoteaddr value, -r value     kcp server address, eg: \"IP:29900\" a for single port, \"IP:minport-maxport\" for port range (default: \"vps:29900\")\n   --key value                      pre-shared secret between client and server (default: \"it's a secrect\") [$KCPTUN_KEY]\n   --crypt value                    aes, aes-128, aes-192, salsa20, blowfish, twofish, cast5, 3des, tea, xtea, xor, sm4, none, null (default: \"aes\")\n   --mode value                     profiles: fast3, fast2, fast, normal, manual (default: \"fast\")\n   --QPP                            enable Quantum Permutation Pads(QPP)\n   --QPPCount value                 the prime number of pads to use for QPP: The more pads you use, the more secure the encryption. Each pad requires 256 bytes. (default: 61)\n   --conn value                     set num of UDP connections to server (default: 1)\n   --autoexpire value               set auto expiration time(in seconds) for a single UDP connection, 0 to disable (default: 0)\n   --scavengettl value              set how long an expired connection can live (in seconds) (default: 600)\n   --mtu value                      set maximum transmission unit for UDP packets (default: 1350)\n   --sndwnd value                   set send window size(num of packets) (default: 128)\n   --rcvwnd value                   set receive window size(num of packets) (default: 512)\n   --datashard value, --ds value    set reed-solomon erasure coding - datashard (default: 10)\n   --parityshard value, --ps value  set reed-solomon erasure coding - parityshard (default: 3)\n   --dscp value                     set DSCP(6bit) (default: 0)\n   --nocomp                         disable compression\n   --sockbuf value                  per-socket buffer in bytes (default: 4194304)\n   --smuxver value                  specify smux version, available 1,2 (default: 1)\n   --smuxbuf value                  the overall de-mux buffer in bytes (default: 4194304)\n   --streambuf value                per stream receive buffer in bytes, smux v2+ (default: 2097152)\n   --keepalive value                seconds between heartbeats (default: 10)\n   --snmplog value                  collect snmp to file, aware of timeformat in golang, like: ./snmp-20060102.log\n   --snmpperiod value               snmp collect period, in seconds (default: 60)\n   --log value                      specify a log file to output, default goes to stderr\n   --quiet                          to suppress the 'stream open/close' messages\n   --tcp                            to emulate a TCP connection(linux)\n   -c value                         config from json file, which will override the command from shell\n   --pprof                          start profiling server on :6060\n   --help, -h                       show help\n   --version, -v                    print the version\n   \n> ./server_freebsd_amd64 -h\nNAME:\n   kcptun - server(with SMUX)\n\nUSAGE:\n   server_freebsd_amd64 [global options] command [command options] [arguments...]\n\nVERSION:\n   20240729\n\nCOMMANDS:\n   help, h  Shows a list of commands or help for one command\n\nGLOBAL OPTIONS:\n   --listen value, -l value         kcp server listen address, eg: \"IP:29900\" for a single port, \"IP:minport-maxport\" for port range (default: \":29900\")\n   --target value, -t value         target server address, or path/to/unix_socket (default: \"127.0.0.1:12948\")\n   --key value                      pre-shared secret between client and server (default: \"it's a secrect\") [$KCPTUN_KEY]\n   --crypt value                    aes, aes-128, aes-192, salsa20, blowfish, twofish, cast5, 3des, tea, xtea, xor, sm4, none, null (default: \"aes\")\n   --QPP                            enable Quantum Permutation Pads(QPP)\n   --QPPCount value                 the prime number of pads to use for QPP: The more pads you use, the more secure the encryption. Each pad requires 256 bytes. (default: 61)\n   --mode value                     profiles: fast3, fast2, fast, normal, manual (default: \"fast\")\n   --mtu value                      set maximum transmission unit for UDP packets (default: 1350)\n   --sndwnd value                   set send window size(num of packets) (default: 1024)\n   --rcvwnd value                   set receive window size(num of packets) (default: 1024)\n   --datashard value, --ds value    set reed-solomon erasure coding - datashard (default: 10)\n   --parityshard value, --ps value  set reed-solomon erasure coding - parityshard (default: 3)\n   --dscp value                     set DSCP(6bit) (default: 0)\n   --nocomp                         disable compression\n   --sockbuf value                  per-socket buffer in bytes (default: 4194304)\n   --smuxver value                  specify smux version, available 1,2 (default: 1)\n   --smuxbuf value                  the overall de-mux buffer in bytes (default: 4194304)\n   --streambuf value                per stream receive buffer in bytes, smux v2+ (default: 2097152)\n   --keepalive value                seconds between heartbeats (default: 10)\n   --snmplog value                  collect snmp to file, aware of timeformat in golang, like: ./snmp-20060102.log\n   --snmpperiod value               snmp collect period, in seconds (default: 60)\n   --pprof                          start profiling server on :6060\n   --log value                      specify a log file to output, default goes to stderr\n   --quiet                          to suppress the 'stream open/close' messages\n   --tcp                            to emulate a TCP connection(linux)\n   -c value                         config from json file, which will override the command from shell\n   --help, -h                       show help\n   --version, -v                    print the version\n```\n\n#### Multiport Dialer\n\nkcptun supports multi-port dialer like below:\n\n```\nclient: --remoteaddr IP:minport-maxport\nserver: --listen IP:minport-maxport\n\neg:\nclient: --remoteaddr IP:3000-4000\nserver: --listen 0.0.0.0:3000-4000\n```\nby specifying port-range, kcptun will automatically switch to next random port within port-range when establishing each new connection.\n\n\n#### Forward Error Correction\n\nIn coding theory, the [Reed\u2013Solomon code](https://en.wikipedia.org/wiki/Reed%E2%80%93Solomon_error_correction) belongs to the class of non-binary cyclic error-correcting codes. The Reed\u2013Solomon code is based on univariate polynomials over finite fields.\n\nIt is able to detect and correct multiple symbol errors. By adding t check symbols to the data, a Reed\u2013Solomon code can detect any combination of up to t erroneous symbols, or correct up to \u230at/2\u230b symbols. As an erasure code, it can correct up to t known erasures, or it can detect and correct combinations of errors and erasures. Furthermore, Reed\u2013Solomon codes are suitable as multiple-burst bit-error correcting codes, since a sequence of b + 1 consecutive bit errors can affect at most two symbols of size b. The choice of t is up to the designer of the code, and may be selected within wide limits.\n\n![FED](assets/FEC.png)\n\n#### DSCP\n\nDifferentiated services or DiffServ is a computer networking architecture that specifies a simple, scalable and coarse-grained mechanism for classifying and managing network traffic and providing quality of service (QoS) on modern IP networks. DiffServ can, for example, be used to provide low-latency to critical network traffic such as voice or streaming media while providing simple best-effort service to non-critical services such as web traffic or file transfers.\n\nDiffServ uses a 6-bit differentiated services code point (DSCP) in the 8-bit differentiated services field (DS field) in the IP header for packet classification purposes. The DS field and ECN field replace the outdated IPv4 TOS field.\n\nsetting each side with ```-dscp value```, Here are some [Commonly used DSCP values](https://en.wikipedia.org/wiki/Differentiated_services#Commonly_used_DSCP_values).\n\n#### Cryptoanalysis\n\nkcptun is shipped with builtin packet encryption powered by various block encryption algorithms and works in [Cipher Feedback Mode](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher_Feedback_(CFB)), for each packet to be sent, the encryption process will start from encrypting a [nonce](https://en.wikipedia.org/wiki/Cryptographic_nonce) from the [system entropy](https://en.wikipedia.org/wiki//dev/random), so encryption to same plaintexts never leads to a same ciphertexts thereafter.\n\nThe contents of the packets are completely anonymous with encryption, including the headers(FEC,KCP), checksums and contents. Note that, no matter which encryption method you choose on you upper layer, if you disable encryption by specifying `-crypt none` to kcptun, the transmit will be insecure somehow, since the header is ***PLAINTEXT*** to everyone it would be susceptible to header tampering, such as jamming the *sliding window size*, *round-trip time*, *FEC property* and *checksums*. ```aes-128``` is suggested for minimal encryption since modern CPUs are shipped with [AES-NI](https://en.wikipedia.org/wiki/AES_instruction_set) instructions and performs even better than `salsa20`(check the table below).\n\nOther possible attacks to kcptun includes: a) [traffic analysis](https://en.wikipedia.org/wiki/Traffic_analysis), dataflow on specific websites may have pattern while interchanging data, but this type of eavesdropping has been mitigated by adapting [smux](https://github.com/xtaci/smux) to mix data streams so as to introduce noises, perfect solution to this has not appeared yet, theoretically by shuffling/mixing messages on larger scale network may mitigate this problem.  b) [replay attack](https://en.wikipedia.org/wiki/Replay_attack), since the asymmetrical encryption has not been introduced into kcptun for some reason, capturing the packets and replay them on a different machine is possible, (notice: hijacking the session and decrypting the contents is still *impossible*), so upper layers should contain a asymmetrical encryption system to guarantee the authenticity of each message(to process message exactly once), such as HTTPS/OpenSSL/LibreSSL, only by signing the requests with private keys can eliminate this type of attack. \n\nImportant: \n1. `-crypt` and `-key` must be the same on both KCP Client & KCP Server.\n2. `-crypt xor` is also insecure and vulnerable to [known-plaintext attack](https://en.wikipedia.org/wiki/Known-plaintext_attack), do not use this unless you know what you are doing. (*cryptanalysis note: any type of [counter mode](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Counter_(CTR)) is insecure in packet encryption due to the shorten of counter period and leads to iv/nonce collision*)\n\nBenchmarks for crypto algorithms supported by kcptun:\n\n```\nBenchmarkSM4-4                 \t   50000\t     32087 ns/op\t  93.49 MB/s\t       0 B/op\t       0 allocs/op\nBenchmarkAES128-4              \t  500000\t      3274 ns/op\t 916.15 MB/s\t       0 B/op\t       0 allocs/op\nBenchmarkAES192-4              \t  500000\t      3587 ns/op\t 836.34 MB/s\t       0 B/op\t       0 allocs/op\nBenchmarkAES256-4              \t  300000\t      3828 ns/op\t 783.60 MB/s\t       0 B/op\t       0 allocs/op\nBenchmarkTEA-4                 \t  100000\t     15359 ns/op\t 195.32 MB/s\t       0 B/op\t       0 allocs/op\nBenchmarkXOR-4                 \t20000000\t        90.2 ns/op\t33249.02 MB/s\t       0 B/op\t       0 allocs/op\nBenchmarkBlowfish-4            \t   50000\t     26885 ns/op\t 111.58 MB/s\t       0 B/op\t       0 allocs/op\nBenchmarkNone-4                \t30000000\t        45.8 ns/op\t65557.11 MB/s\t       0 B/op\t       0 allocs/op\nBenchmarkCast5-4               \t   50000\t     34370 ns/op\t  87.29 MB/s\t       0 B/op\t       0 allocs/op\nBenchmark3DES-4                \t   10000\t    117893 ns/op\t  25.45 MB/s\t       0 B/op\t       0 allocs/op\nBenchmarkTwofish-4             \t   50000\t     33477 ns/op\t  89.61 MB/s\t       0 B/op\t       0 allocs/op\nBenchmarkXTEA-4                \t   30000\t     45825 ns/op\t  65.47 MB/s\t       0 B/op\t       0 allocs/op\nBenchmarkSalsa20-4             \t  500000\t      3282 ns/op\t 913.90 MB/s\t       0 B/op\t       0 allocs/op\n```\n\nBenchmark result from openssl\n\n```\n$ openssl speed -evp aes-128-cfb\nDoing aes-128-cfb for 3s on 16 size blocks: 157794127 aes-128-cfb's in 2.98s\nDoing aes-128-cfb for 3s on 64 size blocks: 39614018 aes-128-cfb's in 2.98s\nDoing aes-128-cfb for 3s on 256 size blocks: 9971090 aes-128-cfb's in 2.99s\nDoing aes-128-cfb for 3s on 1024 size blocks: 2510877 aes-128-cfb's in 2.99s\nDoing aes-128-cfb for 3s on 8192 size blocks: 310865 aes-128-cfb's in 2.98s\nOpenSSL 1.0.2p  14 Aug 2018\nbuilt on: reproducible build, date unspecified\noptions:bn(64,64) rc4(ptr,int) des(idx,cisc,16,int) aes(partial) idea(int) blowfish(idx)\ncompiler: clang -I. -I.. -I../include  -fPIC -fno-common -DOPENSSL_PIC -DOPENSSL_THREADS -D_REENTRANT -DDSO_DLFCN -DHAVE_DLFCN_H -arch x86_64 -O3 -DL_ENDIAN -Wall -DOPENSSL_IA32_SSE2 -DOPENSSL_BN_ASM_MONT -DOPENSSL_BN_ASM_MONT5 -DOPENSSL_BN_ASM_GF2m -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM -DMD5_ASM -DAES_ASM -DVPAES_ASM -DBSAES_ASM -DWHIRLPOOL_ASM -DGHASH_ASM -DECP_NISTZ256_ASM\nThe 'numbers' are in 1000s of bytes per second processed.\ntype             16 bytes     64 bytes    256 bytes   1024 bytes   8192 bytes\naes-128-cfb     847216.79k   850770.86k   853712.05k   859912.39k   854565.80k\n```\n\nThe encryption performance in kcptun is as fast as in openssl library(if not faster).\n\n#### Quantum Resistance\nQuantum Resistance, also known as quantum-secure, post-quantum, or quantum-safe cryptography, refers to cryptographic algorithms that can withstand potential code-breaking attempts by quantum computer.\nIn kcptun, after v20240701, it adapts [QPP](https://github.com/xtaci/qpp) based on [Kuang's Quantum Permutation Pad](https://epjquantumtechnology.springeropen.com/articles/10.1140/epjqt/s40507-022-00145-y) for quantum-resistent communication.\n![da824f7919f70dd1dfa3be9d2302e4e0](https://github.com/xtaci/kcptun/assets/2346725/7894f5e3-6134-4582-a9fe-e78494d2e417)\n\nTo enable QPP in kcptun, you need to set: \n```\n   --QPP                enable Quantum Permutation Pads(QPP)\n   --QPPCount value     the prime number of pads to use for QPP: The more pads you use, the more secure the encryption. Each pad requires 256 bytes. (default: 61)\n```\nYour could also specify\n```json\n     \"qpp\":true,\n     \"qpp-count\":61,\n```\nin your client and server side json file. These 2 parameters must be identical on both sides.\n\n1. To achieve **Effective Quantum-Resistance,**, specify at least **211** bytes in  the `-key` parameter and ensure `-QPPCount` is no less than **7**.\n2. Make sure `-QPPCount` is **COPRIME\uff08\u4e92\u7d20\uff09** to **8**(or simply set to a **PRIME** number) like: \n```101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199... ```\n\n#### Memory Control\n\nRouters, mobile devices are susceptible to memory consumption; by setting GOGC environment(eg: GOGC=20) will make the garbage collector to recycle faster.\nReference: https://blog.golang.org/go15gc\n\nPrimary memory allocation are done from a global buffer pool *xmit.Buf*, in kcp-go, when we need to allocate some bytes, we can get from that pool, and a *fixed-capacity* 1500 bytes(mtuLimit) will be returned, the *rx queue*, *tx queue* and *fec queue* all receive bytes from there, and they will return the bytes to the pool after using to prevent *unnecessary zer0ing* of bytes. \nThe pool mechanism maintained a *high watermark* for slice objects, these *in-flight* objects from the pool will survive from the periodical garbage collection, meanwhile the pool kept the ability to return the memory to runtime if in idle, `-sndwnd`,`-rcvwnd`,`-ds`, `-ps`, these parameters affect this *high watermark*, the larger the value, the bigger the memory consumption will be.\n\n`-smuxbuf` also affects the maximum memory consumption, this parameter maintains a subtle balance between *concurrency* and *resource*, you can increase this value(default 4MB) to boost concurrency if you have many clients to serve and you get a powerful server at the same time, and also you can decrease this value to serve only 1 or 2 clients and hope this program can run under some embedded SoC system with limited memory and only you can access. (Notice that the `-smuxbuf` value is not proportional to concurrency, you need to test.)\n\n\n#### Compression\n\nkcptun has builtin snappy algorithms for compressing streams:\n\n> Snappy is a compression/decompression library. It does not aim for maximum\n> compression, or compatibility with any other compression library; instead,\n> it aims for very high speeds and reasonable compression. For instance,\n> compared to the fastest mode of zlib, Snappy is an order of magnitude faster\n> for most inputs, but the resulting compressed files are anywhere from 20% to\n> 100% bigger.\n\n> Reference: http://google.github.io/snappy/\n\nCompression may save bandwidth for **PLAINTEXT** data, it's quite useful for specific scenarios as cross-datacenter replications, by compressing the redologs in dbms or kafka-like message queues and then transfer the data streams across the continent can be much faster.\n\nCompression is enabled by default, you can disable it by setting ```-nocomp``` on **BOTH** KCP Client & KCP Server **MUST** be **IDENTICAL**.\n\n#### SNMP\n\n```go\ntype Snmp struct {\n    BytesSent        uint64 // bytes sent from upper level\n    BytesReceived    uint64 // bytes received to upper level\n    MaxConn          uint64 // max number of connections ever reached\n    ActiveOpens      uint64 // accumulated active open connections\n    PassiveOpens     uint64 // accumulated passive open connections\n    CurrEstab        uint64 // current number of established connections\n    InErrs           uint64 // UDP read errors reported from net.PacketConn\n    InCsumErrors     uint64 // checksum errors from CRC32\n    KCPInErrors      uint64 // packet input errors reported from KCP\n    InPkts           uint64 // incoming packets count\n    OutPkts          uint64 // outgoing packets count\n    InSegs           uint64 // incoming KCP segments\n    OutSegs          uint64 // outgoing KCP segments\n    InBytes          uint64 // UDP bytes received\n    OutBytes         uint64 // UDP bytes sent\n    RetransSegs      uint64 // accumulated retransmitted segments\n    FastRetransSegs  uint64 // accumulated fast retransmitted segments\n    EarlyRetransSegs uint64 // accumulated early retransmitted segments\n    LostSegs         uint64 // number of segs inferred as lost\n    RepeatSegs       uint64 // number of segs duplicated\n    FECRecovered     uint64 // correct packets recovered from FEC\n    FECErrs          uint64 // incorrect packets recovered from FEC\n    FECParityShards  uint64 // FEC segments received\n    FECShortShards   uint64 // number of data shards that's not enough for recovery\n}\n```\n\nSending a `SIGUSR1` signal to KCP Client or KCP Server will dump SNMP information to console, just like `/proc/net/snmp`. You can use this information to do fine-grained tuning.\n\n### Manual Control\n\nhttps://github.com/skywind3000/kcp/blob/master/README.en.md#protocol-configuration\n\n`-mode manual -nodelay 1 -interval 20 -resend 2 -nc 1`\n\nLow-level KCP configuration can be altered by using manual mode like above, make sure you really **UNDERSTAND** what these means before doing **ANY** manual settings.\n\n\n### Identical parameters\n\nThese parameters **MUST** be **IDENTICAL** on **BOTH** side:\n\n1. -key\n1. -crypt\n1. -nocomp\n1. -smuxver\n\n### References\n\n1. https://github.com/skywind3000/kcp -- KCP - A Fast and Reliable ARQ Protocol.\n1. https://github.com/xtaci/kcp-go/ -- A Production-Grade Reliable-UDP Library for golang\n1. https://github.com/klauspost/reedsolomon -- Reed-Solomon Erasure Coding in Go.\n1. https://en.wikipedia.org/wiki/Differentiated_services -- DSCP.\n1. http://google.github.io/snappy/ -- A fast compressor/decompressor.\n1. https://www.backblaze.com/blog/reed-solomon/ -- Reed-Solomon Explained.\n1. http://www.qualcomm.cn/products/raptorq -- RaptorQ Forward Error Correction Scheme for Object Delivery.\n1. https://en.wikipedia.org/wiki/PBKDF2 -- Key stretching.\n1. http://blog.appcanary.com/2016/encrypt-or-compress.html -- Should you encrypt or compress first?\n1. https://github.com/hashicorp/yamux -- Connection multiplexing library.\n1. https://tools.ietf.org/html/rfc6937 -- Proportional Rate Reduction for TCP.\n1. https://tools.ietf.org/html/rfc5827 -- Early Retransmit for TCP and Stream Control Transmission Protocol (SCTP).\n1. http://http2.github.io/ -- What is HTTP/2?\n1. http://www.lartc.org/ -- Linux Advanced Routing & Traffic Control\n1. https://en.wikipedia.org/wiki/Noisy-channel_coding_theorem -- Noisy channel coding theorem\n1. https://zhuanlan.zhihu.com/p/53849089 -- kcptun\u5f00\u53d1\u5c0f\u8bb0\n\n\n\uff08\u6ce8\u610f\uff1a\u6211\u6ca1\u6709\u4efb\u4f55\u793e\u4ea4\u7f51\u7ad9\u7684\u8d26\u53f7\uff0c\u8bf7\u5c0f\u5fc3\u9a97\u5b50\u3002\uff09\n",
+        "releases": [
+            {
+                "name": "v20241227",
+                "date": "2024-12-27T14:37:24Z"
+            },
+            {
+                "name": "v20241119",
+                "date": "2024-11-19T06:21:53Z"
+            },
+            {
+                "name": "Recompiled",
+                "date": "2024-10-31T11:58:32Z"
+            },
+            {
+                "name": "fix signal handler",
+                "date": "2024-09-19T10:39:23Z"
+            },
+            {
+                "name": "better FIN",
+                "date": "2024-09-06T06:27:57Z"
+            },
+            {
+                "name": "Parameterized 'closewait'",
+                "date": "2024-08-31T04:55:33Z"
+            },
+            {
+                "name": "Transport&Security Enhancement!",
+                "date": "2024-08-28T07:53:00Z"
+            },
+            {
+                "name": "Profile-guided optimization on client",
+                "date": "2024-01-07T09:05:58Z"
+            },
+            {
+                "name": "a bug fix in fec auto tuning",
+                "date": "2023-10-12T15:34:03Z"
+            },
+            {
+                "name": "go1.21 rebuild",
+                "date": "2023-08-11T05:39:34Z"
+            },
+            {
+                "name": "Fixed a bug that in rare case kcptun will hang",
+                "date": "2023-02-14T14:31:58Z"
+            },
+            {
+                "name": "possible bugfix in smux",
+                "date": "2023-02-07T14:20:09Z"
+            },
+            {
+                "name": "Add support for port-range dialer, randomized remote port",
+                "date": "2022-10-15T05:53:24Z"
+            },
+            {
+                "name": "Recompiled with golang 1.18.3",
+                "date": "2022-06-28T02:33:30Z"
+            },
+            {
+                "name": "Recompiled with golang 1.18.3",
+                "date": "2022-06-27T14:08:33Z"
+            },
+            {
+                "name": "Bugfix in smux and Recompiled with go1.17",
+                "date": "2021-09-22T13:53:29Z"
+            },
+            {
+                "name": "Recompiled with go1.16.5 and Add Release binary for Apple M1",
+                "date": "2021-06-24T03:51:50Z"
+            },
+            {
+                "name": "Minor changes",
+                "date": "2021-01-03T13:07:10Z"
+            },
+            {
+                "name": "SMUX BUG FIX",
+                "date": "2020-11-26T03:22:55Z"
+            },
+            {
+                "name": "Adaptive FEC",
+                "date": "2020-10-10T03:56:44Z"
+            },
+            {
+                "name": "Recompiled with go1.14.9",
+                "date": "2020-09-30T11:19:20Z"
+            },
+            {
+                "name": "Improved sliding window ",
+                "date": "2020-07-01T10:24:51Z"
+            },
+            {
+                "name": "Recompiled with golang1.14.2",
+                "date": "2020-04-09T03:25:55Z"
+            },
+            {
+                "name": "A bugfix in kcp-go",
+                "date": "2020-02-01T09:40:44Z"
+            },
+            {
+                "name": "Speed improvements on non-x86 core",
+                "date": "2020-01-03T12:39:30Z"
+            },
+            {
+                "name": "Fixed a bug in previous release.",
+                "date": "2019-12-29T10:48:31Z"
+            },
+            {
+                "name": "Bounded copy buffer among streams & goroutine optimization",
+                "date": "2019-12-19T08:47:53Z"
+            },
+            {
+                "name": "Bounded copy buffer among streams",
+                "date": "2019-12-18T14:28:16Z"
+            },
+            {
+                "name": "Optimize memory usage",
+                "date": "2019-11-27T04:48:46Z"
+            },
+            {
+                "name": "Optimize memory usage",
+                "date": "2019-11-12T12:24:09Z"
+            },
+            {
+                "name": "Optimize memory usage",
+                "date": "2019-11-09T14:39:33Z"
+            },
+            {
+                "name": "Optimize memory usage",
+                "date": "2019-11-04T08:18:23Z"
+            },
+            {
+                "name": "Support per-stream flow control and bugfix in KCP",
+                "date": "2019-09-24T05:34:27Z"
+            },
+            {
+                "name": "Fair queue support in smux",
+                "date": "2019-09-10T15:02:21Z"
+            },
+            {
+                "name": "re-compiled with go1.13",
+                "date": "2019-09-05T06:00:53Z"
+            },
+            {
+                "name": "-dscp works with -tcp option now",
+                "date": "2019-08-09T03:47:27Z"
+            },
+            {
+                "name": "support on unix domain socket",
+                "date": "2019-07-25T04:14:29Z"
+            },
+            {
+                "name": "optimizations on linux `-tcp` option",
+                "date": "2019-07-18T06:28:16Z"
+            },
+            {
+                "name": "optimizations on -tcp option for linux",
+                "date": "2019-07-17T07:58:38Z"
+            },
+            {
+                "name": "optimizations on -tcp option for linux ",
+                "date": "2019-07-16T09:02:48Z"
+            },
+            {
+                "name": "support `-tcp` option for linux",
+                "date": "2019-07-15T06:02:43Z"
+            },
+            {
+                "name": "support `-tcp` option for linux",
+                "date": "2019-07-14T10:33:46Z"
+            },
+            {
+                "name": "bugfix for old linux kernel",
+                "date": "2019-06-11T13:12:40Z"
+            },
+            {
+                "name": "sendmmsg",
+                "date": "2019-05-15T03:13:16Z"
+            },
+            {
+                "name": "Less memory usage",
+                "date": "2019-04-28T07:05:10Z"
+            },
+            {
+                "name": "UDP receiving optimization for linux-based system",
+                "date": "2019-04-24T05:42:13Z"
+            },
+            {
+                "name": "Bugfix in smux relates to \"broken pipe\"",
+                "date": "2019-04-18T05:58:27Z"
+            },
+            {
+                "name": "Prevent RS decoder from allocating new bytes slice",
+                "date": "2019-04-01T13:54:19Z"
+            },
+            {
+                "name": "Allow access to `-smuxbuf` parameter for mitigation of HOLB",
+                "date": "2019-03-25T04:00:10Z"
+            },
+            {
+                "name": "1. Eliminated  one memcpy in packet output",
+                "date": "2019-03-21T18:31:59Z"
+            },
+            {
+                "name": "More accurate retransmit",
+                "date": "2019-01-09T15:34:52Z"
+            },
+            {
+                "name": "Faster handling of acknowledgements",
+                "date": "2019-01-04T09:33:06Z"
+            },
+            {
+                "name": "experimental delayed condense on snd_buf",
+                "date": "2019-01-03T14:34:13Z"
+            },
+            {
+                "name": "Greatly increased payload ratio!!!",
+                "date": "2018-12-30T09:33:00Z"
+            },
+            {
+                "name": "improved steadiness in packets processing",
+                "date": "2018-12-26T15:19:47Z"
+            },
+            {
+                "name": "xmas edition with minor updates",
+                "date": "2018-12-24T12:38:28Z"
+            },
+            {
+                "name": "bugfix in kcp-go#106",
+                "date": "2018-11-14T15:44:21Z"
+            },
+            {
+                "name": "Improved multiplexing efficiency",
+                "date": "2018-10-02T12:01:50Z"
+            },
+            {
+                "name": "More responsive & make timing monotonic",
+                "date": "2018-09-26T12:19:37Z"
+            },
+            {
+                "name": "Improved responsiveness",
+                "date": "2018-09-22T13:22:14Z"
+            },
+            {
+                "name": "Cumulative updates(MIPS softfloat support)",
+                "date": "2018-09-17T08:32:34Z"
+            },
+            {
+                "name": "Improvements on connection speed",
+                "date": "2018-08-10T14:53:10Z"
+            },
+            {
+                "name": "fix 'too man open files' ",
+                "date": "2018-03-16T05:49:36Z"
+            },
+            {
+                "name": "Repack executable for last version",
+                "date": "2017-12-01T12:39:03Z"
+            },
+            {
+                "name": "a faster nonce generator",
+                "date": "2017-11-29T12:44:11Z"
+            },
+            {
+                "name": "improvements in rtt & fec",
+                "date": "2017-11-13T18:40:20Z"
+            },
+            {
+                "name": "support for '-quiet' option",
+                "date": "2017-10-21T11:49:04Z"
+            },
+            {
+                "name": "Fix 'Illegal Instructions\" crash on some platform",
+                "date": "2017-09-30T13:37:30Z"
+            },
+            {
+                "name": " SSE & AVX optimization in ReedSolomon Code",
+                "date": "2017-09-04T03:04:25Z"
+            },
+            {
+                "name": "CPU optimizations",
+                "date": "2017-05-25T10:19:22Z"
+            },
+            {
+                "name": "CPU optimizations",
+                "date": "2017-03-29T05:46:28Z"
+            },
+            {
+                "name": "CPU optimizations",
+                "date": "2017-03-22T08:01:27Z"
+            },
+            {
+                "name": "executable binary size shrinking on client side",
+                "date": "2017-03-15T05:13:57Z"
+            },
+            {
+                "name": "Plenty of Optimizations on Memory Usage",
+                "date": "2017-03-13T04:35:01Z"
+            },
+            {
+                "name": "\u7d2f\u8ba1\u4f18\u5316",
+                "date": "2017-02-21T04:41:27Z"
+            },
+            {
+                "name": "golang 1.8 stable recompile",
+                "date": "2017-02-18T04:23:10Z"
+            },
+            {
+                "name": "RTT\u7b97\u6cd5\u4f18\u5316-Round-3",
+                "date": "2017-01-20T08:50:50Z"
+            },
+            {
+                "name": "RTT\u7b97\u6cd5\u4f18\u5316-Round-2",
+                "date": "2017-01-17T07:59:56Z"
+            },
+            {
+                "name": "RTT\u95ee\u9898\u4f18\u5316\u7b49",
+                "date": "2017-01-14T12:18:31Z"
+            },
+            {
+                "name": "\u7d2f\u8ba1\u66f4\u65b0",
+                "date": "2017-01-12T14:02:38Z"
+            },
+            {
+                "name": "\u7d2f\u8ba1\u66f4\u65b0",
+                "date": "2016-12-22T12:27:36Z"
+            },
+            {
+                "name": "Fix  ineffective -autoexpire under heavy loss",
+                "date": "2016-12-07T12:25:55Z"
+            },
+            {
+                "name": "Support MIPS32 with go1.8beta1",
+                "date": "2016-12-02T08:27:22Z"
+            },
+            {
+                "name": "Reduce FEC memory usage",
+                "date": "2016-11-18T05:20:25Z"
+            },
+            {
+                "name": "Reduce sending of unnecessary acks",
+                "date": "2016-11-11T09:49:01Z"
+            },
+            {
+                "name": "Brought Back Early Retransmit, with Stricter Criterion",
+                "date": "2016-11-05T03:22:09Z"
+            },
+            {
+                "name": "Optimizations on CPU Usage",
+                "date": "2016-11-02T04:58:53Z"
+            },
+            {
+                "name": "Even more optimizations on memory",
+                "date": "2016-10-31T02:15:06Z"
+            },
+            {
+                "name": "Reduce memory footprint",
+                "date": "2016-10-28T05:17:02Z"
+            },
+            {
+                "name": "Reduce memory footprint",
+                "date": "2016-10-25T09:43:38Z"
+            },
+            {
+                "name": "lower CPU usage",
+                "date": "2016-10-09T03:27:01Z"
+            },
+            {
+                "name": "add -log option ",
+                "date": "2016-09-22T07:27:42Z"
+            },
+            {
+                "name": "Fix  \"connect: network is unreachable\"",
+                "date": "2016-09-19T02:54:50Z"
+            },
+            {
+                "name": "SMUX optimize-II",
+                "date": "2016-09-12T03:14:29Z"
+            },
+            {
+                "name": "SMUX optimize!",
+                "date": "2016-09-06T05:13:00Z"
+            },
+            {
+                "name": "SMUX Powered!",
+                "date": "2016-09-02T10:02:02Z"
+            },
+            {
+                "name": "support -c flag for json config",
+                "date": "2016-08-30T07:57:06Z"
+            },
+            {
+                "name": "autoexpire",
+                "date": "2016-08-26T05:09:35Z"
+            },
+            {
+                "name": "Disable RTO backoff when nc is set to 1",
+                "date": "2016-08-23T13:15:23Z"
+            },
+            {
+                "name": "the missing encryption algorithms #2",
+                "date": "2016-08-20T07:17:29Z"
+            },
+            {
+                "name": "the missing encryption algorithms",
+                "date": "2016-08-19T05:30:11Z"
+            },
+            {
+                "name": "re-compiled with golang 1.7 stable",
+                "date": "2016-08-16T08:49:44Z"
+            },
+            {
+                "name": "Smooth dataflow curve & Half CPU usage for client",
+                "date": "2016-08-11T05:32:57Z"
+            },
+            {
+                "name": "Cumulative Non-Critical Updates",
+                "date": "2016-08-09T02:19:44Z"
+            },
+            {
+                "name": "improve network latency by introducing stream mode",
+                "date": "2016-07-25T12:20:12Z"
+            },
+            {
+                "name": "fix for macOS Sierra(10.12)",
+                "date": "2016-07-19T16:03:55Z"
+            },
+            {
+                "name": "Limit max RTO backoff to 8xRTO",
+                "date": "2016-07-08T15:14:48Z"
+            },
+            {
+                "name": "Compression with Snappy (The first compression enabled release)",
+                "date": "2016-06-27T02:38:56Z"
+            },
+            {
+                "name": "SNMP Millstone Version",
+                "date": "2016-06-07T10:14:17Z"
+            }
+        ]
+    }
+}

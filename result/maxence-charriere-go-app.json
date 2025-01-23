@@ -1,0 +1,464 @@
+{
+    "https://api.github.com/repos/maxence-charriere/go-app": {
+        "forks": 373,
+        "watchers": 8083,
+        "stars": 8083,
+        "languages": {
+            "Go": 481168,
+            "JavaScript": 11511,
+            "Makefile": 1558,
+            "CSS": 1556
+        },
+        "commits": [
+            "2024-12-09T23:41:39Z",
+            "2024-12-03T10:53:23Z",
+            "2024-12-01T09:56:04Z",
+            "2024-10-10T06:53:36Z",
+            "2024-10-10T06:25:35Z",
+            "2024-10-10T06:23:34Z",
+            "2024-10-02T13:25:58Z",
+            "2024-10-02T13:24:47Z",
+            "2024-08-22T18:37:28Z",
+            "2024-08-22T18:32:25Z",
+            "2024-08-22T18:31:34Z",
+            "2024-08-22T13:44:23Z",
+            "2024-08-22T13:41:57Z",
+            "2024-08-22T13:33:46Z",
+            "2024-07-30T09:09:41Z",
+            "2024-07-30T07:15:48Z",
+            "2024-06-15T05:28:33Z",
+            "2024-06-15T05:27:07Z",
+            "2024-06-15T05:24:52Z",
+            "2024-06-09T18:09:02Z",
+            "2024-05-31T02:35:08Z",
+            "2024-05-31T02:32:43Z",
+            "2024-05-31T02:31:37Z",
+            "2024-05-25T02:46:45Z",
+            "2024-05-22T09:03:53Z",
+            "2024-05-22T08:59:50Z",
+            "2024-05-22T08:23:14Z",
+            "2024-05-22T08:22:09Z",
+            "2024-05-22T07:44:30Z",
+            "2024-05-22T07:43:24Z"
+        ],
+        "creation_date": "2016-10-12T00:31:33Z",
+        "contributors": 25,
+        "topics": [
+            "awesome-go",
+            "go",
+            "golang",
+            "gui",
+            "pwa",
+            "ui",
+            "wasm"
+        ],
+        "subscribers": 149,
+        "readme": "<h1 align=\"center\">\n    <a href=\"https://go-app.dev\">\n        <img alt=\"go-app\"  width=\"150\" height=\"150\" src=\"docs/web/icon.png\">\n    </a>\n</h1>\n\n<p align=\"center\">\n\t<a href=\"https://github.com/maxence-charriere/go-app/actions\"><img src=\"https://github.com/maxence-charriere/go-app/actions/workflows/build.yml/badge.svg?branch=master\" alt=\"GitHub actions\"></a>\n    <a href=\"https://goreportcard.com/report/github.com/maxence-charriere/go-app\"><img src=\"https://goreportcard.com/badge/github.com/maxence-charriere/go-app\" alt=\"Go Report Card\"></a>\n\t<a href=\"https://GitHub.com/maxence-charriere/go-app/releases/\"><img src=\"https://img.shields.io/github/release/maxence-charriere/go-app.svg\" alt=\"GitHub release\"></a>\n\t<a href=\"https://pkg.go.dev/github.com/maxence-charriere/go-app/v10/pkg/app\"><img src=\"https://img.shields.io/badge/dev-reference-007d9c?logo=go&logoColor=white&style=flat\" alt=\"pkg.go.dev docs\"></a>\n    <a href=\"https://twitter.com/jonhymaxoo\"><img alt=\"Twitter URL\" src=\"https://img.shields.io/badge/twitter-@jonhymaxoo-35A9F8?logo=twitter&style=flat\"></a>\n    <a href=\"https://opencollective.com/go-app\" alt=\"Financial Contributors on Open Collective\"><img src=\"https://opencollective.com/go-app/all/badge.svg?label=open+collective&color=4FB9F6\" /></a>\n</p>\n\nGo-app is a package for **building progressive web apps (PWA)** with the [Go programming language (Golang)](https://golang.org) and [WebAssembly (Wasm)](https://webassembly.org).\n\nShaping a UI is done by using a **[declarative syntax](https://go-app.dev/declarative-syntax) that creates and compose HTML elements only by using the Go programing language**.\n\nIt **uses [Go HTTP standard](https://golang.org/pkg/net/http) model**.\n\nAn app created with go-app can out of the box **runs in its own window**, **supports offline mode**, and is **SEO friendly**.\n\n## Documentation (built with go-app)\n\n[![go-app documentation](docs/web/images/go-app.png)](https://go-app.dev)\n\n## Install\n\n**go-app** requirements:\n\n- [Go 1.18](https://golang.org/doc/go1.17) or newer\n- [Go module](https://github.com/golang/go/wiki/Modules)\n\n```sh\ngo mod init\ngo get -u github.com/maxence-charriere/go-app/v10/pkg/app\n```\n\n## Declarative syntax\n\nGo-app uses a [declarative syntax](https://go-app.dev/declarative-syntax) so you can **write reusable component-based UI elements** just by using the Go programming language.\n\nHere is a Hello World component that takes an input and displays its value in its title:\n\n```go\ntype hello struct {\n\tapp.Compo\n\n\tname string\n}\n\nfunc (h *hello) Render() app.UI {\n\treturn app.Div().Body(\n\t\tapp.H1().Body(\n\t\t\tapp.Text(\"Hello, \"),\n\t\t\tapp.If(h.name != \"\", func() app.UI {\n\t\t\t\treturn app.Text(h.name)\n\t\t\t}).Else(func() app.UI {\n\t\t\t\treturn app.Text(\"World!\")\n\t\t\t}),\n\t\t),\n\t\tapp.P().Body(\n\t\t\tapp.Input().\n\t\t\t\tType(\"text\").\n\t\t\t\tValue(h.name).\n\t\t\t\tPlaceholder(\"What is your name?\").\n\t\t\t\tAutoFocus(true).\n\t\t\t\tOnChange(h.ValueTo(&h.name)),\n\t\t),\n\t)\n}\n```\n\n## Standard HTTP\n\nApps created with go-app complies with [Go standard HTTP](https://golang.org/pkg/net/http) package interfaces.\n\n```go\nfunc main() {\n\t// Components routing:\n\tapp.Route(\"/\", func() app.Composer { return &hello{} })\n\tapp.Route(\"/hello\", func() app.Composer { return &hello{} })\n\tapp.RunWhenOnBrowser()\n\n\t// HTTP routing:\n\thttp.Handle(\"/\", &app.Handler{\n\t\tName:        \"Hello\",\n\t\tDescription: \"An Hello World! example\",\n\t})\n\n\tif err := http.ListenAndServe(\":8000\", nil); err != nil {\n\t\tlog.Fatal(err)\n\t}\n}\n```\n\n## Getting started\n\n**Read the [Getting Started](https://go-app.dev/getting-started) document**.\n\n## Built with go-app\n\n- [Lofimusic.app](https://lofimusic.app/collegemusic-lonely)\n- [Murlok.io](https://murlok.io/)\n- [liwasc](https://pojntfx.github.io/liwasc/)\n- [go-app Docs](https://go-app.dev/)\n\n## Contributors\n\n### Code Contributors\n\nThis project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].\n\n<a href=\"https://github.com/maxence-charriere/go-app/graphs/contributors\"><img src=\"https://opencollective.com/go-app/contributors.svg?width=890&button=false\" /></a>\n\n### Financial Contributors\n\nBecome a financial contributor and help us sustain [go-app](https://github.com/maxence-charriere/go-app) development. [[Contribute](https://opencollective.com/go-app/contribute)]\n\n#### Individuals\n\n<a href=\"https://opencollective.com/go-app\"><img src=\"https://opencollective.com/go-app/individuals.svg?width=890\"></a>\n\n#### Organizations\n\nSupport this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/go-app/contribute)]\n\n<a href=\"https://opencollective.com/go-app/organization/0/website\"><img src=\"https://opencollective.com/go-app/organization/0/avatar.svg\"></a>\n<a href=\"https://opencollective.com/go-app/organization/1/website\"><img src=\"https://opencollective.com/go-app/organization/1/avatar.svg\"></a>\n<a href=\"https://opencollective.com/go-app/organization/2/website\"><img src=\"https://opencollective.com/go-app/organization/2/avatar.svg\"></a>\n<a href=\"https://opencollective.com/go-app/organization/3/website\"><img src=\"https://opencollective.com/go-app/organization/3/avatar.svg\"></a>\n<a href=\"https://opencollective.com/go-app/organization/4/website\"><img src=\"https://opencollective.com/go-app/organization/4/avatar.svg\"></a>\n<a href=\"https://opencollective.com/go-app/organization/5/website\"><img src=\"https://opencollective.com/go-app/organization/5/avatar.svg\"></a>\n<a href=\"https://opencollective.com/go-app/organization/6/website\"><img src=\"https://opencollective.com/go-app/organization/6/avatar.svg\"></a>\n<a href=\"https://opencollective.com/go-app/organization/7/website\"><img src=\"https://opencollective.com/go-app/organization/7/avatar.svg\"></a>\n<a href=\"https://opencollective.com/go-app/organization/8/website\"><img src=\"https://opencollective.com/go-app/organization/8/avatar.svg\"></a>\n<a href=\"https://opencollective.com/go-app/organization/9/website\"><img src=\"https://opencollective.com/go-app/organization/9/avatar.svg\"></a>\n",
+        "releases": [
+            {
+                "name": "v10.0.9",
+                "date": "2024-12-03T10:56:11Z"
+            },
+            {
+                "name": "v10.0.8",
+                "date": "2024-10-10T06:58:40Z"
+            },
+            {
+                "name": "v10.0.7",
+                "date": "2024-10-02T13:28:33Z"
+            },
+            {
+                "name": "v10.0.6",
+                "date": "2024-08-22T13:36:30Z"
+            },
+            {
+                "name": "v10.0.5",
+                "date": "2024-06-15T05:30:06Z"
+            },
+            {
+                "name": "v10.0.4",
+                "date": "2024-05-22T09:06:52Z"
+            },
+            {
+                "name": "v10.0.3",
+                "date": "2024-05-22T08:27:50Z"
+            },
+            {
+                "name": "v10.0.2",
+                "date": "2024-05-22T07:47:46Z"
+            },
+            {
+                "name": "v10.0.1",
+                "date": "2024-05-20T06:57:09Z"
+            },
+            {
+                "name": "v10.0.0",
+                "date": "2024-05-20T06:50:53Z"
+            },
+            {
+                "name": "v9.8.0",
+                "date": "2023-08-16T09:58:17Z"
+            },
+            {
+                "name": "v9.7.3",
+                "date": "2023-07-19T11:47:44Z"
+            },
+            {
+                "name": "v9.7.2",
+                "date": "2023-06-27T19:18:38Z"
+            },
+            {
+                "name": "V9.7.1",
+                "date": "2023-06-27T10:48:52Z"
+            },
+            {
+                "name": "v9.7.0",
+                "date": "2023-06-27T09:18:35Z"
+            },
+            {
+                "name": "",
+                "date": "2022-10-18T12:43:18Z"
+            },
+            {
+                "name": "",
+                "date": "2022-08-29T01:29:44Z"
+            },
+            {
+                "name": "",
+                "date": "2022-08-22T15:01:09Z"
+            },
+            {
+                "name": "",
+                "date": "2022-08-22T14:41:03Z"
+            },
+            {
+                "name": "V9.6.1",
+                "date": "2022-08-22T06:10:27Z"
+            },
+            {
+                "name": "",
+                "date": "2022-05-10T16:57:40Z"
+            },
+            {
+                "name": "",
+                "date": "2022-05-10T05:33:41Z"
+            },
+            {
+                "name": "",
+                "date": "2022-03-26T10:07:57Z"
+            },
+            {
+                "name": "v9.3.0",
+                "date": "2021-12-27T15:19:23Z"
+            },
+            {
+                "name": "",
+                "date": "2021-11-08T10:55:21Z"
+            },
+            {
+                "name": "",
+                "date": "2021-11-03T08:03:57Z"
+            },
+            {
+                "name": "",
+                "date": "2021-10-25T09:58:11Z"
+            },
+            {
+                "name": "",
+                "date": "2021-10-18T07:20:51Z"
+            },
+            {
+                "name": "v9",
+                "date": "2021-09-22T10:11:02Z"
+            },
+            {
+                "name": "Fix achor downloads",
+                "date": "2021-06-20T09:52:39Z"
+            },
+            {
+                "name": "Fix anchor download",
+                "date": "2021-06-20T09:26:48Z"
+            },
+            {
+                "name": "Custom resource provide + Page Fix",
+                "date": "2021-04-20T08:12:09Z"
+            },
+            {
+                "name": "",
+                "date": "2021-03-30T07:06:16Z"
+            },
+            {
+                "name": "V8: Server side prerendering",
+                "date": "2021-03-25T12:15:20Z"
+            },
+            {
+                "name": "Event Handler scope",
+                "date": "2021-02-19T12:06:00Z"
+            },
+            {
+                "name": "App resize listener",
+                "date": "2021-01-08T11:21:44Z"
+            },
+            {
+                "name": "Context app update fix",
+                "date": "2021-01-05T09:12:47Z"
+            },
+            {
+                "name": "Blank navigation fix",
+                "date": "2021-01-05T06:53:35Z"
+            },
+            {
+                "name": "Detect app update",
+                "date": "2021-01-04T11:30:17Z"
+            },
+            {
+                "name": "Improve BrowserStorage + Fixes",
+                "date": "2020-12-29T14:46:00Z"
+            },
+            {
+                "name": "Documentation & fixes",
+                "date": "2020-11-26T16:24:47Z"
+            },
+            {
+                "name": "Bug fixes",
+                "date": "2020-08-25T05:11:16Z"
+            },
+            {
+                "name": "Ads.txt Proxy fixes",
+                "date": "2020-08-12T11:12:33Z"
+            },
+            {
+                "name": "Fixes and improvements",
+                "date": "2020-07-11T14:10:19Z"
+            },
+            {
+                "name": "Version 7",
+                "date": "2020-06-28T18:23:09Z"
+            },
+            {
+                "name": "Fix manual Navigation",
+                "date": "2020-06-23T22:01:37Z"
+            },
+            {
+                "name": "Fix component update bug",
+                "date": "2020-06-10T11:31:50Z"
+            },
+            {
+                "name": "Crash Fixe and Indirect function exported",
+                "date": "2020-06-10T00:23:56Z"
+            },
+            {
+                "name": "Clean body and fix hash navigation",
+                "date": "2020-05-15T11:16:22Z"
+            },
+            {
+                "name": "Improve stability",
+                "date": "2020-05-08T08:41:25Z"
+            },
+            {
+                "name": "",
+                "date": "2020-05-05T06:18:17Z"
+            },
+            {
+                "name": "Dismounter fix and other",
+                "date": "2020-04-20T06:29:07Z"
+            },
+            {
+                "name": "PWA env",
+                "date": "2020-04-07T10:21:39Z"
+            },
+            {
+                "name": "thead tag and bug fix",
+                "date": "2020-04-05T07:32:52Z"
+            },
+            {
+                "name": "Bug fixes",
+                "date": "2020-03-23T17:46:17Z"
+            },
+            {
+                "name": "V6.2.0: Customizable Root DIr",
+                "date": "2020-03-19T14:25:14Z"
+            },
+            {
+                "name": "v6.1.0: Routing UI with regexp",
+                "date": "2020-03-11T09:36:09Z"
+            },
+            {
+                "name": "v6: Add demo to readme",
+                "date": "2020-03-09T10:19:59Z"
+            },
+            {
+                "name": "v6: Update install instructions",
+                "date": "2020-03-08T02:42:10Z"
+            },
+            {
+                "name": "v6 Fix documentation link",
+                "date": "2020-03-08T02:24:15Z"
+            },
+            {
+                "name": "v6",
+                "date": "2020-03-08T01:44:35Z"
+            },
+            {
+                "name": "Fix v5 module",
+                "date": "2020-03-08T02:16:35Z"
+            },
+            {
+                "name": "v5 go module",
+                "date": "2020-03-08T02:07:28Z"
+            },
+            {
+                "name": "v1.0.0",
+                "date": "2020-03-06T09:03:59Z"
+            },
+            {
+                "name": "Scoped goapp build and browser storage",
+                "date": "2019-10-06T17:30:54Z"
+            },
+            {
+                "name": "Go 1.13 Support",
+                "date": "2019-09-11T18:51:44Z"
+            },
+            {
+                "name": "Improve messages/bindings",
+                "date": "2019-09-04T23:16:45Z"
+            },
+            {
+                "name": "Version 5",
+                "date": "2019-09-03T02:07:33Z"
+            },
+            {
+                "name": "",
+                "date": "2019-07-25T21:57:17Z"
+            },
+            {
+                "name": "Desktop theme support",
+                "date": "2019-04-12T05:24:37Z"
+            },
+            {
+                "name": "Chrome progressive web app support",
+                "date": "2019-03-20T08:39:41Z"
+            },
+            {
+                "name": "Go 1.12 support + offline mode",
+                "date": "2019-03-01T02:09:46Z"
+            },
+            {
+                "name": "Fix cache control ",
+                "date": "2019-02-27T21:13:05Z"
+            },
+            {
+                "name": "Static resources caching",
+                "date": "2019-02-26T06:40:40Z"
+            },
+            {
+                "name": "handler optimization",
+                "date": "2019-02-24T05:53:00Z"
+            },
+            {
+                "name": "Goapp",
+                "date": "2019-02-22T10:17:32Z"
+            },
+            {
+                "name": "Optimize page service",
+                "date": "2019-02-21T09:01:12Z"
+            },
+            {
+                "name": "WebAssembly move",
+                "date": "2019-02-20T06:56:54Z"
+            },
+            {
+                "name": "",
+                "date": "2018-12-10T01:17:13Z"
+            },
+            {
+                "name": "",
+                "date": "2018-12-06T09:36:57Z"
+            },
+            {
+                "name": "",
+                "date": "2018-12-04T06:36:58Z"
+            },
+            {
+                "name": "",
+                "date": "2018-11-12T04:20:09Z"
+            },
+            {
+                "name": "",
+                "date": "2018-10-28T03:08:43Z"
+            },
+            {
+                "name": "",
+                "date": "2018-10-26T08:42:16Z"
+            },
+            {
+                "name": "",
+                "date": "2018-10-01T05:39:41Z"
+            },
+            {
+                "name": "",
+                "date": "2018-09-27T00:35:40Z"
+            },
+            {
+                "name": "",
+                "date": "2018-09-27T00:16:02Z"
+            },
+            {
+                "name": "",
+                "date": "2018-09-26T09:52:41Z"
+            },
+            {
+                "name": "",
+                "date": "2018-09-26T06:37:20Z"
+            },
+            {
+                "name": "",
+                "date": "2018-09-24T22:16:10Z"
+            },
+            {
+                "name": "",
+                "date": "2018-09-24T01:30:12Z"
+            },
+            {
+                "name": "",
+                "date": "2018-09-13T21:08:44Z"
+            },
+            {
+                "name": "",
+                "date": "2018-09-11T02:37:28Z"
+            },
+            {
+                "name": "",
+                "date": "2018-08-30T07:09:37Z"
+            },
+            {
+                "name": "",
+                "date": "2018-08-27T08:55:51Z"
+            },
+            {
+                "name": "",
+                "date": "2018-08-26T10:42:35Z"
+            },
+            {
+                "name": "",
+                "date": "2018-08-26T07:37:30Z"
+            },
+            {
+                "name": "",
+                "date": "2018-08-24T18:51:44Z"
+            },
+            {
+                "name": "",
+                "date": "2018-08-07T20:25:54Z"
+            },
+            {
+                "name": "",
+                "date": "2018-07-14T05:52:06Z"
+            },
+            {
+                "name": "",
+                "date": "2018-07-13T06:41:38Z"
+            }
+        ]
+    }
+}

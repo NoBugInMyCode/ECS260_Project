@@ -1,0 +1,241 @@
+{
+    "https://api.github.com/repos/telegraf/telegraf": {
+        "forks": 944,
+        "watchers": 8484,
+        "stars": 8484,
+        "languages": {
+            "TypeScript": 235830,
+            "JavaScript": 57091
+        },
+        "commits": [
+            "2025-01-10T04:20:48Z",
+            "2024-06-22T00:14:42Z",
+            "2024-03-04T06:04:13Z",
+            "2024-02-29T07:49:56Z",
+            "2024-02-29T07:45:53Z",
+            "2024-02-29T07:43:21Z",
+            "2024-02-29T07:43:12Z",
+            "2024-02-28T18:04:42Z",
+            "2024-02-26T09:59:59Z",
+            "2024-02-26T09:59:31Z",
+            "2024-02-25T17:07:36Z",
+            "2024-02-25T17:07:12Z",
+            "2024-02-24T23:27:25Z",
+            "2024-02-21T21:17:32Z",
+            "2024-02-21T21:07:00Z",
+            "2024-02-21T16:39:46Z",
+            "2024-02-21T16:25:51Z",
+            "2024-02-21T08:10:28Z",
+            "2024-02-21T08:06:33Z",
+            "2024-02-21T08:02:53Z",
+            "2024-02-21T07:58:11Z",
+            "2024-02-21T07:42:10Z",
+            "2024-02-21T07:38:14Z",
+            "2024-02-21T06:12:22Z",
+            "2024-02-21T06:09:02Z",
+            "2024-02-21T06:02:49Z",
+            "2024-02-20T19:33:01Z",
+            "2024-02-20T19:32:17Z",
+            "2024-02-20T16:17:43Z",
+            "2024-02-20T15:44:51Z"
+        ],
+        "creation_date": "2016-04-16T18:05:48Z",
+        "contributors": 30,
+        "topics": [
+            "bot",
+            "bot-api",
+            "bot-framework",
+            "hacktoberfest",
+            "middleware",
+            "telegraf",
+            "telegram",
+            "telegram-bot",
+            "telegram-bot-api",
+            "telegram-bots"
+        ],
+        "subscribers": 114,
+        "readme": "<header>\n\n<div align=\"center\">\n<img src=\"docs/assets/logo.svg\" alt=\"logo\" height=\"90\" align=\"center\">\n<h1 align=\"center\">telegraf.js</h1>\n\n<p>Modern Telegram Bot API framework for Node.js</p>\n\n<a href=\"https://core.telegram.org/bots/api\">\n\t<img src=\"https://img.shields.io/badge/Bot%20API-v7.1-f36caf.svg?style=flat-square\" alt=\"Bot API Version\" />\n</a>\n<a href=\"https://packagephobia.com/result?p=telegraf,node-telegram-bot-api\">\n\t<img src=\"https://flat.badgen.net/packagephobia/install/telegraf\" alt=\"install size\" />\n</a>\n<a href=\"https://github.com/telegraf/telegraf\">\n\t<img src=\"https://img.shields.io/github/languages/top/telegraf/telegraf?style=flat-square&logo=github\" alt=\"GitHub top language\" />\n</a>\n<a href=\"https://telegram.me/TelegrafJSChat\">\n\t<img src=\"https://img.shields.io/badge/English%20chat-grey?style=flat-square&logo=telegram\" alt=\"English chat\" />\n</a>\n</div>\n\n</header>\n\n## For 3.x users\n\n- [3.x docs](https://telegraf.js.org/v3)\n- [4.0 release notes](https://github.com/telegraf/telegraf/releases/tag/v4.0.0)\n\n## Introduction\n\nBots are special [Telegram](https://telegram.org) accounts designed to handle messages automatically.\nUsers can interact with bots by sending them command messages in private or group chats.\nThese accounts serve as an interface for code running somewhere on your server.\n\nTelegraf is a library that makes it simple for you to develop your own Telegram bots using JavaScript or [TypeScript](https://www.typescriptlang.org/).\n\n### Features\n\n- Full [Telegram Bot API 7.1](https://core.telegram.org/bots/api) support\n- [Excellent TypeScript typings](https://github.com/telegraf/telegraf/releases/tag/v4.0.0)\n- [Lightweight](https://packagephobia.com/result?p=telegraf,node-telegram-bot-api)\n- [AWS **\u03bb**](https://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-handler.html)\n  / [Firebase](https://firebase.google.com/products/functions/)\n  / [Glitch](https://glitch.com/edit/#!/dashing-light)\n  / [Fly.io](https://fly.io/docs/languages-and-frameworks/node)\n  / Whatever ready\n- `http/https/fastify/Connect.js/express.js` compatible webhooks\n- Extensible\n\n### Example\n\n```js\nconst { Telegraf } = require('telegraf')\nconst { message } = require('telegraf/filters')\n\nconst bot = new Telegraf(process.env.BOT_TOKEN)\nbot.start((ctx) => ctx.reply('Welcome'))\nbot.help((ctx) => ctx.reply('Send me a sticker'))\nbot.on(message('sticker'), (ctx) => ctx.reply('\ud83d\udc4d'))\nbot.hears('hi', (ctx) => ctx.reply('Hey there'))\nbot.launch()\n\n// Enable graceful stop\nprocess.once('SIGINT', () => bot.stop('SIGINT'))\nprocess.once('SIGTERM', () => bot.stop('SIGTERM'))\n```\n\n```js\nconst { Telegraf } = require('telegraf')\n\nconst bot = new Telegraf(process.env.BOT_TOKEN)\nbot.command('oldschool', (ctx) => ctx.reply('Hello'))\nbot.command('hipster', Telegraf.reply('\u03bb'))\nbot.launch()\n\n// Enable graceful stop\nprocess.once('SIGINT', () => bot.stop('SIGINT'))\nprocess.once('SIGTERM', () => bot.stop('SIGTERM'))\n```\n\nFor additional bot examples see the new [`docs repo`](https://github.com/feathers-studio/telegraf-docs/).\n\n### Resources\n\n- [Getting started](#getting-started)\n- [API reference](https://telegraf.js.org/modules.html)\n- Telegram groups (sorted by number of members):\n  - [English](https://t.me/TelegrafJSChat)\n  - [Russian](https://t.me/telegrafjs_ru)\n  - [Uzbek](https://t.me/botjs_uz)\n  - [Ethiopian](https://t.me/telegraf_et)\n- [GitHub Discussions](https://github.com/telegraf/telegraf/discussions)\n- [Dependent repositories](https://libraries.io/npm/telegraf/dependent_repositories)\n\n## Getting started\n\n### Telegram token\n\nTo use the [Telegram Bot API](https://core.telegram.org/bots/api),\nyou first have to [get a bot account](https://core.telegram.org/bots)\nby [chatting with BotFather](https://core.telegram.org/bots#6-botfather).\n\nBotFather will give you a _token_, something like `123456789:AbCdefGhIJKlmNoPQRsTUVwxyZ`.\n\n### Installation\n\n```shellscript\n$ npm install telegraf\n```\n\nor\n\n```shellscript\n$ yarn add telegraf\n```\n\nor\n\n```shellscript\n$ pnpm add telegraf\n```\n\n### `Telegraf` class\n\n[`Telegraf`] instance represents your bot. It's responsible for obtaining updates and passing them to your handlers.\n\nStart by [listening to commands](https://telegraf.js.org/classes/Telegraf-1.html#command) and [launching](https://telegraf.js.org/classes/Telegraf-1.html#launch) your bot.\n\n### `Context` class\n\n`ctx` you can see in every example is a [`Context`] instance.\n[`Telegraf`] creates one for each incoming update and passes it to your middleware.\nIt contains the `update`, `botInfo`, and `telegram` for making arbitrary Bot API requests,\nas well as shorthand methods and getters.\n\nThis is probably the class you'll be using the most.\n\n<!--\nTODO: Verify and update list\nHere is a list of\n\n#### Known middleware\n\n- [Internationalization](https://github.com/telegraf/telegraf-i18n)\u2014simplifies selecting the right translation to use when responding to a user.\n- [Redis powered session](https://github.com/telegraf/telegraf-session-redis)\u2014store session data using Redis.\n- [Local powered session (via lowdb)](https://github.com/RealSpeaker/telegraf-session-local)\u2014store session data in a local file.\n- [Rate-limiting](https://github.com/telegraf/telegraf-ratelimit)\u2014apply rate limitting to chats or users.\n- [Bottleneck powered throttling](https://github.com/KnightNiwrem/telegraf-throttler)\u2014apply throttling to both incoming updates and outgoing API calls.\n- [Menus via inline keyboards](https://github.com/EdJoPaTo/telegraf-inline-menu)\u2014simplify creating interfaces based on menus.\n- [Stateless Questions](https://github.com/EdJoPaTo/telegraf-stateless-question)\u2014create stateless questions to Telegram users working in privacy mode.\n- [Natural language processing via wit.ai](https://github.com/telegraf/telegraf-wit)\n- [Natural language processing via recast.ai](https://github.com/telegraf/telegraf-recast)\n- [Multivariate and A/B testing](https://github.com/telegraf/telegraf-experiments)\u2014add experiments to see how different versions of a feature are used.\n- [Powerfull bot stats via Mixpanel](https://github.com/telegraf/telegraf-mixpanel)\n- [statsd integration](https://github.com/telegraf/telegraf-statsd)\n- [and more...](https://www.npmjs.com/search?q=telegraf-)\n-->\n\n#### Shorthand methods\n\n```js\nimport { Telegraf } from 'telegraf'\nimport { message } from 'telegraf/filters'\n\nconst bot = new Telegraf(process.env.BOT_TOKEN)\n\nbot.command('quit', async (ctx) => {\n  // Explicit usage\n  await ctx.telegram.leaveChat(ctx.message.chat.id)\n\n  // Using context shortcut\n  await ctx.leaveChat()\n})\n\nbot.on(message('text'), async (ctx) => {\n  // Explicit usage\n  await ctx.telegram.sendMessage(ctx.message.chat.id, `Hello ${ctx.state.role}`)\n\n  // Using context shortcut\n  await ctx.reply(`Hello ${ctx.state.role}`)\n})\n\nbot.on('callback_query', async (ctx) => {\n  // Explicit usage\n  await ctx.telegram.answerCbQuery(ctx.callbackQuery.id)\n\n  // Using context shortcut\n  await ctx.answerCbQuery()\n})\n\nbot.on('inline_query', async (ctx) => {\n  const result = []\n  // Explicit usage\n  await ctx.telegram.answerInlineQuery(ctx.inlineQuery.id, result)\n\n  // Using context shortcut\n  await ctx.answerInlineQuery(result)\n})\n\nbot.launch()\n\n// Enable graceful stop\nprocess.once('SIGINT', () => bot.stop('SIGINT'))\nprocess.once('SIGTERM', () => bot.stop('SIGTERM'))\n```\n\n## Production\n\n### Webhooks\n\n```TS\nimport { Telegraf } from \"telegraf\";\nimport { message } from 'telegraf/filters';\n\nconst bot = new Telegraf(token);\n\nbot.on(message(\"text\"), ctx => ctx.reply(\"Hello\"));\n\n// Start webhook via launch method (preferred)\nbot.launch({\n  webhook: {\n    // Public domain for webhook; e.g.: example.com\n    domain: webhookDomain,\n\n    // Port to listen on; e.g.: 8080\n    port: port,\n\n    // Optional path to listen for.\n    // `bot.secretPathComponent()` will be used by default\n    path: webhookPath,\n\n    // Optional secret to be sent back in a header for security.\n    // e.g.: `crypto.randomBytes(64).toString(\"hex\")`\n    secretToken: randomAlphaNumericString,\n  },\n});\n```\n\nUse `createWebhook()` if you want to attach Telegraf to an existing http server.\n\n<!-- global bot, tlsOptions -->\n\n```TS\nimport { createServer } from \"http\";\n\ncreateServer(await bot.createWebhook({ domain: \"example.com\" })).listen(3000);\n```\n\n```TS\nimport { createServer } from \"https\";\n\ncreateServer(tlsOptions, await bot.createWebhook({ domain: \"example.com\" })).listen(8443);\n```\n\n- [AWS Lambda example integration](https://github.com/feathers-studio/telegraf-docs/tree/master/examples/functions/aws-lambda)\n- [Google Cloud Functions example integration](https://github.com/feathers-studio/telegraf-docs/blob/master/examples/functions/google-cloud-function.ts)\n- [`express` example integration](https://github.com/feathers-studio/telegraf-docs/blob/master/examples/webhook/express.ts)\n- [`fastify` example integration](https://github.com/feathers-studio/telegraf-docs/blob/master/examples/webhook/fastify.ts)\n- [`koa` example integration](https://github.com/feathers-studio/telegraf-docs/blob/master/examples/webhook/koa.ts)\n- [NestJS framework integration module](https://github.com/bukhalo/nestjs-telegraf)\n- [Cloudflare Workers integration module](https://github.com/Tsuk1ko/cfworker-middware-telegraf)\n- Use [`bot.handleUpdate`](https://telegraf.js.org/classes/Telegraf-1.html#handleupdate) to write new integrations\n\n### Error handling\n\nIf middleware throws an error or times out, Telegraf calls `bot.handleError`. If it rethrows, update source closes, and then the error is printed to console and process terminates. If it does not rethrow, the error is swallowed.\n\nDefault `bot.handleError` always rethrows. You can overwrite it using `bot.catch` if you need to.\n\n\u26a0\ufe0f Swallowing unknown errors might leave the process in invalid state!\n\n\u2139\ufe0f In production, `systemd` or [`pm2`](https://www.npmjs.com/package/pm2) can restart your bot if it exits for any reason.\n\n## Advanced topics\n\n### Working with files\n\nSupported file sources:\n\n- `Existing file_id`\n- `File path`\n- `Url`\n- `Buffer`\n- `ReadStream`\n\nAlso, you can provide an optional name of a file as `filename` when you send the file.\n\n<!-- global bot, fs -->\n\n```js\nbot.on('message', async (ctx) => {\n  // resend existing file by file_id\n  await ctx.replyWithSticker('123123jkbhj6b')\n\n  // send file\n  await ctx.replyWithVideo(Input.fromLocalFile('/path/to/video.mp4'))\n\n  // send stream\n  await ctx.replyWithVideo(\n    Input.fromReadableStream(fs.createReadStream('/path/to/video.mp4'))\n  )\n\n  // send buffer\n  await ctx.replyWithVoice(Input.fromBuffer(Buffer.alloc()))\n\n  // send url via Telegram server\n  await ctx.replyWithPhoto(Input.fromURL('https://picsum.photos/200/300/'))\n\n  // pipe url content\n  await ctx.replyWithPhoto(\n    Input.fromURLStream('https://picsum.photos/200/300/?random', 'kitten.jpg')\n  )\n})\n```\n\n### Middleware\n\nIn addition to `ctx: Context`, each middleware receives `next: () => Promise<void>`.\n\nAs in Koa and some other middleware-based libraries,\n`await next()` will call next middleware and wait for it to finish:\n\n```TS\nimport { Telegraf } from 'telegraf';\nimport { message } from 'telegraf/filters';\n\nconst bot = new Telegraf(process.env.BOT_TOKEN);\n\nbot.use(async (ctx, next) => {\n  console.time(`Processing update ${ctx.update.update_id}`);\n  await next() // runs next middleware\n  // runs after next middleware finishes\n  console.timeEnd(`Processing update ${ctx.update.update_id}`);\n})\n\nbot.on(message('text'), (ctx) => ctx.reply('Hello World'));\nbot.launch();\n\n// Enable graceful stop\nprocess.once('SIGINT', () => bot.stop('SIGINT'));\nprocess.once('SIGTERM', () => bot.stop('SIGTERM'));\n```\n\nWith this simple ability, you can:\n\n- extract information from updates and then `await next()` to avoid disrupting other middleware,\n- like [`Composer`] and [`Router`], `await next()` for updates you don't wish to handle,\n- like [`session`] and [`Scenes`], [extend the context](#extending-context) by mutating `ctx` before `await next()`,\n- [intercept API calls](https://github.com/telegraf/telegraf/discussions/1267#discussioncomment-254525),\n- reuse [other people's code](https://www.npmjs.com/search?q=telegraf-),\n- do whatever **you** come up with!\n\n[`Telegraf`]: https://telegraf.js.org/classes/Telegraf-1.html\n[`Composer`]: https://telegraf.js.org/classes/Composer.html\n[`Context`]: https://telegraf.js.org/classes/Context.html\n[`Router`]: https://telegraf.js.org/classes/Router.html\n[`session`]: https://telegraf.js.org/modules.html#session\n[`Scenes`]: https://telegraf.js.org/modules/Scenes.html\n\n### Usage with TypeScript\n\nTelegraf is written in TypeScript and therefore ships with declaration files for the entire library.\nMoreover, it includes types for the complete Telegram API via the [`typegram`](https://github.com/KnorpelSenf/typegram) package.\nWhile most types of Telegraf's API surface are self-explanatory, there's some notable things to keep in mind.\n\n#### Extending `Context`\n\nThe exact shape of `ctx` can vary based on the installed middleware.\nSome custom middleware might register properties on the context object that Telegraf is not aware of.\nConsequently, you can change the type of `ctx` to fit your needs in order for you to have proper TypeScript types for your data.\nThis is done through Generics:\n\n```ts\nimport { Context, Telegraf } from 'telegraf'\n\n// Define your own context type\ninterface MyContext extends Context {\n  myProp?: string\n  myOtherProp?: number\n}\n\n// Create your bot and tell it about your context type\nconst bot = new Telegraf<MyContext>('SECRET TOKEN')\n\n// Register middleware and launch your bot as usual\nbot.use((ctx, next) => {\n  // Yay, `myProp` is now available here as `string | undefined`!\n  ctx.myProp = ctx.chat?.first_name?.toUpperCase()\n  return next()\n})\n// ...\n```\n",
+        "releases": [
+            {
+                "name": "v4.16.3",
+                "date": "2024-02-29T07:50:45Z"
+            },
+            {
+                "name": "v4.16.1",
+                "date": "2024-02-25T17:08:40Z"
+            },
+            {
+                "name": "v4.16.0",
+                "date": "2024-02-25T00:18:16Z"
+            },
+            {
+                "name": "v4.15.3",
+                "date": "2023-12-03T13:11:59Z"
+            },
+            {
+                "name": "v4.15.2",
+                "date": "2023-11-30T06:16:55Z"
+            },
+            {
+                "name": "v4.15.1",
+                "date": "2023-11-29T20:33:57Z"
+            },
+            {
+                "name": "v4.15.0",
+                "date": "2023-10-23T16:52:39Z"
+            },
+            {
+                "name": "v4.14.0",
+                "date": "2023-09-22T16:27:48Z"
+            },
+            {
+                "name": "v4.13.1",
+                "date": "2023-09-02T11:20:17Z"
+            },
+            {
+                "name": "v4.13.0",
+                "date": "2023-09-02T11:04:06Z"
+            },
+            {
+                "name": "v4.12.2",
+                "date": "2023-03-09T14:20:35Z"
+            },
+            {
+                "name": "v4.12.1",
+                "date": "2023-03-07T05:51:14Z"
+            },
+            {
+                "name": "v4.12.0",
+                "date": "2023-03-05T13:17:17Z"
+            },
+            {
+                "name": "v4.11.2",
+                "date": "2022-11-19T19:56:30Z"
+            },
+            {
+                "name": "v4.11.1",
+                "date": "2022-11-19T17:53:48Z"
+            },
+            {
+                "name": "v4.11.0",
+                "date": "2022-11-18T22:43:44Z"
+            },
+            {
+                "name": "v4.10.0",
+                "date": "2022-10-01T12:28:01Z"
+            },
+            {
+                "name": "v4.9.2",
+                "date": "2022-09-13T18:20:13Z"
+            },
+            {
+                "name": "v4.9.1",
+                "date": "2022-08-29T12:16:20Z"
+            },
+            {
+                "name": "v4.9.0",
+                "date": "2022-08-26T06:46:31Z"
+            },
+            {
+                "name": "v4.8.5",
+                "date": "2022-06-08T17:06:21Z"
+            },
+            {
+                "name": "v4.8.4",
+                "date": "2022-06-07T14:08:59Z"
+            },
+            {
+                "name": "v4.8.3",
+                "date": "2022-05-29T06:18:41Z"
+            },
+            {
+                "name": "v4.8.2",
+                "date": "2022-05-11T18:40:08Z"
+            },
+            {
+                "name": "v4.8.1",
+                "date": "2022-04-29T15:49:32Z"
+            },
+            {
+                "name": "v4.8.0",
+                "date": "2022-04-29T14:19:27Z"
+            },
+            {
+                "name": "v4.7.0",
+                "date": "2022-02-05T06:01:05Z"
+            },
+            {
+                "name": "v4.6.0",
+                "date": "2022-01-15T06:20:01Z"
+            },
+            {
+                "name": "v4.5.2",
+                "date": "2021-12-08T05:40:15Z"
+            },
+            {
+                "name": "v4.5.1",
+                "date": "2021-12-07T20:57:58Z"
+            },
+            {
+                "name": "v4.5.0",
+                "date": "2021-12-07T20:49:40Z"
+            },
+            {
+                "name": "v4.4",
+                "date": "2021-07-01T15:33:54Z"
+            },
+            {
+                "name": "v4.3",
+                "date": "2021-03-17T14:51:29Z"
+            },
+            {
+                "name": "v4.1",
+                "date": "2021-02-20T21:58:18Z"
+            },
+            {
+                "name": "v4.0",
+                "date": "2021-01-11T12:38:28Z"
+            },
+            {
+                "name": "3.21.0",
+                "date": "2018-05-04T22:11:13Z"
+            },
+            {
+                "name": "3.19.0",
+                "date": "2018-02-28T19:11:12Z"
+            },
+            {
+                "name": "3.18.0",
+                "date": "2018-02-14T18:06:07Z"
+            },
+            {
+                "name": "3.17.8",
+                "date": "2018-02-10T19:12:01Z"
+            },
+            {
+                "name": "3.17.7",
+                "date": "2018-02-03T22:44:00Z"
+            },
+            {
+                "name": "v3.17.6",
+                "date": "2018-02-02T22:18:51Z"
+            },
+            {
+                "name": "3.17.4",
+                "date": "2018-01-18T08:26:20Z"
+            },
+            {
+                "name": "3.17.2",
+                "date": "2017-12-10T18:58:32Z"
+            },
+            {
+                "name": "",
+                "date": "2017-12-06T17:40:15Z"
+            },
+            {
+                "name": "",
+                "date": "2017-12-02T02:10:15Z"
+            }
+        ]
+    }
+}

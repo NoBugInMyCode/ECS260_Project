@@ -1,0 +1,1222 @@
+{
+    "https://api.github.com/repos/conan-io/conan": {
+        "forks": 992,
+        "watchers": 8449,
+        "stars": 8449,
+        "languages": {
+            "Python": 6263410,
+            "Dockerfile": 326
+        },
+        "commits": [
+            "2025-01-22T10:16:59Z",
+            "2025-01-21T16:49:42Z",
+            "2025-01-21T16:23:02Z",
+            "2025-01-21T15:02:53Z",
+            "2025-01-21T12:57:55Z",
+            "2025-01-21T08:11:55Z",
+            "2025-01-20T16:26:51Z",
+            "2025-01-20T10:17:22Z",
+            "2025-01-20T09:21:25Z",
+            "2025-01-20T09:00:04Z",
+            "2025-01-17T15:27:00Z",
+            "2025-01-17T15:08:30Z",
+            "2025-01-17T15:07:21Z",
+            "2025-01-17T00:37:26Z",
+            "2025-01-15T23:41:27Z",
+            "2025-01-14T16:29:09Z",
+            "2025-01-14T15:30:03Z",
+            "2025-01-14T09:39:24Z",
+            "2025-01-12T11:17:24Z",
+            "2025-01-09T16:18:56Z",
+            "2025-01-09T14:14:02Z",
+            "2025-01-09T08:17:59Z",
+            "2024-12-30T17:12:21Z",
+            "2024-12-30T14:07:41Z",
+            "2024-12-30T06:58:44Z",
+            "2024-12-30T06:22:59Z",
+            "2024-12-27T22:31:07Z",
+            "2024-12-27T22:08:18Z",
+            "2024-12-27T13:47:54Z",
+            "2024-12-23T15:59:59Z"
+        ],
+        "creation_date": "2015-12-01T13:17:02Z",
+        "contributors": 30,
+        "topics": [
+            "c",
+            "cmake",
+            "conan",
+            "cplusplus",
+            "cpp",
+            "multi-platform",
+            "package-manager"
+        ],
+        "subscribers": 134,
+        "readme": "<picture>\n  <!-- These are also used for https://github.com/conan-io/.github/blob/main/profile/README.md -->\n  <source media=\"(prefers-color-scheme: dark)\" srcset=\"https://raw.githubusercontent.com/conan-io/conan/develop2/.github/conan2-logo-for-dark.svg\">\n  <source media=\"(prefers-color-scheme: light)\" srcset=\"https://raw.githubusercontent.com/conan-io/conan/develop2/.github/conan2-logo-for-light.svg\">\n  <img alt=\"JFrog | Conan 2.0 Logo\" src=\"https://raw.githubusercontent.com/conan-io/conan/develop2/.github/conan2-logo-with-bg.svg\">\n</picture>\n\n# Conan\n\nDecentralized, open-source (MIT), C/C++ package manager.\n\n- Homepage: https://conan.io/\n- Github: https://github.com/conan-io/conan\n- Docs: https://docs.conan.io\n- Slack: https://cpplang.slack.com (#conan channel. Please, click [here](https://join.slack.com/t/cpplang/shared_invite/zt-1snzdn6rp-rOUxF3166oz1_11Tr5H~xg) to get an invitation)\n- Twitter: https://twitter.com/conan_io\n- Blog: https://blog.conan.io\n- Security reports: https://jfrog.com/trust/report-vulnerability\n\n\nConan is a package manager for C and C++ developers:\n\n- It is fully decentralized. Users can host their packages on their servers, privately. Integrates with Artifactory and Bintray.\n- Portable. Works across all platforms, including Linux, OSX, Windows (with native and first-class support, WSL, MinGW),\n  Solaris, FreeBSD, embedded and cross-compiling, docker, WSL\n- Manage binaries. It can create, upload and download binaries for any configuration and platform,\n  even cross-compiling, saving lots of time in development and continuous integration. The binary compatibility can be configured\n  and customized. Manage all your artifacts in the same way on all platforms.\n- Integrates with any build system, including any proprietary and custom one. Provides tested support for major build systems\n  (CMake, MSBuild, Makefiles, Meson, etc).\n- Extensible: Its Python-based recipes, together with extension points allow for great power and flexibility.\n- Large and active community, especially in GitHub (https://github.com/conan-io/conan) and Slack (https://cppalliance.org/slack/ #conan channel).\n  This community also creates and maintains packages in ConanCenter and Bincrafters repositories in Bintray.\n- Stable. Used in production by many companies, since 1.0 there is a commitment not to break package recipes and documented behavior.\n\n\nThis is the **developer/maintainer** documentation. For user documentation, go to https://docs.conan.io\n\n\n## Setup\n\nYou can run Conan from source in Windows, MacOS, and Linux:\n\n- **Install pip following** [pip docs](https://pip.pypa.io/en/stable/installation/).\n\n- **Clone Conan repository:**\n\n  ```bash\n  $ git clone https://github.com/conan-io/conan.git conan-io\n  ```\n\n  > **Note**: repository directory name matters, some directories are known to be problematic to run tests (e.g. `conan`). `conan-io` directory name was tested and guaranteed to be working.\n\n- **Install in editable mode**\n\n  ```bash\n  $ cd conan-io && sudo pip install -e .\n  ```\n\n  If you are in Windows, using ``sudo`` is not required. Some Linux distros won't allow you to put Python packages in editable mode in the root Python installation, and creating a virtual environment ``venv`` first, is mandatory.\n\n- **You are ready, try to run Conan:**\n\n  ```bash\n  $ conan --help\n\n  Consumer commands\n    install    Installs the requirements specified in a recipe (conanfile.py or conanfile.txt).\n    ...\n\n    Conan commands. Type \"conan <command> -h\" for help\n  ```\n\n## Contributing to the project\n\n\nFeedback and contribution are always welcome in this project.\nPlease read our [contributing guide](https://github.com/conan-io/conan/blob/develop2/.github/CONTRIBUTING.md).\nAlso, if you plan to contribute, please add some testing for your changes. You can read the [Conan\ntests guidelines section](https://github.com/conan-io/conan/blob/develop2/test/README.md) for\nsome advice on how to write tests for Conan.\n\n### Running the tests\n\n\n**Install Python requirements**\n\n```bash\n$ python -m pip install -r conans/requirements.txt\n$ python -m pip install -r conans/requirements_server.txt\n$ python -m pip install -r conans/requirements_dev.txt\n```\n\nIf you are not on Windows and you are not using a Python virtual environment, you will need to run these\ncommands using `sudo`.\n\nBefore you can run the tests, you need to set a few environment variables first.\n\n```bash\n$ export PYTHONPATH=$PYTHONPATH:$(pwd)\n```\n\nOn Windows it would be (while being in the Conan root directory):\n\n```bash\n$ set PYTHONPATH=.\n```\n\nConan test suite defines and configures some required tools (CMake, Ninja, etc) in the\n``conftest.py`` and allows to define a custom ``conftest_user.py``.\nSome specific versions, like cmake>=3.15 are necessary.\n\n\nYou can run the tests like this:\n\n```bash\n$ python -m pytest .\n```\n\nA few minutes later it should print ``OK``:\n\n```bash\n............................................................................................\n----------------------------------------------------------------------\nRan 146 tests in 50.993s\n\nOK\n```\n\nTo run specific tests, you can specify the test name too, something like:\n\n```bash\n$ python -m pytest test/functional/command/export_test.py::TestRevisionModeSCM::test_revision_mode_scm -s\n```\n\nThe `-s` argument can be useful to see some output that otherwise is captured by *pytest*.\n\nAlso, you can run tests against an instance of Artifactory. Those tests should add the attribute\n`artifactory_ready`.\n\n```bash\n$ python -m pytest . -m artifactory_ready\n```\n\nSome environment variables have to be defined to run them. For example, for an\nArtifactory instance that is running on the localhost with default user and password configured, the\nvariables could take the values:\n\n```bash\n$ export CONAN_TEST_WITH_ARTIFACTORY=1\n$ export ARTIFACTORY_DEFAULT_URL=http://localhost:8081/artifactory\n$ export ARTIFACTORY_DEFAULT_USER=admin\n$ export ARTIFACTORY_DEFAULT_PASSWORD=password\n```\n\n`ARTIFACTORY_DEFAULT_URL` is the base URL for the Artifactory repo, not one for a specific\nrepository. Running the tests with a real Artifactory instance will create repos on the fly so please\nuse a separate server for testing purposes.\n\n## License\n\n[MIT LICENSE](LICENSE.md)\n",
+        "releases": [
+            {
+                "name": "2.11.0 (18-Dec-2024)",
+                "date": "2024-12-18T20:30:02Z"
+            },
+            {
+                "name": "2.10.3 (18-Dec-2024)",
+                "date": "2024-12-18T08:22:20Z"
+            },
+            {
+                "name": "2.10.2 (10-Dec-2024)",
+                "date": "2024-12-10T13:19:46Z"
+            },
+            {
+                "name": "2.10.1 (04-Dec-2024)",
+                "date": "2024-12-04T14:33:26Z"
+            },
+            {
+                "name": "2.10.0 (03-Dec-2024)",
+                "date": "2024-12-03T13:01:17Z"
+            },
+            {
+                "name": "1.66.0 (02-Dec-2024)",
+                "date": "2024-12-02T17:38:32Z"
+            },
+            {
+                "name": "2.9.3 (21-Nov-2024)",
+                "date": "2024-11-21T10:16:46Z"
+            },
+            {
+                "name": "2.9.2 (07-Nov-2024)",
+                "date": "2024-11-07T11:46:01Z"
+            },
+            {
+                "name": "2.9.1 (30-Oct-2024)",
+                "date": "2024-10-30T12:44:22Z"
+            },
+            {
+                "name": "2.9.0 (29-Oct-2024)",
+                "date": "2024-10-29T16:22:09Z"
+            },
+            {
+                "name": "2.8.1 (17-Oct-2024)",
+                "date": "2024-10-17T09:37:09Z"
+            },
+            {
+                "name": "2.8.0 (30-Sep-2024)",
+                "date": "2024-09-30T14:49:12Z"
+            },
+            {
+                "name": "2.7.1 (11-Sep-2024)",
+                "date": "2024-09-11T10:32:24Z"
+            },
+            {
+                "name": "2.7.0 (28-Aug-2024)",
+                "date": "2024-08-28T16:45:34Z"
+            },
+            {
+                "name": "1.65.0 (12-Aug-2024)",
+                "date": "2024-08-12T14:56:49Z"
+            },
+            {
+                "name": "2.6.0 (01-Aug-2024)",
+                "date": "2024-08-01T05:57:01Z"
+            },
+            {
+                "name": "2.5.0 (03-Jul-2024)",
+                "date": "2024-07-03T15:57:35Z"
+            },
+            {
+                "name": "2.4.1 (10-Jun-2024)",
+                "date": "2024-06-10T13:08:54Z"
+            },
+            {
+                "name": "2.4.0 (05-Jun-2024)",
+                "date": "2024-06-05T14:02:14Z"
+            },
+            {
+                "name": "2.3.2 (28-May-2024)",
+                "date": "2024-05-28T09:10:08Z"
+            },
+            {
+                "name": "2.3.1 (16-May-2024)",
+                "date": "2024-05-16T17:40:45Z"
+            },
+            {
+                "name": "1.64.1 (14-May-2024)",
+                "date": "2024-05-14T09:38:24Z"
+            },
+            {
+                "name": "2.3.0 (06-May-2024)",
+                "date": "2024-05-06T16:43:30Z"
+            },
+            {
+                "name": "2.2.3 (17-Apr-2024)",
+                "date": "2024-04-17T15:51:50Z"
+            },
+            {
+                "name": "1.64.0 (04-Apr-2024)",
+                "date": "2024-04-04T14:13:09Z"
+            },
+            {
+                "name": "2.2.2 (25-Mar-2024)",
+                "date": "2024-03-25T15:15:38Z"
+            },
+            {
+                "name": "2.2.1 (20-Mar-2024)",
+                "date": "2024-03-20T17:52:42Z"
+            },
+            {
+                "name": "2.2.0 (20-Mar-2024)",
+                "date": "2024-03-20T14:26:35Z"
+            },
+            {
+                "name": "2.1.0 (15-Feb-2024)",
+                "date": "2024-02-15T17:59:05Z"
+            },
+            {
+                "name": "1.63.0 (12-Feb-2024)",
+                "date": "2024-02-12T16:57:24Z"
+            },
+            {
+                "name": "2.0.17 (10-Jan-2024)",
+                "date": "2024-01-10T15:33:12Z"
+            },
+            {
+                "name": "2.0.16 (21-Dec-2023)",
+                "date": "2023-12-21T10:50:06Z"
+            },
+            {
+                "name": "2.0.15 (20-Dec-2023)",
+                "date": "2023-12-20T16:54:21Z"
+            },
+            {
+                "name": "2.0.14 (14-Nov-2023)",
+                "date": "2023-11-14T13:57:40Z"
+            },
+            {
+                "name": "1.62.0 (14-Nov-2023)",
+                "date": "2023-11-14T13:51:55Z"
+            },
+            {
+                "name": "2.0.13 (28-Sep-2023)",
+                "date": "2023-09-28T10:27:54Z"
+            },
+            {
+                "name": "2.0.12 (26-Sep-2023)",
+                "date": "2023-09-26T16:36:36Z"
+            },
+            {
+                "name": "2.0.11 (18-Sep-2023)",
+                "date": "2023-09-18T07:56:52Z"
+            },
+            {
+                "name": "1.61.0 (13-Sep-2023)",
+                "date": "2023-09-13T10:58:07Z"
+            },
+            {
+                "name": "2.0.10 (29-Aug-2023)",
+                "date": "2023-08-29T13:04:49Z"
+            },
+            {
+                "name": "1.60.2 (26-Jul-2023)",
+                "date": "2023-07-26T10:49:03Z"
+            },
+            {
+                "name": "2.0.9 (19-Jul-2023)",
+                "date": "2023-07-19T19:21:47Z"
+            },
+            {
+                "name": "2.0.8 (13-Jul-2023)",
+                "date": "2023-07-13T11:36:12Z"
+            },
+            {
+                "name": "2.0.7 (21-Jun-2023)",
+                "date": "2023-06-21T11:09:06Z"
+            },
+            {
+                "name": "1.60.1 (30-May-2023)",
+                "date": "2023-05-30T14:17:49Z"
+            },
+            {
+                "name": "2.0.6 (26-May-2023)",
+                "date": "2023-05-26T11:30:54Z"
+            },
+            {
+                "name": "2.0.5 (18-May-2023)",
+                "date": "2023-05-18T13:48:57Z"
+            },
+            {
+                "name": "1.60.0 (11-May-2023)",
+                "date": "2023-05-11T15:27:51Z"
+            },
+            {
+                "name": "2.0.4 (11-Apr-2023)",
+                "date": "2023-04-11T14:41:48Z"
+            },
+            {
+                "name": "2.0.3 (03-Apr-2023)",
+                "date": "2023-04-03T13:44:36Z"
+            },
+            {
+                "name": "2.0.2 (15-Mar-2023)",
+                "date": "2023-03-15T12:01:54Z"
+            },
+            {
+                "name": "2.0.1 (03-Mar-2023)",
+                "date": "2023-03-03T09:18:42Z"
+            },
+            {
+                "name": "2.0.0 (22-Feb-2023)",
+                "date": "2023-02-22T09:09:07Z"
+            },
+            {
+                "name": "2.0.0-beta10 (16-Feb-2023)",
+                "date": "2023-02-16T16:38:38Z"
+            },
+            {
+                "name": "1.59.0 (16-Feb-2023)",
+                "date": "2023-02-16T16:31:19Z"
+            },
+            {
+                "name": "2.0.0-beta9 (31-Jan-2023)",
+                "date": "2023-01-31T14:47:44Z"
+            },
+            {
+                "name": "1.58.0 (30-Jan-2023)",
+                "date": "2023-01-30T20:15:51Z"
+            },
+            {
+                "name": "2.0.0-beta8 (12-Jan-2023)",
+                "date": "2023-01-12T12:31:06Z"
+            },
+            {
+                "name": "1.57.0 (12-Jan-2023)",
+                "date": "2023-01-12T06:57:46Z"
+            },
+            {
+                "name": "2.0.0-beta7 (22-Dec-2022)",
+                "date": "2022-12-22T16:19:45Z"
+            },
+            {
+                "name": "1.56.0 (21-Dec-2022)",
+                "date": "2022-12-21T08:53:24Z"
+            },
+            {
+                "name": "2.0.0-beta6 (02-Dec-2022)",
+                "date": "2022-12-02T14:20:31Z"
+            },
+            {
+                "name": "1.55.0 (30-Nov-2022)",
+                "date": "2022-11-30T15:05:48Z"
+            },
+            {
+                "name": "2.0.0-beta5 (11-Nov-2022)",
+                "date": "2022-11-11T17:21:42Z"
+            },
+            {
+                "name": "1.54.0 (07-Nov-2022)",
+                "date": "2022-11-07T17:22:18Z"
+            },
+            {
+                "name": "2.0.0-beta4 (11-Oct-2022)",
+                "date": "2022-10-11T15:37:02Z"
+            },
+            {
+                "name": "1.53.0 (04-Oct-2022)",
+                "date": "2022-10-04T15:37:31Z"
+            },
+            {
+                "name": "2.0.0-beta3 (12-Sep-2022)",
+                "date": "2022-09-12T09:00:15Z"
+            },
+            {
+                "name": "1.52.0 (31-Aug-2022)",
+                "date": "2022-08-31T10:59:45Z"
+            },
+            {
+                "name": "1.51.3 (18-Aug-2022)",
+                "date": "2022-08-18T07:47:28Z"
+            },
+            {
+                "name": "1.50.2 (11-Aug-2022)",
+                "date": "2022-08-11T14:51:35Z"
+            },
+            {
+                "name": "1.51.2 (11-Aug-2022)",
+                "date": "2022-08-11T14:57:45Z"
+            },
+            {
+                "name": "1.51.1 (09-Aug-2022)",
+                "date": "2022-08-09T14:09:19Z"
+            },
+            {
+                "name": "1.51.0 (28-Jul-2022)",
+                "date": "2022-07-28T16:40:25Z"
+            },
+            {
+                "name": "1.50.1 (28-Jul-2022)",
+                "date": "2022-07-28T13:20:23Z"
+            },
+            {
+                "name": "2.0.0-beta2 (27-Jul-2022)",
+                "date": "2022-07-27T08:21:06Z"
+            },
+            {
+                "name": "1.50.0 (29-Jun-2022)",
+                "date": "2022-06-29T13:53:03Z"
+            },
+            {
+                "name": "2.0.0-beta1 (20-Jun-2022)",
+                "date": "2022-06-20T07:43:15Z"
+            },
+            {
+                "name": "1.48.2 (02-Jun-2022)",
+                "date": "2022-06-02T15:51:06Z"
+            },
+            {
+                "name": "1.49.0 (02-Jun-2022)",
+                "date": "2022-06-02T06:07:41Z"
+            },
+            {
+                "name": "1.48.1 (18-May-2022)",
+                "date": "2022-05-18T11:33:23Z"
+            },
+            {
+                "name": "2.0.0-alpha7 (12-May-2022)",
+                "date": "2022-05-12T15:55:37Z"
+            },
+            {
+                "name": "1.48.0 (03-May-2022)",
+                "date": "2022-05-03T16:00:29Z"
+            },
+            {
+                "name": "1.47.0 (31-Mar-2022)",
+                "date": "2022-03-31T15:45:34Z"
+            },
+            {
+                "name": "2.0.0-alpha6 (28-Mar-2022)",
+                "date": "2022-03-28T13:45:46Z"
+            },
+            {
+                "name": "1.46.2 (18-Mar-2022)",
+                "date": "2022-03-18T15:06:01Z"
+            },
+            {
+                "name": "1.46.1 (17-Mar-2022)",
+                "date": "2022-03-17T15:54:21Z"
+            },
+            {
+                "name": "2.0.0-alpha5 (08-Mar-2022)",
+                "date": "2022-03-08T13:11:12Z"
+            },
+            {
+                "name": "1.46.0 (07-Mar-2022)",
+                "date": "2022-03-07T17:04:48Z"
+            },
+            {
+                "name": "1.43.4 (18-Feb-2022)",
+                "date": "2022-02-18T18:08:31Z"
+            },
+            {
+                "name": "2.0.0-alpha4 (17-Feb-2022)",
+                "date": "2022-02-17T15:12:28Z"
+            },
+            {
+                "name": "1.45.0 (02-Feb-2022)",
+                "date": "2022-02-02T17:31:36Z"
+            },
+            {
+                "name": "2.0.0-alpha3 (28-Jan-2022)",
+                "date": "2022-01-28T08:22:57Z"
+            },
+            {
+                "name": "1.44.1 (13-Jan-2022)",
+                "date": "2022-01-13T17:11:14Z"
+            },
+            {
+                "name": "1.43.3 (13-Jan-2022)",
+                "date": "2022-01-13T17:20:20Z"
+            },
+            {
+                "name": "1.44.0 (29-Dec-2021)",
+                "date": "2021-12-29T13:10:04Z"
+            },
+            {
+                "name": "1.43.2 (21-Dec-2021)",
+                "date": "2021-12-21T15:30:30Z"
+            },
+            {
+                "name": "1.43.1 (17-Dec-2021)",
+                "date": "2021-12-17T14:00:13Z"
+            },
+            {
+                "name": "2.0.0-alpha2 (14-Dec-2021)",
+                "date": "2021-12-14T14:17:30Z"
+            },
+            {
+                "name": "1.43.0 (03-Dec-2021)",
+                "date": "2021-12-03T13:19:59Z"
+            },
+            {
+                "name": "1.42.2 (22-Nov-2021)",
+                "date": "2021-11-22T17:03:49Z"
+            },
+            {
+                "name": "1.42.1 (08-Nov-2021)",
+                "date": "2021-11-08T19:00:11Z"
+            },
+            {
+                "name": "2.0.0-alpha1 (08-Nov-2021)",
+                "date": "2021-11-08T09:20:06Z"
+            },
+            {
+                "name": "1.42.0 (29-Oct-2021)",
+                "date": "2021-10-29T05:35:29Z"
+            },
+            {
+                "name": "1.41.0 (06-Oct-2021)",
+                "date": "2021-10-06T13:04:23Z"
+            },
+            {
+                "name": "1.40.4 (05-Oct-2021)",
+                "date": "2021-10-05T17:45:36Z"
+            },
+            {
+                "name": "1.40.3 (30-Sep-2021)",
+                "date": "2021-09-30T17:00:31Z"
+            },
+            {
+                "name": "1.40.2 (21-Sep-2021)",
+                "date": "2021-09-21T18:18:38Z"
+            },
+            {
+                "name": "1.40.1 (14-Sep-2021)",
+                "date": "2021-09-14T16:48:50Z"
+            },
+            {
+                "name": "1.40.0 (06-Sep-2021)",
+                "date": "2021-09-06T10:08:46Z"
+            },
+            {
+                "name": "1.39.0 (27-Jul-2021)",
+                "date": "2021-07-27T10:44:18Z"
+            },
+            {
+                "name": "1.38.0 (30-Jun-2021)",
+                "date": "2021-06-30T14:02:16Z"
+            },
+            {
+                "name": "1.37.2 (14-Jun-2021)",
+                "date": "2021-06-14T16:10:24Z"
+            },
+            {
+                "name": "1.37.1 (08-Jun-2021)",
+                "date": "2021-06-08T12:05:56Z"
+            },
+            {
+                "name": "1.37.0 (31-May-2021)",
+                "date": "2021-05-31T16:32:21Z"
+            },
+            {
+                "name": "1.36.0 (28-Apr-2021)",
+                "date": "2021-04-28T14:00:17Z"
+            },
+            {
+                "name": "1.35.2 (19-Apr-2021)",
+                "date": "2021-04-19T16:43:06Z"
+            },
+            {
+                "name": "1.35.1 (13-Apr-2021)",
+                "date": "2021-04-13T08:00:13Z"
+            },
+            {
+                "name": "1.35.0 (30-Mar-2021)",
+                "date": "2021-03-30T17:23:36Z"
+            },
+            {
+                "name": "1.34.1 (10-Mar-2021)",
+                "date": "2021-03-10T10:22:24Z"
+            },
+            {
+                "name": "1.34.0 (26-Feb-2021)",
+                "date": "2021-02-26T10:54:48Z"
+            },
+            {
+                "name": "1.33.1 (02-Feb-2021)",
+                "date": "2021-02-02T08:47:23Z"
+            },
+            {
+                "name": "1.33.0 (20-Jan-2021)",
+                "date": "2021-01-20T07:52:01Z"
+            },
+            {
+                "name": "1.32.1 (15-Dec-2020)",
+                "date": "2020-12-15T11:33:19Z"
+            },
+            {
+                "name": "1.32.0 (03-Dec-2020)",
+                "date": "2020-12-03T17:40:15Z"
+            },
+            {
+                "name": "1.31.4 (25-Nov-2020)",
+                "date": "2020-11-25T16:45:11Z"
+            },
+            {
+                "name": "1.31.3 (17-Nov-2020)",
+                "date": "2020-11-17T13:04:09Z"
+            },
+            {
+                "name": "1.31.2 (11-Nov-2020)",
+                "date": "2020-11-11T16:05:02Z"
+            },
+            {
+                "name": "1.31.1 (10-Nov-2020)",
+                "date": "2020-11-10T16:21:46Z"
+            },
+            {
+                "name": "1.31.0 (30-Oct-2020)",
+                "date": "2020-10-30T17:09:32Z"
+            },
+            {
+                "name": "1.30.2 (15-Oct-2020)",
+                "date": "2020-10-15T17:04:26Z"
+            },
+            {
+                "name": "1.30.1 (09-Oct-2020)",
+                "date": "2020-10-09T16:28:51Z"
+            },
+            {
+                "name": "1.30.0 (05-Oct-2020)",
+                "date": "2020-10-05T14:34:41Z"
+            },
+            {
+                "name": "1.29.2 (21-Sep-2020)",
+                "date": "2020-09-21T08:34:13Z"
+            },
+            {
+                "name": "1.29.1 (17-Sep-2020)",
+                "date": "2020-09-17T17:15:26Z"
+            },
+            {
+                "name": "1.29.0 (02-Sep-2020)",
+                "date": "2020-09-02T11:39:10Z"
+            },
+            {
+                "name": "1.28.2 (31-Aug-2020)",
+                "date": "2020-08-31T14:38:56Z"
+            },
+            {
+                "name": "1.28.1 (06-Aug-2020)",
+                "date": "2020-08-06T15:07:23Z"
+            },
+            {
+                "name": "1.28.0 (31-Jul-2020)",
+                "date": "2020-07-31T12:50:50Z"
+            },
+            {
+                "name": "1.27.1 (10-Jul-2020)",
+                "date": "2020-07-10T06:34:03Z"
+            },
+            {
+                "name": "1.27.0 (01-Jul-2020)",
+                "date": "2020-07-01T13:58:51Z"
+            },
+            {
+                "name": "1.26.1 (23-Jun-2020)",
+                "date": "2020-06-23T13:37:43Z"
+            },
+            {
+                "name": "1.26.0 (10-Jun-2020)",
+                "date": "2020-06-10T09:32:10Z"
+            },
+            {
+                "name": "1.25.2 (19-May-2020)",
+                "date": "2020-05-19T16:30:11Z"
+            },
+            {
+                "name": "1.25.1 (13-May-2020)",
+                "date": "2020-05-13T16:38:59Z"
+            },
+            {
+                "name": "1.25.0 (06-May-2020)",
+                "date": "2020-05-06T14:00:37Z"
+            },
+            {
+                "name": "1.24.1 (21-Apr-2020)",
+                "date": "2020-04-21T06:35:08Z"
+            },
+            {
+                "name": "1.24.0 (31-Mar-2020)",
+                "date": "2020-03-31T18:41:33Z"
+            },
+            {
+                "name": "1.23.0 (10-Mar-2020)",
+                "date": "2020-03-10T18:16:16Z"
+            },
+            {
+                "name": "1.22.3 (05-Mar-2020)",
+                "date": "2020-03-05T13:19:59Z"
+            },
+            {
+                "name": "1.21.3 (03-Mar-2020)",
+                "date": "2020-03-03T09:38:13Z"
+            },
+            {
+                "name": "1.22.2 (13-Feb-2020)",
+                "date": "2020-02-13T07:53:21Z"
+            },
+            {
+                "name": "1.22.1 (11-Feb-2020)",
+                "date": "2020-02-11T12:07:58Z"
+            },
+            {
+                "name": "1.22.0 (05-Feb-2020)",
+                "date": "2020-02-05T14:34:19Z"
+            },
+            {
+                "name": "1.21.2 (31-Jan-2020)",
+                "date": "2020-01-31T15:25:21Z"
+            },
+            {
+                "name": "1.21.1 (14-Jan-2020)",
+                "date": "2020-01-14T10:48:17Z"
+            },
+            {
+                "name": "1.21.0 (10-Dec-2019)",
+                "date": "2019-12-10T11:06:08Z"
+            },
+            {
+                "name": "1.20.5 (03-Dec-2019)",
+                "date": "2019-12-03T13:56:37Z"
+            },
+            {
+                "name": "1.20.4 (19-Nov-2019)",
+                "date": "2019-11-19T15:00:24Z"
+            },
+            {
+                "name": "1.20.3 (11-Nov-2019)",
+                "date": "2019-11-11T14:58:23Z"
+            },
+            {
+                "name": "1.20.2 (06-Nov-2019)",
+                "date": "2019-11-06T09:06:57Z"
+            },
+            {
+                "name": "1.20.1 (05-Nov-2019)",
+                "date": "2019-11-05T09:43:22Z"
+            },
+            {
+                "name": "1.20.0 (04-Nov-2019)",
+                "date": "2019-11-04T11:09:35Z"
+            },
+            {
+                "name": "1.19.3 (29-Oct-2019)",
+                "date": "2019-10-29T13:04:24Z"
+            },
+            {
+                "name": "1.19.2 (16-Oct-2019)",
+                "date": "2019-10-16T13:49:18Z"
+            },
+            {
+                "name": "1.19.1 (03-Oct-2019)",
+                "date": "2019-10-03T14:02:23Z"
+            },
+            {
+                "name": "1.19.0 (30-Sep-2019)",
+                "date": "2019-09-30T09:10:13Z"
+            },
+            {
+                "name": "1.18.5 (24-Sep-2019)",
+                "date": "2019-09-24T08:02:50Z"
+            },
+            {
+                "name": "1.18.4 (12-Sep-2019)",
+                "date": "2019-09-12T09:05:38Z"
+            },
+            {
+                "name": "1.18.3 (10-Sep-2019)",
+                "date": "2019-09-10T11:11:36Z"
+            },
+            {
+                "name": "1.18.2 (30-Aug-2019)",
+                "date": "2019-08-30T12:40:45Z"
+            },
+            {
+                "name": "1.18.1 (08-Aug-2019)",
+                "date": "2019-08-08T09:48:23Z"
+            },
+            {
+                "name": "1.18.0 (30-Jul-2019)",
+                "date": "2019-07-30T11:44:50Z"
+            },
+            {
+                "name": "1.17.2 (25-Jul-2019)",
+                "date": "2019-07-25T14:32:19Z"
+            },
+            {
+                "name": "1.17.1 (22-Jul-2019)",
+                "date": "2019-07-22T14:36:18Z"
+            },
+            {
+                "name": "1.17.0 (09-Jul-2019)",
+                "date": "2019-07-09T14:26:26Z"
+            },
+            {
+                "name": "1.16.1 (14-Jun-2019)",
+                "date": "2019-06-14T06:54:15Z"
+            },
+            {
+                "name": "1.15.4 (12-Jun-2019)",
+                "date": "2019-06-12T08:50:00Z"
+            },
+            {
+                "name": "1.15.3 (11-Jun-2019) Do Not Use!",
+                "date": "2019-06-11T13:39:24Z"
+            },
+            {
+                "name": "1.16.0 (04-Jun-2019)",
+                "date": "2019-06-04T07:04:55Z"
+            },
+            {
+                "name": "1.15.2 (31-May-2019)",
+                "date": "2019-05-31T11:36:53Z"
+            },
+            {
+                "name": "1.15.1 (16-May-2019)",
+                "date": "2019-05-16T11:34:30Z"
+            },
+            {
+                "name": "1.15.0 (06-May-2019)",
+                "date": "2019-05-06T08:59:48Z"
+            },
+            {
+                "name": "1.14.5 (30-Apr-2019)",
+                "date": "2019-04-30T16:42:35Z"
+            },
+            {
+                "name": "1.14.4 (25-Apr-2019)",
+                "date": "2019-04-25T09:48:03Z"
+            },
+            {
+                "name": "1.14.3 (11-Apr-2019)",
+                "date": "2019-04-11T10:23:39Z"
+            },
+            {
+                "name": "1.14.2 (11-Apr-2019)",
+                "date": "2019-04-11T08:56:46Z"
+            },
+            {
+                "name": "1.14.1 (01-Apr-2019)",
+                "date": "2019-04-01T09:22:31Z"
+            },
+            {
+                "name": "1.14.0 (28-Mar-2019)",
+                "date": "2019-03-28T13:32:01Z"
+            },
+            {
+                "name": "1.13.3 (27-Mar-2019)",
+                "date": "2019-03-27T14:49:28Z"
+            },
+            {
+                "name": "1.13.2 (21-Mar-2019)",
+                "date": "2019-03-21T14:24:55Z"
+            },
+            {
+                "name": "1.13.1 (15-Mar-2019)",
+                "date": "2019-03-15T07:55:18Z"
+            },
+            {
+                "name": "1.13.0 (07-Mar-2019)",
+                "date": "2019-03-07T11:36:04Z"
+            },
+            {
+                "name": "1.12.3 (18-Feb-2019)",
+                "date": "2019-02-18T13:42:35Z"
+            },
+            {
+                "name": "1.12.2 (08-Feb-2019)",
+                "date": "2019-02-08T13:48:20Z"
+            },
+            {
+                "name": "1.12.1 (05-Feb-2019)",
+                "date": "2019-02-05T09:14:43Z"
+            },
+            {
+                "name": "1.12.0 (30-Jan-2019)",
+                "date": "2019-01-30T16:17:10Z"
+            },
+            {
+                "name": "1.11.2 (08-Jan-2019)",
+                "date": "2019-01-08T13:10:17Z"
+            },
+            {
+                "name": "1.11.1 (20-Dec-2018)",
+                "date": "2018-12-20T12:14:11Z"
+            },
+            {
+                "name": "1.11.0 (19-Dec-2018)",
+                "date": "2018-12-19T12:14:00Z"
+            },
+            {
+                "name": "1.10.2 (17-Dec-2018)",
+                "date": "2018-12-17T13:53:59Z"
+            },
+            {
+                "name": "1.10.1 (11-Dec-2018)",
+                "date": "2018-12-11T10:44:20Z"
+            },
+            {
+                "name": "1.10.0 (04-Dec-2018)",
+                "date": "2018-12-04T17:25:37Z"
+            },
+            {
+                "name": "1.9.2 (20-Nov-2018)",
+                "date": "2018-11-20T07:50:24Z"
+            },
+            {
+                "name": "1.9.1 (08-Nov-2018)",
+                "date": "2018-11-08T11:00:42Z"
+            },
+            {
+                "name": "1.9.0 (30-Oct-2018)",
+                "date": "2018-10-30T12:19:20Z"
+            },
+            {
+                "name": "1.8.4 (19-Oct-2018)",
+                "date": "2018-10-19T11:51:26Z"
+            },
+            {
+                "name": "1.8.3 (17-Oct-2018)",
+                "date": "2018-10-17T09:42:57Z"
+            },
+            {
+                "name": "1.8.2 (10-Oct-2018)",
+                "date": "2018-10-10T16:23:10Z"
+            },
+            {
+                "name": "1.8.1 (10-Oct-2018)",
+                "date": "2018-10-10T11:08:47Z"
+            },
+            {
+                "name": "1.8.0 (9-Oct-2018)",
+                "date": "2018-10-09T10:04:22Z"
+            },
+            {
+                "name": "1.7.4 (18-Sep-2018)",
+                "date": "2018-09-18T15:22:15Z"
+            },
+            {
+                "name": "1.7.3 (6-Sept-2018)",
+                "date": "2018-09-06T16:03:36Z"
+            },
+            {
+                "name": "1.7.2 (4-Sept-2018)",
+                "date": "2018-09-04T15:19:34Z"
+            },
+            {
+                "name": "1.7.1 (31-August-2018)",
+                "date": "2018-08-31T08:19:38Z"
+            },
+            {
+                "name": "1.7.0 (29-August-2018)",
+                "date": "2018-08-29T08:13:50Z"
+            },
+            {
+                "name": "1.6.1 (27-July-2018)",
+                "date": "2018-07-27T08:38:03Z"
+            },
+            {
+                "name": "1.6.0 (19-July-2018)",
+                "date": "2018-07-19T15:55:08Z"
+            },
+            {
+                "name": "1.5.2 (5-July-2018)",
+                "date": "2018-07-05T06:26:10Z"
+            },
+            {
+                "name": "1.5.1 (29-June-2018)",
+                "date": "2018-06-29T16:15:57Z"
+            },
+            {
+                "name": "1.5.0 (27-June-2018)",
+                "date": "2018-06-28T10:48:28Z"
+            },
+            {
+                "name": "1.4.5 (22-June-2018)",
+                "date": "2018-06-22T09:54:22Z"
+            },
+            {
+                "name": "1.4.4 (11-June-2018)",
+                "date": "2018-06-11T15:43:30Z"
+            },
+            {
+                "name": "1.4.3 (6-Jun-2018)",
+                "date": "2018-06-06T08:57:20Z"
+            },
+            {
+                "name": "1.4.2 (4-June-2018)",
+                "date": "2018-06-04T10:58:57Z"
+            },
+            {
+                "name": "1.4.1 (31-May-2018)",
+                "date": "2018-05-31T15:24:59Z"
+            },
+            {
+                "name": "1.4.0 (30-May-2018)",
+                "date": "2018-05-30T09:45:23Z"
+            },
+            {
+                "name": "1.3.3 (10-May-2018)",
+                "date": "2018-05-10T08:59:01Z"
+            },
+            {
+                "name": "1.3.2 (7-May-2018)",
+                "date": "2018-05-07T19:10:18Z"
+            },
+            {
+                "name": "1.3.1 (3-May-2018)",
+                "date": "2018-05-03T15:41:37Z"
+            },
+            {
+                "name": "1.3.0 (30-April-2018)",
+                "date": "2018-04-30T14:29:01Z"
+            },
+            {
+                "name": "1.2.3 (10-April-2018)",
+                "date": "2018-04-10T14:32:08Z"
+            },
+            {
+                "name": "1.2.2 (10-April-2018)",
+                "date": "2018-04-10T09:42:47Z"
+            },
+            {
+                "name": "1.2.1 (3-Apr-2018)",
+                "date": "2018-04-03T09:13:56Z"
+            },
+            {
+                "name": "1.2.0 (28-Mar-2018)",
+                "date": "2018-03-28T10:46:35Z"
+            },
+            {
+                "name": "1.1.1 (5-March-2018)",
+                "date": "2018-03-05T16:46:43Z"
+            },
+            {
+                "name": "1.1.0 (27-Feb-2018)",
+                "date": "2018-02-27T12:14:03Z"
+            },
+            {
+                "name": "1.0.4 (30-January-2018)",
+                "date": "2018-01-30T15:09:55Z"
+            },
+            {
+                "name": "1.0.3 (22-January-2018)",
+                "date": "2018-01-22T17:38:05Z"
+            },
+            {
+                "name": "1.0.2 (16-January-2018)",
+                "date": "2018-01-16T14:25:24Z"
+            },
+            {
+                "name": "1.0.1 (12-January-2018)",
+                "date": "2018-01-12T18:41:32Z"
+            },
+            {
+                "name": "1.0.0 (10-January-2018)",
+                "date": "2018-01-10T12:49:44Z"
+            },
+            {
+                "name": "1.0.0-beta.5 (8-January-2018)",
+                "date": "2018-01-08T17:14:16Z"
+            },
+            {
+                "name": "1.0.0-beta4 (4-January-2018)",
+                "date": "2018-01-04T15:07:35Z"
+            },
+            {
+                "name": "1.0.0-beta3 (28-December-2017)",
+                "date": "2017-12-28T11:58:40Z"
+            },
+            {
+                "name": "1.0.0-beta.2 (23-December-2017)",
+                "date": "2017-12-23T06:58:19Z"
+            },
+            {
+                "name": "1.0.0-beta1 (22-December-2017)",
+                "date": "2017-12-22T17:57:56Z"
+            },
+            {
+                "name": "0.30.3",
+                "date": "2017-12-15T14:59:49Z"
+            },
+            {
+                "name": "0.30.2 (14-December-2017)",
+                "date": "2017-12-14T09:52:42Z"
+            },
+            {
+                "name": "0.30.1 (13-December-2017)",
+                "date": "2017-12-13T11:17:23Z"
+            },
+            {
+                "name": "0.30.0 (12-December-2017)",
+                "date": "2017-12-13T11:17:18Z"
+            },
+            {
+                "name": "0.29.2 (2-December-2017)",
+                "date": "2017-12-02T08:42:33Z"
+            },
+            {
+                "name": "0.29.1 (23-November-2017)",
+                "date": "2017-11-23T12:51:16Z"
+            },
+            {
+                "name": "0.29.0 (21-November-2017)",
+                "date": "2017-11-21T12:06:52Z"
+            },
+            {
+                "name": "0.28.1 (31-October-2017) ",
+                "date": "2017-10-31T16:58:57Z"
+            },
+            {
+                "name": "0.28.0 (26-October-2017)",
+                "date": "2017-10-27T16:14:34Z"
+            },
+            {
+                "name": "0.27.0  (20-September-2017)",
+                "date": "2017-09-20T08:55:44Z"
+            },
+            {
+                "name": "0.26.1 (5-Sep-2017)",
+                "date": "2017-09-05T17:30:08Z"
+            },
+            {
+                "name": "0.26.0 (31-August-2017)",
+                "date": "2017-08-31T14:54:27Z"
+            },
+            {
+                "name": "0.25.1 (20-July-2017)",
+                "date": "2017-07-20T16:03:26Z"
+            },
+            {
+                "name": "0.25.0 (19-July-2017)",
+                "date": "2017-07-19T15:59:15Z"
+            },
+            {
+                "name": "0.24.0 (15-June-2017)",
+                "date": "2017-06-16T08:00:33Z"
+            },
+            {
+                "name": "",
+                "date": "2017-06-11T15:31:34Z"
+            },
+            {
+                "name": "0.23.1 (05-June-2017)",
+                "date": "2017-06-05T11:30:04Z"
+            },
+            {
+                "name": "0.23.0",
+                "date": "2017-06-01T09:27:41Z"
+            },
+            {
+                "name": "0.22.3 (03-May-2017)",
+                "date": "2017-05-03T12:14:54Z"
+            },
+            {
+                "name": "0.22.2 (20-April-2017)",
+                "date": "2017-04-20T07:29:59Z"
+            },
+            {
+                "name": "0.22.1 (18-April-2017)",
+                "date": "2017-04-18T14:44:21Z"
+            },
+            {
+                "name": "0.22.0 (18-April-2017)",
+                "date": "2017-04-18T09:05:56Z"
+            },
+            {
+                "name": "0.21.2 (4-April-2017)",
+                "date": "2017-04-04T14:29:41Z"
+            },
+            {
+                "name": "0.21.1 (23-March-2017)",
+                "date": "2017-03-23T17:13:50Z"
+            },
+            {
+                "name": "0.21.0 (21-March-2017)",
+                "date": "2017-03-21T15:41:13Z"
+            },
+            {
+                "name": "0.20.3 (06-March-2017)",
+                "date": "2017-03-06T10:03:39Z"
+            },
+            {
+                "name": "0.20.2 (03-March-2017)",
+                "date": "2017-03-02T10:56:33Z"
+            },
+            {
+                "name": "0.20.1 (01-March-2017)",
+                "date": "2017-03-01T12:41:11Z"
+            },
+            {
+                "name": "0.20.0 (27-February-2017)",
+                "date": "2017-02-27T18:04:31Z"
+            },
+            {
+                "name": "0.19.3 (27-February-2017)",
+                "date": "2017-02-27T10:20:17Z"
+            },
+            {
+                "name": "0.19.2 (15-February-2017)",
+                "date": "2017-02-15T09:55:22Z"
+            },
+            {
+                "name": "0.19.1 (02-February-2017)",
+                "date": "2017-02-02T09:07:12Z"
+            },
+            {
+                "name": "0.19.0 (31-January-2017)",
+                "date": "2017-01-31T14:49:30Z"
+            },
+            {
+                "name": "0.18.1  (11-January-2017)",
+                "date": "2017-01-11T14:54:07Z"
+            },
+            {
+                "name": "0.18.0 (3-January-2017)",
+                "date": "2017-01-03T12:22:58Z"
+            },
+            {
+                "name": "0.17.2 (21-December-2016)",
+                "date": "2016-12-21T14:51:13Z"
+            },
+            {
+                "name": "0.17.1 (15-December-2016)",
+                "date": "2016-12-15T17:06:18Z"
+            },
+            {
+                "name": "0.17.0 (13-December-2016)",
+                "date": "2016-12-13T11:05:59Z"
+            },
+            {
+                "name": "0.16.1",
+                "date": "2016-12-05T19:21:46Z"
+            },
+            {
+                "name": "0.16.0",
+                "date": "2016-11-29T09:30:13Z"
+            },
+            {
+                "name": "0.15.0",
+                "date": "2016-11-08T13:14:26Z"
+            },
+            {
+                "name": "0.14.1",
+                "date": "2016-10-20T21:44:53Z"
+            },
+            {
+                "name": "0.14.0",
+                "date": "2016-10-20T10:27:28Z"
+            },
+            {
+                "name": "0.13.3",
+                "date": "2016-10-17T07:27:03Z"
+            }
+        ]
+    }
+}

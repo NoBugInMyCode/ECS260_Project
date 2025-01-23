@@ -1,0 +1,587 @@
+{
+    "https://api.github.com/repos/dexie/Dexie.js": {
+        "forks": 649,
+        "watchers": 12303,
+        "stars": 12303,
+        "languages": {
+            "JavaScript": 709828,
+            "TypeScript": 598702,
+            "Shell": 7048,
+            "HTML": 5715
+        },
+        "commits": [
+            "2025-01-15T17:33:05Z",
+            "2025-01-15T17:08:56Z",
+            "2025-01-15T17:08:43Z",
+            "2025-01-15T17:06:27Z",
+            "2025-01-15T17:02:13Z",
+            "2025-01-11T12:33:35Z",
+            "2024-11-24T01:19:11Z",
+            "2024-11-15T20:03:14Z",
+            "2024-11-15T20:01:39Z",
+            "2024-11-15T19:58:12Z",
+            "2024-11-15T16:07:05Z",
+            "2024-11-15T16:03:47Z",
+            "2024-11-15T15:52:28Z",
+            "2024-11-15T15:52:05Z",
+            "2024-11-13T08:41:49Z",
+            "2024-11-13T06:37:21Z",
+            "2024-11-13T06:36:49Z",
+            "2024-11-13T06:35:09Z",
+            "2024-11-12T11:00:24Z",
+            "2024-11-12T10:59:18Z",
+            "2024-10-21T15:10:50Z",
+            "2024-10-14T13:55:34Z",
+            "2024-10-14T09:15:16Z",
+            "2024-10-14T09:03:21Z",
+            "2024-10-14T08:59:47Z",
+            "2024-10-02T10:05:58Z",
+            "2024-09-30T14:41:54Z",
+            "2024-09-27T11:01:30Z",
+            "2024-09-27T10:29:49Z",
+            "2024-09-26T16:29:52Z"
+        ],
+        "creation_date": "2014-02-26T08:16:16Z",
+        "contributors": 30,
+        "topics": [
+            "database",
+            "indexeddb",
+            "javascript",
+            "offline",
+            "offline-storage",
+            "storage"
+        ],
+        "subscribers": 110,
+        "readme": "# Dexie.js\n\n[![NPM Version][npm-image]][npm-url] ![Build Status](https://github.com/dexie/Dexie.js/actions/workflows/main.yml/badge.svg)\n\nDexie.js is a wrapper library for indexedDB - the standard database in the browser. https://dexie.org.\n\n#### Why Dexie.js?\n\nIndexedDB is the portable database for all browser engines. Dexie.js makes it fun and easy to work with.\n\nBut also:\n\n* Dexie.js is widely used by 100,000 of web sites, apps and other projects and supports all browsers, Electron for Desktop apps, Capacitor for iOS / Android apps and of course pure PWAs.\n* Dexie.js works around bugs in the IndexedDB implementations, giving a more stable user experience.\n* It's an easy step to [make it sync](https://dexie.org/#sync).\n\n#### Hello World\n\n```html\n<!DOCTYPE html>\n<html>\n  <head>\n    <script src=\"https://unpkg.com/dexie/dist/dexie.js\"></script>\n    <script>\n\n      //\n      // Declare Database\n      //\n      const db = new Dexie('FriendDatabase');\n      db.version(1).stores({\n        friends: '++id, age'\n      });\n\n      //\n      // Play with it\n      //\n      db.friends.add({ name: 'Alice', age: 21 }).then(() => {\n        return db.friends\n          .where('age')\n          .below(30)\n          .toArray();\n      }).then(youngFriends => {\n        alert (`My young friends: ${JSON.stringify(youngFriends)}`);\n      }).catch (e => {\n        alert(`Oops: ${e}`);\n      });\n\n    </script>\n  </head>\n</html>\n```\n\nYes, it's that simple. Read [the docs](https://dexie.org/docs/) to get into the details.\n\n#### Hello World (for modern browsers)\n\nAll modern browsers support ES modules and top-level awaits. No transipler needed. Here's the previous example in a modern flavour:\n\n```html\n<!DOCTYPE html>\n<html>\n  <head>\n    <script type=\"module\">\n      // Import Dexie\n      import { Dexie } from 'https://unpkg.com/dexie/dist/modern/dexie.mjs';\n\n      //\n      // Declare Database\n      //\n      const db = new Dexie('FriendDatabase');\n      db.version(1).stores({\n        friends: '++id, age'\n      });\n\n      //\n      // Play with it\n      //\n      try {\n        await db.friends.add({ name: 'Alice', age: 21 });\n\n        const youngFriends = await db.friends\n            .where('age')\n            .below(30)\n            .toArray();\n\n        alert(`My young friends: ${JSON.stringify(youngFriends)}`);\n      } catch (e) {\n        alert(`Oops: ${e}`);\n      }\n    </script>\n  </head>\n</html>\n```\n\n#### Hello World (React + Typescript)\n\nReal-world apps are often built using components in various frameworks. Here's a version of Hello World written for React and Typescript. There are also links below this sample to more tutorials for different frameworks...\n\n```tsx\nimport React from 'react';\nimport { Dexie, type EntityTable } from 'dexie';\nimport { useLiveQuery } from 'dexie-react-hooks';\n\n// Typing for your entities (hint is to move this to its own module)\nexport interface Friend {\n  id: number;\n  name: string;\n  age: number;\n}\n\n// Database declaration (move this to its own module also)\nexport const db = new Dexie('FriendDatabase') as Dexie & {\n  friends: EntityTable<Friend, 'id'>;\n};\ndb.version(1).stores({\n  friends: '++id, age',\n});\n\n// Component:\nexport function MyDexieReactComponent() {\n  const youngFriends = useLiveQuery(() =>\n    db.friends\n      .where('age')\n      .below(30)\n      .toArray()\n  );\n\n  return (\n    <>\n      <h3>My young friends</h3>\n      <ul>\n        {youngFriends?.map((f) => (\n          <li key={f.id}>\n            Name: {f.name}, Age: {f.age}\n          </li>\n        ))}\n      </ul>\n      <button\n        onClick={() => {\n          db.friends.add({ name: 'Alice', age: 21 });\n        }}\n      >\n        Add another friend\n      </button>\n    </>\n  );\n}\n```\n\n[Tutorials for React, Svelte, Vue, Angular and vanilla JS](https://dexie.org/docs/Tutorial/Getting-started)\n\n[API Reference](https://dexie.org/docs/API-Reference)\n\n[Samples](https://dexie.org/docs/Samples)\n\n### Performance\n\nDexie has kick-ass performance. Its [bulk methods](<https://dexie.org/docs/Table/Table.bulkPut()>) take advantage of a lesser-known feature in IndexedDB that makes it possible to store stuff without listening to every onsuccess event. This speeds up the performance to a maximum.\n\n#### Supported operations\n\n```js\nabove(key): Collection;\naboveOrEqual(key): Collection;\nadd(item, key?): Promise;\nand(filter: (x) => boolean): Collection;\nanyOf(keys[]): Collection;\nanyOfIgnoreCase(keys: string[]): Collection;\nbelow(key): Collection;\nbelowOrEqual(key): Collection;\nbetween(lower, upper, includeLower?, includeUpper?): Collection;\nbulkAdd(items: Array): Promise;\nbulkDelete(keys: Array): Promise;\nbulkPut(items: Array): Promise;\nclear(): Promise;\ncount(): Promise;\ndelete(key): Promise;\ndistinct(): Collection;\neach(callback: (obj) => any): Promise;\neachKey(callback: (key) => any): Promise;\neachPrimaryKey(callback: (key) => any): Promise;\neachUniqueKey(callback: (key) => any): Promise;\nequals(key): Collection;\nequalsIgnoreCase(key): Collection;\nfilter(fn: (obj) => boolean): Collection;\nfirst(): Promise;\nget(key): Promise;\ninAnyRange(ranges): Collection;\nkeys(): Promise;\nlast(): Promise;\nlimit(n: number): Collection;\nmodify(changeCallback: (obj: T, ctx:{value: T}) => void): Promise;\nmodify(changes: { [keyPath: string]: any } ): Promise;\nnoneOf(keys: Array): Collection;\nnotEqual(key): Collection;\noffset(n: number): Collection;\nor(indexOrPrimayKey: string): WhereClause;\norderBy(index: string): Collection;\nprimaryKeys(): Promise;\nput(item: T, key?: Key): Promise;\nreverse(): Collection;\nsortBy(keyPath: string): Promise;\nstartsWith(key: string): Collection;\nstartsWithAnyOf(prefixes: string[]): Collection;\nstartsWithAnyOfIgnoreCase(prefixes: string[]): Collection;\nstartsWithIgnoreCase(key: string): Collection;\ntoArray(): Promise;\ntoCollection(): Collection;\nuniqueKeys(): Promise;\nuntil(filter: (value) => boolean, includeStopEntry?: boolean): Collection;\nupdate(key: Key, changes: { [keyPath: string]: any }): Promise;\n```\n\nThis is a mix of methods from [WhereClause](https://dexie.org/docs/WhereClause/WhereClause), [Table](https://dexie.org/docs/Table/Table) and [Collection](https://dexie.org/docs/Collection/Collection). Dive into the [API reference](https://dexie.org/docs/API-Reference) to see the details.\n\n## Dexie Cloud\n\n[Dexie Cloud](https://dexie.org/cloud/) is a commercial offering that can be used as an add-on to Dexie.js. It syncs a Dexie database with a server and enables developers to build apps without having to care about backend or database layer else than the frontend code with Dexie.js as the sole database layer.\n\nSource for a sample Dexie Cloud app: [Dexie Cloud To-do app](https://github.com/dexie/Dexie.js/tree/master/samples/dexie-cloud-todo-app)\n\nSee the sample Dexie Cloud app in action: https://dexie.github.io/Dexie.js/dexie-cloud-todo-app/\n\n## Samples\n\nhttps://dexie.org/docs/Samples\n\nhttps://github.com/dexie/Dexie.js/tree/master/samples\n\n## Knowledge Base\n\n[https://dexie.org/docs/Questions-and-Answers](https://dexie.org/docs/Questions-and-Answers)\n\n## Website\n\n[https://dexie.org](https://dexie.org)\n\n## Install via npm\n\n```\nnpm install dexie\n```\n\n## Download\n\nFor those who don't like package managers, here's the download links:\n\n### UMD (for legacy script includes as well as commonjs require):\n\nhttps://unpkg.com/dexie@latest/dist/dexie.min.js\n\nhttps://unpkg.com/dexie@latest/dist/dexie.min.js.map\n\n### Modern (ES module):\n\nhttps://unpkg.com/dexie@latest/dist/modern/dexie.min.mjs\n\nhttps://unpkg.com/dexie@latest/dist/modern/dexie.min.mjs.map\n\n### Typings:\n\nhttps://unpkg.com/dexie@latest/dist/dexie.d.ts\n\n# Contributing\n\nSee [CONTRIBUTING.md](CONTRIBUTING.md)\n\n## Build\n\n```\npnpm install\npnpm run build\n```\n\n## Test\n\n```\npnpm test\n```\n\n## Watch\n\n```\npnpm run watch\n```\n\n<br/>\n\n[![Browser testing via LAMDBATEST](https://dexie.org/assets/images/lambdatest2.png)](https://www.lambdatest.com/)\n\n[npm-image]: https://img.shields.io/npm/v/dexie.svg?style=flat\n[npm-url]: https://npmjs.org/package/dexie\n",
+        "releases": [
+            {
+                "name": "Dexie v4.0.11",
+                "date": "2025-01-15T17:44:37Z"
+            },
+            {
+                "name": "",
+                "date": "2024-11-15T21:00:47Z"
+            },
+            {
+                "name": "Dexie v4.0.9",
+                "date": "2024-10-21T15:29:12Z"
+            },
+            {
+                "name": "Dexie v4.0.8",
+                "date": "2024-07-10T15:34:22Z"
+            },
+            {
+                "name": "Dexie v4.0.7",
+                "date": "2024-05-26T13:48:09Z"
+            },
+            {
+                "name": "Dexie v4.0.5",
+                "date": "2024-05-24T22:49:40Z"
+            },
+            {
+                "name": "Dexie v4.0.4",
+                "date": "2024-04-10T16:59:23Z"
+            },
+            {
+                "name": "Dexie v4.0.2",
+                "date": "2024-04-10T05:26:44Z"
+            },
+            {
+                "name": "Dexie v4.0.1",
+                "date": "2024-03-26T14:34:03Z"
+            },
+            {
+                "name": "Dexie v4.0.1-rc.1",
+                "date": "2024-03-20T12:18:34Z"
+            },
+            {
+                "name": "Dexie v3.2.7",
+                "date": "2024-03-19T23:54:13Z"
+            },
+            {
+                "name": "Dexie v4.0.1-beta.14",
+                "date": "2024-03-13T22:41:46Z"
+            },
+            {
+                "name": "Dexie v4.0.1-beta.11",
+                "date": "2024-02-19T09:05:03Z"
+            },
+            {
+                "name": "Dexie v3.2.6",
+                "date": "2024-02-13T00:03:08Z"
+            },
+            {
+                "name": "Dexie v4.0.1-beta.10",
+                "date": "2024-02-12T23:51:50Z"
+            },
+            {
+                "name": "Dexie v4.0.1-beta.9",
+                "date": "2024-02-08T21:30:52Z"
+            },
+            {
+                "name": "Dexie v3.2.5",
+                "date": "2024-02-08T22:46:13Z"
+            },
+            {
+                "name": "",
+                "date": "2024-02-07T09:41:22Z"
+            },
+            {
+                "name": "Dexie v4.0.1-beta.7",
+                "date": "2024-01-31T15:08:43Z"
+            },
+            {
+                "name": "Dexie v4.0.1-beta.6",
+                "date": "2023-12-18T10:10:06Z"
+            },
+            {
+                "name": "Dexie v4.0.1-beta.5",
+                "date": "2023-12-11T11:24:53Z"
+            },
+            {
+                "name": "Dexie v4.0.1-beta.4",
+                "date": "2023-12-02T01:03:16Z"
+            },
+            {
+                "name": "Dexie v4.0.1-beta.3",
+                "date": "2023-12-01T14:21:12Z"
+            },
+            {
+                "name": "Dexie v4.0.1-beta.2",
+                "date": "2023-11-29T13:15:51Z"
+            },
+            {
+                "name": "Dexie v4.0.1-beta.1",
+                "date": "2023-10-18T11:05:31Z"
+            },
+            {
+                "name": "Dexie v4.0.1-alpha.25",
+                "date": "2023-07-16T11:08:29Z"
+            },
+            {
+                "name": "Dexie v4.0.0-alpha.24",
+                "date": "2023-07-06T14:14:29Z"
+            },
+            {
+                "name": "Dexie v4.0.1-alpha.23",
+                "date": "2023-07-04T22:49:26Z"
+            },
+            {
+                "name": "Dexie v4.0.1-alpha.22",
+                "date": "2023-06-14T22:50:59Z"
+            },
+            {
+                "name": "Dexie v4.0.1-alpha.17",
+                "date": "2023-06-01T18:31:10Z"
+            },
+            {
+                "name": "Dexie v4.0.1-alpha.14",
+                "date": "2023-05-31T13:57:26Z"
+            },
+            {
+                "name": "Dexie v4.0.1-alpha.12",
+                "date": "2023-05-30T22:15:32Z"
+            },
+            {
+                "name": "Dexie v3.2.4",
+                "date": "2023-05-30T21:07:27Z"
+            },
+            {
+                "name": "Dexie v4.0.1-alpha.10",
+                "date": "2023-03-28T22:47:46Z"
+            },
+            {
+                "name": "Dexie v4.0.1-alpha.8",
+                "date": "2023-02-17T08:42:02Z"
+            },
+            {
+                "name": "Dexie v4.0.1-alpha.7",
+                "date": "2023-01-25T20:26:33Z"
+            },
+            {
+                "name": "Dexie v3.2.3",
+                "date": "2023-01-23T13:15:49Z"
+            },
+            {
+                "name": "Dexie v4.0.1-alpha.6",
+                "date": "2023-01-17T11:24:45Z"
+            },
+            {
+                "name": "Dexie v4.0.0-alpha.4",
+                "date": "2022-05-30T22:30:10Z"
+            },
+            {
+                "name": "Dexie v4.0.0-alpha.3",
+                "date": "2022-04-27T13:40:30Z"
+            },
+            {
+                "name": "Dexie v3.2.2",
+                "date": "2022-04-27T13:39:23Z"
+            },
+            {
+                "name": "Dexie v3.2.1",
+                "date": "2022-02-16T13:16:31Z"
+            },
+            {
+                "name": "Dexie v3.2.1-beta.2",
+                "date": "2022-01-05T01:25:39Z"
+            },
+            {
+                "name": "Dexie v4.0.0-alpha.1",
+                "date": "2022-01-05T01:23:29Z"
+            },
+            {
+                "name": "Dexie v3.2.1-beta.1",
+                "date": "2021-11-19T11:25:08Z"
+            },
+            {
+                "name": "Dexie v3.2.0",
+                "date": "2021-11-18T22:22:46Z"
+            },
+            {
+                "name": "Dexie v3.2.0-rc.3",
+                "date": "2021-10-28T07:49:45Z"
+            },
+            {
+                "name": "Dexie v3.2.0-rc.2",
+                "date": "2021-09-29T19:49:05Z"
+            },
+            {
+                "name": "Dexie v3.2.0-rc.1",
+                "date": "2021-09-08T09:47:21Z"
+            },
+            {
+                "name": "Dexie v3.2.0-beta.3",
+                "date": "2021-08-02T12:59:33Z"
+            },
+            {
+                "name": "Dexie v3.2.0-beta-2",
+                "date": "2021-07-12T15:07:04Z"
+            },
+            {
+                "name": "Dexie v3.2.0-beta.1",
+                "date": "2021-06-27T14:33:21Z"
+            },
+            {
+                "name": "Dexie v3.1.0-beta.13",
+                "date": "2021-06-07T11:35:02Z"
+            },
+            {
+                "name": "Dexie 3.1.0-beta.12",
+                "date": "2021-06-03T10:52:15Z"
+            },
+            {
+                "name": "Dexie v3.1.0-beta.11",
+                "date": "2021-05-28T10:58:43Z"
+            },
+            {
+                "name": "Dexie v3.1.0-alpha.10",
+                "date": "2021-04-28T22:26:45Z"
+            },
+            {
+                "name": "Dexie v3.1.0-alpha.9",
+                "date": "2021-03-18T09:15:00Z"
+            },
+            {
+                "name": "Dexie v3.1.0-alpha.8",
+                "date": "2021-02-12T07:00:52Z"
+            },
+            {
+                "name": "Dexie v3.1.0-alpha.7",
+                "date": "2021-02-10T10:08:51Z"
+            },
+            {
+                "name": "",
+                "date": "2020-12-18T13:06:07Z"
+            },
+            {
+                "name": "Dexie v3.1.0-alpha.5",
+                "date": "2020-12-16T16:54:24Z"
+            },
+            {
+                "name": "Dexie v3.1.0-alpha.4",
+                "date": "2020-11-25T12:57:14Z"
+            },
+            {
+                "name": "Dexie v3.1.0-alpha.3",
+                "date": "2020-11-20T15:52:34Z"
+            },
+            {
+                "name": "Dexie v3.1.0-alpha.1",
+                "date": "2020-11-19T18:17:57Z"
+            },
+            {
+                "name": "Dexie v3.0.3",
+                "date": "2020-11-18T19:04:21Z"
+            },
+            {
+                "name": "",
+                "date": "2020-10-23T08:47:03Z"
+            },
+            {
+                "name": "Dexie v3.0.3-rc.3",
+                "date": "2020-10-20T14:56:27Z"
+            },
+            {
+                "name": "Dexie v3.0.3-rc.2",
+                "date": "2020-10-16T11:56:59Z"
+            },
+            {
+                "name": "Dexie v3.0.3-rc.1",
+                "date": "2020-09-29T21:54:56Z"
+            },
+            {
+                "name": "",
+                "date": "2020-07-30T22:22:03Z"
+            },
+            {
+                "name": "Dexie v3.0.1",
+                "date": "2020-05-07T08:36:42Z"
+            },
+            {
+                "name": "Dexie v3.0.0",
+                "date": "2020-05-03T05:41:55Z"
+            },
+            {
+                "name": "Dexie v3.0.0-rc.7",
+                "date": "2020-04-08T00:15:06Z"
+            },
+            {
+                "name": "Dexie v3.0.0-rc.6",
+                "date": "2020-03-26T00:03:23Z"
+            },
+            {
+                "name": "Dexie v3.0.0-rc.5",
+                "date": "2020-02-24T22:23:31Z"
+            },
+            {
+                "name": "Dexie v3.0.0-rc.4",
+                "date": "2020-02-24T22:17:56Z"
+            },
+            {
+                "name": "Dexie v3.0.0-rc.3",
+                "date": "2020-01-29T11:05:37Z"
+            },
+            {
+                "name": "Dexie v3.0.0-rc.2",
+                "date": "2020-01-27T16:16:23Z"
+            },
+            {
+                "name": "",
+                "date": "2019-10-10T13:55:21Z"
+            },
+            {
+                "name": "Dexie v3.0.0-alpha.8",
+                "date": "2019-04-26T14:10:01Z"
+            },
+            {
+                "name": "Dexie v3.0.0-alpha.7",
+                "date": "2019-03-04T14:32:27Z"
+            },
+            {
+                "name": "Dexie v3.0.0-alpha.6",
+                "date": "2018-11-12T13:17:15Z"
+            },
+            {
+                "name": "Dexie v3.0.0-alpha.5",
+                "date": "2018-10-23T09:14:13Z"
+            },
+            {
+                "name": "Dexie v3.0.0-alpha.3",
+                "date": "2018-06-03T22:02:23Z"
+            },
+            {
+                "name": "Dexie v2.0.4",
+                "date": "2018-05-24T23:29:49Z"
+            },
+            {
+                "name": "Dexie v2.0.3",
+                "date": "2018-04-26T11:21:58Z"
+            },
+            {
+                "name": "Dexie v3.0.0-alpha.2",
+                "date": "2018-03-03T22:50:00Z"
+            },
+            {
+                "name": "Dexie v2.0.2",
+                "date": "2018-03-01T05:14:36Z"
+            },
+            {
+                "name": "Dexie v3.0.0-alpha.1",
+                "date": "2018-02-09T18:36:16Z"
+            },
+            {
+                "name": "Dexie v2.0.1",
+                "date": "2017-10-02T13:29:08Z"
+            },
+            {
+                "name": "Dexie v2.0.0",
+                "date": "2017-09-22T13:56:22Z"
+            },
+            {
+                "name": "Version 2.0.0-rc.1",
+                "date": "2017-09-06T07:50:12Z"
+            },
+            {
+                "name": "Dexie v2.0.0-beta.11",
+                "date": "2017-05-19T09:36:40Z"
+            },
+            {
+                "name": "Dexie v2.0.0-beta.10",
+                "date": "2017-01-31T10:12:40Z"
+            },
+            {
+                "name": "Dexie v2.0.0-beta.9",
+                "date": "2017-01-28T01:15:05Z"
+            },
+            {
+                "name": "Dexie v2.0.0-beta.7",
+                "date": "2016-12-22T01:15:10Z"
+            },
+            {
+                "name": "Dexie v2.0.0-beta.6",
+                "date": "2016-11-28T08:38:07Z"
+            },
+            {
+                "name": "Dexie v2.0.0-beta.5",
+                "date": "2016-11-25T16:39:52Z"
+            },
+            {
+                "name": "Dexie v2.0.0-beta.4",
+                "date": "2016-11-01T13:35:56Z"
+            },
+            {
+                "name": "Dexie v1.5.1",
+                "date": "2016-11-01T13:27:47Z"
+            },
+            {
+                "name": "Dexie v2.0.0-beta.3",
+                "date": "2016-10-18T21:59:34Z"
+            },
+            {
+                "name": "Dexie v1.5.0",
+                "date": "2016-10-13T13:44:00Z"
+            },
+            {
+                "name": "Dexie v2.0.0-beta.2",
+                "date": "2016-10-12T12:13:58Z"
+            },
+            {
+                "name": "Dexie v1.5.0-rc.2",
+                "date": "2016-10-12T11:21:10Z"
+            },
+            {
+                "name": "Dexie v1.5.0-rc",
+                "date": "2016-10-11T13:49:33Z"
+            },
+            {
+                "name": "Dexie v1.4.3-rc",
+                "date": "2016-09-21T10:14:16Z"
+            },
+            {
+                "name": "Dexie v1.4.2",
+                "date": "2016-09-06T13:55:22Z"
+            },
+            {
+                "name": "Dexie v1.4.1",
+                "date": "2016-06-07T22:48:51Z"
+            },
+            {
+                "name": "Dexie v1.4.0",
+                "date": "2016-06-07T15:25:12Z"
+            },
+            {
+                "name": "Dexie v1.4.0-rc.1",
+                "date": "2016-05-31T13:11:51Z"
+            },
+            {
+                "name": "Dexie v1.4.0-beta.3",
+                "date": "2016-05-10T13:05:11Z"
+            },
+            {
+                "name": "Dexie v1.4.0-beta2",
+                "date": "2016-05-09T12:30:25Z"
+            },
+            {
+                "name": "Dexie v1.4.0-beta",
+                "date": "2016-05-03T02:09:27Z"
+            },
+            {
+                "name": "Dexie v1.3.6",
+                "date": "2016-04-07T12:33:34Z"
+            },
+            {
+                "name": "Dexie v1.3.6-rc.1",
+                "date": "2016-04-07T11:12:47Z"
+            },
+            {
+                "name": "Dexie v1.3.6-beta.3",
+                "date": "2016-04-06T13:53:32Z"
+            },
+            {
+                "name": "Dexie v1.3.6-beta.2",
+                "date": "2016-04-05T15:12:30Z"
+            },
+            {
+                "name": "Dexie v1.3.6-beta.1",
+                "date": "2016-04-04T13:29:28Z"
+            },
+            {
+                "name": "Dexie v1.3.5-beta.2",
+                "date": "2016-03-23T23:51:02Z"
+            },
+            {
+                "name": "Dexie v1.3.5-beta",
+                "date": "2016-03-23T23:07:05Z"
+            },
+            {
+                "name": "Dexie v1.3.4",
+                "date": "2016-03-17T22:05:36Z"
+            },
+            {
+                "name": "Dexie v1.3.3",
+                "date": "2016-03-11T16:10:35Z"
+            },
+            {
+                "name": "Dexie v1.3.2",
+                "date": "2016-03-09T11:52:20Z"
+            },
+            {
+                "name": "Dexie v1.3.1",
+                "date": "2016-03-07T12:24:39Z"
+            },
+            {
+                "name": "Dexie v1.3.0",
+                "date": "2016-03-11T14:58:02Z"
+            },
+            {
+                "name": "Dexie v1.2.0",
+                "date": "2015-09-22T16:32:18Z"
+            },
+            {
+                "name": "Dexie v1.1.0",
+                "date": "2015-05-25T23:45:40Z"
+            },
+            {
+                "name": "Dexie v1.0.4",
+                "date": "2015-03-24T10:45:37Z"
+            },
+            {
+                "name": "Dexie v1.0.3",
+                "date": "2015-02-11T10:19:41Z"
+            },
+            {
+                "name": "Dexie v1.0.2",
+                "date": "2014-12-09T02:31:29Z"
+            },
+            {
+                "name": "Dexie v1.0.1",
+                "date": "2014-11-28T21:01:19Z"
+            },
+            {
+                "name": "Dexie v1.0",
+                "date": "2014-11-18T20:39:22Z"
+            }
+        ]
+    }
+}

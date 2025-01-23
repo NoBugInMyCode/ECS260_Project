@@ -1,0 +1,53 @@
+{
+    "https://api.github.com/repos/evilstreak/markdown-js": {
+        "forks": 857,
+        "watchers": 7697,
+        "stars": 7697,
+        "languages": {
+            "JavaScript": 93486
+        },
+        "commits": [
+            "2019-03-05T17:34:24Z",
+            "2019-02-26T18:08:24Z",
+            "2017-10-18T11:47:53Z",
+            "2017-10-18T11:25:09Z",
+            "2017-08-18T13:41:38Z",
+            "2017-08-18T13:12:32Z",
+            "2017-06-20T13:36:45Z",
+            "2017-06-20T13:32:58Z",
+            "2017-02-17T09:47:15Z",
+            "2017-02-17T09:28:42Z",
+            "2015-05-22T14:05:28Z",
+            "2015-05-19T10:24:44Z",
+            "2015-01-19T10:35:00Z",
+            "2015-01-15T20:21:07Z",
+            "2014-12-27T14:39:05Z",
+            "2014-12-23T18:05:36Z",
+            "2014-09-29T09:04:05Z",
+            "2014-09-26T17:40:19Z",
+            "2014-09-21T22:14:12Z",
+            "2014-09-19T13:55:27Z",
+            "2014-09-16T11:41:20Z",
+            "2014-09-16T10:59:51Z",
+            "2014-09-02T18:29:10Z",
+            "2014-08-25T17:56:10Z",
+            "2014-07-04T14:32:12Z",
+            "2014-06-16T23:00:02Z",
+            "2014-05-19T09:44:55Z",
+            "2014-05-19T09:44:39Z",
+            "2014-05-08T21:01:37Z",
+            "2014-05-08T20:03:05Z"
+        ],
+        "creation_date": "2009-12-18T15:31:48Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 190,
+        "readme": "[![NPM version](https://badge.fury.io/js/markdown.png)](http://badge.fury.io/js/markdown)\n[![Build Status](https://secure.travis-ci.org/evilstreak/markdown-js.png)](https://travis-ci.org/evilstreak/markdown-js)\n[![Dependency Status](https://gemnasium.com/evilstreak/markdown-js.png)](https://gemnasium.com/evilstreak/markdown-js)\n\n## Notice: Unmaintained\nThis repo is no longer maintained, however there are many alternatives:\n- [Markdown-It](https://github.com/markdown-it/markdown-it)\n- [Showdown](https://github.com/showdownjs/showdown)\n- [Marked](https://github.com/markedjs/marked)\n- and more...\n\n# markdown-js\n\nYet another Markdown parser, this time for JavaScript. There's a few\noptions that precede this project but they all treat Markdown to HTML\nconversion as a single step process. You pass Markdown in and get HTML\nout, end of story. We had some pretty particular views on how the\nprocess should actually look, which include:\n\n  * Producing well-formed HTML. This means that `em` and `strong` nesting\n    is important, as is the ability to output as both HTML and XHTML\n  * Having an intermediate representation to allow processing of parsed\n    data (we in fact have two, both [JsonML]: a markdown tree and an HTML tree)\n  * Being easily extensible to add new dialects without having to\n    rewrite the entire parsing mechanics\n  * Having a good test suite. The only test suites we could find tested\n    massive blocks of input, and passing depended on outputting the HTML\n    with exactly the same whitespace as the original implementation\n\n[JsonML]: http://jsonml.org/ \"JSON Markup Language\"\n\n## Installation\n\nJust the `markdown` library:\n\n    npm install markdown\n\nOptionally, install `md2html` into your path\n\n    npm install -g markdown\n\n### In the browser\n\nIf you want to use from the browser go to the [releases] page on GitHub and\ndownload the version you want (minified or not).\n\n[releases]: https://github.com/evilstreak/markdown-js/releases\n\n## Usage\n\nThe basic interface is:\n```js\nmd_content = \"Hello.\\n\\n* This is markdown.\\n* It is fun\\n* Love it or leave it.\"\nhtml_content = markdown.toHTML( md_content );\n```\n\ntoHTML also accepts a dialect argument:\n\n```js\nmd_content = \"Vessel     | Captain\\n-----------|-------------\\nNCC-1701   | James T Kirk\\nNCC-1701 A | James T Kirk\\nNCC-1701 D | Picard\";\nhtml_content = markdown.toHTML( md_content, 'Maruku');\n```\n\n### Node\n\nThe simple way to use it with Node is:\n\n```js\nvar markdown = require( \"markdown\" ).markdown;\nconsole.log( markdown.toHTML( \"Hello *World*!\" ) );\n```\n\n### ES6\n\n```js\nimport {markdown} from 'markdown';\nconsole.log( markdown.toHTML( \"Hello *World*!\" ) );\n```\n\n#### Older versions of node\n\nWe only officially support node >= 0.10 as the libraries we use for building\nand testing don't work on older versions of node. That said since this module\nis so simple and doesn't use any parts of the node API if you use the pre-built\nversion and find a bug let us know and we'll try and fix it.\n\n### Browser\n\nIt also works in a browser; here is a complete example:\n\n```html\n<!DOCTYPE html>\n<html>\n  <body>\n    <textarea id=\"text-input\" oninput=\"this.editor.update()\"\n              rows=\"6\" cols=\"60\">Type **Markdown** here.</textarea>\n    <div id=\"preview\"> </div>\n    <script src=\"lib/markdown.js\"></script>\n    <script>\n      function Editor(input, preview) {\n        this.update = function () {\n          preview.innerHTML = markdown.toHTML(input.value);\n        };\n        input.editor = this;\n        this.update();\n      }\n      var $ = function (id) { return document.getElementById(id); };\n      new Editor($(\"text-input\"), $(\"preview\"));\n    </script>\n  </body>\n</html>\n```\n\n### Command Line\n\nAssuming you've installed the `md2html` script (see Installation,\nabove), you can convert Markdown to HTML:\n\n```bash\n# read from a file\nmd2html /path/to/doc.md > /path/to/doc.html\n\n# or from stdin\necho 'Hello *World*!' | md2html\n```\n\n### More Options\n\nIf you want more control check out the documentation in\n[the .js files under src/][src_folder] which details all the methods and parameters\navailable (including examples!). One day we'll get the docs generated\nand hosted somewhere for nicer browsing.\n\n[src_folder]: https://github.com/evilstreak/markdown-js/blob/master/src\n\nMeanwhile, here's an example of using the multi-step processing to\nmake wiki-style linking work by filling in missing link references:\n\n```js\nvar md = require( \"markdown\" ).markdown,\n    text = \"[Markdown] is a simple text-based [markup language]\\n\" +\n           \"created by [John Gruber]\\n\\n\" +\n           \"[John Gruber]: http://daringfireball.net\";\n\n// parse the markdown into a tree and grab the link references\nvar tree = md.parse( text ),\n    refs = tree[ 1 ].references;\n\n// iterate through the tree finding link references\n( function find_link_refs( jsonml ) {\n  if ( jsonml[ 0 ] === \"link_ref\" ) {\n    var ref = jsonml[ 1 ].ref;\n\n    // if there's no reference, define a wiki link\n    if ( !refs[ ref ] ) {\n      refs[ ref ] = {\n        href: \"http://en.wikipedia.org/wiki/\" + ref.replace(/\\s+/, \"_\" )\n      };\n    }\n  }\n  else if ( Array.isArray( jsonml[ 1 ] ) ) {\n    jsonml[ 1 ].forEach( find_link_refs );\n  }\n  else if ( Array.isArray( jsonml[ 2 ] ) ) {\n    jsonml[ 2 ].forEach( find_link_refs );\n  }\n} )( tree );\n\n// convert the tree into html\nvar html = md.renderJsonML( md.toHTMLTree( tree ) );\nconsole.log( html );\n```\n\n## Intermediate Representation\n\nInternally the process to convert a chunk of Markdown into a chunk of\nHTML has three steps:\n\n1. Parse the Markdown into a JsonML tree. Any references found in the\n   parsing are stored in the attribute hash of the root node under the\n   key `references`.\n2. Convert the Markdown tree into an HTML tree. Rename any nodes that\n   need it (`bulletlist` to `ul` for example) and lookup any references\n   used by links or images. Remove the references attribute once done.\n3. Stringify the HTML tree being careful not to wreck whitespace where\n   whitespace is important (surrounding inline elements for example).\n\nEach step of this process can be called individually if you need to do\nsome processing or modification of the data at an intermediate stage.\nFor example, you may want to grab a list of all URLs linked to in the\ndocument before rendering it to HTML which you could do by recursing\nthrough the HTML tree looking for `a` nodes.\n\n## Building and Testing markdown-js\n\nWe use [Grunt](http://gruntjs.com/) to build and run markdown-js's tests.\nMake sure you run `npm install` to install the developer dependencies for\nthe project, then you can:\n\n    $ npm test\n\nTo run our test suite. If you'd like to build markdown-js, you can run:\n\n    $ ./node_modules/.bin/grunt all\n\nThis command will run all the tests, then output a concatenated markdown.js\nand markdown.min.js in the `dist/` directory for use in a browser application.\n\n## Building a custom markdown-js\n\nBy default, you will get the [Gruber] and [Maruku] dialects included when you\nrun `grunt all`. However, you can create a custom build using the following\nsyntax if you don't want to include Maruku support.\n\n    $ ./node_modules/.bin/grunt \"custom:-dialects/maruku\"\n\n[Gruber]: http://daringfireball.net/projects/markdown/syntax\n[Maruku]: http://maruku.rubyforge.org/maruku.html\n\n## Running Tests\n\nTo run the tests under Node you will need tap installed (it's listed as a\n`devDependencies` so `npm install` from the checkout should be enough), then do\n\n    $ npm test\n\n## Contributing\n\nDo the usual GitHub fork and pull request dance. Add yourself to the\ncontributors section of [package.json] too if you want to.\n\n[package.json]: https://github.com/evilstreak/markdown-js/blob/master/package.json\n\n## License\n\nReleased under the MIT license.\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of\nthis software and associated documentation files (the \"Software\"), to deal in\nthe Software without restriction, including without limitation the rights to\nuse, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of\nthe Software, and to permit persons to whom the Software is furnished to do so,\nsubject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS\nFOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR\nCOPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER\nIN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN\nCONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n",
+        "releases": [
+            {
+                "name": "v0.6.0-beta1",
+                "date": "2013-09-15T16:13:33Z"
+            }
+        ]
+    }
+}

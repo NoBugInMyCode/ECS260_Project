@@ -1,0 +1,50 @@
+{
+    "https://api.github.com/repos/lzyzsd/JsBridge": {
+        "forks": 2015,
+        "watchers": 9802,
+        "stars": 9802,
+        "languages": {
+            "Java": 43326,
+            "JavaScript": 7397,
+            "HTML": 3473
+        },
+        "commits": [
+            "2024-05-13T05:14:53Z",
+            "2024-05-13T05:13:41Z",
+            "2024-05-13T05:13:18Z",
+            "2024-02-22T03:45:17Z",
+            "2023-07-28T14:23:46Z",
+            "2023-07-28T08:42:33Z",
+            "2023-07-28T04:34:17Z",
+            "2022-09-08T06:45:30Z",
+            "2022-09-08T03:18:58Z",
+            "2022-09-08T02:16:52Z",
+            "2022-09-06T05:44:50Z",
+            "2022-09-06T05:39:22Z",
+            "2022-07-26T01:34:07Z",
+            "2022-02-16T15:37:36Z",
+            "2021-11-05T07:06:23Z",
+            "2021-11-05T07:06:03Z",
+            "2021-07-30T03:05:13Z",
+            "2021-07-30T03:03:55Z",
+            "2021-05-13T02:25:25Z",
+            "2021-04-30T09:41:38Z",
+            "2021-03-24T08:28:23Z",
+            "2021-03-23T03:32:11Z",
+            "2021-03-23T03:31:14Z",
+            "2021-03-23T03:27:41Z",
+            "2021-03-17T01:21:58Z",
+            "2021-02-05T03:44:04Z",
+            "2020-05-20T14:31:47Z",
+            "2020-05-20T14:03:51Z",
+            "2020-02-25T11:56:06Z",
+            "2019-11-15T02:56:15Z"
+        ],
+        "creation_date": "2015-02-26T12:10:58Z",
+        "contributors": 20,
+        "topics": [],
+        "subscribers": 257,
+        "readme": "# JsBridge\n\n-----\n\ninspired and modified from [this](https://github.com/jacin1/JsBridge) and wechat jsBridge file, with some bugs fix and feature enhancement.\n\nThis project make a bridge between Java and JavaScript.\n\nIt provides safe and convenient way to call Java code from js and call js code from java.\n\n## How JsBridge Work\n![JsBridge](./JsBridgeWork.png)\n\n## Demo\n![JsBridge Demo](https://raw.githubusercontent.com/lzyzsd/JsBridge/master/JsBridge.gif)\n\n## Usage\n\n## JitPack.io\n\nI strongly recommend https://jitpack.io\n\n```groovy\nrepositories {\n    // ...\n    maven { url \"https://jitpack.io\" }\n}\n\ndependencies {\n    compile 'com.github.lzyzsd:jsbridge:1.0.4'\n}\n```\n\n## Use it in Java\n\nadd com.github.lzyzsd.jsbridge.BridgeWebView to your layout, it is inherited from WebView.\n\n### Register a Java handler function so that js can call\n\n```java\n\n    webView.registerHandler(\"submitFromWeb\", new BridgeHandler() {\n        @Override\n        public void handler(String data, CallBackFunction function) {\n            Log.i(TAG, \"handler = submitFromWeb, data from web = \" + data);\n            function.onCallBack(\"submitFromWeb exe, response data from Java\");\n        }\n    });\n\n```\n\njs can call this Java handler method \"submitFromWeb\" through:\n\n```javascript\n\n    WebViewJavascriptBridge.callHandler(\n        'submitFromWeb'\n        , {'param': str1}\n        , function(responseData) {\n            document.getElementById(\"show\").innerHTML = \"send get responseData from java, data = \" + responseData\n        }\n    );\n\n```\n\nYou can set a default handler in Java, so that js can send message to Java without assigned handlerName\n\n```java\n\n    webView.setDefaultHandler(new DefaultHandler());\n\n```\n\n```javascript\n\n    window.WebViewJavascriptBridge.doSend(\n        data\n        , function(responseData) {\n            document.getElementById(\"show\").innerHTML = \"repsonseData from java, data = \" + responseData\n        }\n    );\n\n```\n\n### Register a JavaScript handler function so that Java can call\n\n```javascript\n\n    WebViewJavascriptBridge.registerHandler(\"functionInJs\", function(data, responseCallback) {\n        document.getElementById(\"show\").innerHTML = (\"data from Java: = \" + data);\n        var responseData = \"Javascript Says Right back aka!\";\n        responseCallback(responseData);\n    });\n\n```\n\nJava can call this js handler function \"functionInJs\" through:\n\n```java\n\n    webView.callHandler(\"functionInJs\", new Gson().toJson(user), new CallBackFunction() {\n        @Override\n        public void onCallBack(String data) {\n\n        }\n    });\n\n```\nYou can also define a default handler use init method, so that Java can send message to js without assigned handlerName\n\nfor example:\n\n```javascript\n\n    window.WebViewJavascriptBridge.init(function(message, responseCallback) {\n        console.log('JS got a message', message);\n        var data = {\n            'Javascript Responds': 'Wee!'\n        };\n        console.log('JS responding with', data);\n        responseCallback(data);\n    });\n\n```\n\n```java\n    webView.send(\"hello\");\n```\n\nwill print 'JS got a message hello' and 'JS responding with' in webview console.\n\n### Switch to CustomWebview\n* activity_main.xml\n```xml\n    <com.github.lzyzsd.jsbridge.example.CustomWebView\n        android:id=\"@+id/webView\"\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"match_parent\" >\n     </com.github.lzyzsd.jsbridge.example.CustomWebView>\n```\n* MainActivity.java\nClass BridgeWebview change to CustomWebview;\n```java\n    CustomWebView webView = (CustomWebView) findViewById(R.id.webView);\n    \n```\n\n## Notice\n\nThis lib will inject a WebViewJavascriptBridge Object to window object.\nYou can listen to `WebViewJavascriptBridgeReady` event to ensure `window.WebViewJavascriptBridge` is exist, as the blow code shows:\n\n```javascript\n\n    if (window.WebViewJavascriptBridge) {\n        //do your work here\n    } else {\n        document.addEventListener(\n            'WebViewJavascriptBridgeReady'\n            , function() {\n                //do your work here\n            },\n            false\n        );\n    }\n\n```\n\nOr put all JsBridge function call into `window.WVJBCallbacks` array if `window.WebViewJavascriptBridge` is undefined, this task queue will be flushed when `WebViewJavascriptBridgeReady` event triggered.\n\nCopy and paste setupWebViewJavascriptBridge into your JS:\n\n```javascript\nfunction setupWebViewJavascriptBridge(callback) {\n\tif (window.WebViewJavascriptBridge) {\n        return callback(WebViewJavascriptBridge);\n    }\n\tif (window.WVJBCallbacks) {\n        return window.WVJBCallbacks.push(callback);\n    }\n\twindow.WVJBCallbacks = [callback];\n}\n```\n\nCall `setupWebViewJavascriptBridge` and then use the bridge to register handlers or call Java handlers:\n\n```javascript\nsetupWebViewJavascriptBridge(function(bridge) {\n\tbridge.registerHandler('JS Echo', function(data, responseCallback) {\n\t\tconsole.log(\"JS Echo called with:\", data);\n\t\tresponseCallback(data);\n    });\n\tbridge.callHandler('ObjC Echo', {'key':'value'}, function(responseData) {\n\t\tconsole.log(\"JS received response:\", responseData);\n\t});\n});\n```\n\nIt same with https://github.com/marcuswestin/WebViewJavascriptBridge, that would be easier for you to define same behavior in different platform between Android and iOS. Meanwhile, writing concise code.\n\n## License\n\nThis project is licensed under the terms of the MIT license.\n",
+        "releases": []
+    }
+}

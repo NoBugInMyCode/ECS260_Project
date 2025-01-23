@@ -1,0 +1,59 @@
+{
+    "https://api.github.com/repos/alyssaxuu/flowy": {
+        "forks": 1008,
+        "watchers": 11548,
+        "stars": 11548,
+        "languages": {
+            "JavaScript": 41041
+        },
+        "commits": [
+            "2022-07-02T08:11:05Z",
+            "2021-01-01T13:40:45Z",
+            "2021-01-01T13:40:31Z",
+            "2021-01-01T13:39:59Z",
+            "2020-10-06T19:19:10Z",
+            "2020-10-06T19:18:51Z",
+            "2020-10-06T19:18:32Z",
+            "2020-10-06T15:19:44Z",
+            "2020-10-06T15:19:26Z",
+            "2020-10-06T15:18:59Z",
+            "2020-10-06T12:36:57Z",
+            "2020-10-06T12:36:42Z",
+            "2020-10-06T12:35:58Z",
+            "2020-10-06T12:17:24Z",
+            "2020-10-06T12:17:00Z",
+            "2020-10-06T12:16:18Z",
+            "2020-07-29T17:31:41Z",
+            "2020-07-29T17:31:21Z",
+            "2020-07-29T17:30:25Z",
+            "2020-07-29T11:09:18Z",
+            "2020-07-29T11:04:56Z",
+            "2020-07-29T11:04:36Z",
+            "2020-07-29T11:03:39Z",
+            "2020-07-29T08:31:31Z",
+            "2020-07-29T08:31:14Z",
+            "2020-07-29T08:30:16Z",
+            "2020-07-29T07:41:38Z",
+            "2020-07-29T07:41:17Z",
+            "2020-07-29T07:40:30Z",
+            "2020-07-29T07:34:59Z"
+        ],
+        "creation_date": "2019-11-27T14:03:51Z",
+        "contributors": 5,
+        "topics": [
+            "diagrams",
+            "drag-and-drop",
+            "engine",
+            "flowchart",
+            "javascript",
+            "javascript-library",
+            "marketing",
+            "marketing-automation",
+            "minimal",
+            "zapier"
+        ],
+        "subscribers": 167,
+        "readme": "\n# Flowy\n\n\n![Demo](https://media.giphy.com/media/dv1C56OywrP7Cn20nr/giphy.gif)\n<br>A javascript library to create pretty flowcharts with ease \u2728\n\n[Dribbble](https://dribbble.com/shots/8576286-Flowy-Flowchart-Engine) | [Twitter](https://twitter.com/alyssaxuu/status/1199724989353730048) | [Live demo](https://alyssax.com/x/flowy)\n\n\nFlowy makes creating WebApps with flowchart functionality an incredibly simple task. Build automation software, mind mapping tools, or simple programming platforms in minutes by implementing the library into your project. \n\n> You can support this project (and many others) through [GitHub Sponsors](https://github.com/sponsors/alyssaxuu)! \u2764\ufe0f\n\nMade by [Alyssa X](https://alyssax.com)\n\n## Table of contents\n- [Features](#features)\n- [Installation](#installation)\n- [Running Flowy](#running-flowy)\n    - [Initialization](#initialization)\n    - [Example](#example)\n- [Callbacks](#callbacks)\n\t- [On grab](#on-grab)\n\t- [On release](#on-release)\n\t- [On snap](#on-snap)\n\t- [On rearrange](#on-rearrange)\n- [Methods](#methods)\n    - [Get the flowchart data](#get-the-flowchart-data)\n    - [Import the flowchart data](#import-the-flowchart-data)\n    - [Delete all blocks](#delete-all-blocks)\n\n\n## Features\nCurrently, Flowy supports the following:\n\n - [x] Responsive drag and drop\n - [x] Automatic snapping\n - [x] Automatic scrolling\n - [x] Block rearrangement\n - [x] Delete blocks\n - [x] Automatic block centering\n - [x] Conditional snapping\n - [x] Conditional block removal\n - [x] Import saved files\n - [x] Mobile support\n - [x] Vanilla javascript (no dependencies)\n - [ ] [npm install](https://github.com/alyssaxuu/flowy/issues/10)\n \nYou can suggest new features [here](https://github.com/alyssaxuu/flowy/issues)\n \n\n## Installation\nAdding Flowy to your WebApp is incredibly simple:\n\n1.  Link  `flowy.min.js`  and  `flowy.min.css`  to your project. Through jsDelivr: \n```html\n<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/gh/alyssaxuu/flowy/flowy.min.css\"> \n<script src=\"https://cdn.jsdelivr.net/gh/alyssaxuu/flowy/flowy.min.js\"></script>\n```\n2.  Create a canvas element that will contain the flowchart (for example,  `<div id=\"canvas\"></div>`)\n3.  Create the draggable blocks with the  `.create-flowy`  class (for example,  `<div class=\"create-flowy\">Grab me</div>`)\n\n## Running Flowy\n\n### Initialization\n```javascript\nflowy(canvas, ongrab, onrelease, onsnap, onrearrange, spacing_x, spacing_y);\n```\n\nParameter | Type | Description\n--- | --- | ---\n   `canvas` | *javascript DOM element* | The element that will contain the blocks \n   `ongrab` | *function* (optional) |  Function that gets triggered when a block is dragged\n   `onrelease` | *function* (optional) |  Function that gets triggered when a block is released\n   `onsnap` | *function* (optional) |  Function that gets triggered when a block snaps with another one\n   `onrearrange` | *function* (optional) |  Function that gets triggered when blocks are rearranged\n   `spacing_x` | *integer* (optional) |  Horizontal spacing between blocks (default 20px)\n   `spacing_y` | *integer* (optional) |  Vertical spacing between blocks (default 80px)\n\nTo define the blocks that can be dragged, you need to add the class `.create-flowy`\n\n### Example\n**HTML**\n```html\n<div class=\"create-flowy\">The block to be dragged</div>\n<div id=\"canvas\"></div>\n```\n**Javascript**\n```javascript\nvar spacing_x = 40;\nvar spacing_y = 100;\n// Initialize Flowy\nflowy(document.getElementById(\"canvas\"), onGrab, onRelease, onSnap, onRearrange, spacing_x, spacing_y);\nfunction onGrab(block){\n\t// When the user grabs a block\n}\nfunction onRelease(){\n\t// When the user releases a block\n}\nfunction onSnap(block, first, parent){\n\t// When a block snaps with another one\n}\nfunction onRearrange(block, parent){\n\t// When a block is rearranged\n}\n```\n## Callbacks\nIn order to use callbacks, you need to add the functions when initializing Flowy, as explained before.\n### On grab\n```javascript\nfunction onGrab(block){\n\t// When the user grabs a block\n}\n```\nGets triggered when a user grabs a block with the class `create-flowy`\n\nParameter | Type | Description\n--- | --- | ---\n   `block` | *javascript DOM element* | The block that has been grabbed\n   \n### On release\n```javascript\nfunction onRelease(){\n\t// When the user lets go of a block\n}\n```\nGets triggered when a user lets go of a block, regardless of whether it attaches or even gets released in the canvas.\n\n### On snap\n```javascript\nfunction onSnap(block, first, parent){\n\t// When a block can attach to a parent\n\treturn true;\n}\n```\nGets triggered when a block can attach to another parent block. You can either prevent the attachment, or allow it by using `return true;`\n\nParameter | Type | Description\n--- | --- | ---\n   `block` | *javascript DOM element* | The block that has been grabbed\n   `first` | *boolean* | If true, the block that has been dragged is the first one in the canvas\n   `parent` | *javascript DOM element* | The parent the block can attach to\n   \n### On rearrange\n```javascript\nfunction onRearrange(block, parent){\n\t// When a block is rearranged\n\treturn true;\n}\n```\nGets triggered when blocks are rearranged and are dropped anywhere in the canvas, without a parent to attach to. You can either allow the blocks to be deleted, or prevent it and thus have them re-attach to their previous parent using `return true;`\n\nParameter | Type | Description\n--- | --- | ---\n   `block` | *javascript DOM element* | The block that has been grabbed\n   `parent` | *javascript DOM element* | The parent the block can attach to\n   \n## Methods\n### Get the flowchart data\n```javascript\n// As an object\nflowy.output();\n// As a JSON string\nJSON.stringify(flowy.output());\n```\nThe JSON object that gets outputted looks like this:\n```json\n{\n\t\"html\": \"\",\n\t\"blockarr\": [],\n\t\"blocks\": [\n\t\t{\n\t\t\t\"id\": 1,\n\t\t\t\"parent\": 0,\n\t\t\t\"data\": [\n\t\t\t\t{\n\t\t\t\t\"name\": \"blockid\",\n\t\t\t\t\"value\": \"1\"\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"attr\": [\n\t\t\t\t{\n\t\t\t\t\"id\": \"block-id\",\n\t\t\t\t\"class\": \"block-class\"\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t]\n}\n```\n\nHere's what each property means:\n\nKey | Value type | Description\n--- | --- | ---\n   `html` | *string* | Contains the canvas data\n   `blockarr` | *array* | Contains the block array generated by the library (for import purposes)  \n   `blocks` | *array* | Contains the readable block array\n   `id` | *integer* | Unique value that identifies a block \n   `parent` | *integer* |  The `id` of the parent a block is attached to (-1 means the block has no parent)\n   `data` | *array of objects* |  An array of all the inputs within a certain block\n   `name` | *string* |  The name attribute of the input\n   `value` | *string* |  The value attribute of the input\n   `attr` | *array of objects* |  Contains all the data attributes of a certain block\n### Import the flowchart data\n```javascript\nflowy.import(output)\n```\nAllows you to import entire flowcharts initially exported using the previous method, `flowy.output()`\n\nParameter | Type | Description\n--- | --- | ---\n   `output` | *javascript DOM element* | The data from `flowy.output()`\n   \n#### Warning\n\nThis method accepts raw HTML and does **not** sanitize it, therefore this method is vulnerable to [XSS](https://owasp.org/www-community/attacks/DOM_Based_XSS). The _only_ safe use for this method is when the input is **absolutely** trusted, if the input is _not_ to be trusted the use this method can introduce a vulnerability in your system.\n\n### Delete all blocks\nTo remove all blocks at once use:\n```javascript\nflowy.deleteBlocks()\n```\nCurrently there is no method to individually remove blocks. The only way to go about it is by splitting branches manually.\n#\n Feel free to reach out to me through email at hi@alyssax.com or [on Twitter](https://twitter.com/alyssaxuu) if you have any questions or feedback! Hope you find this useful \ud83d\udc9c\n",
+        "releases": []
+    }
+}

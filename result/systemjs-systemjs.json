@@ -1,0 +1,838 @@
+{
+    "https://api.github.com/repos/systemjs/systemjs": {
+        "forks": 1089,
+        "watchers": 12979,
+        "stars": 12979,
+        "languages": {
+            "JavaScript": 119474,
+            "HTML": 4453
+        },
+        "commits": [
+            "2024-05-13T04:30:58Z",
+            "2024-04-27T22:00:05Z",
+            "2024-04-27T21:59:31Z",
+            "2024-04-27T21:58:39Z",
+            "2024-04-27T21:57:54Z",
+            "2024-01-07T16:41:55Z",
+            "2024-01-01T14:15:18Z",
+            "2023-08-16T05:19:41Z",
+            "2023-08-16T05:18:06Z",
+            "2023-08-13T19:04:00Z",
+            "2023-08-13T19:03:40Z",
+            "2023-03-21T15:25:34Z",
+            "2023-03-21T15:24:47Z",
+            "2023-02-25T15:55:46Z",
+            "2023-02-25T15:33:59Z",
+            "2023-02-25T15:29:33Z",
+            "2023-02-25T15:29:03Z",
+            "2022-12-24T19:41:33Z",
+            "2022-10-06T15:35:30Z",
+            "2022-10-06T15:34:37Z",
+            "2022-10-04T14:00:58Z",
+            "2022-10-04T14:00:35Z",
+            "2022-09-29T15:14:25Z",
+            "2022-09-28T14:11:30Z",
+            "2022-09-27T14:05:05Z",
+            "2022-09-24T17:00:00Z",
+            "2022-08-31T11:12:43Z",
+            "2022-08-31T11:12:32Z",
+            "2022-08-31T11:07:04Z",
+            "2022-08-26T13:39:55Z"
+        ],
+        "creation_date": "2013-05-14T20:45:48Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 255,
+        "readme": "# SystemJS\n\n[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/systemjs/systemjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)\n[![Backers on Open Collective](https://opencollective.com/systemjs/backers/badge.svg)](#backers)\n[![Sponsors on Open Collective](https://opencollective.com/systemjs/sponsors/badge.svg)](#sponsors)\n[![Downloads on JS Delivr](https://data.jsdelivr.com/v1/package/npm/systemjs/badge)](https://www.jsdelivr.com/package/npm/systemjs)\n\nSystemJS is a hookable, standards-based module loader. It provides a workflow where code written for production workflows of native ES modules in browsers ([like Rollup code-splitting builds](https://rollupjs.org/guide/en#code-splitting)), can be transpiled to the [System.register module format](docs/system-register.md) to work in older browsers that don't support native modules, running [almost-native module speeds](#performance) while supporting top-level await, dynamic import, circular references and live bindings, import.meta.url, module types, import maps, integrity and Content Security Policy with compatibility in older browsers back to IE11.\n\n## Sponsors\n\n<a href=\"https://opencollective.com/systemjs/sponsor/0/website\" target=\"_blank\"><img src=\"https://opencollective.com/systemjs/sponsor/0/avatar.svg\"></a>\n<a href=\"https://opencollective.com/systemjs/sponsor/1/website\" target=\"_blank\"><img src=\"https://opencollective.com/systemjs/sponsor/1/avatar.svg\"></a>\n<a href=\"https://opencollective.com/systemjs/sponsor/2/website\" target=\"_blank\"><img src=\"https://opencollective.com/systemjs/sponsor/2/avatar.svg\"></a>\n<a href=\"https://opencollective.com/systemjs/sponsor/3/website\" target=\"_blank\"><img src=\"https://opencollective.com/systemjs/sponsor/3/avatar.svg\"></a>\n<a href=\"https://opencollective.com/systemjs/sponsor/4/website\" target=\"_blank\"><img src=\"https://opencollective.com/systemjs/sponsor/4/avatar.svg\"></a>\n<a href=\"https://opencollective.com/systemjs/sponsor/5/website\" target=\"_blank\"><img src=\"https://opencollective.com/systemjs/sponsor/5/avatar.svg\"></a>\n<a href=\"https://opencollective.com/systemjs/sponsor/6/website\" target=\"_blank\"><img src=\"https://opencollective.com/systemjs/sponsor/6/avatar.svg\"></a>\n<a href=\"https://opencollective.com/systemjs/sponsor/7/website\" target=\"_blank\"><img src=\"https://opencollective.com/systemjs/sponsor/7/avatar.svg\"></a>\n<a href=\"https://opencollective.com/systemjs/sponsor/8/website\" target=\"_blank\"><img src=\"https://opencollective.com/systemjs/sponsor/8/avatar.svg\"></a>\n<a href=\"https://opencollective.com/systemjs/sponsor/9/website\" target=\"_blank\"><img src=\"https://opencollective.com/systemjs/sponsor/9/avatar.svg\"></a>\n\n> **Support SystemJS by [becoming a sponsor](https://opencollective.com/systemjs#sponsor).** Your logo will show up here with a link to your website.\n\n## Backers\n\nThank you to all our backers! \ud83d\ude4f [[Become a backer](https://opencollective.com/systemjs#backer)]\n\n<a href=\"https://opencollective.com/systemjs#backers\" target=\"_blank\"><img src=\"https://opencollective.com/systemjs/backers.svg?width=890\"></a>\n\n### Overview\n\n#### 1. s.js minimal production loader\n\nThe minimal [2.8KB s.js production loader](dist/s.min.js) includes the following features:\n\n* Loads `System.register` modules, the CSP-compatible [SystemJS module format](docs/system-register.md).\n* Support for loading bare specifier names with [import maps](docs/import-maps.md) via `<script type=\"systemjs-importmap\">`.\n* Supports [hooks](docs/hooks.md) for loader customization.\n\n#### 2. system.js loader\n\nThe [4.2KB system.js loader](dist/system.min.js) adds the following features in addition to the `s.js` features above:\n\n* [Tracing hooks](docs/hooks.md##onloaderr-id-deps-iserrsource-sync) and [registry deletion API](docs/api.md#registry) for reloading workflows.\n* Supports loading Wasm, CSS and JSON [module types](docs/module-types.md).\n* Includes the [global loading extra](#extras) for loading global scripts, useful for loading library dependencies traditionally loaded with script tags.\n\n#### 3. system-node.cjs loader\n\nThe [system-node.cjs](/dist/system-node.cjs) loader is a version of SystemJS build designed to run in Node.js, typically for workflows where System modules need to be executed on the server like SSR. It has the following features:\n\n* Loading System modules from disk (via `file://` urls) or the network, with included caching that respects the Content-Type header.\n* Import Maps (via the `applyImportMap` api).\n* [Tracing hooks](docs/hooks.md#trace-hooks) and [registry deletion API](docs/api.md#registry) for reloading workflows.\n* Loading global modules with the included [global loading extra](#extras).\n\n_Loading CommonJS modules is not currently supported in this loader and likely won't be. If you find you need them it is more advisable to use [Node.js native module support](https://nodejs.org/dist/latest/docs/api/esm.html) where possible instead of the SystemJS Node.js loader._\n\n#### Extras\n\nThe following [pluggable extras](dist/extras) can be dropped in with either the s.js or system.js loader:\n\n* [AMD loading](dist/extras/amd.js) support (through `Window.define` which is created).\n* [Named register](dist/extras/named-register.js) supports `System.register('name', ...)` named bundles which can then be imported as `System.import('name')` (as well as AMD named define support)\n* [Dynamic import maps](dist/extras/dynamic-import-maps.js) support. This is currently a _potential_ new standard [feature](https://github.com/guybedford/import-maps-extensions#lazy-loading-of-import-maps).\n\nThe following extras are included in system.js loader by default, and can be added to the s.js loader for a smaller tailored footprint:\n\n* [Global loading](dist/extras/global.js) support for loading global scripts and detecting the defined global as the default export. Useful for loading common library scripts from CDN like `System.import('//unpkg.com/lodash')`.\n* [Module Types](dist/extras/module-types.js) `.css`, `.wasm`, `.json` [module type](docs/module-types.md) loading support in line with the existing modules specifications.\n\nSince all loader features are hookable, custom extensions can be easily made following the same approach as the bundled extras. See the [hooks documentation](docs/hooks.md) for more information.\n\n## SystemJS Babel\n\nTo support easy loading of TypeScript or ES modules in development SystemJS workflows, see the [SystemJS Babel Extension](https://github.com/systemjs/systemjs-babel).\n\nSystemJS does not support direct integration with the native ES module browser loader because there is no way to share dependencies between the module systems. For extending the functionality of the native module loader in browsers, see [ES module Shims](https://github.com/guybedford/es-module-shims), which like SystemJS, provides workflows for import maps and other modules features, but on top of base-level modules support in browsers, which it does using a fast Wasm-based source rewriting to remap module specifiers.\n\n## Performance\n\nSystemJS is designed for production modules performance roughly only around a factor of 1.5 times the speed of native ES modules, as seen in the following performance benchmark, which was run by loading 426 javascript modules (all of `@babel/core`) on a Macbook pro with fast wifi internet connection. Each test was the average of five page loads in Chrome 80.\n\n| Tool | Uncached | Cached |\n| ---- | -------- | ------ |\n| Native modules | 1668ms | 49ms |\n| SystemJS | 2334ms | 81ms |\n\n## Getting Started\n\n[Introduction video](https://www.youtube.com/watch?v=AmdKF2UhFzw).\n\nThe [systemjs-examples repo](https://github.com/systemjs/systemjs-examples) contains a variety of examples demonstrating how to use SystemJS.\n\n## Installation\n\n```\nnpm install systemjs\n```\n\n## Documentation\n\n* [Import Maps](docs/import-maps.md)\n* [API](docs/api.md)\n* [System.register](docs/system-register.md)\n* [Loader Hooks](docs/hooks.md)\n* [Module Types](docs/module-types.md)\n\n## Example Usage\n\n### Loading a System.register module\nYou can load [System.register](/docs/system-register.md) modules with a script element in your HTML:\n\n```html\n<script src=\"system.js\"></script>\n<script type=\"systemjs-module\" src=\"/js/main.js\"></script>\n<script type=\"systemjs-module\" src=\"import:name-of-module\"></script>\n```\n\n### Loading with System.import\nYou can also dynamically load modules at any time with `System.import()`:\n\n```js\nSystem.import('/js/main.js');\n```\n\nwhere `main.js` is a module available in the System.register module format.\n\n### Bundling workflow\n\nFor an example of a bundling workflow, see the Rollup Code Splitting starter project - https://github.com/rollup/rollup-starter-code-splitting.\n\nNote that when building System modules you typically want to ensure anonymous System.register statements like:\n\n```js\nSystem.register([], function () { ... });\n```\n\nare emitted, as these can be loaded in a way that behaves the same as normal ES modules, and **not** named register statements like:\n\n```js\nSystem.register('name', [], function () { ... });\n```\n\nWhile these can be supported with the named register extension, this approach is typically not recommended for modern modules workflows.\n\n### Import Maps\n\nSay `main.js` depends on loading `'lodash'`, then we can define an import map:\n\n```html\n<script src=\"system.js\"></script>\n<script type=\"systemjs-importmap\">\n{\n  \"imports\": {\n    \"lodash\": \"https://unpkg.com/lodash@4.17.10/lodash.js\"\n  }\n}\n</script>\n<!-- Alternatively:\n<script type=\"systemjs-importmap\" src=\"path/to/map.json\" crossorigin=\"anonymous\"></script>\n-->\n<script type=\"systemjs-module\" src=\"/js/main.js\"></script>\n```\n\n### IE11 Support\n\nIE11 continues to be fully supported, provided the relevant polyfills are available.\n\nThe main required polyfill is a `Promise` polyfill. If using import maps a `fetch` polyfill is also needed.\n\nBoth of these can be loaded conditionally using for example using [Bluebird Promises](http://bluebirdjs.com/docs/getting-started.html) and the [GitHub Fetch Polyfill](https://github.github.io/fetch/) over Unpkg:\n\n```html\n<script>\n  if (typeof Promise === 'undefined')\n    document.write('<script src=\"https://unpkg.com/bluebird@3.7.2/js/browser/bluebird.core.min.js\"><\\/script>');\n  if (typeof fetch === 'undefined')\n    document.write('<script src=\"https://unpkg.com/whatwg-fetch@3.4.1/dist/fetch.umd.js\"><\\/script>');\n</script>\n```\n\nlocated _before_ the SystemJS script itself. The above will ensure these polyfills are only fetched for older browsers without `Promise` and `fetch` support.\n\n#### Note on Import Maps Support in IE11\n\nWhen using external import maps (those with `src=\"\"` attributes), there is an IE11-specific workaround that might need to be used. Browsers should not make a network request when they see `<script type=\"systemjs-importmap\" src=\"/importmap.json\"></script>` during parsing of the initial HTML page. However, IE11 does so. [Codesandbox demonstration](https://codesandbox.io/s/vibrant-black-xiok4?file=/index.html)\n\nNormally this is not an issue, as SystemJS will make an additional request via fetch/xhr for the import map. However, a problem can occur when the file is cached after the first request, since the first request caused by IE11 does not send the Origin request header by default. If the request requires CORS, the lack of an Origin request header causes many web servers (including AWS Cloudfront) to omit the response CORS headers. This can result in the resource being cached without CORS headers, which causes the later SystemJS fetch() to fail because of CORS checks.\n\nThis can be worked around by adding `crossorigin=\"anonymous\"` as an attribute to the `<script type=\"systemjs-importmap\">` script.\n\n## Community Projects\n\nA list of projects that use or work with SystemJS in providing modular browser workflows. [Post a PR](https://github.com/systemjs/systemjs/edit/master/README.md).\n\n* [beyondjs.com](https://beyondjs.com) -TypeScript first meta-framework for universal microfrontends/micronservices.\n* [esm-bundle](https://github.com/esm-bundle) - list of System.register versions for major libraries, including documentation on how to create a System.register bundle for any npm package.\n* [es-dev-server](https://github.com/open-wc/open-wc/tree/master/packages/es-dev-server) - A web server for developing without a build step.\n* [import map overrides](https://github.com/joeldenning/import-map-overrides/) - Dynamically inject an import map stored in local storage so that you can override the URL for any module. Can be useful for running development modules on localhost against the server.\n* [js-env](https://github.com/jsenv/jsenv-core) - Collection of development tools providing a unified workflow to write JavaScript for the web, node.js or both at the same time.\n* [jspm.org](https://jspm.org) - Package manager for native modules, using SystemJS for backwards compatibility.\n* [single-spa](https://single-spa.js.org/) - JavaScript framework for front-end microservices.\n* [systemjs-webpack-interop](https://github.com/joeldenning/systemjs-webpack-interop) - npm lib for setting webpack public path and creating webpack configs that work well with SystemJS.\n* [@wener/system](https://github.com/wenerme/wode/tree/main/packages/system) - hooks to make System works with npm registry & package.json}\n\n\n## Compatibility with Webpack\n\nCode-splitting builds on top of native ES modules, like Rollup offers, are an alternative to the Webpack-style chunking approach - offering a way to utilize the native module loader for loading shared and dynamic chunks instead of using a custom registry and loader as Webpack bundles include. Scope-level optimizations can be performed on ES modules when they are combined, while ensuring no duplicate code is loaded through dynamic loading and code-sharing in the module registry, using the features of the native module loader and its dynamic runtime nature.\n\n[systemjs-webpack-interop](https://github.com/joeldenning/systemjs-webpack-interop) is a community-maintained npm library that might help you get webpack and systemjs working well together.\n\nAs of webpack@4.30.0, it is now possible to compile webpack bundles to System.register format, by modifying your webpack config:\n\n```js\n{\n  output: {\n    libraryTarget: 'system', \n  }\n}\n```\n\nIf using webpack@<5, the following config is needed to avoid rewriting references to the global `System` variable:\n\n```js\n{\n  module: {\n    rules: [\n      { parser: { system: false } }\n    ]\n  }\n}\n```\n\n## Using npm packages\n\nThird party libraries and npm packages may be used as long as they are published in [a supported module format](https://github.com/systemjs/systemjs/blob/master/docs/module-types.md). For packages that do not exist in a supported module format, [here is a list of github repos](https://github.com/esm-bundle/) that publish `System.register` versions of popular third party libraries (such as react, react-dom, rxjs, etc).\n\n## Contributing to SystemJS\n\nProject bug fixes and changes are welcome for discussion, provided the project footprint remains minimal.\n\nTask running is handled by Chomp (https://chompbuild.com).\n\nTo run the tests:\n\n```\nnpm install -g chomp\nchomp test\n```\n\n## Changes\n\nFor the changelog, see [CHANGELOG.md](CHANGELOG.md).\n\n## License\n\nMIT\n",
+        "releases": [
+            {
+                "name": "6.15.1",
+                "date": "2024-04-27T22:01:27Z"
+            },
+            {
+                "name": "6.15.0",
+                "date": "2024-04-27T21:58:59Z"
+            },
+            {
+                "name": "6.14.3",
+                "date": "2024-01-01T14:17:19Z"
+            },
+            {
+                "name": "6.14.2",
+                "date": "2023-08-16T05:20:22Z"
+            },
+            {
+                "name": "6.14.1",
+                "date": "2023-03-21T15:26:33Z"
+            },
+            {
+                "name": "6.14.0",
+                "date": "2023-02-25T16:11:29Z"
+            },
+            {
+                "name": "6.13.0",
+                "date": "2022-09-29T15:15:14Z"
+            },
+            {
+                "name": "6.12.3",
+                "date": "2022-08-18T13:59:55Z"
+            },
+            {
+                "name": "6.12.2",
+                "date": "2022-08-10T09:43:09Z"
+            },
+            {
+                "name": "SystemJS 6.12.1",
+                "date": "2022-01-21T22:55:15Z"
+            },
+            {
+                "name": "SystemJS Version 6.11.0",
+                "date": "2021-10-18T22:36:59Z"
+            },
+            {
+                "name": "SystemJS Version 6.10.3",
+                "date": "2021-08-17T16:10:10Z"
+            },
+            {
+                "name": "SystemJS Version 6.10.2",
+                "date": "2021-07-04T00:45:38Z"
+            },
+            {
+                "name": "SystemJS Version 6.10.1",
+                "date": "2021-07-04T00:44:50Z"
+            },
+            {
+                "name": "SystemJS Version 6.10.0",
+                "date": "2021-06-07T18:11:18Z"
+            },
+            {
+                "name": "SystemJS Version 6.9.0",
+                "date": "2021-05-12T21:16:59Z"
+            },
+            {
+                "name": "SystemJS Version 6.8.3",
+                "date": "2020-12-31T20:09:18Z"
+            },
+            {
+                "name": "SystemJS 6.8.2",
+                "date": "2020-12-16T00:16:18Z"
+            },
+            {
+                "name": "SystemJS 6.8.0",
+                "date": "2020-11-26T03:06:48Z"
+            },
+            {
+                "name": "SystemJS 6.7.1",
+                "date": "2020-10-12T10:33:33Z"
+            },
+            {
+                "name": "SystemJS 6.7.0",
+                "date": "2020-10-09T20:31:09Z"
+            },
+            {
+                "name": "SystemJS 6.6.1",
+                "date": "2020-09-12T02:00:06Z"
+            },
+            {
+                "name": "SystemJS 6.6.0",
+                "date": "2020-09-12T00:15:38Z"
+            },
+            {
+                "name": "SystemJS 6.5.1",
+                "date": "2020-09-02T04:25:44Z"
+            },
+            {
+                "name": "SystemJS 6.5.0",
+                "date": "2020-08-10T20:15:35Z"
+            },
+            {
+                "name": "SystemJS 6.4.3",
+                "date": "2020-08-06T14:00:29Z"
+            },
+            {
+                "name": "SystemJS 6.4.2",
+                "date": "2020-08-05T17:58:28Z"
+            },
+            {
+                "name": "SystemJS 6.4.1",
+                "date": "2020-07-31T16:27:27Z"
+            },
+            {
+                "name": "SystemJS 6.4.0",
+                "date": "2020-07-23T21:02:11Z"
+            },
+            {
+                "name": "6.3.3",
+                "date": "2020-06-27T17:46:15Z"
+            },
+            {
+                "name": "6.3.2",
+                "date": "2020-05-18T15:50:30Z"
+            },
+            {
+                "name": "6.3.1",
+                "date": "2020-04-13T17:25:55Z"
+            },
+            {
+                "name": "6.3.0",
+                "date": "2020-04-09T18:32:41Z"
+            },
+            {
+                "name": "6.2.6",
+                "date": "2020-03-15T17:42:54Z"
+            },
+            {
+                "name": "6.2.5",
+                "date": "2020-02-27T22:27:20Z"
+            },
+            {
+                "name": "6.2.4",
+                "date": "2020-02-24T02:16:01Z"
+            },
+            {
+                "name": "6.2.3",
+                "date": "2020-02-14T16:48:01Z"
+            },
+            {
+                "name": "6.2.2",
+                "date": "2020-02-07T16:14:32Z"
+            },
+            {
+                "name": "6.2.1",
+                "date": "2020-02-06T16:49:51Z"
+            },
+            {
+                "name": "6.2.0",
+                "date": "2020-02-01T18:39:18Z"
+            },
+            {
+                "name": "6.1.10",
+                "date": "2020-11-30T17:43:03Z"
+            },
+            {
+                "name": "6.1.9",
+                "date": "2020-01-11T21:15:18Z"
+            },
+            {
+                "name": "6.1.8",
+                "date": "2020-01-10T18:23:50Z"
+            },
+            {
+                "name": "6.1.7",
+                "date": "2019-11-29T14:00:51Z"
+            },
+            {
+                "name": "6.1.6",
+                "date": "2019-11-29T14:00:16Z"
+            },
+            {
+                "name": "6.1.5",
+                "date": "2019-11-22T21:06:29Z"
+            },
+            {
+                "name": "6.1.4",
+                "date": "2019-10-13T00:07:42Z"
+            },
+            {
+                "name": "6.1.3",
+                "date": "2019-10-06T17:50:38Z"
+            },
+            {
+                "name": "6.1.2",
+                "date": "2019-09-22T17:31:28Z"
+            },
+            {
+                "name": "6.1.1",
+                "date": "2019-09-13T21:55:25Z"
+            },
+            {
+                "name": "6.1.0",
+                "date": "2019-09-11T23:34:17Z"
+            },
+            {
+                "name": "6.0.0",
+                "date": "2019-08-29T19:57:41Z"
+            },
+            {
+                "name": "5.0.0",
+                "date": "2019-07-31T03:33:00Z"
+            },
+            {
+                "name": "4.1.1",
+                "date": "2019-07-31T03:27:12Z"
+            },
+            {
+                "name": "4.1.0",
+                "date": "2019-07-14T20:37:20Z"
+            },
+            {
+                "name": "SystemJS 0.21.5",
+                "date": "2018-09-23T21:54:26Z"
+            },
+            {
+                "name": "SystemJS 0.21.4",
+                "date": "2018-05-31T15:35:44Z"
+            },
+            {
+                "name": "SystemJS 0.21.3",
+                "date": "2018-04-16T15:23:20Z"
+            },
+            {
+                "name": "SystemJS 0.21.2",
+                "date": "2018-04-04T15:43:19Z"
+            },
+            {
+                "name": "SystemJS 0.21.1",
+                "date": "2018-03-30T15:52:27Z"
+            },
+            {
+                "name": "SystemJS 0.21.0",
+                "date": "2018-01-23T11:43:29Z"
+            },
+            {
+                "name": "SystemJS 0.20.19",
+                "date": "2017-09-18T12:51:46Z"
+            },
+            {
+                "name": "SystemJS 0.20.18",
+                "date": "2017-08-20T11:09:33Z"
+            },
+            {
+                "name": "SystemJS 0.20.17",
+                "date": "2017-07-26T09:57:07Z"
+            },
+            {
+                "name": "SystemJS 0.20.16",
+                "date": "2017-07-22T10:29:13Z"
+            },
+            {
+                "name": "SystemJS 0.20.15",
+                "date": "2017-07-10T13:10:48Z"
+            },
+            {
+                "name": "SystemJS 0.20.14",
+                "date": "2017-06-14T11:46:54Z"
+            },
+            {
+                "name": "SystemJS 0.20.13",
+                "date": "2017-05-30T09:05:32Z"
+            },
+            {
+                "name": "SystemJS 0.20.12",
+                "date": "2017-04-06T12:50:06Z"
+            },
+            {
+                "name": "SystemJS 0.20.11",
+                "date": "2017-03-30T11:07:48Z"
+            },
+            {
+                "name": "SystemJS 0.19.47",
+                "date": "2017-03-23T08:28:31Z"
+            },
+            {
+                "name": "SystemJS 0.20.10",
+                "date": "2017-03-16T11:50:30Z"
+            },
+            {
+                "name": "SystemJS 0.20.9",
+                "date": "2017-02-17T04:26:56Z"
+            },
+            {
+                "name": "SystemJS 0.20.8",
+                "date": "2017-02-16T15:00:52Z"
+            },
+            {
+                "name": "SystemJS 0.20.7",
+                "date": "2017-02-09T10:40:11Z"
+            },
+            {
+                "name": "SystemJS 0.20.6",
+                "date": "2017-02-09T10:16:38Z"
+            },
+            {
+                "name": "SystemJS 0.20.5",
+                "date": "2017-02-01T08:54:32Z"
+            },
+            {
+                "name": "SystemJS 0.20.4",
+                "date": "2017-01-31T07:15:07Z"
+            },
+            {
+                "name": "SystemJS 0.19.46",
+                "date": "2017-01-31T07:02:22Z"
+            },
+            {
+                "name": "SystemJS 0.20.3",
+                "date": "2017-01-30T07:59:12Z"
+            },
+            {
+                "name": "SystemJS 0.20.2",
+                "date": "2017-01-27T08:04:09Z"
+            },
+            {
+                "name": "SystemJS 0.19.45",
+                "date": "2017-01-27T07:53:42Z"
+            },
+            {
+                "name": "SystemJS 0.20.1",
+                "date": "2017-01-26T06:18:31Z"
+            },
+            {
+                "name": "SystemJS 0.19.44",
+                "date": "2017-01-26T06:07:57Z"
+            },
+            {
+                "name": "SystemJS 0.20.0-rc.8",
+                "date": "2017-01-24T08:17:16Z"
+            },
+            {
+                "name": "SystemJS 0.20.0",
+                "date": "2017-01-24T12:40:02Z"
+            },
+            {
+                "name": "SystemJS 0.19.43",
+                "date": "2017-01-20T10:26:03Z"
+            },
+            {
+                "name": "SystemJS 0.20.0-rc.7",
+                "date": "2017-01-18T13:11:30Z"
+            },
+            {
+                "name": "SystemJS 0.20.0-rc.6",
+                "date": "2017-01-17T10:15:34Z"
+            },
+            {
+                "name": "SystemJS 0.20.0-rc.5",
+                "date": "2017-01-17T10:12:17Z"
+            },
+            {
+                "name": "SystemJS 0.19.42",
+                "date": "2017-01-17T10:09:00Z"
+            },
+            {
+                "name": "SystemJS 0.20.0-rc.4",
+                "date": "2017-01-14T07:10:48Z"
+            },
+            {
+                "name": "SystemJS 0.20.0-rc.3",
+                "date": "2017-01-13T13:47:10Z"
+            },
+            {
+                "name": "SystemJS 0.20.0-rc.2",
+                "date": "2017-01-13T13:39:45Z"
+            },
+            {
+                "name": "SystemJS 0.20.0-rc.1",
+                "date": "2017-01-03T14:55:07Z"
+            },
+            {
+                "name": "SystemJS 0.20.0-alpha.1",
+                "date": "2016-11-15T10:30:12Z"
+            },
+            {
+                "name": "SystemJS 0.19.41",
+                "date": "2016-11-10T14:59:31Z"
+            },
+            {
+                "name": "SystemJS 0.19.40",
+                "date": "2016-10-25T12:55:49Z"
+            },
+            {
+                "name": "SystemJS 0.19.39",
+                "date": "2016-09-26T14:13:22Z"
+            },
+            {
+                "name": "SystemJS 0.19.38",
+                "date": "2016-09-06T16:05:44Z"
+            },
+            {
+                "name": "SystemJS 0.19.37",
+                "date": "2016-08-21T17:15:11Z"
+            },
+            {
+                "name": "SystemJS 0.19.36",
+                "date": "2016-08-01T16:23:40Z"
+            },
+            {
+                "name": "SystemJS 0.19.35",
+                "date": "2016-07-26T20:19:11Z"
+            },
+            {
+                "name": "SystemJS 0.19.34",
+                "date": "2016-07-26T14:57:11Z"
+            },
+            {
+                "name": "SystemJS 0.19.33",
+                "date": "2016-07-26T12:49:38Z"
+            },
+            {
+                "name": "SystemJS 0.19.32",
+                "date": "2016-07-25T12:11:20Z"
+            },
+            {
+                "name": "SystemJS 0.19.31",
+                "date": "2016-06-11T23:43:23Z"
+            },
+            {
+                "name": "SystemJS 0.19.30",
+                "date": "2016-06-09T21:15:22Z"
+            },
+            {
+                "name": "SystemJS 0.19.29",
+                "date": "2016-05-25T13:06:40Z"
+            },
+            {
+                "name": "SystemJS 0.19.28",
+                "date": "2016-05-19T11:35:49Z"
+            },
+            {
+                "name": "SystemJS 0.19.27",
+                "date": "2016-04-29T13:09:13Z"
+            },
+            {
+                "name": "SystemJS 0.19.26",
+                "date": "2016-04-11T10:23:08Z"
+            },
+            {
+                "name": "SystemJS 0.19.25",
+                "date": "2016-03-30T11:49:16Z"
+            },
+            {
+                "name": "SystemJS 0.19.24",
+                "date": "2016-03-09T13:52:54Z"
+            },
+            {
+                "name": "SystemJS 0.19.23",
+                "date": "2016-02-25T15:35:31Z"
+            },
+            {
+                "name": "SystemJS 0.19.22",
+                "date": "2016-02-16T13:50:55Z"
+            },
+            {
+                "name": "SystemJS 0.19.21",
+                "date": "2016-02-15T21:31:56Z"
+            },
+            {
+                "name": "SystemJS 0.19.20",
+                "date": "2016-02-04T19:08:56Z"
+            },
+            {
+                "name": "SystemJS 0.19.19",
+                "date": "2016-02-04T13:28:31Z"
+            },
+            {
+                "name": "SystemJS 0.19.18",
+                "date": "2016-02-01T14:14:31Z"
+            },
+            {
+                "name": "SystemJS 0.19.17",
+                "date": "2016-01-19T23:10:55Z"
+            },
+            {
+                "name": "SystemJS 0.19.16",
+                "date": "2016-01-13T15:21:18Z"
+            },
+            {
+                "name": "SystemJS 0.19.15",
+                "date": "2016-01-11T22:06:42Z"
+            },
+            {
+                "name": "SystemJS 0.19.14",
+                "date": "2016-01-09T19:03:38Z"
+            },
+            {
+                "name": "SystemJS 0.19.13",
+                "date": "2016-01-07T14:50:40Z"
+            },
+            {
+                "name": "SystemJS 0.19.12",
+                "date": "2016-01-06T19:35:38Z"
+            },
+            {
+                "name": "SystemJS 0.19.11",
+                "date": "2016-01-06T00:54:10Z"
+            },
+            {
+                "name": "SystemJS 0.19.10",
+                "date": "2016-01-05T18:12:00Z"
+            },
+            {
+                "name": "SystemJS 0.19.9",
+                "date": "2015-12-17T09:56:52Z"
+            },
+            {
+                "name": "SystemJS 0.19.8",
+                "date": "2015-12-15T14:38:30Z"
+            },
+            {
+                "name": "SystemJS 0.19.7",
+                "date": "2015-12-15T11:34:09Z"
+            },
+            {
+                "name": "SystemJS 0.19.6",
+                "date": "2015-11-16T15:10:27Z"
+            },
+            {
+                "name": "SystemJS 0.19.5",
+                "date": "2015-10-19T08:00:24Z"
+            },
+            {
+                "name": "SystemJS 0.19.4",
+                "date": "2015-10-08T15:56:03Z"
+            },
+            {
+                "name": "SystemJS 0.19.3",
+                "date": "2015-09-24T12:31:55Z"
+            },
+            {
+                "name": "SystemJS 0.19.2",
+                "date": "2015-09-23T09:53:36Z"
+            },
+            {
+                "name": "SystemJS 0.19.1",
+                "date": "2015-09-22T20:40:13Z"
+            },
+            {
+                "name": "SystemJS 0.19.0",
+                "date": "2015-09-18T13:06:14Z"
+            },
+            {
+                "name": "SystemJS 0.18.17",
+                "date": "2015-08-27T14:30:40Z"
+            },
+            {
+                "name": "SystemJS 0.18.16",
+                "date": "2015-08-26T13:16:46Z"
+            },
+            {
+                "name": "SystemJS 0.18.15",
+                "date": "2015-08-26T12:36:29Z"
+            },
+            {
+                "name": "SystemJS 0.18.14",
+                "date": "2015-08-24T13:08:40Z"
+            },
+            {
+                "name": "SystemJS 0.18.13",
+                "date": "2015-08-24T12:43:54Z"
+            },
+            {
+                "name": "SystemJS 0.18.12",
+                "date": "2015-08-24T10:36:14Z"
+            },
+            {
+                "name": "SystemJS 0.18.11",
+                "date": "2015-08-18T09:52:39Z"
+            },
+            {
+                "name": "SystemJS 0.18.10",
+                "date": "2015-08-13T14:34:03Z"
+            },
+            {
+                "name": "SystemJS 0.18.9",
+                "date": "2015-08-09T10:05:49Z"
+            },
+            {
+                "name": "SystemJS 0.18.8",
+                "date": "2015-08-06T22:20:02Z"
+            },
+            {
+                "name": "SystemJS 0.18.7",
+                "date": "2015-08-06T22:19:16Z"
+            },
+            {
+                "name": "SystemJS 0.18.6",
+                "date": "2015-08-03T23:30:48Z"
+            },
+            {
+                "name": "SystemJS 0.18.5",
+                "date": "2015-08-03T16:18:20Z"
+            },
+            {
+                "name": "SystemJS 0.18.3",
+                "date": "2015-06-24T14:22:31Z"
+            },
+            {
+                "name": "SystemJS 0.18.2",
+                "date": "2015-06-22T22:18:45Z"
+            },
+            {
+                "name": "SystemJS 0.18.1",
+                "date": "2015-06-16T16:12:21Z"
+            },
+            {
+                "name": "SystemJS 0.18.0",
+                "date": "2015-06-16T14:39:52Z"
+            },
+            {
+                "name": "SystemJS 0.17.1",
+                "date": "2015-06-04T15:36:56Z"
+            },
+            {
+                "name": "SystemJS 0.17.0",
+                "date": "2015-06-04T14:42:08Z"
+            },
+            {
+                "name": "SystemJS 0.16.11",
+                "date": "2015-05-04T07:25:43Z"
+            },
+            {
+                "name": "SystemJS 0.16.10",
+                "date": "2015-04-28T20:35:02Z"
+            },
+            {
+                "name": "SystemJS 0.16.9",
+                "date": "2015-04-25T19:29:34Z"
+            },
+            {
+                "name": "SystemJS 0.16.8",
+                "date": "2015-04-23T15:44:00Z"
+            },
+            {
+                "name": "SystemJS 0.16.7",
+                "date": "2015-04-08T13:39:39Z"
+            },
+            {
+                "name": "SystemJS 0.16.6",
+                "date": "2015-03-27T22:05:31Z"
+            },
+            {
+                "name": "SystemJS 0.16.5",
+                "date": "2015-03-27T21:55:13Z"
+            },
+            {
+                "name": "SystemJS 0.16.4",
+                "date": "2015-03-26T21:12:47Z"
+            },
+            {
+                "name": "SystemJS 0.16.3",
+                "date": "2015-03-26T16:00:41Z"
+            },
+            {
+                "name": "SystemJS 0.16.2",
+                "date": "2015-03-26T15:45:41Z"
+            },
+            {
+                "name": "SystemJS 0.16.1",
+                "date": "2015-03-24T23:19:20Z"
+            },
+            {
+                "name": "SystemJS 0.16.0",
+                "date": "2015-03-24T18:55:36Z"
+            },
+            {
+                "name": "SystemJS 0.15.0",
+                "date": "2015-03-04T12:53:36Z"
+            },
+            {
+                "name": "SystemJS 0.14.1",
+                "date": "2015-02-18T16:59:10Z"
+            },
+            {
+                "name": "SystemJS 0.14.0",
+                "date": "2015-02-18T11:24:26Z"
+            },
+            {
+                "name": "SystemJS 0.13.2",
+                "date": "2015-02-12T14:26:03Z"
+            },
+            {
+                "name": "SystemJS 0.13.1",
+                "date": "2015-02-04T19:53:02Z"
+            },
+            {
+                "name": "SystemJS 0.13.0",
+                "date": "2015-02-01T15:46:50Z"
+            },
+            {
+                "name": "SystemJS 0.12.1",
+                "date": "2015-01-30T12:33:14Z"
+            },
+            {
+                "name": "SystemJS 0.12.0",
+                "date": "2015-01-28T21:48:11Z"
+            },
+            {
+                "name": "SystemJS 0.11.3",
+                "date": "2015-01-19T13:13:28Z"
+            },
+            {
+                "name": "SystemJS 0.11.2",
+                "date": "2015-01-15T09:15:35Z"
+            },
+            {
+                "name": "SystemJS 0.11.1",
+                "date": "2015-01-03T12:46:46Z"
+            },
+            {
+                "name": "SystemJS 0.11.0",
+                "date": "2014-12-23T15:30:55Z"
+            },
+            {
+                "name": "SystemJS 0.10.1",
+                "date": "2014-11-24T13:00:26Z"
+            },
+            {
+                "name": "SystemJS 0.10.0",
+                "date": "2014-11-18T15:20:08Z"
+            },
+            {
+                "name": "SystemJS 0.9.3",
+                "date": "2014-10-21T10:46:15Z"
+            },
+            {
+                "name": "SystemJS 0.9.2",
+                "date": "2014-10-21T09:41:58Z"
+            },
+            {
+                "name": "SystemJS 0.9.1",
+                "date": "2014-10-03T11:28:33Z"
+            },
+            {
+                "name": "SystemJS 0.9.0",
+                "date": "2014-09-26T10:57:01Z"
+            },
+            {
+                "name": "SystemJS 0.8.2",
+                "date": "2014-08-21T01:28:44Z"
+            },
+            {
+                "name": "SystemJS 0.8.1",
+                "date": "2014-08-13T18:30:13Z"
+            },
+            {
+                "name": "SystemJS 0.8.0",
+                "date": "2014-08-11T16:10:08Z"
+            },
+            {
+                "name": "SystemJS 0.7.0",
+                "date": "2014-08-06T01:35:39Z"
+            },
+            {
+                "name": "SystemJS 0.6.8",
+                "date": "2014-08-02T21:33:53Z"
+            },
+            {
+                "name": "SystemJS 0.6.6",
+                "date": "2014-05-23T18:04:05Z"
+            },
+            {
+                "name": "SystemJS 0.6.5",
+                "date": "2014-05-23T17:34:41Z"
+            },
+            {
+                "name": "SystemJS 0.6.4",
+                "date": "2014-05-23T17:27:55Z"
+            },
+            {
+                "name": "SystemJS 0.6.1",
+                "date": "2014-05-19T04:51:49Z"
+            },
+            {
+                "name": "SystemJS 0.6.0",
+                "date": "2014-05-07T19:26:19Z"
+            }
+        ]
+    }
+}

@@ -1,0 +1,370 @@
+{
+    "https://api.github.com/repos/graphile/postgraphile": {
+        "forks": 577,
+        "watchers": 12654,
+        "stars": 12654,
+        "languages": {
+            "TypeScript": 3440877,
+            "PLpgSQL": 154884,
+            "JavaScript": 73576,
+            "Shell": 11391,
+            "CSS": 1303
+        },
+        "commits": [
+            "2025-01-21T09:47:02Z",
+            "2025-01-20T20:14:56Z",
+            "2025-01-20T19:18:15Z",
+            "2025-01-20T19:17:35Z",
+            "2025-01-20T17:53:06Z",
+            "2025-01-20T17:52:44Z",
+            "2025-01-20T17:49:12Z",
+            "2025-01-20T17:48:55Z",
+            "2025-01-20T16:45:18Z",
+            "2025-01-20T17:28:04Z",
+            "2025-01-20T16:44:33Z",
+            "2025-01-20T17:23:25Z",
+            "2025-01-20T16:43:49Z",
+            "2025-01-20T14:38:55Z",
+            "2025-01-20T13:57:00Z",
+            "2025-01-20T11:40:27Z",
+            "2025-01-20T13:37:11Z",
+            "2025-01-20T13:32:15Z",
+            "2025-01-20T11:55:53Z",
+            "2025-01-20T11:52:54Z",
+            "2025-01-20T11:35:01Z",
+            "2025-01-20T11:22:22Z",
+            "2025-01-20T11:06:35Z",
+            "2025-01-20T11:01:04Z",
+            "2025-01-20T10:33:37Z",
+            "2025-01-20T10:25:14Z",
+            "2025-01-20T10:22:40Z",
+            "2025-01-20T10:20:38Z",
+            "2025-01-20T10:18:43Z",
+            "2025-01-20T10:17:41Z"
+        ],
+        "creation_date": "2016-04-14T21:29:19Z",
+        "contributors": 30,
+        "topics": [
+            "api",
+            "automatic-api",
+            "express",
+            "graphile",
+            "graphql",
+            "graphql-api",
+            "graphql-js",
+            "http",
+            "instant",
+            "koa",
+            "koa2",
+            "node",
+            "nodejs",
+            "pg",
+            "pgsql",
+            "postgraphql",
+            "postgres",
+            "postgresql",
+            "schema",
+            "typescript"
+        ],
+        "subscribers": 124,
+        "readme": "# \ud83d\udd2e Graphile's Crystal Monorepo\n\n[![GitHub Sponsors](https://img.shields.io/github/sponsors/benjie?color=ff69b4&label=github%20sponsors)](https://github.com/sponsors/benjie)\n[![Patreon sponsor button](https://img.shields.io/badge/sponsor-via%20Patreon-orange.svg)](https://patreon.com/benjie)\n[![Discord chat room](https://img.shields.io/discord/489127045289476126.svg)](http://discord.gg/graphile)\n[![Follow](https://img.shields.io/badge/twitter-@GraphileHQ-blue.svg)](https://twitter.com/GraphileHQ)\n\nAt Graphile we love GraphQL so much we named ourself for our love of it! This\nrepository houses many of the Graphile packages that relate to GraphQL (or\nrelate to the packages that relate to GraphQL, or relate to those package...);\nthe two headline projects are **Gra*fast*** and **PostGraphile** but there's\nmany other packages, a fair few of which can be used independently - see below\nfor more details.\n\n**[Grafast][grafast]**: A cutting-edge planning and execution engine for\nGraphQL.js \u2500 use this as a drop-in replacement for the `execute` method from\nGraphQL.js and by moving from traditional resolvers to Gra*fast* \"plan\nresolvers\" you'll be able to leverage the declarative nature of GraphQL requests\nto execute your business logic in the most efficient way, leading to reduced\nserver load and happier customers. Use this if you're building your own GraphQL\nschemas and want the best performance and efficiency without having to put much\nextra effort in.\n\n**[PostGraphile][postgraphile]**: An incredibly low-effort way to build a well\nstructured and high-performance GraphQL API backed primarily by a PostgreSQL\ndatabase. Our main focusses are performance, automatic best-practices and\ncustomisability/extensibility. Use this if you have a PostgreSQL database and\nyou want to use it as the \"source of truth\" for an auto-generated GraphQL API\n(which you can still make significant changes to). **NOTE**: thanks to\n[graphile-export][] you can also use this as a starting point for an API that\nyou then manage yourself.\n\n| \u27a1\ufe0f For **PostGraphile V4** see [the `legacy` branch](https://github.com/graphile/crystal/tree/legacy) |\n| ----------------------------------------------------------------------------------------------------- |\n\n## Project summaries\n\nHere's a rough breakdown of the main packages:\n\n- **[grafast][]** - standalone cutting-edge planning and execution engine for\n  GraphQL; see above for full description.\n  - **[@dataplan/pg][]** - plan classes for interacting with PostgreSQL\n  - **[@dataplan/json][]** - plan classes for encoding/decoding JSON\n- **[graphile-export][]** - a package that can (under the right circumstances)\n  export an in-memory dynamically-constructed GraphQL schema to raw JavaScript\n  source code that can be imported and executed\n  - **[eslint-plugin-graphile-export][]** - an ESLint plugin that helps you\n    write code compatible with graphile-export\n- **[jest-serializer-graphql-schema][]** - a simple Jest serializer that\n  understands GraphQL schemas and thus does not fill snapshots with `\\\"\\\"\\\"`\n  etc.\n- **[graphile-config][]** - a module that handles the plugins, presets and\n  configuration files for Graphile software - a universal configuration layer.\n- **[graphile-build][]** - a system for building a GraphQL.js schema from\n  \"plugins\", particularly useful for auto-generated GraphQL APIs (e.g.\n  PostGraphile uses this) but also useful for hand-rolled schemas that have a\n  lot of modular but widely-used concerns such as connections, naming, etc.\n  - **[graphile-build-pg][]** - plugins for `graphile-build` that understand\n    `@dataplan/pg` (i.e. PostgreSQL) services and can generate types, relations,\n    mutations, etc for these database resources.\n- **[@graphile/lru][]** - an _obsessively_ performant least-recently-used cache\n  (possibly the fastest general purpose LRU cache in Node.js) with a\n  ridiculously tiny feature set; you almost certainly want @isaacs' `lru-cache`\n  instead of this.\n- **[pg-sql2][]** - a library for building highly dynamic SQL-injection-proof\n  PostgreSQL queries using tagged template literals.\n- **[pg-introspection][]** - a strongly typed introspection library for\n  PostgreSQL, generated from the PostgreSQL documentation to provide up-to-date\n  details of each introspection field.\n- **[postgraphile][]** - pulls most of the above technologies together; see\n  above for full description.\n\n<!-- SPONSORS_BEGIN -->\n\n## Crowd-funded open-source software\n\nTo help us develop this software sustainably, we ask all individuals and\nbusinesses that use it to help support its ongoing maintenance and development\nvia sponsorship.\n\n### [Click here to find out more about sponsors and sponsorship.](https://www.graphile.org/sponsor/)\n\nAnd please give some love to our featured sponsors \ud83e\udd29:\n\n<table><tr>\n<td align=\"center\"><a href=\"https://www.the-guild.dev/\"><img src=\"https://graphile.org/images/sponsors/theguild.png\" width=\"90\" height=\"90\" alt=\"The Guild\" /><br />The Guild</a> *</td>\n<td align=\"center\"><a href=\"https://dovetailapp.com/\"><img src=\"https://graphile.org/images/sponsors/dovetail.png\" width=\"90\" height=\"90\" alt=\"Dovetail\" /><br />Dovetail</a> *</td>\n<td align=\"center\"><a href=\"https://stellate.co/\"><img src=\"https://graphile.org/images/sponsors/Stellate.png\" width=\"90\" height=\"90\" alt=\"Stellate\" /><br />Stellate</a> *</td>\n<td align=\"center\"><a href=\"https://gosteelhead.com/\"><img src=\"https://graphile.org/images/sponsors/steelhead.svg\" width=\"90\" height=\"90\" alt=\"Steelhead\" /><br />Steelhead</a> *</td>\n</tr><tr>\n<td align=\"center\"><a href=\"\"><img src=\"https://graphile.org/images/sponsors/latchbio.jpg\" width=\"90\" height=\"90\" alt=\"LatchBio\" /><br />LatchBio</a> *</td>\n</tr></table>\n\n<em>\\* Sponsors the entire Graphile suite</em>\n\n<!-- SPONSORS_END -->\n\n## Why the \"crystal\" monorepo?\n\nOriginally what is now Gra*fast* (and was previously DataPlanner) was known by\nthe codename \"Graphile Crystal.\" This lead us to use the \ud83d\udd2e emoji to represent\nthe project in secret before we announced it publicly, as a codeword for those\nin the know. Now that Gra*fast* is the name for our planning and execution\nengine and we needed a name for the monorepo that wasn't too GraphQL specific\n(since there are things in here that aren't strictly related to GraphQL) and we\nfigured that calling it the Crystal monorepo would honour our original nickname\nfor the project. Rumours that the name was inspired by the maintainers'\n[crystal wedding anniversary](https://en.wikipedia.org/wiki/Wedding_anniversary#Traditional_anniversary_gifts)\nare greatly exaggerated.\n\n[grafast]: grafast/grafast/\n[@dataplan/pg]: grafast/dataplan-pg/\n[@dataplan/json]: grafast/dataplan-json/\n[graphile-export]: utils/graphile-export/\n[eslint-plugin-graphile-export]: utils/eslint-plugin-graphile-export/\n[jest-serializer-graphql-schema]: utils/jest-serializer-graphql-schema/\n[graphile-config]: utils/graphile-config/\n[postgraphile]: postgraphile/postgraphile/\n[graphile-build]: graphile-build/graphile-build/\n[graphile-build-pg]: graphile-build/graphile-build-pg/\n[@graphile/lru]: utils/lru/\n[pg-sql2]: utils/pg-sql2/\n[pg-introspection]: utils/pg-introspection/\n",
+        "releases": [
+            {
+                "name": "v4.14.0",
+                "date": "2023-10-05T16:27:00Z"
+            },
+            {
+                "name": "",
+                "date": "2023-01-13T17:03:25Z"
+            },
+            {
+                "name": "",
+                "date": "2022-05-25T12:40:08Z"
+            },
+            {
+                "name": "",
+                "date": "2022-05-25T11:08:00Z"
+            },
+            {
+                "name": "",
+                "date": "2022-05-25T10:59:02Z"
+            },
+            {
+                "name": "v4.12.8 - CLI handling of SSL",
+                "date": "2021-12-20T11:18:31Z"
+            },
+            {
+                "name": "No changes",
+                "date": "2021-12-20T10:50:51Z"
+            },
+            {
+                "name": "v4.12.6 - fix websocketOperations: all",
+                "date": "2021-11-30T10:10:38Z"
+            },
+            {
+                "name": "",
+                "date": "2021-10-21T13:52:48Z"
+            },
+            {
+                "name": "",
+                "date": "2021-09-23T11:43:06Z"
+            },
+            {
+                "name": "",
+                "date": "2021-09-23T11:44:05Z"
+            },
+            {
+                "name": "",
+                "date": "2021-06-01T16:43:55Z"
+            },
+            {
+                "name": "v4.12.1 - awesome aggregates",
+                "date": "2021-05-27T11:47:52Z"
+            },
+            {
+                "name": "v4.11.0 - wonderful websockets",
+                "date": "2021-01-22T13:57:40Z"
+            },
+            {
+                "name": "v4.10.0 - Framework Friends",
+                "date": "2020-11-27T11:11:07Z"
+            },
+            {
+                "name": "",
+                "date": "2020-11-18T17:38:39Z"
+            },
+            {
+                "name": "v4.9.2",
+                "date": "2020-10-23T12:30:15Z"
+            },
+            {
+                "name": "v4.9.1",
+                "date": "2020-10-16T13:52:16Z"
+            },
+            {
+                "name": "v4.9.0",
+                "date": "2020-09-15T09:42:29Z"
+            },
+            {
+                "name": "v4.8.0",
+                "date": "2020-08-05T08:59:59Z"
+            },
+            {
+                "name": "v4.7.0",
+                "date": "2020-04-27T10:14:36Z"
+            },
+            {
+                "name": "",
+                "date": "2020-01-27T15:45:23Z"
+            },
+            {
+                "name": "",
+                "date": "2019-12-13T15:50:12Z"
+            },
+            {
+                "name": "v4.5.4 - Smart Tags fixes",
+                "date": "2019-12-11T15:42:17Z"
+            },
+            {
+                "name": "v4.5.0 - Explain and Smart Tags",
+                "date": "2019-11-12T18:32:09Z"
+            },
+            {
+                "name": "4.4.4 - maintenance release",
+                "date": "2019-09-24T10:08:48Z"
+            },
+            {
+                "name": "4.4.3 - directives hotfix",
+                "date": "2019-08-09T08:32:46Z"
+            },
+            {
+                "name": "v4.4.2 - various fixes",
+                "date": "2019-08-07T15:57:06Z"
+            },
+            {
+                "name": "v4.4.1 - Performance improvements, versioned docker tags",
+                "date": "2019-06-24T16:07:16Z"
+            },
+            {
+                "name": "v4.4.0 - Subscriptions and Live Queries now OSS \ud83c\udf89",
+                "date": "2019-05-03T12:47:53Z"
+            },
+            {
+                "name": "v4.3.3: patch issue with DEBUG + pgPool.query",
+                "date": "2019-02-05T18:24:46Z"
+            },
+            {
+                "name": "v4.3.2 - GraphiQL Explorer",
+                "date": "2019-01-30T10:27:03Z"
+            },
+            {
+                "name": "v4.3.1 - filterable and sortable functions, fixed complex ranges",
+                "date": "2019-01-24T14:17:51Z"
+            },
+            {
+                "name": "v4.3.0 (never @latest)",
+                "date": "2019-01-17T17:34:59Z"
+            },
+            {
+                "name": "v4.2.0 - constraints on views / materialized views",
+                "date": "2018-12-19T18:57:07Z"
+            },
+            {
+                "name": "v4.1.0 - Better webpackability (for Lambda), better functions/indexes support, enhanced GraphiQL, more plugin helpers",
+                "date": "2018-10-31T22:00:31Z"
+            },
+            {
+                "name": "v4.0.1 - display PG notices; query builder enhancement",
+                "date": "2018-10-08T12:58:03Z"
+            },
+            {
+                "name": "PostGraphile v4.0.0",
+                "date": "2018-10-02T13:50:54Z"
+            },
+            {
+                "name": "RC5: improved errors, PG10 identity column support",
+                "date": "2018-09-13T14:56:22Z"
+            },
+            {
+                "name": "RC4: GraphQL 0.13.x, improved TypeScript support",
+                "date": "2018-08-24T14:57:44Z"
+            },
+            {
+                "name": "RC3, TypeScript edition",
+                "date": "2018-07-25T15:41:15Z"
+            },
+            {
+                "name": "RC2, aka Leaner Schema",
+                "date": "2018-07-14T12:17:48Z"
+            },
+            {
+                "name": "PostGraphile v4 Release Candidate 1",
+                "date": "2018-06-09T15:28:26Z"
+            },
+            {
+                "name": "Ludicrous Speed!",
+                "date": "2018-05-31T19:42:32Z"
+            },
+            {
+                "name": "Fix querying only `totalCount` on a function connection",
+                "date": "2018-05-15T08:22:42Z"
+            },
+            {
+                "name": "Improvements to SQL function handling",
+                "date": "2018-05-09T11:04:11Z"
+            },
+            {
+                "name": "GraphQL Customization Through Smart Comments",
+                "date": "2018-05-05T20:19:46Z"
+            },
+            {
+                "name": "Ability to override how errors are handled with 'handleErrors'",
+                "date": "2018-03-29T11:11:49Z"
+            },
+            {
+                "name": "Fix introspecting PostgreSQL with legacy configuration",
+                "date": "2018-03-10T09:05:50Z"
+            },
+            {
+                "name": "PostGraphile v4 Beta \ud83c\udf89",
+                "date": "2018-03-08T11:30:59Z"
+            },
+            {
+                "name": "The belated merges release",
+                "date": "2018-02-19T19:26:58Z"
+            },
+            {
+                "name": "Lots of fixes",
+                "date": "2018-02-17T20:45:57Z"
+            },
+            {
+                "name": "Introspection cache",
+                "date": "2018-01-14T10:25:23Z"
+            },
+            {
+                "name": "Fix auto-complete in GraphiQL, more error details from Postgres",
+                "date": "2017-11-30T10:28:30Z"
+            },
+            {
+                "name": "Upgraded send",
+                "date": "2017-11-28T09:43:25Z"
+            },
+            {
+                "name": "Avoid pgSettings / pgDefaultRole clashes",
+                "date": "2017-10-29T09:13:21Z"
+            },
+            {
+                "name": "pgSettings function",
+                "date": "2017-08-25T16:30:35Z"
+            },
+            {
+                "name": "Extended errors",
+                "date": "2017-08-08T16:37:23Z"
+            },
+            {
+                "name": "Bugfixes, Docker, and lots of documentation improvements",
+                "date": "2017-07-18T08:12:06Z"
+            },
+            {
+                "name": "JWT Audiences",
+                "date": "2017-07-18T07:33:34Z"
+            },
+            {
+                "name": "New options and critical bugfixes",
+                "date": "2017-03-26T19:33:13Z"
+            },
+            {
+                "name": "Schema exports and GraphiQL live schema reloading",
+                "date": "2017-02-11T16:16:35Z"
+            },
+            {
+                "name": "ES5 and AWS Lambda",
+                "date": "2017-01-09T21:28:17Z"
+            },
+            {
+                "name": "Disabling Default Mutations",
+                "date": "2016-10-24T17:21:11Z"
+            },
+            {
+                "name": "Watching Your Database in Development",
+                "date": "2016-10-18T20:00:36Z"
+            },
+            {
+                "name": "PostGraphQL 2.0.0",
+                "date": "2016-10-17T12:44:17Z"
+            },
+            {
+                "name": "Add Support For Anonymous Roles",
+                "date": "2016-08-19T15:28:45Z"
+            },
+            {
+                "name": "Add CORS Headers",
+                "date": "2016-07-27T11:08:56Z"
+            },
+            {
+                "name": "Unique column constraint fields and hidden mutations for non-updatable views",
+                "date": "2016-06-19T13:19:15Z"
+            },
+            {
+                "name": "Better Relay mutation payloads",
+                "date": "2016-06-15T12:08:30Z"
+            },
+            {
+                "name": "Routine bug fixes",
+                "date": "2016-06-07T12:38:44Z"
+            },
+            {
+                "name": "Relay viewer tag added",
+                "date": "2016-06-01T12:29:53Z"
+            },
+            {
+                "name": "Library usage now supported.",
+                "date": "2016-05-23T20:23:10Z"
+            },
+            {
+                "name": "Added support for procedures",
+                "date": "2016-05-11T22:31:39Z"
+            }
+        ]
+    }
+}

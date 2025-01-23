@@ -1,0 +1,409 @@
+{
+    "https://api.github.com/repos/heroiclabs/nakama": {
+        "forks": 1116,
+        "watchers": 9243,
+        "stars": 9243,
+        "languages": {
+            "Go": 4224526,
+            "TypeScript": 241504,
+            "Lua": 217247,
+            "HTML": 126027,
+            "Shell": 24743,
+            "SCSS": 19484,
+            "Yacc": 14251,
+            "Dockerfile": 3620,
+            "Python": 2707,
+            "JavaScript": 1014,
+            "Makefile": 372
+        },
+        "commits": [
+            "2025-01-20T16:48:26Z",
+            "2025-01-20T15:59:21Z",
+            "2025-01-15T11:00:45Z",
+            "2025-01-14T12:33:49Z",
+            "2025-01-06T15:49:12Z",
+            "2024-12-03T10:22:47Z",
+            "2024-11-30T15:15:45Z",
+            "2024-11-25T14:04:21Z",
+            "2024-11-25T00:11:01Z",
+            "2024-11-23T11:38:54Z",
+            "2024-11-21T15:38:48Z",
+            "2024-11-21T11:53:57Z",
+            "2024-11-21T10:45:32Z",
+            "2024-11-14T11:28:15Z",
+            "2024-11-13T17:06:44Z",
+            "2024-11-04T15:27:35Z",
+            "2024-11-04T11:47:32Z",
+            "2024-11-04T11:45:42Z",
+            "2024-10-31T15:11:49Z",
+            "2024-10-22T11:49:38Z",
+            "2024-10-22T11:48:59Z",
+            "2024-10-22T10:26:00Z",
+            "2024-10-21T22:09:18Z",
+            "2024-10-21T21:24:29Z",
+            "2024-10-21T21:13:43Z",
+            "2024-10-21T20:05:32Z",
+            "2024-10-21T17:31:33Z",
+            "2024-10-21T16:58:23Z",
+            "2024-10-18T12:36:27Z",
+            "2024-10-10T15:02:49Z"
+        ],
+        "creation_date": "2017-01-13T17:15:12Z",
+        "contributors": 30,
+        "topics": [
+            "backend",
+            "backend-as-a-service",
+            "chat-server",
+            "game-backend",
+            "game-framework",
+            "game-server",
+            "multiplayer",
+            "nakama",
+            "realtime",
+            "realtime-games",
+            "social",
+            "unity-engine",
+            "unreal-engine"
+        ],
+        "subscribers": 206,
+        "readme": "![Nakama](.github/logo.png?raw=true \"Nakama logo\")\n======\n\n[![GitHub release](https://img.shields.io/github/release/heroiclabs/nakama.svg)](https://heroiclabs.com/docs/nakama/getting-started/install/)\n[![Forum](https://img.shields.io/badge/forum-online-success.svg)](https://forum.heroiclabs.com)\n[![License](https://img.shields.io/github/license/heroiclabs/nakama.svg)](https://github.com/heroiclabs/nakama/blob/master/LICENSE)\n\n> Distributed server for social and realtime games and apps.\n\n## Features\n\n* **Users** - Register/login new users via social networks, email, or device ID.\n* **Storage** - Store user records, settings, and other objects in collections.\n* **Social** - Users can connect with friends, and join groups. Builtin social graph to see how users can be connected.\n* **Chat** - 1-on-1, group, and global chat between users. Persist messages for chat history.\n* **Multiplayer** - Realtime, or turn-based active and passive multiplayer.\n* **Leaderboards** - Dynamic, seasonal, get top members, or members around a user. Have as many as you need.\n* **Tournaments** - Invite players to compete together over prizes. Link many together to create leagues.\n* **Parties** - Add team play to a game. Users can form a party and communicate with party members.\n* **Purchase Validation** - Validate in-app purchases and subscriptions.\n* **In-App Notifications** - Send messages and notifications to connected client sockets.\n* **Runtime code** - Extend the server with custom logic written in Lua, TypeScript/JavaScript, or native Go code.\n* **Matchmaker**, **dashboard**, **metrics**, and [more](https://heroiclabs.com/docs).\n\nBuild scalable games and apps with a production ready server used by ambitious game studios and app developers [all around the world](https://heroiclabs.com/customers/). Have a look at the [documentation](https://heroiclabs.com/docs) and join the [developer community](https://forum.heroiclabs.com) for more info.\n\n## Getting Started\n\nThe server is simple to setup and run for local development and can be deployed to any cloud provider. See the [deployment notes](#deployment) for recommendations on how to deploy the project for production. Nakama server requires CockroachDB or another Postgres wire-compatible server as it's database.\n\n### Docker\n\n<a href=\"https://heroiclabs.com/docs/install-docker-quickstart/\"><img src=\"https://upload.wikimedia.org/wikipedia/commons/7/79/Docker_%28container_engine%29_logo.png\" width=\"170\"></a>\n\nThe fastest way to run the server and the database is with Docker. Setup Docker and start the daemon.\n\n1. Set up a [docker-compose file](https://heroiclabs.com/docs/nakama/getting-started/install/docker/#running-nakama) and place it in a folder for your project.\n\n2. Run `docker-compose -f ./docker-compose.yml up` to download container images and run the servers.\n\nFor more detailed instructions have a look at our [Docker quickstart](https://heroiclabs.com/docs/nakama/getting-started/install/docker) guide.\n\nNakama Docker images are maintained on [Docker Hub](https://hub.docker.com/r/heroiclabs/nakama/tags) and [prerelease](https://hub.docker.com/r/heroiclabs/nakama-prerelease/tags) images are occasionally published for cutting edge features of the server.\n\n### Binaries\n\nYou can run the servers with native binaries for your platform.\n\n1. Download the server from our [releases](https://github.com/heroiclabs/nakama/releases) page and the [database](https://www.cockroachlabs.com/docs/stable/install-cockroachdb.html).\n\n2. Follow the database [instructions](https://www.cockroachlabs.com/docs/stable/start-a-local-cluster.html#before-you-begin) to start it.\n\n3. Run a migration which will setup or upgrade the database schema:\n\n   ```shell\n   nakama migrate up --database.address \"root@127.0.0.1:26257\"\n   ```\n\n4. Start Nakama and connect to the database:\n\n   ```shell\n   nakama --database.address \"root@127.0.0.1:26257\"\n   ```\n\nWhen connected you'll see server output which describes all settings the server uses for [configuration](https://heroiclabs.com/docs/nakama/getting-started/configuration).\n\n> {\"level\":\"info\",\"ts\":\"2018-04-29T10:14:41.249+0100\",\"msg\":\"Node\",\"name\":\"nakama\",\"version\":\"2.0.0+7e18b09\",\"runtime\":\"go1.10.1\",\"cpu\":4} <br/>\n> {\"level\":\"info\",\"ts\":\"2018-04-29T10:14:41.249+0100\",\"msg\":\"Database connections\",\"dsns\":[\"root@127.0.0.1:26257\"]} <br/>\n> ...\n\n## Usage\n\nNakama supports a variety of protocols optimized for various gameplay or app use cases. For request/response it can use GRPC or the HTTP1.1+JSON fallback (REST). For realtime communication you can use WebSockets or rUDP.\n\nFor example with the REST API to authenticate a user account with a device identifier.\n\n```shell\ncurl \"127.0.0.1:7350/v2/account/authenticate/device?create=true\" \\\n  --user \"defaultkey:\" \\\n  --data '{\"id\": \"someuniqueidentifier\"}'\n```\n\nResponse:\n\n> { <br>\n>     \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjQ5OTU2NDksInVpZCI6Ijk5Y2Q1YzUyLWE5ODgtNGI2NC04YThhLTVmMTM5YTg4MTgxMiIsInVzbiI6InhBb1RxTUVSdFgifQ.-3_rXNYx3Q4jKuS7RkxeMWBzMNAm0vl93QxzRI8p_IY\" <br>\n> }\n\nThere's a number of official [client libraries](https://github.com/heroiclabs) available on GitHub with [documentation](https://heroiclabs.com/docs). The current platform/language support includes: .NET (in C#), Unity engine, JavaScript, Java (with Android), Unreal engine, Godot, Defold, and Swift (with iOS). If you'd like to contribute a client or request one let us know.\n\n## Nakama Console\n\nThe server provides a web UI which teams can use to inspect various data stored through the server APIs, view lightweight service metrics, manage player data, update storage objects, restrict access to production with permission profiles, and gain visibility into realtime features like active multiplayer matches. There is no separate installation required as it is embedded as part of the single server binary.\n\nYou can navigate to it on your browser on [http://127.0.0.1:7351](http://127.0.0.1:7351).\n\n<img src=\".github/accounts.jpg?raw=true\" title=\"Account listing\" width=\"1024\" align=\"center\">\n<img src=\".github/status.jpg?raw=true\" title=\"Status view\" width=\"125\" align=\"left\">\n<img src=\".github/storage.jpg?raw=true\" title=\"Storage record view\" width=\"125\" align=\"left\">\n<img src=\".github/match.jpg?raw=true\" title=\"Running matches view\" width=\"125\" align=\"left\">\n<img src=\".github/users.jpg?raw=true\" title=\"Console users view\" width=\"125\" align=\"left\">\n<img src=\".github/modules.jpg?raw=true\" title=\"Loaded modules view\" width=\"125\">\n\n## Deployment\n\nNakama can be deployed to any cloud provider such as Google Cloud, Azure, AWS, Digital Ocean, Heroku, or your own private cloud. You should setup and provision separate nodes for Nakama and CockroachDB.\n\nThe recommended minimum production infrastructure for CockroachDB is outlined in [these docs](https://www.cockroachlabs.com/docs/stable/recommended-production-settings.html#basic-hardware-recommendations) and Nakama can be run on instance types as small as \"g1-small\" on Google Cloud although we recommend a minimum of \"n1-standard-1\" in production. The specific hardware requirements will depend on what features of the server are used. Reach out to us for help and advice on what servers to run.\n\n### Heroic Cloud\n\nYou can support development, new features, and maintainance of the server by using the Heroic Labs' [Heroic Cloud](https://heroiclabs.com/heroic-cloud/) for deployment. This service handles the uptime, replication, backups, logs, data upgrades, and all other tasks involved with production server environments.\n\nHave a look at our [Heroic Cloud](https://heroiclabs.com/heroic-cloud/) service for more details.\n\n## Contribute\n\nThe development roadmap is managed as GitHub issues and pull requests are welcome. If you're interested to add a feature which is not mentioned on the issue tracker please open one to create a discussion or drop in and discuss it in the [community forum](https://forum.heroiclabs.com).\n\n### Simple Builds\n\nAll dependencies required for a build are vendored as part of the Go project. We recommend a modern release of the Go toolchain and do not store the codebase in the old GOPATH.\n\n1. Download the source tree.\n\n   ```shell\n   git clone \"https://github.com/heroiclabs/nakama\" nakama\n   cd nakama\n   ```\n\n2. Build the project from source.\n\n   ```shell\n   go build -trimpath -mod=vendor\n   ./nakama --version\n   ```\n\n### Full Source Builds\n\nThe codebase uses Protocol Buffers, GRPC, GRPC-Gateway, and the OpenAPI spec as part of the project. These dependencies are generated as sources and committed to the repository to simplify builds for contributors.\n\nTo build the codebase and generate all sources follow these steps.\n\n1. Install the toolchain.\n\n   ```shell\n   go install \\\n       \"google.golang.org/protobuf/cmd/protoc-gen-go\" \\\n       \"google.golang.org/grpc/cmd/protoc-gen-go-grpc\" \\\n       \"github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway\" \\\n       \"github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2\"\n   ```\n\n2. If you've made changes to the embedded Console.\n\n    ```shell\n    cd console/ui\n    ng serve\n    ```\n\n3. Re-generate the protocol buffers, gateway code and console UI.\n\n   ```shell\n   env PATH=\"$HOME/go/bin:$PATH\" go generate -x ./...\n   ```\n\n4. Build the codebase.\n\n   ```shell\n   go build -trimpath -mod=vendor\n   ```\n\n### Testing\n\nIn order to run all the unit and integration tests run:\n\n```shell\ndocker-compose -f ./docker-compose-tests.yml up --build --abort-on-container-exit; docker-compose -f ./docker-compose-tests.yml down -v\n```\n\nThis will create an isolated environment with Nakama and database instances, run\nall the tests, and drop the environment afterwards.\n\n### License\n\nThis project is licensed under the [Apache-2 License](https://github.com/heroiclabs/nakama/blob/master/LICENSE).\n",
+        "releases": [
+            {
+                "name": "v3.25.0",
+                "date": "2024-11-25T14:19:59Z"
+            },
+            {
+                "name": "v3.24.2",
+                "date": "2024-10-22T12:04:04Z"
+            },
+            {
+                "name": "v3.24.1",
+                "date": "2024-10-21T22:21:53Z"
+            },
+            {
+                "name": "v3.24.0",
+                "date": "2024-10-21T21:51:33Z"
+            },
+            {
+                "name": "v3.23.0",
+                "date": "2024-07-27T12:29:49Z"
+            },
+            {
+                "name": "v3.22.0",
+                "date": "2024-06-09T15:10:58Z"
+            },
+            {
+                "name": "v3.21.1",
+                "date": "2024-03-22T08:31:26Z"
+            },
+            {
+                "name": "v3.21.0",
+                "date": "2024-03-17T18:14:56Z"
+            },
+            {
+                "name": "v3.20.1",
+                "date": "2024-02-03T06:07:53Z"
+            },
+            {
+                "name": "v3.20.0",
+                "date": "2023-12-15T21:15:44Z"
+            },
+            {
+                "name": "v3.19.0",
+                "date": "2023-11-11T23:00:11Z"
+            },
+            {
+                "name": "v3.18.0",
+                "date": "2023-10-24T16:56:39Z"
+            },
+            {
+                "name": "v3.17.1",
+                "date": "2023-08-23T22:18:58Z"
+            },
+            {
+                "name": "v3.17.0",
+                "date": "2023-07-19T22:19:53Z"
+            },
+            {
+                "name": "v3.16.0",
+                "date": "2023-04-18T18:23:53Z"
+            },
+            {
+                "name": "v3.15.0",
+                "date": "2023-01-05T01:57:05Z"
+            },
+            {
+                "name": "v3.14.0",
+                "date": "2022-10-14T23:05:33Z"
+            },
+            {
+                "name": "v3.13.1",
+                "date": "2022-08-18T03:51:07Z"
+            },
+            {
+                "name": "v3.12.0",
+                "date": "2022-05-22T14:54:10Z"
+            },
+            {
+                "name": "v3.11.0",
+                "date": "2022-03-21T18:30:21Z"
+            },
+            {
+                "name": "v3.10.0",
+                "date": "2021-12-17T00:24:35Z"
+            },
+            {
+                "name": "v3.9.0",
+                "date": "2021-10-29T22:21:44Z"
+            },
+            {
+                "name": "v3.8.0",
+                "date": "2021-10-15T16:32:33Z"
+            },
+            {
+                "name": "v3.7.0",
+                "date": "2021-09-28T12:52:37Z"
+            },
+            {
+                "name": "v3.6.0",
+                "date": "2021-09-09T02:45:59Z"
+            },
+            {
+                "name": "v3.5.0",
+                "date": "2021-08-10T22:23:36Z"
+            },
+            {
+                "name": "v3.4.0",
+                "date": "2021-07-08T23:13:14Z"
+            },
+            {
+                "name": "v3.3.0",
+                "date": "2021-05-17T14:30:07Z"
+            },
+            {
+                "name": "v3.2.1",
+                "date": "2021-04-18T23:43:32Z"
+            },
+            {
+                "name": "v3.2.0",
+                "date": "2021-04-14T19:58:22Z"
+            },
+            {
+                "name": "v3.1.2",
+                "date": "2021-03-04T14:39:07Z"
+            },
+            {
+                "name": "v3.1.1",
+                "date": "2021-02-15T19:38:11Z"
+            },
+            {
+                "name": "v3.1.0",
+                "date": "2021-02-04T14:45:29Z"
+            },
+            {
+                "name": "v3.0.0",
+                "date": "2021-01-16T22:27:48Z"
+            },
+            {
+                "name": "v2.15.0",
+                "date": "2020-11-28T18:19:00Z"
+            },
+            {
+                "name": "v2.14.1",
+                "date": "2020-11-02T15:25:55Z"
+            },
+            {
+                "name": "v2.14.0",
+                "date": "2020-10-03T13:38:30Z"
+            },
+            {
+                "name": "v2.13.0",
+                "date": "2020-08-31T15:03:33Z"
+            },
+            {
+                "name": "v2.12.0",
+                "date": "2020-05-25T18:04:22Z"
+            },
+            {
+                "name": "v2.11.1",
+                "date": "2020-03-29T16:37:44Z"
+            },
+            {
+                "name": "v2.11.0",
+                "date": "2020-02-27T12:45:34Z"
+            },
+            {
+                "name": "v2.10.0",
+                "date": "2020-02-13T13:48:16Z"
+            },
+            {
+                "name": "v2.9.1",
+                "date": "2020-01-14T21:24:13Z"
+            },
+            {
+                "name": "v2.9.0",
+                "date": "2019-12-23T15:45:22Z"
+            },
+            {
+                "name": "v2.8.0",
+                "date": "2019-11-12T05:12:02Z"
+            },
+            {
+                "name": "v2.7.0",
+                "date": "2019-09-12T11:03:45Z"
+            },
+            {
+                "name": "v2.6.0",
+                "date": "2019-07-01T22:06:46Z"
+            },
+            {
+                "name": "v2.5.1",
+                "date": "2019-05-03T17:05:12Z"
+            },
+            {
+                "name": "v2.5.0",
+                "date": "2019-04-25T22:51:19Z"
+            },
+            {
+                "name": "v2.4.2",
+                "date": "2019-03-25T13:43:37Z"
+            },
+            {
+                "name": "v2.4.1",
+                "date": "2019-03-08T17:29:51Z"
+            },
+            {
+                "name": "v2.4.0",
+                "date": "2019-02-03T11:26:06Z"
+            },
+            {
+                "name": "v2.3.2",
+                "date": "2019-01-17T22:18:13Z"
+            },
+            {
+                "name": "v2.3.1",
+                "date": "2019-01-04T22:37:18Z"
+            },
+            {
+                "name": "v2.3.0",
+                "date": "2018-12-31T12:53:32Z"
+            },
+            {
+                "name": "v2.2.1",
+                "date": "2018-11-20T17:21:28Z"
+            },
+            {
+                "name": "v2.2.0",
+                "date": "2018-11-12T00:03:22Z"
+            },
+            {
+                "name": "v2.1.3",
+                "date": "2018-11-02T02:34:28Z"
+            },
+            {
+                "name": "v2.1.2",
+                "date": "2018-10-24T14:37:13Z"
+            },
+            {
+                "name": "v2.1.1",
+                "date": "2018-10-21T05:11:38Z"
+            },
+            {
+                "name": "v2.1.0",
+                "date": "2018-10-08T20:32:08Z"
+            },
+            {
+                "name": "v2.0.3",
+                "date": "2018-08-10T12:01:26Z"
+            },
+            {
+                "name": "v2.0.2",
+                "date": "2018-07-09T12:50:01Z"
+            },
+            {
+                "name": "v2.0.1",
+                "date": "2018-06-15T14:08:01Z"
+            },
+            {
+                "name": "v2.0.0",
+                "date": "2018-05-14T10:45:32Z"
+            },
+            {
+                "name": "v1.4.1",
+                "date": "2018-03-30T14:09:25Z"
+            },
+            {
+                "name": "v1.4.0",
+                "date": "2017-12-16T14:23:32Z"
+            },
+            {
+                "name": "v1.3.0",
+                "date": "2017-11-21T18:30:27Z"
+            },
+            {
+                "name": "v1.2.0",
+                "date": "2017-11-06T18:57:08Z"
+            },
+            {
+                "name": "v1.1.0",
+                "date": "2017-10-17T11:23:38Z"
+            },
+            {
+                "name": "v1.0.2",
+                "date": "2017-09-29T17:59:11Z"
+            },
+            {
+                "name": "v1.0.1",
+                "date": "2017-08-05T16:07:59Z"
+            },
+            {
+                "name": "v1.0.0",
+                "date": "2017-08-01T13:33:23Z"
+            },
+            {
+                "name": "v1.0.0-rc.1",
+                "date": "2017-07-18T22:20:38Z"
+            },
+            {
+                "name": "v0.13.1",
+                "date": "2017-06-08T17:18:40Z"
+            },
+            {
+                "name": "v0.13.0",
+                "date": "2017-05-29T14:08:28Z"
+            },
+            {
+                "name": "v0.12.2",
+                "date": "2017-04-22T15:36:09Z"
+            },
+            {
+                "name": "v0.12.1",
+                "date": "2017-03-28T22:14:15Z"
+            },
+            {
+                "name": "v0.12.0",
+                "date": "2017-03-19T20:54:47Z"
+            },
+            {
+                "name": "v0.11.3",
+                "date": "2017-02-25T16:01:46Z"
+            },
+            {
+                "name": "v0.11.2",
+                "date": "2017-02-17T13:55:08Z"
+            },
+            {
+                "name": "v0.11.1",
+                "date": "2017-02-12T22:28:35Z"
+            },
+            {
+                "name": "v0.11.0",
+                "date": "2017-02-09T23:04:35Z"
+            },
+            {
+                "name": "v0.10.0",
+                "date": "2017-01-14T16:13:01Z"
+            }
+        ]
+    }
+}

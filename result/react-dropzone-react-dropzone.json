@@ -1,0 +1,704 @@
+{
+    "https://api.github.com/repos/react-dropzone/react-dropzone": {
+        "forks": 790,
+        "watchers": 10656,
+        "stars": 10656,
+        "languages": {
+            "JavaScript": 169645,
+            "TypeScript": 8370,
+            "Shell": 191
+        },
+        "commits": [
+            "2024-11-04T12:26:43Z",
+            "2024-11-04T11:46:09Z",
+            "2024-11-03T13:51:47Z",
+            "2024-11-03T11:22:59Z",
+            "2024-11-02T11:41:52Z",
+            "2024-11-01T13:26:40Z",
+            "2024-11-01T13:12:04Z",
+            "2024-11-01T12:56:57Z",
+            "2024-11-01T12:56:06Z",
+            "2024-10-11T19:09:59Z",
+            "2024-10-08T17:44:41Z",
+            "2024-10-03T07:52:21Z",
+            "2024-10-03T06:19:32Z",
+            "2024-10-03T06:16:16Z",
+            "2024-10-02T15:52:13Z",
+            "2024-10-03T05:39:45Z",
+            "2024-10-03T05:36:04Z",
+            "2024-10-02T20:01:57Z",
+            "2024-10-02T15:28:54Z",
+            "2023-04-14T19:18:56Z",
+            "2024-10-02T15:19:55Z",
+            "2024-10-02T14:50:54Z",
+            "2024-10-02T14:19:47Z",
+            "2024-10-02T14:13:16Z",
+            "2024-10-02T14:11:58Z",
+            "2024-10-02T14:02:01Z",
+            "2024-10-02T13:37:29Z",
+            "2024-10-02T12:30:30Z",
+            "2023-09-21T06:14:24Z",
+            "2022-09-03T22:36:07Z"
+        ],
+        "creation_date": "2014-09-27T11:57:09Z",
+        "contributors": 30,
+        "topics": [
+            "drag-and-drop",
+            "file",
+            "file-upload",
+            "react"
+        ],
+        "subscribers": 62,
+        "readme": "![react-dropzone logo](https://raw.githubusercontent.com/react-dropzone/react-dropzone/master/logo/logo.png)\n\n# react-dropzone\n[![npm](https://img.shields.io/npm/v/react-dropzone.svg?style=flat-square)](https://www.npmjs.com/package/react-dropzone)\n![Tests](https://img.shields.io/github/actions/workflow/status/react-dropzone/react-dropzone/test.yml?branch=master&style=flat-square&label=tests)\n[![codecov](https://img.shields.io/codecov/c/gh/react-dropzone/react-dropzone/master.svg?style=flat-square)](https://codecov.io/gh/react-dropzone/react-dropzone)\n[![Open Collective Backers](https://img.shields.io/opencollective/backers/react-dropzone.svg?style=flat-square)](#backers)\n[![Open Collective Sponsors](https://img.shields.io/opencollective/sponsors/react-dropzone.svg?style=flat-square)](#sponsors)\n[![Gitpod](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod&style=flat-square)](https://gitpod.io/#https://github.com/react-dropzone/react-dropzone)\n[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg?style=flat-square)](https://github.com/react-dropzone/.github/blob/main/CODE_OF_CONDUCT.md)\n\nSimple React hook to create a HTML5-compliant drag'n'drop zone for files.\n\nDocumentation and examples at https://react-dropzone.js.org. Source code at https://github.com/react-dropzone/react-dropzone/.\n\n\n## Installation\nInstall it from npm and include it in your React build process (using [Webpack](http://webpack.github.io/), [Browserify](http://browserify.org/), etc).\n\n```bash\nnpm install --save react-dropzone\n```\nor:\n```bash\nyarn add react-dropzone\n```\n\n\n## Usage\nYou can either use the hook:\n\n```jsx static\nimport React, {useCallback} from 'react'\nimport {useDropzone} from 'react-dropzone'\n\nfunction MyDropzone() {\n  const onDrop = useCallback(acceptedFiles => {\n    // Do something with the files\n  }, [])\n  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})\n\n  return (\n    <div {...getRootProps()}>\n      <input {...getInputProps()} />\n      {\n        isDragActive ?\n          <p>Drop the files here ...</p> :\n          <p>Drag 'n' drop some files here, or click to select files</p>\n      }\n    </div>\n  )\n}\n```\n\nOr the wrapper component for the hook:\n```jsx static\nimport React from 'react'\nimport Dropzone from 'react-dropzone'\n\n<Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>\n  {({getRootProps, getInputProps}) => (\n    <section>\n      <div {...getRootProps()}>\n        <input {...getInputProps()} />\n        <p>Drag 'n' drop some files here, or click to select files</p>\n      </div>\n    </section>\n  )}\n</Dropzone>\n```\n\nIf you want to access file contents you have to use the [FileReader API](https://developer.mozilla.org/en-US/docs/Web/API/FileReader):\n\n```jsx static\nimport React, {useCallback} from 'react'\nimport {useDropzone} from 'react-dropzone'\n\nfunction MyDropzone() {\n  const onDrop = useCallback((acceptedFiles) => {\n    acceptedFiles.forEach((file) => {\n      const reader = new FileReader()\n\n      reader.onabort = () => console.log('file reading was aborted')\n      reader.onerror = () => console.log('file reading has failed')\n      reader.onload = () => {\n      // Do whatever you want with the file contents\n        const binaryStr = reader.result\n        console.log(binaryStr)\n      }\n      reader.readAsArrayBuffer(file)\n    })\n    \n  }, [])\n  const {getRootProps, getInputProps} = useDropzone({onDrop})\n\n  return (\n    <div {...getRootProps()}>\n      <input {...getInputProps()} />\n      <p>Drag 'n' drop some files here, or click to select files</p>\n    </div>\n  )\n}\n```\n\n\n## Dropzone Props Getters\nThe dropzone property getters are just two functions that return objects with properties which you need to use to create the drag 'n' drop zone.\nThe root properties can be applied to whatever element you want, whereas the input properties must be applied to an `<input>`:\n```jsx static\nimport React from 'react'\nimport {useDropzone} from 'react-dropzone'\n\nfunction MyDropzone() {\n  const {getRootProps, getInputProps} = useDropzone()\n\n  return (\n    <div {...getRootProps()}>\n      <input {...getInputProps()} />\n      <p>Drag 'n' drop some files here, or click to select files</p>\n    </div>\n  )\n}\n```\n\nNote that whatever other props you want to add to the element where the props from `getRootProps()` are set, you should always pass them through that function rather than applying them on the element itself.\nThis is in order to avoid your props being overridden (or overriding the props returned by `getRootProps()`):\n```jsx static\n<div\n  {...getRootProps({\n    onClick: event => console.log(event),\n    role: 'button',\n    'aria-label': 'drag and drop area',\n    ...\n  })}\n/>\n```\n\nIn the example above, the provided `{onClick}` handler will be invoked before the internal one, therefore, internal callbacks can be prevented by simply using [stopPropagation](https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation).\nSee [Events](https://react-dropzone.js.org#events) for more examples.\n\n*Important*: if you omit rendering an `<input>` and/or binding the props from `getInputProps()`, opening a file dialog will not be possible.\n\n## Refs\nBoth `getRootProps` and `getInputProps` accept a custom `refKey` (defaults to `ref`) as one of the attributes passed down in the parameter.\n\nThis can be useful when the element you're trying to apply the props from either one of those fns does not expose a reference to the element, e.g:\n\n```jsx static\nimport React from 'react'\nimport {useDropzone} from 'react-dropzone'\n// NOTE: After v4.0.0, styled components exposes a ref using forwardRef,\n// therefore, no need for using innerRef as refKey\nimport styled from 'styled-components'\n\nconst StyledDiv = styled.div`\n  // Some styling here\n`\nfunction Example() {\n  const {getRootProps, getInputProps} = useDropzone()\n  <StyledDiv {...getRootProps({ refKey: 'innerRef' })}>\n    <input {...getInputProps()} />\n    <p>Drag 'n' drop some files here, or click to select files</p>\n  </StyledDiv>\n}\n```\n\nIf you're working with [Material UI v4](https://v4.mui.com/) and would like to apply the root props on some component that does not expose a ref, use [RootRef](https://v4.mui.com/api/root-ref/):\n\n```jsx static\nimport React from 'react'\nimport {useDropzone} from 'react-dropzone'\nimport RootRef from '@material-ui/core/RootRef'\n\nfunction PaperDropzone() {\n  const {getRootProps, getInputProps} = useDropzone()\n  const {ref, ...rootProps} = getRootProps()\n\n  <RootRef rootRef={ref}>\n    <Paper {...rootProps}>\n      <input {...getInputProps()} />\n      <p>Drag 'n' drop some files here, or click to select files</p>\n    </Paper>\n  </RootRef>\n}\n```\n\n**IMPORTANT**: do not set the `ref` prop on the elements where `getRootProps()`/`getInputProps()` props are set, instead, get the refs from the hook itself:\n\n```jsx static\nimport React from 'react'\nimport {useDropzone} from 'react-dropzone'\n\nfunction Refs() {\n  const {\n    getRootProps,\n    getInputProps,\n    rootRef, // Ref to the `<div>`\n    inputRef // Ref to the `<input>`\n  } = useDropzone()\n  <div {...getRootProps()}>\n    <input {...getInputProps()} />\n    <p>Drag 'n' drop some files here, or click to select files</p>\n  </div>\n}\n```\n\nIf you're using the `<Dropzone>` component, though, you can set the `ref` prop on the component itself which will expose the `{open}` prop that can be used to open the file dialog programmatically:\n\n```jsx static\nimport React, {createRef} from 'react'\nimport Dropzone from 'react-dropzone'\n\nconst dropzoneRef = createRef()\n\n<Dropzone ref={dropzoneRef}>\n  {({getRootProps, getInputProps}) => (\n    <div {...getRootProps()}>\n      <input {...getInputProps()} />\n      <p>Drag 'n' drop some files here, or click to select files</p>\n    </div>\n  )}\n</Dropzone>\n\ndropzoneRef.open()\n```\n\n\n## Testing\n`react-dropzone` makes some of its drag 'n' drop callbacks asynchronous to enable promise based `getFilesFromEvent()` functions. In order to test components that use this library, you need to use the [react-testing-library](https://github.com/testing-library/react-testing-library):\n```js static\nimport React from 'react'\nimport Dropzone from 'react-dropzone'\nimport {act, fireEvent, render} from '@testing-library/react'\n\ntest('invoke onDragEnter when dragenter event occurs', async () => {\n  const file = new File([\n    JSON.stringify({ping: true})\n  ], 'ping.json', { type: 'application/json' })\n  const data = mockData([file])\n  const onDragEnter = jest.fn()\n\n  const ui = (\n    <Dropzone onDragEnter={onDragEnter}>\n      {({ getRootProps, getInputProps }) => (\n        <div {...getRootProps()}>\n          <input {...getInputProps()} />\n        </div>\n      )}\n    </Dropzone>\n  )\n  const { container } = render(ui)\n\n  await act(\n    () => fireEvent.dragEnter(\n      container.querySelector('div'),\n      data,\n    )\n  );\n  expect(onDragEnter).toHaveBeenCalled()\n})\n\nfunction mockData(files) {\n  return {\n    dataTransfer: {\n      files,\n      items: files.map(file => ({\n        kind: 'file',\n        type: file.type,\n        getAsFile: () => file\n      })),\n      types: ['Files']\n    }\n  }\n}\n```\n\n**NOTE**: using [Enzyme](https://airbnb.io/enzyme) for testing is not supported at the moment, see [#2011](https://github.com/airbnb/enzyme/issues/2011).\n\nMore examples for this can be found in `react-dropzone`'s own [test suites](https://github.com/react-dropzone/react-dropzone/blob/master/src/index.spec.js).\n\n## Caveats\n### Required React Version\nReact [16.8](https://reactjs.org/blog/2019/02/06/react-v16.8.0.html) or above is required because we use [hooks](https://reactjs.org/docs/hooks-intro.html) (the lib itself is a hook).\n\n### File Paths\nFiles returned by the hook or passed as arg to the `onDrop` cb won't have the properties `path` or `fullPath`.\nFor more inf check [this SO question](https://stackoverflow.com/a/23005925/2275818) and [this issue](https://github.com/react-dropzone/react-dropzone/issues/477).\n\n### Not a File Uploader\nThis lib is not a file uploader; as such, it does not process files or provide any way to make HTTP requests to some server; if you're looking for that, checkout [filepond](https://pqina.nl/filepond) or [uppy.io](https://uppy.io/).\n\n### Using \\<label\\> as Root\nIf you use [\\<label\\>](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label) as the root element, the file dialog will be opened twice; see [#1107](https://github.com/react-dropzone/react-dropzone/issues/1107) why. To avoid this, use `noClick`:\n```jsx static\nimport React, {useCallback} from 'react'\nimport {useDropzone} from 'react-dropzone'\n\nfunction MyDropzone() {\n  const {getRootProps, getInputProps} = useDropzone({noClick: true})\n\n  return (\n    <label {...getRootProps()}>\n      <input {...getInputProps()} />\n    </label>\n  )\n}\n```\n\n### Using open() on Click\nIf you bind a click event on an inner element and use `open()`, it will trigger a click on the root element too, resulting in the file dialog opening twice. To prevent this, use the `noClick` on the root:\n```jsx static\nimport React, {useCallback} from 'react'\nimport {useDropzone} from 'react-dropzone'\n\nfunction MyDropzone() {\n  const {getRootProps, getInputProps, open} = useDropzone({noClick: true})\n\n  return (\n    <div {...getRootProps()}>\n      <input {...getInputProps()} />\n      <button type=\"button\" onClick={open}>\n        Open\n      </button>\n    </div>\n  )\n}\n```\n\n### File Dialog Cancel Callback\nThe `onFileDialogCancel()` cb is unstable in most browsers, meaning, there's a good chance of it being triggered even though you have selected files.\n\nWe rely on using a timeout of `300ms` after the window is focused (the window `onfocus` event is triggered when the file select dialog is closed) to check if any files were selected and trigger `onFileDialogCancel` if none were selected.\n\nAs one can imagine, this doesn't really work if there's a lot of files or large files as by the time we trigger the check, the browser is still processing the files and no `onchange` events are triggered yet on the input. Check [#1031](https://github.com/react-dropzone/react-dropzone/issues/1031) for more info.\n\nFortunately, there's the [File System Access API](https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API), which is currently a working draft and some browsers support it (see [browser compatibility](https://developer.mozilla.org/en-US/docs/Web/API/window/showOpenFilePicker#browser_compatibility)), that provides a reliable way to prompt the user for file selection and capture cancellation. \n\nAlso keep in mind that the FS access API can only be used in [secure contexts](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts).\n\n**NOTE** You can enable using the FS access API with the `useFsAccessApi` property: `useDropzone({useFsAccessApi: true})`.\n\n### File System Access API\n\nWhen setting `useFsAccessApi` to `true`, you're switching to the [File System API](https://developer.mozilla.org/en-US/docs/Web/API/File_System_API) (see the [file system access](https://wicg.github.io/file-system-access/) RFC).\n\nWhat this essentially does is that it will use the [showOpenFilePicker](https://developer.mozilla.org/en-US/docs/Web/API/Window/showOpenFilePicker) method to open the file picker window so that the user can select files.\n\nIn contrast, the traditional way (when the `useFsAccessApi` is not set to `true` or not specified) uses an `<input type=\"file\">` (see [docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file)) on which a click event is triggered.\n\nWith the use of the file system access API enabled, there's a couple of caveats to keep in mind:\n1. The users will not be able to select directories\n2. It requires the app to run in a [secure context](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts)\n3. In [Electron](https://www.electronjs.org/), the path may not be set (see [#1249](https://github.com/react-dropzone/react-dropzone/issues/1249))\n\n## Supported Browsers\nWe use [browserslist](https://github.com/browserslist/browserslist) config to state the browser support for this lib, so check it out on [browserslist.dev](https://browserslist.dev/?q=ZGVmYXVsdHM%3D).\n\n\n## Need image editing?\nReact Dropzone integrates perfectly with [Pintura Image Editor](https://pqina.nl/pintura/?ref=react-dropzone), creating a modern image editing experience. Pintura supports crop aspect ratios, resizing, rotating, cropping, annotating, filtering, and much more.\n\nCheckout the [Pintura integration example](https://codesandbox.io/s/react-dropzone-pintura-40xh4?file=/src/App.js).\n\n\n## Support\n\n### Backers\nSupport us with a monthly donation and help us continue our activities. [[Become a backer](https://opencollective.com/react-dropzone#backer)]\n\n<a href=\"https://opencollective.com/react-dropzone/backer/0/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/0/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/1/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/1/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/2/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/2/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/3/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/3/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/4/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/4/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/5/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/5/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/6/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/6/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/7/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/7/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/8/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/8/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/9/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/9/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/10/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/10/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/11/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/11/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/12/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/12/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/13/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/13/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/14/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/14/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/15/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/15/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/16/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/16/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/17/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/17/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/18/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/18/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/19/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/19/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/20/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/20/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/21/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/21/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/22/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/22/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/23/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/23/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/24/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/24/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/25/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/25/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/26/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/26/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/27/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/27/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/28/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/28/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/backer/29/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/backer/29/avatar.svg\"></a>\n\n\n### Sponsors\nBecome a sponsor and get your logo on our README on Github with a link to your site. [[Become a sponsor](https://opencollective.com/react-dropzone#sponsor)]\n\n<a href=\"https://opencollective.com/react-dropzone/sponsor/0/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/0/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/1/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/1/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/2/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/2/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/3/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/3/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/4/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/4/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/5/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/5/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/6/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/6/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/7/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/7/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/8/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/8/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/9/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/9/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/10/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/10/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/11/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/11/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/12/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/12/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/13/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/13/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/14/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/14/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/15/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/15/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/16/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/16/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/17/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/17/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/18/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/18/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/19/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/19/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/20/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/20/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/21/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/21/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/22/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/22/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/23/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/23/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/24/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/24/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/25/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/25/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/26/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/26/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/27/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/27/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/28/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/28/avatar.svg\"></a>\n<a href=\"https://opencollective.com/react-dropzone/sponsor/29/website\" target=\"_blank\"><img src=\"https://opencollective.com/react-dropzone/sponsor/29/avatar.svg\"></a>\n\n\n### Hosting\n[react-dropzone.js.org](https://react-dropzone.js.org/) hosting provided by [netlify](https://www.netlify.com/).\n\n## Contribute\nCheckout the organization [CONTRIBUTING.md](https://github.com/react-dropzone/.github/blob/main/CONTRIBUTING.md).\n\n## License\nMIT\n",
+        "releases": [
+            {
+                "name": "v14.3.5",
+                "date": "2024-11-04T12:50:51Z"
+            },
+            {
+                "name": "v14.3.4",
+                "date": "2024-11-04T09:54:05Z"
+            },
+            {
+                "name": "v14.3.3",
+                "date": "2024-11-03T11:35:44Z"
+            },
+            {
+                "name": "v14.3.2",
+                "date": "2024-11-02T11:47:47Z"
+            },
+            {
+                "name": "v14.3.1",
+                "date": "2024-11-01T13:49:38Z"
+            },
+            {
+                "name": "v14.3.0",
+                "date": "2024-11-01T13:41:31Z"
+            },
+            {
+                "name": "v14.2.10",
+                "date": "2024-10-19T11:15:00Z"
+            },
+            {
+                "name": "v14.2.9",
+                "date": "2024-10-03T05:50:04Z"
+            },
+            {
+                "name": "v14.2.8",
+                "date": "2024-10-03T05:46:42Z"
+            },
+            {
+                "name": "v14.2.7",
+                "date": "2024-10-03T04:22:48Z"
+            },
+            {
+                "name": "v14.2.6",
+                "date": "2024-10-02T15:25:51Z"
+            },
+            {
+                "name": "v14.2.5",
+                "date": "2024-10-02T15:21:07Z"
+            },
+            {
+                "name": "v14.2.4",
+                "date": "2024-10-02T14:59:09Z"
+            },
+            {
+                "name": "v14.2.3",
+                "date": "2022-10-12T13:32:37Z"
+            },
+            {
+                "name": "v14.2.2",
+                "date": "2022-07-03T02:15:36Z"
+            },
+            {
+                "name": "v14.2.1",
+                "date": "2022-05-07T05:26:41Z"
+            },
+            {
+                "name": "v14.2.0",
+                "date": "2022-05-03T12:48:21Z"
+            },
+            {
+                "name": "v14.1.2",
+                "date": "2022-05-03T03:34:14Z"
+            },
+            {
+                "name": "v14.1.1",
+                "date": "2022-05-02T02:25:28Z"
+            },
+            {
+                "name": "v14.1.0",
+                "date": "2022-05-02T01:52:44Z"
+            },
+            {
+                "name": "v14.0.1",
+                "date": "2022-05-01T13:50:18Z"
+            },
+            {
+                "name": "v14.0.0",
+                "date": "2022-05-01T13:19:23Z"
+            },
+            {
+                "name": "v13.0.0",
+                "date": "2022-04-30T02:48:54Z"
+            },
+            {
+                "name": "v12.1.0",
+                "date": "2022-04-26T13:17:40Z"
+            },
+            {
+                "name": "v12.0.6",
+                "date": "2022-04-26T13:11:05Z"
+            },
+            {
+                "name": "v12.0.5",
+                "date": "2022-04-10T06:01:09Z"
+            },
+            {
+                "name": "v12.0.4",
+                "date": "2022-02-13T11:24:01Z"
+            },
+            {
+                "name": "v12.0.3",
+                "date": "2022-02-13T03:00:41Z"
+            },
+            {
+                "name": "v12.0.2",
+                "date": "2022-02-09T12:51:44Z"
+            },
+            {
+                "name": "v12.0.1",
+                "date": "2022-02-07T13:02:17Z"
+            },
+            {
+                "name": "v12.0.0",
+                "date": "2022-02-06T03:07:20Z"
+            },
+            {
+                "name": "v11.7.1",
+                "date": "2022-02-06T02:02:06Z"
+            },
+            {
+                "name": "v11.7.0",
+                "date": "2022-02-05T03:39:55Z"
+            },
+            {
+                "name": "v11.6.0",
+                "date": "2022-02-05T03:32:53Z"
+            },
+            {
+                "name": "v11.5.3",
+                "date": "2022-01-29T03:27:10Z"
+            },
+            {
+                "name": "v11.5.2",
+                "date": "2022-01-29T03:21:45Z"
+            },
+            {
+                "name": "v11.5.1",
+                "date": "2022-01-10T02:57:10Z"
+            },
+            {
+                "name": "v11.5.0",
+                "date": "2022-01-10T02:45:41Z"
+            },
+            {
+                "name": "v11.4.2",
+                "date": "2021-09-23T23:58:10Z"
+            },
+            {
+                "name": "v11.4.1",
+                "date": "2021-09-22T23:53:21Z"
+            },
+            {
+                "name": "v11.4.0",
+                "date": "2021-09-14T13:21:32Z"
+            },
+            {
+                "name": "v11.3.5",
+                "date": "2021-09-13T23:46:08Z"
+            },
+            {
+                "name": "v11.3.4",
+                "date": "2021-06-25T04:04:03Z"
+            },
+            {
+                "name": "v11.3.3",
+                "date": "2021-06-25T03:46:57Z"
+            },
+            {
+                "name": "v11.3.2",
+                "date": "2021-03-26T08:00:38Z"
+            },
+            {
+                "name": "v11.3.1",
+                "date": "2021-02-08T06:36:35Z"
+            },
+            {
+                "name": "v11.3.0",
+                "date": "2021-02-03T01:26:06Z"
+            },
+            {
+                "name": "v11.2.4",
+                "date": "2020-11-08T03:55:08Z"
+            },
+            {
+                "name": "v11.2.3",
+                "date": "2020-10-30T04:40:27Z"
+            },
+            {
+                "name": "v11.2.2",
+                "date": "2020-10-28T01:48:47Z"
+            },
+            {
+                "name": "v11.2.1",
+                "date": "2020-10-23T09:51:06Z"
+            },
+            {
+                "name": "v11.2.0",
+                "date": "2020-09-18T09:23:18Z"
+            },
+            {
+                "name": "v11.1.0",
+                "date": "2020-09-09T02:11:48Z"
+            },
+            {
+                "name": "v11.0.3",
+                "date": "2020-08-13T05:51:11Z"
+            },
+            {
+                "name": "v11.0.2",
+                "date": "2020-07-14T03:10:40Z"
+            },
+            {
+                "name": "v11.0.1",
+                "date": "2020-04-26T08:29:11Z"
+            },
+            {
+                "name": "v11.0.0",
+                "date": "2020-04-26T04:21:12Z"
+            },
+            {
+                "name": "v10.2.2",
+                "date": "2020-03-26T00:53:46Z"
+            },
+            {
+                "name": "v10.2.1",
+                "date": "2019-11-24T00:21:56Z"
+            },
+            {
+                "name": "v10.2.0",
+                "date": "2019-11-16T11:29:53Z"
+            },
+            {
+                "name": "v10.1.10",
+                "date": "2019-10-06T09:41:28Z"
+            },
+            {
+                "name": "v10.1.9",
+                "date": "2019-09-18T02:06:50Z"
+            },
+            {
+                "name": "v10.1.8",
+                "date": "2019-08-28T01:24:22Z"
+            },
+            {
+                "name": "v10.1.7",
+                "date": "2019-07-30T00:36:22Z"
+            },
+            {
+                "name": "v10.1.6",
+                "date": "2019-07-21T10:11:01Z"
+            },
+            {
+                "name": "v10.1.5",
+                "date": "2019-05-22T02:04:15Z"
+            },
+            {
+                "name": "v10.1.4",
+                "date": "2019-04-21T06:05:03Z"
+            },
+            {
+                "name": "v10.1.3",
+                "date": "2019-04-06T13:49:47Z"
+            },
+            {
+                "name": "v10.1.2",
+                "date": "2019-04-06T05:56:02Z"
+            },
+            {
+                "name": "v10.1.1",
+                "date": "2019-04-06T05:32:33Z"
+            },
+            {
+                "name": "v10.1.0",
+                "date": "2019-03-31T11:13:27Z"
+            },
+            {
+                "name": "v10.0.6",
+                "date": "2019-03-23T14:03:33Z"
+            },
+            {
+                "name": "v10.0.5",
+                "date": "2019-03-20T08:58:58Z"
+            },
+            {
+                "name": "v10.0.4",
+                "date": "2019-03-14T19:38:26Z"
+            },
+            {
+                "name": "v10.0.3",
+                "date": "2019-03-14T12:43:38Z"
+            },
+            {
+                "name": "v10.0.2",
+                "date": "2019-03-13T19:13:00Z"
+            },
+            {
+                "name": "v10.0.1",
+                "date": "2019-03-13T11:44:37Z"
+            },
+            {
+                "name": "v10.0.0",
+                "date": "2019-03-05T07:43:26Z"
+            },
+            {
+                "name": "v9.0.0",
+                "date": "2019-02-22T14:53:50Z"
+            },
+            {
+                "name": "v8.2.0",
+                "date": "2019-02-21T09:08:14Z"
+            },
+            {
+                "name": "v8.1.0",
+                "date": "2019-02-08T14:44:29Z"
+            },
+            {
+                "name": "v8.0.4",
+                "date": "2019-01-29T14:31:33Z"
+            },
+            {
+                "name": "v8.0.3",
+                "date": "2018-12-22T16:18:41Z"
+            },
+            {
+                "name": "v8.0.2",
+                "date": "2018-12-17T18:29:53Z"
+            },
+            {
+                "name": "v8.0.1",
+                "date": "2018-12-13T08:22:12Z"
+            },
+            {
+                "name": "v8.0.0",
+                "date": "2018-12-10T08:19:48Z"
+            },
+            {
+                "name": "v7.0.1",
+                "date": "2018-10-26T13:53:18Z"
+            },
+            {
+                "name": "v7.0.0",
+                "date": "2018-10-26T09:38:52Z"
+            },
+            {
+                "name": "v6.2.4",
+                "date": "2018-10-16T17:57:04Z"
+            },
+            {
+                "name": "v6.2.3",
+                "date": "2018-10-15T12:22:28Z"
+            },
+            {
+                "name": "v6.2.2",
+                "date": "2018-10-14T08:44:17Z"
+            },
+            {
+                "name": "v6.2.1",
+                "date": "2018-10-13T17:37:32Z"
+            },
+            {
+                "name": "v6.2.0",
+                "date": "2018-10-13T16:20:27Z"
+            },
+            {
+                "name": "v6.1.3",
+                "date": "2018-10-13T15:44:10Z"
+            },
+            {
+                "name": "v6.1.2",
+                "date": "2018-10-13T14:59:08Z"
+            },
+            {
+                "name": "v6.1.1",
+                "date": "2018-10-13T08:59:34Z"
+            },
+            {
+                "name": "v6.1.0",
+                "date": "2018-10-12T18:26:20Z"
+            },
+            {
+                "name": "v6.0.4",
+                "date": "2018-10-11T09:27:52Z"
+            },
+            {
+                "name": "v6.0.3",
+                "date": "2018-10-10T11:51:03Z"
+            },
+            {
+                "name": "v6.0.2",
+                "date": "2018-10-03T19:09:46Z"
+            },
+            {
+                "name": "v6.0.1",
+                "date": "2018-10-03T12:34:47Z"
+            },
+            {
+                "name": "v6.0.0",
+                "date": "2018-10-02T12:47:52Z"
+            },
+            {
+                "name": "v5.1.1",
+                "date": "2018-09-26T12:09:30Z"
+            },
+            {
+                "name": "v5.1.0",
+                "date": "2018-09-09T01:23:42Z"
+            },
+            {
+                "name": "v5.0.2",
+                "date": "2018-09-08T12:01:49Z"
+            },
+            {
+                "name": "v5.0.1",
+                "date": "2018-08-18T08:23:49Z"
+            },
+            {
+                "name": "v5.0.0",
+                "date": "2018-08-17T19:36:54Z"
+            },
+            {
+                "name": "v4.3.1",
+                "date": "2018-08-17T15:23:27Z"
+            },
+            {
+                "name": "v4.3.0",
+                "date": "2018-08-06T13:45:48Z"
+            },
+            {
+                "name": "v4.2.13",
+                "date": "2018-07-04T07:40:17Z"
+            },
+            {
+                "name": "v4.2.12",
+                "date": "2018-06-26T08:27:58Z"
+            },
+            {
+                "name": "v4.2.11",
+                "date": "2018-05-31T17:54:58Z"
+            },
+            {
+                "name": "v4.2.10",
+                "date": "2018-05-22T18:35:43Z"
+            },
+            {
+                "name": "v4.2.9",
+                "date": "2018-03-07T09:27:48Z"
+            },
+            {
+                "name": "v4.2.8",
+                "date": "2018-02-13T11:38:34Z"
+            },
+            {
+                "name": "v4.2.7",
+                "date": "2018-01-19T20:01:49Z"
+            },
+            {
+                "name": "v4.2.6",
+                "date": "2018-01-19T10:37:56Z"
+            },
+            {
+                "name": "v4.2.5",
+                "date": "2018-01-11T09:49:04Z"
+            },
+            {
+                "name": "v4.2.4",
+                "date": "2018-01-11T09:45:00Z"
+            },
+            {
+                "name": "v4.2.3",
+                "date": "2017-11-17T16:24:38Z"
+            },
+            {
+                "name": "v4.2.2",
+                "date": "2017-11-16T20:19:35Z"
+            },
+            {
+                "name": "v4.2.1",
+                "date": "2017-10-19T11:14:15Z"
+            },
+            {
+                "name": "v4.2.0",
+                "date": "2017-10-11T04:41:50Z"
+            },
+            {
+                "name": "v4.1.3",
+                "date": "2017-09-20T09:26:01Z"
+            },
+            {
+                "name": "v4.1.2",
+                "date": "2017-09-06T12:36:54Z"
+            },
+            {
+                "name": "v4.1.1",
+                "date": "2017-09-04T09:32:06Z"
+            },
+            {
+                "name": "v4.1.0",
+                "date": "2017-08-22T18:56:40Z"
+            },
+            {
+                "name": "v4.0.1",
+                "date": "2017-08-16T16:05:18Z"
+            },
+            {
+                "name": "v4.0.0",
+                "date": "2017-08-04T09:31:39Z"
+            },
+            {
+                "name": "v3.13.4",
+                "date": "2017-07-28T09:32:22Z"
+            },
+            {
+                "name": "v3.13.3",
+                "date": "2017-06-21T13:31:21Z"
+            },
+            {
+                "name": "v3.13.2",
+                "date": "2017-05-29T15:19:39Z"
+            },
+            {
+                "name": "v3.13.1",
+                "date": "2017-04-26T08:33:16Z"
+            },
+            {
+                "name": "v3.13.0",
+                "date": "2017-04-20T12:01:06Z"
+            },
+            {
+                "name": "v3.12.4",
+                "date": "2017-04-13T14:01:10Z"
+            },
+            {
+                "name": "v3.12.3",
+                "date": "2017-04-07T16:26:00Z"
+            },
+            {
+                "name": "v3.12.2",
+                "date": "2017-03-17T14:48:17Z"
+            },
+            {
+                "name": "v3.12.1",
+                "date": "2017-03-15T09:23:26Z"
+            },
+            {
+                "name": "v3.12.0",
+                "date": "2017-03-13T13:51:00Z"
+            },
+            {
+                "name": "v3.11.2",
+                "date": "2017-03-13T10:28:16Z"
+            },
+            {
+                "name": "v3.11.1",
+                "date": "2017-03-10T17:32:15Z"
+            },
+            {
+                "name": "v3.11.0",
+                "date": "2017-02-23T20:35:31Z"
+            },
+            {
+                "name": "v3.10.0",
+                "date": "2017-02-09T08:29:15Z"
+            },
+            {
+                "name": "v3.9.2",
+                "date": "2017-01-25T11:43:49Z"
+            },
+            {
+                "name": "v3.9.1",
+                "date": "2017-01-20T09:13:10Z"
+            },
+            {
+                "name": "v3.9.0",
+                "date": "2017-01-12T12:03:59Z"
+            },
+            {
+                "name": "v3.8.0",
+                "date": "2016-12-22T17:24:26Z"
+            },
+            {
+                "name": "v3.7.4",
+                "date": "2016-12-22T14:47:12Z"
+            },
+            {
+                "name": "v3.7.3",
+                "date": "2016-11-06T18:19:30Z"
+            },
+            {
+                "name": "v3.7.2",
+                "date": "2016-11-01T10:28:52Z"
+            },
+            {
+                "name": "v3.7.1",
+                "date": "2016-11-01T09:20:33Z"
+            },
+            {
+                "name": "3.7.0",
+                "date": "2016-10-21T14:52:10Z"
+            },
+            {
+                "name": "3.6.0",
+                "date": "2016-09-02T07:17:46Z"
+            },
+            {
+                "name": "3.5.3",
+                "date": "2016-07-08T11:15:09Z"
+            },
+            {
+                "name": "3.5.2",
+                "date": "2016-07-06T12:59:57Z"
+            },
+            {
+                "name": "3.5.1",
+                "date": "2016-06-14T15:18:11Z"
+            },
+            {
+                "name": "3.5.0",
+                "date": "2016-05-30T16:26:09Z"
+            },
+            {
+                "name": "",
+                "date": "2016-01-11T11:31:18Z"
+            },
+            {
+                "name": "Tests",
+                "date": "2015-12-18T11:06:10Z"
+            },
+            {
+                "name": "React 0.14 compatibility release",
+                "date": "2015-10-25T12:20:28Z"
+            },
+            {
+                "name": "",
+                "date": "2015-10-25T12:18:43Z"
+            },
+            {
+                "name": "",
+                "date": "2015-05-22T06:12:03Z"
+            }
+        ]
+    }
+}

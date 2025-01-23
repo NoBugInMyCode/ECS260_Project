@@ -1,0 +1,57 @@
+{
+    "https://api.github.com/repos/sidekiq/sidekiq": {
+        "forks": 2429,
+        "watchers": 13220,
+        "stars": 13220,
+        "languages": {
+            "Ruby": 572348,
+            "HTML": 41038,
+            "JavaScript": 18499,
+            "CSS": 17084,
+            "Procfile": 125
+        },
+        "commits": [
+            "2025-01-20T20:55:49Z",
+            "2025-01-20T20:55:27Z",
+            "2025-01-18T00:50:37Z",
+            "2025-01-16T23:28:07Z",
+            "2025-01-16T18:56:23Z",
+            "2025-01-15T18:48:06Z",
+            "2025-01-13T23:42:25Z",
+            "2025-01-13T21:32:22Z",
+            "2025-01-13T18:57:21Z",
+            "2025-01-08T23:08:35Z",
+            "2025-01-08T22:30:45Z",
+            "2025-01-07T21:00:40Z",
+            "2025-01-07T19:46:00Z",
+            "2025-01-07T19:40:30Z",
+            "2025-01-07T16:49:07Z",
+            "2025-01-07T16:18:39Z",
+            "2025-01-06T18:23:07Z",
+            "2025-01-06T18:21:57Z",
+            "2025-01-02T19:25:31Z",
+            "2025-01-02T19:10:00Z",
+            "2025-01-02T17:01:43Z",
+            "2025-01-02T17:00:05Z",
+            "2025-01-02T16:53:28Z",
+            "2024-12-31T23:43:12Z",
+            "2024-12-31T23:17:41Z",
+            "2024-12-31T22:08:59Z",
+            "2024-12-20T19:15:21Z",
+            "2024-12-20T15:13:12Z",
+            "2024-12-19T18:33:17Z",
+            "2024-12-18T22:59:00Z"
+        ],
+        "creation_date": "2012-01-16T23:17:27Z",
+        "contributors": 30,
+        "topics": [
+            "background-jobs",
+            "jobs",
+            "ruby",
+            "sidekiq"
+        ],
+        "subscribers": 212,
+        "readme": "Sidekiq\n==============\n\n[![Gem Version](https://badge.fury.io/rb/sidekiq.svg)](https://rubygems.org/gems/sidekiq)\n![Build](https://github.com/sidekiq/sidekiq/workflows/CI/badge.svg)\n\nSimple, efficient background processing for Ruby.\n\nSidekiq uses threads to handle many jobs at the same time in the\nsame process.  It does not require Rails but will integrate tightly with\nRails to make background processing dead simple.\n\n\nRequirements\n-----------------\n\n- Redis: Redis 7.2+, Valkey 7.2+ or Dragonfly 1.13+\n- Ruby: MRI 3.2+ or JRuby 9.4+.\n\nSidekiq 8.0 supports Rails 7.0+ but does not require it.\n\nSidekiq supports [Valkey](https://valkey.io) and [Dragonfly](https://www.dragonflydb.io) as Redis alternatives but\nRedis 7.2.4 is considered to be the canonical implementation.\nIncompatibilities with that version are considered bugs.\n\nInstallation\n-----------------\n\n    bundle add sidekiq\n\n\nGetting Started\n-----------------\n\nSee the [Getting Started wiki page](https://github.com/sidekiq/sidekiq/wiki/Getting-Started) and follow the simple setup process.\nYou can watch [this YouTube playlist](https://www.youtube.com/playlist?list=PLjeHh2LSCFrWGT5uVjUuFKAcrcj5kSai1) to learn all about\nSidekiq and see its features in action.  Here's the Web UI:\n\n![Web UI](https://github.com/sidekiq/sidekiq/raw/main/examples/web-ui.png)\n\nPerformance\n---------------\n\nThe benchmark in `bin/sidekiqload` creates 500,000 no-op jobs and drains them as fast as possible, assuming a fixed Redis network latency of 1ms.\nThis requires a lot of Redis network I/O and JSON parsing.\nThis benchmark is IO-bound so we increase the concurrency to 25.\nIf your application is sending lots of emails or performing other network-intensive work, you could see a similar benefit but be careful not to saturate the CPU.\n\nVersion | Time to process 500k jobs | Throughput (jobs/sec) | Ruby | Concurrency | Job Type\n-----------------|------|---------|---------|------------------------|---\nSidekiq 7.0.3 | 21.3 sec| 23,500 | 3.2.0+yjit | 30 | Sidekiq::Job\nSidekiq 7.0.3 | 33.8 sec| 14,700 | 3.2.0+yjit | 30 | ActiveJob 7.0.4\nSidekiq 7.0.3 | 23.5 sec| 21,300 | 3.2.0 | 30 | Sidekiq::Job\nSidekiq 7.0.3 | 46.5 sec| 10,700 | 3.2.0 | 30 | ActiveJob 7.0.4\nSidekiq 7.0.3 | 23.0 sec| 21,700 | 2.7.5 | 30 | Sidekiq::Job\nSidekiq 7.0.3 | 46.5 sec| 10,850 | 2.7.5 | 30 | ActiveJob 7.0.4\n\nMost of Sidekiq's overhead is Redis network I/O.\nActiveJob adds a notable amount of CPU overhead due to argument deserialization and callbacks.\nConcurrency of 30 was determined experimentally to maximize one CPU without saturating it.\n\nWant to Upgrade?\n-------------------\n\nUse `bundle up sidekiq` to upgrade Sidekiq and all its dependencies.\nUpgrade notes between each major version can be found in the `docs/` directory.\n\nI also sell Sidekiq Pro and Sidekiq Enterprise, extensions to Sidekiq which provide more\nfeatures, a commercial-friendly license and allow you to support high\nquality open source development all at the same time.  Please see the\n[Sidekiq](https://sidekiq.org/) homepage for more detail.\n\n\nProblems?\n-----------------\n\n**Please do not directly email any Sidekiq committers with questions or problems.**\nA community is best served when discussions are held in public.\n\nIf you have a problem, please review the [FAQ](https://github.com/sidekiq/sidekiq/wiki/FAQ) and [Troubleshooting](https://github.com/sidekiq/sidekiq/wiki/Problems-and-Troubleshooting) wiki pages.\nSearching the [issues](https://github.com/sidekiq/sidekiq/issues) for your problem is also a good idea.\n\nSidekiq Pro and Sidekiq Enterprise customers get private email support.\nYou can purchase at https://sidekiq.org; email support@contribsys.com for help.\n\nUseful resources:\n\n* Product documentation is in the [wiki](https://github.com/sidekiq/sidekiq/wiki).\n* Occasional announcements are made to the [@sidekiq](https://ruby.social/@sidekiq) Mastodon account.\n* The [Sidekiq tag](https://stackoverflow.com/questions/tagged/sidekiq) on Stack Overflow has lots of useful Q &amp; A.\n\nEvery Thursday morning is Sidekiq office hour: I video chat and answer questions.\nSee the [Sidekiq support page](https://sidekiq.org/support.html) for details.\n\nContributing\n-----------------\n\nPlease see [the contributing guidelines](https://github.com/sidekiq/sidekiq/blob/main/.github/contributing.md).\n\nLicense\n-----------------\n\nPlease see [LICENSE.txt](https://github.com/sidekiq/sidekiq/blob/main/LICENSE.txt) for licensing details.\nThe license for Sidekiq Pro and Sidekiq Enterprise can be found in [COMM-LICENSE.txt](https://github.com/sidekiq/sidekiq/blob/main/COMM-LICENSE.txt).\n\nAuthor\n-----------------\n\nMike Perham, [bluesky](https://bsky.app/profile/mike.contribsys.com) / [mastodon](https://ruby.social/@getajobmike), [https://www.mikeperham.com](https://www.mikeperham.com) / [https://www.contribsys.com](https://www.contribsys.com)\n",
+        "releases": []
+    }
+}

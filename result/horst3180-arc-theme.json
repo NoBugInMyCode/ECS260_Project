@@ -1,0 +1,101 @@
+{
+    "https://api.github.com/repos/horst3180/arc-theme": {
+        "forks": 606,
+        "watchers": 8277,
+        "stars": 8277,
+        "languages": {
+            "CSS": 5550593,
+            "Shell": 9481,
+            "Makefile": 7150,
+            "M4": 3032,
+            "JavaScript": 568
+        },
+        "commits": [
+            "2017-05-12T15:52:43Z",
+            "2017-05-12T15:38:48Z",
+            "2017-05-12T15:11:09Z",
+            "2017-05-10T21:38:54Z",
+            "2017-03-02T18:02:12Z",
+            "2017-03-02T17:23:37Z",
+            "2017-03-02T16:51:44Z",
+            "2017-03-02T16:44:25Z",
+            "2017-01-29T09:39:48Z",
+            "2017-01-21T12:43:35Z",
+            "2017-01-21T12:40:17Z",
+            "2017-01-21T12:36:43Z",
+            "2017-01-11T13:07:31Z",
+            "2017-01-09T14:46:41Z",
+            "2017-01-09T14:41:26Z",
+            "2017-01-01T11:55:05Z",
+            "2016-12-30T18:34:54Z",
+            "2016-12-15T12:40:54Z",
+            "2016-11-25T17:53:51Z",
+            "2016-11-25T17:47:24Z",
+            "2016-11-25T15:34:48Z",
+            "2016-11-25T15:18:21Z",
+            "2016-11-25T15:15:39Z",
+            "2016-11-19T17:45:52Z",
+            "2016-11-19T11:44:08Z",
+            "2016-11-19T11:43:17Z",
+            "2016-11-07T22:07:39Z",
+            "2016-11-07T22:04:31Z",
+            "2016-11-07T21:59:30Z",
+            "2016-11-01T17:39:41Z"
+        ],
+        "creation_date": "2015-05-16T20:51:41Z",
+        "contributors": 27,
+        "topics": [],
+        "subscribers": 190,
+        "readme": "# Arc Theme\n\nArc is a flat theme with transparent elements for GTK 3, GTK 2 and GNOME Shell which supports GTK 3 and GTK 2 based desktop environments like GNOME, Unity, Budgie, Pantheon, Xfce, MATE, etc.\n\n## Arc is available in three variants \n\n##### Arc\n\n![A screenshot of the Arc theme](http://i.imgur.com/Ph5ObOa.png)\n\n##### Arc-Darker\n\n![A screenshot of the Arc-Darker theme](http://i.imgur.com/NC6dqyl.png)\n\n##### Arc-Dark\n\n![A screenshot of the Arc-Dark theme](http://i.imgur.com/5AGlCnA.png)\n\n## Installation\n\n### Packages\n\n|Distro|Package Name/Link|\n|:----:|:----:|\n| Arch Linux | `arc-gtk-theme`, [`gtk-theme-arc-git`](https://aur.archlinux.org/packages/gtk-theme-arc-git) (AUR) |\n| Debian 8 | [OBS Repo][obs-repo] |\n| Debian Testing/Unstable | `arc-theme` |\n| Fedora 21 - 23 | [OBS Repo][obs-repo] |\n| Fedora 24 -25 | `arc-theme` |\n| Gentoo/Funtoo | `x11-themes/arc-theme` from the [Scriptkitties Overlay][sk-overlay] |\n| openSUSE | [OBS Repo][obs-repo] |\n| Solus | `arc-gtk-theme` |\n| Ubuntu 15.04 - 16.04 | [OBS Repo][obs-repo] |\n| Ubuntu 16.10 | `arc-theme` |\n\n**elementary OS Note:** elementary OS Freya users can install the package for Ubuntu 15.04, Loki users can install the package for Ubuntu 16.04.\n\n**AUR Note:** If you're having trouble with the AUR packages please email the package maintainer at zach@zach-adams.com before creating an issue.\n\nA non-transparent version of the theme is available here: [Arc Solid OBS repo](http://software.opensuse.org/download.html?project=home%3AHorst3180&package=arc-theme-solid)\n\n--\n\n### Manual Installation\n\nTo build the theme the follwing packages are required \n* `autoconf`\n* `automake`\n* `pkg-config` or `pkgconfig` for Fedora\n* `libgtk-3-dev` for Debian based distros or `gtk3-devel` for RPM based distros\n* `git` to clone the source directory\n\n**Note:** For distributions which don't ship separate development packages, just the GTK 3 package is needed instead of the `-dev` packages.\n\nFor the theme to function properly, install the following\n* GNOME Shell 3.14 - 3.24, GTK 3.14 - 3.22\n* The `gnome-themes-standard` package\n* The murrine engine. This has different names depending on the distro.\n  * `gtk-engine-murrine` (Arch Linux)\n  * `gtk2-engines-murrine` (Debian, Ubuntu, elementary OS)\n  * `gtk-murrine-engine` (Fedora)\n  * `gtk2-engine-murrine` (openSUSE)\n  * `gtk-engines-murrine` (Gentoo)\n\nInstall the theme with the following commands\n\n#### 1. Get the source\n\nClone the git repository with\n\n    git clone https://github.com/horst3180/arc-theme --depth 1 && cd arc-theme\n\n#### 2. Build and install the theme\n\n    ./autogen.sh --prefix=/usr\n    sudo make install\n\nOther options to pass to autogen.sh are\n\n    --disable-transparency     disable transparency in the GTK3 theme\n    --disable-light            disable Arc Light support\n    --disable-darker           disable Arc Darker support\n    --disable-dark             disable Arc Dark support\n    --disable-cinnamon         disable Cinnamon support\n    --disable-gnome-shell      disable GNOME Shell support\n    --disable-gtk2             disable GTK2 support\n    --disable-gtk3             disable GTK3 support\n    --disable-metacity         disable Metacity support\n    --disable-unity            disable Unity support\n    --disable-xfwm             disable XFWM support\n\n    --with-gnome=<version>     build the theme for a specific GNOME version (3.14, 3.16, 3.18, 3.20, 3.22)\n                               Note 1: Normally the correct version is detected automatically and this\n                               option should not be needed.\n                               Note 2: For GNOME 3.24, use --with-gnome-version=3.22\n                               (this works for now, the build system will be improved in the future)\n\nAfter the installation is complete the theme can be activated with `gnome-tweak-tool` or a similar program by selecting `Arc`, `Arc-Darker` or `Arc-Dark` as Window/GTK+ theme and `Arc` or `Arc-Dark` as GNOME Shell/Cinnamon theme.\n\nIf the `--disable-transparency` option was used, the theme will be installed as `Arc-solid`, `Arc-Darker-solid` and `Arc-Dark-solid`.\n\n## Uninstall\n\nRun\n\n    sudo make uninstall\n\nfrom the cloned git repository, or\n\n    sudo rm -rf /usr/share/themes/{Arc,Arc-Darker,Arc-Dark}\n\n## Extras\n\n### Arc KDE\nA port of Arc for the Plasma 5 desktop with a few additions and extras. Available [here](https://github.com/PapirusDevelopmentTeam/arc-kde).\n\n### Arc Firefox theme\nA theme for Firefox is available at https://github.com/horst3180/arc-firefox-theme\n\n### Arc icon theme\nThe Arc icon theme is available at https://github.com/horst3180/arc-icon-theme\n\n### Chrome/Chromium theme\nTo install the Chrome/Chromium theme go to the `extra/Chrome` folder and drag and drop the arc-theme.crx or arc-dark-theme.crx file into the Chrome/Chromium window. The source of the Chrome themes is located in the source \"Chrome/arc-theme\" folder.\n\n### Plank theme\nTo install the Plank theme, copy the `extra/Arc-Plank` folder to `~/.local/share/plank/themes` or to `/usr/share/plank/themes` for system-wide use.\nNow open the Plank preferences window by executing `plank --preferences` from a terminal and select `Arc-Plank` as the theme.\n\n### Arc-Dark for Ubuntu Software Center\nThe Arc Dark theme for the Ubuntu Software Center by [mervick](https://github.com/mervick) can be installed from [here](https://github.com/mervick/arc-dark-software-center). It solves readability issues with Arc Dark and the Ubuntu Software Center.\n\n## Troubleshooting\n\nIf you use Ubuntu with a newer GTK/GNOME version than the one included by default (i.e Ubuntu 14.04 with GTK 3.14 or Ubuntu 15.04 with GTK 3.16, etc.) the prebuilt packages won't work properly and the theme has to be installed manually as described above.\nThis is also true for other distros with a different GTK/GNOME version than the one included by default\n\n--\n\nIf you get artifacts like black or invisible backgrounds under Unity, disable overlay scrollbars with\n\n    gsettings set com.canonical.desktop.interface scrollbar-mode normal\n\n\n## Bugs\nIf you find a bug, please report it at https://github.com/horst3180/arc-theme/issues\n\n## License\nArc is available under the terms of the GPL-3.0. See `COPYING` for details.\n\n## Full Preview\n![A full screenshot of the Arc theme](http://i.imgur.com/tD1OBQ3.png)\n<sub>Screenshot Details: Icons: [Arc](https://github.com/horst3180/arc-icon-theme) | Launcher Icons based on [White Pixel Icons](http://darkdawg.deviantart.com/art/White-Pixel-Icons-252310560) | [Wallpaper](https://pixabay.com/photo-869593/) | Font: Futura Bk bt</sub>\n\n[obs-repo]: http://software.opensuse.org/download.html?project=home%3AHorst3180&package=arc-theme\n[sk-overlay]: https://c.darenet.org/scriptkitties/overlay\n",
+        "releases": [
+            {
+                "name": "Release 20170302",
+                "date": "2017-03-02T18:23:31Z"
+            },
+            {
+                "name": "Release 20161119",
+                "date": "2016-11-19T18:00:13Z"
+            },
+            {
+                "name": "Release 20161005",
+                "date": "2016-10-05T12:52:29Z"
+            },
+            {
+                "name": " Release 20160923",
+                "date": "2016-09-23T21:19:28Z"
+            },
+            {
+                "name": "Release 20160605",
+                "date": "2016-06-05T13:02:45Z"
+            },
+            {
+                "name": "Release 20160530",
+                "date": "2016-05-30T20:45:52Z"
+            },
+            {
+                "name": "Release 20160331",
+                "date": "2016-03-31T19:56:14Z"
+            },
+            {
+                "name": "Release 20160324",
+                "date": "2016-03-24T00:03:32Z"
+            },
+            {
+                "name": "Release 20151214",
+                "date": "2015-12-14T00:12:43Z"
+            },
+            {
+                "name": "Release 20151031",
+                "date": "2015-10-31T17:49:32Z"
+            },
+            {
+                "name": "Release 20151002",
+                "date": "2015-10-03T09:29:52Z"
+            },
+            {
+                "name": "Release 20150922",
+                "date": "2015-09-21T23:18:49Z"
+            }
+        ]
+    }
+}

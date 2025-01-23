@@ -1,0 +1,202 @@
+{
+    "https://api.github.com/repos/crawlab-team/crawlab": {
+        "forks": 1806,
+        "watchers": 11473,
+        "stars": 11473,
+        "languages": {
+            "Go": 1109460,
+            "Shell": 15659,
+            "Dockerfile": 2690,
+            "Python": 502
+        },
+        "commits": [
+            "2024-10-09T02:35:09Z",
+            "2024-10-08T10:41:36Z",
+            "2024-10-07T09:19:09Z",
+            "2024-10-05T06:46:38Z",
+            "2024-09-29T08:54:22Z",
+            "2024-09-23T07:33:26Z",
+            "2024-09-23T05:23:18Z",
+            "2024-09-11T09:45:04Z",
+            "2024-09-04T09:07:32Z",
+            "2024-09-02T11:01:58Z",
+            "2024-08-29T09:21:18Z",
+            "2024-08-26T10:33:46Z",
+            "2024-08-18T14:01:55Z",
+            "2024-08-07T10:05:35Z",
+            "2024-08-06T07:35:36Z",
+            "2024-08-06T03:34:16Z",
+            "2024-08-05T08:07:19Z",
+            "2024-08-05T05:14:57Z",
+            "2024-08-04T08:58:46Z",
+            "2024-08-03T11:43:11Z",
+            "2024-07-31T08:02:34Z",
+            "2024-07-31T07:58:41Z",
+            "2024-07-30T09:33:42Z",
+            "2024-07-30T07:46:02Z",
+            "2024-07-30T04:35:18Z",
+            "2024-07-29T04:39:56Z",
+            "2024-07-27T11:29:43Z",
+            "2024-07-27T08:06:26Z",
+            "2024-07-26T10:15:15Z",
+            "2024-07-26T07:33:58Z"
+        ],
+        "creation_date": "2019-02-10T06:01:59Z",
+        "contributors": 28,
+        "topics": [
+            "crawlab",
+            "crawler",
+            "crawling-tasks",
+            "docker",
+            "go",
+            "platform",
+            "scrapy",
+            "scrapyd-ui",
+            "spider",
+            "spiders-management",
+            "web-crawler",
+            "webcrawler",
+            "webspider"
+        ],
+        "subscribers": 214,
+        "readme": "# Crawlab\n\n<p>\n  <a href=\"https://github.com/crawlab-team/crawlab/actions/workflows/docker-crawlab.yml\" target=\"_blank\">\n    <img src=\"https://github.com/crawlab-team/crawlab/workflows/Docker%20Image%20CI:%20crawlab/badge.svg\">\n  </a>\n  <a href=\"https://github.com/crawlab-team/crawlab/releases\" target=\"_blank\">\n    <img src=\"https://img.shields.io/github/release/crawlab-team/crawlab.svg?logo=github\">\n  </a>\n  <a href=\"https://github.com/crawlab-team/crawlab/commits/main\" target=\"_blank\">\n    <img src=\"https://img.shields.io/github/last-commit/crawlab-team/crawlab.svg\">\n  </a>\n  <a href=\"https://github.com/crawlab-team/crawlab/issues?q=is%3Aissue+is%3Aopen+label%3Abug\" target=\"_blank\">\n    <img src=\"https://img.shields.io/github/issues/crawlab-team/crawlab/bug.svg?label=bugs&color=red\">\n  </a>\n  <a href=\"https://github.com/crawlab-team/crawlab/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement\" target=\"_blank\">\n    <img src=\"https://img.shields.io/github/issues/crawlab-team/crawlab/enhancement.svg?label=enhancements&color=cyan\">\n  </a>\n  <a href=\"https://github.com/crawlab-team/crawlab/blob/main/LICENSE\" target=\"_blank\">\n    <img src=\"https://img.shields.io/github/license/crawlab-team/crawlab.svg\">\n  </a>\n</p>\n\n[\u4e2d\u6587](https://github.com/crawlab-team/crawlab/blob/main/README-zh.md) | English\n\n[Installation](#installation) | [Run](#run) | [Screenshot](#screenshot) | [Architecture](#architecture) | [Integration](#integration-with-other-frameworks) | [Compare](#comparison-with-other-frameworks) | [Community & Sponsorship](#community--sponsorship) | [CHANGELOG](https://github.com/crawlab-team/crawlab/blob/main/CHANGELOG.md) | [Disclaimer](https://github.com/crawlab-team/crawlab/blob/main/DISCLAIMER.md)\n\nGolang-based distributed web crawler management platform, supporting various languages including Python, NodeJS, Go, Java, PHP and various web crawler frameworks including Scrapy, Puppeteer, Selenium.\n\n[Demo](https://demo.crawlab.cn) | [Documentation](https://docs.crawlab.cn/en/)\n\n## Installation\n\nYou can follow the [installation guide](https://docs.crawlab.cn/en/guide/installation/).\n\n## Quick Start\n\nPlease open the command line prompt and execute the command below. Make sure you have installed `docker-compose` in advance.\n\n```bash\ngit clone https://github.com/crawlab-team/examples\ncd examples/docker/basic\ndocker-compose up -d\n```\n\nNext, you can look into the `docker-compose.yml` (with detailed config params) and the [Documentation](http://docs.crawlab.cn/en/) for further information. \n\n## Run\n\n### Docker\n\nPlease use `docker-compose` to one-click to start up. By doing so, you don't even have to configure MongoDB database. Create a file named `docker-compose.yml` and input the code below.\n\n\n```yaml\nversion: '3.3'\nservices:\n  master: \n    image: crawlabteam/crawlab:latest\n    container_name: crawlab_example_master\n    environment:\n      CRAWLAB_NODE_MASTER: \"Y\"\n      CRAWLAB_MONGO_HOST: \"mongo\"\n    volumes:\n      - \"./.crawlab/master:/root/.crawlab\"\n    ports:    \n      - \"8080:8080\"\n    depends_on:\n      - mongo\n\n  worker01: \n    image: crawlabteam/crawlab:latest\n    container_name: crawlab_example_worker01\n    environment:\n      CRAWLAB_NODE_MASTER: \"N\"\n      CRAWLAB_GRPC_ADDRESS: \"master\"\n      CRAWLAB_FS_FILER_URL: \"http://master:8080/api/filer\"\n    volumes:\n      - \"./.crawlab/worker01:/root/.crawlab\"\n    depends_on:\n      - master\n\n  worker02: \n    image: crawlabteam/crawlab:latest\n    container_name: crawlab_example_worker02\n    environment:\n      CRAWLAB_NODE_MASTER: \"N\"\n      CRAWLAB_GRPC_ADDRESS: \"master\"\n      CRAWLAB_FS_FILER_URL: \"http://master:8080/api/filer\"\n    volumes:\n      - \"./.crawlab/worker02:/root/.crawlab\"\n    depends_on:\n      - master\n\n  mongo:\n    image: mongo:4.2\n    container_name: crawlab_example_mongo\n    restart: always\n```\n\nThen execute the command below, and Crawlab Master and Worker Nodes + MongoDB will start up. Open the browser and enter `http://localhost:8080` to see the UI interface.\n\n```bash\ndocker-compose up -d\n```\n\nFor Docker Deployment details, please refer to [relevant documentation](https://docs.crawlab.cn/en/guide/installation/docker.html).\n\n\n## Screenshot\n\n#### Login\n\n![]( https://github.com/crawlab-team/images/blob/main/20210729/screenshot-login.png?raw=true)\n\n#### Home Page\n\n![]( https://github.com/crawlab-team/images/blob/main/20210729/screenshot-home.png?raw=true)\n\n#### Node List\n\n![]( https://github.com/crawlab-team/images/blob/main/20210729/screenshot-node-list.png?raw=true)\n\n#### Spider List\n\n![](https://github.com/crawlab-team/images/blob/main/20210729/screenshot-spider-list.png?raw=true)\n\n#### Spider Overview\n\n![](https://github.com/crawlab-team/images/blob/main/20210729/screenshot-spider-detail-overview.png?raw=true)\n\n#### Spider Files\n\n![](https://github.com/crawlab-team/images/blob/main/20210729/screenshot-spider-detail-files.png?raw=true)\n\n#### Task Log\n\n![](https://github.com/crawlab-team/images/blob/main/20210729/screenshot-task-detail-logs.png?raw=true)\n\n#### Task Results\n\n![](https://github.com/crawlab-team/images/blob/main/20210729/screenshot-task-detail-data.png?raw=true)\n\n#### Cron Job\n\n![](https://github.com/crawlab-team/images/blob/main/20210729/screenshot-schedule-detail-overview.png?raw=true)\n\n## Architecture\n\nThe architecture of Crawlab is consisted of a master node, worker nodes, [SeaweedFS](https://github.com/chrislusf/seaweedfs) (a distributed file system) and MongoDB database. \n\n![](https://github.com/crawlab-team/images/blob/main/20210729/crawlab-architecture-v0.6.png?raw=true)\n\nThe frontend app interacts with the master node, which communicates with other components such as MongoDB, SeaweedFS and worker nodes. Master node and worker nodes communicate with each other via [gRPC](https://grpc.io) (a RPC framework). Tasks are scheduled by the task scheduler module in the master node, and received by the task handler module in worker nodes, which executes these tasks in task runners. Task runners are actually processes running spider or crawler programs, and can also send data through gRPC (integrated in SDK) to other data sources, e.g. MongoDB.\n\n### Master Node\n\nThe Master Node is the core of the Crawlab architecture. It is the center control system of Crawlab.\n\nThe Master Node provides below services:\n1. Task Scheduling;\n2. Worker Node Management and Communication;\n3. Spider Deployment;\n4. Frontend and API Services;\n5. Task Execution (you can regard the Master Node as a Worker Node)\n\nThe Master Node communicates with the frontend app, and send crawling tasks to Worker Nodes. In the mean time, the Master Node uploads (deploys) spiders to the distributed file system SeaweedFS, for synchronization by worker nodes.\n\n### Worker Node\n\nThe main functionality of the Worker Nodes is to execute crawling tasks and store results and logs, and communicate with the Master Node through gRPC. By increasing the number of Worker Nodes, Crawlab can scale horizontally, and different crawling tasks can be assigned to different nodes to execute.\n\n### MongoDB\n\nMongoDB is the operational database of Crawlab. It stores data of nodes, spiders, tasks, schedules, etc. Task queue is also stored in MongoDB.\n\n### SeaweedFS\n\nSeaweedFS is an open source distributed file system authored by [Chris Lu](https://github.com/chrislusf). It can robustly store and share files across a distributed system. In Crawlab, SeaweedFS mainly plays the role as file synchronization system and the place where task log files are stored. \n\n### Frontend\n\nFrontend app is built upon [Element-Plus](https://github.com/element-plus/element-plus), a popular [Vue 3](https://github.com/vuejs/vue-next)-based UI framework. It interacts with API hosted on the Master Node, and indirectly controls Worker Nodes. \n\n## Integration with Other Frameworks\n\n[Crawlab SDK](https://github.com/crawlab-team/crawlab-sdk) provides some `helper` methods to make it easier for you to integrate your spiders into Crawlab, e.g. saving results.\n\n### Scrapy\n\nIn `settings.py` in your Scrapy project, find the variable named `ITEM_PIPELINES` (a `dict` variable). Add content below.\n\n```python\nITEM_PIPELINES = {\n    'crawlab.scrapy.pipelines.CrawlabPipeline': 888,\n}\n```\n\nThen, start the Scrapy spider. After it's done, you should be able to see scraped results in **Task Detail -> Data**\n\n### General Python Spider\n\nPlease add below content to your spider files to save results.\n\n```python\n# import result saving method\nfrom crawlab import save_item\n\n# this is a result record, must be dict type\nresult = {'name': 'crawlab'}\n\n# call result saving method\nsave_item(result)\n```\n\nThen, start the spider. After it's done, you should be able to see scraped results in **Task Detail -> Data**\n\n### Other Frameworks / Languages\n\nA crawling task is actually executed through a shell command. The Task ID will be passed to the crawling task process in the form of environment variable named `CRAWLAB_TASK_ID`. By doing so, the data can be related to a task.\n\n## Comparison with Other Frameworks\n\nThere are existing spider management frameworks. So why use Crawlab? \n\nThe reason is that most of the existing platforms are depending on Scrapyd, which limits the choice only within python and scrapy. Surely scrapy is a great web crawl framework, but it cannot do everything. \n\nCrawlab is easy to use, general enough to adapt spiders in any language and any framework. It has also a beautiful frontend interface for users to manage spiders much more easily. \n\n|Framework | Technology | Pros | Cons | Github Stats |\n|:---|:---|:---|-----| :---- |\n| [Crawlab](https://github.com/crawlab-team/crawlab) | Golang + Vue|Not limited to Scrapy, available for all programming languages and frameworks. Beautiful UI interface. Naturally support distributed spiders. Support spider management, task management, cron job, result export, analytics, notifications, configurable spiders, online code editor, etc.|Not yet support spider versioning| ![](https://img.shields.io/github/stars/crawlab-team/crawlab) ![](https://img.shields.io/github/forks/crawlab-team/crawlab) |\n| [ScrapydWeb](https://github.com/my8100/scrapydweb) | Python Flask + Vue|Beautiful UI interface, built-in Scrapy log parser, stats and graphs for task execution, support node management, cron job, mail notification, mobile. Full-feature spider management platform.|Not support spiders other than Scrapy. Limited performance because of Python Flask backend.| ![](https://img.shields.io/github/stars/my8100/scrapydweb) ![](https://img.shields.io/github/forks/my8100/scrapydweb) |\n| [Gerapy](https://github.com/Gerapy/Gerapy) | Python Django + Vue|Gerapy is built by web crawler guru [Germey Cui](https://github.com/Germey). Simple installation and deployment. Beautiful UI interface. Support node management, code edit, configurable crawl rules, etc.|Again not support spiders other than Scrapy. A lot of bugs based on user feedback in v1.0. Look forward to improvement in v2.0| ![](https://img.shields.io/github/stars/Gerapy/Gerapy) ![](https://img.shields.io/github/forks/Gerapy/Gerapy) |\n| [SpiderKeeper](https://github.com/DormyMo/SpiderKeeper) | Python Flask|Open-source Scrapyhub. Concise and simple UI interface. Support cron job.|Perhaps too simplified, not support pagination, not support node management, not support spiders other than Scrapy.| ![](https://img.shields.io/github/stars/DormyMo/SpiderKeeper) ![](https://img.shields.io/github/forks/DormyMo/SpiderKeeper) |\n\n## Contributors\n<a href=\"https://github.com/tikazyq\">\n  <img src=\"https://avatars3.githubusercontent.com/u/3393101?s=460&v=4\" height=\"80\">\n</a>\n<a href=\"https://github.com/wo10378931\">\n  <img src=\"https://avatars2.githubusercontent.com/u/8297691?s=460&v=4\" height=\"80\">\n</a>\n<a href=\"https://github.com/yaziming\">\n  <img src=\"https://avatars2.githubusercontent.com/u/54052849?s=460&v=4\" height=\"80\">\n</a>\n<a href=\"https://github.com/hantmac\">\n  <img src=\"https://avatars2.githubusercontent.com/u/7600925?s=460&v=4\" height=\"80\">\n</a>\n<a href=\"https://github.com/duanbin0414\">\n  <img src=\"https://avatars3.githubusercontent.com/u/50389867?s=460&v=4\" height=\"80\">\n</a>\n<a href=\"https://github.com/zkqiang\">\n  <img src=\"https://avatars3.githubusercontent.com/u/32983588?s=460&u=83082ddc0a3020279374b94cce70f1aebb220b3d&v=4\" height=\"80\">\n</a>\n\n## Supported by JetBrains\n\n<p align=\"center\">\n  <a href=\"https://www.jetbrains.com\" target=\"_blank\">\n    <img src=\"https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png\" height=\"360\">\n  </a>\n</p>\n\n## Community\n\nIf you feel Crawlab could benefit your daily work or your company, please add the author's Wechat account noting \"Crawlab\" to enter the discussion group.\n\n<p align=\"center\">\n    <img src=\"https://crawlab.oss-cn-hangzhou.aliyuncs.com/gitbook/qrcode.png\" height=\"360\">\n</p>\n",
+        "releases": [
+            {
+                "name": "v0.6.3-dev",
+                "date": "2024-06-14T07:49:34Z"
+            },
+            {
+                "name": "v0.6.3",
+                "date": "2023-07-26T08:10:03Z"
+            },
+            {
+                "name": "v0.6.2",
+                "date": "2023-06-16T05:50:30Z"
+            },
+            {
+                "name": "v0.6.1",
+                "date": "2023-03-23T05:07:24Z"
+            },
+            {
+                "name": "v0.6.0-1",
+                "date": "2022-10-27T04:45:18Z"
+            },
+            {
+                "name": "v0.6.0",
+                "date": "2022-05-23T01:11:57Z"
+            },
+            {
+                "name": "v0.6.0-beta.20211224",
+                "date": "2021-12-24T10:17:45Z"
+            },
+            {
+                "name": "v0.6.0-beta.20211120",
+                "date": "2021-11-20T13:44:09Z"
+            },
+            {
+                "name": "v0.6.0-beta.20210803",
+                "date": "2021-08-03T14:53:44Z"
+            },
+            {
+                "name": "v0.5.1",
+                "date": "2020-07-31T05:43:42Z"
+            },
+            {
+                "name": "v0.5.0",
+                "date": "2020-07-19T10:29:28Z"
+            },
+            {
+                "name": "v0.4.10",
+                "date": "2020-04-23T07:07:12Z"
+            },
+            {
+                "name": "v0.4.9",
+                "date": "2020-03-31T03:04:22Z"
+            },
+            {
+                "name": "v0.4.8",
+                "date": "2020-03-11T11:06:41Z"
+            },
+            {
+                "name": "v0.4.7",
+                "date": "2020-02-24T09:43:22Z"
+            },
+            {
+                "name": "v0.4.6",
+                "date": "2020-02-13T10:42:57Z"
+            },
+            {
+                "name": "v0.4.5",
+                "date": "2020-02-03T09:11:49Z"
+            },
+            {
+                "name": "v0.4.4",
+                "date": "2020-01-17T06:32:57Z"
+            },
+            {
+                "name": "v0.4.3",
+                "date": "2020-01-07T08:31:53Z"
+            },
+            {
+                "name": "v0.4.2",
+                "date": "2019-12-28T04:53:52Z"
+            },
+            {
+                "name": "v0.4.1",
+                "date": "2019-12-15T04:39:11Z"
+            },
+            {
+                "name": "v0.4.0",
+                "date": "2019-12-06T11:53:59Z"
+            },
+            {
+                "name": "v0.3.5",
+                "date": "2019-10-28T07:35:48Z"
+            },
+            {
+                "name": "v0.3.4",
+                "date": "2019-10-08T12:31:42Z"
+            },
+            {
+                "name": "V0.3.3",
+                "date": "2019-10-07T05:10:02Z"
+            },
+            {
+                "name": "V0.3.2",
+                "date": "2019-09-30T11:29:03Z"
+            },
+            {
+                "name": "v0.3.1",
+                "date": "2019-08-25T02:31:04Z"
+            },
+            {
+                "name": "v0.3.0",
+                "date": "2019-07-31T05:13:06Z"
+            },
+            {
+                "name": "v0.2.4",
+                "date": "2019-07-22T04:35:52Z"
+            },
+            {
+                "name": "Docker",
+                "date": "2019-06-12T14:09:16Z"
+            },
+            {
+                "name": "Automatic Extract Fields",
+                "date": "2019-05-30T05:27:27Z"
+            },
+            {
+                "name": "Configurable Spider",
+                "date": "2019-05-27T04:00:12Z"
+            },
+            {
+                "name": "Advanced Analytics",
+                "date": "2019-05-10T13:29:17Z"
+            },
+            {
+                "name": "Basic Stats",
+                "date": "2019-04-23T12:49:21Z"
+            }
+        ]
+    }
+}

@@ -1,0 +1,572 @@
+{
+    "https://api.github.com/repos/rectorphp/rector": {
+        "forks": 699,
+        "watchers": 9194,
+        "stars": 9194,
+        "languages": {
+            "PHP": 3594071
+        },
+        "commits": [
+            "2025-01-22T03:33:51Z",
+            "2025-01-22T03:27:06Z",
+            "2025-01-21T19:51:02Z",
+            "2025-01-21T13:19:34Z",
+            "2025-01-21T12:28:46Z",
+            "2025-01-20T05:32:16Z",
+            "2025-01-20T04:09:53Z",
+            "2025-01-19T18:43:51Z",
+            "2025-01-19T18:20:55Z",
+            "2025-01-19T18:13:27Z",
+            "2025-01-19T16:58:37Z",
+            "2025-01-19T09:41:28Z",
+            "2025-01-19T08:22:28Z",
+            "2025-01-19T00:36:20Z",
+            "2025-01-18T19:28:01Z",
+            "2025-01-18T15:46:56Z",
+            "2025-01-17T17:51:49Z",
+            "2025-01-17T14:52:45Z",
+            "2025-01-16T18:49:05Z",
+            "2025-01-16T13:56:00Z",
+            "2025-01-16T13:34:37Z",
+            "2025-01-16T12:05:30Z",
+            "2025-01-16T10:06:07Z",
+            "2025-01-16T09:34:43Z",
+            "2025-01-16T00:09:19Z",
+            "2025-01-15T02:55:20Z",
+            "2025-01-13T11:22:50Z",
+            "2025-01-11T18:55:51Z",
+            "2025-01-11T15:39:06Z",
+            "2025-01-11T13:34:12Z"
+        ],
+        "creation_date": "2017-07-15T11:16:02Z",
+        "contributors": 30,
+        "topics": [
+            "ast",
+            "automated-upgrades",
+            "instant-upgrades",
+            "php",
+            "rector",
+            "upgrade"
+        ],
+        "subscribers": 87,
+        "readme": "# Rector - Instant Upgrades and Automated Refactoring\n\n[![Downloads](https://img.shields.io/packagist/dt/rector/rector.svg?style=flat-square)](https://packagist.org/packages/rector/rector)\n\n<br>\n\nRector instantly upgrades and refactors the PHP code of your application.  It can help you in 2 major areas:\n\n### 1. Instant Upgrades\n\nRector now supports upgrades from PHP 5.3 to 8.4 and major open-source projects like [Symfony](https://github.com/rectorphp/rector-symfony), [PHPUnit](https://github.com/rectorphp/rector-phpunit), and [Doctrine](https://github.com/rectorphp/rector-doctrine). Do you want to **be constantly on the latest PHP and Framework without effort**?\n\nUse Rector to handle **instant upgrades** for you.\n\n### 2. Automated Refactoring\n\nDo you have code quality you need, but struggle to keep it with new developers in your team? Do you want to see smart code-reviews even when every senior developers sleeps?\n\nAdd Rector to your CI and let it **continuously refactor your code** and keep the code quality high.\n\nRead our [blogpost](https://getrector.com/blog/new-setup-ci-command-to-let-rector-work-for-you) to see how to set up automated refactoring.\n\n## Install\n\n```bash\ncomposer require rector/rector --dev\n```\n\n## Running Rector\n\nThere are 2 main ways to use Rector:\n\n- a *single rule*, to have the change under control\n- or group of rules called *sets*\n\nTo use them, create a `rector.php` in your root directory:\n\n```bash\nvendor/bin/rector\n```\n\nAnd modify it:\n\n```php\nuse Rector\\Config\\RectorConfig;\nuse Rector\\TypeDeclaration\\Rector\\Property\\TypedPropertyFromStrictConstructorRector;\n\nreturn RectorConfig::configure()\n    // register single rule\n    ->withRules([\n        TypedPropertyFromStrictConstructorRector::class\n    ])\n    // here we can define, what prepared sets of rules will be applied\n    ->withPreparedSets(\n        deadCode: true,\n        codeQuality: true\n    );\n```\n\nThen dry run Rector:\n\n```bash\nvendor/bin/rector process src --dry-run\n```\n\nRector will show you diff of files that it *would* change. To *make* the changes, drop `--dry-run`:\n\n```bash\nvendor/bin/rector process src\n```\n\n## Documentation\n\n* Find [full documentation here](https://getrector.com/documentation/).\n* [Explore Rector Rules](https://getrector.com/find-rule)\n\n<br>\n\n## Learn Faster with a Book\n\nAre you curious, how Rector works internally, how to create your own rules and test them and why Rector was born?\nRead [Rector - The Power of Automated Refactoring](https://leanpub.com/rector-the-power-of-automated-refactoring) that will take you step by step through the Rector setup and how to create your own rules.\n\n<br>\n\n## Empowered by Community :heart:\n\nThe Rector community is powerful thanks to active maintainers who take care of Rector sets for particular projects.\n\nAmong there projects belong:\n\n* [palantirnet/drupal-rector](https://github.com/palantirnet/drupal-rector)\n* [craftcms/rector](https://github.com/craftcms/rector)\n* [FriendsOfShopware/shopware-rector](https://github.com/FriendsOfShopware/shopware-rector)\n* [sabbelasichon/typo3-rector](https://github.com/sabbelasichon/typo3-rector)\n* [sulu/sulu-rector](https://github.com/sulu/sulu-rector)\n* [efabrica-team/rector-nette](https://github.com/efabrica-team/rector-nette)\n* [Sylius/SyliusRector](https://github.com/Sylius/SyliusRector)\n* [CoditoNet/rector-money](https://github.com/CoditoNet/rector-money)\n* [laminas/laminas-servicemanager-migration](https://github.com/laminas/laminas-servicemanager-migration)\n* [cakephp/upgrade](https://github.com/cakephp/upgrade)\n* [driftingly/rector-laravel](https://github.com/driftingly/rector-laravel)\n* [contao/contao-rector](https://github.com/contao/contao-rector)\n* [php-static-analysis/rector-rule](https://github.com/php-static-analysis/rector-rule)\n\n<br>\n\n## Hire us to get Job Done :muscle:\n\nRector is a tool that [we develop](https://getrector.com/) and share for free, so anyone can automate their refactoring. But not everyone has dozens of hours to understand complexity of abstract-syntax-tree in their own time. **That's why we provide commercial support - to save your time**.\n\nWould you like to apply Rector on your code base but don't have time for the struggle with your project? [Hire us](https://getrector.com/contact) to get there faster.\n\n<br>\n\n## How to Contribute\n\nSee [the contribution guide](/CONTRIBUTING.md) or go to development repository [rector/rector-src](https://github.com/rectorphp/rector-src).\n\n<br>\n\n## Debugging\n\nYou can use `--debug` option, that will print nested exceptions output:\n\n```bash\nvendor/bin/rector process src/Controller --dry-run --debug\n```\n\nOr with Xdebug:\n\n1. Make sure [Xdebug](https://xdebug.org/) is installed and configured\n2. Add `--xdebug` option when running Rector\n\n```bash\nvendor/bin/rector process src/Controller --dry-run --xdebug\n```\n\nTo assist with simple debugging Rector provides 2 helpers to pretty-print AST-nodes:\n\n```php\nuse PhpParser\\Node\\Scalar\\String_;\n$node = new String_('hello world!');\n\n// prints node to string, as PHP code displays it\nprint_node($node);\n```\n\n<br>\n\n## Known Drawbacks\n\n* Rector uses [nikic/php-parser](https://github.com/nikic/PHP-Parser/), built on technology called an *abstract syntax tree* (AST). An AST doesn't know about spaces and when written to a file it produces poorly formatted code in both PHP and docblock annotations.\n\n* Rector in parallel mode will work most of the times for most OS. On Windows, you may encounter issues unresolvable despite of following the [Troubleshooting Parallel](https://getrector.com/documentation/troubleshooting-parallel) guide. In such case, check if you are using Powershell 7 (pwsh). Change your terminal to command prompt (cmd) or bash for Windows.\n\n### How to Apply Coding Standards?\n\n**Your project needs to have a coding standard tool** and a set of formatting rules, so it can make Rector's output code nice and shiny again.\n\nWe're using [ECS](https://github.com/symplify/easy-coding-standard) with [this setup](https://github.com/rectorphp/rector-src/blob/main/ecs.php).\n\n### May cause unexpected output on File with mixed PHP+HTML content\n\nWhen you apply changes to files with PHP + HTML content, you may need to manually verify the changed file after apply the changes.\n",
+        "releases": [
+            {
+                "name": "Released Rector 2.0.7",
+                "date": "2025-01-19T10:35:23Z"
+            },
+            {
+                "name": "Released: Rector 2.0.6",
+                "date": "2025-01-06T10:48:03Z"
+            },
+            {
+                "name": "Released: Rector 2.0.5",
+                "date": "2024-12-31T13:15:24Z"
+            },
+            {
+                "name": "Released Rector 2.0.4",
+                "date": "2024-12-26T23:19:02Z"
+            },
+            {
+                "name": "Released Rector 2.0",
+                "date": "2024-12-12T10:52:23Z"
+            },
+            {
+                "name": "Released Rector 1.2.10",
+                "date": "2024-11-08T14:03:51Z"
+            },
+            {
+                "name": "Released Rector 1.2.9",
+                "date": "2024-11-04T18:30:47Z"
+            },
+            {
+                "name": "Released Rector 1.2.8",
+                "date": "2024-10-18T11:57:58Z"
+            },
+            {
+                "name": "Released Rector 1.2.7",
+                "date": "2024-10-12T11:27:25Z"
+            },
+            {
+                "name": "Released Rector 1.2.6",
+                "date": "2024-10-03T09:09:44Z"
+            },
+            {
+                "name": "Released Rector 1.2.5",
+                "date": "2024-09-08T19:39:03Z"
+            },
+            {
+                "name": "Released Rector 1.2.4",
+                "date": "2024-08-23T09:09:40Z"
+            },
+            {
+                "name": "Released Rector 1.2.3",
+                "date": "2024-08-12T16:51:51Z"
+            },
+            {
+                "name": "Released Rector 1.2.2",
+                "date": "2024-07-25T07:53:07Z"
+            },
+            {
+                "name": "Released Rector 1.2.1",
+                "date": "2024-07-16T00:42:58Z"
+            },
+            {
+                "name": "Released Rector 1.2.0",
+                "date": "2024-07-01T14:25:21Z"
+            },
+            {
+                "name": "Released Rector 1.1.1",
+                "date": "2024-06-21T08:37:11Z"
+            },
+            {
+                "name": "Released Rector 1.1.0",
+                "date": "2024-05-18T11:44:09Z"
+            },
+            {
+                "name": "Released Rector 1.0.5",
+                "date": "2024-05-10T07:46:41Z"
+            },
+            {
+                "name": "Released Rector 1.0.4",
+                "date": "2024-04-05T22:13:21Z"
+            },
+            {
+                "name": "Released Rector 1.0.3",
+                "date": "2024-03-14T16:43:50Z"
+            },
+            {
+                "name": "Released Rector 1.0.2",
+                "date": "2024-03-03T12:45:37Z"
+            },
+            {
+                "name": "Released Rector 1.0.1",
+                "date": "2024-02-16T08:38:16Z"
+            },
+            {
+                "name": "Released Rector 1.0.0 \ud83c\udf89\ud83c\udf89\ud83c\udf89",
+                "date": "2024-02-08T16:51:05Z"
+            },
+            {
+                "name": "Released Rector 0.19.8",
+                "date": "2024-02-07T16:25:24Z"
+            },
+            {
+                "name": "Released Rector 0.19.7",
+                "date": "2024-02-04T23:23:20Z"
+            },
+            {
+                "name": "Released Rector 0.19.6",
+                "date": "2024-02-04T12:57:54Z"
+            },
+            {
+                "name": "Released Rector 0.19.5",
+                "date": "2024-01-29T23:54:15Z"
+            },
+            {
+                "name": "Released Rector 0.19.4",
+                "date": "2024-01-29T23:53:28Z"
+            },
+            {
+                "name": "Released Rector 0.19.3",
+                "date": "2024-01-29T19:55:48Z"
+            },
+            {
+                "name": "Released Rector 0.19.2",
+                "date": "2024-01-19T11:29:45Z"
+            },
+            {
+                "name": "Released Rector 0.19.0",
+                "date": "2024-01-09T00:58:03Z"
+            },
+            {
+                "name": "Released Rector 0.18.13",
+                "date": "2023-12-20T16:24:12Z"
+            },
+            {
+                "name": "Released Rector 0.18.12",
+                "date": "2023-12-04T09:49:27Z"
+            },
+            {
+                "name": "Released Rector 0.18.11",
+                "date": "2023-11-27T13:32:30Z"
+            },
+            {
+                "name": "Released Rector 0.18.10",
+                "date": "2023-11-17T15:10:26Z"
+            },
+            {
+                "name": "Released Rector 0.18.9",
+                "date": "2023-11-17T15:08:23Z"
+            },
+            {
+                "name": "Released Rector 0.18.8",
+                "date": "2023-11-14T15:34:04Z"
+            },
+            {
+                "name": "Released Rector 0.18.7",
+                "date": "2023-11-13T10:19:30Z"
+            },
+            {
+                "name": "Released Rector 0.18.6",
+                "date": "2023-10-24T15:03:03Z"
+            },
+            {
+                "name": "Released Rector 0.18.5",
+                "date": "2023-10-05T11:43:14Z"
+            },
+            {
+                "name": "Released Rector 0.18.4",
+                "date": "2023-09-25T17:18:28Z"
+            },
+            {
+                "name": "Released Rector 0.18.3",
+                "date": "2023-09-12T22:44:02Z"
+            },
+            {
+                "name": "Released Rector 0.18.2",
+                "date": "2023-09-06T09:58:46Z"
+            },
+            {
+                "name": "Released Rector 0.18.1",
+                "date": "2023-08-29T08:52:52Z"
+            },
+            {
+                "name": "Released Rector 0.18.0 with Laravel container \u26a1\ufe0f",
+                "date": "2023-08-17T13:07:14Z"
+            },
+            {
+                "name": "Released Rector 0.17.13",
+                "date": "2023-08-14T17:22:57Z"
+            },
+            {
+                "name": "Released Rector 0.17.11",
+                "date": "2023-08-10T13:19:55Z"
+            },
+            {
+                "name": "Released Rector 0.17.10",
+                "date": "2023-08-03T14:21:30Z"
+            },
+            {
+                "name": "Released Rector 0.17.9",
+                "date": "2023-08-03T13:15:03Z"
+            },
+            {
+                "name": "Released Rector 0.17.8",
+                "date": "2023-08-03T12:56:53Z"
+            },
+            {
+                "name": "Released Rector 0.17.7",
+                "date": "2023-07-23T21:16:12Z"
+            },
+            {
+                "name": "Released Rector 0.17.6",
+                "date": "2023-07-14T09:55:46Z"
+            },
+            {
+                "name": "Released Rector 0.17.5",
+                "date": "2023-07-12T08:42:37Z"
+            },
+            {
+                "name": "Released Rector 0.17.4",
+                "date": "2023-07-11T16:06:00Z"
+            },
+            {
+                "name": "Released Rector 0.17.3",
+                "date": "2023-07-10T13:34:14Z"
+            },
+            {
+                "name": "Released Rector 0.17.2",
+                "date": "2023-06-29T12:57:47Z"
+            },
+            {
+                "name": "Released Rector 0.17.1",
+                "date": "2023-06-14T10:14:20Z"
+            },
+            {
+                "name": "Released Rector 0.17",
+                "date": "2023-06-01T10:29:26Z"
+            },
+            {
+                "name": "Released Rector 0.16.0",
+                "date": "2023-05-05T13:58:51Z"
+            },
+            {
+                "name": "Released Rector 0.15.24",
+                "date": "2023-04-08T11:00:08Z"
+            },
+            {
+                "name": "Released Rector 0.15.23",
+                "date": "2023-04-08T10:50:54Z"
+            },
+            {
+                "name": "Released Rector 0.15.22",
+                "date": "2023-03-22T12:09:12Z"
+            },
+            {
+                "name": "Released Rector 0.15.20",
+                "date": "2023-03-05T11:27:57Z"
+            },
+            {
+                "name": "Released Rector 0.15.19",
+                "date": "2023-02-28T11:48:10Z"
+            },
+            {
+                "name": "Released Rector 0.15.18",
+                "date": "2023-02-22T12:17:33Z"
+            },
+            {
+                "name": "Released Rector 0.15.17",
+                "date": "2023-02-17T22:25:48Z"
+            },
+            {
+                "name": "Released Rector 0.15.15",
+                "date": "2023-02-14T20:21:56Z"
+            },
+            {
+                "name": "Released Rector 0.15.13",
+                "date": "2023-02-07T01:53:40Z"
+            },
+            {
+                "name": "Released Rector 0.15.12",
+                "date": "2023-02-04T14:00:27Z"
+            },
+            {
+                "name": "Released Rector 0.15.8",
+                "date": "2023-01-20T20:45:46Z"
+            },
+            {
+                "name": "Released Rector 0.15.7",
+                "date": "2023-01-13T21:15:22Z"
+            },
+            {
+                "name": "Released Rector 0.15.6",
+                "date": "2023-01-13T19:12:23Z"
+            },
+            {
+                "name": "Released Rector 0.15.5",
+                "date": "2023-01-13T18:38:58Z"
+            },
+            {
+                "name": "Released Rector 0.15.4",
+                "date": "2023-01-10T11:11:05Z"
+            },
+            {
+                "name": "Released Rector 0.15.3",
+                "date": "2023-01-08T16:19:59Z"
+            },
+            {
+                "name": "Released Rector 0.15.2",
+                "date": "2022-12-24T13:09:25Z"
+            },
+            {
+                "name": "Released Rector 0.15.1",
+                "date": "2022-12-14T19:06:43Z"
+            },
+            {
+                "name": "Released Rector 0.15",
+                "date": "2022-12-04T23:52:01Z"
+            },
+            {
+                "name": "Released Rector 0.14.8",
+                "date": "2022-11-14T15:03:44Z"
+            },
+            {
+                "name": "Released Rector 0.14.7",
+                "date": "2022-11-07T09:35:18Z"
+            },
+            {
+                "name": "Released Rector 0.14.6",
+                "date": "2022-10-15T23:03:39Z"
+            },
+            {
+                "name": "Released Rector 0.14.5",
+                "date": "2022-09-29T11:06:53Z"
+            },
+            {
+                "name": "Released Rector 0.14.4",
+                "date": "2022-09-27T23:40:56Z"
+            },
+            {
+                "name": "Released Rector 0.14.3",
+                "date": "2022-09-23T10:02:55Z"
+            },
+            {
+                "name": "Released Rector 0.14.2",
+                "date": "2022-09-04T16:42:34Z"
+            },
+            {
+                "name": "Released Rector 0.14.1",
+                "date": "2022-09-03T08:55:53Z"
+            },
+            {
+                "name": "Released Rector 0.14",
+                "date": "2022-08-17T22:34:58Z"
+            },
+            {
+                "name": "Released Rector 0.13.10",
+                "date": "2022-08-03T12:54:26Z"
+            },
+            {
+                "name": "Released Rector 0.13.9",
+                "date": "2022-07-23T11:54:24Z"
+            },
+            {
+                "name": "Released Rector 0.13.8",
+                "date": "2022-07-07T09:47:08Z"
+            },
+            {
+                "name": "Released Rector 0.13.7",
+                "date": "2022-06-29T12:05:36Z"
+            },
+            {
+                "name": "Released Rector 0.13.6",
+                "date": "2022-06-21T15:37:47Z"
+            },
+            {
+                "name": "Released Rector 0.13.5",
+                "date": "2022-06-09T13:19:08Z"
+            },
+            {
+                "name": "Released Rector 0.13.4",
+                "date": "2022-06-04T08:24:17Z"
+            },
+            {
+                "name": "Released Rector 0.13.3",
+                "date": "2022-05-31T12:41:19Z"
+            },
+            {
+                "name": "Released Rector 0.13.2",
+                "date": "2022-05-27T21:49:01Z"
+            },
+            {
+                "name": "Released Rector 0.13.1",
+                "date": "2022-05-27T18:27:38Z"
+            },
+            {
+                "name": "Released Rector 0.13 with Scope Refresh and StmtsAwareInterface",
+                "date": "2022-05-23T10:59:49Z"
+            },
+            {
+                "name": "Released Rector 0.12.23",
+                "date": "2022-05-01T15:51:23Z"
+            },
+            {
+                "name": "Released Rector 0.12.22",
+                "date": "2022-04-28T00:07:00Z"
+            },
+            {
+                "name": "Released Rector 0.12.21",
+                "date": "2022-04-18T12:45:23Z"
+            },
+            {
+                "name": "Released Rector 0.12.20",
+                "date": "2022-04-06T13:14:33Z"
+            },
+            {
+                "name": "Released Rector 0.12.19",
+                "date": "2022-03-23T14:23:00Z"
+            },
+            {
+                "name": "Released Rector 0.12.18",
+                "date": "2022-03-20T23:07:23Z"
+            },
+            {
+                "name": "Released Rector 0.12.17",
+                "date": "2022-03-03T12:26:12Z"
+            },
+            {
+                "name": "Released Rector 0.12.16",
+                "date": "2022-02-09T15:47:18Z"
+            },
+            {
+                "name": "Released Rector 0.12.15",
+                "date": "2022-01-26T13:07:40Z"
+            },
+            {
+                "name": "Released Rector 0.12.14",
+                "date": "2022-01-25T19:36:02Z"
+            },
+            {
+                "name": "Released Rector 0.12.13",
+                "date": "2022-01-25T19:27:07Z"
+            },
+            {
+                "name": "Released Rector 0.12.12",
+                "date": "2022-01-07T16:51:24Z"
+            },
+            {
+                "name": "Released Rector 0.12.11",
+                "date": "2022-01-06T12:40:59Z"
+            },
+            {
+                "name": "Released Rector 0.12.10",
+                "date": "2021-12-31T12:58:45Z"
+            },
+            {
+                "name": "Released Rector 0.12.9",
+                "date": "2021-12-22T00:08:42Z"
+            },
+            {
+                "name": "Released Rector 0.12.8",
+                "date": "2021-12-14T09:17:27Z"
+            },
+            {
+                "name": "Released Rector 0.12.7",
+                "date": "2021-12-10T00:44:53Z"
+            },
+            {
+                "name": "Released Rector 0.12.5",
+                "date": "2021-11-23T17:43:40Z"
+            },
+            {
+                "name": "Released Rector 0.12.4",
+                "date": "2021-11-15T14:15:52Z"
+            },
+            {
+                "name": "Released Rector 0.12.3",
+                "date": "2021-11-11T10:21:23Z"
+            },
+            {
+                "name": "Released Rector 0.12.2",
+                "date": "2021-11-10T18:54:09Z"
+            },
+            {
+                "name": "Released Rector 0.12.1",
+                "date": "2021-11-09T16:39:25Z"
+            },
+            {
+                "name": "Released Rector 0.12 with PHPStan 1.0 and lighter Kernel",
+                "date": "2021-11-09T12:11:50Z"
+            },
+            {
+                "name": "Released Rector 0.11 with Scoped and PHP 7.1 version by Default",
+                "date": "2021-05-13T17:00:33Z"
+            },
+            {
+                "name": "Released Rector 0.10.16 fixing version and allowing older php-parser",
+                "date": "2021-04-30T09:03:44Z"
+            },
+            {
+                "name": "Released Rector 0.10.4 with Static Annotation Parser",
+                "date": "2021-04-09T16:34:25Z"
+            },
+            {
+                "name": "Released Rector 0.10 with Static Reflection and PHP 7.1 version",
+                "date": "2021-03-22T12:46:40Z"
+            },
+            {
+                "name": "Released Rector 0.9",
+                "date": "2020-12-28T13:29:47Z"
+            },
+            {
+                "name": "0.8.46",
+                "date": "2020-11-01T21:18:08Z"
+            },
+            {
+                "name": "0.8.28",
+                "date": "2020-10-15T23:10:42Z"
+            }
+        ]
+    }
+}

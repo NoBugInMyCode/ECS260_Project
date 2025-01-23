@@ -1,0 +1,302 @@
+{
+    "https://api.github.com/repos/koral--/android-gif-drawable": {
+        "forks": 1777,
+        "watchers": 9571,
+        "stars": 9571,
+        "languages": {
+            "Java": 165023,
+            "C": 116119,
+            "Assembly": 2468,
+            "CMake": 662
+        },
+        "commits": [
+            "2024-07-10T09:35:22Z",
+            "2023-10-24T13:12:55Z",
+            "2023-10-02T07:48:48Z",
+            "2023-08-29T17:59:15Z",
+            "2023-07-03T11:36:35Z",
+            "2023-06-30T18:54:33Z",
+            "2022-08-29T17:25:27Z",
+            "2022-08-29T17:04:06Z",
+            "2022-08-18T00:24:35Z",
+            "2022-07-09T14:05:06Z",
+            "2022-01-17T01:44:00Z",
+            "2021-11-30T12:10:25Z",
+            "2021-08-13T14:34:01Z",
+            "2021-03-08T07:32:02Z",
+            "2021-03-08T07:24:15Z",
+            "2021-02-04T00:10:47Z",
+            "2021-02-03T00:21:26Z",
+            "2021-02-03T00:15:20Z",
+            "2020-10-04T02:35:45Z",
+            "2020-08-26T16:37:40Z",
+            "2020-08-26T16:33:06Z",
+            "2020-05-03T20:34:47Z",
+            "2020-05-03T20:19:13Z",
+            "2020-05-03T16:18:22Z",
+            "2020-05-03T15:35:38Z",
+            "2020-04-23T09:54:21Z",
+            "2020-04-23T01:01:23Z",
+            "2020-04-23T01:01:01Z",
+            "2020-02-10T11:33:13Z",
+            "2019-12-09T16:34:44Z"
+        ],
+        "creation_date": "2013-01-30T01:37:46Z",
+        "contributors": 24,
+        "topics": [
+            "android",
+            "animated-gifs",
+            "drawable",
+            "gif",
+            "hacktoberfest"
+        ],
+        "subscribers": 302,
+        "readme": "![horizontal.png](https://cdn.steemitimages.com/DQmacEdVnEf1f2GDZ4uga1evN3FzujdR4zbkqmiV7NscPBs/horizontal.png)\n====================\n[![Maven Central](https://maven-badges.herokuapp.com/maven-central/pl.droidsonroids.gif/android-gif-drawable/badge.svg)](https://maven-badges.herokuapp.com/maven-central/pl.droidsonroids.gif/android-gif-drawable)\n[![Build Status](https://app.bitrise.io/app/78fd40a5596e97e7/status.svg?token=SMUtlPklcIRBODd513ZdiQ)](https://app.bitrise.io/app/78fd40a5596e97e7)\n[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-android--gif--drawable-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1147)\n[![Android-Libs](https://img.shields.io/badge/Android--Libs-android--gif--drawable-orange.svg?style=flat)](http://android-libs.com/lib/android-gif-drawable)\n[![Android Weekly](http://img.shields.io/badge/Android%20Weekly-%2393-2CB3E5.svg?style=flat)](http://androidweekly.net/issues/issue-93)\n[![API](https://img.shields.io/badge/API-17%2B-blue.svg?style=flat)](https://android-arsenal.com/api?level=17)\n[![Javadocs](http://www.javadoc.io/badge/pl.droidsonroids.gif/android-gif-drawable.svg)](http://www.javadoc.io/doc/pl.droidsonroids.gif/android-gif-drawable)\n[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/koral--/android-gif-drawable/badge)](https://api.securityscorecards.dev/projects/github.com/koral--/android-gif-drawable)\n\n`View`s and `Drawable` for animated GIFs in Android.\n\n## Overview\nBundled GIFLib via JNI is used to render frames. This way should be more efficient than `WebView` or `Movie` classes.\n\n### [Javadoc](http://www.javadoc.io/doc/pl.droidsonroids.gif/android-gif-drawable)\n\n### Setup\n\n#### Gradle (Android Studio)\nInsert the following dependency to `build.gradle` file of your project.\n```groovy\ndependencies {\n    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.29'\n}\n```\nNote that Maven central repository should be defined eg. in top-level `build.gradle` like this:\n```groovy \nbuildscript {\n    repositories {\n        mavenCentral()\n    }\n}\nallprojects {\n    repositories {\n        mavenCentral()\n    }\n}\n```\n#### Gradle, snapshot repository\nCurrent development builds (build from `dev` branch) are published to OSS snapshot repository. To use them, specify repository URL in `repositories` block:\n```groovy\nrepositories {\n    mavenCentral()\n    maven { url \"https://oss.sonatype.org/content/repositories/snapshots\" }\n}\ndependencies {\n    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.+'\n}\n```\n#### Maven dependency\n\n```xml\n<dependency>\n    <groupId>pl.droidsonroids.gif</groupId>\n    <artifactId>android-gif-drawable</artifactId>\n    <version>insert latest version here</version>\n    <type>aar</type>\n</dependency>\n```\n#### Eclipse\nSee [Sample eclipse project](https://github.com/koral--/android-gif-drawable-eclipse-sample) with setup instructions.\n\n#### Download\n\n**[Latest release downloads](https://github.com/koral--/android-gif-drawable/releases/latest)**\n\n### Requirements\n+ Android 4.2+ (API level 17+)\n+ for `GifTextureView` hardware-accelerated rendering\n+ for `GifTexImage2D` OpenGL ES 2.0+\n\n#### Building from source\n+ [Android NDK](http://developer.android.com/tools/sdk/ndk/index.html) needed to compile native sources\n\n## Usage\n\n### Sample project\nSee `sample` directory. Sample project is under construction. Not all features are covered yet.\n\n### From XML\nThe simplest way is to use `GifImageView` (or `GifImageButton`) like a normal `ImageView`:\n```xml\n<pl.droidsonroids.gif.GifImageView\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    android:src=\"@drawable/src_anim\"\n    android:background=\"@drawable/bg_anim\"\n    />\n```\n\nIf drawables declared by `android:src` and/or `android:background` are GIF files then they \nwill be automatically recognized as `GifDrawable`s and animated. If given drawable is not a GIF then\nmentioned Views work like plain `ImageView` and `ImageButton`.\n\n`GifTextView` allows you to use GIFs as compound drawables and background.\n```xml\n<pl.droidsonroids.gif.GifTextView\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    android:drawableTop=\"@drawable/left_anim\"\n    android:drawableStart=\"@drawable/left_anim\"\n    android:background=\"@drawable/bg_anim\"\n    />\n```\n\n### From Java code\n`GifImageView`, `GifImageButton` and `GifTextView` have also hooks for setters implemented. So animated GIFs can be set by calling `setImageResource(int resId)` and `setBackgroundResource(int resId)`\n\n`GifDrawable` can be constructed directly from various sources:\n\n```java\n//asset file\nGifDrawable gifFromAssets = new GifDrawable( getAssets(), \"anim.gif\" );\n\t\t\n//resource (drawable or raw)\nGifDrawable gifFromResource = new GifDrawable( getResources(), R.drawable.anim );\n\t\t\n//Uri\nContentResolver contentResolver = ... //can be null for file:// Uris\nGifDrawable gifFromUri = new GifDrawable( contentResolver, gifUri );\n\n//byte array\nbyte[] rawGifBytes = ...\nGifDrawable gifFromBytes = new GifDrawable( rawGifBytes );\n\t\t\n//FileDescriptor\nFileDescriptor fd = new RandomAccessFile( \"/path/anim.gif\", \"r\" ).getFD();\nGifDrawable gifFromFd = new GifDrawable( fd );\n\t\t\n//file path\nGifDrawable gifFromPath = new GifDrawable( \"/path/anim.gif\" );\n\t\t\n//file\nFile gifFile = new File(getFilesDir(),\"anim.gif\");\nGifDrawable gifFromFile = new GifDrawable(gifFile);\n\t\t\n//AssetFileDescriptor\nAssetFileDescriptor afd = getAssets().openFd( \"anim.gif\" );\nGifDrawable gifFromAfd = new GifDrawable( afd );\n\t\t\t\t\n//InputStream (it must support marking)\nInputStream sourceIs = ...\nBufferedInputStream bis = new BufferedInputStream( sourceIs, GIF_LENGTH );\nGifDrawable gifFromStream = new GifDrawable( bis );\n\t\t\n//direct ByteBuffer\nByteBuffer rawGifBytes = ...\nGifDrawable gifFromBytes = new GifDrawable( rawGifBytes );\t\n````\nInputStreams are closed automatically in finalizer if GifDrawable is no longer needed \nso you don't need to explicitly close them. Calling `recycle()` will also close \nunderlying input source. \n\nNote that all input sources need to have ability to rewind to the beginning. It is required to correctly play animated GIFs \n(where animation is repeatable) since subsequent frames are decoded on demand from source.\n\n#### Animation control\n`GifDrawable` implements an `Animatable` and `MediaPlayerControl` so you can use its methods and more:\n\n+ `stop()` - stops the animation, can be called from any thread\n+ `start()` - starts the animation, can be called from any thread\n+ `isRunning()` - returns whether animation is currently running or not\n+ `reset()` - rewinds the animation, does not restart stopped one\n+ `setSpeed(float factor)` - sets new animation speed factor, eg. passing 2.0f will double the animation speed\n+ `seekTo(int position)` - seeks animation (within current loop) to given `position` (in milliseconds)\n+ `getDuration()` - returns duration of one loop of the animation\n+ `getCurrentPosition()` - returns elapsed time from the beginning of a current loop of animation\n\n##### Using [MediaPlayerControl](http://developer.android.com/reference/android/widget/MediaController.MediaPlayerControl.html)\nStandard controls for a MediaPlayer (like in [VideoView](http://developer.android.com/reference/android/widget/VideoView.html)) can be used to control GIF animation and show its current progress.\n\nJust set `GifDrawable` as MediaPlayer on your [MediaController](http://developer.android.com/reference/android/widget/MediaController.html) like this:\n```java\n@Override\nprotected void onCreate(Bundle savedInstanceState) {\n    super.onCreate(savedInstanceState);\n    GifImageButton gib = new GifImageButton(this);\n    setContentView(gib);\n    gib.setImageResource(R.drawable.sample);\n    final MediaController mc = new MediaController(this);\n    mc.setMediaPlayer((GifDrawable) gib.getDrawable());\n    mc.setAnchorView(gib);\n    gib.setOnClickListener(new OnClickListener() {\n        @Override\n        public void onClick(View v) {\n            mc.show();\n        }\n   });\n}\n```\n\n#### Retrieving GIF metadata\n\n+ `getLoopCount()` - returns a loop count as defined in `NETSCAPE 2.0` extension\n+ `getNumberOfFrames()` - returns number of frames (at least 1)\n+ `getComment()` - returns comment text (`null` if GIF has no comment)\n+ `getFrameByteCount()` - returns minimum number of bytes that can be used to store pixels of the single frame\n+ `getAllocationByteCount()` - returns size (in bytes) of the allocated memory used to store pixels of given GifDrawable\n+ `getInputSourceByteCount()` - returns length (in bytes) of the backing input data\n+ `toString()` - returns human readable information about image size and number of frames (intended for debugging purpose)\n\n#### Associating single `GifDrawable` instance with multiple `View`s\n\nNormally single `GifDrawable` instance associated with multiple `View`s will animate only on the last one.\nTo solve that create `MultiCallback` instance, add `View`s to it and set callback for given drawable, e.g.:\n```java\nMultiCallback multiCallback = new MultiCallback();\n\nimageView.setImageDrawable(gifDrawable);\nmultiCallback.addView(imageView);\n\nanotherImageView.setImageDrawable(gifDrawable);\nmultiCallback.addView(anotherImageView);\n\ngifDrawable.setCallback(multiCallback);\n```\n\nNote that if you change a drawable of e.g. `ImageView`, the callback will be removed from the previous\ndrawable. Thereafter, you have to reassign callback or the same `GifDrawable` instance will stop animating. \nSee [#480](https://github.com/koral--/android-gif-drawable/issues/480) for more information.\n\n#### Advanced\n \n+ `recycle()` - provided to speed up freeing memory (like in `android.graphics.Bitmap`)\n+ `isRecycled()` - checks whether drawable is recycled\n+ `getError()` - returns last error details\n\n## Upgrading from 1.2.15\n#### Minimum SDK version changed\nMinimum API level is now 17 (Android 4.2).\n`armeabi` (arm v5 and v6) is no longer supported. \n\n## Upgrading from 1.2.8\n#### Minimum SDK version changed\nMinimum API level is now 14 (Android 4.0).\n\n## Upgrading from 1.2.3\nMeaningful only if consumer proguard rules (bundled with library) are **not** used (they are used by default by Gradle).\n+ Proguard rule has changed to `-keep public class pl.droidsonroids.gif.GifIOException{<init>(int, java.lang.String);}` \n\n## Upgrading from 1.1.17\n1.1.17 is the last version supporting API level 8 (Froyo). Starting from 1.2.0 minimum API level is 9 (Gingerbread).\n\n## Upgrading from 1.1.13\nHandling of several edge cases has been changed:\n+ `GifDrawable#getNumberOfFrames()` now returns 0 when `GifDrawable` is recycled\n+ Information included in result of `GifDrawable#toString()` when `GifDrawable` is recycled now contains zeroes only\n\n## Upgrading from 1.1.10\nIt is recommended (but not required) to call `LibraryLoader.initialize()` before using `GifDrawable`. `Context` is needed in some cases\nwhen native libraries cannot be extracted normally. See [ReLinker](https://medium.com/keepsafe-engineering/the-perils-of-loading-native-libraries-on-android-befa49dce2db)\nfor more details. \nIf `LibraryLoader.initialize()` was not called and normal library loading fails, `Context` will be tried to be retrieved in fall back way which may not always work.   \n\n## Upgrading from 1.1.9\n`int` parameter `loopNumber` has been added to `AnimationListener#onAnimationCompleted()`.\n\n## Upgrading from 1.1.8\n#### Proguard configuration not needed\nProguard configuration is now bundled with the library, you don't need to specify it yourself.\n\n## Upgrading from 1.1.3\n`src` XML attribute in `GifTextureView` has been renamed to `gifSource` to avoid possible conflicts with other libraries.\n\n## Upgrading from 1.0.x\n#### Proguard configuration update\nProguard configuration has changed to:\n```\n-keep public class pl.droidsonroids.gif.GifIOException{<init>(int);}\n-keep class pl.droidsonroids.gif.GifInfoHandle{<init>(long,int,int,int);}\n```\n\n#### Drawable recycling behavior change\n`GifDrawable` now uses `android.graphics.Bitmap` as frame buffer. Trying to access pixels (including drawing)\n of recycled `GifDrawable` will cause `IllegalStateException` like in `Bitmap`.\n\n#### Minimum SDK version changed\nMinimum API level is now 8 (Android 2.2).\n\n#### Rendering moved to background thread\nRendering is performed in background thread running independently from main thread so animation is running\neven if drawable is not drawn. However rendering is not running if drawable is not visible, see [#setVisible()](http://developer.android.com/reference/android/graphics/drawable/Drawable.html#setVisible(boolean, boolean)).\nThat method can be used to control drawable visibility in cases when it is not already handled by Android framework.\n\n## References\nThis library uses code from [GIFLib](http://giflib.sourceforge.net/) 5.1.3 and [SKIA](https://code.google.com/p/skia/).\n\n### Projects using android-gif-drawable\n[ImageFactory](https://github.com/Doctoror/ImageFactory)\n\n[NativeScript Plugin by Brad Martin](https://github.com/bradmartin/nativescript-gif) available on [NPM](https://www.npmjs.com/package/nativescript-gif)\n\n[Sketch](https://github.com/xiaopansky/Sketch) Powerful and comprehensive image loader on Android, with support for GIF, gesture zooming, block display super large image.\n\nWant to include your project here? [Fill an issue](https://github.com/koral--/android-gif-drawable/issues/new)\n\n## License\n\nMIT License<br>\nSee [LICENSE](LICENSE) file.\n",
+        "releases": [
+            {
+                "name": "v1.2.29",
+                "date": "2024-07-31T08:56:47Z"
+            },
+            {
+                "name": "v1.2.28",
+                "date": "2023-08-29T18:08:37Z"
+            },
+            {
+                "name": "v1.2.27",
+                "date": "2023-07-03T12:03:12Z"
+            },
+            {
+                "name": "v1.2.26",
+                "date": "2023-06-30T18:55:37Z"
+            },
+            {
+                "name": "v1.2.25",
+                "date": "2022-08-18T00:26:04Z"
+            },
+            {
+                "name": "v1.2.24",
+                "date": "2022-01-17T01:51:50Z"
+            },
+            {
+                "name": "v1.2.23",
+                "date": "2021-03-08T07:32:04Z"
+            },
+            {
+                "name": "v1.2.22",
+                "date": "2021-02-03T00:21:29Z"
+            },
+            {
+                "name": "v1.2.21",
+                "date": "2020-08-26T16:37:43Z"
+            },
+            {
+                "name": "v1.2.20",
+                "date": "2020-05-03T20:19:16Z"
+            },
+            {
+                "name": "",
+                "date": "2019-10-19T01:57:48Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-08T23:35:31Z"
+            },
+            {
+                "name": "",
+                "date": "2019-06-09T22:22:11Z"
+            },
+            {
+                "name": "",
+                "date": "2018-11-21T00:00:42Z"
+            },
+            {
+                "name": "",
+                "date": "2018-07-17T01:18:08Z"
+            },
+            {
+                "name": "",
+                "date": "2018-07-09T09:58:12Z"
+            },
+            {
+                "name": "",
+                "date": "2018-07-09T01:47:06Z"
+            },
+            {
+                "name": "",
+                "date": "2018-03-24T20:27:37Z"
+            },
+            {
+                "name": "",
+                "date": "2018-02-22T00:05:31Z"
+            },
+            {
+                "name": "",
+                "date": "2018-01-02T00:57:14Z"
+            },
+            {
+                "name": "",
+                "date": "2017-12-17T16:19:28Z"
+            },
+            {
+                "name": "",
+                "date": "2017-08-15T22:08:16Z"
+            },
+            {
+                "name": "",
+                "date": "2017-04-23T23:57:02Z"
+            },
+            {
+                "name": "",
+                "date": "2017-03-13T02:47:41Z"
+            },
+            {
+                "name": "",
+                "date": "2017-02-05T23:53:53Z"
+            },
+            {
+                "name": "",
+                "date": "2017-01-10T00:58:47Z"
+            },
+            {
+                "name": "",
+                "date": "2016-11-05T00:40:58Z"
+            },
+            {
+                "name": "",
+                "date": "2016-09-05T01:01:26Z"
+            },
+            {
+                "name": "",
+                "date": "2016-08-30T01:51:32Z"
+            },
+            {
+                "name": "",
+                "date": "2016-08-18T01:08:22Z"
+            },
+            {
+                "name": "",
+                "date": "2016-07-10T19:37:19Z"
+            },
+            {
+                "name": "",
+                "date": "2016-05-22T00:31:45Z"
+            },
+            {
+                "name": "",
+                "date": "2016-03-25T02:45:14Z"
+            },
+            {
+                "name": "",
+                "date": "2016-03-01T03:52:07Z"
+            },
+            {
+                "name": "",
+                "date": "2016-01-25T21:44:26Z"
+            },
+            {
+                "name": "",
+                "date": "2016-01-23T18:09:32Z"
+            },
+            {
+                "name": "",
+                "date": "2015-12-02T03:10:08Z"
+            },
+            {
+                "name": "",
+                "date": "2015-10-01T23:35:58Z"
+            },
+            {
+                "name": "",
+                "date": "2015-08-11T00:54:38Z"
+            },
+            {
+                "name": "",
+                "date": "2015-07-21T23:29:44Z"
+            },
+            {
+                "name": "",
+                "date": "2015-05-21T01:54:15Z"
+            },
+            {
+                "name": "",
+                "date": "2015-04-23T23:53:52Z"
+            },
+            {
+                "name": "",
+                "date": "2015-04-13T01:04:56Z"
+            },
+            {
+                "name": "",
+                "date": "2015-04-12T23:14:53Z"
+            },
+            {
+                "name": "",
+                "date": "2015-03-26T02:22:44Z"
+            },
+            {
+                "name": "",
+                "date": "2015-01-16T02:29:20Z"
+            },
+            {
+                "name": "",
+                "date": "2014-12-21T23:07:09Z"
+            },
+            {
+                "name": "",
+                "date": "2014-12-10T02:36:37Z"
+            },
+            {
+                "name": "",
+                "date": "2014-10-25T00:39:16Z"
+            },
+            {
+                "name": "",
+                "date": "2014-10-13T01:36:12Z"
+            },
+            {
+                "name": "",
+                "date": "2014-09-27T22:24:12Z"
+            },
+            {
+                "name": "",
+                "date": "2014-08-04T00:57:56Z"
+            },
+            {
+                "name": "",
+                "date": "2014-06-01T13:55:55Z"
+            },
+            {
+                "name": "v1.0.7",
+                "date": "2014-03-27T00:53:34Z"
+            },
+            {
+                "name": "v1.0.6",
+                "date": "2014-03-03T01:13:27Z"
+            },
+            {
+                "name": "v1.0.5",
+                "date": "2014-01-25T22:47:22Z"
+            },
+            {
+                "name": "v1.0.4",
+                "date": "2013-12-14T19:28:56Z"
+            },
+            {
+                "name": "v1.0.3",
+                "date": "2013-12-09T01:38:56Z"
+            },
+            {
+                "name": "",
+                "date": "2013-11-29T02:18:24Z"
+            },
+            {
+                "name": "",
+                "date": "2013-11-18T00:23:25Z"
+            },
+            {
+                "name": "Initial release",
+                "date": "2013-10-03T00:28:53Z"
+            }
+        ]
+    }
+}

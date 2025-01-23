@@ -1,0 +1,56 @@
+{
+    "https://api.github.com/repos/carpedm20/DCGAN-tensorflow": {
+        "forks": 2624,
+        "watchers": 7157,
+        "stars": 7157,
+        "languages": {
+            "JavaScript": 93566,
+            "Python": 47204,
+            "HTML": 28337,
+            "CSS": 19462
+        },
+        "commits": [
+            "2020-09-30T12:11:26Z",
+            "2020-08-08T06:23:58Z",
+            "2019-09-12T03:11:50Z",
+            "2019-07-15T23:55:44Z",
+            "2019-07-15T23:44:00Z",
+            "2019-05-03T22:41:56Z",
+            "2019-03-05T23:01:15Z",
+            "2019-02-15T18:59:48Z",
+            "2019-02-15T18:56:50Z",
+            "2018-08-12T01:28:42Z",
+            "2018-07-17T01:12:40Z",
+            "2018-07-03T18:28:26Z",
+            "2018-07-03T18:19:49Z",
+            "2018-07-03T18:14:37Z",
+            "2018-07-03T18:03:35Z",
+            "2018-07-03T18:00:37Z",
+            "2018-07-03T17:55:28Z",
+            "2018-07-03T17:52:12Z",
+            "2018-07-03T17:51:46Z",
+            "2018-06-15T05:43:00Z",
+            "2018-06-15T05:41:52Z",
+            "2018-06-15T05:40:54Z",
+            "2018-06-15T05:40:24Z",
+            "2018-06-12T21:00:34Z",
+            "2018-06-12T20:46:09Z",
+            "2018-06-12T20:42:35Z",
+            "2018-06-12T19:49:55Z",
+            "2018-06-08T04:17:02Z",
+            "2018-06-01T16:17:28Z",
+            "2018-04-12T08:06:33Z"
+        ],
+        "creation_date": "2015-12-11T02:06:40Z",
+        "contributors": 30,
+        "topics": [
+            "dcgan",
+            "gan",
+            "generative-model",
+            "tensorflow"
+        ],
+        "subscribers": 245,
+        "readme": "# DCGAN in Tensorflow\n\nTensorflow implementation of [Deep Convolutional Generative Adversarial Networks](http://arxiv.org/abs/1511.06434) which is a stabilize Generative Adversarial Networks. The referenced torch code can be found [here](https://github.com/soumith/dcgan.torch).\n\n![alt tag](DCGAN.png)\n\n* [Brandon Amos](http://bamos.github.io/) wrote an excellent [blog post](http://bamos.github.io/2016/08/09/deep-completion/) and [image completion code](https://github.com/bamos/dcgan-completion.tensorflow) based on this repo.\n* *To avoid the fast convergence of D (discriminator) network, G (generator) network is updated twice for each D network update, which differs from original paper.*\n\n\n## Online Demo\n\n[<img src=\"https://raw.githubusercontent.com/carpedm20/blog/master/content/images/face.png\">](http://carpedm20.github.io/faces/)\n\n[link](http://carpedm20.github.io/faces/)\n\n\n## Prerequisites\n\n- Python 2.7 or Python 3.3+\n- [Tensorflow 0.12.1](https://github.com/tensorflow/tensorflow/tree/r0.12)\n- [SciPy](http://www.scipy.org/install.html)\n- [pillow](https://github.com/python-pillow/Pillow)\n- [tqdm](https://pypi.org/project/tqdm/)\n- (Optional) [moviepy](https://github.com/Zulko/moviepy) (for visualization)\n- (Optional) [Align&Cropped Images.zip](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html) : Large-scale CelebFaces Dataset\n\n\n## Usage\n\nFirst, download dataset with:\n\n    $ python download.py mnist celebA\n\nTo train a model with downloaded dataset:\n\n    $ python main.py --dataset mnist --input_height=28 --output_height=28 --train\n    $ python main.py --dataset celebA --input_height=108 --train --crop\n\nTo test with an existing model:\n\n    $ python main.py --dataset mnist --input_height=28 --output_height=28\n    $ python main.py --dataset celebA --input_height=108 --crop\n\nOr, you can use your own dataset (without central crop) by:\n\n    $ mkdir data/DATASET_NAME\n    ... add images to data/DATASET_NAME ...\n    $ python main.py --dataset DATASET_NAME --train\n    $ python main.py --dataset DATASET_NAME\n    $ # example\n    $ python main.py --dataset=eyes --input_fname_pattern=\"*_cropped.png\" --train\n\nIf your dataset is located in a different root directory:\n\n    $ python main.py --dataset DATASET_NAME --data_dir DATASET_ROOT_DIR --train\n    $ python main.py --dataset DATASET_NAME --data_dir DATASET_ROOT_DIR\n    $ # example\n    $ python main.py --dataset=eyes --data_dir ../datasets/ --input_fname_pattern=\"*_cropped.png\" --train\n    \n\n## Results\n\n![result](assets/training.gif)\n\n### celebA\n\nAfter 6th epoch:\n\n![result3](assets/result_16_01_04_.png)\n\nAfter 10th epoch:\n\n![result4](assets/test_2016-01-27%2015:08:54.png)\n\n### Asian face dataset\n\n![custom_result1](web/img/change5.png)\n\n![custom_result1](web/img/change2.png)\n\n![custom_result2](web/img/change4.png)\n\n### MNIST\n\nMNIST codes are written by [@PhoenixDai](https://github.com/PhoenixDai).\n\n![mnist_result1](assets/mnist1.png)\n\n![mnist_result2](assets/mnist2.png)\n\n![mnist_result3](assets/mnist3.png)\n\nMore results can be found [here](./assets/) and [here](./web/img/).\n\n\n## Training details\n\nDetails of the loss of Discriminator and Generator (with custom dataset not celebA).\n\n![d_loss](assets/d_loss.png)\n\n![g_loss](assets/g_loss.png)\n\nDetails of the histogram of true and fake result of discriminator (with custom dataset not celebA).\n\n![d_hist](assets/d_hist.png)\n\n![d__hist](assets/d__hist.png)\n\n\n## Related works\n\n- [BEGAN-tensorflow](https://github.com/carpedm20/BEGAN-tensorflow)\n- [DiscoGAN-pytorch](https://github.com/carpedm20/DiscoGAN-pytorch)\n- [simulated-unsupervised-tensorflow](https://github.com/carpedm20/simulated-unsupervised-tensorflow)\n\n\n## Author\n\nTaehoon Kim / [@carpedm20](http://carpedm20.github.io/)\n",
+        "releases": []
+    }
+}

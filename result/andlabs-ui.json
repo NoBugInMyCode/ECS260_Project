@@ -1,0 +1,55 @@
+{
+    "https://api.github.com/repos/andlabs/ui": {
+        "forks": 652,
+        "watchers": 8343,
+        "stars": 8343,
+        "languages": {
+            "Go": 104105,
+            "C": 71976,
+            "C++": 115
+        },
+        "commits": [
+            "2020-06-10T04:35:37Z",
+            "2020-06-05T22:39:16Z",
+            "2020-06-05T22:35:57Z",
+            "2018-09-02T18:31:12Z",
+            "2018-09-02T18:17:18Z",
+            "2018-09-02T17:52:55Z",
+            "2018-09-02T13:47:40Z",
+            "2018-09-02T13:46:08Z",
+            "2018-09-02T07:29:36Z",
+            "2018-09-02T07:22:45Z",
+            "2018-09-02T02:24:59Z",
+            "2018-09-02T01:21:46Z",
+            "2018-09-02T00:50:34Z",
+            "2018-09-02T00:44:02Z",
+            "2018-09-02T00:15:33Z",
+            "2018-09-01T23:52:19Z",
+            "2018-09-01T23:22:30Z",
+            "2018-08-27T00:39:43Z",
+            "2018-08-27T00:24:37Z",
+            "2018-08-26T23:55:10Z",
+            "2018-08-26T21:36:39Z",
+            "2018-08-26T21:26:53Z",
+            "2018-08-26T21:22:05Z",
+            "2018-08-26T21:17:03Z",
+            "2018-08-26T21:08:41Z",
+            "2018-08-26T18:42:43Z",
+            "2018-08-26T18:26:33Z",
+            "2018-08-26T18:09:49Z",
+            "2018-08-26T17:48:13Z",
+            "2018-08-26T17:43:05Z"
+        ],
+        "creation_date": "2014-02-17T23:44:00Z",
+        "contributors": 11,
+        "topics": [],
+        "subscribers": 342,
+        "readme": "# ui: platform-native GUI library for Go\n\nThis is a library that aims to provide simple GUI software development in Go. It is based on my [libui](https://github.com/andlabs/libui), a simple cross-platform library that does the same thing, but written in C.\n\nIt runs on/requires:\n\n- Windows: cgo, Windows Vista SP2 with Platform Update and newer\n- Mac OS X: cgo, Mac OS X 10.8 and newer\n- other Unixes: cgo, GTK+ 3.10 and newer\n\t- Debian, Ubuntu, etc.: `sudo apt-get install libgtk-3-dev`\n\t- Red Hat/Fedora, etc.: `sudo dnf install gtk3-devel`\n\nIt also requires Go 1.8 or newer.\n\nIt currently aligns to libui's Alpha 4.1, with only a small handful of functions not available.\n\n# Status\n\nPackage ui is currently **mid-alpha** software. Much of what is currently present runs stabily enough for the examples and perhaps some small programs to work, but the stability is still a work-in-progress, much of what is already there is not feature-complete, some of it will be buggy on certain platforms, and there's a lot of stuff missing. The libui README has more information.\n\n# Installation\n\nOnce you have the dependencies installed, a simple\n\n```\ngo get github.com/andlabs/ui/...\n```\n\nshould suffice.\n\n# Documentation\n\nThe in-code documentation is sufficient to get started, but needs improvement.\n\nSome simple example programs are in the `examples` directory. You can `go build` each of them individually.\n\n## Windows manifests\n\nPackage ui requires a manifest that specifies Common Controls v6 to run on Windows. It should at least also state as supported Windows Vista and Windows 7, though to avoid surprises with other packages (or with Go itself; see [this issue](https://github.com/golang/go/issues/17835)) you should state compatibility with higher versions of Windows too.\n\nThe simplest option is provided as a subpackage `winmanifest`; you can simply import it without a name, and it'll set things up properly:\n\n```go\nimport _ \"github.com/andlabs/ui/winmanifest\"\n```\n\nYou do not have to worry about importing this in non-Windows-only files; it does nothing on non-Windows platforms.\n\nIf you wish to use your own manifest instead, you can use the one in `winmanifest` as a template to see what's required and how. You'll need to specify the template in a `.rc` file and use `windres` in MinGW-w64 to generate a `.syso` file as follows:\n\n```\nwindres -i resources.rc -o winmanifest_windows_GOARCH.syso -O coff\n```\n\nYou may also be interested in the `github.com/akavel/rsrc` and `github.com/josephspurrier/goversioninfo` packages, which provide other Go-like options for embedding the manifest.\n\nNote that if you choose to ship a manifest as a separate `.exe.manifest` file instead of embedding it in your binary, and you use Cygwin or MSYS2 as the source of your MinGW-w64, Cygwin and MSYS2 instruct gcc to embed a default manifest of its own if none is specified. **This default will override your manifest file!** See [this issue](https://github.com/Alexpux/MSYS2-packages/issues/454) for more details, including workaround instructions.\n\n## macOS program execution\n\nIf you run a macOS program binary directly from the command line, it will start in the background. This is intentional; see [this](https://github.com/andlabs/libui#why-does-my-program-start-in-the-background-on-os-x-if-i-run-from-the-command-line) for more details.\n",
+        "releases": [
+            {
+                "name": "",
+                "date": "2015-12-16T07:53:14Z"
+            }
+        ]
+    }
+}

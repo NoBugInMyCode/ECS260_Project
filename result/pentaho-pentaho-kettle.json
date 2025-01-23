@@ -1,0 +1,59 @@
+{
+    "https://api.github.com/repos/pentaho/pentaho-kettle": {
+        "forks": 3497,
+        "watchers": 7841,
+        "stars": 7841,
+        "languages": {
+            "Java": 43462284,
+            "JavaScript": 364122,
+            "Shell": 43595,
+            "Batchfile": 38853,
+            "HTML": 26859,
+            "CSS": 10562,
+            "GAP": 4005
+        },
+        "commits": [
+            "2025-01-22T11:49:33Z",
+            "2025-01-22T11:49:12Z",
+            "2025-01-20T15:12:22Z",
+            "2025-01-15T14:38:40Z",
+            "2025-01-09T16:04:49Z",
+            "2025-01-09T12:57:56Z",
+            "2025-01-09T11:49:48Z",
+            "2025-01-09T11:12:12Z",
+            "2025-01-08T17:35:47Z",
+            "2025-01-08T16:44:53Z",
+            "2025-01-08T16:29:28Z",
+            "2025-01-02T16:22:26Z",
+            "2024-12-26T11:36:18Z",
+            "2024-12-26T10:53:46Z",
+            "2024-12-20T14:29:34Z",
+            "2024-12-20T07:28:06Z",
+            "2024-12-18T19:51:55Z",
+            "2024-12-17T18:03:45Z",
+            "2024-12-17T15:26:26Z",
+            "2024-12-13T14:43:18Z",
+            "2024-12-10T11:11:01Z",
+            "2024-12-09T23:49:39Z",
+            "2024-12-09T21:08:31Z",
+            "2024-12-09T21:04:04Z",
+            "2024-12-09T16:59:28Z",
+            "2024-12-05T11:29:47Z",
+            "2024-12-03T20:03:22Z",
+            "2024-12-03T16:20:20Z",
+            "2024-11-25T16:59:54Z",
+            "2024-11-25T11:01:48Z"
+        ],
+        "creation_date": "2013-10-08T18:27:11Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 458,
+        "readme": "# Pentaho Data Integration # \n\nPentaho Data Integration ( ETL ) a.k.a Kettle\n\n### Project Structure\n\n* **assemblies:** \nProject distribution archive is produced under this module\n* **core:** \nCore implementation\n* **dbdialog:** \nDatabase dialog\n* **ui:** \nUser interface\n* **engine:** \nPDI engine\n* **engine-ext:** \nPDI engine extensions\n* **[plugins:](plugins/README.md)** \nPDI core plugins\n* **integration:** \nIntegration tests\n\nHow to build\n--------------\n\nPentaho Data Integration uses the Maven framework. \n\n\n#### Pre-requisites for building the project:\n* Maven, version 3+\n* Java JDK 11\n* This [settings.xml](https://raw.githubusercontent.com/pentaho/maven-parent-poms/master/maven-support-files/settings.xml) in your <user-home>/.m2 directory\n\n#### Building it\n\nThis is a Maven project, and to build it use the following command:\n\n```\n$ mvn clean install\n```\nOptionally you can specify -Drelease to trigger obfuscation and/or uglification (as needed)\n\nOptionally you can specify -Dmaven.test.skip=true to skip the tests (even though\nyou shouldn't as you know)\n\nThe build result will be a Pentaho package located in ```target```.\n\n#### Packaging / Distributing it\n\nPackages can be built by using the following command:\n```\n$ mvn clean package\n```\n\nThe packaged results will be in the `target/` sub-folders of `assemblies/*`.\n\nFor example, a distribution of the Desktop Client (CE) can then be found in: `assemblies/client/target/pdi-ce-*-SNAPSHOT.zip`.\n\n#### Running the tests\n\n__Unit tests__\n\nThis will run all unit tests in the project (and sub-modules). To run integration tests as well, see Integration Tests below.\n\n```\n$ mvn test\n```\n\nIf you want to remote debug a single Java unit test (default port is 5005):\n\n```\n$ cd core\n$ mvn test -Dtest=<<YourTest>> -Dmaven.surefire.debug\n```\n\n__Integration tests__\n\nIn addition to the unit tests, there are integration tests that test cross-module operation. This will run the integration tests.\n\n```\n$ mvn verify -DrunITs\n```\n\nTo run a single integration test:\n\n```\n$ mvn verify -DrunITs -Dit.test=<<YourIT>>\n```\n\nTo run a single integration test in debug mode (for remote debugging in an IDE) on the default port of 5005:\n\n```\n$ mvn verify -DrunITs -Dit.test=<<YourIT>> -Dmaven.failsafe.debug\n```\n\nTo skip test\n\n```\n$ mvn clean install -DskipTests\n```\n\nTo get log as text file\n\n```\n$ mvn clean install test >log.txt\n```\n\n\n__IntelliJ__\n\n* Don't use IntelliJ's built-in maven. Make it use the same one you use from the commandline.\n  * Project Preferences -> Build, Execution, Deployment -> Build Tools -> Maven ==> Maven home directory\n\n\n### Contributing\n\n1. Submit a pull request, referencing the relevant [Jira case](https://jira.pentaho.com/secure/Dashboard.jspa)\n2. Attach a Git patch file to the relevant [Jira case](https://jira.pentaho.com/secure/Dashboard.jspa)\n\nUse of the Pentaho checkstyle format (via `mvn checkstyle:check` and reviewing the report) and developing working \nUnit Tests helps to ensure that pull requests for bugs and improvements are processed quickly.\n\nWhen writing unit tests, you have at your disposal a couple of ClassRules that can be used to maintain a healthy\ntest environment. Use [RestorePDIEnvironment](core/src/test/java/org/pentaho/di/junit/rules/RestorePDIEnvironment.java)\nand [RestorePDIEngineEnvironment](engine/src/test/java/org/pentaho/di/junit/rules/RestorePDIEngineEnvironment.java)\nfor core and engine tests respectively.\n\npex.:\n```java\npublic class MyTest {\n  @ClassRule public static RestorePDIEnvironment env = new RestorePDIEnvironment();\n  #setUp()...\n  @Test public void testSomething() { \n    assertTrue( myMethod() ); \n  }\n}\n```  \n\n### Asking for help\nPlease go to https://community.hitachivantara.com/community/products-and-solutions/pentaho/ to ask questions and get help.\n",
+        "releases": [
+            {
+                "name": "5.2.0.2 CUST-185 patch",
+                "date": "2015-01-06T17:07:54Z"
+            }
+        ]
+    }
+}

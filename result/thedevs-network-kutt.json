@@ -1,0 +1,139 @@
+{
+    "https://api.github.com/repos/thedevs-network/kutt": {
+        "forks": 1140,
+        "watchers": 8842,
+        "stars": 8842,
+        "languages": {
+            "JavaScript": 178612,
+            "Handlebars": 95590,
+            "HTML": 64581,
+            "CSS": 53337,
+            "Dockerfile": 621
+        },
+        "commits": [
+            "2025-01-22T09:16:28Z",
+            "2025-01-22T06:10:49Z",
+            "2025-01-22T05:52:44Z",
+            "2025-01-22T05:43:09Z",
+            "2025-01-22T05:42:49Z",
+            "2025-01-22T05:41:28Z",
+            "2025-01-21T08:38:14Z",
+            "2025-01-21T07:59:48Z",
+            "2025-01-21T07:59:44Z",
+            "2025-01-18T09:33:18Z",
+            "2025-01-18T09:32:25Z",
+            "2025-01-18T09:29:22Z",
+            "2025-01-18T09:26:32Z",
+            "2025-01-18T09:26:27Z",
+            "2025-01-18T09:19:58Z",
+            "2025-01-18T07:07:26Z",
+            "2025-01-18T07:05:36Z",
+            "2025-01-17T12:48:34Z",
+            "2025-01-17T07:24:35Z",
+            "2025-01-16T11:37:57Z",
+            "2025-01-16T11:34:32Z",
+            "2025-01-16T11:02:45Z",
+            "2025-01-16T10:15:01Z",
+            "2025-01-16T10:11:39Z",
+            "2025-01-16T10:10:19Z",
+            "2025-01-16T09:54:03Z",
+            "2025-01-16T07:46:23Z",
+            "2025-01-16T07:45:20Z",
+            "2025-01-16T07:44:46Z",
+            "2025-01-16T07:44:38Z"
+        ],
+        "creation_date": "2018-02-13T12:33:16Z",
+        "contributors": 30,
+        "topics": [
+            "link-shortener",
+            "shorten-urls",
+            "shortener",
+            "url-shortener",
+            "urlshortener"
+        ],
+        "subscribers": 76,
+        "readme": "<p align=\"center\"><a href=\"https://kutt.it\" title=\"kutt.it\"><img src=\"https://raw.githubusercontent.com/thedevs-network/kutt/9d1c873897c3f5b9a1bd0c74dc5d23f2ed01f2ec/static/images/logo-github.png\" alt=\"Kutt.it\"></a></p>\n\n# Kutt.it\n\n**Kutt** is a modern URL shortener with support for custom domains. Create and edit links, view statistics, manage users, and more.\n\n[https://kutt.it](https://kutt.it)\n\n\n[![docker-build-release](https://github.com/thedevs-network/kutt/actions/workflows/docker-build-release.yaml/badge.svg)](https://github.com/thedevs-network/kutt/actions/workflows/docker-build-release.yaml)\n[![Uptime Status](https://uptime.betterstack.com/status-badges/v2/monitor/1ogaa.svg)](https://status.kutt.it)\n[![Contributions](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](https://github.com/thedevs-network/kutt/#contributing)\n[![GitHub license](https://img.shields.io/github/license/thedevs-network/kutt.svg)](https://github.com/thedevs-network/kutt/blob/develop/LICENSE)\n\n## Table of contents\n\n- [Key features](#key-features)\n- [Donations and sponsors](#donations-and-sponsors)\n- [Setup](#setup)\n- [Docker](#docker)\n- [API](#api)\n- [Configuration](#configuration)\n- [Themes and customizations](#themes-and-customizations)\n- [Browser extensions](#browser-extensions)\n- [Videos](#videos)\n- [Integrations](#integrations)\n- [Contributing](#contributing)\n\n## Key features\n\n- Created with self-host in mind:\n  - Zero configuration needed\n  - Easy setup with no build step\n  - Supporting various databases (SQLite, Postgres, MySQL)\n  - Ability to disable registration and anonymous links\n- Custom domain support\n- Set custom URLs, password, description, and expiration time for links\n- View, edit, delete and manage your links\n- Private statistics for shortened URLs\n- Admin page to manage users and links\n- Customizability and themes\n- RESTful API\n\n## Donations and sponsors\n\nSupport the development of Kutt by making a donation or becoming an sponsor.\n\n[Donate or sponsor \u2192](https://btcpay.kutt.it/apps/L9Gc7PrnLykeRHkhsH2jHivBeEh/crowdfund)\n\n## Setup\n\nThe only prerequisite is [Node.js](https://nodejs.org/) (version 20 or above). The default database is SQLite. You can optionally install Posrgres or MySQL/MariaDB for the database or Redis for the cache. \n\nWhen you first start the app, you're prompted to create an admin account.\n\n1. Clone this repository or [download the latest zip](https://github.com/thedevs-network/kutt/releases)\n2. Install dependencies: `npm install`\n3. Intialize database: `npm run migrate`\n5. Start the app for development `npm run dev` or production `npm start`\n\n## Docker\n\nMake sure Docker is installed, then you can start the app from the root directory:\n\n```sh\ndocker compose up\n```\n\nVarious docker-compose configurations are available. Use `docker compose -f <file_name> up` to start the one you want:\n\n- [`docker-compose.yml`](./docker-compose.yml): Default Kutt setup. Uses SQLite for the database.\n- [`docker-compose.sqlite-redis.yml`](./docker-compose.sqlite-redis.yml): Starts Kutt with SQLite and Redis.\n  - Required envrionment variable: `REDIS_ENABLED`\n- [`docker-compose.postgres.yml`](./docker-compose.postgres.yml): Starts Kutt with Postgres and Redis.\n  - Required envrionment variables: `REDIS_ENABLED`, `DB_PASSWORD`, `DB_NAME`, `DB_USER`\n- [`docker-compose.mariadb.yml`](./docker-compose.mariadb.yml): Starts Kutt with MariaDB and Redis.\n  - Required envrionment variables: `REDIS_ENABLED`, `DB_PASSWORD`, `DB_NAME`, `DB_USER`, `DB_PORT`\n\nOfficial Kutt Docker image is available on [Docker Hub](https://hub.docker.com/r/kutt/kutt).\n\n## API\n\n[View API documentation \u2192](https://docs.kutt.it)\n\n## Configuration\n\nThe app is configured via environment variables. You can pass environment variables directly or create a `.env` file. View [`.example.env`](./.example.env) file for the list of configurations.\n\nAll variables are optional except `JWT_SECRET` which is required on production.\n\n| Variable | Description | Default | Example |\n| -------- | ----------- | ------- | ------- |\n| `JWT_SECRET` | This is used to sign authentication tokens. Use a **long** **random** string. | - | - |\n| `PORT` |  The port to start the app on | `3000` | `8888` |\n| `SITE_NAME` |  Name of the website | `Kutt` | `Your Site` |\n| `DEFAULT_DOMAIN` |  The domain address that this app runs on | `localhost:3000` | `yoursite.com` |\n| `LINK_LENGTH` | The length of of shortened address | `6` | `5` |\n| `LINK_CUSTOM_ALPHABET` | Alphabet used to generate custom addresses. Default value omits o, O, 0, i, I, l, 1, and j to avoid confusion when reading the URL. | (abcd..789) | `abcABC^&*()@` |\n| `DISALLOW_REGISTRATION` | Disable registration. Note that if `MAIL_ENABLED` is set to false, then the registration would still be disabled since it relies on emails to sign up users. | `true` | `false` |\n| `DISALLOW_ANONYMOUS_LINKS` | Disable anonymous link creation | `true` | `false` |\n| `TRUST_PROXY` | If the app is running behind a proxy server like NGINX or Cloudflare and that it should get the IP address from that proxy server. If you're not using a proxy server then set this to false, otherwise users can override their IP address. | `true` | `false` |\n| `DB_CLIENT` |  Which database client to use. Supported clients: `pg` or `pg-native` for Postgres, `mysql2` for MySQL or MariaDB, `sqlite3` and `better-sqlite3` for SQLite. NOTE: `pg-native` and `sqlite3` are not installed by default, use `npm` to install them before use. | `better-sqlite3` | `pg` |\n| `DB_HOST` | Database connection host. Only if you use Postgres or MySQL. | `localhost` | `your-db-host.com` |\n| `DB_PORT` | Database port. Only if you use Postgres or MySQL. | `5432` (Postgres) | `3306` (MySQL) |\n| `DB_NAME` | Database name. Only if you use Postgres or MySQL. | `kutt` | `mydb` |\n| `DB_USER` | Database user. Only if you use Postgres or MySQL. | `postgres` | `myuser` |\n| `DB_PASSWORD` | Database password. Only if you use Postgres or MySQL. | - | `mypassword` |\n| `DB_SSL` | Whether use SSL for the database connection. Only if you use Postgres or MySQL. | `false` | `true` |\n| `DB_POOL_MIN` | Minimum number of database connection pools. Only if you use Postgres or MySQL. | `0` | `2` |\n| `DB_POOL_MAX` | Maximum number of database connection pools. Only if you use Postgres or MySQL. | `10` | `5` |\n| `REDIS_ENABLED` | Whether to use Redis for cache | `false` | `true` |\n| `REDIS_HOST` | Redis connection host | `127.0.0.1` | `your-redis-host.com` |\n| `REDIS_PORT` | Redis port | `6379` | `6379` |\n| `REDIS_PASSWORD` | Redis passowrd | - | `mypassword` |\n| `REDIS_DB` | Redis database number, between 0 and 15. | `0` | `1` |\n| `SERVER_IP_ADDRESS` | The IP address shown to the user on the setting's page. It's only for display purposes and has no other use. | - | `1.2.3.4` |\n| `SERVER_CNAME_ADDRESS` | The subdomain shown to the user on the setting's page. It's only for display purposes and has no other use. | - | `custom.yoursite.com` |\n| `CUSTOM_DOMAIN_USE_HTTPS` | Use https for links with custom domain. It's on you to generate SSL certificates for those domains manually\u2014at least on this version for now. | `false` | `true` |\n| `ENABLE_RATE_LIMIT` | Enable rate limitting for some API routes. If Redis is enabled uses Redis, otherwise, uses memory. | `false` | `true` |\n| `MAIL_ENABLED` | Enable emails, which are used for signup, verifying or changing email address, resetting password, and sending reports. If is disabled, all these functionalities will be disabled too. | `false` | `true` | \n| `MAIL_HOST` | Email server host | - | `your-mail-server.com` |\n| `MAIL_PORT` | Email server port | `587` | `465` (SSL) | \n| `MAIL_USER` | Email server user | - | `myuser` | \n| `MAIL_PASSWORD` | Email server password for the user | - | `mypassword` | \n| `MAIL_FROM` | Email address to send the user from | - | `example@yoursite.com` | \n| `MAIL_SECURE` | Whether use SSL for the email server connection | `false` | `true` | \n| `REPORT_EMAIL` | The email address that will receive submitted reports | - | `example@yoursite.com` | \n| `CONTACT_EMAIL` | The support email address to show on the app | - | `example@yoursite.com` | \n\n## Themes and customizations\n\nYou can add styles, change images, or render custom HTML. Place your content inside the [`/custom`](./custom) folder according to below instructions.\n\n#### How it works:\n\nThe structure of the custom folder is like this:\n\n```\ncustom/\n\u251c\u2500 css/\n\u2502  \u251c\u2500 custom1.css\n\u2502  \u251c\u2500 custom2.css\n\u2502  \u251c\u2500 ...\n\u251c\u2500 images/\n\u2502  \u251c\u2500 logo.png\n\u2502  \u251c\u2500 favicon.ico\n\u2502  \u251c\u2500 ...\n\u251c\u2500 views/\n\u2502  \u251c\u2500 partials/\n\u2502  \u2502  \u251c\u2500 footer.hbs\n\u2502  \u251c\u2500 404.hbs\n\u2502  \u251c\u2500 ...\n```\n\n- **css**: Put your CSS style files here. ([View example \u2192](https://github.com/thedevs-network/kutt-customizations/tree/main/themes/crimson/css))\n  - You can put as many style files as you want: `custom1.css`, `custom2.css`, etc.\n  - If you name your style file `styles.css`, it will replace Kutt's original `styles.css` file.\n  - Each file will be accessible by `<your-site.com>/css/<file>.css`\n- **images**: Put your images here. ([View example \u2192](https://github.com/thedevs-network/kutt-customizations/tree/main/themes/crimson/images))\n  - Name them just like the files inside the [`/static/images/`](./static/images) folder to replace Kutt's original images.\n  - Each image will be accessible by `<your-site.com>/images/<image>.<image-format>`\n- **views**: Custom HTML templates to render. ([View example \u2192](https://github.com/thedevs-network/kutt-customizations/tree/main/themes/crimson/views))\n  - It should follow the same file naming and folder structure as [`/server/views`](./server/views)\n  - Although we try to keep the original file names unchanged, be aware that new changes on Kutt might break your custom views.\n \n#### Example theme: Crimson\n\nThis is an example and official theme. Crimson includes custom styles, images, and views.\n\n[Get Crimson theme \u2192](https://github.com/thedevs-network/kutt-customizations/tree/main/themes/crimson)\n\n[View list of themes and customizations \u2192](https://github.com/thedevs-network/kutt-customizations)\n\n\n| Homepage | Admin page | Login/signup |\n| -------- | ---------- | ------------ |\n| ![crimson-homepage](https://github.com/user-attachments/assets/b74fab78-5e80-4f57-8425-f0cc73e9c68d) | ![crimson-admin](https://github.com/user-attachments/assets/a75d2430-8074-4ce4-93ec-d8bdfd75d917) | ![crimson-login-signup ](https://github.com/user-attachments/assets/b915eb77-3d66-4407-8e5d-b556f80ff453)\n\n#### Usage with Docker:\n\nIf you're building the image locally, then the `/custom` folder should already be included in your app.\n\nIf you're pulling the official image, make sure `/kutt/custom` volume is mounted or you have access to it. [View Docker compose example \u2192](https://github.com/thedevs-network/kutt/blob/main/docker-compose.yml#L7)\n\nThen, move your files to that volume. You can do it with this Docker command:\n\n```sh\ndocker cp <path-to-custom-folder> <kutt-container-name>:/kutt\n```\n\nFor example:\n\n```sh\ndocker cp custom kutt-server-1:/kutt\n```\n\nMake sure to restart the kutt server container after copying files or making changes.\n\n## Browser extensions\n\nDownload Kutt's extension for web browsers via below links.\n\n- [Chrome](https://chrome.google.com/webstore/detail/kutt/pklakpjfiegjacoppcodencchehlfnpd)\n- [Firefox](https://addons.mozilla.org/en-US/firefox/addon/kutt/)\n\n## Videos\n\n**Official videos**\n\n- [Next.js to htmx \u2013 A Real World Example](https://www.youtube.com/watch?v=8RL4NvYZDT4)\n\n## Integrations\n\n**ShareX**\n\nYou can use Kutt as your default URL shortener in [ShareX](https://getsharex.com/). If you host your custom instance of Kutt, refer to [ShareX wiki](https://github.com/thedevs-network/kutt/wiki/ShareX) on how to setup.\n\n**Alfred workflow**\n\nDownload Kutt's official workflow for [Alfred](https://www.alfredapp.com/) app from [alfred-kutt](https://github.com/thedevs-network/alfred-kutt) repository.\n\n**Third-party packages**\n\n\n| Language   | Link                                                                              | Description                                        |\n| ---------- | --------------------------------------------------------------------------------- | -------------------------------------------------- |\n| C# (.NET)  | [KuttSharp](https://github.com/0xaryan/KuttSharp)                                 | .NET package for Kutt.it url shortener             |\n| C# (.NET)  | [Kutt.NET](https://github.com/AlphaNecron/Kutt.NET)                               | C# API Wrapper for Kutt\n| Python     | [kutt-cli](https://github.com/RealAmirali/kutt-cli)                               | Command-line client for Kutt written in Python     |\n| Ruby       | [kutt.rb](https://github.com/RealAmirali/kutt.rb)                                 | Kutt library written in Ruby                       |\n| Rust       | [urlshortener](https://github.com/vityafx/urlshortener-rs)                        | URL shortener library written in Rust              |\n| Rust       | [kutt-rs](https://github.com/robatipoor/kutt-rs)                                  | Command line tool written in Rust                  |\n| Node.js    | [node-kutt](https://github.com/ardalanamini/node-kutt)                            | Node.js client for Kutt.it url shortener           |\n| JavaScript | [kutt-vscode](https://github.com/mehrad77/kutt-vscode)                            | Visual Studio Code extension for Kutt              |\n| Java       | [kutt-desktop](https://github.com/cipher812/kutt-desktop)                         | A Cross platform Java desktop application for Kutt |\n| Go         | [kutt-go](https://github.com/raahii/kutt-go)                                      | Go client for Kutt.it url shortener                |\n| BASH       | [GitHub Gist](https://gist.github.com/hashworks/6d6e4eae8984a5018f7692a796d570b4) | Simple BASH function to access the API             |\n| BASH       | [url-shortener](https://git.tim-peters.org/Tim/url-shortener)                     | Simple BASH script with GUI                        |\n\n## Contributing\n\nPull requests are welcome. Open a discussion for feedback, requesting features, or discussing ideas.\n\nSpecial thanks to [Thomas](https://github.com/trgwii) and [Muthu](https://github.com/MKRhere). Logo design by [Muthu](https://github.com/MKRhere).\n\n",
+        "releases": [
+            {
+                "name": "v3.2.0",
+                "date": "2025-01-22T07:27:34Z"
+            },
+            {
+                "name": "v3.1.2",
+                "date": "2025-01-21T08:02:00Z"
+            },
+            {
+                "name": "v3.1.1",
+                "date": "2025-01-18T09:38:02Z"
+            },
+            {
+                "name": "v3.1.0",
+                "date": "2025-01-17T07:25:09Z"
+            },
+            {
+                "name": "",
+                "date": "2025-01-14T10:40:59Z"
+            },
+            {
+                "name": "v3.0.3",
+                "date": "2025-01-11T05:53:29Z"
+            },
+            {
+                "name": "v3.0.2",
+                "date": "2025-01-09T21:34:38Z"
+            },
+            {
+                "name": "",
+                "date": "2025-01-09T12:38:27Z"
+            },
+            {
+                "name": "v3.0.0",
+                "date": "2025-01-08T18:50:27Z"
+            },
+            {
+                "name": "v2.7.4",
+                "date": "2022-02-21T19:06:55Z"
+            },
+            {
+                "name": "v2.7.3",
+                "date": "2021-09-03T21:30:02Z"
+            },
+            {
+                "name": "v2.7.1",
+                "date": "2020-11-30T16:56:57Z"
+            },
+            {
+                "name": "v2.7.0",
+                "date": "2020-09-19T13:37:54Z"
+            },
+            {
+                "name": "v2.6.0",
+                "date": "2020-08-09T10:59:38Z"
+            },
+            {
+                "name": "v2.5.0",
+                "date": "2020-08-05T14:34:41Z"
+            },
+            {
+                "name": "v2.4.5",
+                "date": "2020-07-26T10:28:05Z"
+            },
+            {
+                "name": "v2.4.0",
+                "date": "2020-07-20T07:44:24Z"
+            },
+            {
+                "name": "v2.3.17",
+                "date": "2020-07-14T17:19:17Z"
+            },
+            {
+                "name": "",
+                "date": "2018-11-28T17:27:44Z"
+            },
+            {
+                "name": "v1.1.0",
+                "date": "2018-11-27T19:53:06Z"
+            }
+        ]
+    }
+}

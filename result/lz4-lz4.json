@@ -1,0 +1,186 @@
+{
+    "https://api.github.com/repos/lz4/lz4": {
+        "forks": 1403,
+        "watchers": 10583,
+        "stars": 10583,
+        "languages": {
+            "C": 993255,
+            "C++": 54731,
+            "Makefile": 53519,
+            "Python": 42693,
+            "Shell": 20741,
+            "Meson": 20255,
+            "CMake": 11422,
+            "Roff": 10666,
+            "Batchfile": 7298,
+            "Dockerfile": 644
+        },
+        "commits": [
+            "2025-01-16T20:33:06Z",
+            "2025-01-16T19:47:15Z",
+            "2025-01-14T03:13:22Z",
+            "2025-01-14T02:48:43Z",
+            "2025-01-13T12:45:41Z",
+            "2025-01-13T07:30:55Z",
+            "2024-12-24T02:08:48Z",
+            "2024-12-23T21:30:37Z",
+            "2024-12-23T21:08:39Z",
+            "2024-12-23T19:31:28Z",
+            "2024-12-23T19:27:00Z",
+            "2024-12-23T19:03:24Z",
+            "2024-12-23T18:44:55Z",
+            "2024-12-23T18:16:20Z",
+            "2024-12-23T06:19:55Z",
+            "2024-11-25T17:00:50Z",
+            "2024-11-25T08:26:46Z",
+            "2024-11-25T06:48:28Z",
+            "2024-11-24T16:28:13Z",
+            "2024-11-24T15:54:20Z",
+            "2024-11-24T14:45:01Z",
+            "2024-11-24T09:56:12Z",
+            "2024-11-18T07:43:13Z",
+            "2024-11-18T07:42:50Z",
+            "2024-11-05T18:59:46Z",
+            "2024-10-28T23:16:19Z",
+            "2024-10-28T18:57:35Z",
+            "2024-10-28T18:48:45Z",
+            "2024-10-28T06:43:42Z",
+            "2024-10-15T16:36:14Z"
+        ],
+        "creation_date": "2014-03-25T15:52:21Z",
+        "contributors": 30,
+        "topics": [
+            "c",
+            "compression",
+            "lz4"
+        ],
+        "subscribers": 249,
+        "readme": "LZ4 - Extremely fast compression\n================================\n\nLZ4 is lossless compression algorithm,\nproviding compression speed > 500 MB/s per core,\nscalable with multi-cores CPU.\nIt features an extremely fast decoder,\nwith speed in multiple GB/s per core,\ntypically reaching RAM speed limits on multi-core systems.\n\nSpeed can be tuned dynamically, selecting an \"acceleration\" factor\nwhich trades compression ratio for faster speed.\nOn the other end, a high compression derivative, LZ4_HC, is also provided,\ntrading CPU time for improved compression ratio.\nAll versions feature the same decompression speed.\n\nLZ4 is also compatible with [dictionary compression](https://github.com/facebook/zstd#the-case-for-small-data-compression),\nboth at [API](https://github.com/lz4/lz4/blob/v1.8.3/lib/lz4frame.h#L481) and [CLI](https://github.com/lz4/lz4/blob/v1.8.3/programs/lz4.1.md#operation-modifiers) levels.\nIt can ingest any input file as dictionary, though only the final 64KB are used.\nThis capability can be combined with the [Zstandard Dictionary Builder](https://github.com/facebook/zstd/blob/v1.3.5/programs/zstd.1.md#dictionary-builder),\nin order to drastically improve compression performance on small files.\n\n\nLZ4 library is provided as open-source software using BSD 2-Clause license.\n\n\n|Branch      |Status   |\n|------------|---------|\n|dev         | [![Build status][AppveyorDevBadge]][AppveyorLink]  |\n\n[AppveyorDevBadge]: https://ci.appveyor.com/api/projects/status/github/lz4/lz4?branch=dev&svg=true \"Windows test suite\"\n[AppveyorLink]: https://ci.appveyor.com/project/YannCollet/lz4-1lndh\n\n\nBenchmarks\n-------------------------\n\nThe benchmark uses [lzbench], from @inikep\ncompiled with GCC v8.2.0 on Linux 64-bits (Ubuntu 4.18.0-17).\nThe reference system uses a Core i7-9700K CPU @ 4.9GHz (w/ turbo boost).\nBenchmark evaluates the compression of reference [Silesia Corpus]\nin single-thread mode.\n\n[lzbench]: https://github.com/inikep/lzbench\n[Silesia Corpus]: http://sun.aei.polsl.pl/~sdeor/index.php?page=silesia\n\n|  Compressor             | Ratio   | Compression | Decompression |\n|  ----------             | -----   | ----------- | ------------- |\n|  memcpy                 |  1.000  | 13700 MB/s  |  13700 MB/s   |\n|**LZ4 default (v1.9.0)** |**2.101**| **780 MB/s**| **4970 MB/s** |\n|  LZO 2.09               |  2.108  |   670 MB/s  |    860 MB/s   |\n|  QuickLZ 1.5.0          |  2.238  |   575 MB/s  |    780 MB/s   |\n|  Snappy 1.1.4           |  2.091  |   565 MB/s  |   1950 MB/s   |\n| [Zstandard] 1.4.0 -1    |  2.883  |   515 MB/s  |   1380 MB/s   |\n|  LZF v3.6               |  2.073  |   415 MB/s  |    910 MB/s   |\n| [zlib] deflate 1.2.11 -1|  2.730  |   100 MB/s  |    415 MB/s   |\n|**LZ4 HC -9 (v1.9.0)**   |**2.721**|    41 MB/s  | **4900 MB/s** |\n| [zlib] deflate 1.2.11 -6|  3.099  |    36 MB/s  |    445 MB/s   |\n\n[zlib]: http://www.zlib.net/\n[Zstandard]: http://www.zstd.net/\n\nLZ4 is also compatible and optimized for x32 mode (`-mx32`),\nfor which it provides additional speed performance.\n\n\nInstallation\n-------------------------\n\n```\nmake\nmake install     # this command may require root permissions\n```\n\nLZ4's `Makefile` supports standard [Makefile conventions],\nincluding [staged installs], [redirection], or [command redefinition].\nIt is compatible with parallel builds (`-j#`).\n\n[Makefile conventions]: https://www.gnu.org/prep/standards/html_node/Makefile-Conventions.html\n[staged installs]: https://www.gnu.org/prep/standards/html_node/DESTDIR.html\n[redirection]: https://www.gnu.org/prep/standards/html_node/Directory-Variables.html\n[command redefinition]: https://www.gnu.org/prep/standards/html_node/Utilities-in-Makefiles.html\n\n### Building LZ4 - Using vcpkg\n\nYou can download and install LZ4 using the [vcpkg](https://github.com/Microsoft/vcpkg) dependency manager:\n\n    git clone https://github.com/Microsoft/vcpkg.git\n    cd vcpkg\n    ./bootstrap-vcpkg.sh\n    ./vcpkg integrate install\n    ./vcpkg.exe install lz4\n\nThe LZ4 port in vcpkg is kept up to date by Microsoft team members and community contributors. If the version is out of date, please [create an issue or pull request](https://github.com/Microsoft/vcpkg) on the vcpkg repository.\n\nDocumentation\n-------------------------\n\nThe raw LZ4 block compression format is detailed within [lz4_Block_format].\n\nArbitrarily long files or data streams are compressed using multiple blocks,\nfor streaming requirements. These blocks are organized into a frame,\ndefined into [lz4_Frame_format].\nInteroperable versions of LZ4 must also respect the frame format.\n\n[lz4_Block_format]: doc/lz4_Block_format.md\n[lz4_Frame_format]: doc/lz4_Frame_format.md\n\n\nOther source versions\n-------------------------\n\nBeyond the C reference source,\nmany contributors have created versions of lz4 in multiple languages\n(Java, C#, Python, Perl, Ruby, etc.).\nA list of known source ports is maintained on the [LZ4 Homepage].\n\n[LZ4 Homepage]: http://www.lz4.org\n\n### Packaging status\n\nMost distributions are bundled with a package manager\nwhich allows easy installation of both the `liblz4` library\nand the `lz4` command line interface.\n\n[![Packaging status](https://repology.org/badge/vertical-allrepos/lz4.svg?columns=4&exclude_unsupported=1)](https://repology.org/project/lz4/versions)\n\n\n### Special Thanks\n\n- Takayuki Matsuoka, aka @t-mat, for exceptional first-class support throughout the lifetime of this project\n",
+        "releases": [
+            {
+                "name": "LZ4 v1.10.0 - Multicores edition",
+                "date": "2024-07-22T05:36:45Z"
+            },
+            {
+                "name": "LZ4 v1.9.4",
+                "date": "2022-08-15T22:49:54Z"
+            },
+            {
+                "name": "LZ4 v1.9.3",
+                "date": "2020-11-16T05:06:14Z"
+            },
+            {
+                "name": "LZ4 v1.9.2",
+                "date": "2019-08-20T17:44:04Z"
+            },
+            {
+                "name": "LZ4 v1.9.1",
+                "date": "2019-04-23T17:29:16Z"
+            },
+            {
+                "name": "LZ4 v1.9.0",
+                "date": "2019-04-16T20:58:13Z"
+            },
+            {
+                "name": "LZ4 v1.8.3 - maintenance quickfix",
+                "date": "2018-09-11T19:53:32Z"
+            },
+            {
+                "name": "LZ4 v1.8.2 - faster small data",
+                "date": "2018-05-07T21:39:16Z"
+            },
+            {
+                "name": "LZ4 v1.8.1.2",
+                "date": "2018-01-14T09:00:19Z"
+            },
+            {
+                "name": "LZ4 v1.8.1 (deprecated)",
+                "date": "2018-01-13T00:25:29Z"
+            },
+            {
+                "name": "LZ4 v1.8.0",
+                "date": "2017-08-18T17:48:55Z"
+            },
+            {
+                "name": "LZ4 v1.7.5",
+                "date": "2017-01-03T13:20:03Z"
+            },
+            {
+                "name": "LZ4 v1.7.4-2",
+                "date": "2016-11-22T20:35:43Z"
+            },
+            {
+                "name": "LZ4 v1.7.4",
+                "date": "2016-11-22T04:36:47Z"
+            },
+            {
+                "name": "LZ4 v1.7.3",
+                "date": "2016-11-16T20:18:39Z"
+            },
+            {
+                "name": "LZ4 r131",
+                "date": "2015-06-30T01:35:43Z"
+            },
+            {
+                "name": "LZ4 r130",
+                "date": "2015-05-29T18:24:24Z"
+            },
+            {
+                "name": "LZ4 r129",
+                "date": "2015-05-11T12:03:21Z"
+            },
+            {
+                "name": "LZ4 r128",
+                "date": "2015-03-31T13:14:52Z"
+            },
+            {
+                "name": "LZ4 r127",
+                "date": "2015-01-02T15:29:34Z"
+            },
+            {
+                "name": "LZ4 r126",
+                "date": "2014-12-24T14:12:01Z"
+            },
+            {
+                "name": "LZ4 r125",
+                "date": "2014-12-13T10:51:17Z"
+            },
+            {
+                "name": "LZ4 r124",
+                "date": "2014-11-08T08:32:55Z"
+            },
+            {
+                "name": "LZ4 r123",
+                "date": "2014-09-25T13:41:44Z"
+            },
+            {
+                "name": "LZ4 r122",
+                "date": "2014-08-28T12:26:29Z"
+            },
+            {
+                "name": "LZ4 r121",
+                "date": "2014-08-07T11:05:43Z"
+            },
+            {
+                "name": "LZ4 r120",
+                "date": "2014-07-24T11:55:10Z"
+            },
+            {
+                "name": "LZ4 r119",
+                "date": "2014-07-02T21:33:27Z"
+            },
+            {
+                "name": "LZ4 r118",
+                "date": "2014-06-26T09:48:37Z"
+            },
+            {
+                "name": "LZ4 r117",
+                "date": "2014-04-22T22:46:35Z"
+            },
+            {
+                "name": "LZ4 r116",
+                "date": "2014-04-09T20:10:53Z"
+            }
+        ]
+    }
+}

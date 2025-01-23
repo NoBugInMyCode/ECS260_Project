@@ -1,0 +1,106 @@
+{
+    "https://api.github.com/repos/http-party/http-server": {
+        "forks": 1507,
+        "watchers": 13741,
+        "stars": 13741,
+        "languages": {
+            "JavaScript": 115261,
+            "HTML": 1774,
+            "Dockerfile": 190
+        },
+        "commits": [
+            "2024-11-05T17:25:50Z",
+            "2024-11-04T20:14:04Z",
+            "2024-11-04T19:15:51Z",
+            "2024-11-04T19:10:43Z",
+            "2024-11-04T20:05:28Z",
+            "2024-10-14T11:38:33Z",
+            "2024-10-02T02:39:48Z",
+            "2024-08-15T19:20:41Z",
+            "2024-08-15T19:12:25Z",
+            "2024-08-14T02:35:04Z",
+            "2022-08-26T11:17:57Z",
+            "2024-09-30T00:46:45Z",
+            "2024-09-30T00:35:50Z",
+            "2024-09-20T20:43:18Z",
+            "2024-09-20T19:52:02Z",
+            "2024-09-20T19:41:31Z",
+            "2024-09-20T18:28:25Z",
+            "2024-09-20T17:37:30Z",
+            "2024-09-20T15:43:23Z",
+            "2023-10-18T14:58:59Z",
+            "2022-05-31T21:50:55Z",
+            "2022-05-31T21:45:29Z",
+            "2022-05-31T21:26:48Z",
+            "2022-05-31T21:26:32Z",
+            "2022-04-08T17:15:54Z",
+            "2022-04-08T17:15:02Z",
+            "2022-03-22T22:32:24Z",
+            "2022-02-12T08:48:32Z",
+            "2022-01-23T22:20:36Z",
+            "2022-01-10T19:52:49Z"
+        ],
+        "creation_date": "2011-06-16T23:54:57Z",
+        "contributors": 30,
+        "topics": [
+            "command-line",
+            "hacktoberfest",
+            "hosting",
+            "http",
+            "server",
+            "static"
+        ],
+        "subscribers": 192,
+        "readme": "[![GitHub Workflow Status (master)](https://img.shields.io/github/actions/workflow/status/http-party/http-server/node.js.yml?style=flat-square&branch=master)](https://github.com/http-party/http-server/actions)\n[![npm](https://img.shields.io/npm/v/http-server.svg?style=flat-square)](https://www.npmjs.com/package/http-server) [![homebrew](https://img.shields.io/homebrew/v/http-server?style=flat-square)](https://formulae.brew.sh/formula/http-server) [![npm downloads](https://img.shields.io/npm/dm/http-server?color=blue&label=npm%20downloads&style=flat-square)](https://www.npmjs.com/package/http-server)\n[![license](https://img.shields.io/github/license/http-party/http-server.svg?style=flat-square)](https://github.com/http-party/http-server/blob/master/LICENSE)\n\n# http-server: a simple static HTTP server\n\n`http-server` is a simple, zero-configuration command-line static HTTP server.  It is powerful enough for production usage, but it's simple and hackable enough to be used for testing, local development and learning.\n\n![Example of running http-server](https://github.com/http-party/http-server/raw/master/screenshots/public.png)\n\n## Installation:\n\n#### Running on-demand:\n\nUsing `npx` you can run the script without installing it first:\n\n    npx http-server [path] [options]\n\n#### Globally via `npm`\n\n    npm install --global http-server\n\nThis will install `http-server` globally so that it may be run from the command line anywhere.\n\n#### Globally via Homebrew\n\n    brew install http-server\n     \n#### As a dependency in your `npm` package:\n\n    npm install http-server\n\n#### Using Docker\n\nNote: a public image is not provided currently, but you can build one yourself\nwith the provided Dockerfile.\n\n1. Create an image\n   ```\n   docker build -t my-image .\n   ```\n2. Run a container\n   ```\n   docker run -p 8080:8080 -v \"${pwd}:/public\" my-image\n   ```\n   In the example above we're serving the directory `./` (working directory).\n   If you wanted to serve `./test` you'd replace `${pwd}` with `${pwd}/test`.\n\n## Usage:\n\n     http-server [path] [options]\n\n`[path]` defaults to `./public` if the folder exists, and `./` otherwise.\n\n*Now you can visit http://localhost:8080 to view your server*\n\n**Note:** Caching is on by default. Add `-c-1` as an option to disable caching.\n\n## Available Options:\n\n| Command         | \tDescription         | Defaults  |\n| -------------  |-------------|-------------|\n|`-p` or `--port` |Port to use. Use `-p 0` to look for an open port, starting at 8080. It will also read from `process.env.PORT`. |8080 |\n|`-a`   |Address to use |0.0.0.0|\n|`--base-dir` | Base path to serve files from | `/` |\n|`-d`     |Show directory listings |`true` |\n|`-i`   | Display autoIndex | `true` |\n|`-g` or `--gzip` |When enabled it will serve `./public/some-file.js.gz` in place of `./public/some-file.js` when a gzipped version of the file exists and the request accepts gzip encoding. If brotli is also enabled, it will try to serve brotli first.|`false`|\n|`-b` or `--brotli`|When enabled it will serve `./public/some-file.js.br` in place of `./public/some-file.js` when a brotli compressed version of the file exists and the request accepts `br` encoding. If gzip is also enabled, it will try to serve brotli first. |`false`|\n|`-e` or `--ext`  |Default file extension if none supplied |`html` | \n|`-s` or `--silent` |Suppress log messages from output  | |\n|`--cors` |Enable CORS via the `Access-Control-Allow-Origin` header  | |\n|`-H` or `--header` |Add an extra response header (can be used several times)  | |\n|`-o [path]` |Open browser window after starting the server. Optionally provide a URL path to open. e.g.: -o /other/dir/ | |\n|`-c` |Set cache time (in seconds) for cache-control max-age header, e.g. `-c10` for 10 seconds. To disable caching, use `-c-1`.|`3600` |\n|`-U` or `--utc` |Use UTC time format in log messages.| |\n|`--log-ip` |Enable logging of the client's IP address |`false` |\n|`-P` or `--proxy` |Proxies all requests which can't be resolved locally to the given url. e.g.: -P http://someurl.com | |\n|`--proxy-options` |Pass proxy [options](https://github.com/http-party/node-http-proxy#options) using nested dotted objects. e.g.: --proxy-options.secure false |\n|`--username` |Username for basic authentication | |\n|`--password` |Password for basic authentication | |\n|`-S`, `--tls` or `--ssl` |Enable secure request serving with TLS/SSL (HTTPS)|`false`|\n|`-C` or `--cert` |Path to ssl cert file |`cert.pem` | \n|`-K` or `--key` |Path to ssl key file |`key.pem` |\n|`-r` or `--robots` | Automatically provide a /robots.txt (The content of which defaults to `User-agent: *\\nDisallow: /`)  | `false` |\n|`--no-dotfiles` |Do not show dotfiles| |\n|`--mimetypes` |Path to a .types file for custom mimetype definition| |\n|`-h` or `--help` |Print this list and exit. |   |\n|`-v` or `--version`|Print the version and exit. | |\n\n## Magic Files\n\n- `index.html` will be served as the default file to any directory requests.\n- `404.html` will be served if a file is not found. This can be used for Single-Page App (SPA) hosting to serve the entry page.\n\n## Catch-all redirect\n\nTo implement a catch-all redirect, use the index page itself as the proxy with:\n\n```\nhttp-server --proxy http://localhost:8080?\n```\n\nNote the `?` at the end of the proxy URL. Thanks to [@houston3](https://github.com/houston3) for this clever hack!\n\n## TLS/SSL\n\nFirst, you need to make sure that [openssl](https://github.com/openssl/openssl) is installed correctly, and you have `key.pem` and `cert.pem` files. You can generate them using this command:\n\n``` sh\nopenssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem\n```\n\nYou will be prompted with a few questions after entering the command. Use `127.0.0.1` as value for `Common name` if you want to be able to install the certificate in your OS's root certificate store or browser so that it is trusted.\n\nThis generates a cert-key pair and it will be valid for 3650 days (about 10 years).\n\nThen you need to run the server with `-S` for enabling SSL and `-C` for your certificate file.\n\n``` sh\nhttp-server -S -C cert.pem\n```\n\nIf you wish to use a passphrase with your private key you can include one in the openssl command via the -passout parameter (using password of foobar)\n\n\ne.g.\n`openssl req -newkey rsa:2048 -passout pass:foobar -keyout key.pem -x509 -days 365 -out cert.pem`\n\nFor security reasons, the passphrase will only be read from the `NODE_HTTP_SERVER_SSL_PASSPHRASE` environment variable.\n\n\nThis is what should be output if successful:\n\n``` sh\nStarting up http-server, serving ./ through https\n\nhttp-server settings:\nCORS: disabled\nCache: 3600 seconds\nConnection Timeout: 120 seconds\nDirectory Listings: visible\nAutoIndex: visible\nServe GZIP Files: false\nServe Brotli Files: false\nDefault File Extension: none\n\nAvailable on:\n  https://127.0.0.1:8080\n  https://192.168.1.101:8080\n  https://192.168.1.104:8080\nHit CTRL-C to stop the server\n```\n\n# Development\n\nCheckout this repository locally, then:\n\n```sh\n$ npm i\n$ npm start\n```\n\n*Now you can visit http://localhost:8080 to view your server*\n\nYou should see the turtle image in the screenshot above hosted at that URL. See\nthe `./public` folder for demo content.\n",
+        "releases": [
+            {
+                "name": "v14.1.1",
+                "date": "2022-05-31T21:33:23Z"
+            },
+            {
+                "name": "v14.1.0",
+                "date": "2022-01-10T19:48:35Z"
+            },
+            {
+                "name": "v13.1.0",
+                "date": "2022-01-10T19:38:51Z"
+            },
+            {
+                "name": "v14.0.0",
+                "date": "2021-10-19T23:14:53Z"
+            },
+            {
+                "name": "v13.0.2",
+                "date": "2021-09-13T22:47:15Z"
+            },
+            {
+                "name": "v13.0.1",
+                "date": "2021-08-20T14:23:24Z"
+            },
+            {
+                "name": "v13.0.0",
+                "date": "2021-08-07T19:25:09Z"
+            },
+            {
+                "name": "v0.13.0",
+                "date": "2021-08-07T19:08:36Z"
+            },
+            {
+                "name": "v0.11.2: Security update",
+                "date": "2021-08-07T18:28:58Z"
+            },
+            {
+                "name": "",
+                "date": "2020-04-27T20:09:37Z"
+            },
+            {
+                "name": "",
+                "date": "2020-04-27T16:49:21Z"
+            },
+            {
+                "name": "",
+                "date": "2017-05-01T17:48:07Z"
+            }
+        ]
+    }
+}

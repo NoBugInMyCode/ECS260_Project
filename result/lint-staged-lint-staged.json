@@ -1,0 +1,1010 @@
+{
+    "https://api.github.com/repos/okonet/lint-staged": {
+        "forks": 429,
+        "watchers": 13576,
+        "stars": 13576,
+        "languages": {
+            "JavaScript": 260485,
+            "TypeScript": 1350
+        },
+        "commits": [
+            "2025-01-20T16:47:46Z",
+            "2025-01-16T18:03:06Z",
+            "2025-01-16T18:01:03Z",
+            "2025-01-16T17:40:08Z",
+            "2025-01-16T17:38:35Z",
+            "2025-01-16T06:22:32Z",
+            "2025-01-16T06:03:47Z",
+            "2025-01-16T05:56:51Z",
+            "2025-01-16T05:37:33Z",
+            "2025-01-12T13:35:35Z",
+            "2025-01-12T12:58:43Z",
+            "2025-01-12T12:28:16Z",
+            "2025-01-12T13:00:50Z",
+            "2024-12-28T10:54:02Z",
+            "2024-12-28T10:49:12Z",
+            "2024-12-28T09:41:24Z",
+            "2024-12-28T08:38:12Z",
+            "2024-12-28T08:15:28Z",
+            "2024-12-27T11:50:22Z",
+            "2024-12-27T11:12:23Z",
+            "2024-12-26T15:25:50Z",
+            "2024-12-26T15:11:57Z",
+            "2024-12-26T14:49:24Z",
+            "2024-12-26T14:47:10Z",
+            "2024-12-10T14:00:31Z",
+            "2024-12-10T13:44:14Z",
+            "2024-12-10T13:43:55Z",
+            "2024-12-10T12:16:27Z",
+            "2024-12-10T11:40:44Z",
+            "2024-12-10T10:57:35Z"
+        ],
+        "creation_date": "2016-01-15T07:51:21Z",
+        "contributors": 30,
+        "topics": [
+            "developer-experience",
+            "eslint",
+            "git",
+            "linter",
+            "stage-files",
+            "stylelint",
+            "workflow"
+        ],
+        "subscribers": 43,
+        "readme": "# \ud83d\udeab\ud83d\udca9 lint-staged\n\n[![npm version](https://badge.fury.io/js/lint-staged.svg)](https://badge.fury.io/js/lint-staged)\n\n---\n\nRun tasks like formatters and linters against staged git files and don't let :poop: slip into your code base!\n\n```bash\nnpm install --save-dev lint-staged # requires further setup\n```\n\n```\n$ git commit\n\n\u2714 Backed up original state in git stash (5bda95f)\n\u276f Running tasks for staged files...\n  \u276f packages/frontend/.lintstagedrc.json \u2014 1 file\n    \u2193 *.js \u2014 no files [SKIPPED]\n    \u276f *.{json,md} \u2014 1 file\n      \u2839 prettier --write\n  \u2193 packages/backend/.lintstagedrc.json \u2014 2 files\n    \u276f *.js \u2014 2 files\n      \u283c eslint --fix\n    \u2193 *.{json,md} \u2014 no files [SKIPPED]\n\u25fc Applying modifications from tasks...\n\u25fc Cleaning up temporary files...\n```\n\n<details>\n<summary>See asciinema video</summary>\n\n[![asciicast](https://asciinema.org/a/199934.svg)](https://asciinema.org/a/199934)\n\n</details>\n\n## Why\n\nCode quality tasks like formatters and linters make more sense when run before committing your code. By doing so you can ensure no errors go into the repository and enforce code style. But running a task on a whole project can be slow, and opinionated tasks such as linting can sometimes produce irrelevant results. Ultimately you only want to check files that will be committed.\n\nThis project contains a script that will run arbitrary shell tasks with a list of staged files as an argument, filtered by a specified glob pattern.\n\n## Related blog posts and talks\n\n- [Introductory Medium post - Andrey Okonetchnikov, 2016](https://medium.com/@okonetchnikov/make-linting-great-again-f3890e1ad6b8#.8qepn2b5l)\n- [Running Jest Tests Before Each Git Commit - Ben McCormick, 2017](https://benmccormick.org/2017/02/26/running-jest-tests-before-each-git-commit/)\n- [AgentConf presentation - Andrey Okonetchnikov, 2018](https://www.youtube.com/watch?v=-mhY7e-EsC4)\n- [SurviveJS interview - Juho Veps\u00e4l\u00e4inen and Andrey Okonetchnikov, 2018](https://survivejs.com/blog/lint-staged-interview/)\n- [Prettier your CSharp with `dotnet-format` and `lint-staged`](https://johnnyreilly.com/2020/12/22/prettier-your-csharp-with-dotnet-format-and-lint-staged)\n\n> If you've written one, please submit a PR with the link to it!\n\n## Installation and setup\n\nTo install _lint-staged_ in the recommended way, you need to:\n\n1. Install _lint-staged_ itself:\n   - `npm install --save-dev lint-staged`\n1. Set up the `pre-commit` git hook to run _lint-staged_\n   - [Husky](https://github.com/typicode/husky) is a popular choice for configuring git hooks\n   - Read more about git hooks [here](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks)\n1. Install some tools like [ESLint](https://eslint.org) or [Prettier](https://prettier.io)\n1. Configure _lint-staged_ to run code checkers and other tasks:\n   - for example: `{ \"*.js\": \"eslint\" }` to run ESLint for all staged JS files\n   - See [Configuration](#configuration) for more info\n\nDon't forget to commit changes to `package.json` and `.husky` to share this setup with your team!\n\nNow change a few files, `git add` or `git add --patch` some of them to your commit, and try to `git commit` them.\n\nSee [examples](#examples) and [configuration](#configuration) for more information.\n\n> [!CAUTION]  \n> _Lint-staged_ runs `git` operations affecting the files in your repository. By default _lint-staged_ creates a `git stash` as a backup of the original state before running any configured tasks to help prevent data loss.\n\n## Changelog\n\nSee [Releases](https://github.com/okonet/lint-staged/releases).\n\n### Migration\n\n#### v15\n\n- Since `v15.0.0` _lint-staged_ no longer supports Node.js 16. Please upgrade your Node.js version to at least `18.12.0`.\n\n#### v14\n\n- Since `v14.0.0` _lint-staged_ no longer supports Node.js 14. Please upgrade your Node.js version to at least `16.14.0`.\n\n#### v13\n\n- Since `v13.0.0` _lint-staged_ no longer supports Node.js 12. Please upgrade your Node.js version to at least `14.13.1`, or `16.0.0` onward.\n- Version `v13.3.0` was incorrectly released including code of version `v14.0.0`. This means the breaking changes of `v14` are also included in `v13.3.0`, the last `v13` version released\n\n#### v12\n\n- Since `v12.0.0` _lint-staged_ is a pure ESM module, so make sure your Node.js version is at least `12.20.0`, `14.13.1`, or `16.0.0`. Read more about ESM modules from the official [Node.js Documentation site here](https://nodejs.org/api/esm.html#introduction).\n\n#### v10\n\n- From `v10.0.0` onwards any new modifications to originally staged files will be automatically added to the commit.\n  If your task previously contained a `git add` step, please remove this.\n  The automatic behaviour ensures there are less race-conditions,\n  since trying to run multiple git operations at the same time usually results in an error.\n- From `v10.0.0` onwards, lint-staged uses git stashes to improve speed and provide backups while running.\n  Since git stashes require at least an initial commit, you shouldn't run lint-staged in an empty repo.\n- From `v10.0.0` onwards, lint-staged requires Node.js version 10.13.0 or later.\n- From `v10.0.0` onwards, lint-staged will abort the commit if linter tasks undo all staged changes. To allow creating an empty commit, please use the `--allow-empty` option.\n\n## Command line flags\n\n```\n\u276f npx lint-staged --help\nUsage: lint-staged [options]\n\nOptions:\n  -V, --version                      output the version number\n  --allow-empty                      allow empty commits when tasks revert all staged changes (default: false)\n  -p, --concurrent <number|boolean>  the number of tasks to run concurrently, or false for serial (default: true)\n  -c, --config [path]                path to configuration file, or - to read from stdin\n  --cwd [path]                       run all tasks in specific directory, instead of the current\n  -d, --debug                        print additional debug information (default: false)\n  --diff [string]                    override the default \"--staged\" flag of \"git diff\" to get list of files.\n                                     Implies \"--no-stash\".\n  --diff-filter [string]             override the default \"--diff-filter=ACMR\" flag of \"git diff\" to get list of\n                                     files\n  --max-arg-length [number]          maximum length of the command-line argument string (default: 0)\n  --no-stash                         disable the backup stash, and do not revert in case of errors. Implies\n                                     \"--no-hide-partially-staged\".\n  --no-hide-partially-staged         disable hiding unstaged changes from partially staged files\n  -q, --quiet                        disable lint-staged\u2019s own console output (default: false)\n  -r, --relative                     pass relative filepaths to tasks (default: false)\n  -x, --shell [path]                 skip parsing of tasks for better shell support (default: false)\n  -v, --verbose                      show task output even when tasks succeed; by default only failed output is\n                                     shown (default: false)\n  -h, --help                         display help for command\n\nAny lost modifications can be restored from a git stash:\n\n  > git stash list\n  stash@{0}: automatic lint-staged backup\n  > git stash apply --index stash@{0}\n```\n\n- **`--allow-empty`**: By default, when tasks undo all staged changes, lint-staged will exit with an error and abort the commit. Use this flag to allow creating empty git commits.\n- **`--concurrent [number|boolean]`**: Controls the [concurrency of tasks](#task-concurrency) being run by lint-staged. **NOTE**: This does NOT affect the concurrency of subtasks (they will always be run sequentially). Possible values are:\n  - `false`: Run all tasks serially\n  - `true` (default) : _Infinite_ concurrency. Runs as many tasks in parallel as possible.\n  - `{number}`: Run the specified number of tasks in parallel, where `1` is equivalent to `false`.\n- **`--config [path]`**: Manually specify a path to a config file or npm package name. Note: when used, lint-staged won't perform the config file search and will print an error if the specified file cannot be found. If '-' is provided as the filename then the config will be read from stdin, allowing piping in the config like `cat my-config.json | npx lint-staged --config -`.\n- **`--cwd [path]`**: By default tasks run in the current working directory. Use the `--cwd some/directory` to override this. The path can be absolute or relative to the current working directory.\n- **`--debug`**: Run in debug mode. When set, it does the following:\n  - uses [debug](https://github.com/visionmedia/debug) internally to log additional information about staged files, commands being executed, location of binaries, etc. Debug logs, which are automatically enabled by passing the flag, can also be enabled by setting the environment variable `$DEBUG` to `lint-staged*`.\n  - uses [`verbose` renderer](https://listr2.kilic.dev/renderers/verbose-renderer/) for `listr2`; this causes serial, uncoloured output to the terminal, instead of the default (beautified, dynamic) output.\n    (the [`verbose` renderer](https://listr2.kilic.dev/renderers/verbose-renderer/) can also be activated by setting the `TERM=dumb` or `NODE_ENV=test` environment variables)\n- **`--diff`**: By default tasks are filtered against all files staged in git, generated from `git diff --staged`. This option allows you to override the `--staged` flag with arbitrary revisions. For example to get a list of changed files between two branches, use `--diff=\"branch1...branch2\"`. You can also read more from about [git diff](https://git-scm.com/docs/git-diff) and [gitrevisions](https://git-scm.com/docs/gitrevisions). This option also implies `--no-stash`.\n- **`--diff-filter`**: By default only files that are _added_, _copied_, _modified_, or _renamed_ are included. Use this flag to override the default `ACMR` value with something else: _added_ (`A`), _copied_ (`C`), _deleted_ (`D`), _modified_ (`M`), _renamed_ (`R`), _type changed_ (`T`), _unmerged_ (`U`), _unknown_ (`X`), or _pairing broken_ (`B`). See also the `git diff` docs for [--diff-filter](https://git-scm.com/docs/git-diff#Documentation/git-diff.txt---diff-filterACDMRTUXB82308203).\n- **`--max-arg-length`**: long commands (a lot of files) are automatically split into multiple chunks when it detects the current shell cannot handle them. Use this flag to override the maximum length of the generated command string.\n- **`--no-stash`**: By default a backup stash will be created before running the tasks, and all task modifications will be reverted in case of an error. This option will disable creating the stash, and instead leave all modifications in the index when aborting the commit. Can be re-enabled with `--stash`. This option also implies `--no-hide-partially-staged`.\n- **`--no-hide-partially-staged`**: By default, unstaged changes from partially staged files will be hidden. This option will disable this behavior and include all unstaged changes in partially staged files. Can be re-enabled with `--hide-partially-staged`\n- **`--quiet`**: Supress all CLI output, except from tasks.\n- **`--relative`**: Pass filepaths relative to `process.cwd()` (where `lint-staged` runs) to tasks. Default is `false`.\n- **`--shell`**: By default task commands will be parsed for speed and security. This has the side-effect that regular shell scripts might not work as expected. You can skip parsing of commands with this option. To use a specific shell, use a path like `--shell \"/bin/bash\"`.\n- **`--verbose`**: Show task output even when tasks succeed. By default only failed output is shown.\n\n## Configuration\n\n_Lint-staged_ can be configured in many ways:\n\n- `lint-staged` object in your `package.json`, or [`package.yaml`](https://github.com/pnpm/pnpm/pull/1799)\n- `.lintstagedrc` file in JSON or YML format, or you can be explicit with the file extension:\n  - `.lintstagedrc.json`\n  - `.lintstagedrc.yaml`\n  - `.lintstagedrc.yml`\n- `.lintstagedrc.mjs` or `lint-staged.config.mjs` file in ESM format\n  - the default export value should be a configuration: `export default { ... }`\n- `.lintstagedrc.cjs` or `lint-staged.config.cjs` file in CommonJS format\n  - the exports value should be a configuration: `module.exports = { ... }`\n- `lint-staged.config.js` or `.lintstagedrc.js` in either ESM or CommonJS format, depending on\n  whether your project's _package.json_ contains the `\"type\": \"module\"` option or not.\n- Pass a configuration file using the `--config` or `-c` flag\n\nConfiguration should be an object where each value is a command to run and its key is a glob pattern to use for this command. This package uses [micromatch](https://github.com/micromatch/micromatch) for glob patterns. JavaScript files can also export advanced configuration as a function. See [Using JS configuration files](#using-js-configuration-files) for more info.\n\nYou can also place multiple configuration files in different directories inside a project. For a given staged file, the closest configuration file will always be used. See [\"How to use `lint-staged` in a multi-package monorepo?\"](#how-to-use-lint-staged-in-a-multi-package-monorepo) for more info and an example.\n\n#### `package.json` example:\n\n```json\n{\n  \"lint-staged\": {\n    \"*\": \"your-cmd\"\n  }\n}\n```\n\n#### `.lintstagedrc` example\n\n```json\n{\n  \"*\": \"your-cmd\"\n}\n```\n\nThis config will execute `your-cmd` with the list of currently staged files passed as arguments.\n\nSo, considering you did `git add file1.ext file2.ext`, lint-staged will run the following command:\n\n`your-cmd file1.ext file2.ext`\n\n### TypeScript\n\n_Lint-staged_ provides TypeScript types for the configuration and main Node.js API. You can use the JSDoc syntax in your JS configuration files:\n\n```js\n/**\n * @filename: lint-staged.config.js\n * @type {import('lint-staged').Configuration}\n */\nexport default {\n  '*': 'prettier --write',\n}\n```\n\nIt's also possible to use the `.ts` file extension for the configuration if your Node.js version supports it. The `--experimental-strip-types` flag was introduced in [Node.js v22.6.0](https://github.com/nodejs/node/releases/tag/v22.6.0) and unflagged in [v23.6.0](https://github.com/nodejs/node/releases/tag/v23.6.0), enabling Node.js to execute TypeScript files without additional configuration.\n\n```shell\nexport NODE_OPTIONS=\"--experimental-strip-types\"\n\nnpx lint-staged --config lint-staged.config.ts\n```\n\n### Task concurrency\n\nBy default _lint-staged_ will run configured tasks concurrently. This means that for every glob, all the commands will be started at the same time. With the following config, both `eslint` and `prettier` will run at the same time:\n\n```json\n{\n  \"*.ts\": \"eslint\",\n  \"*.md\": \"prettier --list-different\"\n}\n```\n\nThis is typically not a problem since the globs do not overlap, and the commands do not make changes to the files, but only report possible errors (aborting the git commit). If you want to run multiple commands for the same set of files, you can use the array syntax to make sure commands are run in order. In the following example, `prettier` will run for both globs, and in addition `eslint` will run for `*.ts` files _after_ it. Both sets of commands (for each glob) are still started at the same time (but do not overlap).\n\n```json\n{\n  \"*.ts\": [\"prettier --list-different\", \"eslint\"],\n  \"*.md\": \"prettier --list-different\"\n}\n```\n\nPay extra attention when the configured globs overlap, and tasks make edits to files. For example, in this configuration `prettier` and `eslint` might try to make changes to the same `*.ts` file at the same time, causing a _race condition_:\n\n```json\n{\n  \"*\": \"prettier --write\",\n  \"*.ts\": \"eslint --fix\"\n}\n```\n\nYou can solve it using the negation pattern and the array syntax:\n\n```json\n{\n  \"!(*.ts)\": \"prettier --write\",\n  \"*.ts\": [\"eslint --fix\", \"prettier --write\"]\n}\n```\n\nAnother example in which tasks make edits to files and globs match multiple files but don't overlap:\n\n```json\n{\n  \"*.css\": [\"stylelint --fix\", \"prettier --write\"],\n  \"*.{js,jsx}\": [\"eslint --fix\", \"prettier --write\"],\n  \"!(*.css|*.js|*.jsx)\": [\"prettier --write\"]\n}\n```\n\nOr, if necessary, you can limit the concurrency using `--concurrent <number>` or disable it entirely with `--concurrent false`.\n\n## Filtering files\n\nTask commands work on a subset of all staged files, defined by a _glob pattern_. lint-staged uses [micromatch](https://github.com/micromatch/micromatch) for matching files with the following rules:\n\n- If the glob pattern contains no slashes (`/`), micromatch's `matchBase` option will be enabled, so globs match a file's basename regardless of directory:\n  - `\"*.js\"` will match all JS files, like `/test.js` and `/foo/bar/test.js`\n  - `\"!(*test).js\"` will match all JS files, except those ending in `test.js`, so `foo.js` but not `foo.test.js`\n  - `\"!(*.css|*.js)\"` will match all files except CSS and JS files\n- If the glob pattern does contain a slash (`/`), it will match for paths as well:\n  - `\"./*.js\"` will match all JS files in the git repo root, so `/test.js` but not `/foo/bar/test.js`\n  - `\"foo/**/*.js\"` will match all JS files inside the `/foo` directory, so `/foo/bar/test.js` but not `/test.js`\n\nWhen matching, lint-staged will do the following\n\n- Resolve the git root automatically, no configuration needed.\n- Pick the staged files which are present inside the project directory.\n- Filter them using the specified glob patterns.\n- Pass absolute paths to the tasks as arguments.\n\n**NOTE:** `lint-staged` will pass _absolute_ paths to the tasks to avoid any confusion in case they're executed in a different working directory (i.e. when your `.git` directory isn't the same as your `package.json` directory).\n\nAlso see [How to use `lint-staged` in a multi-package monorepo?](#how-to-use-lint-staged-in-a-multi-package-monorepo)\n\n### Ignoring files\n\nThe concept of `lint-staged` is to run configured linter tasks (or other tasks) on files that are staged in git. `lint-staged` will always pass a list of all staged files to the task, and ignoring any files should be configured in the task itself.\n\nConsider a project that uses [`prettier`](https://prettier.io/) to keep code format consistent across all files. The project also stores minified 3rd-party vendor libraries in the `vendor/` directory. To keep `prettier` from throwing errors on these files, the vendor directory should be added to prettier's ignore configuration, the `.prettierignore` file. Running `npx prettier .` will ignore the entire vendor directory, throwing no errors. When `lint-staged` is added to the project and configured to run prettier, all modified and staged files in the vendor directory will be ignored by prettier, even though it receives them as input.\n\nIn advanced scenarios, where it is impossible to configure the linter task itself to ignore files, but some staged files should still be ignored by `lint-staged`, it is possible to filter filepaths before passing them to tasks by using the function syntax. See [Example: Ignore files from match](#example-ignore-files-from-match).\n\n## What commands are supported?\n\nSupported are any executables installed locally or globally via `npm` as well as any executable from your \\$PATH.\n\n> Using globally installed scripts is discouraged, since lint-staged may not work for someone who doesn't have it installed.\n\n`lint-staged` uses [execa](https://github.com/sindresorhus/execa#preferlocal) to locate locally installed scripts. So in your `.lintstagedrc` you can write:\n\n```json\n{\n  \"*.js\": \"eslint --fix\"\n}\n```\n\nThis will result in _lint-staged_ running `eslint --fix file-1.js file-2.js`, when you have staged files `file-1.js`, `file-2.js` and `README.md`.\n\nPass arguments to your commands separated by space as you would do in the shell. See [examples](#examples) below.\n\n## Running multiple commands in a sequence\n\nYou can run multiple commands in a sequence on every glob. To do so, pass an array of commands instead of a single one. This is useful for running autoformatting tools like `eslint --fix` or `stylefmt` but can be used for any arbitrary sequences.\n\nFor example:\n\n```json\n{\n  \"*.js\": [\"eslint\", \"prettier --write\"]\n}\n```\n\ngoing to execute `eslint` and if it exits with `0` code, it will execute `prettier --write` on all staged `*.js` files.\n\nThis will result in _lint-staged_ running `eslint file-1.js file-2.js`, when you have staged files `file-1.js`, `file-2.js` and `README.md`, and if it passes, `prettier --write file-1.js file-2.js`.\n\n## Using JS configuration files\n\nWriting the configuration file in JavaScript is the most powerful way to configure lint-staged (`lint-staged.config.js`, [similar](https://github.com/okonet/lint-staged#configuration), or passed via `--config`). From the configuration file, you can export either a single function or an object.\n\nIf the `exports` value is a function, it will receive an array of all staged filenames. You can then build your own matchers for the files and return a command string or an array of command strings. These strings are considered complete and should include the filename arguments, if wanted.\n\nIf the `exports` value is an object, its keys should be glob matches (like in the normal non-js config format). The values can either be like in the normal config or individual functions like described above. Instead of receiving all matched files, the functions in the exported object will only receive the staged files matching the corresponding glob key.\n\nTo summarize, by default _lint-staged_ automatically adds the list of matched staged files to your command, but when building the command using JS functions it is expected to do this manually. For example:\n\n```js\nexport default {\n  '*.js': (stagedFiles) => [`eslint .`, `prettier --write ${stagedFiles.join(' ')}`],\n}\n```\n\nThis will result in _lint-staged_ first running `eslint .` (matching _all_ files), and if it passes, `prettier --write file-1.js file-2.js`, when you have staged files `file-1.js`, `file-2.js` and `README.md`.\n\n### Function signature\n\nThe function can also be async:\n\n```ts\n(filenames: string[]) => string | string[] | Promise<string | string[]>\n```\n\n### Example: Export a function to build your own matchers\n\n<details>\n  <summary>Click to expand</summary>\n\n```js\n// lint-staged.config.js\nimport micromatch from 'micromatch'\n\nexport default (allStagedFiles) => {\n  const shFiles = micromatch(allStagedFiles, ['**/src/**/*.sh'])\n  if (shFiles.length) {\n    return `printf '%s\\n' \"Script files aren't allowed in src directory\" >&2`\n  }\n  const codeFiles = micromatch(allStagedFiles, ['**/*.js', '**/*.ts'])\n  const docFiles = micromatch(allStagedFiles, ['**/*.md'])\n  return [`eslint ${codeFiles.join(' ')}`, `mdl ${docFiles.join(' ')}`]\n}\n```\n\n</details>\n\n### Example: Wrap filenames in single quotes and run once per file\n\n<details>\n  <summary>Click to expand</summary>\n\n```js\n// .lintstagedrc.js\nexport default {\n  '**/*.js?(x)': (filenames) => filenames.map((filename) => `prettier --write '${filename}'`),\n}\n```\n\n</details>\n\n### Example: Run `tsc` on changes to TypeScript files, but do not pass any filename arguments\n\n<details>\n  <summary>Click to expand</summary>\n\n```js\n// lint-staged.config.js\nexport default {\n  '**/*.ts?(x)': () => 'tsc -p tsconfig.json --noEmit',\n}\n```\n\n</details>\n\n### Example: Run ESLint on entire repo if more than 10 staged files\n\n<details>\n  <summary>Click to expand</summary>\n\n```js\n// .lintstagedrc.js\nexport default {\n  '**/*.js?(x)': (filenames) =>\n    filenames.length > 10 ? 'eslint .' : `eslint ${filenames.join(' ')}`,\n}\n```\n\n</details>\n\n### Example: Use your own globs\n\n<details>\n  <summary>Click to expand</summary>\n\nIt's better to use the [function-based configuration (seen above)](https://github.com/okonet/lint-staged#example-export-a-function-to-build-your-own-matchers), if your use case is this.\n\n```js\n// lint-staged.config.js\nimport micromatch from 'micromatch'\n\nexport default {\n  '*': (allFiles) => {\n    const codeFiles = micromatch(allFiles, ['**/*.js', '**/*.ts'])\n    const docFiles = micromatch(allFiles, ['**/*.md'])\n    return [`eslint ${codeFiles.join(' ')}`, `mdl ${docFiles.join(' ')}`]\n  },\n}\n```\n\n</details>\n\n### Example: Ignore files from match\n\n<details>\n  <summary>Click to expand</summary>\n\nIf for some reason you want to ignore files from the glob match, you can use `micromatch.not()`:\n\n```js\n// lint-staged.config.js\nimport micromatch from 'micromatch'\n\nexport default {\n  '*.js': (files) => {\n    // from `files` filter those _NOT_ matching `*test.js`\n    const match = micromatch.not(files, '*test.js')\n    return `eslint ${match.join(' ')}`\n  },\n}\n```\n\nPlease note that for most cases, globs can achieve the same effect. For the above example, a matching glob would be `!(*test).js`.\n\n</details>\n\n### Example: Use relative paths for commands\n\n<details>\n  <summary>Click to expand</summary>\n\n```js\nimport path from 'path'\n\nexport default {\n  '*.ts': (absolutePaths) => {\n    const cwd = process.cwd()\n    const relativePaths = absolutePaths.map((file) => path.relative(cwd, file))\n    return `ng lint myProjectName --files ${relativePaths.join(' ')}`\n  },\n}\n```\n\n</details>\n\n## Reformatting the code\n\nTools like [Prettier](https://prettier.io), ESLint/TSLint, or stylelint can reformat your code according to an appropriate config by running `prettier --write`/`eslint --fix`/`tslint --fix`/`stylelint --fix`. Lint-staged will automatically add any modifications to the commit as long as there are no errors.\n\n```json\n{\n  \"*.js\": \"prettier --write\"\n}\n```\n\nPrior to version 10, tasks had to manually include `git add` as the final step. This behavior has been integrated into lint-staged itself in order to prevent race conditions with multiple tasks editing the same files. If lint-staged detects `git add` in task configurations, it will show a warning in the console. Please remove `git add` from your configuration after upgrading.\n\n## Examples\n\nAll examples assume you've already set up lint-staged in the `package.json` file and [husky](https://github.com/typicode/husky) in its own config file.\n\n```json\n{\n  \"name\": \"My project\",\n  \"version\": \"0.1.0\",\n  \"scripts\": {\n    \"my-custom-script\": \"linter --arg1 --arg2\"\n  },\n  \"lint-staged\": {}\n}\n```\n\nIn `.husky/pre-commit`\n\n```shell\n# .husky/pre-commit\n\nnpx lint-staged\n```\n\n_Note: we don't pass a path as an argument for the runners. This is important since lint-staged will do this for you._\n\n### ESLint with default parameters for `*.js` and `*.jsx` running as a pre-commit hook\n\n<details>\n  <summary>Click to expand</summary>\n\n```json\n{\n  \"*.{js,jsx}\": \"eslint\"\n}\n```\n\n</details>\n\n### Automatically fix code style with `--fix` and add to commit\n\n<details>\n  <summary>Click to expand</summary>\n\n```json\n{\n  \"*.js\": \"eslint --fix\"\n}\n```\n\nThis will run `eslint --fix` and automatically add changes to the commit.\n\n</details>\n\n### Reuse npm script\n\n<details>\n  <summary>Click to expand</summary>\n\nIf you wish to reuse a npm script defined in your package.json:\n\n```json\n{\n  \"*.js\": \"npm run my-custom-script --\"\n}\n```\n\nThe following is equivalent:\n\n```json\n{\n  \"*.js\": \"linter --arg1 --arg2\"\n}\n```\n\n</details>\n\n### Use environment variables with task commands\n\n<details>\n  <summary>Click to expand</summary>\n\nTask commands _do not_ support the shell convention of expanding environment variables. To enable the convention yourself, use a tool like [`cross-env`](https://github.com/kentcdodds/cross-env).\n\nFor example, here is `jest` running on all `.js` files with the `NODE_ENV` variable being set to `\"test\"`:\n\n```json\n{\n  \"*.js\": [\"cross-env NODE_ENV=test jest --bail --findRelatedTests\"]\n}\n```\n\n</details>\n\n### Automatically fix code style with `prettier` for any format Prettier supports\n\n<details>\n  <summary>Click to expand</summary>\n\n```json\n{\n  \"*\": \"prettier --ignore-unknown --write\"\n}\n```\n\n</details>\n\n### Automatically fix code style with `prettier` for JavaScript, TypeScript, Markdown, HTML, or CSS\n\n<details>\n  <summary>Click to expand</summary>\n\n```json\n{\n  \"*.{js,jsx,ts,tsx,md,html,css}\": \"prettier --write\"\n}\n```\n\n</details>\n\n### Stylelint for CSS with defaults and for SCSS with SCSS syntax\n\n<details>\n  <summary>Click to expand</summary>\n\n```json\n{\n  \"*.css\": \"stylelint\",\n  \"*.scss\": \"stylelint --syntax=scss\"\n}\n```\n\n</details>\n\n### Run PostCSS sorting and Stylelint to check\n\n<details>\n  <summary>Click to expand</summary>\n\n```json\n{\n  \"*.scss\": [\"postcss --config path/to/your/config --replace\", \"stylelint\"]\n}\n```\n\n</details>\n\n### Minify the images\n\n<details>\n  <summary>Click to expand</summary>\n\n```json\n{\n  \"*.{png,jpeg,jpg,gif,svg}\": \"imagemin-lint-staged\"\n}\n```\n\n<details>\n  <summary>More about <code>imagemin-lint-staged</code></summary>\n\n[imagemin-lint-staged](https://github.com/tomchentw/imagemin-lint-staged) is a CLI tool designed for lint-staged usage with sensible defaults.\n\nSee more on [this blog post](https://medium.com/@tomchentw/imagemin-lint-staged-in-place-minify-the-images-before-adding-to-the-git-repo-5acda0b4c57e) for benefits of this approach.\n\n</details>\n</details>\n\n### Typecheck your staged files with flow\n\n<details>\n  <summary>Click to expand</summary>\n\n```json\n{\n  \"*.{js,jsx}\": \"flow focus-check\"\n}\n```\n\n</details>\n\n### Integrate with Next.js\n\n<details>\n  <summary>Click to expand</summary>\n\n```js\n// .lintstagedrc.js\n// See https://nextjs.org/docs/basic-features/eslint#lint-staged for details\n\nconst path = require('path')\n\nconst buildEslintCommand = (filenames) =>\n  `next lint --fix --file ${filenames.map((f) => path.relative(process.cwd(), f)).join(' --file ')}`\n\nmodule.exports = {\n  '*.{js,jsx,ts,tsx}': [buildEslintCommand],\n}\n```\n\n</details>\n\n## Frequently Asked Questions\n\n### The output of commit hook looks weird (no colors, duplicate lines, verbose output on Windows, \u2026)\n\n<details>\n  <summary>Click to expand</summary>\n\nGit 2.36.0 introduced a change to hooks where they were no longer run in the original TTY.\nThis was fixed in 2.37.0:\n\nhttps://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.37.0.txt\n\n> - In Git 2.36 we revamped the way how hooks are invoked. One change\n>   that is end-user visible is that the output of a hook is no longer\n>   directly connected to the standard output of \"git\" that spawns the\n>   hook, which was noticed post release. This is getting corrected.\n>   (merge [a082345372](https://github.com/git/git/commit/a082345372) ab/hooks-regression-fix later to maint).\n\nIf updating Git doesn't help, you can try to manually redirect the output in your Git hook; for example:\n\n```shell\n# .husky/pre-commit\n\nif sh -c \": >/dev/tty\" >/dev/null 2>/dev/null; then exec >/dev/tty 2>&1; fi\n\nnpx lint-staged\n```\n\nSource: https://github.com/typicode/husky/issues/968#issuecomment-1176848345\n\n</details>\n\n### Can I use `lint-staged` via node?\n\n<details>\n  <summary>Click to expand</summary>\n\nYes!\n\n```js\nimport lintStaged from 'lint-staged'\n\ntry {\n  const success = await lintStaged()\n  console.log(success ? 'Linting was successful!' : 'Linting failed!')\n} catch (e) {\n  // Failed to load configuration\n  console.error(e)\n}\n```\n\nParameters to `lintStaged` are equivalent to their CLI counterparts:\n\n```js\nconst success = await lintStaged({\n  allowEmpty: false,\n  concurrent: true,\n  configPath: './path/to/configuration/file',\n  cwd: process.cwd(),\n  debug: false,\n  maxArgLength: null,\n  quiet: false,\n  relative: false,\n  shell: false,\n  stash: true,\n  verbose: false,\n})\n```\n\nYou can also pass config directly with `config` option:\n\n```js\nconst success = await lintStaged({\n  allowEmpty: false,\n  concurrent: true,\n  config: { '*.js': 'eslint --fix' },\n  cwd: process.cwd(),\n  debug: false,\n  maxArgLength: null,\n  quiet: false,\n  relative: false,\n  shell: false,\n  stash: true,\n  verbose: false,\n})\n```\n\nThe `maxArgLength` option configures chunking of tasks into multiple parts that are run one after the other. This is to avoid issues on Windows platforms where the maximum length of the command line argument string is limited to 8192 characters. Lint-staged might generate a very long argument string when there are many staged files. This option is set automatically from the cli, but not via the Node.js API by default.\n\n</details>\n\n### Using with JetBrains IDEs _(WebStorm, PyCharm, IntelliJ IDEA, RubyMine, etc.)_\n\n<details>\n  <summary>Click to expand</summary>\n\n_**Update**_: The latest version of JetBrains IDEs now support running hooks as you would expect.\n\nWhen using the IDE's GUI to commit changes with the `precommit` hook, you might see inconsistencies in the IDE and command line. This is [known issue](https://youtrack.jetbrains.com/issue/IDEA-135454) at JetBrains so if you want this fixed, please vote for it on YouTrack.\n\nUntil the issue is resolved in the IDE, you can use the following config to work around it:\n\nhusky v1.x\n\n```json\n{\n  \"husky\": {\n    \"hooks\": {\n      \"pre-commit\": \"lint-staged\",\n      \"post-commit\": \"git update-index --again\"\n    }\n  }\n}\n```\n\nhusky v0.x\n\n```json\n{\n  \"scripts\": {\n    \"precommit\": \"lint-staged\",\n    \"postcommit\": \"git update-index --again\"\n  }\n}\n```\n\n_Thanks to [this comment](https://youtrack.jetbrains.com/issue/IDEA-135454#comment=27-2710654) for the fix!_\n\n</details>\n\n### How to use `lint-staged` in a multi-package monorepo?\n\n<details>\n  <summary>Click to expand</summary>\n\nInstall _lint-staged_ on the monorepo root level, and add separate configuration files in each package. When running, _lint-staged_ will always use the configuration closest to a staged file, so having separate configuration files makes sure tasks do not \"leak\" into other packages.\n\nFor example, in a monorepo with `packages/frontend/.lintstagedrc.json` and `packages/backend/.lintstagedrc.json`, a staged file inside `packages/frontend/` will only match that configuration, and not the one in `packages/backend/`.\n\n**Note**: _lint-staged_ discovers the closest configuration to each staged file, even if that configuration doesn't include any matching globs. Given these example configurations:\n\n```js\n// ./.lintstagedrc.json\n{ \"*.md\": \"prettier --write\" }\n```\n\n```js\n// ./packages/frontend/.lintstagedrc.json\n{ \"*.js\": \"eslint --fix\" }\n```\n\nWhen committing `./packages/frontend/README.md`, it **will not run** _prettier_, because the configuration in the `frontend/` directory is closer to the file and doesn't include it. You should treat all _lint-staged_ configuration files as isolated and separated from each other. You can always use JS files to \"extend\" configurations, for example:\n\n```js\nimport baseConfig from '../.lintstagedrc.js'\n\nexport default {\n  ...baseConfig,\n  '*.js': 'eslint --fix',\n}\n```\n\nTo support backwards-compatibility, monorepo features require multiple _lint-staged_ configuration files present in the git repo. If you still want to run _lint-staged_ in only one of the packages in a monorepo, you can either add an \"empty\" _lint-staged_ configuration to the root of the repo (so that there's two configs in total), or alternatively run _lint-staged_ with the `--cwd` option pointing to your package directory (for example, `lint-staged --cwd packages/frontend`).\n\n</details>\n\n### Can I lint files outside of the current project folder?\n\n<details>\n  <summary>Click to expand</summary>\n\ntl;dr: Yes, but the pattern should start with `../`.\n\nBy default, `lint-staged` executes tasks only on the files present inside the project folder(where `lint-staged` is installed and run from).\nSo this question is relevant _only_ when the project folder is a child folder inside the git repo.\nIn certain project setups, it might be desirable to bypass this restriction. See [#425](https://github.com/okonet/lint-staged/issues/425), [#487](https://github.com/okonet/lint-staged/issues/487) for more context.\n\n`lint-staged` provides an escape hatch for the same(`>= v7.3.0`). For patterns that start with `../`, all the staged files are allowed to match against the pattern.\nNote that patterns like `*.js`, `**/*.js` will still only match the project files and not any of the files in parent or sibling directories.\n\nExample repo: [sudo-suhas/lint-staged-django-react-demo](https://github.com/sudo-suhas/lint-staged-django-react-demo).\n\n</details>\n\n### Can I run `lint-staged` in CI, or when there are no staged files?\n\n<details>\n  <summary>Click to expand</summary>\n\nLint-staged will by default run against files staged in git, and should be run during the git pre-commit hook, for example. It's also possible to override this default behaviour and run against files in a specific diff, for example\nall changed files between two different branches. If you want to run _lint-staged_ in the CI, maybe you can set it up to compare the branch in a _Pull Request_/_Merge Request_ to the target branch.\n\nTry out the `git diff` command until you are satisfied with the result, for example:\n\n```\ngit diff --diff-filter=ACMR --name-only master...my-branch\n```\n\nThis will print a list of _added_, _changed_, _modified_, and _renamed_ files between `master` and `my-branch`.\n\nYou can then run lint-staged against the same files with:\n\n```\nnpx lint-staged --diff=\"master...my-branch\"\n```\n\n</details>\n\n### Can I use `lint-staged` with `ng lint`\n\n<details>\n  <summary>Click to expand</summary>\n\nYou should not use `ng lint` through _lint-staged_, because it's designed to lint an entire project. Instead, you can add `ng lint` to your git pre-commit hook the same way as you would run lint-staged.\n\nSee issue [!951](https://github.com/okonet/lint-staged/issues/951) for more details and possible workarounds.\n\n</details>\n\n### How can I ignore files from `.eslintignore`?\n\n<details>\n  <summary>Click to expand</summary>\n\nESLint throws out `warning File ignored because of a matching ignore pattern. Use \"--no-ignore\" to override` warnings that breaks the linting process ( if you used `--max-warnings=0` which is recommended ).\n\n#### ESLint < 7\n\n<details>\n  <summary>Click to expand</summary>\n\nBased on the discussion from [this issue](https://github.com/eslint/eslint/issues/9977), it was decided that using [the outlined script](https://github.com/eslint/eslint/issues/9977#issuecomment-406420893)is the best route to fix this.\n\nSo you can setup a `.lintstagedrc.js` config file to do this:\n\n```js\nimport { CLIEngine } from 'eslint'\n\nexport default {\n  '*.js': (files) => {\n    const cli = new CLIEngine({})\n    return 'eslint --max-warnings=0 ' + files.filter((file) => !cli.isPathIgnored(file)).join(' ')\n  },\n}\n```\n\n</details>\n\n#### ESLint >= 7\n\n<details>\n  <summary>Click to expand</summary>\n\nIn versions of ESLint > 7, [isPathIgnored](https://eslint.org/docs/developer-guide/nodejs-api#-eslintispathignoredfilepath) is an async function and now returns a promise. The code below can be used to reinstate the above functionality.\n\nSince [10.5.3](https://github.com/okonet/lint-staged/releases), any errors due to a bad ESLint config will come through to the console.\n\n```js\nimport { ESLint } from 'eslint'\n\nconst removeIgnoredFiles = async (files) => {\n  const eslint = new ESLint()\n  const isIgnored = await Promise.all(\n    files.map((file) => {\n      return eslint.isPathIgnored(file)\n    })\n  )\n  const filteredFiles = files.filter((_, i) => !isIgnored[i])\n  return filteredFiles.join(' ')\n}\n\nexport default {\n  '**/*.{ts,tsx,js,jsx}': async (files) => {\n    const filesToLint = await removeIgnoredFiles(files)\n    return [`eslint --max-warnings=0 ${filesToLint}`]\n  },\n}\n```\n\n</details>\n\n#### ESLint >= 8.51.0 && [Flat ESLint config](https://eslint.org/docs/latest/use/configure/configuration-files-new)\n\n<details>\n  <summary>Click to expand</summary>\n\nESLint v8.51.0 introduced [`--no-warn-ignored` CLI flag](https://eslint.org/docs/latest/use/command-line-interface#--no-warn-ignored). It suppresses the `warning File ignored because of a matching ignore pattern. Use \"--no-ignore\" to override` warning, so manually ignoring files via `eslint.isPathIgnored` is no longer necessary.\n\n```json\n{\n  \"*.js\": \"eslint --max-warnings=0 --no-warn-ignored\"\n}\n```\n\n**NOTE:** `--no-warn-ignored` flag is only available when [Flat ESLint config](https://eslint.org/docs/latest/use/configure/configuration-files-new) is used.\n\n</details>\n\n</details>\n",
+        "releases": [
+            {
+                "name": "v15.4.1",
+                "date": "2025-01-16T18:03:28Z"
+            },
+            {
+                "name": "v15.4.0",
+                "date": "2025-01-16T06:22:52Z"
+            },
+            {
+                "name": "v15.3.0",
+                "date": "2024-12-28T10:54:20Z"
+            },
+            {
+                "name": "v15.2.11",
+                "date": "2024-12-10T14:00:54Z"
+            },
+            {
+                "name": "v15.2.10",
+                "date": "2024-09-01T14:22:16Z"
+            },
+            {
+                "name": "v15.2.9",
+                "date": "2024-08-13T05:44:35Z"
+            },
+            {
+                "name": "v15.2.8",
+                "date": "2024-08-03T06:32:49Z"
+            },
+            {
+                "name": "v15.2.7",
+                "date": "2024-06-12T17:28:44Z"
+            },
+            {
+                "name": "v15.2.6",
+                "date": "2024-06-11T16:40:50Z"
+            },
+            {
+                "name": "v15.2.5",
+                "date": "2024-05-25T11:05:53Z"
+            },
+            {
+                "name": "v15.2.4",
+                "date": "2024-05-21T19:16:37Z"
+            },
+            {
+                "name": "v15.2.3",
+                "date": "2024-05-21T18:21:26Z"
+            },
+            {
+                "name": "v15.2.2",
+                "date": "2024-02-05T14:26:04Z"
+            },
+            {
+                "name": "v15.2.1",
+                "date": "2024-01-31T07:45:24Z"
+            },
+            {
+                "name": "v15.2.0",
+                "date": "2023-12-03T17:26:09Z"
+            },
+            {
+                "name": "v15.1.0",
+                "date": "2023-11-11T15:24:55Z"
+            },
+            {
+                "name": "v15.0.2",
+                "date": "2023-10-19T10:23:10Z"
+            },
+            {
+                "name": "v15.0.1",
+                "date": "2023-10-15T07:23:09Z"
+            },
+            {
+                "name": "v15.0.0",
+                "date": "2023-10-14T18:04:59Z"
+            },
+            {
+                "name": "v14.0.1",
+                "date": "2023-08-21T09:48:07Z"
+            },
+            {
+                "name": "v14.0.0",
+                "date": "2023-08-13T20:39:12Z"
+            },
+            {
+                "name": "v13.3.0",
+                "date": "2023-08-13T16:50:08Z"
+            },
+            {
+                "name": "v13.2.3",
+                "date": "2023-06-28T06:58:30Z"
+            },
+            {
+                "name": "v13.2.2",
+                "date": "2023-04-26T12:30:18Z"
+            },
+            {
+                "name": "v13.2.1",
+                "date": "2023-04-07T12:41:20Z"
+            },
+            {
+                "name": "v13.2.0",
+                "date": "2023-03-10T11:39:58Z"
+            },
+            {
+                "name": "v13.1.2",
+                "date": "2023-02-13T17:52:21Z"
+            },
+            {
+                "name": "v13.1.1",
+                "date": "2023-02-07T06:01:10Z"
+            },
+            {
+                "name": "v13.1.0",
+                "date": "2022-12-04T13:23:17Z"
+            },
+            {
+                "name": "v13.0.4",
+                "date": "2022-11-25T08:15:42Z"
+            },
+            {
+                "name": "v13.0.3",
+                "date": "2022-06-24T14:40:49Z"
+            },
+            {
+                "name": "v13.0.2",
+                "date": "2022-06-16T17:43:55Z"
+            },
+            {
+                "name": "v13.0.1",
+                "date": "2022-06-08T15:46:31Z"
+            },
+            {
+                "name": "v13.0.0",
+                "date": "2022-06-01T07:55:49Z"
+            },
+            {
+                "name": "v12.5.0",
+                "date": "2022-05-31T15:24:30Z"
+            },
+            {
+                "name": "v12.4.3",
+                "date": "2022-05-30T07:56:18Z"
+            },
+            {
+                "name": "v12.4.2",
+                "date": "2022-05-24T14:13:05Z"
+            },
+            {
+                "name": "v12.4.1",
+                "date": "2022-04-26T15:50:22Z"
+            },
+            {
+                "name": "v12.4.0",
+                "date": "2022-04-20T16:34:38Z"
+            },
+            {
+                "name": "v12.3.8",
+                "date": "2022-04-15T09:45:11Z"
+            },
+            {
+                "name": "v12.3.7",
+                "date": "2022-03-17T16:14:51Z"
+            },
+            {
+                "name": "v12.3.6",
+                "date": "2022-03-16T06:14:38Z"
+            },
+            {
+                "name": "v12.3.5",
+                "date": "2022-03-05T07:45:36Z"
+            },
+            {
+                "name": "v12.3.4",
+                "date": "2022-02-13T16:57:03Z"
+            },
+            {
+                "name": "v12.3.3",
+                "date": "2022-02-01T18:06:45Z"
+            },
+            {
+                "name": "v12.3.2",
+                "date": "2022-01-26T18:07:17Z"
+            },
+            {
+                "name": "v12.3.1",
+                "date": "2022-01-23T14:46:22Z"
+            },
+            {
+                "name": "v12.3.0",
+                "date": "2022-01-23T11:20:56Z"
+            },
+            {
+                "name": "v12.2.2",
+                "date": "2022-01-20T17:19:37Z"
+            },
+            {
+                "name": "v12.2.1",
+                "date": "2022-01-19T13:02:42Z"
+            },
+            {
+                "name": "v12.2.0",
+                "date": "2022-01-18T14:42:48Z"
+            },
+            {
+                "name": "v12.1.7",
+                "date": "2022-01-07T16:08:40Z"
+            },
+            {
+                "name": "v12.1.6",
+                "date": "2022-01-07T09:51:06Z"
+            },
+            {
+                "name": "v12.1.5",
+                "date": "2022-01-02T20:38:05Z"
+            },
+            {
+                "name": "v12.1.4",
+                "date": "2021-12-24T09:23:58Z"
+            },
+            {
+                "name": "v12.1.3",
+                "date": "2021-12-18T10:16:21Z"
+            },
+            {
+                "name": "v12.1.2",
+                "date": "2021-11-22T07:29:23Z"
+            },
+            {
+                "name": "v12.1.1",
+                "date": "2021-11-21T15:52:35Z"
+            },
+            {
+                "name": "v12.1.0",
+                "date": "2021-11-21T15:12:51Z"
+            },
+            {
+                "name": "v12.0.3",
+                "date": "2021-11-18T18:26:05Z"
+            },
+            {
+                "name": "v12.0.2",
+                "date": "2021-11-14T10:42:15Z"
+            },
+            {
+                "name": "v12.0.1",
+                "date": "2021-11-13T21:30:48Z"
+            },
+            {
+                "name": "v12.0.0",
+                "date": "2021-11-13T18:37:42Z"
+            },
+            {
+                "name": "v11.3.0-beta.2",
+                "date": "2021-10-30T09:30:56Z"
+            },
+            {
+                "name": "v11.2.6",
+                "date": "2021-10-26T18:50:32Z"
+            },
+            {
+                "name": "v11.2.5",
+                "date": "2021-10-26T11:51:27Z"
+            },
+            {
+                "name": "v11.2.4",
+                "date": "2021-10-23T18:11:13Z"
+            },
+            {
+                "name": "v11.2.3",
+                "date": "2021-10-10T17:34:31Z"
+            },
+            {
+                "name": "v11.2.2",
+                "date": "2021-10-09T18:48:29Z"
+            },
+            {
+                "name": "v11.2.1",
+                "date": "2021-10-09T03:30:19Z"
+            },
+            {
+                "name": "v11.3.0-beta.1",
+                "date": "2021-10-04T15:07:34Z"
+            },
+            {
+                "name": "v11.2.0",
+                "date": "2021-10-04T10:59:29Z"
+            },
+            {
+                "name": "v11.2.0-beta.1",
+                "date": "2021-10-02T13:13:18Z"
+            },
+            {
+                "name": "v11.1.2",
+                "date": "2021-08-06T05:12:38Z"
+            },
+            {
+                "name": "v11.1.1",
+                "date": "2021-07-24T11:06:32Z"
+            },
+            {
+                "name": "v11.1.0",
+                "date": "2021-07-22T13:16:48Z"
+            },
+            {
+                "name": "v11.0.1",
+                "date": "2021-07-13T08:51:41Z"
+            },
+            {
+                "name": "v11.0.0",
+                "date": "2021-05-07T16:43:03Z"
+            },
+            {
+                "name": "v10.5.4",
+                "date": "2021-02-05T16:43:33Z"
+            },
+            {
+                "name": "v10.5.3",
+                "date": "2020-12-04T15:32:59Z"
+            },
+            {
+                "name": "v10.5.2",
+                "date": "2020-11-24T05:01:37Z"
+            },
+            {
+                "name": "v10.5.1",
+                "date": "2020-10-31T13:14:42Z"
+            },
+            {
+                "name": "v10.5.0",
+                "date": "2020-10-26T17:54:06Z"
+            },
+            {
+                "name": "v10.4.2",
+                "date": "2020-10-17T06:28:20Z"
+            },
+            {
+                "name": "v10.4.1",
+                "date": "2020-10-16T12:48:09Z"
+            },
+            {
+                "name": "v10.4.0",
+                "date": "2020-09-16T13:20:45Z"
+            },
+            {
+                "name": "v10.3.0",
+                "date": "2020-09-03T08:01:07Z"
+            },
+            {
+                "name": "v10.2.13",
+                "date": "2020-08-25T15:45:58Z"
+            },
+            {
+                "name": "v10.2.12",
+                "date": "2020-08-25T10:55:07Z"
+            },
+            {
+                "name": "v10.2.11",
+                "date": "2020-06-17T10:10:09Z"
+            },
+            {
+                "name": "v10.2.10",
+                "date": "2020-06-12T09:15:18Z"
+            },
+            {
+                "name": "v10.2.9",
+                "date": "2020-06-04T11:48:24Z"
+            },
+            {
+                "name": "v10.2.8",
+                "date": "2020-06-03T14:41:27Z"
+            },
+            {
+                "name": "v10.2.7",
+                "date": "2020-05-29T04:21:14Z"
+            },
+            {
+                "name": "v10.2.6",
+                "date": "2020-05-22T06:56:31Z"
+            },
+            {
+                "name": "v10.2.5",
+                "date": "2020-05-22T05:47:48Z"
+            },
+            {
+                "name": "v10.2.4",
+                "date": "2020-05-18T16:38:15Z"
+            },
+            {
+                "name": "v10.2.3",
+                "date": "2020-05-18T12:47:48Z"
+            },
+            {
+                "name": "v10.2.2",
+                "date": "2020-05-01T04:09:59Z"
+            },
+            {
+                "name": "v10.2.1",
+                "date": "2020-04-30T11:34:49Z"
+            },
+            {
+                "name": "v10.2.0",
+                "date": "2020-04-28T13:10:37Z"
+            },
+            {
+                "name": "v10.1.7",
+                "date": "2020-04-21T14:18:08Z"
+            },
+            {
+                "name": "v10.1.6",
+                "date": "2020-04-19T08:16:33Z"
+            },
+            {
+                "name": "v10.1.5",
+                "date": "2020-04-18T08:17:08Z"
+            },
+            {
+                "name": "v10.1.4",
+                "date": "2020-04-17T13:47:49Z"
+            },
+            {
+                "name": "v10.1.3",
+                "date": "2020-04-09T14:11:42Z"
+            },
+            {
+                "name": "v10.1.2",
+                "date": "2020-04-05T09:05:59Z"
+            },
+            {
+                "name": "v10.1.1",
+                "date": "2020-03-31T13:58:49Z"
+            },
+            {
+                "name": "v10.1.0",
+                "date": "2020-03-30T13:30:37Z"
+            },
+            {
+                "name": "v10.0.10",
+                "date": "2020-03-29T12:31:10Z"
+            },
+            {
+                "name": "v10.0.9",
+                "date": "2020-03-24T04:59:58Z"
+            },
+            {
+                "name": "v10.0.8",
+                "date": "2020-02-25T14:44:27Z"
+            },
+            {
+                "name": "v10.0.7",
+                "date": "2020-01-31T07:12:17Z"
+            },
+            {
+                "name": "v10.0.6",
+                "date": "2020-01-30T13:32:59Z"
+            },
+            {
+                "name": "v10.0.5",
+                "date": "2020-01-30T06:34:38Z"
+            },
+            {
+                "name": "v10.0.4",
+                "date": "2020-01-29T04:37:13Z"
+            },
+            {
+                "name": "v10.0.3",
+                "date": "2020-01-27T13:15:06Z"
+            },
+            {
+                "name": "v10.0.2",
+                "date": "2020-01-22T10:09:38Z"
+            },
+            {
+                "name": "v10.0.1",
+                "date": "2020-01-20T20:08:07Z"
+            },
+            {
+                "name": "v10.0.0",
+                "date": "2020-01-19T18:22:16Z"
+            },
+            {
+                "name": "v10.0.0-beta.15",
+                "date": "2020-01-08T19:56:09Z"
+            },
+            {
+                "name": "v10.0.0-beta.14",
+                "date": "2019-12-24T09:51:57Z"
+            },
+            {
+                "name": "v10.0.0-beta.13",
+                "date": "2019-12-20T09:15:13Z"
+            },
+            {
+                "name": "v10.0.0-beta.12",
+                "date": "2019-12-18T05:33:11Z"
+            },
+            {
+                "name": "v10.0.0-beta.11",
+                "date": "2019-12-17T20:00:17Z"
+            },
+            {
+                "name": "v10.0.0-beta.10",
+                "date": "2019-12-17T19:36:41Z"
+            },
+            {
+                "name": "v10.0.0-beta.9",
+                "date": "2019-12-16T17:00:19Z"
+            },
+            {
+                "name": "v10.0.0-beta.8",
+                "date": "2019-12-14T08:32:04Z"
+            },
+            {
+                "name": "v10.0.0-beta.7",
+                "date": "2019-12-05T07:00:20Z"
+            },
+            {
+                "name": "v10.0.0-beta.6",
+                "date": "2019-11-27T12:39:36Z"
+            },
+            {
+                "name": "v10.0.0-beta.5",
+                "date": "2019-11-27T06:14:55Z"
+            },
+            {
+                "name": "v9.5.0",
+                "date": "2019-11-27T05:11:28Z"
+            },
+            {
+                "name": "v10.0.0-beta.4",
+                "date": "2019-11-20T10:00:32Z"
+            },
+            {
+                "name": "v10.0.0-beta.3",
+                "date": "2019-11-14T09:28:26Z"
+            },
+            {
+                "name": "v10.0.0-beta.2",
+                "date": "2019-11-14T06:46:22Z"
+            },
+            {
+                "name": "v10.0.0-beta.1",
+                "date": "2019-11-14T06:21:53Z"
+            },
+            {
+                "name": "v9.4.3",
+                "date": "2019-11-13T20:02:22Z"
+            },
+            {
+                "name": "v9.5.0-beta.2",
+                "date": "2019-11-03T09:29:43Z"
+            },
+            {
+                "name": "v9.5.0-beta.1",
+                "date": "2019-10-31T10:51:50Z"
+            },
+            {
+                "name": "v9.4.2",
+                "date": "2019-10-08T05:03:59Z"
+            },
+            {
+                "name": "v9.4.1",
+                "date": "2019-10-01T05:08:15Z"
+            },
+            {
+                "name": "v9.4.0",
+                "date": "2019-09-26T10:33:16Z"
+            },
+            {
+                "name": "v9.3.0",
+                "date": "2019-09-22T10:34:25Z"
+            },
+            {
+                "name": "v9.2.5",
+                "date": "2019-08-27T06:38:13Z"
+            },
+            {
+                "name": "v9.2.4",
+                "date": "2019-08-25T17:34:00Z"
+            },
+            {
+                "name": "v9.2.3",
+                "date": "2019-08-17T17:15:57Z"
+            },
+            {
+                "name": "v9.2.2",
+                "date": "2019-08-17T14:25:41Z"
+            },
+            {
+                "name": "v9.2.1",
+                "date": "2019-07-25T04:45:48Z"
+            },
+            {
+                "name": "v9.2.0",
+                "date": "2019-07-10T16:03:19Z"
+            },
+            {
+                "name": "v9.1.0",
+                "date": "2019-07-06T11:28:08Z"
+            },
+            {
+                "name": "v9.0.2",
+                "date": "2019-07-03T05:36:52Z"
+            },
+            {
+                "name": "v9.0.1",
+                "date": "2019-07-02T10:49:52Z"
+            },
+            {
+                "name": "v9.0.0",
+                "date": "2019-07-01T18:10:22Z"
+            },
+            {
+                "name": "v8.2.1",
+                "date": "2019-06-13T18:47:45Z"
+            },
+            {
+                "name": "v8.2.0",
+                "date": "2019-06-06T08:32:29Z"
+            },
+            {
+                "name": "v8.1.7",
+                "date": "2019-05-15T05:07:18Z"
+            },
+            {
+                "name": "v8.1.6",
+                "date": "2019-05-03T07:38:47Z"
+            },
+            {
+                "name": "v8.1.5",
+                "date": "2019-03-01T16:12:50Z"
+            },
+            {
+                "name": "v8.1.4",
+                "date": "2019-02-14T11:01:55Z"
+            },
+            {
+                "name": "v8.1.3",
+                "date": "2019-02-02T18:24:55Z"
+            },
+            {
+                "name": "v8.1.2",
+                "date": "2019-02-02T08:57:05Z"
+            },
+            {
+                "name": "v8.1.1",
+                "date": "2019-01-28T11:45:48Z"
+            },
+            {
+                "name": "v8.1.0",
+                "date": "2018-11-21T14:17:40Z"
+            },
+            {
+                "name": "v8.0.5",
+                "date": "2018-11-17T07:43:01Z"
+            },
+            {
+                "name": "v8.0.4",
+                "date": "2018-10-31T11:38:20Z"
+            },
+            {
+                "name": "v8.0.3",
+                "date": "2018-10-30T07:26:21Z"
+            },
+            {
+                "name": "v8.0.2",
+                "date": "2018-10-29T20:28:37Z"
+            },
+            {
+                "name": "v8.0.1",
+                "date": "2018-10-29T20:15:47Z"
+            },
+            {
+                "name": "v8.0.0",
+                "date": "2018-10-29T10:21:58Z"
+            },
+            {
+                "name": "v7.3.0",
+                "date": "2018-09-20T07:30:59Z"
+            },
+            {
+                "name": "v7.2.2",
+                "date": "2018-08-12T16:32:28Z"
+            },
+            {
+                "name": "v7.2.1",
+                "date": "2018-08-12T16:24:10Z"
+            },
+            {
+                "name": "v7.2.0",
+                "date": "2018-06-11T07:42:33Z"
+            },
+            {
+                "name": "v7.1.3",
+                "date": "2018-06-01T03:46:49Z"
+            },
+            {
+                "name": "v7.1.2",
+                "date": "2018-05-21T07:26:56Z"
+            },
+            {
+                "name": "v7.1.1",
+                "date": "2018-05-18T15:30:01Z"
+            },
+            {
+                "name": "v7.1.0",
+                "date": "2018-05-07T02:55:11Z"
+            },
+            {
+                "name": "v7.0.5",
+                "date": "2018-04-26T02:04:41Z"
+            },
+            {
+                "name": "v7.0.4",
+                "date": "2018-04-05T08:08:20Z"
+            },
+            {
+                "name": "v7.0.3",
+                "date": "2018-04-03T18:25:39Z"
+            },
+            {
+                "name": "v7.0.2",
+                "date": "2018-04-01T02:56:41Z"
+            },
+            {
+                "name": "v7.0.1",
+                "date": "2018-03-30T21:36:23Z"
+            },
+            {
+                "name": "v7.0.0",
+                "date": "2018-02-21T11:23:01Z"
+            },
+            {
+                "name": "v6.1.1",
+                "date": "2018-02-16T16:33:19Z"
+            },
+            {
+                "name": "v6.1.0",
+                "date": "2018-01-26T06:48:54Z"
+            },
+            {
+                "name": "v6.0.1",
+                "date": "2018-01-19T10:49:01Z"
+            },
+            {
+                "name": "v6.0.0",
+                "date": "2017-12-01T04:29:58Z"
+            },
+            {
+                "name": "v5.0.0",
+                "date": "2017-11-11T08:24:36Z"
+            },
+            {
+                "name": "v4.3.0",
+                "date": "2017-10-18T14:25:03Z"
+            },
+            {
+                "name": "v4.2.3",
+                "date": "2017-09-25T04:14:18Z"
+            },
+            {
+                "name": "v4.2.2",
+                "date": "2017-09-22T08:30:52Z"
+            },
+            {
+                "name": "v4.2.1",
+                "date": "2017-09-15T13:31:55Z"
+            },
+            {
+                "name": "v4.2.0",
+                "date": "2017-09-15T12:47:21Z"
+            },
+            {
+                "name": "v4.1.3",
+                "date": "2017-09-07T07:28:18Z"
+            },
+            {
+                "name": "v4.1.2",
+                "date": "2017-09-06T15:30:15Z"
+            },
+            {
+                "name": "v4.1.1",
+                "date": "2017-09-06T12:26:33Z"
+            },
+            {
+                "name": "v4.1.0",
+                "date": "2017-09-04T10:10:59Z"
+            },
+            {
+                "name": "v4.0.4",
+                "date": "2017-08-24T05:49:08Z"
+            },
+            {
+                "name": "v4.0.3",
+                "date": "2017-08-06T19:27:28Z"
+            },
+            {
+                "name": "v4.0.2",
+                "date": "2017-07-17T08:26:14Z"
+            },
+            {
+                "name": "v4.0.1",
+                "date": "2017-07-06T12:07:20Z"
+            },
+            {
+                "name": "v4.0.0",
+                "date": "2017-06-18T05:27:48Z"
+            },
+            {
+                "name": "v3.6.1",
+                "date": "2017-06-10T09:15:06Z"
+            },
+            {
+                "name": "v3.6.0",
+                "date": "2017-06-01T13:18:32Z"
+            },
+            {
+                "name": "v3.5.1",
+                "date": "2017-05-29T15:15:22Z"
+            },
+            {
+                "name": "v3.5.0",
+                "date": "2017-05-25T18:43:03Z"
+            },
+            {
+                "name": "v3.4.2",
+                "date": "2017-05-17T21:12:32Z"
+            },
+            {
+                "name": "v3.4.1",
+                "date": "2017-04-28T12:53:41Z"
+            },
+            {
+                "name": "v3.4.0",
+                "date": "2017-03-13T19:07:07Z"
+            },
+            {
+                "name": "v3.3.2",
+                "date": "2017-03-13T09:15:27Z"
+            },
+            {
+                "name": "v3.3.1",
+                "date": "2017-02-19T19:27:01Z"
+            },
+            {
+                "name": "v3.3.0",
+                "date": "2017-01-30T14:53:25Z"
+            },
+            {
+                "name": "v3.2.9",
+                "date": "2017-01-30T11:36:48Z"
+            },
+            {
+                "name": "v3.2.8",
+                "date": "2017-01-24T19:54:48Z"
+            },
+            {
+                "name": "v3.2.7",
+                "date": "2017-01-18T10:14:42Z"
+            },
+            {
+                "name": "v3.2.6",
+                "date": "2017-01-09T10:14:37Z"
+            },
+            {
+                "name": "v3.2.5",
+                "date": "2016-12-30T22:53:34Z"
+            },
+            {
+                "name": "v3.2.4",
+                "date": "2016-12-19T16:53:08Z"
+            },
+            {
+                "name": "v3.2.3",
+                "date": "2016-12-14T15:21:56Z"
+            },
+            {
+                "name": "3.2.2",
+                "date": "2016-12-07T16:39:06Z"
+            },
+            {
+                "name": "3.2.1",
+                "date": "2016-11-04T11:51:41Z"
+            },
+            {
+                "name": "3.2.0",
+                "date": "2016-10-18T14:40:57Z"
+            },
+            {
+                "name": "3.1.1",
+                "date": "2016-10-17T13:17:27Z"
+            },
+            {
+                "name": "3.1.0",
+                "date": "2016-10-13T11:36:00Z"
+            },
+            {
+                "name": "3.0.3",
+                "date": "2016-09-22T15:25:28Z"
+            },
+            {
+                "name": "3.0.2",
+                "date": "2016-09-12T19:26:55Z"
+            },
+            {
+                "name": "3.0.1",
+                "date": "2016-09-08T14:35:35Z"
+            },
+            {
+                "name": "2.0.3",
+                "date": "2016-08-02T09:44:34Z"
+            },
+            {
+                "name": "2.0.2",
+                "date": "2016-07-11T17:27:13Z"
+            },
+            {
+                "name": "2.0.1",
+                "date": "2016-07-08T12:41:55Z"
+            },
+            {
+                "name": "2.0.0",
+                "date": "2016-07-08T08:37:43Z"
+            },
+            {
+                "name": "1.0.2",
+                "date": "2016-06-30T09:55:15Z"
+            },
+            {
+                "name": "1.0.1",
+                "date": "2016-06-07T12:42:53Z"
+            },
+            {
+                "name": "1.0.0",
+                "date": "2016-06-07T10:33:20Z"
+            },
+            {
+                "name": "v0.2.2",
+                "date": "2016-05-02T09:16:15Z"
+            },
+            {
+                "name": "",
+                "date": "2016-05-02T09:16:45Z"
+            },
+            {
+                "name": "",
+                "date": "2016-05-02T09:16:56Z"
+            },
+            {
+                "name": "",
+                "date": "2016-05-02T09:17:04Z"
+            }
+        ]
+    }
+}

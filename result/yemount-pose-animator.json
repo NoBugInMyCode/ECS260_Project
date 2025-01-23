@@ -1,0 +1,35 @@
+{
+    "https://api.github.com/repos/yemount/pose-animator": {
+        "forks": 968,
+        "watchers": 8736,
+        "stars": 8736,
+        "languages": {
+            "JavaScript": 84675,
+            "HTML": 7254
+        },
+        "commits": [
+            "2020-05-13T01:49:58Z",
+            "2020-05-09T16:29:54Z",
+            "2020-05-08T10:05:52Z",
+            "2020-05-08T09:41:53Z",
+            "2020-05-08T08:20:54Z",
+            "2020-05-08T04:40:14Z",
+            "2020-05-07T07:40:05Z",
+            "2020-05-07T07:22:56Z",
+            "2020-04-28T16:15:52Z",
+            "2020-04-28T16:11:54Z",
+            "2020-04-28T16:10:13Z",
+            "2020-04-28T16:05:18Z",
+            "2020-04-28T15:59:52Z",
+            "2020-04-27T04:32:42Z",
+            "2020-04-26T01:52:49Z",
+            "2020-04-13T03:13:05Z"
+        ],
+        "creation_date": "2020-03-30T09:43:38Z",
+        "contributors": 0,
+        "topics": [],
+        "subscribers": 228,
+        "readme": "# Pose Animator\n\nPose Animator takes a 2D vector illustration and animates its containing curves in real-time based on the recognition result from PoseNet and FaceMesh. It borrows the idea of skeleton-based animation from computer graphics and applies it to vector characters.\n\nThis is running in the browser in realtime using [TensorFlow.js](https://www.tensorflow.org/js). Check out more cool TF.js demos [here](https://www.tensorflow.org/js/demos).\n\n*This is not an officially supported Google product.*\n\n<img src=\"/resources/gifs/avatar-new-1.gif?raw=true\" alt=\"cameraDemo\" style=\"width: 250px;\"/>\n\n<img src=\"/resources/gifs/avatar-new-full-body.gif?raw=true\" alt=\"cameraDemo\" style=\"width: 250px;\"/>\n\nIn skeletal animation a character is represented in two parts:\n1. a surface used to draw the character, and \n1. a hierarchical set of interconnected bones used to animate the surface. \n\nIn Pose Animator, the surface is defined by the 2D vector paths in the input SVG files. For the bone structure, Pose Animator provides a predefined rig (bone hierarchy) representation, designed based on the keypoints from PoseNet and FaceMesh. This bone structure\u2019s initial pose is specified in the input SVG file, along with the character illustration, while the real time bone positions are updated by the recognition result from ML models.\n\n<img src=\"https://firebasestorage.googleapis.com/v0/b/pose-animator-demo.appspot.com/o/ml-keypoints.png?alt=media\" style=\"width:250px;\"/>\n\n<img src=\"/resources/gifs/avatar-new-bezier-1.gif?raw=true\" alt=\"cameraDemo\" style=\"width: 250px;\"/>\n\n// TODO: Add blog post link.\nFor more details on its technical design please check out this blog post.\n\n### Demo 1: [Camera feed](https://pose-animator-demo.firebaseapp.com/camera.html)\n\nThe camera demo animates a 2D avatar in real-time from a webcam video stream.\n\n\n### Demo 2: [Static image](https://pose-animator-demo.firebaseapp.com/static_image.html)\n\nThe static image demo shows the avatar positioned from a single image.\n\n## Build And Run\n\nInstall dependencies and prepare the build directory:\n\n```sh\nyarn\n```\n\nTo watch files for changes, and launch a dev server:\n\n```sh\nyarn watch\n```\n\n## Platform support\n\nDemos are supported on Desktop Chrome and iOS Safari.\n\nIt should also run on Chrome on Android and potentially more Android mobile browsers though support has not been tested yet.\n\n# Animate your own design\n\n1. Download the [sample skeleton SVG here](/resources/samples/skeleton.svg).\n1. Create a new file in your vector graphics editor of choice. Copy the group named \u2018skeleton\u2019 from the above file into your working file. Note: \n\t* Do not add, remove or rename the joints (circles) in this group. Pose Animator relies on these named paths to read the skeleton\u2019s initial position. Missing joints will cause errors.\n\t* However you can move the joints around to embed them into your illustration. See step 4.\n1. Create a new group and name it \u2018illustration\u2019, next to the \u2018skeleton\u2019 group. This is the group where you can put all the paths for your illustration.\n    * Flatten all subgroups so that \u2018illustration\u2019 only contains path elements.\n    * Composite paths are not supported at the moment.\n    * The working file structure should look like this:\n\t```\n        [Layer 1]\n        |---- skeleton\n        |---- illustration\n              |---- path 1\n              |---- path 2\n              |---- path 3\n\t```\n1. Embed the sample skeleton in \u2018skeleton\u2019 group into your illustration by moving the joints around.\n1. Export the file as an SVG file.\n1. Open [Pose Animator camera demo](https://pose-animator-demo.firebaseapp.com/camera.html). Once everything loads, drop your SVG file into the browser tab. You should be able to see it come to life :D\n",
+        "releases": []
+    }
+}

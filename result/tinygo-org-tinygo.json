@@ -1,0 +1,251 @@
+{
+    "https://api.github.com/repos/tinygo-org/tinygo": {
+        "forks": 920,
+        "watchers": 15711,
+        "stars": 15711,
+        "languages": {
+            "Go": 4031518,
+            "Assembly": 93990,
+            "Makefile": 51506,
+            "C++": 28905,
+            "JavaScript": 19256,
+            "C": 10315,
+            "HTML": 7911,
+            "Nix": 3367,
+            "Python": 3137,
+            "Dockerfile": 1092,
+            "Shell": 968
+        },
+        "commits": [
+            "2024-12-19T10:01:25Z",
+            "2024-12-17T10:30:22Z",
+            "2024-12-16T11:08:10Z",
+            "2024-12-04T03:58:19Z",
+            "2024-12-18T11:15:29Z",
+            "2024-12-19T09:26:18Z",
+            "2024-12-18T19:06:49Z",
+            "2024-12-18T10:21:51Z",
+            "2024-12-17T19:38:31Z",
+            "2024-12-18T18:36:30Z",
+            "2024-12-17T16:31:21Z",
+            "2024-12-08T09:37:30Z",
+            "2024-11-27T09:52:07Z",
+            "2024-12-14T13:26:03Z",
+            "2024-12-14T11:36:17Z",
+            "2024-12-08T18:08:16Z",
+            "2024-11-04T09:16:35Z",
+            "2024-11-04T08:41:26Z",
+            "2024-12-04T12:59:36Z",
+            "2024-12-02T12:48:52Z",
+            "2024-10-31T10:20:09Z",
+            "2024-10-28T09:55:37Z",
+            "2024-10-28T10:02:14Z",
+            "2024-12-01T12:16:42Z",
+            "2024-11-19T10:28:17Z",
+            "2024-12-01T08:32:31Z",
+            "2024-11-07T12:38:28Z",
+            "2024-11-30T08:24:22Z",
+            "2024-11-21T08:20:14Z",
+            "2024-11-27T17:44:30Z"
+        ],
+        "creation_date": "2018-06-07T16:39:19Z",
+        "contributors": 30,
+        "topics": [
+            "adafruit",
+            "arduino",
+            "arm",
+            "avr",
+            "esp32",
+            "gpio",
+            "i2c",
+            "llvm",
+            "microbit",
+            "microcontroller",
+            "nrf51",
+            "nrf52",
+            "samd21",
+            "spi",
+            "stm32",
+            "tinygo",
+            "wasi",
+            "wasm",
+            "webassembly"
+        ],
+        "subscribers": 178,
+        "readme": "# TinyGo - Go compiler for small places\n\n[![Linux](https://github.com/tinygo-org/tinygo/actions/workflows/linux.yml/badge.svg?branch=dev)](https://github.com/tinygo-org/tinygo/actions/workflows/linux.yml) [![macOS](https://github.com/tinygo-org/tinygo/actions/workflows/build-macos.yml/badge.svg?branch=dev)](https://github.com/tinygo-org/tinygo/actions/workflows/build-macos.yml) [![Windows](https://github.com/tinygo-org/tinygo/actions/workflows/windows.yml/badge.svg?branch=dev)](https://github.com/tinygo-org/tinygo/actions/workflows/windows.yml) [![Docker](https://github.com/tinygo-org/tinygo/actions/workflows/docker.yml/badge.svg?branch=dev)](https://github.com/tinygo-org/tinygo/actions/workflows/docker.yml) [![Nix](https://github.com/tinygo-org/tinygo/actions/workflows/nix.yml/badge.svg?branch=dev)](https://github.com/tinygo-org/tinygo/actions/workflows/nix.yml) [![CircleCI](https://circleci.com/gh/tinygo-org/tinygo/tree/dev.svg?style=svg)](https://circleci.com/gh/tinygo-org/tinygo/tree/dev)\n\nTinyGo is a Go compiler intended for use in small places such as microcontrollers, WebAssembly (wasm/wasi), and command-line tools.\n\nIt reuses libraries used by the [Go language tools](https://golang.org/pkg/go/) alongside [LLVM](http://llvm.org) to provide an alternative way to compile programs written in the Go programming language.\n\n## Embedded\n\nHere is an example program that blinks the built-in LED when run directly on any supported board with onboard LED:\n\n```go\npackage main\n\nimport (\n    \"machine\"\n    \"time\"\n)\n\nfunc main() {\n    led := machine.LED\n    led.Configure(machine.PinConfig{Mode: machine.PinOutput})\n    for {\n        led.Low()\n        time.Sleep(time.Millisecond * 1000)\n\n        led.High()\n        time.Sleep(time.Millisecond * 1000)\n    }\n}\n```\n\nThe above program can be compiled and run without modification on an Arduino Uno, an Adafruit ItsyBitsy M0, or any of the supported boards that have a built-in LED, just by setting the correct TinyGo compiler target. For example, this compiles and flashes an Arduino Uno:\n\n```shell\ntinygo flash -target arduino examples/blinky1\n```\n\n## WebAssembly\n\nTinyGo is very useful for compiling programs both for use in browsers (WASM) as well as for use on servers and other edge devices (WASI).\n\nTinyGo programs can run in [Fastly Compute](https://www.fastly.com/documentation/guides/compute/go/), [Fermyon Spin](https://developer.fermyon.com/spin/go-components), [wazero](https://wazero.io/languages/tinygo/) and many other WebAssembly runtimes.\n\nHere is a small TinyGo program for use by a WASI host application:\n\n```go\npackage main\n\n//go:wasm-module yourmodulename\n//export add\nfunc add(x, y uint32) uint32 {\n\treturn x + y\n}\n\n// main is required for the `wasip1` target, even if it isn't used.\nfunc main() {}\n```\n\nThis compiles the above TinyGo program for use on any WASI runtime:\n\n```shell\ntinygo build -o main.wasm -target=wasip1 main.go\n```\n\n## Installation\n\nSee the [getting started instructions](https://tinygo.org/getting-started/) for information on how to install TinyGo, as well as how to run the TinyGo compiler using our Docker container.\n\n## Supported targets\n\n### Embedded\n\nYou can compile TinyGo programs for over 94 different microcontroller boards.\n\nFor more information, please see https://tinygo.org/docs/reference/microcontrollers/\n\n### WebAssembly\n\nTinyGo programs can be compiled for both WASM and WASI targets.\n\nFor more information, see https://tinygo.org/docs/guides/webassembly/\n\n### Operating Systems\n\nYou can also compile programs for Linux, macOS, and Windows targets.\n\nFor more information:\n\n- Linux https://tinygo.org/docs/guides/linux/\n\n- macOS https://tinygo.org/docs/guides/macos/\n\n- Windows https://tinygo.org/docs/guides/windows/\n\n## Currently supported features:\n\nFor a description of currently supported Go language features, please see [https://tinygo.org/lang-support/](https://tinygo.org/lang-support/).\n\n## Documentation\n\nDocumentation is located on our web site at [https://tinygo.org/](https://tinygo.org/).\n\nYou can find the web site code at [https://github.com/tinygo-org/tinygo-site](https://github.com/tinygo-org/tinygo-site).\n\n## Getting help\n\nIf you're looking for a more interactive way to discuss TinyGo usage or\ndevelopment, we have a [#TinyGo channel](https://gophers.slack.com/messages/CDJD3SUP6/)\non the [Gophers Slack](https://gophers.slack.com).\n\nIf you need an invitation for the Gophers Slack, you can generate one here which\nshould arrive fairly quickly (under 1 min): https://invite.slack.golangbridge.org\n\n## Contributing\n\nYour contributions are welcome!\n\nPlease take a look at our [Contributing](https://tinygo.org/docs/guides/contributing/) page on our web site for details.\n\n## Project Scope\n\nGoals:\n\n* Have very small binary sizes. Don't pay for what you don't use.\n* Support for most common microcontroller boards.\n* Be usable on the web using WebAssembly.\n* Good CGo support, with no more overhead than a regular function call.\n* Support most standard library packages and compile most Go code without modification.\n\nNon-goals:\n\n* Be efficient while using zillions of goroutines. However, good goroutine support is certainly a goal.\n* Be as fast as `gc`. However, LLVM will probably be better at optimizing certain things so TinyGo might actually turn out to be faster for number crunching.\n* Be able to compile every Go program out there.\n\n## Why this project exists\n\n> We never expected Go to be an embedded language and so its got serious problems...\n\n-- Rob Pike, [GopherCon 2014 Opening Keynote](https://www.youtube.com/watch?v=VoS7DsT1rdM&feature=youtu.be&t=2799)\n\nTinyGo is a project to bring Go to microcontrollers and small systems with a single processor core. It is similar to [emgo](https://github.com/ziutek/emgo) but a major difference is that we want to keep the Go memory model (which implies garbage collection of some sort). Another difference is that TinyGo uses LLVM internally instead of emitting C, which hopefully leads to smaller and more efficient code and certainly leads to more flexibility.\n\nThe original reasoning was: if [Python](https://micropython.org/) can run on microcontrollers, then certainly [Go](https://golang.org/) should be able to run on even lower level micros.\n\n## License\n\nThis project is licensed under the BSD 3-clause license, just like the [Go project](https://golang.org/LICENSE) itself.\n\nSome code has been copied from the LLVM project and is therefore licensed under [a variant of the Apache 2.0 license](http://releases.llvm.org/11.0.0/LICENSE.TXT). This has been clearly indicated in the header of these files.\n\nSome code has been copied and/or ported from Paul Stoffregen's Teensy libraries and is therefore licensed under PJRC's license. This has been clearly indicated in the header of these files.\n",
+        "releases": [
+            {
+                "name": "0.35.0",
+                "date": "2024-12-20T16:32:34Z"
+            },
+            {
+                "name": "0.34.0",
+                "date": "2024-10-26T08:39:56Z"
+            },
+            {
+                "name": "0.33.0",
+                "date": "2024-08-20T12:52:15Z"
+            },
+            {
+                "name": "0.32.0",
+                "date": "2024-06-18T08:41:35Z"
+            },
+            {
+                "name": "0.31.2",
+                "date": "2024-03-11T09:15:09Z"
+            },
+            {
+                "name": "0.31.1",
+                "date": "2024-02-28T15:59:32Z"
+            },
+            {
+                "name": "0.31.0",
+                "date": "2024-02-26T17:48:15Z"
+            },
+            {
+                "name": "0.30.0",
+                "date": "2023-09-21T13:47:55Z"
+            },
+            {
+                "name": "0.29.0",
+                "date": "2023-08-25T21:16:04Z"
+            },
+            {
+                "name": "0.28.1",
+                "date": "2023-06-11T22:59:17Z"
+            },
+            {
+                "name": "0.28.0",
+                "date": "2023-06-11T09:02:08Z"
+            },
+            {
+                "name": "0.27.0",
+                "date": "2023-02-12T13:29:18Z"
+            },
+            {
+                "name": "0.26.0",
+                "date": "2022-10-04T14:28:22Z"
+            },
+            {
+                "name": "0.25.0",
+                "date": "2022-08-03T12:48:49Z"
+            },
+            {
+                "name": "0.25.0-beta1",
+                "date": "2022-07-29T05:45:35Z"
+            },
+            {
+                "name": "0.24.0",
+                "date": "2022-07-01T10:48:19Z"
+            },
+            {
+                "name": "0.23.0",
+                "date": "2022-04-29T09:11:05Z"
+            },
+            {
+                "name": "0.22.0",
+                "date": "2022-01-26T14:12:25Z"
+            },
+            {
+                "name": "0.21.0",
+                "date": "2021-11-18T14:30:34Z"
+            },
+            {
+                "name": "0.20.0",
+                "date": "2021-09-21T18:31:36Z"
+            },
+            {
+                "name": "0.19.0",
+                "date": "2021-07-01T10:55:07Z"
+            },
+            {
+                "name": "0.18.0",
+                "date": "2021-05-12T12:35:51Z"
+            },
+            {
+                "name": "0.17.0",
+                "date": "2021-03-06T14:30:18Z"
+            },
+            {
+                "name": "0.16.0",
+                "date": "2020-11-18T12:39:13Z"
+            },
+            {
+                "name": "0.15.0",
+                "date": "2020-09-17T10:26:33Z"
+            },
+            {
+                "name": "Release 0.14.1",
+                "date": "2020-08-19T07:24:36Z"
+            },
+            {
+                "name": "Release 0.14.0",
+                "date": "2020-08-04T16:19:41Z"
+            },
+            {
+                "name": "Release 0.13.1",
+                "date": "2020-04-26T11:48:37Z"
+            },
+            {
+                "name": "Release 0.13.0",
+                "date": "2020-04-14T17:52:16Z"
+            },
+            {
+                "name": "Release 0.12.0",
+                "date": "2020-01-31T13:24:46Z"
+            },
+            {
+                "name": "Release 0.11.0",
+                "date": "2019-12-23T19:16:10Z"
+            },
+            {
+                "name": "Release 0.10.0",
+                "date": "2019-11-26T22:32:46Z"
+            },
+            {
+                "name": "Release 0.9.0",
+                "date": "2019-10-17T14:07:23Z"
+            },
+            {
+                "name": "Release 0.8.0",
+                "date": "2019-09-18T15:25:39Z"
+            },
+            {
+                "name": "Release 0.7.1",
+                "date": "2019-07-27T17:05:49Z"
+            },
+            {
+                "name": "Release 0.7.0",
+                "date": "2019-07-17T15:13:02Z"
+            },
+            {
+                "name": "Release 0.6.0",
+                "date": "2019-05-29T18:34:51Z"
+            },
+            {
+                "name": "Release 0.5.0",
+                "date": "2019-04-20T18:53:39Z"
+            },
+            {
+                "name": "Release 0.4.1",
+                "date": "2019-03-15T13:06:55Z"
+            },
+            {
+                "name": "Release 0.4.0",
+                "date": "2019-03-09T20:39:48Z"
+            },
+            {
+                "name": "Release 0.3.0",
+                "date": "2019-02-27T12:48:34Z"
+            },
+            {
+                "name": "Release 0.2.0",
+                "date": "2019-02-08T16:55:05Z"
+            },
+            {
+                "name": "Initial release",
+                "date": "2019-02-01T13:04:34Z"
+            }
+        ]
+    }
+}

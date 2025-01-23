@@ -1,0 +1,349 @@
+{
+    "https://api.github.com/repos/ben-rogerson/twin.macro": {
+        "forks": 186,
+        "watchers": 7972,
+        "stars": 7972,
+        "languages": {
+            "TypeScript": 506028,
+            "JavaScript": 28168
+        },
+        "commits": [
+            "2024-04-08T04:13:25Z",
+            "2024-03-20T06:41:23Z",
+            "2024-03-20T06:38:46Z",
+            "2024-01-19T05:30:11Z",
+            "2024-01-19T05:29:42Z",
+            "2024-01-19T05:23:00Z",
+            "2024-01-19T05:21:57Z",
+            "2024-01-19T05:19:55Z",
+            "2023-07-25T08:31:53Z",
+            "2023-07-25T08:19:59Z",
+            "2023-07-23T22:44:18Z",
+            "2023-07-23T22:44:02Z",
+            "2023-07-23T22:40:20Z",
+            "2023-07-19T11:05:23Z",
+            "2023-07-13T10:11:52Z",
+            "2023-04-13T23:50:16Z",
+            "2023-04-11T05:58:32Z",
+            "2023-04-11T05:55:32Z",
+            "2023-04-11T05:52:41Z",
+            "2023-04-10T12:28:32Z",
+            "2023-04-10T12:26:29Z",
+            "2023-04-08T11:49:35Z",
+            "2023-03-31T02:53:14Z",
+            "2023-03-31T02:49:59Z",
+            "2023-03-31T02:47:05Z",
+            "2023-03-31T02:46:03Z",
+            "2023-03-30T05:38:08Z",
+            "2023-03-05T22:51:44Z",
+            "2022-12-06T21:30:20Z",
+            "2022-12-06T20:56:20Z"
+        ],
+        "creation_date": "2020-02-19T04:45:25Z",
+        "contributors": 30,
+        "topics": [
+            "babel",
+            "babel-macro",
+            "css-in-js",
+            "emotion",
+            "emotionjs",
+            "goober",
+            "react",
+            "reactjs",
+            "solidjs",
+            "stitches",
+            "styled-components",
+            "styling-css-in-js",
+            "styling-react",
+            "tailwind",
+            "tailwind-css",
+            "tailwind-in-js",
+            "tailwindcss",
+            "twin"
+        ],
+        "subscribers": 32,
+        "readme": "<p align=\"center\">\n  <a href=\"https://github.com/ben-rogerson/twin.macro#gh-light-mode-only\" target=\"_blank\">\n    <img src=\"./.github/logo-light.svg\" alt=\"Twin examples\" width=\"199\" height=\"70\">\n  </a>\n  <a href=\"https://github.com/ben-rogerson/twin.macro#gh-dark-mode-only\" target=\"_blank\">\n    <img src=\"./.github/logo-dark.svg\" alt=\"Twin examples\" width=\"199\" height=\"70\">\n  </a>\n</p>\n\n<p align=\"center\">\n    The <em>magic</em> of Tailwind with the <em>flexibility</em> of css-in-js.<br><br>\n    <a href=\"https://www.npmjs.com/package/twin.macro\"><img src=\"https://img.shields.io/npm/dt/twin.macro.svg\" alt=\"Total Downloads\"></a>\n    <a href=\"https://www.npmjs.com/package/twin.macro\"><img src=\"https://img.shields.io/npm/v/twin.macro.svg\" alt=\"Latest Release\"></a>\n    <a href=\"https://discord.gg/Xj6x9z7\"><img src=\"https://img.shields.io/discord/705884695400939552?label=discord&logo=discord\" alt=\"Discord\"></a>\n    <br>\n    <br>\n    <a href=\"https://stackblitz.com/github/ben-rogerson/twin.examples/tree/master/vite-styled-components-typescript?file=src/App.tsx\">\n      <img\n        alt=\"Open in StackBlitz\"\n        src=\"https://developer.stackblitz.com/img/open_in_stackblitz_small.svg\"\n      />\n    </a>\n</p>\n\n---\n\nStyle jsx elements using Tailwind classes:\n\n```js\nimport 'twin.macro'\n\nconst Input = () => <input tw=\"border hover:border-black\" />\n```\n\nNest Twin\u2019s `tw` import within a css prop to add conditional styles:\n\n```js\nimport tw from 'twin.macro'\n\nconst Input = ({ hasHover }) => (\n  <input css={[tw`border`, hasHover && tw`hover:border-black`]} />\n)\n```\n\nOr mix sass styles with the css import:\n\n```js\nimport tw, { css } from 'twin.macro'\n\nconst hoverStyles = css`\n  &:hover {\n    border-color: black;\n    ${tw`text-black`}\n  }\n`\nconst Input = ({ hasHover }) => (\n  <input css={[tw`border`, hasHover && hoverStyles]} />\n)\n```\n\n### Styled Components\n\nYou can also use the tw import to create and style new components:\n\n```js\nimport tw from 'twin.macro'\n\nconst Input = tw.input`border hover:border-black`\n```\n\nAnd clone and style existing components:\n\n```js\nconst PurpleInput = tw(Input)`border-purple-500`\n```\n\nSwitch to the styled import to add conditional styling:\n\n```js\nimport tw, { styled } from 'twin.macro'\n\nconst StyledInput = styled.input(({ hasBorder }) => [\n  `color: black;`,\n  hasBorder && tw`border-purple-500`,\n])\nconst Input = () => <StyledInput hasBorder />\n```\n\nOr use backticks to mix with sass styles:\n\n```js\nimport tw, { styled } from 'twin.macro'\n\nconst StyledInput = styled.input`\n  color: black;\n  ${({ hasBorder }) => hasBorder && tw`border-purple-500`}\n`\nconst Input = () => <StyledInput hasBorder />\n```\n\n## How it works\n\nWhen babel runs over your javascript or typescript files at compile time, twin grabs your classes and converts them into css objects.\nThese css objects are then passed into your chosen css-in-js library without the need for an extra client-side bundle:\n\n```js\nimport tw from 'twin.macro'\n\ntw`text-sm md:text-lg`\n\n// \u2193 \u2193 \u2193 \u2193 \u2193 \u2193\n\n{\n  fontSize: '0.875rem',\n  '@media (min-width: 768px)': {\n    fontSize: '1.125rem',\n  },\n}\n```\n\n## Features\n\n**\ud83d\udc4c Simple imports** - Twin collapses imports from common styling libraries into a single import:\n\n```diff\n- import styled from '@emotion/styled'\n- import css from '@emotion/react'\n+ import { styled, css } from 'twin.macro'\n```\n\n**\ud83d\udc39 Adds no size to your build** - Twin converts the classes you\u2019ve used into css objects using Babel and then compiles away, leaving no runtime code\n\n**\ud83c\udf71 Apply variants to multiple classes at once with variant groups**\n\n```js\nimport 'twin.macro'\n\nconst interactionStyles = () => (\n  <div tw=\"hover:(text-black underline) focus:(text-blue-500 underline)\" />\n)\n\nconst mediaStyles = () => <div tw=\"sm:(w-4 mt-3) lg:(w-8 mt-6)\" />\n\nconst pseudoElementStyles = () => <div tw=\"before:(block w-10 h-10 bg-black)\" />\n\nconst stackedVariants = () => <div tw=\"sm:hover:(bg-black text-white)\" />\n\nconst groupsInGroups = () => <div tw=\"sm:(bg-black hover:(bg-white w-10))\" />\n```\n\n**\ud83d\udece Helpful suggestions for mistypings** - Twin chimes in with class and variant values from your Tailwind config:\n\n```bash\n\u2715 ml-1.25 was not found\n\nTry one of these classes:\n\n- ml-1.5 > 0.375rem\n- ml-1 > 0.25rem\n- ml-10 > 2.5rem\n```\n\n**\ud83d\udd8c\ufe0f Use the theme import to add values from your tailwind config**\n\n```js\nimport { css, theme } from 'twin.macro'\n\nconst Input = () => <input css={css({ color: theme`colors.purple.500` })} />\n```\n\nSee more examples [using the theme import \u2192](https://github.com/ben-rogerson/twin.macro/pull/106)\n\n**\ud83d\udca1 Works with the official tailwind vscode plugin** - Avoid having to look up your classes with auto-completions straight from your Tailwind config - [setup instructions \u2192](https://github.com/ben-rogerson/twin.macro/discussions/227)\n\n**\ud83d\udca5 Add !important to any class with a trailing or leading bang!**\n\n```js\n<div tw=\"hidden!\" /> || <div tw=\"!hidden\" />\n// \u2193 \u2193 \u2193 \u2193 \u2193 \u2193 \u2193 \u2193 \u2193\n<div css={{ \"display\": \"none !important\" }} />\n```\n\nAdd !important to multiple classes with bracket groups:\n\n```js\n<div tw=\"(hidden ml-auto)!\" />\n// \u2193 \u2193 \u2193 \u2193 \u2193 \u2193 \u2193 \u2193 \u2193\n<div css={{ \"display\": \"none !important\", \"marginLeft\": \"auto !important\" }} />\n```\n\n## Get started\n\nTwin works with many modern stacks - take a look at these examples to get started:\n\n### App build tools and libraries\n\n- **Parcel**<br/>[styled-components](https://github.com/ben-rogerson/twin.examples/tree/master/react-styled-components) / [emotion](https://github.com/ben-rogerson/twin.examples/tree/master/react-emotion) / [emotion (ts)](https://github.com/ben-rogerson/twin.examples/tree/master/react-emotion-typescript)\n- **Webpack**<br/>[styled-components (ts)](https://github.com/ben-rogerson/twin.examples/tree/master/webpack-styled-components-typescript) / [emotion (ts)](https://github.com/ben-rogerson/twin.examples/tree/master/webpack-emotion-typescript)\n- **Preact**<br/>[styled-components](https://github.com/ben-rogerson/twin.examples/tree/master/preact-styled-components) / [emotion](https://github.com/ben-rogerson/twin.examples/tree/master/preact-emotion) / [goober](https://github.com/ben-rogerson/twin.examples/tree/master/preact-goober)\n- **Create React App**<br/>[styled-components](https://github.com/ben-rogerson/twin.examples/tree/master/cra-styled-components) / [emotion](https://github.com/ben-rogerson/twin.examples/tree/master/cra-emotion)\n- **Vite**<br/>[styled-components (ts)](https://github.com/ben-rogerson/twin.examples/tree/master/vite-styled-components-typescript) / [emotion (ts)](https://github.com/ben-rogerson/twin.examples/tree/master/vite-emotion-typescript) / [solid (ts)](https://github.com/ben-rogerson/twin.examples/tree/master/vite-solid-typescript)\n- **Jest / React Testing Library**<br/>[styled-components (ts) / emotion (ts)](https://github.com/ben-rogerson/twin.examples/tree/master/jest-testing-typescript)\n\n### Advanced frameworks\n\n- **Next.js**<br/>[styled-components](https://github.com/ben-rogerson/twin.examples/tree/master/next-styled-components) / [styled-components (ts)](https://github.com/ben-rogerson/twin.examples/tree/master/next-styled-components-typescript) / [emotion](https://github.com/ben-rogerson/twin.examples/tree/master/next-emotion) / [emotion (ts)](https://github.com/ben-rogerson/twin.examples/tree/master/next-emotion-typescript) / [stitches (ts)](https://github.com/ben-rogerson/twin.examples/tree/master/next-stitches-typescript)\n- **T3 App**<br/>[styled-components (ts)](https://github.com/ben-rogerson/twin.examples/tree/master/t3-styled-components-typescript) /\n  [emotion (ts)](https://github.com/ben-rogerson/twin.examples/tree/master/t3-emotion-typescript)\n- **Blitz.js**<br/>[emotion (ts)](https://github.com/ben-rogerson/twin.examples/tree/master/blitz-emotion-typescript)\n- **Gatsby**<br/>[styled-components](https://github.com/ben-rogerson/twin.examples/tree/master/gatsby-styled-components) / [emotion](https://github.com/ben-rogerson/twin.examples/tree/master/gatsby-emotion)\n\n### Component libraries\n\n- **Storybook**<br/>[styled-components (ts)](https://github.com/ben-rogerson/twin.examples/tree/master/storybook-styled-components-typescript) / [emotion](https://github.com/ben-rogerson/twin.examples/tree/master/storybook-emotion) / [emotion (ts)](https://github.com/ben-rogerson/twin.examples/tree/master/storybook-emotion-typescript)\n- **yarn/npm workspaces + Next.js + shared ui components**<br/>[styled-components](https://github.com/ben-rogerson/twin.examples/tree/master/component-library-styled-components)\n- **Yarn workspaces + Rollup**<br/>[emotion](https://github.com/ben-rogerson/twin.examples/tree/master/component-library-emotion)\n- [**HeadlessUI** (ts)](https://github.com/ben-rogerson/twin.examples/tree/master/headlessui-typescript)\n\n## Community\n\n[Drop into our Discord server](https://discord.gg/Xj6x9z7) for announcements, help and styling chat.\n\n<a href=\"https://discord.gg/Xj6x9z7\"><img src=\"https://img.shields.io/discord/705884695400939552?label=discord&logo=discord\" alt=\"Discord\"></a>\n\n## Resources\n\n- \ud83d\udd25 [Docs: The prop styling guide](https://github.com/ben-rogerson/twin.macro/blob/master/docs/prop-styling-guide.md) - A must-read guide to level up on prop styling\n- \ud83d\udd25 [Docs: The styled component guide](https://github.com/ben-rogerson/twin.macro/blob/master/docs/styled-component-guide.md) - A must-read guide on getting productive with styled components\n- [Docs: Options](https://github.com/ben-rogerson/twin.macro/blob/master/docs/options.md) - Learn about the features you can tweak via the twin config\n- [Plugin: babel-plugin-twin](https://github.com/ben-rogerson/babel-plugin-twin) - Use the tw and css props without adding an import\n- [Example: Advanced theming](https://github.com/ben-rogerson/twin.macro/blob/master/docs/advanced-theming.md) - Add custom theming the right way using css variables\n- [Example: React + Tailwind breakpoint syncing](https://gist.github.com/ben-rogerson/b4b406dffcc18ae02f8a6c8c97bb58a8) - Sync your tailwind.config.js breakpoints with react\n- [Helpers: Twin VSCode snippets](https://gist.github.com/ben-rogerson/c6b62508e63b3e3146350f685df2ddc9) - For devs who want to type less\n- [Plugins: VSCode plugins](https://github.com/ben-rogerson/twin.macro/discussions/227) - VScode plugins that work with twin\n- [Article: \"Why I Love Tailwind\" by Max Stoiber](https://mxstbr.com/thoughts/tailwind) - Max (inventor of styled-components) shares his thoughts on twin\n\n## Special thanks\n\nThis project stemmed from [babel-plugin-tailwind-components](https://github.com/bradlc/babel-plugin-tailwind-components) so a big shout out goes to [Brad Cornes](https://github.com/bradlc) for the amazing work he produced. Styling with tailwind.macro has been such a pleasure.\n\n---\n\n[Consider donating some \ud83c\udf55 if you enjoy!](https://www.buymeacoffee.com/benrogerson)\n",
+        "releases": [
+            {
+                "name": "3.4.1",
+                "date": "2024-01-19T05:36:48Z"
+            },
+            {
+                "name": "3.4.0",
+                "date": "2023-07-25T09:24:45Z"
+            },
+            {
+                "name": "3.3.1",
+                "date": "2023-04-14T00:01:35Z"
+            },
+            {
+                "name": "v3.3",
+                "date": "2023-03-31T03:16:23Z"
+            },
+            {
+                "name": "v3.1",
+                "date": "2022-12-06T21:33:00Z"
+            },
+            {
+                "name": "v3.0.1",
+                "date": "2022-11-19T23:17:11Z"
+            },
+            {
+                "name": "v3.0: Support for tailwindcss v3.2.2+",
+                "date": "2022-11-09T00:46:20Z"
+            },
+            {
+                "name": "3.0.0-rc.5",
+                "date": "2022-10-02T04:11:55Z"
+            },
+            {
+                "name": "3.0.0-rc.4.2",
+                "date": "2022-09-22T01:07:13Z"
+            },
+            {
+                "name": "3.0.0-rc.4.1",
+                "date": "2022-09-14T21:12:40Z"
+            },
+            {
+                "name": "",
+                "date": "2022-09-10T01:00:01Z"
+            },
+            {
+                "name": "3.0.0-rc.3",
+                "date": "2022-06-19T08:39:00Z"
+            },
+            {
+                "name": "3.0.0-rc.2",
+                "date": "2022-06-01T04:11:39Z"
+            },
+            {
+                "name": "3.0.0-rc.1",
+                "date": "2022-05-02T21:21:58Z"
+            },
+            {
+                "name": "2.8.2",
+                "date": "2021-12-07T23:59:40Z"
+            },
+            {
+                "name": "",
+                "date": "2021-10-27T10:21:43Z"
+            },
+            {
+                "name": "The Arbitrary Variants release",
+                "date": "2021-10-13T01:43:45Z"
+            },
+            {
+                "name": "The JIT release",
+                "date": "2021-08-22T07:14:17Z"
+            },
+            {
+                "name": "",
+                "date": "2021-07-08T08:06:58Z"
+            },
+            {
+                "name": "",
+                "date": "2021-07-03T05:55:43Z"
+            },
+            {
+                "name": "New globalStyles import + Stitches: Full preset support",
+                "date": "2021-07-03T05:36:03Z"
+            },
+            {
+                "name": "Arbitrary values, screen import and important prefix",
+                "date": "2021-06-12T07:42:33Z"
+            },
+            {
+                "name": "2.4.2",
+                "date": "2021-05-21T23:44:27Z"
+            },
+            {
+                "name": "",
+                "date": "2021-04-29T10:41:29Z"
+            },
+            {
+                "name": "Css filters, blend modes, deep config nesting and more",
+                "date": "2021-04-26T09:27:17Z"
+            },
+            {
+                "name": "",
+                "date": "2021-04-14T10:44:01Z"
+            },
+            {
+                "name": "",
+                "date": "2021-03-29T19:45:20Z"
+            },
+            {
+                "name": "Class ordering + grid-flow-col-dense fixup",
+                "date": "2021-03-23T10:16:38Z"
+            },
+            {
+                "name": "2.3.0 - Plugins, Commenting, Variants, Prefixing and more",
+                "date": "2021-03-03T09:46:45Z"
+            },
+            {
+                "name": "2.2.3",
+                "date": "2021-02-10T04:31:45Z"
+            },
+            {
+                "name": "",
+                "date": "2021-02-07T02:13:44Z"
+            },
+            {
+                "name": "2.2.1 - Short css improvements",
+                "date": "2021-02-06T05:49:51Z"
+            },
+            {
+                "name": "2.2.0 - New short css feature",
+                "date": "2021-01-31T02:31:24Z"
+            },
+            {
+                "name": "2.1.1",
+                "date": "2021-01-25T03:58:13Z"
+            },
+            {
+                "name": "2.1.0 - Nested bracket groups, Config presets, className prop matching",
+                "date": "2021-01-20T09:39:23Z"
+            },
+            {
+                "name": "2.0.8",
+                "date": "2021-01-06T11:18:30Z"
+            },
+            {
+                "name": "2.0.7",
+                "date": "2020-12-10T21:27:02Z"
+            },
+            {
+                "name": "2.0.6",
+                "date": "2020-12-09T09:38:41Z"
+            },
+            {
+                "name": "2.0.5",
+                "date": "2020-12-07T21:32:09Z"
+            },
+            {
+                "name": "2.0.4",
+                "date": "2020-11-30T11:21:04Z"
+            },
+            {
+                "name": "2.0.3",
+                "date": "2020-11-29T20:45:06Z"
+            },
+            {
+                "name": "2.0.2",
+                "date": "2020-11-29T12:13:38Z"
+            },
+            {
+                "name": "2.0.1",
+                "date": "2020-11-29T10:53:36Z"
+            },
+            {
+                "name": "2.0.0",
+                "date": "2020-11-29T03:46:03Z"
+            },
+            {
+                "name": "1.12.1",
+                "date": "2020-11-15T10:47:42Z"
+            },
+            {
+                "name": "1.12.0",
+                "date": "2020-10-28T10:40:17Z"
+            },
+            {
+                "name": "",
+                "date": "2020-10-26T08:41:11Z"
+            },
+            {
+                "name": "1.11.0",
+                "date": "2020-10-17T22:33:12Z"
+            },
+            {
+                "name": "1.10.0",
+                "date": "2020-09-24T13:23:58Z"
+            },
+            {
+                "name": "1.9.0",
+                "date": "2020-09-13T08:59:28Z"
+            },
+            {
+                "name": "1.8.1",
+                "date": "2020-09-04T13:16:09Z"
+            },
+            {
+                "name": "1.8.0",
+                "date": "2020-08-30T01:23:25Z"
+            },
+            {
+                "name": "1.7.0",
+                "date": "2020-07-28T23:59:29Z"
+            },
+            {
+                "name": "",
+                "date": "2020-07-27T10:16:20Z"
+            },
+            {
+                "name": "",
+                "date": "2020-07-26T07:32:12Z"
+            },
+            {
+                "name": "",
+                "date": "2020-07-23T10:44:43Z"
+            },
+            {
+                "name": "v1.6.0",
+                "date": "2020-07-22T01:23:25Z"
+            },
+            {
+                "name": "",
+                "date": "2020-07-19T22:25:37Z"
+            },
+            {
+                "name": "1.5.0",
+                "date": "2020-07-05T00:44:11Z"
+            },
+            {
+                "name": "",
+                "date": "2020-06-11T22:58:11Z"
+            },
+            {
+                "name": "1.4.0",
+                "date": "2020-06-10T12:30:17Z"
+            },
+            {
+                "name": "1.3.0",
+                "date": "2020-05-30T12:03:16Z"
+            },
+            {
+                "name": "v1.2.0 - TypeScript fixes",
+                "date": "2020-05-23T11:28:16Z"
+            },
+            {
+                "name": "v1.1.1",
+                "date": "2020-05-20T22:44:28Z"
+            },
+            {
+                "name": "v1.1.0",
+                "date": "2020-05-20T02:39:42Z"
+            },
+            {
+                "name": "Twin v1.0.0",
+                "date": "2020-05-13T13:55:41Z"
+            },
+            {
+                "name": "TypeScript types, new group class states & misc bugfixes",
+                "date": "2020-03-29T12:04:26Z"
+            },
+            {
+                "name": "Plugin utilities and improved suggestions",
+                "date": "2020-03-01T11:45:00Z"
+            },
+            {
+                "name": "New features for you lucky lucky people",
+                "date": "2020-02-22T07:06:17Z"
+            },
+            {
+                "name": "First release! \ud83c\udf89",
+                "date": "2020-02-19T11:28:20Z"
+            }
+        ]
+    }
+}

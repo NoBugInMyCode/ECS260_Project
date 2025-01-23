@@ -1,0 +1,108 @@
+{
+    "https://api.github.com/repos/restify/node-restify": {
+        "forks": 983,
+        "watchers": 10717,
+        "stars": 10717,
+        "languages": {
+            "JavaScript": 695772,
+            "Makefile": 11283,
+            "HTML": 687,
+            "Emacs Lisp": 179
+        },
+        "commits": [
+            "2023-08-11T00:57:13Z",
+            "2023-08-10T20:55:16Z",
+            "2023-04-20T00:20:02Z",
+            "2023-04-20T00:47:55Z",
+            "2023-02-13T20:12:01Z",
+            "2023-02-13T19:48:48Z",
+            "2023-04-12T21:55:23Z",
+            "2023-02-24T23:42:23Z",
+            "2023-02-23T02:19:42Z",
+            "2023-01-27T19:28:42Z",
+            "2023-01-17T20:07:45Z",
+            "2023-01-13T00:14:40Z",
+            "2023-01-12T23:49:03Z",
+            "2022-11-29T00:22:29Z",
+            "2022-11-29T00:07:32Z",
+            "2022-11-28T23:45:51Z",
+            "2022-05-08T02:11:00Z",
+            "2018-11-16T11:23:28Z",
+            "2018-11-16T10:11:26Z",
+            "2022-11-15T21:10:32Z",
+            "2022-11-15T21:09:21Z",
+            "2022-11-15T21:08:16Z",
+            "2022-11-15T21:06:03Z",
+            "2022-11-15T21:04:17Z",
+            "2022-11-15T21:02:18Z",
+            "2022-11-15T20:55:17Z",
+            "2022-11-15T20:47:27Z",
+            "2022-05-08T04:04:24Z",
+            "2022-05-08T03:48:19Z",
+            "2022-05-08T03:42:46Z"
+        ],
+        "creation_date": "2011-04-25T21:19:26Z",
+        "contributors": 30,
+        "topics": [
+            "rest-api",
+            "restify",
+            "server"
+        ],
+        "subscribers": 235,
+        "readme": "<!-- Please don't remove this: Grab your social icons from https://github.com/carlsednaoui/gitsocial -->\n\n<!-- display the social media buttons in your README -->\n\n[![alt text][1.1]][1]\n\n\n<!-- links to social media icons -->\n<!-- no need to change these -->\n\n<!-- icons with padding -->\n\n[1.1]: http://i.imgur.com/tXSoThF.png (twitter icon with padding)\n\n<!-- icons without padding -->\n\n[1.2]: http://i.imgur.com/wWzX9uB.png (twitter icon without padding)\n\n\n<!-- links to your social media accounts -->\n<!-- update these accordingly -->\n\n[1]: http://www.twitter.com/restifyjs\n\n<!-- Please don't remove this: Grab your social icons from https://github.com/carlsednaoui/gitsocial -->\n\n![restify](/../gh-images/logo/png/restify_logo_black_transp_288x288.png?raw=true \"restify\")\n\n[![Build Status](https://travis-ci.org/restify/node-restify.svg?branch=master)](https://travis-ci.org/restify/node-restify)\n[![Dependency Status](https://david-dm.org/restify/node-restify.svg)](https://david-dm.org/restify/node-restify)\n[![devDependency Status](https://david-dm.org/restify/node-restify/dev-status.svg)](https://david-dm.org/restify/node-restify#info=devDependencies)\n[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)\n\n[restify](http://restify.com) is a framework, utilizing\n[connect](https://github.com/senchalabs/connect) style middleware for building\nREST APIs.  For full details, see http://restify.com\n\nFollow restify on [![alt text][1.2]][1]\n\n# Usage\n\n## Server\n```javascript\nvar restify = require('restify');\n\nconst server = restify.createServer({\n  name: 'myapp',\n  version: '1.0.0'\n});\n\nserver.use(restify.plugins.acceptParser(server.acceptable));\nserver.use(restify.plugins.queryParser());\nserver.use(restify.plugins.bodyParser());\n\nserver.get('/echo/:name', function (req, res, next) {\n  res.send(req.params);\n  return next();\n});\n\nserver.listen(8080, function () {\n  console.log('%s listening at %s', server.name, server.url);\n});\n```\n\n## Client\n```javascript\nvar assert = require('assert');\nvar clients = require('restify-clients');\n\nvar client = clients.createJsonClient({\n  url: 'http://localhost:8080',\n  version: '~1.0'\n});\n\nclient.get('/echo/mark', function (err, req, res, obj) {\n  assert.ifError(err);\n  console.log('Server returned: %j', obj);\n});\n```\n\n# Installation\n```bash\n$ npm install restify\n```\n\n## Supported Node Versions\n\nRestify currently works on Node.js v14.x and v16.x.\n\n## License\n\nThe MIT License (MIT)\n\nCopyright (c) 2018 restify\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of\nthis software and associated documentation files (the \"Software\"), to deal in\nthe Software without restriction, including without limitation the rights to\nuse, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of\nthe Software, and to permit persons to whom the Software is furnished to do so,\nsubject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n\n## Bugs\n\nSee <https://github.com/restify/node-restify/issues>.\n\n## Other repositories\n\n- For the errors module, please go [here](https://github.com/restify/errors).\n\n\n## Mailing list\n\nSee the\n[Google group](https://groups.google.com/forum/?hl=en&fromgroups#!forum/restify)\n.\n",
+        "releases": [
+            {
+                "name": "v11.2.0",
+                "date": "2024-01-27T20:10:27Z"
+            },
+            {
+                "name": "v9.1.0",
+                "date": "2023-06-13T19:14:59Z"
+            },
+            {
+                "name": "v11.1.0",
+                "date": "2023-02-24T23:46:17Z"
+            },
+            {
+                "name": "v11.0.0",
+                "date": "2023-01-17T20:09:45Z"
+            },
+            {
+                "name": "v10.0.0",
+                "date": "2022-11-29T00:28:59Z"
+            },
+            {
+                "name": "v9.0.0",
+                "date": "2022-11-15T20:02:16Z"
+            },
+            {
+                "name": "8.6.1 (2022-02-10)",
+                "date": "2022-02-10T23:28:10Z"
+            },
+            {
+                "name": "8.6.0 (2021-09-28)",
+                "date": "2021-09-29T06:25:02Z"
+            },
+            {
+                "name": "v8.5.1",
+                "date": "2020-07-10T06:18:28Z"
+            },
+            {
+                "name": "Restify 4.0.3",
+                "date": "2015-09-18T22:51:08Z"
+            },
+            {
+                "name": "Restify 4.0.2",
+                "date": "2015-09-10T04:01:51Z"
+            },
+            {
+                "name": "Restify 4",
+                "date": "2015-08-18T17:42:00Z"
+            },
+            {
+                "name": "3.0.0",
+                "date": "2015-03-11T06:31:40Z"
+            }
+        ]
+    }
+}

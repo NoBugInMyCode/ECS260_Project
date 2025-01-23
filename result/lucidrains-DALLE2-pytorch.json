@@ -1,0 +1,1438 @@
+{
+    "https://api.github.com/repos/lucidrains/DALLE2-pytorch": {
+        "forks": 1089,
+        "watchers": 11207,
+        "stars": 11207,
+        "languages": {
+            "Python": 315706,
+            "Makefile": 154
+        },
+        "commits": [
+            "2023-10-19T14:40:57Z",
+            "2023-10-19T04:07:47Z",
+            "2023-10-19T04:02:50Z",
+            "2023-10-19T03:27:32Z",
+            "2023-10-18T22:45:09Z",
+            "2023-10-07T18:34:34Z",
+            "2023-10-04T16:38:46Z",
+            "2023-10-04T16:38:30Z",
+            "2023-07-15T16:32:44Z",
+            "2023-04-20T21:08:52Z",
+            "2023-04-20T14:05:29Z",
+            "2023-03-07T20:41:55Z",
+            "2023-03-05T18:45:44Z",
+            "2023-03-04T17:37:25Z",
+            "2023-02-12T01:18:40Z",
+            "2022-12-23T21:23:09Z",
+            "2022-12-15T18:54:21Z",
+            "2022-11-23T16:41:18Z",
+            "2022-11-11T20:15:13Z",
+            "2022-11-08T00:19:08Z",
+            "2022-11-07T23:44:36Z",
+            "2022-10-29T01:21:07Z",
+            "2022-10-25T17:31:29Z",
+            "2022-10-23T22:12:09Z",
+            "2022-10-19T16:26:00Z",
+            "2022-10-18T15:50:59Z",
+            "2022-09-29T16:09:41Z",
+            "2022-09-20T15:39:52Z",
+            "2022-09-19T17:45:20Z",
+            "2022-09-19T17:27:09Z"
+        ],
+        "creation_date": "2022-04-07T04:14:08Z",
+        "contributors": 17,
+        "topics": [
+            "artificial-intelligence",
+            "deep-learning",
+            "text-to-image"
+        ],
+        "subscribers": 122,
+        "readme": "<img src=\"./dalle2.png\" width=\"450px\"></img>\n\n## DALL-E 2 - Pytorch\n\nImplementation of <a href=\"https://openai.com/dall-e-2/\">DALL-E 2</a>, OpenAI's updated text-to-image synthesis neural network, in Pytorch.\n\n<a href=\"https://youtu.be/RJwPN4qNi_Y?t=555\">Yannic Kilcher summary</a> | <a href=\"https://www.youtube.com/watch?v=F1X4fHzF4mQ\">AssemblyAI explainer</a>\n\nThe main novelty seems to be an extra layer of indirection with the prior network (whether it is an autoregressive transformer or a diffusion network), which predicts an image embedding based on the text embedding from CLIP. Specifically, this repository will only build out the diffusion prior network, as it is the best performing variant (but which incidentally involves a causal transformer as the denoising network \ud83d\ude02)\n\nThis model is SOTA for text-to-image for now.\n\nPlease join <a href=\"https://discord.gg/xBPBXfcFHd\"><img alt=\"Join us on Discord\" src=\"https://img.shields.io/discord/823813159592001537?color=5865F2&logo=discord&logoColor=white\"></a> if you are interested in helping out with the replication with the <a href=\"https://laion.ai/\">LAION</a> community | <a href=\"https://www.youtube.com/watch?v=AIOE1l1W0Tw\">Yannic Interview</a>\n\nAs of 5/23/22, it is no longer SOTA. SOTA will be <a href=\"https://github.com/lucidrains/imagen-pytorch\">here</a>. Jax versions as well as text-to-video project will be shifted towards the Imagen architecture, as it is way simpler.\n\n## Status\n\n- A research group has used the code in this repository to train a functional diffusion prior for their CLIP generations. Will share their work once they release their preprint. This, and <a href=\"https://github.com/crowsonkb\">Katherine's</a> own experiments, validate OpenAI's finding that the extra prior increases variety of generations.\n\n- Decoder is now verified working for unconditional generation on my experimental setup for Oxford flowers. 2 researchers have also confirmed Decoder is working for them.\n\n<img src=\"./samples/oxford.png\" width=\"450px\" />\n\n*ongoing at 21k steps*\n\n- <a href=\"https://twitter.com/Buntworthy/status/1529475416775434240?t=0GEge3Kr9I36cjcUVCQUTg\">Justin Pinkney</a> successfully trained the diffusion prior in the repository for his CLIP to Stylegan2 text-to-image application\n\n- <a href=\"https://github.com/rom1504\">Romain</a> has scaled up training to 800 GPUs with the available scripts without any issues\n\n## Pre-Trained Models\n\n- LAION is training prior models. Checkpoints are available on <a href=\"https://huggingface.co/zenglishuci/conditioned-prior\">\ud83e\udd17huggingface</a> and the training statistics are available on <a href=\"https://wandb.ai/nousr_laion/conditioned-prior/reports/LAION-DALLE2-PyTorch-Prior--VmlldzoyMDI2OTIx\">\ud83d\udc1dWANDB</a>.\n- Decoder - <a href=\"https://wandb.ai/veldrovive/dalle2_train_decoder/runs/jkrtg0so?workspace=user-veldrovive\">In-progress test run</a> \ud83d\udea7\n- Decoder - <a href=\"https://wandb.ai/veldrovive/dalle2_train_decoder/runs/3d5rytsa?workspace=\">Another test run with sparse attention</a>\n- DALL-E 2 \ud83d\udea7 - <a href=\"https://github.com/LAION-AI/dalle2-laion\">DALL-E 2 Laion repository</a>\n\n## Appreciation\n\nThis library would not have gotten to this working state without the help of\n\n- <a href=\"https://github.com/nousr\">Zion</a> for the distributed training code for the diffusion prior\n- <a href=\"https://github.com/Veldrovive\">Aidan</a> for the distributed training code for the decoder as well as the dataloaders\n- <a href=\"https://github.com/krish240574\">Kumar</a> for working on the initial diffusion training script\n- <a href=\"https://github.com/rom1504\">Romain</a> for the pull request reviews and project management\n- <a href=\"https://github.com/Ciaohe\">He Cao</a> and <a href=\"https://github.com/xiankgx\">xiankgx</a> for the Q&A and for identifying of critical bugs\n- <a href=\"https://github.com/marunine\">Marunine</a> for identifying issues with resizing of the low resolution conditioner, when training the upsampler, in addition to various other bug fixes\n- <a href=\"https://github.com/malumadev\">MalumaDev</a> for proposing the use of pixel shuffle upsampler for fixing checkboard artifacts\n- <a href=\"https://github.com/crowsonkb\">Katherine</a> for her advice\n- <a href=\"https://stability.ai/\">Stability AI</a> for the generous sponsorship\n- <a href=\"https://huggingface.co\">\ud83e\udd17 Huggingface</a> and in particular <a href=\"https://github.com/sgugger\">Sylvain</a> for the <a href=\"https://github.com/huggingface/accelerate\">Accelerate</a> library\n- <a href=\"https://github.com/arogozhnikov\">Alex</a> for <a href=\"https://github.com/arogozhnikov/einops\">einops</a>, indispensable tool for tensor manipulation\n\n... and many others. Thank you! \ud83d\ude4f\n\n## Install\n\n```bash\n$ pip install dalle2-pytorch\n```\n\n## Usage\n\nTo train DALLE-2 is a 3 step process, with the training of CLIP being the most important\n\nTo train CLIP, you can either use <a href=\"https://github.com/lucidrains/x-clip\">x-clip</a> package, or join the LAION discord, where a lot of replication efforts are already <a href=\"https://github.com/mlfoundations/open_clip\">underway</a>.\n\nThis repository will demonstrate integration with `x-clip` for starters\n\n```python\nimport torch\nfrom dalle2_pytorch import CLIP\n\nclip = CLIP(\n    dim_text = 512,\n    dim_image = 512,\n    dim_latent = 512,\n    num_text_tokens = 49408,\n    text_enc_depth = 1,\n    text_seq_len = 256,\n    text_heads = 8,\n    visual_enc_depth = 1,\n    visual_image_size = 256,\n    visual_patch_size = 32,\n    visual_heads = 8,\n    use_all_token_embeds = True,            # whether to use fine-grained contrastive learning (FILIP)\n    decoupled_contrastive_learning = True,  # use decoupled contrastive learning (DCL) objective function, removing positive pairs from the denominator of the InfoNCE loss (CLOOB + DCL)\n    extra_latent_projection = True,         # whether to use separate projections for text-to-image vs image-to-text comparisons (CLOOB)\n    use_visual_ssl = True,                  # whether to do self supervised learning on images\n    visual_ssl_type = 'simclr',             # can be either 'simclr' or 'simsiam', depending on using DeCLIP or SLIP\n    use_mlm = False,                        # use masked language learning (MLM) on text (DeCLIP)\n    text_ssl_loss_weight = 0.05,            # weight for text MLM loss\n    image_ssl_loss_weight = 0.05            # weight for image self-supervised learning loss\n).cuda()\n\n# mock data\n\ntext = torch.randint(0, 49408, (4, 256)).cuda()\nimages = torch.randn(4, 3, 256, 256).cuda()\n\n# train\n\nloss = clip(\n    text,\n    images,\n    return_loss = True              # needs to be set to True to return contrastive loss\n)\n\nloss.backward()\n\n# do the above with as many texts and images as possible in a loop\n```\n\nThen, you will need to train the decoder, which learns to generate images based on the image embedding coming from the trained CLIP above\n\n```python\nimport torch\nfrom dalle2_pytorch import Unet, Decoder, CLIP\n\n# trained clip from step 1\n\nclip = CLIP(\n    dim_text = 512,\n    dim_image = 512,\n    dim_latent = 512,\n    num_text_tokens = 49408,\n    text_enc_depth = 1,\n    text_seq_len = 256,\n    text_heads = 8,\n    visual_enc_depth = 1,\n    visual_image_size = 256,\n    visual_patch_size = 32,\n    visual_heads = 8\n).cuda()\n\n# unet for the decoder\n\nunet = Unet(\n    dim = 128,\n    image_embed_dim = 512,\n    cond_dim = 128,\n    channels = 3,\n    dim_mults=(1, 2, 4, 8)\n).cuda()\n\n# decoder, which contains the unet and clip\n\ndecoder = Decoder(\n    unet = unet,\n    clip = clip,\n    timesteps = 100,\n    image_cond_drop_prob = 0.1,\n    text_cond_drop_prob = 0.5\n).cuda()\n\n# mock images (get a lot of this)\n\nimages = torch.randn(4, 3, 256, 256).cuda()\n\n# feed images into decoder\n\nloss = decoder(images)\nloss.backward()\n\n# do the above for many many many many steps\n# then it will learn to generate images based on the CLIP image embeddings\n```\n\nFinally, the main contribution of the paper. The repository offers the diffusion prior network. It takes the CLIP text embeddings and tries to generate the CLIP image embeddings. Again, you will need the trained CLIP from the first step\n\n```python\nimport torch\nfrom dalle2_pytorch import DiffusionPriorNetwork, DiffusionPrior, CLIP\n\n# get trained CLIP from step one\n\nclip = CLIP(\n    dim_text = 512,\n    dim_image = 512,\n    dim_latent = 512,\n    num_text_tokens = 49408,\n    text_enc_depth = 6,\n    text_seq_len = 256,\n    text_heads = 8,\n    visual_enc_depth = 6,\n    visual_image_size = 256,\n    visual_patch_size = 32,\n    visual_heads = 8,\n).cuda()\n\n# setup prior network, which contains an autoregressive transformer\n\nprior_network = DiffusionPriorNetwork(\n    dim = 512,\n    depth = 6,\n    dim_head = 64,\n    heads = 8\n).cuda()\n\n# diffusion prior network, which contains the CLIP and network (with transformer) above\n\ndiffusion_prior = DiffusionPrior(\n    net = prior_network,\n    clip = clip,\n    timesteps = 100,\n    cond_drop_prob = 0.2\n).cuda()\n\n# mock data\n\ntext = torch.randint(0, 49408, (4, 256)).cuda()\nimages = torch.randn(4, 3, 256, 256).cuda()\n\n# feed text and images into diffusion prior network\n\nloss = diffusion_prior(text, images)\nloss.backward()\n\n# do the above for many many many steps\n# now the diffusion prior can generate image embeddings from the text embeddings\n```\n\nIn the paper, they actually used a <a href=\"https://cascaded-diffusion.github.io/\">recently discovered technique</a>, from <a href=\"http://www.jonathanho.me/\">Jonathan Ho</a> himself (original author of DDPMs, the core technique used in DALL-E v2) for high resolution image synthesis.\n\nThis can easily be used within this framework as so\n\n```python\nimport torch\nfrom dalle2_pytorch import Unet, Decoder, CLIP\n\n# trained clip from step 1\n\nclip = CLIP(\n    dim_text = 512,\n    dim_image = 512,\n    dim_latent = 512,\n    num_text_tokens = 49408,\n    text_enc_depth = 6,\n    text_seq_len = 256,\n    text_heads = 8,\n    visual_enc_depth = 6,\n    visual_image_size = 256,\n    visual_patch_size = 32,\n    visual_heads = 8\n).cuda()\n\n# 2 unets for the decoder (a la cascading DDPM)\n\nunet1 = Unet(\n    dim = 32,\n    image_embed_dim = 512,\n    cond_dim = 128,\n    channels = 3,\n    dim_mults = (1, 2, 4, 8)\n).cuda()\n\nunet2 = Unet(\n    dim = 32,\n    image_embed_dim = 512,\n    cond_dim = 128,\n    channels = 3,\n    dim_mults = (1, 2, 4, 8, 16)\n).cuda()\n\n# decoder, which contains the unet(s) and clip\n\ndecoder = Decoder(\n    clip = clip,\n    unet = (unet1, unet2),            # insert both unets in order of low resolution to highest resolution (you can have as many stages as you want here)\n    image_sizes = (256, 512),         # resolutions, 256 for first unet, 512 for second. these must be unique and in ascending order (matches with the unets passed in)\n    timesteps = 1000,\n    image_cond_drop_prob = 0.1,\n    text_cond_drop_prob = 0.5\n).cuda()\n\n# mock images (get a lot of this)\n\nimages = torch.randn(4, 3, 512, 512).cuda()\n\n# feed images into decoder, specifying which unet you want to train\n# each unet can be trained separately, which is one of the benefits of the cascading DDPM scheme\n\nloss = decoder(images, unet_number = 1)\nloss.backward()\n\nloss = decoder(images, unet_number = 2)\nloss.backward()\n\n# do the above for many steps for both unets\n```\n\nFinally, to generate the DALL-E2 images from text. Insert the trained `DiffusionPrior` as well as the `Decoder` (which wraps `CLIP`, the causal transformer, and unet(s))\n\n```python\nfrom dalle2_pytorch import DALLE2\n\ndalle2 = DALLE2(\n    prior = diffusion_prior,\n    decoder = decoder\n)\n\n# send the text as a string if you want to use the simple tokenizer from DALLE v1\n# or you can do it as token ids, if you have your own tokenizer\n\ntexts = ['glistening morning dew on a flower petal']\nimages = dalle2(texts) # (1, 3, 256, 256)\n```\n\nThat's it!\n\nLet's see the whole script below\n\n```python\nimport torch\nfrom dalle2_pytorch import DALLE2, DiffusionPriorNetwork, DiffusionPrior, Unet, Decoder, CLIP\n\nclip = CLIP(\n    dim_text = 512,\n    dim_image = 512,\n    dim_latent = 512,\n    num_text_tokens = 49408,\n    text_enc_depth = 6,\n    text_seq_len = 256,\n    text_heads = 8,\n    visual_enc_depth = 6,\n    visual_image_size = 256,\n    visual_patch_size = 32,\n    visual_heads = 8\n).cuda()\n\n# mock data\n\ntext = torch.randint(0, 49408, (4, 256)).cuda()\nimages = torch.randn(4, 3, 256, 256).cuda()\n\n# train\n\nloss = clip(\n    text,\n    images,\n    return_loss = True\n)\n\nloss.backward()\n\n# do above for many steps ...\n\n# prior networks (with transformer)\n\nprior_network = DiffusionPriorNetwork(\n    dim = 512,\n    depth = 6,\n    dim_head = 64,\n    heads = 8\n).cuda()\n\ndiffusion_prior = DiffusionPrior(\n    net = prior_network,\n    clip = clip,\n    timesteps = 1000,\n    sample_timesteps = 64,\n    cond_drop_prob = 0.2\n).cuda()\n\nloss = diffusion_prior(text, images)\nloss.backward()\n\n# do above for many steps ...\n\n# decoder (with unet)\n\nunet1 = Unet(\n    dim = 128,\n    image_embed_dim = 512,\n    text_embed_dim = 512,\n    cond_dim = 128,\n    channels = 3,\n    dim_mults=(1, 2, 4, 8),\n    cond_on_text_encodings = True    # set to True for any unets that need to be conditioned on text encodings\n).cuda()\n\nunet2 = Unet(\n    dim = 16,\n    image_embed_dim = 512,\n    cond_dim = 128,\n    channels = 3,\n    dim_mults = (1, 2, 4, 8, 16)\n).cuda()\n\ndecoder = Decoder(\n    unet = (unet1, unet2),\n    image_sizes = (128, 256),\n    clip = clip,\n    timesteps = 100,\n    image_cond_drop_prob = 0.1,\n    text_cond_drop_prob = 0.5\n).cuda()\n\nfor unet_number in (1, 2):\n    loss = decoder(images, text = text, unet_number = unet_number) # this can optionally be decoder(images, text) if you wish to condition on the text encodings as well, though it was hinted in the paper it didn't do much\n    loss.backward()\n\n# do above for many steps\n\ndalle2 = DALLE2(\n    prior = diffusion_prior,\n    decoder = decoder\n)\n\nimages = dalle2(\n    ['cute puppy chasing after a squirrel'],\n    cond_scale = 2. # classifier free guidance strength (> 1 would strengthen the condition)\n)\n\n# save your image (in this example, of size 256x256)\n```\n\nEverything in this readme should run without error\n\nYou can also train the decoder on images of greater than the size (say 512x512) at which CLIP was trained (256x256). The images will be resized to CLIP image resolution for the image embeddings\n\nFor the layperson, no worries, training will all be automated into a CLI tool, at least for small scale training.\n\n## Training on Preprocessed CLIP Embeddings\n\nIt is likely, when scaling up, that you would first preprocess your images and text into corresponding embeddings before training the prior network. You can do so easily by simply passing in `image_embed`, `text_embed`, and optionally `text_encodings`\n\nWorking example below\n\n```python\nimport torch\nfrom dalle2_pytorch import DiffusionPriorNetwork, DiffusionPrior, CLIP\n\n# get trained CLIP from step one\n\nclip = CLIP(\n    dim_text = 512,\n    dim_image = 512,\n    dim_latent = 512,\n    num_text_tokens = 49408,\n    text_enc_depth = 6,\n    text_seq_len = 256,\n    text_heads = 8,\n    visual_enc_depth = 6,\n    visual_image_size = 256,\n    visual_patch_size = 32,\n    visual_heads = 8,\n).cuda()\n\n# setup prior network, which contains an autoregressive transformer\n\nprior_network = DiffusionPriorNetwork(\n    dim = 512,\n    depth = 6,\n    dim_head = 64,\n    heads = 8\n).cuda()\n\n# diffusion prior network, which contains the CLIP and network (with transformer) above\n\ndiffusion_prior = DiffusionPrior(\n    net = prior_network,\n    clip = clip,\n    timesteps = 100,\n    cond_drop_prob = 0.2,\n    condition_on_text_encodings = False  # this probably should be true, but just to get Laion started\n).cuda()\n\n# mock data\n\ntext = torch.randint(0, 49408, (4, 256)).cuda()\nimages = torch.randn(4, 3, 256, 256).cuda()\n\n# precompute the text and image embeddings\n# here using the diffusion prior class, but could be done with CLIP alone\n\nclip_image_embeds = diffusion_prior.clip.embed_image(images).image_embed\nclip_text_embeds = diffusion_prior.clip.embed_text(text).text_embed\n\n# feed text and images into diffusion prior network\n\nloss = diffusion_prior(\n    text_embed = clip_text_embeds,\n    image_embed = clip_image_embeds\n)\n\nloss.backward()\n\n# do the above for many many many steps\n# now the diffusion prior can generate image embeddings from the text embeddings\n```\n\nYou can also completely go `CLIP`-less, in which case you will need to pass in the `image_embed_dim` into the `DiffusionPrior` on initialization\n\n```python\nimport torch\nfrom dalle2_pytorch import DiffusionPriorNetwork, DiffusionPrior\n\n# setup prior network, which contains an autoregressive transformer\n\nprior_network = DiffusionPriorNetwork(\n    dim = 512,\n    depth = 6,\n    dim_head = 64,\n    heads = 8\n).cuda()\n\n# diffusion prior network, which contains the CLIP and network (with transformer) above\n\ndiffusion_prior = DiffusionPrior(\n    net = prior_network,\n    image_embed_dim = 512,               # this needs to be set\n    timesteps = 100,\n    cond_drop_prob = 0.2,\n    condition_on_text_encodings = False  # this probably should be true, but just to get Laion started\n).cuda()\n\n# mock data\n\ntext = torch.randint(0, 49408, (4, 256)).cuda()\nimages = torch.randn(4, 3, 256, 256).cuda()\n\n# precompute the text and image embeddings\n# here using the diffusion prior class, but could be done with CLIP alone\n\nclip_image_embeds = torch.randn(4, 512).cuda()\nclip_text_embeds = torch.randn(4, 512).cuda()\n\n# feed text and images into diffusion prior network\n\nloss = diffusion_prior(\n    text_embed = clip_text_embeds,\n    image_embed = clip_image_embeds\n)\n\nloss.backward()\n\n# do the above for many many many steps\n# now the diffusion prior can generate image embeddings from the text embeddings\n```\n\n## OpenAI CLIP\n\nAlthough there is the possibility they are using an unreleased, more powerful CLIP, you can use one of the released ones, if you do not wish to train your own CLIP from scratch. This will also allow the community to more quickly validate the conclusions of the paper.\n\nTo use a pretrained OpenAI CLIP, simply import `OpenAIClipAdapter` and pass it into the `DiffusionPrior` or `Decoder` like so\n\n```python\nimport torch\nfrom dalle2_pytorch import DALLE2, DiffusionPriorNetwork, DiffusionPrior, Unet, Decoder, OpenAIClipAdapter\n\n# openai pretrained clip - defaults to ViT-B/32\n\nclip = OpenAIClipAdapter()\n\n# mock data\n\ntext = torch.randint(0, 49408, (4, 256)).cuda()\nimages = torch.randn(4, 3, 256, 256).cuda()\n\n# prior networks (with transformer)\n\nprior_network = DiffusionPriorNetwork(\n    dim = 512,\n    depth = 6,\n    dim_head = 64,\n    heads = 8\n).cuda()\n\ndiffusion_prior = DiffusionPrior(\n    net = prior_network,\n    clip = clip,\n    timesteps = 100,\n    cond_drop_prob = 0.2\n).cuda()\n\nloss = diffusion_prior(text, images)\nloss.backward()\n\n# do above for many steps ...\n\n# decoder (with unet)\n\nunet1 = Unet(\n    dim = 128,\n    image_embed_dim = 512,\n    cond_dim = 128,\n    channels = 3,\n    dim_mults=(1, 2, 4, 8),\n    text_embed_dim = 512,\n    cond_on_text_encodings = True  # set to True for any unets that need to be conditioned on text encodings (ex. first unet in cascade)\n).cuda()\n\nunet2 = Unet(\n    dim = 16,\n    image_embed_dim = 512,\n    cond_dim = 128,\n    channels = 3,\n    dim_mults = (1, 2, 4, 8, 16)\n).cuda()\n\ndecoder = Decoder(\n    unet = (unet1, unet2),\n    image_sizes = (128, 256),\n    clip = clip,\n    timesteps = 1000,\n    sample_timesteps = (250, 27),\n    image_cond_drop_prob = 0.1,\n    text_cond_drop_prob = 0.5\n).cuda()\n\nfor unet_number in (1, 2):\n    loss = decoder(images, text = text, unet_number = unet_number) # this can optionally be decoder(images, text) if you wish to condition on the text encodings as well, though it was hinted in the paper it didn't do much\n    loss.backward()\n\n# do above for many steps\n\ndalle2 = DALLE2(\n    prior = diffusion_prior,\n    decoder = decoder\n)\n\nimages = dalle2(\n    ['a butterfly trying to escape a tornado'],\n    cond_scale = 2. # classifier free guidance strength (> 1 would strengthen the condition)\n)\n\n# save your image (in this example, of size 256x256)\n```\n\nAlternatively, you can also use <a href=\"https://github.com/mlfoundations/open_clip\">Open Clip</a>\n\n```bash\n$ pip install open-clip-torch\n```\n\nEx. using the <a href=\"https://laion.ai/blog/large-openclip/\">SOTA Open Clip</a> model trained by <a href=\"https://github.com/rom1504\">Romain</a>\n\n```python\nfrom dalle2_pytorch import OpenClipAdapter\n\nclip = OpenClipAdapter('ViT-H/14')\n```\n\nNow you'll just have to worry about training the Prior and the Decoder!\n\n## Inpainting\n\nInpainting is also built into the `Decoder`. You simply have to pass in the `inpaint_image` and `inpaint_mask` (boolean tensor where `True` indicates which regions of the inpaint image to keep)\n\nThis repository uses the formulation put forth by <a href=\"https://arxiv.org/abs/2201.09865\">Lugmayr et al. in Repaint</a>\n\n```python\nimport torch\nfrom dalle2_pytorch import Unet, Decoder, CLIP\n\n# trained clip from step 1\n\nclip = CLIP(\n    dim_text = 512,\n    dim_image = 512,\n    dim_latent = 512,\n    num_text_tokens = 49408,\n    text_enc_depth = 6,\n    text_seq_len = 256,\n    text_heads = 8,\n    visual_enc_depth = 6,\n    visual_image_size = 256,\n    visual_patch_size = 32,\n    visual_heads = 8\n).cuda()\n\n# 2 unets for the decoder (a la cascading DDPM)\n\nunet = Unet(\n    dim = 16,\n    image_embed_dim = 512,\n    cond_dim = 128,\n    channels = 3,\n    dim_mults = (1, 1, 1, 1)\n).cuda()\n\n\n# decoder, which contains the unet(s) and clip\n\ndecoder = Decoder(\n    clip = clip,\n    unet = (unet,),               # insert both unets in order of low resolution to highest resolution (you can have as many stages as you want here)\n    image_sizes = (256,),         # resolutions, 256 for first unet, 512 for second. these must be unique and in ascending order (matches with the unets passed in)\n    timesteps = 1000,\n    image_cond_drop_prob = 0.1,\n    text_cond_drop_prob = 0.5\n).cuda()\n\n# mock images (get a lot of this)\n\nimages = torch.randn(4, 3, 256, 256).cuda()\n\n# feed images into decoder, specifying which unet you want to train\n# each unet can be trained separately, which is one of the benefits of the cascading DDPM scheme\n\nloss = decoder(images, unet_number = 1)\nloss.backward()\n\n# do the above for many steps for both unets\n\nmock_image_embed = torch.randn(1, 512).cuda()\n\n# then to do inpainting\n\ninpaint_image = torch.randn(1, 3, 256, 256).cuda()      # (batch, channels, height, width)\ninpaint_mask = torch.ones(1, 256, 256).bool().cuda()    # (batch, height, width)\n\ninpainted_images = decoder.sample(\n    image_embed = mock_image_embed,\n    inpaint_image = inpaint_image,    # just pass in the inpaint image\n    inpaint_mask = inpaint_mask       # and the mask\n)\n\ninpainted_images.shape # (1, 3, 256, 256)\n```\n\n## Experimental\n\n### DALL-E2 with Latent Diffusion\n\nThis repository decides to take the next step and offer DALL-E v2 combined with <a href=\"https://huggingface.co/spaces/multimodalart/latentdiffusion\">latent diffusion</a>, from Rombach et al.\n\nYou can use it as follows. Latent diffusion can be limited to just the first U-Net in the cascade, or to any number you wish.\n\nThe repository also comes equipped with all the necessary settings to recreate `ViT-VQGan` from the <a href=\"https://arxiv.org/abs/2110.04627\">Improved VQGans</a> paper. Furthermore, the <a href=\"https://github.com/lucidrains/vector-quantize-pytorch\">vector quantization</a> library also comes equipped to do <a href=\"https://arxiv.org/abs/2203.01941\">residual or multi-headed quantization</a>, which I believe will give an even further boost in performance to the autoencoder.\n\n```python\nimport torch\nfrom dalle2_pytorch import Unet, Decoder, CLIP, VQGanVAE\n\n# trained clip from step 1\n\nclip = CLIP(\n    dim_text = 512,\n    dim_image = 512,\n    dim_latent = 512,\n    num_text_tokens = 49408,\n    text_enc_depth = 1,\n    text_seq_len = 256,\n    text_heads = 8,\n    visual_enc_depth = 1,\n    visual_image_size = 256,\n    visual_patch_size = 32,\n    visual_heads = 8\n)\n\n# 3 unets for the decoder (a la cascading DDPM)\n\n# first two unets are doing latent diffusion\n# vqgan-vae must be trained beforehand\n\nvae1 = VQGanVAE(\n    dim = 32,\n    image_size = 256,\n    layers = 3,\n    layer_mults = (1, 2, 4)\n)\n\nvae2 = VQGanVAE(\n    dim = 32,\n    image_size = 512,\n    layers = 3,\n    layer_mults = (1, 2, 4)\n)\n\nunet1 = Unet(\n    dim = 32,\n    image_embed_dim = 512,\n    cond_dim = 128,\n    channels = 3,\n    sparse_attn = True,\n    sparse_attn_window = 2,\n    dim_mults = (1, 2, 4, 8)\n)\n\nunet2 = Unet(\n    dim = 32,\n    image_embed_dim = 512,\n    channels = 3,\n    dim_mults = (1, 2, 4, 8, 16),\n    cond_on_image_embeds = True,\n    cond_on_text_encodings = False\n)\n\nunet3 = Unet(\n    dim = 32,\n    image_embed_dim = 512,\n    channels = 3,\n    dim_mults = (1, 2, 4, 8, 16),\n    cond_on_image_embeds = True,\n    cond_on_text_encodings = False,\n    attend_at_middle = False\n)\n\n# decoder, which contains the unet(s) and clip\n\ndecoder = Decoder(\n    clip = clip,\n    vae = (vae1, vae2),                # latent diffusion for unet1 (vae1) and unet2 (vae2), but not for the last unet3\n    unet = (unet1, unet2, unet3),      # insert unets in order of low resolution to highest resolution (you can have as many stages as you want here)\n    image_sizes = (256, 512, 1024),    # resolutions, 256 for first unet, 512 for second, 1024 for third\n    timesteps = 100,\n    image_cond_drop_prob = 0.1,\n    text_cond_drop_prob = 0.5\n).cuda()\n\n# mock images (get a lot of this)\n\nimages = torch.randn(1, 3, 1024, 1024).cuda()\n\n# feed images into decoder, specifying which unet you want to train\n# each unet can be trained separately, which is one of the benefits of the cascading DDPM scheme\n\nwith decoder.one_unet_in_gpu(1):\n    loss = decoder(images, unet_number = 1)\n    loss.backward()\n\nwith decoder.one_unet_in_gpu(2):\n    loss = decoder(images, unet_number = 2)\n    loss.backward()\n\nwith decoder.one_unet_in_gpu(3):\n    loss = decoder(images, unet_number = 3)\n    loss.backward()\n\n# do the above for many steps for both unets\n\n# then it will learn to generate images based on the CLIP image embeddings\n\n# chaining the unets from lowest resolution to highest resolution (thus cascading)\n\nmock_image_embed = torch.randn(1, 512).cuda()\nimages = decoder.sample(mock_image_embed) # (1, 3, 1024, 1024)\n```\n\n## Training wrapper\n\n### Decoder Training\n\nTraining the `Decoder` may be confusing, as one needs to keep track of an optimizer for each of the `Unet`(s) separately. Each `Unet` will also need its own corresponding exponential moving average. The `DecoderTrainer` hopes to make this simple, as shown below\n\n```python\nimport torch\nfrom dalle2_pytorch import DALLE2, Unet, Decoder, CLIP, DecoderTrainer\n\nclip = CLIP(\n    dim_text = 512,\n    dim_image = 512,\n    dim_latent = 512,\n    num_text_tokens = 49408,\n    text_enc_depth = 6,\n    text_seq_len = 256,\n    text_heads = 8,\n    visual_enc_depth = 6,\n    visual_image_size = 256,\n    visual_patch_size = 32,\n    visual_heads = 8\n).cuda()\n\n# mock data\n\ntext = torch.randint(0, 49408, (32, 256)).cuda()\nimages = torch.randn(32, 3, 256, 256).cuda()\n\n# decoder (with unet)\n\nunet1 = Unet(\n    dim = 128,\n    image_embed_dim = 512,\n    text_embed_dim = 512,\n    cond_dim = 128,\n    channels = 3,\n    dim_mults=(1, 2, 4, 8),\n    cond_on_text_encodings = True,\n).cuda()\n\nunet2 = Unet(\n    dim = 16,\n    image_embed_dim = 512,\n    cond_dim = 128,\n    channels = 3,\n    dim_mults = (1, 2, 4, 8, 16),\n).cuda()\n\ndecoder = Decoder(\n    unet = (unet1, unet2),\n    image_sizes = (128, 256),\n    clip = clip,\n    timesteps = 1000\n).cuda()\n\ndecoder_trainer = DecoderTrainer(\n    decoder,\n    lr = 3e-4,\n    wd = 1e-2,\n    ema_beta = 0.99,\n    ema_update_after_step = 1000,\n    ema_update_every = 10,\n)\n\nfor unet_number in (1, 2):\n    loss = decoder_trainer(\n        images,\n        text = text,\n        unet_number = unet_number, # which unet to train on\n        max_batch_size = 4         # gradient accumulation - this sets the maximum batch size in which to do forward and backwards pass - for this example 32 / 4 == 8 times\n    )\n\n    decoder_trainer.update(unet_number) # update the specific unet as well as its exponential moving average\n\n# after much training\n# you can sample from the exponentially moving averaged unets as so\n\nmock_image_embed = torch.randn(32, 512).cuda()\nimages = decoder_trainer.sample(image_embed = mock_image_embed, text = text) # (4, 3, 256, 256)\n```\n\n### Diffusion Prior Training\n\nSimilarly, one can use the `DiffusionPriorTrainer` to automatically instantiate and keep track of an exponential moving averaged prior.\n\n```python\nimport torch\nfrom dalle2_pytorch import DALLE2, DiffusionPriorNetwork, DiffusionPrior, DiffusionPriorTrainer, Unet, Decoder, CLIP\n\nclip = CLIP(\n    dim_text = 512,\n    dim_image = 512,\n    dim_latent = 512,\n    num_text_tokens = 49408,\n    text_enc_depth = 6,\n    text_seq_len = 256,\n    text_heads = 8,\n    visual_enc_depth = 6,\n    visual_image_size = 256,\n    visual_patch_size = 32,\n    visual_heads = 8\n).cuda()\n\n# mock data\n\ntext = torch.randint(0, 49408, (512, 256)).cuda()\nimages = torch.randn(512, 3, 256, 256).cuda()\n\n# prior networks (with transformer)\n\nprior_network = DiffusionPriorNetwork(\n    dim = 512,\n    depth = 6,\n    dim_head = 64,\n    heads = 8\n).cuda()\n\ndiffusion_prior = DiffusionPrior(\n    net = prior_network,\n    clip = clip,\n    timesteps = 100,\n    cond_drop_prob = 0.2\n).cuda()\n\ndiffusion_prior_trainer = DiffusionPriorTrainer(\n    diffusion_prior,\n    lr = 3e-4,\n    wd = 1e-2,\n    ema_beta = 0.99,\n    ema_update_after_step = 1000,\n    ema_update_every = 10,\n)\n\nloss = diffusion_prior_trainer(text, images, max_batch_size = 4)\ndiffusion_prior_trainer.update()  # this will update the optimizer as well as the exponential moving averaged diffusion prior\n\n# after much of the above three lines in a loop\n# you can sample from the exponential moving average of the diffusion prior identically to how you do so for DiffusionPrior\n\nimage_embeds = diffusion_prior_trainer.sample(text, max_batch_size = 4) # (512, 512) - exponential moving averaged image embeddings\n```\n\n## Bonus\n\n### Unconditional Training\n\nThe repository also contains the means to train unconditional DDPM model, or even cascading DDPMs. You simply have to set `unconditional = True` in the `Decoder`\n\nex.\n\n```python\nimport torch\nfrom dalle2_pytorch import Unet, Decoder, DecoderTrainer\n\n# unet for the cascading ddpm\n\nunet1 = Unet(\n    dim = 128,\n    dim_mults=(1, 2, 4, 8)\n).cuda()\n\nunet2 = Unet(\n    dim = 32,\n    dim_mults = (1, 2, 4, 8, 16)\n).cuda()\n\n# decoder, which contains the unets\n\ndecoder = Decoder(\n    unet = (unet1, unet2),\n    image_sizes = (256, 512),  # first unet up to 256px, then second to 512px\n    timesteps = 1000,\n    unconditional = True\n).cuda()\n\n# decoder trainer\n\ndecoder_trainer = DecoderTrainer(decoder)\n\n# images (get a lot of this)\n\nimages = torch.randn(1, 3, 512, 512).cuda()\n\n# feed images into decoder\n\nfor i in (1, 2):\n    loss = decoder_trainer(images, unet_number = i)\n    decoder_trainer.update(unet_number = i)\n\n# do the above for many many many many images\n# then it will learn to generate images\n\nimages = decoder_trainer.sample(batch_size = 36, max_batch_size = 4) # (36, 3, 512, 512)\n```\n\n## Dataloaders\n\n### Decoder Dataloaders\n\nIn order to make loading data simple and efficient, we include some general dataloaders that can be used to train portions of the network.\n\n#### Decoder: Image Embedding Dataset\n\nWhen training the decoder (and up samplers if training together) in isolation, you will need to load images and corresponding image embeddings. This dataset can read two similar types of datasets. First, it can read a [webdataset](https://github.com/webdataset/webdataset) that contains `.jpg` and `.npy` files in the `.tar`s that contain the images and associated image embeddings respectively. Alternatively, you can also specify a source for the embeddings outside of the webdataset. In this case, the path to the embeddings should contain `.npy` files with the same shard numbers as the webdataset and there should be a correspondence between the filename of the `.jpg` and the index of the embedding in the `.npy`. So, for example, `0001.tar` from the webdataset with image `00010509.jpg` (the first 4 digits are the shard number and the last 4 are the index) in it should be paralleled by a `img_emb_0001.npy` which contains a NumPy array with the embedding at index 509.\n\nGenerating a dataset of this type: \n1. Use [img2dataset](https://github.com/rom1504/img2dataset) to generate a webdataset.\n2. Use [clip-retrieval](https://github.com/rom1504/clip-retrieval) to convert the images to embeddings.\n3. Use [embedding-dataset-reordering](https://github.com/Veldrovive/embedding-dataset-reordering) to reorder the embeddings into the expected format.\n\nUsage:\n\n```python\nfrom dalle2_pytorch.dataloaders import ImageEmbeddingDataset, create_image_embedding_dataloader\n\n# Create a dataloader directly.\ndataloader = create_image_embedding_dataloader(\n    tar_url=\"/path/or/url/to/webdataset/{0000..9999}.tar\", # Uses bracket expanding notation. This specifies to read all tars from 0000.tar to 9999.tar\n    embeddings_url=\"path/or/url/to/embeddings/folder\",     # Included if .npy files are not in webdataset. Left out or set to None otherwise\n    num_workers=4,\n    batch_size=32,\n    shard_width=4,                                         # If a file in the webdataset shard 3 is named 0003039.jpg, we know the shard width is 4 and the last three digits are the index\n    shuffle_num=200,                                       # Does a shuffle of the data with a buffer size of 200\n    shuffle_shards=True,                                   # Shuffle the order the shards are read in\n    resample_shards=False,                                 # Sample shards with replacement. If true, an epoch will be infinite unless stopped manually\n)\nfor img, emb in dataloader:\n    print(img.shape)  # torch.Size([32, 3, 256, 256])\n    print(emb[\"img\"].shape)  # torch.Size([32, 512])\n    # Train decoder only as shown above\n\n# Or create a dataset without a loader so you can configure it manually\ndataset = ImageEmbeddingDataset(\n    urls=\"/path/or/url/to/webdataset/{0000..9999}.tar\",\n    embedding_folder_url=\"path/or/url/to/embeddings/folder\",\n    shard_width=4,\n    shuffle_shards=True,\n    resample=False\n)\n```\n\n### Scripts\n\n#### `train_diffusion_prior.py`\n\nFor detailed information on training the diffusion prior, please refer to the [dedicated readme](prior.md)\n\n## Todo\n\n- [x] finish off gaussian diffusion class for latent embedding - allow for prediction of epsilon\n- [x] add what was proposed in the paper, where DDPM objective for image latent embedding predicts x0 directly (reread vq-diffusion paper and get caught up on that line of work)\n- [x] make sure it works end to end to produce an output tensor, taking a single gradient step\n- [x] augment unet so that it can also be conditioned on text encodings (although in paper they hinted this didn't make much a difference)\n- [x] figure out all the current bag of tricks needed to make DDPMs great (starting with the blur trick mentioned in paper)\n- [x] build the cascading ddpm by having Decoder class manage multiple unets at different resolutions\n- [x] add efficient attention in unet\n- [x] be able to finely customize what to condition on (text, image embed) for specific unet in the cascade (super resolution ddpms near the end may not need too much conditioning)\n- [x] offload unets not being trained on to CPU for memory efficiency (for training each resolution unets separately)\n- [x] build out latent diffusion architecture, with the vq-reg variant (vqgan-vae), make it completely optional and compatible with cascading ddpms\n- [x] for decoder, allow ability to customize objective (predict epsilon vs x0), in case latent diffusion does better with prediction of x0\n- [x] use attention-based upsampling https://arxiv.org/abs/2112.11435\n- [x] use inheritance just this once for sharing logic between decoder and prior network ddpms\n- [x] bring in vit-vqgan https://arxiv.org/abs/2110.04627 for the latent diffusion\n- [x] abstract interface for CLIP adapter class, so other CLIPs can be brought in\n- [x] take care of mixed precision as well as gradient accumulation within decoder trainer\n- [x] just take care of the training for the decoder in a wrapper class, as each unet in the cascade will need its own optimizer\n- [x] bring in tools to train vqgan-vae\n- [x] add convnext backbone for vqgan-vae (in addition to vit [vit-vqgan] + resnet)\n- [x] make sure DDPMs can be run with traditional resnet blocks (but leave convnext as an option for experimentation)\n- [x] make sure for the latter unets in the cascade, one can train on crops for learning super resolution (constrain the unet to be only convolutions in that case, or allow conv-like attention with rel pos bias)\n- [x] offer setting in diffusion prior to split time and image embeddings into multiple tokens, configurable, for more surface area during attention\n- [x] make sure resnet hyperparameters can be configurable across unet depth (groups and expansion factor)\n- [x] pull logic for training diffusion prior into a class DiffusionPriorTrainer, for eventual script based + CLI based training\n- [x] make sure the cascading ddpm in the repository can be trained unconditionally, offer a one-line CLI tool for training on a folder of images\n- [x] bring in cross-scale embedding from iclr paper https://github.com/lucidrains/vit-pytorch/blob/main/vit_pytorch/crossformer.py#L14\n- [x] cross embed layers for downsampling, as an option\n- [x] use an experimental tracker agnostic setup, as done <a href=\"https://github.com/lucidrains/tf-bind-transformer#simple-trainer-class-for-fine-tuning\">here</a>\n- [x] use pydantic for config drive training\n- [x] for both diffusion prior and decoder, all exponential moving averaged models needs to be saved and restored as well (as well as the step number)\n- [x] offer save / load methods on the trainer classes to automatically take care of state dicts for scalers / optimizers / saving versions and checking for breaking changes\n- [x] allow for creation of diffusion prior model off pydantic config classes - consider the same for tracker configs\n- [x] bring in skip-layer excitations (from lightweight gan paper) to see if it helps for either decoder of unet or vqgan-vae training (doesnt work well)\n- [x] test out grid attention in cascading ddpm locally, decide whether to keep or remove https://arxiv.org/abs/2204.01697 (keeping, seems to be fine)\n- [x] allow for unet to be able to condition non-cross attention style as well\n- [x] speed up inference, read up on papers (ddim)\n- [x] add inpainting ability using resampler from repaint paper https://arxiv.org/abs/2201.09865\n- [x] add the final combination of upsample feature maps, used in unet squared, seems to have an effect in local experiments\n- [ ] consider elucidated dalle2 https://arxiv.org/abs/2206.00364\n- [ ] add simple outpainting, text-guided 2x size the image for starters\n- [ ] interface out the vqgan-vae so a pretrained one can be pulled off the shelf to validate latent diffusion + DALL-E2\n\n## Citations\n\n```bibtex\n@misc{ramesh2022,\n    title   = {Hierarchical Text-Conditional Image Generation with CLIP Latents}, \n    author  = {Aditya Ramesh et al},\n    year    = {2022}\n}\n```\n\n```bibtex\n@misc{crowson2022,\n    author  = {Katherine Crowson},\n    url     = {https://twitter.com/rivershavewings}\n}\n```\n\n```bibtex\n@misc{rombach2021highresolution,\n    title   = {High-Resolution Image Synthesis with Latent Diffusion Models}, \n    author  = {Robin Rombach and Andreas Blattmann and Dominik Lorenz and Patrick Esser and Bj\u00f6rn Ommer},\n    year    = {2021},\n    eprint  = {2112.10752},\n    archivePrefix = {arXiv},\n    primaryClass = {cs.CV}\n}\n```\n\n```bibtex\n@article{shen2019efficient,\n    author  = {Zhuoran Shen and Mingyuan Zhang and Haiyu Zhao and Shuai Yi and Hongsheng Li},\n    title   = {Efficient Attention: Attention with Linear Complexities},\n    journal = {CoRR},\n    year    = {2018},\n    url     = {http://arxiv.org/abs/1812.01243},\n}\n```\n\n```bibtex\n@article{Yu2021VectorquantizedIM,\n    title   = {Vector-quantized Image Modeling with Improved VQGAN},\n    author  = {Jiahui Yu and Xin Li and Jing Yu Koh and Han Zhang and Ruoming Pang and James Qin and Alexander Ku and Yuanzhong Xu and Jason Baldridge and Yonghui Wu},\n    journal = {ArXiv},\n    year    = {2021},\n    volume  = {abs/2110.04627}\n}\n```\n\n```bibtex\n@article{Shleifer2021NormFormerIT,\n    title   = {NormFormer: Improved Transformer Pretraining with Extra Normalization},\n    author  = {Sam Shleifer and Jason Weston and Myle Ott},\n    journal = {ArXiv},\n    year    = {2021},\n    volume  = {abs/2110.09456}\n}\n```\n\n```bibtex\n@article{Yu2022CoCaCC,\n    title   = {CoCa: Contrastive Captioners are Image-Text Foundation Models},\n    author  = {Jiahui Yu and Zirui Wang and Vijay Vasudevan and Legg Yeung and Mojtaba Seyedhosseini and Yonghui Wu},\n    journal = {ArXiv},\n    year    = {2022},\n    volume  = {abs/2205.01917}\n}\n```\n\n```bibtex\n@misc{wang2021crossformer,\n    title   = {CrossFormer: A Versatile Vision Transformer Hinging on Cross-scale Attention},\n    author  = {Wenxiao Wang and Lu Yao and Long Chen and Binbin Lin and Deng Cai and Xiaofei He and Wei Liu},\n    year    = {2021},\n    eprint  = {2108.00154},\n    archivePrefix = {arXiv},\n    primaryClass = {cs.CV}\n}\n```\n\n```bibtex\n@article{ho2021cascaded,\n    title   = {Cascaded Diffusion Models for High Fidelity Image Generation},\n    author  = {Ho, Jonathan and Saharia, Chitwan and Chan, William and Fleet, David J and Norouzi, Mohammad and Salimans, Tim},\n    journal = {arXiv preprint arXiv:2106.15282},\n    year    = {2021}\n}\n```\n\n```bibtex\n@misc{Saharia2022,\n    title   = {Imagen: unprecedented photorealism \u00d7 deep level of language understanding},\n    author  = {Chitwan Saharia*, William Chan*, Saurabh Saxena\u2020, Lala Li\u2020, Jay Whang\u2020, Emily Denton, Seyed Kamyar Seyed Ghasemipour, Burcu Karagol Ayan, S. Sara Mahdavi, Rapha Gontijo Lopes, Tim Salimans, Jonathan Ho\u2020, David Fleet\u2020, Mohammad Norouzi*},\n    year    = {2022}\n}\n```\n\n```bibtex\n@article{Choi2022PerceptionPT,\n    title   = {Perception Prioritized Training of Diffusion Models},\n    author  = {Jooyoung Choi and Jungbeom Lee and Chaehun Shin and Sungwon Kim and Hyunwoo J. Kim and Sung-Hoon Yoon},\n    journal = {ArXiv},\n    year    = {2022},\n    volume  = {abs/2204.00227}\n}\n```\n\n```bibtex\n@article{Saharia2021PaletteID,\n    title   = {Palette: Image-to-Image Diffusion Models},\n    author  = {Chitwan Saharia and William Chan and Huiwen Chang and Chris A. Lee and Jonathan Ho and Tim Salimans and David J. Fleet and Mohammad Norouzi},\n    journal = {ArXiv},\n    year    = {2021},\n    volume  = {abs/2111.05826}\n}\n```\n\n```bibtex\n@article{Lugmayr2022RePaintIU,\n    title   = {RePaint: Inpainting using Denoising Diffusion Probabilistic Models},\n    author  = {Andreas Lugmayr and Martin Danelljan and Andr{\\'e}s Romero and Fisher Yu and Radu Timofte and Luc Van Gool},\n    journal = {ArXiv},\n    year    = {2022},\n    volume  = {abs/2201.09865}\n}\n```\n\n```bibtex\n@misc{chen2022analog,\n    title   = {Analog Bits: Generating Discrete Data using Diffusion Models with Self-Conditioning},\n    author  = {Ting Chen and Ruixiang Zhang and Geoffrey Hinton},\n    year    = {2022},\n    eprint  = {2208.04202},\n    archivePrefix = {arXiv},\n    primaryClass = {cs.CV}\n}\n```\n\n```bibtex\n@article{Qiao2019WeightS,\n    title   = {Weight Standardization},\n    author  = {Siyuan Qiao and Huiyu Wang and Chenxi Liu and Wei Shen and Alan Loddon Yuille},\n    journal = {ArXiv},\n    year    = {2019},\n    volume  = {abs/1903.10520}\n}\n```\n\n```bibtex\n@inproceedings{rogozhnikov2022einops,\n    title   = {Einops: Clear and Reliable Tensor Manipulations with Einstein-like Notation},\n    author  = {Alex Rogozhnikov},\n    booktitle = {International Conference on Learning Representations},\n    year    = {2022},\n    url     = {https://openreview.net/forum?id=oapKSVM2bcj}\n}\n```\n\n```bibtex\n@article{Sunkara2022NoMS,\n    title   = {No More Strided Convolutions or Pooling: A New CNN Building Block for Low-Resolution Images and Small Objects},\n    author  = {Raja Sunkara and Tie Luo},\n    journal = {ArXiv},\n    year    = {2022},\n    volume  = {abs/2208.03641}\n}\n```\n\n```bibtex\n@article{Salimans2022ProgressiveDF,\n    title   = {Progressive Distillation for Fast Sampling of Diffusion Models},\n    author  = {Tim Salimans and Jonathan Ho},\n    journal = {ArXiv},\n    year    = {2022},\n    volume  = {abs/2202.00512}\n}\n```\n\n*Creating noise from data is easy; creating data from noise is generative modeling.* - <a href=\"https://arxiv.org/abs/2011.13456\">Yang Song's paper</a>\n",
+        "releases": [
+            {
+                "name": "1.15.6",
+                "date": "2023-10-19T04:02:56Z"
+            },
+            {
+                "name": "1.15.5",
+                "date": "2023-10-19T03:27:41Z"
+            },
+            {
+                "name": "1.15.4",
+                "date": "2023-10-18T22:45:17Z"
+            },
+            {
+                "name": "1.15.3",
+                "date": "2023-10-07T18:34:41Z"
+            },
+            {
+                "name": "1.15.2",
+                "date": "2023-10-04T16:38:59Z"
+            },
+            {
+                "name": "1.15.1",
+                "date": "2023-07-15T16:37:39Z"
+            },
+            {
+                "name": "1.14.2",
+                "date": "2023-04-20T21:09:01Z"
+            },
+            {
+                "name": "1.14.1",
+                "date": "2023-04-20T17:05:46Z"
+            },
+            {
+                "name": "1.14.0",
+                "date": "2023-04-20T14:05:36Z"
+            },
+            {
+                "name": "1.12.4",
+                "date": "2023-03-07T20:42:01Z"
+            },
+            {
+                "name": "1.12.3",
+                "date": "2023-03-05T18:45:51Z"
+            },
+            {
+                "name": "1.12.2",
+                "date": "2023-03-04T17:37:34Z"
+            },
+            {
+                "name": "1.12.1",
+                "date": "2023-02-12T01:18:47Z"
+            },
+            {
+                "name": "1.12.0",
+                "date": "2022-12-23T21:23:16Z"
+            },
+            {
+                "name": "1.11.4",
+                "date": "2022-12-15T18:54:31Z"
+            },
+            {
+                "name": "1.11.2",
+                "date": "2022-11-23T16:41:38Z"
+            },
+            {
+                "name": "1.11.1",
+                "date": "2022-10-29T01:21:16Z"
+            },
+            {
+                "name": "1.11.0",
+                "date": "2022-10-29T01:09:46Z"
+            },
+            {
+                "name": "1.10.9",
+                "date": "2022-10-23T22:12:16Z"
+            },
+            {
+                "name": "0.10.8",
+                "date": "2022-10-19T16:26:14Z"
+            },
+            {
+                "name": "1.10.7",
+                "date": "2022-09-29T16:09:56Z"
+            },
+            {
+                "name": "1.10.6",
+                "date": "2022-09-19T17:27:24Z"
+            },
+            {
+                "name": "1.10.5",
+                "date": "2022-09-01T16:40:54Z"
+            },
+            {
+                "name": "1.10.4",
+                "date": "2022-09-01T00:19:15Z"
+            },
+            {
+                "name": "1.10.3",
+                "date": "2022-08-31T14:40:58Z"
+            },
+            {
+                "name": "1.10.2",
+                "date": "2022-08-31T03:35:19Z"
+            },
+            {
+                "name": "1.10.1",
+                "date": "2022-08-28T17:11:45Z"
+            },
+            {
+                "name": "1.10.0",
+                "date": "2022-08-25T17:37:12Z"
+            },
+            {
+                "name": "1.9.0",
+                "date": "2022-08-23T15:29:07Z"
+            },
+            {
+                "name": "1.8.4",
+                "date": "2022-08-20T17:56:13Z"
+            },
+            {
+                "name": "1.8.3",
+                "date": "2022-08-19T18:25:41Z"
+            },
+            {
+                "name": "1.8.2",
+                "date": "2022-08-15T21:27:49Z"
+            },
+            {
+                "name": "1.8.1",
+                "date": "2022-08-15T14:38:11Z"
+            },
+            {
+                "name": "1.8.0",
+                "date": "2022-08-15T14:30:05Z"
+            },
+            {
+                "name": "1.7.0",
+                "date": "2022-08-14T18:33:26Z"
+            },
+            {
+                "name": "1.6.5",
+                "date": "2022-08-13T17:03:47Z"
+            },
+            {
+                "name": "1.6.4",
+                "date": "2022-08-12T22:25:12Z"
+            },
+            {
+                "name": "1.6.3",
+                "date": "2022-08-12T19:30:12Z"
+            },
+            {
+                "name": "1.6.2",
+                "date": "2022-08-12T19:29:31Z"
+            },
+            {
+                "name": "1.6.1",
+                "date": "2022-08-12T19:20:59Z"
+            },
+            {
+                "name": "1.6.0",
+                "date": "2022-08-12T18:36:17Z"
+            },
+            {
+                "name": "1.5.0",
+                "date": "2022-08-03T02:21:54Z"
+            },
+            {
+                "name": "1.4.6",
+                "date": "2022-07-30T17:08:03Z"
+            },
+            {
+                "name": "1.4.5",
+                "date": "2022-07-30T16:02:40Z"
+            },
+            {
+                "name": "1.4.4",
+                "date": "2022-07-29T20:17:19Z"
+            },
+            {
+                "name": "1.4.3",
+                "date": "2022-07-29T19:48:27Z"
+            },
+            {
+                "name": "1.4.2",
+                "date": "2022-07-29T19:41:13Z"
+            },
+            {
+                "name": "1.4.1",
+                "date": "2022-07-29T19:40:04Z"
+            },
+            {
+                "name": "1.4.0",
+                "date": "2022-07-29T18:12:26Z"
+            },
+            {
+                "name": "1.2.2",
+                "date": "2022-07-28T17:17:51Z"
+            },
+            {
+                "name": "1.2.1",
+                "date": "2022-07-28T15:34:00Z"
+            },
+            {
+                "name": "1.2.0",
+                "date": "2022-07-27T19:27:46Z"
+            },
+            {
+                "name": "1.1.0",
+                "date": "2022-07-26T17:46:11Z"
+            },
+            {
+                "name": "1.0.6",
+                "date": "2022-07-26T16:48:00Z"
+            },
+            {
+                "name": "1.0.5",
+                "date": "2022-07-24T22:29:19Z"
+            },
+            {
+                "name": "1.0.4",
+                "date": "2022-07-24T22:23:06Z"
+            },
+            {
+                "name": "1.0.3",
+                "date": "2022-07-22T20:17:04Z"
+            },
+            {
+                "name": "1.0.1",
+                "date": "2022-07-21T01:05:34Z"
+            },
+            {
+                "name": "1.0.0",
+                "date": "2022-07-20T02:08:29Z"
+            },
+            {
+                "name": "0.26.2",
+                "date": "2022-07-20T00:50:47Z"
+            },
+            {
+                "name": "v0.26.1",
+                "date": "2022-07-19T18:32:04Z"
+            },
+            {
+                "name": "v0.26.0",
+                "date": "2022-07-19T16:27:03Z"
+            },
+            {
+                "name": "v0.25.2",
+                "date": "2022-07-19T02:04:35Z"
+            },
+            {
+                "name": "v0.25.1",
+                "date": "2022-07-18T20:50:30Z"
+            },
+            {
+                "name": "v0.25.0",
+                "date": "2022-07-18T20:44:06Z"
+            },
+            {
+                "name": "v0.24.3",
+                "date": "2022-07-16T00:29:22Z"
+            },
+            {
+                "name": "v0.24.2",
+                "date": "2022-07-14T22:28:49Z"
+            },
+            {
+                "name": "v0.24.1",
+                "date": "2022-07-14T19:49:50Z"
+            },
+            {
+                "name": "v0.24.0",
+                "date": "2022-07-14T17:27:23Z"
+            },
+            {
+                "name": "v0.23.10",
+                "date": "2022-07-14T04:00:03Z"
+            },
+            {
+                "name": "v0.23.9",
+                "date": "2022-07-13T20:12:42Z"
+            },
+            {
+                "name": "v0.23.8",
+                "date": "2022-07-13T19:56:14Z"
+            },
+            {
+                "name": "v0.23.7",
+                "date": "2022-07-13T17:21:09Z"
+            },
+            {
+                "name": "v0.23.6",
+                "date": "2022-07-13T17:16:09Z"
+            },
+            {
+                "name": "v0.23.5",
+                "date": "2022-07-13T17:11:58Z"
+            },
+            {
+                "name": "v0.23.4",
+                "date": "2022-07-13T16:48:48Z"
+            },
+            {
+                "name": "v0.23.3",
+                "date": "2022-07-13T14:56:50Z"
+            },
+            {
+                "name": "v0.23.2",
+                "date": "2022-07-13T00:49:26Z"
+            },
+            {
+                "name": "v0.23.1",
+                "date": "2022-07-13T00:33:24Z"
+            },
+            {
+                "name": "v0.23.0",
+                "date": "2022-07-13T00:32:17Z"
+            },
+            {
+                "name": "v0.22.3",
+                "date": "2022-07-13T00:08:42Z"
+            },
+            {
+                "name": "v0.22.2",
+                "date": "2022-07-12T22:40:39Z"
+            },
+            {
+                "name": "v0.22.1",
+                "date": "2022-07-12T23:00:29Z"
+            },
+            {
+                "name": "v0.21.3",
+                "date": "2022-07-12T22:33:20Z"
+            },
+            {
+                "name": "v0.21.2",
+                "date": "2022-07-12T22:01:56Z"
+            },
+            {
+                "name": "v0.21.1",
+                "date": "2022-07-12T19:55:07Z"
+            },
+            {
+                "name": "v0.21.0",
+                "date": "2022-07-11T23:07:31Z"
+            },
+            {
+                "name": "v0.20.1",
+                "date": "2022-07-11T20:22:13Z"
+            },
+            {
+                "name": "v0.20.0",
+                "date": "2022-07-11T17:56:27Z"
+            },
+            {
+                "name": "v0.19.6",
+                "date": "2022-07-10T16:44:46Z"
+            },
+            {
+                "name": "v0.19.5",
+                "date": "2022-07-10T02:01:48Z"
+            },
+            {
+                "name": "v0.19.4",
+                "date": "2022-07-10T01:38:57Z"
+            },
+            {
+                "name": "v0.19.3",
+                "date": "2022-07-10T00:32:01Z"
+            },
+            {
+                "name": "v0.19.2",
+                "date": "2022-07-10T00:28:21Z"
+            },
+            {
+                "name": "v0.19.1",
+                "date": "2022-07-10T00:25:46Z"
+            },
+            {
+                "name": "v0.19.0",
+                "date": "2022-07-10T00:22:06Z"
+            },
+            {
+                "name": "v0.18.0",
+                "date": "2022-07-09T01:18:45Z"
+            },
+            {
+                "name": "v0.17.1",
+                "date": "2022-07-09T01:17:36Z"
+            },
+            {
+                "name": "v0.17.0",
+                "date": "2022-07-08T20:36:38Z"
+            },
+            {
+                "name": "v0.16.19",
+                "date": "2022-07-08T20:01:05Z"
+            },
+            {
+                "name": "v0.16.18",
+                "date": "2022-07-08T18:44:52Z"
+            },
+            {
+                "name": "v0.16.17",
+                "date": "2022-07-07T17:08:44Z"
+            },
+            {
+                "name": "v0.16.16",
+                "date": "2022-07-07T16:41:57Z"
+            },
+            {
+                "name": "v0.16.15",
+                "date": "2022-07-07T14:42:30Z"
+            },
+            {
+                "name": "v0.16.14",
+                "date": "2022-07-07T02:05:58Z"
+            },
+            {
+                "name": "v0.16.13",
+                "date": "2022-07-07T01:09:18Z"
+            },
+            {
+                "name": "v0.16.12",
+                "date": "2022-07-06T19:48:01Z"
+            },
+            {
+                "name": "v0.16.11",
+                "date": "2022-07-06T19:46:54Z"
+            },
+            {
+                "name": "v0.16.10",
+                "date": "2022-07-06T15:27:43Z"
+            },
+            {
+                "name": "v0.16.9",
+                "date": "2022-07-06T01:22:51Z"
+            },
+            {
+                "name": "v0.16.8",
+                "date": "2022-07-06T01:01:40Z"
+            },
+            {
+                "name": "v0.16.7",
+                "date": "2022-07-05T23:54:07Z"
+            },
+            {
+                "name": "v0.16.6",
+                "date": "2022-07-05T23:24:42Z"
+            },
+            {
+                "name": "v0.16.5",
+                "date": "2022-07-05T23:20:58Z"
+            },
+            {
+                "name": "v0.16.3",
+                "date": "2022-07-05T22:18:08Z"
+            },
+            {
+                "name": "v0.16.2",
+                "date": "2022-07-05T21:27:15Z"
+            },
+            {
+                "name": "v0.16.1",
+                "date": "2022-07-05T21:21:29Z"
+            },
+            {
+                "name": "v0.16.0",
+                "date": "2022-07-05T20:10:10Z"
+            },
+            {
+                "name": "v0.15.4",
+                "date": "2022-07-02T15:56:44Z"
+            },
+            {
+                "name": "v0.15.3",
+                "date": "2022-07-01T17:22:17Z"
+            },
+            {
+                "name": "v0.15.2",
+                "date": "2022-07-01T16:40:19Z"
+            },
+            {
+                "name": "v0.15.1",
+                "date": "2022-07-01T16:35:48Z"
+            },
+            {
+                "name": "v0.15.0",
+                "date": "2022-07-01T16:21:55Z"
+            },
+            {
+                "name": "v0.14.1",
+                "date": "2022-07-01T00:03:25Z"
+            },
+            {
+                "name": "v0.14.0",
+                "date": "2022-06-29T15:17:07Z"
+            },
+            {
+                "name": "v0.12.4",
+                "date": "2022-06-29T14:17:43Z"
+            },
+            {
+                "name": "v0.12.3",
+                "date": "2022-06-27T05:00:05Z"
+            },
+            {
+                "name": "v0.12.2",
+                "date": "2022-06-27T04:07:52Z"
+            },
+            {
+                "name": "v0.12.1",
+                "date": "2022-06-26T19:45:14Z"
+            },
+            {
+                "name": "v0.12.0",
+                "date": "2022-06-26T19:32:28Z"
+            },
+            {
+                "name": "v0.11.5",
+                "date": "2022-06-23T18:29:38Z"
+            },
+            {
+                "name": "0.11.4",
+                "date": "2022-06-22T14:17:16Z"
+            },
+            {
+                "name": "v0.11.3",
+                "date": "2022-06-20T18:48:40Z"
+            },
+            {
+                "name": "v0.11.2",
+                "date": "2022-06-20T16:43:40Z"
+            },
+            {
+                "name": "v0.11.1",
+                "date": "2022-06-20T16:05:15Z"
+            },
+            {
+                "name": "v0.11.0",
+                "date": "2022-06-20T15:56:47Z"
+            },
+            {
+                "name": "v0.10.1",
+                "date": "2022-06-19T16:26:53Z"
+            },
+            {
+                "name": "v0.10.0",
+                "date": "2022-06-19T15:51:01Z"
+            },
+            {
+                "name": "v0.9.2",
+                "date": "2022-06-16T18:18:13Z"
+            },
+            {
+                "name": "v0.9.1",
+                "date": "2022-06-16T02:12:08Z"
+            },
+            {
+                "name": "v0.9.0",
+                "date": "2022-06-16T01:01:29Z"
+            },
+            {
+                "name": "v0.8.1",
+                "date": "2022-06-15T20:40:34Z"
+            },
+            {
+                "name": "v0.8.0",
+                "date": "2022-06-15T19:18:29Z"
+            },
+            {
+                "name": "v0.7.1",
+                "date": "2022-06-14T17:59:08Z"
+            },
+            {
+                "name": "v0.7.0",
+                "date": "2022-06-14T04:02:00Z"
+            },
+            {
+                "name": "v0.6.16",
+                "date": "2022-06-06T15:46:00Z"
+            },
+            {
+                "name": "v0.6.15",
+                "date": "2022-06-04T23:54:27Z"
+            },
+            {
+                "name": "v0.6.14",
+                "date": "2022-06-04T23:53:30Z"
+            },
+            {
+                "name": "0.6.13",
+                "date": "2022-06-04T20:27:09Z"
+            },
+            {
+                "name": "v0.6.12",
+                "date": "2022-06-04T02:45:04Z"
+            },
+            {
+                "name": "v0.6.11",
+                "date": "2022-06-03T17:26:38Z"
+            },
+            {
+                "name": "v0.6.10",
+                "date": "2022-06-03T17:21:16Z"
+            },
+            {
+                "name": "v0.6.9",
+                "date": "2022-06-03T16:35:11Z"
+            },
+            {
+                "name": "v0.6.8",
+                "date": "2022-06-02T18:22:13Z"
+            },
+            {
+                "name": "v0.6.7",
+                "date": "2022-06-02T18:11:36Z"
+            },
+            {
+                "name": "v0.6.6",
+                "date": "2022-06-01T16:25:46Z"
+            },
+            {
+                "name": "v0.6.5",
+                "date": "2022-05-31T18:55:29Z"
+            },
+            {
+                "name": "v0.6.4",
+                "date": "2022-05-31T16:03:52Z"
+            },
+            {
+                "name": "v0.6.3",
+                "date": "2022-05-30T18:45:09Z"
+            },
+            {
+                "name": "v0.6.2",
+                "date": "2022-05-30T18:09:09Z"
+            },
+            {
+                "name": "v0.6.1",
+                "date": "2022-05-30T17:06:58Z"
+            },
+            {
+                "name": "v0.6.0",
+                "date": "2022-05-30T16:27:15Z"
+            },
+            {
+                "name": "v0.5.7",
+                "date": "2022-05-29T14:40:40Z"
+            },
+            {
+                "name": "v0.5.6",
+                "date": "2022-05-26T15:47:41Z"
+            },
+            {
+                "name": "v0.5.5",
+                "date": "2022-05-26T15:33:40Z"
+            },
+            {
+                "name": "v0.5.4",
+                "date": "2022-05-25T16:32:30Z"
+            },
+            {
+                "name": "v0.5.3",
+                "date": "2022-05-25T16:07:41Z"
+            },
+            {
+                "name": "v0.5.2",
+                "date": "2022-05-25T04:46:25Z"
+            },
+            {
+                "name": "v0.5.1",
+                "date": "2022-05-25T04:42:49Z"
+            },
+            {
+                "name": "0.5.0",
+                "date": "2022-05-25T01:25:19Z"
+            },
+            {
+                "name": "v0.4.14",
+                "date": "2022-05-23T05:43:37Z"
+            },
+            {
+                "name": "0.4.12",
+                "date": "2022-05-23T05:34:47Z"
+            },
+            {
+                "name": "0.4.11",
+                "date": "2022-05-23T05:28:56Z"
+            },
+            {
+                "name": "0.4.10",
+                "date": "2022-05-23T05:14:44Z"
+            },
+            {
+                "name": "v0.4.9",
+                "date": "2022-05-23T03:14:21Z"
+            },
+            {
+                "name": "0.4.8",
+                "date": "2022-05-23T02:18:33Z"
+            },
+            {
+                "name": "0.4.7",
+                "date": "2022-05-23T01:42:58Z"
+            },
+            {
+                "name": "0.4.6",
+                "date": "2022-05-22T22:39:53Z"
+            },
+            {
+                "name": "0.4.5",
+                "date": "2022-05-22T22:21:15Z"
+            },
+            {
+                "name": "0.4.3",
+                "date": "2022-05-22T22:10:47Z"
+            },
+            {
+                "name": "0.4.2",
+                "date": "2022-05-22T21:47:38Z"
+            },
+            {
+                "name": "0.4.1",
+                "date": "2022-05-22T21:43:36Z"
+            },
+            {
+                "name": "0.4.0",
+                "date": "2022-05-22T21:28:35Z"
+            },
+            {
+                "name": "0.3.9",
+                "date": "2022-05-21T17:25:32Z"
+            },
+            {
+                "name": "0.3.8",
+                "date": "2022-05-21T17:24:43Z"
+            },
+            {
+                "name": "0.3.7",
+                "date": "2022-05-21T03:31:41Z"
+            },
+            {
+                "name": "0.3.6",
+                "date": "2022-05-21T03:21:01Z"
+            },
+            {
+                "name": "0.3.5",
+                "date": "2022-05-21T01:05:40Z"
+            },
+            {
+                "name": "0.3.4",
+                "date": "2022-05-21T00:10:52Z"
+            },
+            {
+                "name": "0.3.3",
+                "date": "2022-05-19T03:23:08Z"
+            },
+            {
+                "name": "0.3.2",
+                "date": "2022-05-17T00:38:56Z"
+            },
+            {
+                "name": "0.3.1",
+                "date": "2022-05-16T20:34:17Z"
+            },
+            {
+                "name": "0.3.0",
+                "date": "2022-05-16T19:57:57Z"
+            },
+            {
+                "name": "0.2.46",
+                "date": "2022-05-16T19:34:48Z"
+            },
+            {
+                "name": "0.2.44",
+                "date": "2022-05-16T18:54:51Z"
+            },
+            {
+                "name": "0.2.43",
+                "date": "2022-05-16T18:18:48Z"
+            },
+            {
+                "name": "0.2.42",
+                "date": "2022-05-16T17:40:54Z"
+            },
+            {
+                "name": "0.2.41",
+                "date": "2022-05-16T17:25:23Z"
+            },
+            {
+                "name": "0.2.40",
+                "date": "2022-05-16T16:36:30Z"
+            },
+            {
+                "name": "0.2.39",
+                "date": "2022-05-16T16:17:59Z"
+            },
+            {
+                "name": "0.2.38",
+                "date": "2022-05-16T02:09:53Z"
+            },
+            {
+                "name": "0.2.37",
+                "date": "2022-05-16T01:57:10Z"
+            },
+            {
+                "name": "0.2.36",
+                "date": "2022-05-16T01:48:09Z"
+            },
+            {
+                "name": "0.2.35",
+                "date": "2022-05-15T23:55:20Z"
+            },
+            {
+                "name": "0.2.34",
+                "date": "2022-05-15T22:26:04Z"
+            },
+            {
+                "name": "0.2.33",
+                "date": "2022-05-15T22:22:11Z"
+            },
+            {
+                "name": "0.2.32",
+                "date": "2022-05-15T21:21:20Z"
+            },
+            {
+                "name": "0.2.31",
+                "date": "2022-05-15T18:16:32Z"
+            },
+            {
+                "name": "0.2.30",
+                "date": "2022-05-15T16:57:16Z"
+            },
+            {
+                "name": "0.2.29",
+                "date": "2022-05-15T01:26:36Z"
+            },
+            {
+                "name": "0.2.28",
+                "date": "2022-05-15T01:21:04Z"
+            },
+            {
+                "name": "0.2.27",
+                "date": "2022-05-15T00:13:30Z"
+            },
+            {
+                "name": "0.2.26",
+                "date": "2022-05-15T00:04:27Z"
+            },
+            {
+                "name": "0.2.25",
+                "date": "2022-05-14T23:51:01Z"
+            },
+            {
+                "name": "0.2.24",
+                "date": "2022-05-14T22:49:47Z"
+            },
+            {
+                "name": "0.2.23",
+                "date": "2022-05-14T21:24:12Z"
+            },
+            {
+                "name": "0.2.22",
+                "date": "2022-05-14T20:57:18Z"
+            },
+            {
+                "name": "0.2.21",
+                "date": "2022-05-14T20:55:19Z"
+            },
+            {
+                "name": "0.2.20",
+                "date": "2022-05-14T20:23:02Z"
+            },
+            {
+                "name": "0.2.19",
+                "date": "2022-05-14T19:13:57Z"
+            },
+            {
+                "name": "0.2.18",
+                "date": "2022-05-14T18:58:31Z"
+            },
+            {
+                "name": "0.2.17",
+                "date": "2022-05-14T08:24:35Z"
+            },
+            {
+                "name": "0.2.16",
+                "date": "2022-05-14T08:17:31Z"
+            },
+            {
+                "name": "0.2.15",
+                "date": "2022-05-14T07:38:25Z"
+            },
+            {
+                "name": "0.2.14",
+                "date": "2022-05-12T21:18:32Z"
+            },
+            {
+                "name": "0.2.12",
+                "date": "2022-05-12T02:57:12Z"
+            },
+            {
+                "name": "0.2.11",
+                "date": "2022-05-12T02:25:16Z"
+            },
+            {
+                "name": "0.2.10",
+                "date": "2022-05-11T15:21:54Z"
+            },
+            {
+                "name": "0.2.9",
+                "date": "2022-05-10T22:29:06Z"
+            },
+            {
+                "name": "0.2.8",
+                "date": "2022-05-10T19:19:46Z"
+            },
+            {
+                "name": "0.2.7",
+                "date": "2022-05-10T18:50:52Z"
+            },
+            {
+                "name": "0.2.6",
+                "date": "2022-05-10T17:51:34Z"
+            },
+            {
+                "name": "0.2.5",
+                "date": "2022-05-10T17:13:07Z"
+            },
+            {
+                "name": "0.2.4",
+                "date": "2022-05-10T02:46:37Z"
+            },
+            {
+                "name": "0.2.3",
+                "date": "2022-05-09T23:50:49Z"
+            },
+            {
+                "name": "0.2.2",
+                "date": "2022-05-09T23:23:59Z"
+            },
+            {
+                "name": "0.2.1",
+                "date": "2022-05-09T18:09:06Z"
+            },
+            {
+                "name": "0.2.0",
+                "date": "2022-05-09T15:08:30Z"
+            },
+            {
+                "name": "0.1.10",
+                "date": "2022-05-08T03:55:54Z"
+            },
+            {
+                "name": "0.1.9",
+                "date": "2022-05-07T16:38:38Z"
+            },
+            {
+                "name": "0.1.8",
+                "date": "2022-05-07T15:33:06Z"
+            },
+            {
+                "name": "0.1.7",
+                "date": "2022-05-07T14:52:32Z"
+            },
+            {
+                "name": "0.1.6",
+                "date": "2022-05-07T12:06:12Z"
+            },
+            {
+                "name": "0.1.5",
+                "date": "2022-05-06T17:44:34Z"
+            },
+            {
+                "name": "0.1.4",
+                "date": "2022-05-06T17:12:20Z"
+            },
+            {
+                "name": "0.1.2",
+                "date": "2022-05-06T17:05:28Z"
+            },
+            {
+                "name": "0.1.1",
+                "date": "2022-05-06T15:45:46Z"
+            },
+            {
+                "name": "0.1.0",
+                "date": "2022-05-06T15:44:43Z"
+            },
+            {
+                "name": "0.0.109",
+                "date": "2022-05-06T15:27:39Z"
+            },
+            {
+                "name": "0.0.108",
+                "date": "2022-05-06T15:06:47Z"
+            },
+            {
+                "name": "0.0.107",
+                "date": "2022-05-06T14:38:21Z"
+            },
+            {
+                "name": "0.0.106",
+                "date": "2022-05-05T15:11:25Z"
+            },
+            {
+                "name": "0.0.105",
+                "date": "2022-05-05T14:37:20Z"
+            },
+            {
+                "name": "0.0.104",
+                "date": "2022-05-05T14:29:05Z"
+            },
+            {
+                "name": "0.0.102",
+                "date": "2022-05-05T14:10:01Z"
+            },
+            {
+                "name": "0.0.101",
+                "date": "2022-05-05T14:07:46Z"
+            },
+            {
+                "name": "0.0.100",
+                "date": "2022-05-05T02:27:07Z"
+            },
+            {
+                "name": "0.0.99",
+                "date": "2022-05-04T22:25:25Z"
+            },
+            {
+                "name": "0.0.98",
+                "date": "2022-05-04T18:52:43Z"
+            },
+            {
+                "name": "0.0.97",
+                "date": "2022-05-04T18:49:25Z"
+            },
+            {
+                "name": "0.0.96",
+                "date": "2022-05-04T18:19:18Z"
+            },
+            {
+                "name": "0.0.95",
+                "date": "2022-05-04T17:53:22Z"
+            },
+            {
+                "name": "0.0.94",
+                "date": "2022-05-04T14:42:46Z"
+            },
+            {
+                "name": "0.0.93",
+                "date": "2022-05-02T18:33:32Z"
+            },
+            {
+                "name": "0.0.92",
+                "date": "2022-05-02T17:51:13Z"
+            },
+            {
+                "name": "0.0.91",
+                "date": "2022-05-02T16:41:21Z"
+            },
+            {
+                "name": "0.0.90",
+                "date": "2022-05-02T16:20:39Z"
+            },
+            {
+                "name": "0.0.89",
+                "date": "2022-05-02T14:58:33Z"
+            },
+            {
+                "name": "0.0.88",
+                "date": "2022-05-02T00:59:21Z"
+            },
+            {
+                "name": "0.0.87",
+                "date": "2022-05-01T18:00:58Z"
+            },
+            {
+                "name": "0.0.86",
+                "date": "2022-05-01T16:33:16Z"
+            },
+            {
+                "name": "0.0.85",
+                "date": "2022-05-01T15:46:38Z"
+            },
+            {
+                "name": "0.0.84",
+                "date": "2022-05-01T15:41:32Z"
+            },
+            {
+                "name": "0.0.82",
+                "date": "2022-04-30T22:10:42Z"
+            },
+            {
+                "name": "0.0.81",
+                "date": "2022-04-30T21:56:06Z"
+            },
+            {
+                "name": "0.0.80",
+                "date": "2022-04-30T19:57:08Z"
+            },
+            {
+                "name": "0.0.79",
+                "date": "2022-04-30T19:27:41Z"
+            },
+            {
+                "name": "0.0.78",
+                "date": "2022-04-30T18:56:21Z"
+            },
+            {
+                "name": "0.0.77",
+                "date": "2022-04-30T18:45:36Z"
+            },
+            {
+                "name": "0.0.76",
+                "date": "2022-04-30T17:08:41Z"
+            },
+            {
+                "name": "0.0.75",
+                "date": "2022-04-30T16:13:54Z"
+            },
+            {
+                "name": "0.0.74",
+                "date": "2022-04-30T15:48:24Z"
+            },
+            {
+                "name": "0.0.73",
+                "date": "2022-04-30T13:41:16Z"
+            },
+            {
+                "name": "0.0.72",
+                "date": "2022-04-30T13:35:31Z"
+            },
+            {
+                "name": "0.0.70",
+                "date": "2022-04-29T18:43:48Z"
+            },
+            {
+                "name": "0.0.67",
+                "date": "2022-04-29T18:26:43Z"
+            },
+            {
+                "name": "0.0.65",
+                "date": "2022-04-29T14:38:48Z"
+            },
+            {
+                "name": "0.0.64",
+                "date": "2022-04-29T03:53:30Z"
+            },
+            {
+                "name": "0.0.63",
+                "date": "2022-04-28T15:59:27Z"
+            },
+            {
+                "name": "0.0.62",
+                "date": "2022-04-28T14:21:45Z"
+            },
+            {
+                "name": "0.0.61",
+                "date": "2022-04-28T03:45:46Z"
+            },
+            {
+                "name": "0.0.60",
+                "date": "2022-04-28T03:12:07Z"
+            },
+            {
+                "name": "0.0.59",
+                "date": "2022-04-28T02:57:44Z"
+            },
+            {
+                "name": "0.0.58",
+                "date": "2022-04-28T02:48:35Z"
+            },
+            {
+                "name": "0.0.57",
+                "date": "2022-04-28T02:35:23Z"
+            },
+            {
+                "name": "0.0.56",
+                "date": "2022-04-27T23:40:19Z"
+            },
+            {
+                "name": "0.0.55",
+                "date": "2022-04-27T15:02:27Z"
+            },
+            {
+                "name": "0.0.54",
+                "date": "2022-04-27T00:21:11Z"
+            },
+            {
+                "name": "0.0.53",
+                "date": "2022-04-27T00:04:40Z"
+            },
+            {
+                "name": "0.0.52",
+                "date": "2022-04-26T18:43:10Z"
+            },
+            {
+                "name": "0.0.51",
+                "date": "2022-04-26T18:41:00Z"
+            },
+            {
+                "name": "0.0.50",
+                "date": "2022-04-26T17:24:11Z"
+            },
+            {
+                "name": "0.0.49",
+                "date": "2022-04-26T16:47:25Z"
+            },
+            {
+                "name": "0.0.48",
+                "date": "2022-04-26T16:30:08Z"
+            },
+            {
+                "name": "0.0.47",
+                "date": "2022-04-26T16:00:33Z"
+            },
+            {
+                "name": "0.0.46",
+                "date": "2022-04-26T15:36:21Z"
+            },
+            {
+                "name": "0.0.45",
+                "date": "2022-04-26T01:59:30Z"
+            },
+            {
+                "name": "0.0.44",
+                "date": "2022-04-26T00:28:12Z"
+            },
+            {
+                "name": "0.0.43",
+                "date": "2022-04-25T14:44:50Z"
+            },
+            {
+                "name": "0.0.42",
+                "date": "2022-04-24T17:06:57Z"
+            },
+            {
+                "name": "0.0.41",
+                "date": "2022-04-24T17:04:43Z"
+            },
+            {
+                "name": "0.0.40",
+                "date": "2022-04-24T16:51:33Z"
+            },
+            {
+                "name": "0.0.39",
+                "date": "2022-04-23T14:52:29Z"
+            },
+            {
+                "name": "0.0.38",
+                "date": "2022-04-22T22:23:39Z"
+            },
+            {
+                "name": "0.0.37",
+                "date": "2022-04-22T20:47:07Z"
+            },
+            {
+                "name": "0.0.36",
+                "date": "2022-04-22T18:39:10Z"
+            },
+            {
+                "name": "0.0.35",
+                "date": "2022-04-22T18:16:45Z"
+            },
+            {
+                "name": "0.0.34",
+                "date": "2022-04-22T18:15:16Z"
+            },
+            {
+                "name": "0.0.33",
+                "date": "2022-04-22T18:11:02Z"
+            },
+            {
+                "name": "0.0.32",
+                "date": "2022-04-22T18:09:37Z"
+            },
+            {
+                "name": "0.0.31",
+                "date": "2022-04-20T18:40:57Z"
+            },
+            {
+                "name": "0.0.28",
+                "date": "2022-04-20T17:46:38Z"
+            },
+            {
+                "name": "0.0.27",
+                "date": "2022-04-20T17:05:06Z"
+            },
+            {
+                "name": "0.0.26",
+                "date": "2022-04-20T03:54:47Z"
+            },
+            {
+                "name": "0.0.25",
+                "date": "2022-04-19T16:49:22Z"
+            },
+            {
+                "name": "0.0.24",
+                "date": "2022-04-18T21:41:19Z"
+            },
+            {
+                "name": "0.0.23",
+                "date": "2022-04-18T21:00:58Z"
+            },
+            {
+                "name": "0.0.22",
+                "date": "2022-04-18T19:41:07Z"
+            },
+            {
+                "name": "0.0.21",
+                "date": "2022-04-18T19:01:07Z"
+            },
+            {
+                "name": "0.0.20",
+                "date": "2022-04-18T18:45:14Z"
+            },
+            {
+                "name": "0.0.18",
+                "date": "2022-04-17T14:29:59Z"
+            },
+            {
+                "name": "0.0.17",
+                "date": "2022-04-15T14:03:48Z"
+            },
+            {
+                "name": "0.0.16",
+                "date": "2022-04-15T13:41:15Z"
+            },
+            {
+                "name": "0.0.15",
+                "date": "2022-04-14T19:01:25Z"
+            },
+            {
+                "name": "0.0.14",
+                "date": "2022-04-14T18:47:01Z"
+            },
+            {
+                "name": "0.0.12",
+                "date": "2022-04-14T17:14:01Z"
+            },
+            {
+                "name": "0.0.11",
+                "date": "2022-04-14T17:10:21Z"
+            },
+            {
+                "name": "0.0.10",
+                "date": "2022-04-14T16:35:07Z"
+            },
+            {
+                "name": "0.0.9",
+                "date": "2022-04-14T16:22:16Z"
+            },
+            {
+                "name": "0.0.8",
+                "date": "2022-04-14T15:28:28Z"
+            },
+            {
+                "name": "0.0.7",
+                "date": "2022-04-14T03:14:53Z"
+            },
+            {
+                "name": "0.0.6",
+                "date": "2022-04-14T01:24:54Z"
+            },
+            {
+                "name": "0.0.5",
+                "date": "2022-04-14T01:08:58Z"
+            },
+            {
+                "name": "0.0.4",
+                "date": "2022-04-14T01:04:16Z"
+            },
+            {
+                "name": "test again",
+                "date": "2022-04-12T16:58:31Z"
+            },
+            {
+                "name": "test github workflow",
+                "date": "2022-04-12T16:24:45Z"
+            }
+        ]
+    }
+}

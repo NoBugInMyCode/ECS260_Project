@@ -1,0 +1,49 @@
+{
+    "https://api.github.com/repos/jpochyla/psst": {
+        "forks": 228,
+        "watchers": 8864,
+        "stars": 8864,
+        "languages": {
+            "Rust": 798661,
+            "Shell": 1854
+        },
+        "commits": [
+            "2024-12-29T01:54:09Z",
+            "2024-12-28T05:05:54Z",
+            "2024-12-28T00:32:56Z",
+            "2024-12-20T03:53:14Z",
+            "2024-12-20T02:40:06Z",
+            "2024-12-09T18:34:24Z",
+            "2024-11-12T19:48:23Z",
+            "2024-11-12T19:20:22Z",
+            "2024-11-09T02:31:28Z",
+            "2024-10-24T20:19:23Z",
+            "2024-10-24T04:39:49Z",
+            "2024-10-23T19:02:14Z",
+            "2024-10-21T19:17:08Z",
+            "2024-10-21T19:06:33Z",
+            "2024-10-17T17:06:20Z",
+            "2024-10-16T21:04:40Z",
+            "2024-10-16T20:57:08Z",
+            "2024-10-07T05:56:56Z",
+            "2024-10-07T04:31:24Z",
+            "2024-10-07T04:29:19Z",
+            "2024-09-25T18:28:03Z",
+            "2024-09-25T16:36:30Z",
+            "2024-09-23T21:52:47Z",
+            "2024-09-03T01:14:06Z",
+            "2024-09-03T00:18:59Z",
+            "2024-08-19T00:11:36Z",
+            "2024-08-04T21:46:16Z",
+            "2024-07-30T22:50:17Z",
+            "2024-07-29T06:38:15Z",
+            "2024-07-25T15:28:10Z"
+        ],
+        "creation_date": "2020-05-27T16:46:58Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 49,
+        "readme": "# Psst\n\nA fast Spotify client with a native GUI written in Rust, without Electron.\nPsst is still very early in development, lacking in features, stability, and general user experience.\nIt's fully cross-platform, supporting Windows, Linux, and macOS.\nContributions are welcome!\n\n**Note:** A Spotify Premium account is required.\n\n[![Build](https://github.com/jpochyla/psst/actions/workflows/build.yml/badge.svg)](https://github.com/jpochyla/psst/actions)\n\n![Screenshot](./psst-gui/assets/screenshot.png)\n\n## Download\n\nGitHub Actions automatically creates builds when new commits are pushed to the `main` branch.\nYou can download the prebuilt binaries for x86_64 Windows, Linux (Ubuntu), and macOS.\n\n| Platform                                                                                                            |\n| ------------------------------------------------------------------------------------------------------------------- |\n| [Linux (x86_64)](https://nightly.link/jpochyla/psst/workflows/build/main/psst-gui-x86_64-unknown-linux-gnu.zip)   |\n| [Linux (aarch64)](https://nightly.link/jpochyla/psst/workflows/build/main/psst-gui-aarch64-unknown-linux-gnu.zip) |\n| [Debian Package (amd64)](https://nightly.link/jpochyla/psst/workflows/build/main/psst-deb-amd64.zip)              |\n| [Debian Package (arm64)](https://nightly.link/jpochyla/psst/workflows/build/main/psst-deb-arm64.zip)              |\n| [MacOS](https://nightly.link/jpochyla/psst/workflows/build/main/Psst.dmg.zip)                                     |\n| [Windows](https://nightly.link/jpochyla/psst/workflows/build/main/Psst.exe.zip)                                   |\n\nUnofficial builds of Psst are also available through the [AUR](https://aur.archlinux.org/packages/psst-git) and [Homebrew](https://formulae.brew.sh/cask/psst).\n\n## Building\n\nOn all platforms, the **latest [Rust](https://rustup.rs/) stable** (at least 1.65.0) is required.\nFor platform-specific requirements, see the dropdowns below.\n\n<details>\n<summary>Linux</summary>\n\nOur user-interface library, Druid, has two possible backends on Linux: GTK and pure X11, with a Wayland backend in the works.\nThe default Linux backend is GTK.\nBefore building on Linux, make sure the required dependencies are installed.\n\n#### Debian/Ubuntu:\n\n```shell\nsudo apt-get install libssl-dev libgtk-3-dev libcairo2-dev libasound2-dev\n```\n\n#### RHEL/Fedora:\n\n```shell\nsudo dnf install openssl-devel gtk3-devel cairo-devel alsa-lib-devel\n```\n\n</details>\n\n<details>\n<summary>OpenBSD (WIP)</summary>\n\nOpenBSD support is still a WIP, and things will likely not function as intended.\nSimilar to Linux, Druid defaults to GTK while also providing a pure X11 backend.\nFurthermore, bindgen must be able to find LLVM through the expected environment variable.\nOnly OpenBSD/amd64 has been tested so far.\n\n```shell\ndoas pkg_add gtk+3 cairo llvm\nexport LIBCLANG_PATH=/usr/local/lib\n```\n\nIn case rustc(1) fails building bigger crates\n\n```shell\nmemory allocation of xxxx bytes failed\nerror: could not compile `gtk`\nCaused by:\n  process didn't exit successfully: `rustc --crate-name gtk [...]` (signal: 6, SIGABRT: process abort signal)\nwarning: build failed, waiting for other jobs to finish...\n```\n\ntry increasing your user's maximum heap size:\n\n```shell\nulimit -d $(( 2 * `ulimit -d` ))\n```\n\n</details>\n\n---\n\n#### Build from Source:\n\n```shell\ncargo build\n# Append `--release` for a release build.\n```\n\n#### Run from Source:\n\n```shell\ncargo run --bin psst-gui\n# Append `--release` for a release build.\n```\n\n#### Build Installation Bundle (i.e., macOS .app):\n\n```shell\ncargo install cargo-bundle\ncargo bundle --release\n```\n\n## Roadmap\n\n- [x] Vorbis track playback\n- [x] Browsing saved albums and tracks\n- [x] Save / unsave albums and tracks\n- [x] Browsing followed playlists\n- [x] Search for artists, albums, and tracks\n- [x] Podcast support\n- [x] Media keys control\n- [x] Open Spotify links through the search bar\n- [x] Audio volume control\n- [x] Audio loudness normalization\n- [x] Genre playlists and \"For You\" content\n- [x] Dark theme\n- [x] Credits support\n- [ ] Resilience to network errors (automatically retry timed-out requests)\n- [ ] Managing playlists\n  - Follow/unfollow\n  - Add/remove tracks\n  - Reorder tracks\n  - Rename playlist\n  - Playlist folders\n- [x] Playback queue\n- [ ] React to audio output device events\n  - Pause after disconnecting headphones\n  - Transfer playback after connecting headphones\n- [ ] Better caching\n  - Cache as many WebAPI responses as possible\n  - Visualize cache utilization\n    - Total cache usage in the config dialog\n    - Show time origin of cached data, allow to refresh\n- [ ] Trivia on the artist page, Wikipedia links\n- [ ] Downloading encrypted tracks\n- [ ] Reporting played tracks to Spotify servers\n- [ ] OS-specific application bundles\n- UI\n  - [ ] Rethink the current design, consider a two-pane layout\n    - Left pane for browsing\n    - Right pane for current playback\n  - [ ] Detect light/dark OS theme\n  - [ ] Robust error states, ideally with a retry button\n  - [ ] Correct playback highlight\n    - Highlight now-playing track only in the correct album/playlist\n    - Keep highlighted track in viewport\n  - [ ] Paging or virtualized lists for albums and tracks\n  - [ ] Grid for albums and artists\n  - [ ] Robust active/inactive menu visualization\n  - [ ] Save playback state\n\n## Development\n\nContributions are very welcome!  \nHere's the basic project structure:\n\n- `/psst-core` - Core library, takes care of Spotify TCP session, audio file retrieval, decoding, audio output, playback queue, etc.\n- `/psst-gui` - GUI application built with [Druid](https://github.com/linebender/druid)\n- `/psst-cli` - Example CLI that plays a track. Credentials must be configured in the code.\n- `/psst-protocol` - Internal Protobuf definitions used for Spotify communication.\n\n## Privacy Policy\n\nPsst connects only to the official Spotify servers and does not call home.\nCaches of various things are stored locally and can be deleted anytime.\nUser credentials are not stored at all; instead, a re-usable authentication token from Spotify is used.\n\n## Thanks\n\nThis project would not exist without the following:\n\n- Big thank you to [`librespot`](https://github.com/librespot-org/librespot), the Open Source Spotify client library for Rust. Most of `psst-core` is directly inspired by the ideas and code of `librespot`, although with a few differences:\n  - Spotify Connect (remote control) is not supported yet.\n  - Psst is completely synchronous, without `tokio` or other `async` runtime, although it will probably change in the future.\n  - Psst is using HTTPS-based CDN audio file retrieval, similar to the official Web client or [`librespot-java`](https://github.com/librespot-org/librespot-java), instead of the channel-based approach in `librespot`.\n- [`druid`](https://github.com/linebender/druid) native GUI library for Rust.\n- [`ncspot`](https://github.com/hrkfdn/ncspot) cross-platform ncurses Spotify client written in Rust, using `librespot`.\n- ...and of course other libraries and projects.\n",
+        "releases": []
+    }
+}

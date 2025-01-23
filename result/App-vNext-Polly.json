@@ -1,0 +1,260 @@
+{
+    "https://api.github.com/repos/App-vNext/Polly": {
+        "forks": 1236,
+        "watchers": 13554,
+        "stars": 13554,
+        "languages": {
+            "C#": 4198461,
+            "PowerShell": 6666,
+            "Batchfile": 128
+        },
+        "commits": [
+            "2025-01-20T11:17:17Z",
+            "2025-01-20T11:15:48Z",
+            "2025-01-19T20:03:35Z",
+            "2025-01-18T16:29:52Z",
+            "2025-01-18T16:28:31Z",
+            "2025-01-18T16:04:52Z",
+            "2025-01-18T15:56:04Z",
+            "2025-01-18T15:39:19Z",
+            "2025-01-18T13:20:28Z",
+            "2025-01-18T12:56:23Z",
+            "2025-01-18T12:31:46Z",
+            "2025-01-18T12:17:48Z",
+            "2025-01-18T12:57:04Z",
+            "2025-01-16T18:54:45Z",
+            "2025-01-16T18:46:52Z",
+            "2025-01-16T18:43:06Z",
+            "2025-01-16T18:26:59Z",
+            "2025-01-15T09:19:57Z",
+            "2025-01-14T19:45:23Z",
+            "2025-01-14T11:25:20Z",
+            "2025-01-13T18:39:41Z",
+            "2025-01-13T16:45:49Z",
+            "2025-01-13T14:53:00Z",
+            "2025-01-11T15:49:29Z",
+            "2025-01-10T17:49:10Z",
+            "2025-01-10T17:47:34Z",
+            "2025-01-10T12:22:22Z",
+            "2025-01-09T18:38:03Z",
+            "2025-01-09T18:32:31Z",
+            "2025-01-09T18:18:25Z"
+        ],
+        "creation_date": "2013-05-05T04:40:04Z",
+        "contributors": 30,
+        "topics": [
+            "circuit-breaker",
+            "circuit-breaker-pattern",
+            "dotnet",
+            "fault-handler",
+            "resilience",
+            "resiliency-patterns",
+            "retry-strategies",
+            "transient-fault-handling"
+        ],
+        "subscribers": 347,
+        "readme": "# Polly\n\nPolly is a .NET resilience and transient-fault-handling library that allows developers to express resilience strategies such as Retry, Circuit Breaker, Hedging, Timeout, Rate Limiter and Fallback in a fluent and thread-safe manner.\n\n[<img align=\"right\" src=\"https://github.com/dotnet/swag/raw/main/logo/dotnetfoundation_v4_small.png\" width=\"100\" alt=\"The .NET Foundation logo\" />](https://www.dotnetfoundation.org/)\nWe are a member of the [.NET Foundation](https://www.dotnetfoundation.org/about)!\n\n**Keep up to date with new feature announcements, tips & tricks, and other news through [www.thepollyproject.org](https://www.thepollyproject.org)**\n\n[![Build status](https://github.com/App-vNext/Polly/actions/workflows/build.yml/badge.svg?branch=main&event=push)](https://github.com/App-vNext/Polly/actions/workflows/build.yml?query=branch%3Amain+event%3Apush) [![Code coverage](https://codecov.io/gh/App-vNext/Polly/branch/main/graph/badge.svg)](https://codecov.io/gh/App-vNext/Polly) [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/App-vNext/Polly/badge)](https://securityscorecards.dev/viewer/?uri=github.com/App-vNext/Polly)\n\n<!-- markdownlint-disable MD042 -->\n[![Polly logo](https://raw.github.com/App-vNext/Polly/main/Polly-Logo.png)](#)\n<!-- markdownlint-enable MD034 -->\n\n> [!IMPORTANT]\n> This documentation describes the new Polly v8 API. If you are using the v7 API, please refer to the [previous version](https://github.com/App-vNext/Polly/tree/7.2.4) of the documentation.\n\n## NuGet Packages\n\n| **Package** | **Latest Version** | **About** |\n|:--|:--|:--|\n| `Polly.Core` | [![NuGet](https://img.shields.io/nuget/v/Polly.Core?logo=nuget&label=NuGet&color=blue)](https://www.nuget.org/packages/Polly.Core/ \"Download Polly.Core from NuGet.org\") | The core abstractions and [built-in strategies](https://www.pollydocs.org/strategies/index). |\n| `Polly.Extensions` | [![NuGet](https://img.shields.io/nuget/v/Polly.Extensions?logo=nuget&label=NuGet&color=blue)](https://www.nuget.org/packages/Polly.Extensions/ \"Download Polly.Extensions from NuGet.org\") | [Telemetry](https://www.pollydocs.org/advanced/telemetry) and [dependency injection](https://www.pollydocs.org/advanced/dependency-injection) support. |\n| `Polly.RateLimiting` | [![NuGet](https://img.shields.io/nuget/v/Polly.RateLimiting?logo=nuget&label=NuGet&color=blue)](https://www.nuget.org/packages/Polly.RateLimiting/ \"Download Polly.RateLimiting from NuGet.org\") | Integration with [`System.Threading.RateLimiting`](https://www.nuget.org/packages/System.Threading.RateLimiting) APIs. |\n| `Polly.Testing` | [![NuGet](https://img.shields.io/nuget/v/Polly.Testing?logo=nuget&label=NuGet&color=blue)](https://www.nuget.org/packages/Polly.Testing/ \"Download Polly.Testing from NuGet.org\") | [Testing support](https://www.pollydocs.org/advanced/testing) for Polly libraries. |\n| `Polly` | [![NuGet](https://img.shields.io/nuget/v/Polly?logo=nuget&label=NuGet&color=blue)](https://www.nuget.org/packages/Polly/ \"Download Polly from NuGet.org\") | This package contains the legacy API exposed by versions of the Polly library before version 8. |\n\n## Documentation\n\nThis README aims to give a quick overview of some Polly features - including enough to get you started with any resilience strategy. For deeper detail on any resilience strategy, and many other aspects of Polly, be sure also to check out [pollydocs.org][polly-docs].\n\n## Quick start\n\nTo use Polly, you must provide a callback and execute it using [**resilience pipeline**](https://www.pollydocs.org/pipelines). A resilience pipeline is a combination of one or more [**resilience strategies**](https://www.pollydocs.org/strategies) such as retry, timeout, and rate limiter. Polly uses **builders** to integrate these strategies into a pipeline.\n\nTo get started, first add the [Polly.Core](https://www.nuget.org/packages/Polly.Core/) package to your project by running the following command:\n\n```sh\ndotnet add package Polly.Core\n```\n\nYou can create a `ResiliencePipeline` using the `ResiliencePipelineBuilder` class as shown below:\n\n<!-- snippet: quick-start -->\n```cs\n// Create an instance of builder that exposes various extensions for adding resilience strategies\nResiliencePipeline pipeline = new ResiliencePipelineBuilder()\n    .AddRetry(new RetryStrategyOptions()) // Add retry using the default options\n    .AddTimeout(TimeSpan.FromSeconds(10)) // Add 10 seconds timeout\n    .Build(); // Builds the resilience pipeline\n\n// Execute the pipeline asynchronously\nawait pipeline.ExecuteAsync(static async token => { /* Your custom logic goes here */ }, cancellationToken);\n```\n<!-- endSnippet -->\n\n### Dependency injection\n\nIf you prefer to define resilience pipelines using [`IServiceCollection`](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection), you'll need to install the [Polly.Extensions](https://www.nuget.org/packages/Polly.Extensions/) package:\n\n```sh\ndotnet add package Polly.Extensions\n```\n\nYou can then define your resilience pipeline using the `AddResiliencePipeline(...)` extension method as shown:\n\n<!-- snippet: quick-start-di -->\n```cs\nvar services = new ServiceCollection();\n\n// Define a resilience pipeline with the name \"my-pipeline\"\nservices.AddResiliencePipeline(\"my-pipeline\", builder =>\n{\n    builder\n        .AddRetry(new RetryStrategyOptions())\n        .AddTimeout(TimeSpan.FromSeconds(10));\n});\n\n// Build the service provider\nvar serviceProvider = services.BuildServiceProvider();\n\n// Retrieve a ResiliencePipelineProvider that dynamically creates and caches the resilience pipelines\nvar pipelineProvider = serviceProvider.GetRequiredService<ResiliencePipelineProvider<string>>();\n\n// Retrieve your resilience pipeline using the name it was registered with\nResiliencePipeline pipeline = pipelineProvider.GetPipeline(\"my-pipeline\");\n\n// Alternatively, you can use keyed services to retrieve the resilience pipeline\npipeline = serviceProvider.GetRequiredKeyedService<ResiliencePipeline>(\"my-pipeline\");\n\n// Execute the pipeline\nawait pipeline.ExecuteAsync(static async token =>\n{\n    // Your custom logic goes here\n});\n```\n<!-- endSnippet -->\n\n## Resilience strategies\n\nPolly provides a variety of resilience strategies. Alongside the comprehensive guides for each strategy, the wiki also includes an [overview of the role each strategy plays in resilience engineering](https://github.com/App-vNext/Polly/wiki/Transient-fault-handling-and-proactive-resilience-engineering).\n\nPolly categorizes resilience strategies into two main groups:\n\n### Reactive\n\nThese strategies handle specific exceptions that are thrown, or results that are returned, by the callbacks executed through the strategy.\n\n| Strategy | Premise | AKA | Mitigation |\n| ------------- | ------------- | -------------- | ------------ |\n| [**Retry** family](#retry) | Many faults are transient and may self-correct after a short delay. | *Maybe it's just a blip* | Allows configuring automatic retries. |\n| [**Circuit-breaker** family](#circuit-breaker) | When a system is seriously struggling, failing fast is better than making users/callers wait. <br/><br/>Protecting a faulting system from overload can help it recover. | *Stop doing it if it hurts* <br/><br/>*Give that system a break* | Breaks the circuit (blocks executions) for a period, when faults exceed some pre-configured threshold. |\n| [**Fallback**](#fallback) | Things will still fail - plan what you will do when that happens. | *Degrade gracefully* | Defines an alternative value to be returned (or action to be executed) on failure. |\n| [**Hedging**](#hedging) | Things can be slow sometimes, plan what you will do when that happens. | *Hedge your bets* | Executes parallel actions when things are slow and waits for the fastest one. |\n\n### Proactive\n\nUnlike reactive strategies, proactive strategies do not focus on handling errors, but the callbacks might throw or return.\nThey can make proactive decisions to cancel or reject the execution of callbacks.\n\n| Strategy | Premise | AKA | Prevention |\n| ----------- | ------------- | -------------- | ------------ |\n| [**Timeout**](#timeout) | Beyond a certain wait, a success result is unlikely. | *Don't wait forever* | Guarantees the caller won't have to wait beyond the timeout. |\n| [**Rate Limiter**](#rate-limiter) | Limiting the rate a system handles requests is another way to control load. <br/> <br/> This can apply to the way your system accepts incoming calls, and/or to the way you call downstream services. | *Slow down a bit, will you?* | Constrains executions to not exceed a certain rate. |\n\nVisit [resilience strategies](https://www.pollydocs.org/strategies) docs to explore how to configure individual resilience strategies in more detail.\n\n### Retry\n\n<!-- snippet: retry -->\n```cs\n// Retry using the default options.\n// See https://www.pollydocs.org/strategies/retry#defaults for defaults.\nvar optionsDefaults = new RetryStrategyOptions();\n\n// For instant retries with no delay\nvar optionsNoDelay = new RetryStrategyOptions\n{\n    Delay = TimeSpan.Zero\n};\n\n// For advanced control over the retry behavior, including the number of attempts,\n// delay between retries, and the types of exceptions to handle.\nvar optionsComplex = new RetryStrategyOptions\n{\n    ShouldHandle = new PredicateBuilder().Handle<SomeExceptionType>(),\n    BackoffType = DelayBackoffType.Exponential,\n    UseJitter = true,  // Adds a random factor to the delay\n    MaxRetryAttempts = 4,\n    Delay = TimeSpan.FromSeconds(3),\n};\n\n// To use a custom function to generate the delay for retries\nvar optionsDelayGenerator = new RetryStrategyOptions\n{\n    MaxRetryAttempts = 2,\n    DelayGenerator = static args =>\n    {\n        var delay = args.AttemptNumber switch\n        {\n            0 => TimeSpan.Zero,\n            1 => TimeSpan.FromSeconds(1),\n            _ => TimeSpan.FromSeconds(5)\n        };\n\n        // This example uses a synchronous delay generator,\n        // but the API also supports asynchronous implementations.\n        return new ValueTask<TimeSpan?>(delay);\n    }\n};\n\n// To extract the delay from the result object\nvar optionsExtractDelay = new RetryStrategyOptions<HttpResponseMessage>\n{\n    DelayGenerator = static args =>\n    {\n        if (args.Outcome.Result is HttpResponseMessage responseMessage &&\n            TryGetDelay(responseMessage, out TimeSpan delay))\n        {\n            return new ValueTask<TimeSpan?>(delay);\n        }\n\n        // Returning null means the retry strategy will use its internal delay for this attempt.\n        return new ValueTask<TimeSpan?>((TimeSpan?)null);\n    }\n};\n\n// To get notifications when a retry is performed\nvar optionsOnRetry = new RetryStrategyOptions\n{\n    MaxRetryAttempts = 2,\n    OnRetry = static args =>\n    {\n        Console.WriteLine(\"OnRetry, Attempt: {0}\", args.AttemptNumber);\n\n        // Event handlers can be asynchronous; here, we return an empty ValueTask.\n        return default;\n    }\n};\n\n// To keep retrying indefinitely or until success use int.MaxValue.\nvar optionsIndefiniteRetry = new RetryStrategyOptions\n{\n    MaxRetryAttempts = int.MaxValue,\n};\n\n// Add a retry strategy with a RetryStrategyOptions{<TResult>} instance to the pipeline\nnew ResiliencePipelineBuilder().AddRetry(optionsDefaults);\nnew ResiliencePipelineBuilder<HttpResponseMessage>().AddRetry(optionsExtractDelay);\n```\n<!-- endSnippet -->\n\nIf all retries fail, a retry strategy rethrows the final exception back to the calling code.\n\nFor more details, visit the [retry strategy](https://www.pollydocs.org/strategies/retry) documentation.\n\n### Circuit Breaker\n\n<!-- snippet: circuit-breaker -->\n```cs\n// Circuit breaker with default options.\n// See https://www.pollydocs.org/strategies/circuit-breaker#defaults for defaults.\nvar optionsDefaults = new CircuitBreakerStrategyOptions();\n\n// Circuit breaker with customized options:\n// The circuit will break if more than 50% of actions result in handled exceptions,\n// within any 10-second sampling duration, and at least 8 actions are processed.\nvar optionsComplex = new CircuitBreakerStrategyOptions\n{\n    FailureRatio = 0.5,\n    SamplingDuration = TimeSpan.FromSeconds(10),\n    MinimumThroughput = 8,\n    BreakDuration = TimeSpan.FromSeconds(30),\n    ShouldHandle = new PredicateBuilder().Handle<SomeExceptionType>()\n};\n\n// Circuit breaker using BreakDurationGenerator:\n// The break duration is dynamically determined based on the properties of BreakDurationGeneratorArguments.\nvar optionsBreakDurationGenerator = new CircuitBreakerStrategyOptions\n{\n    FailureRatio = 0.5,\n    SamplingDuration = TimeSpan.FromSeconds(10),\n    MinimumThroughput = 8,\n    BreakDurationGenerator = static args => new ValueTask<TimeSpan>(TimeSpan.FromMinutes(args.FailureCount)),\n};\n\n// Handle specific failed results for HttpResponseMessage:\nvar optionsShouldHandle = new CircuitBreakerStrategyOptions<HttpResponseMessage>\n{\n    ShouldHandle = new PredicateBuilder<HttpResponseMessage>()\n        .Handle<SomeExceptionType>()\n        .HandleResult(response => response.StatusCode == HttpStatusCode.InternalServerError)\n};\n\n// Monitor the circuit state, useful for health reporting:\nvar stateProvider = new CircuitBreakerStateProvider();\nvar optionsStateProvider = new CircuitBreakerStrategyOptions<HttpResponseMessage>\n{\n    StateProvider = stateProvider\n};\n\nvar circuitState = stateProvider.CircuitState;\n\n/*\nCircuitState.Closed - Normal operation; actions are executed.\nCircuitState.Open - Circuit is open; actions are blocked.\nCircuitState.HalfOpen - Recovery state after break duration expires; actions are permitted.\nCircuitState.Isolated - Circuit is manually held open; actions are blocked.\n*/\n\n// Manually control the Circuit Breaker state:\nvar manualControl = new CircuitBreakerManualControl();\nvar optionsManualControl = new CircuitBreakerStrategyOptions\n{\n    ManualControl = manualControl\n};\n\n// Manually isolate a circuit, e.g., to isolate a downstream service.\nawait manualControl.IsolateAsync();\n\n// Manually close the circuit to allow actions to be executed again.\nawait manualControl.CloseAsync();\n\n// Add a circuit breaker strategy with a CircuitBreakerStrategyOptions{<TResult>} instance to the pipeline\nnew ResiliencePipelineBuilder().AddCircuitBreaker(optionsDefaults);\nnew ResiliencePipelineBuilder<HttpResponseMessage>().AddCircuitBreaker(optionsStateProvider);\n```\n<!-- endSnippet -->\n\nFor more details, visit the [circuit breaker strategy](https://www.pollydocs.org/strategies/circuit-breaker) documentation.\n\n### Fallback\n\n<!-- snippet: fallback -->\n```cs\n// A fallback/substitute value if an operation fails.\nvar optionsSubstitute = new FallbackStrategyOptions<UserAvatar>\n{\n    ShouldHandle = new PredicateBuilder<UserAvatar>()\n        .Handle<SomeExceptionType>()\n        .HandleResult(r => r is null),\n    FallbackAction = static args => Outcome.FromResultAsValueTask(UserAvatar.Blank)\n};\n\n// Use a dynamically generated value if an operation fails.\nvar optionsFallbackAction = new FallbackStrategyOptions<UserAvatar>\n{\n    ShouldHandle = new PredicateBuilder<UserAvatar>()\n        .Handle<SomeExceptionType>()\n        .HandleResult(r => r is null),\n    FallbackAction = static args =>\n    {\n        var avatar = UserAvatar.GetRandomAvatar();\n        return Outcome.FromResultAsValueTask(avatar);\n    }\n};\n\n// Use a default or dynamically generated value, and execute an additional action if the fallback is triggered.\nvar optionsOnFallback = new FallbackStrategyOptions<UserAvatar>\n{\n    ShouldHandle = new PredicateBuilder<UserAvatar>()\n        .Handle<SomeExceptionType>()\n        .HandleResult(r => r is null),\n    FallbackAction = static args =>\n    {\n        var avatar = UserAvatar.GetRandomAvatar();\n        return Outcome.FromResultAsValueTask(UserAvatar.Blank);\n    },\n    OnFallback = static args =>\n    {\n        // Add extra logic to be executed when the fallback is triggered, such as logging.\n        return default; // Returns an empty ValueTask\n    }\n};\n\n// Add a fallback strategy with a FallbackStrategyOptions<TResult> instance to the pipeline\nnew ResiliencePipelineBuilder<UserAvatar>().AddFallback(optionsOnFallback);\n```\n<!-- endSnippet -->\n\nFor more details, visit the [fallback strategy](https://www.pollydocs.org/strategies/fallback) documentation.\n\n### Hedging\n\n<!-- snippet: hedging -->\n```cs\n// Hedging with default options.\n// See https://www.pollydocs.org/strategies/hedging#defaults for defaults.\nvar optionsDefaults = new HedgingStrategyOptions<HttpResponseMessage>();\n\n// A customized hedging strategy that retries up to 3 times if the execution\n// takes longer than 1 second or if it fails due to an exception or returns an HTTP 500 Internal Server Error.\nvar optionsComplex = new HedgingStrategyOptions<HttpResponseMessage>\n{\n    ShouldHandle = new PredicateBuilder<HttpResponseMessage>()\n        .Handle<SomeExceptionType>()\n        .HandleResult(response => response.StatusCode == HttpStatusCode.InternalServerError),\n    MaxHedgedAttempts = 3,\n    Delay = TimeSpan.FromSeconds(1),\n    ActionGenerator = static args =>\n    {\n        Console.WriteLine(\"Preparing to execute hedged action.\");\n\n        // Return a delegate function to invoke the original action with the action context.\n        // Optionally, you can also create a completely new action to be executed.\n        return () => args.Callback(args.ActionContext);\n    }\n};\n\n// Subscribe to hedging events.\nvar optionsOnHedging = new HedgingStrategyOptions<HttpResponseMessage>\n{\n    OnHedging = static args =>\n    {\n        Console.WriteLine($\"OnHedging: Attempt number {args.AttemptNumber}\");\n        return default;\n    }\n};\n\n// Add a hedging strategy with a HedgingStrategyOptions<TResult> instance to the pipeline\nnew ResiliencePipelineBuilder<HttpResponseMessage>().AddHedging(optionsDefaults);\n```\n<!-- endSnippet -->\n\nIf all hedged attempts fail, the hedging strategy will either re-throw the original exception or return the original failed result to the caller.\n\nFor more details, visit the [hedging strategy](https://www.pollydocs.org/strategies/hedging) documentation.\n\n### Timeout\n\nThe timeout resilience strategy assumes delegates you execute support [co-operative cancellation](https://learn.microsoft.com/dotnet/standard/threading/cancellation-in-managed-threads). You must use `Execute/Async(...)` overloads taking a `CancellationToken`, and the executed delegate must honor that `CancellationToken`.\n\n<!-- snippet: timeout -->\n```cs\n// To add a timeout with a custom TimeSpan duration\nnew ResiliencePipelineBuilder().AddTimeout(TimeSpan.FromSeconds(3));\n\n// Timeout using the default options.\n// See https://www.pollydocs.org/strategies/timeout#defaults for defaults.\nvar optionsDefaults = new TimeoutStrategyOptions();\n\n// To add a timeout using a custom timeout generator function\nvar optionsTimeoutGenerator = new TimeoutStrategyOptions\n{\n    TimeoutGenerator = static args =>\n    {\n        // Note: the timeout generator supports asynchronous operations\n        return new ValueTask<TimeSpan>(TimeSpan.FromSeconds(123));\n    }\n};\n\n// To add a timeout and listen for timeout events\nvar optionsOnTimeout = new TimeoutStrategyOptions\n{\n    TimeoutGenerator = static args =>\n    {\n        // Note: the timeout generator supports asynchronous operations\n        return new ValueTask<TimeSpan>(TimeSpan.FromSeconds(123));\n    },\n    OnTimeout = static args =>\n    {\n        Console.WriteLine($\"{args.Context.OperationKey}: Execution timed out after {args.Timeout.TotalSeconds} seconds.\");\n        return default;\n    }\n};\n\n// Add a timeout strategy with a TimeoutStrategyOptions instance to the pipeline\nnew ResiliencePipelineBuilder().AddTimeout(optionsDefaults);\n```\n<!-- endSnippet -->\n\nTimeout strategies throw `TimeoutRejectedException` when a timeout occurs.\n\nFor more details, visit the [timeout strategy](https://www.pollydocs.org/strategies/timeout) documentation.\n\n### Rate Limiter\n\n<!-- snippet: rate-limiter -->\n```cs\n// Add rate limiter with default options.\n// See https://www.pollydocs.org/strategies/rate-limiter#defaults for defaults.\nnew ResiliencePipelineBuilder()\n    .AddRateLimiter(new RateLimiterStrategyOptions());\n\n// Create a rate limiter to allow a maximum of 100 concurrent executions and a queue of 50.\nnew ResiliencePipelineBuilder()\n    .AddConcurrencyLimiter(100, 50);\n\n// Create a rate limiter that allows 100 executions per minute.\nnew ResiliencePipelineBuilder()\n    .AddRateLimiter(new SlidingWindowRateLimiter(\n        new SlidingWindowRateLimiterOptions\n        {\n            PermitLimit = 100,\n            SegmentsPerWindow = 4,\n            Window = TimeSpan.FromMinutes(1)\n        }));\n```\n<!-- endSnippet -->\n\nRate limiter strategy throws `RateLimiterRejectedException` if execution is rejected.\n\nFor more details, visit the [rate limiter strategy](https://www.pollydocs.org/strategies/rate-limiter) documentation.\n\n## Chaos engineering\n\nStarting with version `8.3.0`, Polly has integrated [Simmy](https://github.com/Polly-Contrib/Simmy), a chaos engineering library, directly into its core. For more information, please refer to the dedicated [chaos engineering documentation](https://www.pollydocs.org/chaos/).\n\n## Next steps\n\nTo learn more about Polly, visit [pollydocs.org][polly-docs].\n\n## Samples\n\n- [Samples](samples/README.md): Samples in this repository that serve as an introduction to Polly.\n- [Polly-Samples](https://github.com/App-vNext/Polly-Samples): Contains practical examples for using various implementations of Polly. Please feel free to contribute to the Polly-Samples repository in order to assist others who are either learning Polly for the first time, or are seeking advanced examples and novel approaches provided by our generous community.\n- Microsoft's [eShopOnContainers project](https://github.com/dotnet/eShop): Sample project demonstrating a .NET Micro-services architecture and using Polly for resilience.\n\n## Sponsors\n\nThanks to the following companies for sponsoring the ongoing development of Polly.\n\n- [.NET on AWS Open Source Software Fund](https://github.com/aws/dotnet-foss)\n- [Microsoft's Free and Open Source Software Fund](https://github.com/microsoft/foss-fund)\n\n<!-- markdownlint-disable MD042 -->\n[![AWS logo](./logos/aws.png)](#)\n[![Microsoft logo](./logos/microsoft.png)](#)\n<!-- markdownlint-enable MD034 -->\n\nHelp support this project by becoming a sponsor through [GitHub Sponsors](https://github.com/sponsors/martincostello).\n\n## License\n\nLicensed under the terms of the [New BSD License](https://opensource.org/license/bsd-3-clause/)\n\n[polly-docs]: https://www.pollydocs.org/\n",
+        "releases": [
+            {
+                "name": "8.5.1",
+                "date": "2025-01-13T17:37:31Z"
+            },
+            {
+                "name": "8.5.0",
+                "date": "2024-11-12T21:00:16Z"
+            },
+            {
+                "name": "8.4.2",
+                "date": "2024-09-26T16:29:17Z"
+            },
+            {
+                "name": "8.4.1",
+                "date": "2024-06-28T09:51:00Z"
+            },
+            {
+                "name": "8.4.0",
+                "date": "2024-05-10T13:52:04Z"
+            },
+            {
+                "name": "8.3.1",
+                "date": "2024-03-06T09:58:12Z"
+            },
+            {
+                "name": "8.3.0",
+                "date": "2024-02-05T11:02:35Z"
+            },
+            {
+                "name": "8.2.1",
+                "date": "2024-01-05T12:37:43Z"
+            },
+            {
+                "name": "8.2.0",
+                "date": "2023-11-14T17:31:44Z"
+            },
+            {
+                "name": "8.1.0",
+                "date": "2023-10-31T17:16:35Z"
+            },
+            {
+                "name": "8.0.0",
+                "date": "2023-09-28T10:30:15Z"
+            },
+            {
+                "name": "8.0.0-beta.2",
+                "date": "2023-09-08T15:50:42Z"
+            },
+            {
+                "name": "8.0.0-beta.1",
+                "date": "2023-08-31T11:08:36Z"
+            },
+            {
+                "name": "8.0.0-alpha.9",
+                "date": "2023-08-30T10:25:32Z"
+            },
+            {
+                "name": "8.0.0-alpha.8",
+                "date": "2023-08-08T13:19:28Z"
+            },
+            {
+                "name": "8.0.0-alpha.7",
+                "date": "2023-07-26T10:26:38Z"
+            },
+            {
+                "name": "8.0.0-alpha.6",
+                "date": "2023-07-14T14:53:32Z"
+            },
+            {
+                "name": "8.0.0-alpha.5",
+                "date": "2023-07-03T10:02:15Z"
+            },
+            {
+                "name": "8.0.0-alpha.4",
+                "date": "2023-06-26T09:51:56Z"
+            },
+            {
+                "name": "8.0.0-alpha.3",
+                "date": "2023-06-23T13:44:05Z"
+            },
+            {
+                "name": "8.0.0-alpha.2",
+                "date": "2023-06-21T14:44:48Z"
+            },
+            {
+                "name": "8.0.0-alpha.1",
+                "date": "2023-06-14T14:25:37Z"
+            },
+            {
+                "name": "7.2.4",
+                "date": "2023-06-13T13:39:49Z"
+            },
+            {
+                "name": "7.2.3+24",
+                "date": "2022-01-17T14:52:04Z"
+            },
+            {
+                "name": "7.2.2+9",
+                "date": "2021-04-11T17:28:14Z"
+            },
+            {
+                "name": "7.2.1+7",
+                "date": "2020-05-02T12:02:50Z"
+            },
+            {
+                "name": "7.2.0+37",
+                "date": "2019-11-27T20:34:06Z"
+            },
+            {
+                "name": "",
+                "date": "2019-11-17T20:34:08Z"
+            },
+            {
+                "name": "7.1.0+21",
+                "date": "2019-03-13T23:50:27Z"
+            },
+            {
+                "name": "7.0.3+4",
+                "date": "2019-02-21T15:24:31Z"
+            },
+            {
+                "name": "7.0.2+3",
+                "date": "2019-02-11T22:03:36Z"
+            },
+            {
+                "name": "7.0.1+1",
+                "date": "2019-02-09T22:31:46Z"
+            },
+            {
+                "name": "6.1.2+4",
+                "date": "2018-11-27T08:50:48Z"
+            },
+            {
+                "name": "6.1.1+19",
+                "date": "2018-11-12T13:19:38Z"
+            },
+            {
+                "name": "6.1.0+31",
+                "date": "2018-07-15T16:58:32Z"
+            },
+            {
+                "name": "6.0.1+18",
+                "date": "2018-05-06T17:40:54Z"
+            },
+            {
+                "name": "6.0.0-v6alpha.1+17",
+                "date": "2018-05-03T19:13:47Z"
+            },
+            {
+                "name": "5.9.0+33 (Build 596)",
+                "date": "2018-04-09T23:17:36Z"
+            },
+            {
+                "name": "5.8.0+8 (Build 554)",
+                "date": "2018-01-31T20:23:16Z"
+            },
+            {
+                "name": "5.7.0+17-(Build-537)",
+                "date": "2018-01-06T16:55:36Z"
+            },
+            {
+                "name": "5.6.1+4 (Build 513)",
+                "date": "2017-11-29T16:16:57Z"
+            },
+            {
+                "name": "v5.6.0",
+                "date": "2017-11-26T09:10:27Z"
+            },
+            {
+                "name": "v5.5.0",
+                "date": "2017-11-03T18:14:40Z"
+            },
+            {
+                "name": "v5.4.0",
+                "date": "2017-11-01T21:41:58Z"
+            },
+            {
+                "name": "v5.3.1",
+                "date": "2017-08-06T18:14:26Z"
+            },
+            {
+                "name": "v5.3.0",
+                "date": "2017-07-28T16:39:21Z"
+            },
+            {
+                "name": "v5.2.0",
+                "date": "2017-06-28T06:51:47Z"
+            },
+            {
+                "name": "v5.1.0",
+                "date": "2017-05-04T20:58:32Z"
+            },
+            {
+                "name": "v5.0.6",
+                "date": "2017-02-10T18:01:33Z"
+            },
+            {
+                "name": "v5.0.5",
+                "date": "2017-02-08T17:41:11Z"
+            }
+        ]
+    }
+}

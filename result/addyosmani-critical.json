@@ -1,0 +1,358 @@
+{
+    "https://api.github.com/repos/addyosmani/critical": {
+        "forks": 371,
+        "watchers": 10058,
+        "stars": 10058,
+        "languages": {
+            "JavaScript": 151283,
+            "HTML": 70531,
+            "CSS": 570
+        },
+        "commits": [
+            "2024-09-23T19:59:46Z",
+            "2024-09-23T09:08:41Z",
+            "2024-09-22T22:06:13Z",
+            "2024-09-16T21:50:32Z",
+            "2024-09-16T21:44:52Z",
+            "2024-09-16T21:44:37Z",
+            "2024-08-17T21:01:22Z",
+            "2024-08-17T20:57:03Z",
+            "2024-07-07T12:28:29Z",
+            "2024-06-23T21:43:56Z",
+            "2024-04-21T22:18:30Z",
+            "2024-04-21T22:17:40Z",
+            "2024-03-26T07:12:06Z",
+            "2024-03-25T23:46:55Z",
+            "2024-01-28T22:24:40Z",
+            "2024-01-28T22:23:54Z",
+            "2024-01-27T22:53:32Z",
+            "2024-01-27T22:48:09Z",
+            "2024-01-27T22:34:55Z",
+            "2024-01-12T05:39:20Z",
+            "2024-01-11T23:11:40Z",
+            "2024-01-11T23:10:53Z",
+            "2023-10-31T19:20:09Z",
+            "2023-10-09T05:35:06Z",
+            "2023-10-09T05:20:11Z",
+            "2023-10-08T22:09:30Z",
+            "2023-10-08T22:08:44Z",
+            "2023-10-08T07:06:18Z",
+            "2023-10-07T22:34:45Z",
+            "2023-10-06T22:01:54Z"
+        ],
+        "creation_date": "2014-06-28T09:31:42Z",
+        "contributors": 30,
+        "topics": [
+            "critical-css",
+            "critical-path-css",
+            "critical-path-styles",
+            "css",
+            "inline-css",
+            "inline-styles"
+        ],
+        "subscribers": 141,
+        "readme": "[![NPM version][npm-image]][npm-url] [![Build Status][ci-image]][ci-url] [![Coverage][coveralls-image]][coveralls-url]\n\n# critical\n\nCritical extracts & inlines critical-path (above-the-fold) CSS from HTML\n\n<img src=\"https://raw.githubusercontent.com/addyosmani/critical/master/preview.png\" alt=\"Preview\" width=\"378\">\n\n## Install\n\n```sh\nnpm i -D critical\n```\n\n## Build plugins\n\n- [grunt-critical](https://github.com/bezoerb/grunt-critical)\n- Gulp users should use Critical directly\n- For Webpack use [html-critical-webpack-plugin](https://github.com/anthonygore/html-critical-webpack-plugin)\n\n## Demo projects\n\n- [Optimize a basic page with Gulp](https://github.com/addyosmani/critical-path-css-demo) with a [tutorial](https://github.com/addyosmani/critical-path-css-demo#tutorial)\n- [Optimize an Angular boilerplate with Gulp](https://github.com/addyosmani/critical-path-angular-demo)\n- [Optimize a Weather app with Gulp](https://github.com/addyosmani/critical-css-weather-app)\n\n## Usage\n\nInclude:\n\n```js\nimport {generate} from 'critical';\n```\n\nFull blown example with available options:\n\n```js\ngenerate({\n  // Inline the generated critical-path CSS\n  // - true generates HTML\n  // - false generates CSS\n  inline: true,\n\n  // Your base directory\n  base: 'dist/',\n\n  // HTML source\n  html: '<html>...</html>',\n\n  // HTML source file\n  src: 'index.html',\n\n  // Your CSS Files (optional)\n  css: ['dist/styles/main.css'],\n\n  // Viewport width\n  width: 1300,\n\n  // Viewport height\n  height: 900,\n\n  // Output results to file\n  target: {\n    css: 'critical.css',\n    html: 'index-critical.html',\n    uncritical: 'uncritical.css',\n  },\n\n  // Extract inlined styles from referenced stylesheets\n  extract: true,\n\n  // ignore CSS rules\n  ignore: {\n    atrule: ['@font-face'],\n    rule: [/some-regexp/],\n    decl: (node, value) => /big-image\\.png/.test(value),\n  },\n});\n```\n\n### Generate and inline critical-path CSS\n\nBasic usage:\n\n```js\ngenerate({\n  inline: true,\n  base: 'test/',\n  src: 'index.html',\n  target: 'index-critical.html',\n  width: 1300,\n  height: 900,\n});\n```\n\n### Generate critical-path CSS\n\nBasic usage:\n\n```js\ngenerate({\n  base: 'test/',\n  src: 'index.html',\n  target: 'styles/main.css',\n  width: 1300,\n  height: 900,\n});\n```\n\nGenerate and minify critical-path CSS:\n\n```js\ngenerate({\n  base: 'test/',\n  src: 'index.html',\n  target: 'styles/styles.min.css',\n  width: 1300,\n  height: 900,\n});\n```\n\nGenerate, minify and inline critical-path CSS:\n\n```js\ngenerate({\n  inline: true,\n  base: 'test/',\n  src: 'index.html',\n  target: {\n    html: 'index-critical.html',\n    css: 'critical.css',\n  },\n  width: 1300,\n  height: 900,\n});\n```\n\nGenerate and return output via callback:\n\n```js\ngenerate({\n    base: 'test/',\n    src: 'index.html',\n    width: 1300,\n    height: 900,\n    inline: true\n}, (err, {css, html, uncritical}) => {\n    // You now have critical-path CSS as well as the modified HTML.\n    // Works with and without target specified.\n    ...\n});\n```\n\nGenerate and return output via promise:\n\n```js\ngenerate({\n    base: 'test/',\n    src: 'index.html',\n    width: 1300,\n    height: 900\n}).then((({css, html, uncritical})) => {\n    // You now have critical-path CSS as well as the modified HTML.\n    // Works with and without target specified.\n    ...\n}).error(err => {\n    ...\n});\n```\n\nGenerate and return output via async function:\n\n```js\nconst {css, html, uncritical} = await generate({\n  base: 'test/',\n  src: 'index.html',\n  width: 1300,\n  height: 900,\n});\n```\n\n### Generate critical-path CSS with multiple resolutions\n\nWhen your site is adaptive and you want to deliver critical CSS for multiple screen resolutions this is a useful option.\n_note:_ (your final output will be minified as to eliminate duplicate rule inclusion)\n\n```js\ngenerate({\n  base: 'test/',\n  src: 'index.html',\n  target: {\n    css: 'styles/main.css',\n  },\n  dimensions: [\n    {\n      height: 200,\n      width: 500,\n    },\n    {\n      height: 900,\n      width: 1200,\n    },\n  ],\n});\n```\n\n### Generate critical-path CSS and ignore specific selectors\n\nThis is a useful option when you e.g. want to defer loading of webfonts or background images.\n\n```js\ngenerate({\n  base: 'test/',\n  src: 'index.html',\n  target: {\n    css: 'styles/main.css',\n  },\n  ignore: {\n    atrule: ['@font-face'],\n    decl: (node, value) => /url\\(/.test(value),\n  },\n});\n```\n\n### Generate critical-path CSS and specify asset rebase behaviour\n\n```js\ngenerate({\n  base: 'test/',\n  src: 'index.html',\n  target: {\n    css: 'styles/main.css',\n  },\n  rebase: {\n    from: '/styles/main.css',\n    to: '/folder/subfolder/index.html',\n  },\n});\n```\n\n```js\ngenerate({\n  base: 'test/',\n  src: 'index.html',\n  target: {\n    css: 'styles/main.css',\n  },\n  rebase: (asset) => `https://my-cdn.com${asset.absolutePath}`,\n});\n```\n\n### Options\n\n| Name                | Type                   | Default                                                                                                                                                                                | Description                                                                                                                                                                                                                                                                                                                                                                     |\n| ------------------- | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| inline              | `boolean`\\|`object`    | `false`                                                                                                                                                                                | Inline critical-path CSS using filamentgroup's loadCSS. Pass an object to configure [`inline-critical`](https://github.com/bezoerb/inline-critical#inlinehtml-styles-options)                                                                                                                                                                                                   |\n| base                | `string`               | `path.dirname(src)` or `process.cwd()`                                                                                                                                                 | Base directory in which the source and destination are to be written                                                                                                                                                                                                                                                                                                            |\n| html                | `string`               |                                                                                                                                                                                        | HTML source to be operated against. This option takes precedence over the `src` option.                                                                                                                                                                                                                                                                                         |\n| css                 | `array`                | `[]`                                                                                                                                                                                   | An array of paths to css files, file globs, [Vinyl](https://www.npmjs.com/package/vinyl) file objects or source CSS strings.                                                                                                                                                                                                                                                                        |\n| src                 | `string`               |                                                                                                                                                                                        | Location of the HTML source to be operated against                                                                                                                                                                                                                                                                                                                              |\n| target              | `string` or `object`   |                                                                                                                                                                                        | Location of where to save the output of an operation. Use an object with 'html' and 'css' props if you want to store both                                                                                                                                                                                                                                                       |\n| width               | `integer`              | `1300`                                                                                                                                                                                 | Width of the target viewport                                                                                                                                                                                                                                                                                                                                                    |\n| height              | `integer`              | `900`                                                                                                                                                                                  | Height of the target viewport                                                                                                                                                                                                                                                                                                                                                   |\n| dimensions          | `array`                | `[]`                                                                                                                                                                                   | An array of objects containing height and width. Takes precedence over `width` and `height` if set                                                                                                                                                                                                                                                                              |\n| extract             | `boolean`              | `false`                                                                                                                                                                                | Remove the inlined styles from any stylesheets referenced in the HTML. It generates new references based on extracted content so it's safe to use for multiple HTML files referencing the same stylesheet. Use with caution. Removing the critical CSS per page results in a unique async loaded CSS file for every page. Meaning you can't rely on cache across multiple pages |\n| inlineImages        | `boolean`              | `false`                                                                                                                                                                                | Inline images                                                                                                                                                                                                                                                                                                                                                                   |\n| assetPaths          | `array`                | `[]`                                                                                                                                                                                   | List of directories/urls where the inliner should start looking for assets                                                                                                                                                                                                                                                                                                      |\n| maxImageFileSize    | `integer`              | `10240`                                                                                                                                                                                | Sets a max file size (in bytes) for base64 inlined images                                                                                                                                                                                                                                                                                                                       |\n| rebase              | `object` or `function` | `undefined`                                                                                                                                                                            | Critical tries it's best to rebase the asset paths relative to the document. If this doesn't work as expected you can always use this option to control the rebase paths. See [`postcss-url`](https://github.com/postcss/postcss-url) for details. (https://github.com/pocketjoso/penthouse#usage-1).                                                                           |\n| ignore              | `array` or `object`    | `undefined`                                                                                                                                                                            | Ignore CSS rules. See [`postcss-discard`](https://github.com/bezoerb/postcss-discard) for usage examples. If you pass an array all rules will be applied to atrules, rules and declarations;                                                                                                                                                                                    |\n| ignoreInlinedStyles | `boolean`              | `false`                                                                                                                                                                                | Ignore inlined stylesheets                                                                                                                                                                                                                                                                                                                                                      |\n| userAgent           | `string`               | `''`                                                                                                                                                                                   | User agent to use when fetching a remote src                                                                                                                                                                                                                                                                                                                                    |\n| penthouse           | `object`               | `{}`                                                                                                                                                                                   | Configuration options for [`penthouse`](https://github.com/pocketjoso/penthouse).                                                                                                                                                                                                                                                                                               |\n| request             | `object`               | `{}`                                                                                                                                                                                   | Configuration options for [`got`](https://github.com/sindresorhus/got).                                                                                                                                                                                                                                                                                                         |\n| cleanCSS            | `object`               | `{level: {  1: { all: true }, 2: { all: false, removeDuplicateFontRules: true, removeDuplicateMediaBlocks: true, removeDuplicateRules: true, removeEmpty: true, mergeMedia: true } }}` | Configuration options for [`CleanCSS`](https://github.com/clean-css/clean-css) which let's you configure the optimization level for the generated critical css                                                                                                                                                                                                                  |\n| user                | `string`               | `undefined`                                                                                                                                                                            | RFC2617 basic authorization: user                                                                                                                                                                                                                                                                                                                                               |\n| pass                | `string`               | `undefined`                                                                                                                                                                            | RFC2617 basic authorization: pass                                                                                                                                                                                                                                                                                                                                               |\n| strict              | `boolean`              | `false`                                                                                                                                                                                | Throw an error on css parsing errors or if no css is found.                                                                                                                                                                                                                                                                                                                     |\n\n## CLI\n\n```sh\nnpm install -g critical\n```\n\ncritical works well with standard input.\n\n```sh\ncat test/fixture/index.html | critical --base test/fixture --inline > index.critical.html\n```\n\nOr on Windows:\n\n```bat\ntype test\\fixture\\index.html | critical --base test/fixture --inline > index.critical.html\n```\n\nYou can also pass in the critical CSS file as an option.\n\n```sh\ncritical test/fixture/index.html --base test/fixture > critical.css\n```\n\n## Gulp\n\n```js\nimport gulp from 'gulp';\nimport log from 'fancy-log';\nimport {stream as critical} from 'critical';\n\n// Generate & Inline Critical-path CSS\ngulp.task('critical', () => {\n  return gulp\n    .src('dist/*.html')\n    .pipe(\n      critical({\n        base: 'dist/',\n        inline: true,\n        css: ['dist/styles/components.css', 'dist/styles/main.css'],\n      })\n    )\n    .on('error', (err) => {\n      log.error(err.message);\n    })\n    .pipe(gulp.dest('dist'));\n});\n```\n\n## Why?\n\n### Why is critical-path CSS important?\n\n> CSS is required to construct the render tree for your pages and JavaScript\n> will often block on CSS during initial construction of the page.\n> You should ensure that any non-essential CSS is marked as non-critical\n> (e.g. print and other media queries), and that the amount of critical CSS\n> and the time to deliver it is as small as possible.\n\n### Why should critical-path CSS be inlined?\n\n> For best performance, you may want to consider inlining the critical CSS\n> directly into the HTML document. This eliminates additional roundtrips\n> in the critical path and if done correctly can be used to deliver a\n> \u201cone roundtrip\u201d critical path length where only the HTML is a blocking resource.\n\n## FAQ\n\n### Are there any sample projects available using Critical?\n\nWhy, yes!. Take a look at [this](https://github.com/addyosmani/critical-path-css-demo) Gulp project\nwhich demonstrates using Critical to generate and inline critical-path CSS. It also includes a mini-tutorial\nthat walks through how to use it in a simple webapp.\n\n### When should I just use Penthouse directly?\n\nThe main differences between Critical and [Penthouse](https://github.com/pocketjoso/penthouse), a module we\nuse, are:\n\n- Critical will automatically extract stylesheets from your HTML from which to generate critical-path CSS from,\n  whilst other modules generally require you to specify this upfront.\n- Critical provides methods for inlining critical-path CSS (a common logical next-step once your CSS is generated)\n- Since we tackle both generation and inlining, we're able to abstract away some of the ugly boilerplate otherwise\n  involved in tackling these problems separately.\n\nThat said, if your site or app has a large number of styles or styles which are being dynamically injected into\nthe DOM (sometimes common in Angular apps) I recommend using Penthouse directly. It will require you to supply\nstyles upfront, but this may provide a higher level of accuracy if you find Critical isn't serving your needs.\n\n### What other alternatives to Critical are available?\n\nFilamentGroup maintain a [criticalCSS](https://github.com/filamentgroup/criticalCSS) node module, which\nsimilar to [Penthouse](https://github.com/pocketjoso/penthouse) will find and output the critical-path CSS for\nyour pages. The PageSpeed Optimization modules for nginx, apache, IIS, ATS, and Open Lightspeed can do all the heavy\nlifting automatically when you enable the [prioritize_critical_css](https://developers.google.com/speed/docs/insights/OptimizeCSSDelivery) filter\n\n### Is Critical stable and suitable for production use?\n\nCritical has been used on a number of production sites that have found it stable for everyday use.\nThat said, we welcome you to try it out on your project and report bugs if you find them.\n\n## Can I contribute?\n\nOf course. We appreciate all of our [contributors](https://github.com/addyosmani/critical/graphs/contributors) and\nwelcome contributions to improve the project further. If you're uncertain whether an addition should be made, feel\nfree to open up an issue and we can discuss it.\n\n## Maintainers\n\nThis module is brought to you and maintained by the following people:\n\n- Addy Osmani - Creator ([Github](https://github.com/addyosmani) / [Twitter](https://twitter.com/addyosmani))\n- Ben Z\u00f6rb - Primary maintainer ([Github](https://github.com/bezoerb) / [Twitter](https://twitter.com/bezoerb))\n\n## License\n\n[Apache-2.0 \u00a9 Addy Osmani, Ben Z\u00f6rb](license)\n\n[npm-url]: https://www.npmjs.com/package/critical\n[npm-image]: https://img.shields.io/npm/v/critical.svg\n[ci-url]: https://github.com/addyosmani/critical/actions?workflow=Tests\n[ci-image]: https://github.com/addyosmani/critical/workflows/Tests/badge.svg\n[coveralls-url]: https://coveralls.io/github/addyosmani/critical?branch=master\n[coveralls-image]: https://img.shields.io/coveralls/github/addyosmani/critical/master.svg\n",
+        "releases": [
+            {
+                "name": "",
+                "date": "2024-09-23T20:00:45Z"
+            },
+            {
+                "name": "",
+                "date": "2024-08-17T21:02:23Z"
+            },
+            {
+                "name": "",
+                "date": "2024-04-21T22:19:00Z"
+            },
+            {
+                "name": "",
+                "date": "2024-03-26T07:13:32Z"
+            },
+            {
+                "name": "",
+                "date": "2024-01-28T22:25:10Z"
+            },
+            {
+                "name": "",
+                "date": "2024-01-27T22:55:14Z"
+            },
+            {
+                "name": "",
+                "date": "2024-01-11T23:12:44Z"
+            },
+            {
+                "name": "",
+                "date": "2023-10-09T05:35:36Z"
+            },
+            {
+                "name": "",
+                "date": "2023-10-08T22:09:42Z"
+            },
+            {
+                "name": "",
+                "date": "2023-10-08T07:07:15Z"
+            },
+            {
+                "name": "",
+                "date": "2023-10-06T21:59:15Z"
+            },
+            {
+                "name": "",
+                "date": "2023-09-18T22:23:19Z"
+            },
+            {
+                "name": "",
+                "date": "2023-09-14T20:09:36Z"
+            },
+            {
+                "name": "",
+                "date": "2023-09-12T22:34:19Z"
+            },
+            {
+                "name": "",
+                "date": "2023-04-10T22:06:01Z"
+            },
+            {
+                "name": "",
+                "date": "2023-04-09T22:32:16Z"
+            },
+            {
+                "name": "",
+                "date": "2022-12-12T21:35:27Z"
+            },
+            {
+                "name": "",
+                "date": "2022-10-03T21:30:25Z"
+            },
+            {
+                "name": "",
+                "date": "2022-09-16T16:03:05Z"
+            },
+            {
+                "name": "",
+                "date": "2022-09-06T21:43:07Z"
+            },
+            {
+                "name": "v5.0.0",
+                "date": "2022-09-06T21:19:24Z"
+            },
+            {
+                "name": "",
+                "date": "2021-07-19T21:42:19Z"
+            },
+            {
+                "name": "",
+                "date": "2021-06-06T21:22:04Z"
+            },
+            {
+                "name": "",
+                "date": "2021-05-27T21:57:02Z"
+            },
+            {
+                "name": "",
+                "date": "2021-04-14T22:21:24Z"
+            },
+            {
+                "name": "",
+                "date": "2021-02-25T23:22:46Z"
+            },
+            {
+                "name": "",
+                "date": "2020-10-30T23:19:04Z"
+            },
+            {
+                "name": "",
+                "date": "2020-10-11T22:00:48Z"
+            },
+            {
+                "name": "",
+                "date": "2020-09-07T06:04:41Z"
+            },
+            {
+                "name": "",
+                "date": "2020-08-18T23:42:10Z"
+            },
+            {
+                "name": "",
+                "date": "2020-08-18T22:52:45Z"
+            },
+            {
+                "name": "",
+                "date": "2020-06-17T05:59:08Z"
+            },
+            {
+                "name": "v2.0.0",
+                "date": "2020-06-16T21:50:48Z"
+            },
+            {
+                "name": "",
+                "date": "2020-06-16T21:40:23Z"
+            },
+            {
+                "name": "",
+                "date": "2020-06-11T23:01:33Z"
+            },
+            {
+                "name": "",
+                "date": "2020-05-31T23:06:00Z"
+            },
+            {
+                "name": "",
+                "date": "2020-05-24T21:59:41Z"
+            },
+            {
+                "name": "",
+                "date": "2020-04-08T22:00:32Z"
+            },
+            {
+                "name": "",
+                "date": "2019-12-01T22:31:42Z"
+            },
+            {
+                "name": "",
+                "date": "2019-11-30T23:06:25Z"
+            },
+            {
+                "name": "",
+                "date": "2019-10-27T21:50:20Z"
+            },
+            {
+                "name": "",
+                "date": "2019-10-27T21:49:06Z"
+            },
+            {
+                "name": "",
+                "date": "2019-10-06T22:10:33Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-25T22:30:18Z"
+            },
+            {
+                "name": "",
+                "date": "2019-08-16T21:38:41Z"
+            },
+            {
+                "name": "",
+                "date": "2019-08-15T21:53:59Z"
+            },
+            {
+                "name": "",
+                "date": "2019-08-14T21:15:11Z"
+            },
+            {
+                "name": "v1.2.0",
+                "date": "2018-03-19T23:00:02Z"
+            },
+            {
+                "name": "v1.1.1",
+                "date": "2018-03-15T06:45:06Z"
+            },
+            {
+                "name": "v1.1.0",
+                "date": "2017-12-02T00:14:10Z"
+            },
+            {
+                "name": "v1.0.0",
+                "date": "2017-11-06T05:35:01Z"
+            },
+            {
+                "name": "v0.9.1",
+                "date": "2017-09-04T04:15:11Z"
+            },
+            {
+                "name": "v0.9.0",
+                "date": "2017-07-19T22:17:56Z"
+            },
+            {
+                "name": "v0.8.4",
+                "date": "2017-03-01T06:56:19Z"
+            },
+            {
+                "name": "v0.8.3",
+                "date": "2017-02-17T06:48:07Z"
+            },
+            {
+                "name": "v0.8.2",
+                "date": "2017-02-17T06:27:27Z"
+            },
+            {
+                "name": "v0.8.1",
+                "date": "2016-11-25T04:40:24Z"
+            },
+            {
+                "name": "v0.8.0",
+                "date": "2016-08-30T23:55:18Z"
+            },
+            {
+                "name": "v0.7.3",
+                "date": "2016-05-30T18:30:30Z"
+            },
+            {
+                "name": "v0.7.2",
+                "date": "2016-03-17T22:06:14Z"
+            },
+            {
+                "name": "Critical 0.7.0",
+                "date": "2015-12-22T11:39:08Z"
+            },
+            {
+                "name": "0.6.0",
+                "date": "2015-07-07T14:52:17Z"
+            },
+            {
+                "name": "0.5.7",
+                "date": "2015-04-12T17:07:06Z"
+            },
+            {
+                "name": "0.5.6",
+                "date": "2015-03-16T14:10:58Z"
+            },
+            {
+                "name": "0.5.5 - angelic expedient",
+                "date": "2015-03-03T22:18:01Z"
+            },
+            {
+                "name": "0.5.4",
+                "date": "2015-02-09T13:57:03Z"
+            },
+            {
+                "name": "0.5.3",
+                "date": "2015-01-17T16:35:35Z"
+            },
+            {
+                "name": "0.5.2",
+                "date": "2015-01-11T23:53:49Z"
+            },
+            {
+                "name": "critical 0.5.1 legendary-velvet",
+                "date": "2014-12-28T15:53:20Z"
+            },
+            {
+                "name": "v0.5.0 speedy-whistle",
+                "date": "2014-11-28T13:27:48Z"
+            },
+            {
+                "name": "0.4.0 multidimensional deputy",
+                "date": "2014-10-04T16:37:16Z"
+            },
+            {
+                "name": "0.3.1",
+                "date": "2014-09-20T11:33:30Z"
+            },
+            {
+                "name": "v0.3.0",
+                "date": "2014-09-09T21:14:51Z"
+            },
+            {
+                "name": "v0.2.0-homemade-turntable",
+                "date": "2014-08-31T12:04:18Z"
+            },
+            {
+                "name": "v0.1.6",
+                "date": "2014-07-30T20:28:09Z"
+            }
+        ]
+    }
+}

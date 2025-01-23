@@ -1,0 +1,199 @@
+{
+    "https://api.github.com/repos/dompdf/dompdf": {
+        "forks": 1803,
+        "watchers": 10675,
+        "stars": 10675,
+        "languages": {
+            "PHP": 1353863,
+            "HTML": 53927,
+            "CSS": 7482
+        },
+        "commits": [
+            "2025-01-16T13:04:16Z",
+            "2025-01-15T14:09:04Z",
+            "2025-01-12T16:13:20Z",
+            "2025-01-12T00:42:03Z",
+            "2025-01-11T04:20:16Z",
+            "2025-01-11T04:15:19Z",
+            "2025-01-05T17:28:11Z",
+            "2025-01-04T22:40:30Z",
+            "2025-01-12T20:45:17Z",
+            "2025-01-02T01:45:18Z",
+            "2025-01-02T01:08:23Z",
+            "2025-01-02T01:07:11Z",
+            "2025-01-02T00:59:07Z",
+            "2024-04-18T21:01:22Z",
+            "2024-04-18T20:48:39Z",
+            "2023-09-01T16:34:47Z",
+            "2025-01-13T13:27:50Z",
+            "2025-01-13T13:27:26Z",
+            "2025-01-13T12:31:02Z",
+            "2022-02-17T14:10:45Z",
+            "2025-01-13T11:56:00Z",
+            "2024-07-06T16:43:01Z",
+            "2024-12-31T16:07:20Z",
+            "2024-12-27T20:27:37Z",
+            "2024-12-19T16:00:20Z",
+            "2024-12-14T21:03:50Z",
+            "2024-12-14T20:41:30Z",
+            "2024-12-14T20:40:59Z",
+            "2024-12-14T20:40:38Z",
+            "2024-12-10T13:08:48Z"
+        ],
+        "creation_date": "2012-11-12T20:47:16Z",
+        "contributors": 30,
+        "topics": [
+            "css",
+            "dompdf",
+            "font",
+            "html",
+            "html-to-pdf",
+            "pdf-generation",
+            "php"
+        ],
+        "subscribers": 291,
+        "readme": "Dompdf\n======\n\n[![Build Status](https://github.com/dompdf/dompdf/actions/workflows/test.yml/badge.svg)](https://github.com/dompdf/dompdf/actions/workflows/test.yml)\n[![PHP Versions Supported](https://poser.pugx.org/dompdf/dompdf/require/php)](https://packagist.org/packages/dompdf/dompdf)\n[![Latest Release](https://poser.pugx.org/dompdf/dompdf/v)](https://packagist.org/packages/dompdf/dompdf)\n[![Total Downloads](https://poser.pugx.org/dompdf/dompdf/downloads)](https://packagist.org/packages/dompdf/dompdf)\n[![License](https://poser.pugx.org/dompdf/dompdf/license)](https://packagist.org/packages/dompdf/dompdf)\n \n**Dompdf is an HTML to PDF converter**\n\nAt its heart, dompdf is (mostly) a [CSS 2.1](http://www.w3.org/TR/CSS2/) compliant\nHTML layout and rendering engine written in PHP. It is a style-driven renderer:\nit will download and read external stylesheets, inline style tags, and the style\nattributes of individual HTML elements. It also supports most presentational\nHTML attributes.\n\n*This document applies to the latest stable code which may not reflect the current \nrelease. For released code please\n[navigate to the appropriate tag](https://github.com/dompdf/dompdf/tags).*\n\n----\n\n**Check out the [demo](http://eclecticgeek.com/dompdf/debug.php) and ask any\nquestion on [StackOverflow](https://stackoverflow.com/questions/tagged/dompdf) or\nin [Discussions](https://github.com/dompdf/dompdf/discussions).**\n\nFollow us on [![Twitter](http://twitter-badges.s3.amazonaws.com/twitter-a.png)](http://www.twitter.com/dompdf).\n\n---\n\n\n\n## Features\n\n * Handles most CSS 2.1 and a few CSS3 properties, including @import, @media &\n   @page rules\n * Supports most presentational HTML 4.0 attributes\n * Supports external stylesheets, either local or through http/ftp (via\n   fopen-wrappers)\n * Supports complex tables, including row & column spans, separate & collapsed\n   border models, individual cell styling\n * Image support (gif, png (8, 24 and 32 bit with alpha channel), bmp & jpeg)\n * No dependencies on external PDF libraries, thanks to the R&OS PDF class\n * Inline PHP support\n * Basic SVG support (see \"Limitations\" below)\n \n## Requirements\n\n * PHP version 7.1 or higher\n * DOM extension\n * MBString extension\n * php-font-lib\n * php-svg-lib\n \nNote that some required dependencies may have further dependencies \n(notably php-svg-lib requires sabberworm/php-css-parser).\n\n### Recommendations\n\n * GD (for image processing)\n   * Additionally, the IMagick or GMagick extension improves image processing performance for certain image types\n * OPcache (OPcache, XCache, APC, etc.): improves performance\n\nVisit the wiki for more information:\nhttps://github.com/dompdf/dompdf/wiki/Requirements\n\n## About Fonts & Character Encoding\n\nPDF documents internally support the following fonts: Helvetica, Times-Roman,\nCourier, Zapf-Dingbats, & Symbol. These fonts only support Windows ANSI\nencoding. In order for a PDF to display characters that are not available in\nWindows ANSI, you must supply an external font. Dompdf will embed any referenced\nfont in the PDF so long as it has been pre-loaded or is accessible to dompdf and\nreference in CSS @font-face rules. See the\n[font overview](https://github.com/dompdf/dompdf/wiki/About-Fonts-and-Character-Encoding)\nfor more information on how to use fonts.\n\nThe [DejaVu TrueType fonts](https://dejavu-fonts.github.io/) have been pre-installed\nto give dompdf decent Unicode character coverage by default. To use the DejaVu\nfonts reference the font in your stylesheet, e.g. `body { font-family: DejaVu\nSans; }` (for DejaVu Sans). The following DejaVu 2.34 fonts are available:\nDejaVu Sans, DejaVu Serif, and DejaVu Sans Mono.\n\n## Easy Installation\n\n### Install with composer\n\nTo install with [Composer](https://getcomposer.org/), simply require the\nlatest version of this package.\n\n```bash\ncomposer require dompdf/dompdf\n```\n\nMake sure that the autoload file from Composer is loaded.\n\n```php\n// somewhere early in your project's loading, require the Composer autoloader\n// see: http://getcomposer.org/doc/00-intro.md\nrequire 'vendor/autoload.php';\n```\n\n### Download and install\n\nDownload a packaged archive of dompdf and extract it into the \ndirectory where dompdf will reside\n\n * You can download stable copies of dompdf from\n   https://github.com/dompdf/dompdf/releases\n * Or download a nightly (the latest, unreleased code) from\n   http://eclecticgeek.com/dompdf\n\nUse the packaged release autoloader to load dompdf, libraries,\nand helper functions in your PHP:\n\n```php\n// include autoloader\nrequire_once 'dompdf/autoload.inc.php';\n```\n\nNote: packaged releases are named according using semantic\nversioning (_dompdf_MAJOR-MINOR-PATCH.zip_). So the 1.0.0 \nrelease would be dompdf_1-0-0.zip. This is the only download\nthat includes the autoloader for Dompdf and all its dependencies.\n\n### Install with git\n\nFrom the command line, switch to the directory where dompdf will\nreside and run the following commands:\n\n```sh\ngit clone https://github.com/dompdf/dompdf.git\ncd dompdf/lib\n\ngit clone https://github.com/PhenX/php-font-lib.git php-font-lib\ncd php-font-lib\ngit checkout 0.5.1\ncd ..\n\ngit clone https://github.com/PhenX/php-svg-lib.git php-svg-lib\ncd php-svg-lib\ngit checkout v0.3.2\ncd ..\n\ngit clone https://github.com/sabberworm/PHP-CSS-Parser.git php-css-parser\ncd php-css-parser\ngit checkout 8.1.0\n```\n\nRequire dompdf and it's dependencies in your PHP.\nFor details see the [autoloader in the utils project](https://github.com/dompdf/utils/blob/master/autoload.inc.php).\n\n## Framework Integration\n\n* For Symfony: [nucleos/dompdf-bundle](https://github.com/nucleos/NucleosDompdfBundle)\n* For Laravel: [barryvdh/laravel-dompdf](https://github.com/barryvdh/laravel-dompdf)\n* For Redaxo: [PdfOut](https://github.com/FriendsOfREDAXO/pdfout)\n\n## Quick Start\n\nJust pass your HTML in to dompdf and stream the output:\n\n```php\n// reference the Dompdf namespace\nuse Dompdf\\Dompdf;\n\n// instantiate and use the dompdf class\n$dompdf = new Dompdf();\n$dompdf->loadHtml('hello world');\n\n// (Optional) Setup the paper size and orientation\n$dompdf->setPaper('A4', 'landscape');\n\n// Render the HTML as PDF\n$dompdf->render();\n\n// Output the generated PDF to Browser\n$dompdf->stream();\n```\n\n### Setting Options\n\nSet options during dompdf instantiation:\n\n```php\nuse Dompdf\\Dompdf;\nuse Dompdf\\Options;\n\n$options = new Options();\n$options->set('defaultFont', 'Courier');\n$dompdf = new Dompdf($options);\n```\n\nor at run time\n\n```php\nuse Dompdf\\Dompdf;\n\n$dompdf = new Dompdf();\n$options = $dompdf->getOptions();\n$options->setDefaultFont('Courier');\n$dompdf->setOptions($options);\n```\n\nSee [Dompdf\\Options](src/Options.php) for a list of available options.\n\n### Resource Reference Requirements\n\nIn order to protect potentially sensitive information Dompdf imposes \nrestrictions on files referenced from the local file system or the web. \n\nFiles accessed through web-based protocols have the following requirements:\n * The Dompdf option \"isRemoteEnabled\" must be set to \"true\"\n * PHP must either have the curl extension enabled or the \n   allow_url_fopen setting set to true\n   \nFiles accessed through the local file system have the following requirement:\n * The file must fall within the path(s) specified for the Dompdf \"chroot\" option\n\n## Limitations (Known Issues)\n\n * Table cells are not pageable, meaning a table row must fit on a single page.\n * Elements are rendered on the active page when they are parsed.\n * Embedding \"raw\" SVG's (`<svg><path...></svg>`) isn't working yet, you need to\n   either link to an external SVG file, or use a DataURI like this:\n     ```php\n     $html = '<img src=\"data:image/svg+xml;base64,' . base64_encode($svg) . '\" ...>';\n     ```\n     Watch https://github.com/dompdf/dompdf/issues/320 for progress\n * Does not support CSS flexbox.\n * Does not support CSS Grid.\n * A single Dompdf instance should not be used to render more than one HTML document\n   because persisted parsing and rendering artifacts can impact future renders.\n---\n\n[![Donate button](https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif)](http://goo.gl/DSvWf)\n\n*If you find this project useful, please consider making a donation.\nAny funds donated will be used to help further development on this project.)*\n",
+        "releases": [
+            {
+                "name": "Dompdf 3.1.0",
+                "date": "2025-01-16T13:00:39Z"
+            },
+            {
+                "name": "v3.0.2",
+                "date": "2024-12-31T16:06:30Z"
+            },
+            {
+                "name": "Dompdf 3.0.1",
+                "date": "2024-12-05T15:00:15Z"
+            },
+            {
+                "name": "Dompdf 3.0.0",
+                "date": "2024-05-13T11:09:04Z"
+            },
+            {
+                "name": "Dompdf 2.0.8",
+                "date": "2024-04-29T13:10:43Z"
+            },
+            {
+                "name": "Dompdf 2.0.7",
+                "date": "2024-04-15T12:42:33Z"
+            },
+            {
+                "name": "Dompdf 2.0.4",
+                "date": "2023-12-13T15:55:49Z"
+            },
+            {
+                "name": "Dompdf 2.0.3",
+                "date": "2023-02-07T12:55:40Z"
+            },
+            {
+                "name": "Dompdf 2.0.2",
+                "date": "2023-01-31T13:32:39Z"
+            },
+            {
+                "name": "Dompdf 2.0.1",
+                "date": "2022-09-22T13:54:57Z"
+            },
+            {
+                "name": "Dompdf 2.0.0",
+                "date": "2022-06-23T13:55:59Z"
+            },
+            {
+                "name": "Dompdf 1.2.2",
+                "date": "2022-04-29T12:29:59Z"
+            },
+            {
+                "name": "Dompdf 1.2.1",
+                "date": "2022-03-24T12:59:16Z"
+            },
+            {
+                "name": "Dompdf 1.2.0",
+                "date": "2022-02-07T13:04:19Z"
+            },
+            {
+                "name": "Dompdf 1.1.1",
+                "date": "2021-11-24T15:23:00Z"
+            },
+            {
+                "name": "Dompdf 1.1.0",
+                "date": "2021-11-16T18:40:35Z"
+            },
+            {
+                "name": "Dompdf 1.0.2",
+                "date": "2021-01-08T14:19:04Z"
+            },
+            {
+                "name": "Dompdf 1.0.1",
+                "date": "2020-12-31T13:28:30Z"
+            },
+            {
+                "name": "Dompdf 1.0.0",
+                "date": "2020-12-24T20:01:39Z"
+            },
+            {
+                "name": "Dompdf 0.8.6",
+                "date": "2020-09-07T00:54:11Z"
+            },
+            {
+                "name": "Dompdf 0.8.5",
+                "date": "2020-02-21T02:11:29Z"
+            },
+            {
+                "name": "Dompdf 0.8.4",
+                "date": "2020-01-20T18:35:46Z"
+            },
+            {
+                "name": "Dompdf 0.8.3",
+                "date": "2018-12-18T01:38:58Z"
+            },
+            {
+                "name": "Dompdf 0.8.2",
+                "date": "2017-11-26T15:04:22Z"
+            },
+            {
+                "name": "Dompdf 0.8.1",
+                "date": "2017-11-21T04:25:37Z"
+            },
+            {
+                "name": "Dompdf 0.8.0",
+                "date": "2017-02-19T00:55:41Z"
+            },
+            {
+                "name": "dompdf 0.7.0",
+                "date": "2016-05-12T02:52:57Z"
+            },
+            {
+                "name": "dompdf 0.7.0 beta 3",
+                "date": "2016-01-22T02:12:32Z"
+            },
+            {
+                "name": "DOMPDF 0.6.2",
+                "date": "2015-12-11T21:58:37Z"
+            },
+            {
+                "name": "dompdf 0.7.0 beta 2",
+                "date": "2015-09-27T14:21:21Z"
+            },
+            {
+                "name": "dompdf 0.7.0 beta",
+                "date": "2015-05-04T21:20:47Z"
+            },
+            {
+                "name": "DOMPDF 0.6.1",
+                "date": "2014-03-14T18:17:38Z"
+            },
+            {
+                "name": "DOMPDF 0.6.0",
+                "date": "2014-03-14T18:15:32Z"
+            },
+            {
+                "name": "DOMPDF 0.5.2",
+                "date": "2013-08-17T02:03:00Z"
+            },
+            {
+                "name": "DOMPDF 0.6.0 beta 3",
+                "date": "2013-08-16T05:17:45Z"
+            }
+        ]
+    }
+}

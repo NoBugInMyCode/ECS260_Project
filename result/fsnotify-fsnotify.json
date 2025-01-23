@@ -1,0 +1,166 @@
+{
+    "https://api.github.com/repos/fsnotify/fsnotify": {
+        "forks": 925,
+        "watchers": 9786,
+        "stars": 9786,
+        "languages": {
+            "Go": 174768,
+            "C": 2807
+        },
+        "commits": [
+            "2024-10-31T10:15:51Z",
+            "2024-10-28T11:31:39Z",
+            "2024-10-28T10:47:16Z",
+            "2024-05-16T15:12:59Z",
+            "2024-05-16T15:12:40Z",
+            "2024-05-15T16:13:22Z",
+            "2024-05-02T02:45:40Z",
+            "2024-05-01T20:24:37Z",
+            "2024-05-01T19:35:47Z",
+            "2024-05-01T06:19:39Z",
+            "2024-05-01T05:21:29Z",
+            "2024-05-01T02:03:08Z",
+            "2024-05-01T02:01:14Z",
+            "2024-05-01T00:04:19Z",
+            "2024-04-29T16:49:03Z",
+            "2024-04-27T19:32:20Z",
+            "2024-04-27T18:28:55Z",
+            "2024-04-27T17:05:06Z",
+            "2024-04-27T16:25:23Z",
+            "2024-04-27T01:13:29Z",
+            "2024-04-26T00:22:34Z",
+            "2024-04-25T14:39:36Z",
+            "2024-04-25T12:39:42Z",
+            "2024-04-25T10:12:52Z",
+            "2024-04-25T10:07:07Z",
+            "2024-04-06T11:00:20Z",
+            "2024-04-03T11:39:15Z",
+            "2024-04-03T10:45:25Z",
+            "2024-04-03T08:40:21Z",
+            "2024-04-03T05:18:15Z"
+        ],
+        "creation_date": "2014-06-28T16:47:01Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 151,
+        "readme": "fsnotify is a Go library to provide cross-platform filesystem notifications on\nWindows, Linux, macOS, BSD, and illumos.\n\nGo 1.17 or newer is required; the full documentation is at\nhttps://pkg.go.dev/github.com/fsnotify/fsnotify\n\n---\n\nPlatform support:\n\n| Backend               | OS         | Status                                                                    |\n| :-------------------- | :--------- | :------------------------------------------------------------------------ |\n| inotify               | Linux      | Supported                                                                 |\n| kqueue                | BSD, macOS | Supported                                                                 |\n| ReadDirectoryChangesW | Windows    | Supported                                                                 |\n| FEN                   | illumos    | Supported                                                                 |\n| fanotify              | Linux 5.9+ | [Not yet](https://github.com/fsnotify/fsnotify/issues/114)                |\n| AHAFS                 | AIX        | [aix branch]; experimental due to lack of maintainer and test environment |\n| FSEvents              | macOS      | [Needs support in x/sys/unix][fsevents]                                   |\n| USN Journals          | Windows    | [Needs support in x/sys/windows][usn]                                     |\n| Polling               | *All*      | [Not yet](https://github.com/fsnotify/fsnotify/issues/9)                  |\n\nLinux and illumos should include Android and Solaris, but these are currently\nuntested.\n\n[fsevents]:   https://github.com/fsnotify/fsnotify/issues/11#issuecomment-1279133120\n[usn]:        https://github.com/fsnotify/fsnotify/issues/53#issuecomment-1279829847\n[aix branch]: https://github.com/fsnotify/fsnotify/issues/353#issuecomment-1284590129\n\nUsage\n-----\nA basic example:\n\n```go\npackage main\n\nimport (\n    \"log\"\n\n    \"github.com/fsnotify/fsnotify\"\n)\n\nfunc main() {\n    // Create new watcher.\n    watcher, err := fsnotify.NewWatcher()\n    if err != nil {\n        log.Fatal(err)\n    }\n    defer watcher.Close()\n\n    // Start listening for events.\n    go func() {\n        for {\n            select {\n            case event, ok := <-watcher.Events:\n                if !ok {\n                    return\n                }\n                log.Println(\"event:\", event)\n                if event.Has(fsnotify.Write) {\n                    log.Println(\"modified file:\", event.Name)\n                }\n            case err, ok := <-watcher.Errors:\n                if !ok {\n                    return\n                }\n                log.Println(\"error:\", err)\n            }\n        }\n    }()\n\n    // Add a path.\n    err = watcher.Add(\"/tmp\")\n    if err != nil {\n        log.Fatal(err)\n    }\n\n    // Block main goroutine forever.\n    <-make(chan struct{})\n}\n```\n\nSome more examples can be found in [cmd/fsnotify](cmd/fsnotify), which can be\nrun with:\n\n    % go run ./cmd/fsnotify\n\nFurther detailed documentation can be found in godoc:\nhttps://pkg.go.dev/github.com/fsnotify/fsnotify\n\nFAQ\n---\n### Will a file still be watched when it's moved to another directory?\nNo, not unless you are watching the location it was moved to.\n\n### Are subdirectories watched?\nNo, you must add watches for any directory you want to watch (a recursive\nwatcher is on the roadmap: [#18]).\n\n[#18]: https://github.com/fsnotify/fsnotify/issues/18\n\n### Do I have to watch the Error and Event channels in a goroutine?\nYes. You can read both channels in the same goroutine using `select` (you don't\nneed a separate goroutine for both channels; see the example).\n\n### Why don't notifications work with NFS, SMB, FUSE, /proc, or /sys?\nfsnotify requires support from underlying OS to work. The current NFS and SMB\nprotocols does not provide network level support for file notifications, and\nneither do the /proc and /sys virtual filesystems.\n\nThis could be fixed with a polling watcher ([#9]), but it's not yet implemented.\n\n[#9]: https://github.com/fsnotify/fsnotify/issues/9\n\n### Why do I get many Chmod events?\nSome programs may generate a lot of attribute changes; for example Spotlight on\nmacOS, anti-virus programs, backup applications, and some others are known to do\nthis. As a rule, it's typically best to ignore Chmod events. They're often not\nuseful, and tend to cause problems.\n\nSpotlight indexing on macOS can result in multiple events (see [#15]). A\ntemporary workaround is to add your folder(s) to the *Spotlight Privacy\nsettings* until we have a native FSEvents implementation (see [#11]).\n\n[#11]: https://github.com/fsnotify/fsnotify/issues/11\n[#15]: https://github.com/fsnotify/fsnotify/issues/15\n\n### Watching a file doesn't work well\nWatching individual files (rather than directories) is generally not recommended\nas many programs (especially editors) update files atomically: it will write to\na temporary file which is then moved to to destination, overwriting the original\n(or some variant thereof). The watcher on the original file is now lost, as that\nno longer exists.\n\nThe upshot of this is that a power failure or crash won't leave a half-written\nfile.\n\nWatch the parent directory and use `Event.Name` to filter out files you're not\ninterested in. There is an example of this in `cmd/fsnotify/file.go`.\n\nPlatform-specific notes\n-----------------------\n### Linux\nWhen a file is removed a REMOVE event won't be emitted until all file\ndescriptors are closed; it will emit a CHMOD instead:\n\n    fp := os.Open(\"file\")\n    os.Remove(\"file\")        // CHMOD\n    fp.Close()               // REMOVE\n\nThis is the event that inotify sends, so not much can be changed about this.\n\nThe `fs.inotify.max_user_watches` sysctl variable specifies the upper limit for\nthe number of watches per user, and `fs.inotify.max_user_instances` specifies\nthe maximum number of inotify instances per user. Every Watcher you create is an\n\"instance\", and every path you add is a \"watch\".\n\nThese are also exposed in `/proc` as `/proc/sys/fs/inotify/max_user_watches` and\n`/proc/sys/fs/inotify/max_user_instances`\n\nTo increase them you can use `sysctl` or write the value to proc file:\n\n    # The default values on Linux 5.18\n    sysctl fs.inotify.max_user_watches=124983\n    sysctl fs.inotify.max_user_instances=128\n\nTo make the changes persist on reboot edit `/etc/sysctl.conf` or\n`/usr/lib/sysctl.d/50-default.conf` (details differ per Linux distro; check your\ndistro's documentation):\n\n    fs.inotify.max_user_watches=124983\n    fs.inotify.max_user_instances=128\n\nReaching the limit will result in a \"no space left on device\" or \"too many open\nfiles\" error.\n\n### kqueue (macOS, all BSD systems)\nkqueue requires opening a file descriptor for every file that's being watched;\nso if you're watching a directory with five files then that's six file\ndescriptors. You will run in to your system's \"max open files\" limit faster on\nthese platforms.\n\nThe sysctl variables `kern.maxfiles` and `kern.maxfilesperproc` can be used to\ncontrol the maximum number of open files.\n",
+        "releases": [
+            {
+                "name": "v1.8.0",
+                "date": "2024-10-31T10:17:08Z"
+            },
+            {
+                "name": "v1.7.0",
+                "date": "2023-10-22T06:28:14Z"
+            },
+            {
+                "name": "v1.6.0",
+                "date": "2022-10-13T01:21:00Z"
+            },
+            {
+                "name": "v1.5.4",
+                "date": "2022-04-27T02:09:19Z"
+            },
+            {
+                "name": "v1.5.2",
+                "date": "2022-04-27T02:10:23Z"
+            },
+            {
+                "name": "Revert Add AddRaw to not follow symlinks",
+                "date": "2021-08-24T19:37:15Z"
+            },
+            {
+                "name": "Add AddRaw which does not dereference symlinks",
+                "date": "2021-08-18T23:05:07Z"
+            },
+            {
+                "name": "Move example usage to the readme",
+                "date": "2020-03-11T17:37:08Z"
+            },
+            {
+                "name": "Use close-on-exec",
+                "date": "2020-03-10T16:41:17Z"
+            },
+            {
+                "name": "Fewer deadlocks",
+                "date": "2018-01-10T05:36:08Z"
+            },
+            {
+                "name": "Fix for fork/exec on Linux",
+                "date": "2016-10-11T02:34:39Z"
+            },
+            {
+                "name": "deflakery",
+                "date": "2016-10-05T04:07:53Z"
+            },
+            {
+                "name": "String() method for Event.Op",
+                "date": "2016-10-02T05:00:56Z"
+            },
+            {
+                "name": "a fix for Windows",
+                "date": "2016-06-29T01:13:26Z"
+            },
+            {
+                "name": "switch to golang.org/x/sys",
+                "date": "2016-04-20T01:39:40Z"
+            },
+            {
+                "name": "Code cleanup",
+                "date": "2016-03-03T03:50:39Z"
+            },
+            {
+                "name": "Fix for atomic editor saves on macOS",
+                "date": "2016-01-14T02:11:55Z"
+            },
+            {
+                "name": "Off to the races",
+                "date": "2015-12-17T18:52:42Z"
+            },
+            {
+                "name": "inotify updates require Linux 2.6.27 or later",
+                "date": "2015-11-17T21:54:48Z"
+            },
+            {
+                "name": "Bug fixing",
+                "date": "2015-10-14T23:45:11Z"
+            },
+            {
+                "name": "\"Closing Time\"",
+                "date": "2015-02-08T20:34:27Z"
+            },
+            {
+                "name": "inotify: Retry read on EINTR",
+                "date": "2015-02-06T00:20:14Z"
+            },
+            {
+                "name": "another backport",
+                "date": "2015-01-01T03:26:01Z"
+            },
+            {
+                "name": "focus on kqueue",
+                "date": "2014-12-13T06:48:51Z"
+            },
+            {
+                "name": "DragonFly BSD",
+                "date": "2014-09-08T03:54:50Z"
+            },
+            {
+                "name": "Fix: Windows rename consistiency",
+                "date": "2014-08-20T03:06:16Z"
+            },
+            {
+                "name": "Fix missing create events on macOS",
+                "date": "2014-08-17T22:34:34Z"
+            },
+            {
+                "name": "Backport",
+                "date": "2014-08-17T22:33:35Z"
+            },
+            {
+                "name": "A New API",
+                "date": "2014-08-17T22:36:02Z"
+            }
+        ]
+    }
+}

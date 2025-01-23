@@ -1,0 +1,201 @@
+{
+    "https://api.github.com/repos/gperftools/gperftools": {
+        "forks": 1505,
+        "watchers": 8542,
+        "stars": 8542,
+        "languages": {
+            "C++": 1627531,
+            "Perl": 177729,
+            "M4": 66167,
+            "C": 46596,
+            "Makefile": 39520,
+            "CMake": 35800,
+            "Shell": 14257,
+            "Ruby": 6636,
+            "Assembly": 3734
+        },
+        "commits": [
+            "2025-01-21T17:05:04Z",
+            "2025-01-16T13:21:29Z",
+            "2025-01-21T16:30:32Z",
+            "2025-01-21T16:32:03Z",
+            "2025-01-18T18:27:41Z",
+            "2024-11-24T22:52:53Z",
+            "2024-11-24T22:06:10Z",
+            "2024-11-24T20:13:25Z",
+            "2024-11-24T19:59:56Z",
+            "2024-12-31T05:21:35Z",
+            "2024-12-31T04:47:21Z",
+            "2025-01-12T22:05:28Z",
+            "2024-11-24T18:57:57Z",
+            "2024-11-23T18:36:47Z",
+            "2024-10-16T00:58:26Z",
+            "2024-10-16T00:50:46Z",
+            "2024-10-16T00:39:34Z",
+            "2024-10-08T22:39:32Z",
+            "2024-10-08T22:33:37Z",
+            "2024-10-15T21:47:45Z",
+            "2024-10-15T21:45:32Z",
+            "2024-10-05T21:53:00Z",
+            "2024-10-05T21:47:22Z",
+            "2024-10-05T14:55:00Z",
+            "2024-10-05T15:02:21Z",
+            "2024-10-05T14:40:24Z",
+            "2024-10-04T22:15:15Z",
+            "2024-10-04T23:03:27Z",
+            "2024-10-02T21:05:39Z",
+            "2024-10-02T23:24:41Z"
+        ],
+        "creation_date": "2014-01-28T11:15:07Z",
+        "contributors": 30,
+        "topics": [],
+        "subscribers": 362,
+        "readme": "gperftools\n----------\n(originally Google Performance Tools)\n\nThe fastest malloc we\u2019ve seen; works particularly well with threads\nand STL. Also: heap-profiler, and cpu-profiler.\n\n\nOVERVIEW\n---------\n\ngperftools is a collection of a high-performance multi-threaded\nmalloc() implementation, plus some pretty nifty performance analysis\ntools.\n\ngperftools is distributed under the terms of the BSD License. Join our\nmailing list at gperftools@googlegroups.com for updates:\nhttps://groups.google.com/forum/#!forum/gperftools\n\ngperftools was original home for pprof program. But do note that\noriginal pprof (which is still included with gperftools) is now\ndeprecated in favor of Go version at https://github.com/google/pprof\n\n\nTCMALLOC\n--------\nJust link in -ltcmalloc or -ltcmalloc_minimal to get the advantages of\ntcmalloc -- a replacement for malloc and new.  See below for some\nenvironment variables you can use with tcmalloc, as well.\n\ntcmalloc functionality is available on all systems we've tested; see\nINSTALL for more details.  See README_windows.txt for instructions on\nusing tcmalloc on Windows.\n\nwhen compiling.  gcc makes some optimizations assuming it is using its\nown, built-in malloc; that assumption obviously isn't true with\ntcmalloc.  In practice, we haven't seen any problems with this, but\nthe expected risk is highest for users who register their own malloc\nhooks with tcmalloc (using gperftools/malloc_hook.h).  The risk is\nlowest for folks who use tcmalloc_minimal (or, of course, who pass in\nthe above flags :-) ).\n\n\nHEAP PROFILER\n-------------\nSee docs/heapprofile.html for information about how to use tcmalloc's\nheap profiler and analyze its output.\n\nAs a quick-start, do the following after installing this package:\n\n1) Link your executable with -ltcmalloc\n2) Run your executable with the HEAPPROFILE environment var set:\n     $ HEAPPROFILE=/tmp/heapprof <path/to/binary> [binary args]\n3) Run pprof to analyze the heap usage\n     $ pprof <path/to/binary> /tmp/heapprof.0045.heap  # run 'ls' to see options\n     $ pprof --gv <path/to/binary> /tmp/heapprof.0045.heap\n\nYou can also use LD_PRELOAD to heap-profile an executable that you\ndidn't compile.\n\nThere are other environment variables, besides HEAPPROFILE, you can\nset to adjust the heap-profiler behavior; c.f. \"ENVIRONMENT VARIABLES\"\nbelow.\n\nThe heap profiler is available on all unix-based systems we've tested;\nsee INSTALL for more details.  It is not currently available on Windows.\n\n\nCPU PROFILER\n------------\nSee docs/cpuprofile.html for information about how to use the CPU\nprofiler and analyze its output.\n\nAs a quick-start, do the following after installing this package:\n\n1) Link your executable with -lprofiler\n2) Run your executable with the CPUPROFILE environment var set:\n     $ CPUPROFILE=/tmp/prof.out <path/to/binary> [binary args]\n3) Run pprof to analyze the CPU usage\n     $ pprof <path/to/binary> /tmp/prof.out      # -pg-like text output\n     $ pprof --gv <path/to/binary> /tmp/prof.out # really cool graphical output\n\nThere are other environment variables, besides CPUPROFILE, you can set\nto adjust the cpu-profiler behavior; cf \"ENVIRONMENT VARIABLES\" below.\n\nThe CPU profiler is available on all unix-based systems we've tested;\nsee INSTALL for more details.  It is not currently available on Windows.\n\nNOTE: CPU profiling doesn't work after fork (unless you immediately\n      do an exec()-like call afterwards).  Furthermore, if you do\n      fork, and the child calls exit(), it may corrupt the profile\n      data.  You can use _exit() to work around this.  We hope to have\n      a fix for both problems in the next release of perftools\n      (hopefully perftools 1.2).\n\n\nEVERYTHING IN ONE\n-----------------\nIf you want the CPU profiler, heap profiler, and heap leak-checker to\nall be available for your application, you can do:\n   gcc -o myapp ... -lprofiler -ltcmalloc\n\nHowever, if you have a reason to use the static versions of the\nlibrary, this two-library linking won't work:\n   gcc -o myapp ... /usr/lib/libprofiler.a /usr/lib/libtcmalloc.a  # errors!\n\nInstead, use the special libtcmalloc_and_profiler library, which we\nmake for just this purpose:\n   gcc -o myapp ... /usr/lib/libtcmalloc_and_profiler.a\n\n\nCONFIGURATION OPTIONS\n---------------------\nFor advanced users, there are several flags you can pass to\n'./configure' that tweak tcmalloc performance.  (These are in addition\nto the environment variables you can set at runtime to affect\ntcmalloc, described below.)  See the INSTALL file for details.\n\n\nENVIRONMENT VARIABLES\n---------------------\nThe cpu profiler, heap checker, and heap profiler will lie dormant,\nusing no memory or CPU, until you turn them on.  (Thus, there's no\nharm in linking -lprofiler into every application, and also -ltcmalloc\nassuming you're ok using the non-libc malloc library.)\n\nThe easiest way to turn them on is by setting the appropriate\nenvironment variables.  We have several variables that let you\nenable/disable features as well as tweak parameters.\n\nHere are some of the most important variables:\n\nHEAPPROFILE=<pre> -- turns on heap profiling and dumps data using this prefix\nHEAPCHECK=<type>  -- turns on heap checking with strictness 'type'\nCPUPROFILE=<file> -- turns on cpu profiling and dumps data to this file.\nPROFILESELECTED=1 -- if set, cpu-profiler will only profile regions of code\n                     surrounded with ProfilerEnable()/ProfilerDisable().\nCPUPROFILE_FREQUENCY=x-- how many interrupts/second the cpu-profiler samples.\n\nPERFTOOLS_VERBOSE=<level> -- the higher level, the more messages malloc emits\nMALLOCSTATS=<level>    -- prints memory-use stats at program-exit\n\nFor a full list of variables, see the documentation pages:\n   docs/cpuprofile.html\n   docs/heapprofile.html\n   docs/heap_checker.html\n\nSee also TCMALLOC_STACKTRACE_METHOD_VERBOSE and\nTCMALLOC_STACKTRACE_METHOD environment variables briefly documented in\nour INSTALL file and on our wiki page at:\nhttps://github.com/gperftools/gperftools/wiki/gperftools'-stacktrace-capturing-methods-and-their-issues\n\n\nCOMPILING ON NON-LINUX SYSTEMS\n------------------------------\n\nPerftools was developed and tested on x86, aarch64 and riscv Linux\nsystems, and it works in its full generality only on those systems.\n\nHowever, we've successfully ported much of the tcmalloc library to\nFreeBSD, Solaris x86 (not tested recently though), and Mac OS X\n(aarch64; x86 and ppc have not been tested recently); and we've ported\nthe basic functionality in tcmalloc_minimal to Windows.  See INSTALL\nfor details.  See README_windows.txt for details on the Windows port.\n\n\n---\nOriginally written: 17 May 2011\nLast refreshed: 10 Aug 2023\n",
+        "releases": [
+            {
+                "name": "gperftools-2.16",
+                "date": "2024-09-25T22:30:56Z"
+            },
+            {
+                "name": "gperftools-2.15.90",
+                "date": "2024-09-17T00:32:10Z"
+            },
+            {
+                "name": "gperftools-2.15",
+                "date": "2024-01-05T17:31:26Z"
+            },
+            {
+                "name": "gperftools-2.14",
+                "date": "2024-01-01T04:44:00Z"
+            },
+            {
+                "name": "",
+                "date": "2023-09-11T20:27:00Z"
+            },
+            {
+                "name": "gperftools-2.12",
+                "date": "2023-08-24T19:13:14Z"
+            },
+            {
+                "name": "gperftools-2.11",
+                "date": "2023-08-15T02:51:01Z"
+            },
+            {
+                "name": "gperftools-2.10.80",
+                "date": "2023-08-01T00:17:37Z"
+            },
+            {
+                "name": "gperftools-2.10",
+                "date": "2022-05-31T04:39:40Z"
+            },
+            {
+                "name": "",
+                "date": "2021-03-03T03:38:55Z"
+            },
+            {
+                "name": "gperftools-2.9",
+                "date": "2021-02-21T23:19:21Z"
+            },
+            {
+                "name": "gperftools-2.8.90",
+                "date": "2021-02-15T07:35:38Z"
+            },
+            {
+                "name": "gperftools-2.8.1",
+                "date": "2020-12-21T07:43:29Z"
+            },
+            {
+                "name": "gperftools-2.8",
+                "date": "2020-07-06T10:00:10Z"
+            },
+            {
+                "name": "gperftools-2.7.90",
+                "date": "2020-03-09T04:10:32Z"
+            },
+            {
+                "name": "gperftools-2.7",
+                "date": "2018-04-30T06:06:24Z"
+            },
+            {
+                "name": "gperftools-2.6.90",
+                "date": "2018-03-18T23:46:29Z"
+            },
+            {
+                "name": "gperftools-2.6.3",
+                "date": "2017-12-09T18:08:44Z"
+            },
+            {
+                "name": "gperftools-2.6.2",
+                "date": "2017-11-30T18:27:55Z"
+            },
+            {
+                "name": "gperftools-2.6.1",
+                "date": "2017-07-09T22:01:42Z"
+            },
+            {
+                "name": "gperftools-2.6",
+                "date": "2017-07-05T03:50:53Z"
+            },
+            {
+                "name": "gperftools-2.5.93",
+                "date": "2017-05-23T02:26:24Z"
+            },
+            {
+                "name": "gperftools-2.5.92",
+                "date": "2017-05-22T10:46:00Z"
+            },
+            {
+                "name": "gperftools-2.5.91",
+                "date": "2017-05-15T07:06:24Z"
+            },
+            {
+                "name": "gperftools-2.5.90",
+                "date": "2017-05-15T06:06:57Z"
+            },
+            {
+                "name": "gperftools-2.5",
+                "date": "2016-03-12T20:18:22Z"
+            },
+            {
+                "name": "gperftools-2.4.91",
+                "date": "2016-03-06T02:30:43Z"
+            },
+            {
+                "name": "gperftools-2.4.90",
+                "date": "2016-02-22T07:14:59Z"
+            },
+            {
+                "name": "",
+                "date": "2015-08-15T20:24:32Z"
+            },
+            {
+                "name": "",
+                "date": "2015-08-15T20:28:37Z"
+            },
+            {
+                "name": "",
+                "date": "2015-08-15T20:31:32Z"
+            },
+            {
+                "name": "",
+                "date": "2015-08-15T20:35:41Z"
+            },
+            {
+                "name": "",
+                "date": "2015-08-15T21:19:12Z"
+            },
+            {
+                "name": "",
+                "date": "2015-08-15T20:37:28Z"
+            },
+            {
+                "name": "",
+                "date": "2015-08-15T21:22:14Z"
+            },
+            {
+                "name": "",
+                "date": "2015-08-15T20:46:15Z"
+            }
+        ]
+    }
+}

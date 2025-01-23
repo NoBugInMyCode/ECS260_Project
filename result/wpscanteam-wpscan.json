@@ -1,0 +1,321 @@
+{
+    "https://api.github.com/repos/wpscanteam/wpscan": {
+        "forks": 1275,
+        "watchers": 8733,
+        "stars": 8733,
+        "languages": {
+            "Ruby": 433446,
+            "HTML": 15591,
+            "Dockerfile": 1177,
+            "Shell": 1069
+        },
+        "commits": [
+            "2024-09-09T12:05:51Z",
+            "2024-09-09T12:05:36Z",
+            "2024-09-09T10:48:12Z",
+            "2024-09-09T10:47:58Z",
+            "2024-09-05T15:05:56Z",
+            "2024-09-05T15:05:14Z",
+            "2024-09-05T14:58:07Z",
+            "2024-09-05T14:45:53Z",
+            "2024-09-05T11:38:14Z",
+            "2024-09-05T11:37:36Z",
+            "2024-09-05T10:29:34Z",
+            "2024-09-05T10:29:22Z",
+            "2024-09-05T10:25:10Z",
+            "2024-09-05T10:23:21Z",
+            "2024-09-05T10:23:18Z",
+            "2024-09-05T10:14:54Z",
+            "2024-09-05T09:58:06Z",
+            "2024-09-05T09:56:54Z",
+            "2024-09-05T09:21:39Z",
+            "2024-09-05T09:14:26Z",
+            "2024-09-05T08:46:10Z",
+            "2024-09-05T08:42:23Z",
+            "2024-09-05T08:32:53Z",
+            "2024-09-05T08:32:49Z",
+            "2024-09-05T08:32:34Z",
+            "2024-09-05T08:31:39Z",
+            "2024-09-05T08:28:11Z",
+            "2024-09-05T08:27:18Z",
+            "2024-08-06T12:12:34Z",
+            "2023-12-01T17:44:24Z"
+        ],
+        "creation_date": "2012-07-11T20:27:47Z",
+        "contributors": 30,
+        "topics": [
+            "hacking-tool",
+            "scan",
+            "scanner",
+            "security",
+            "security-scanner",
+            "wordpress",
+            "wpscan",
+            "wpvulndb"
+        ],
+        "subscribers": 270,
+        "readme": "<p align=\"center\">\n  <a href=\"https://wpscan.com/\">\n    <img src=\"https://raw.githubusercontent.com/wpscanteam/wpscan/gh-pages/images/wpscan_logo.png\" alt=\"WPScan logo\">\n  </a>\n</p>\n\n<h3 align=\"center\">WPScan</h3>\n\n<p align=\"center\">\n  WordPress Security Scanner\n  <br>\n  <br>\n  <a href=\"https://wpscan.com/\" title=\"homepage\" target=\"_blank\">WPScan WordPress Vulnerability Database</a> - <a href=\"https://wordpress.org/plugins/wpscan/\" title=\"wordpress security plugin\" target=\"_blank\">WordPress Security Plugin</a>\n</p>\n\n<p align=\"center\">\n  <a href=\"https://badge.fury.io/rb/wpscan\" target=\"_blank\"><img src=\"https://badge.fury.io/rb/wpscan.svg\"></a>\n  <a href=\"https://hub.docker.com/r/wpscanteam/wpscan/\" target=\"_blank\"><img src=\"https://img.shields.io/docker/pulls/wpscanteam/wpscan.svg\"></a>\n  <a href=\"https://github.com/wpscanteam/wpscan/actions?query=workflow%3ABuild\" target=\"_blank\"><img src=\"https://github.com/wpscanteam/wpscan/workflows/Build/badge.svg\"></a>\n  <a href=\"https://codeclimate.com/github/wpscanteam/wpscan\" target=\"_blank\"><img src=\"https://codeclimate.com/github/wpscanteam/wpscan/badges/gpa.svg\"></a>\n</p>\n\n# INSTALL\n\n## Prerequisites\n\n- (Optional but highly recommended: [RVM](https://rvm.io/rvm/install))\n- Ruby >= 3.0 - Recommended: latest\n- Curl >= 7.72  - Recommended: latest\n  - The 7.29 has a segfault\n  - The < 7.72 could result in `Stream error in the HTTP/2 framing layer` in some cases\n- RubyGems      - Recommended: latest\n- Nokogiri might require packages to be installed via your package manager depending on your OS, see https://nokogiri.org/tutorials/installing_nokogiri.html\n\n### In a Pentesting distribution\n\nWhen using a pentesting distubution (such as Kali Linux), it is recommended to install/update wpscan via the package manager if available.\n\n### In macOSX via Homebrew\n\n```shell\nbrew install wpscanteam/tap/wpscan\n```\n\n### From RubyGems\n\n```shell\ngem install wpscan\n```\n\nOn MacOSX, if a ```Gem::FilePermissionError``` is raised due to the Apple's System Integrity Protection (SIP), either install RVM and install wpscan again, or run ```sudo gem install -n /usr/local/bin wpscan``` (see [#1286](https://github.com/wpscanteam/wpscan/issues/1286))\n\n# Updating\n\nYou can update the local database by using ```wpscan --update```\n\nUpdating WPScan itself is either done via ```gem update wpscan``` or the packages manager (this is quite important for distributions such as in Kali Linux: ```apt-get update && apt-get upgrade```) depending on how WPScan was (pre)installed\n\n# Docker\n\nPull the repo with ```docker pull wpscanteam/wpscan```\n\nEnumerating usernames\n\n```shell\ndocker run -it --rm wpscanteam/wpscan --url https://target.tld/ --enumerate u\n```\n\nEnumerating a range of usernames\n\n```shell\ndocker run -it --rm wpscanteam/wpscan --url https://target.tld/ --enumerate u1-100\n```\n\n** replace u1-100 with a range of your choice.\n\n# Usage\n\nFull user documentation can be found here; https://github.com/wpscanteam/wpscan/wiki/WPScan-User-Documentation\n\n```wpscan --url blog.tld``` This will scan the blog using default options with a good compromise between speed and accuracy. For example, the plugins will be checked passively but their version with a mixed detection mode (passively + aggressively). Potential config backup files will also be checked, along with other interesting findings.\n\nIf a more stealthy approach is required, then ```wpscan --stealthy --url blog.tld``` can be used.\nAs a result, when using the ```--enumerate``` option, don't forget to set the ```--plugins-detection``` accordingly, as its default is 'passive'.\n\nFor more options, open a terminal and type ```wpscan --help``` (if you built wpscan from the source, you should type the command outside of the git repo)\n\nThe DB is located at ~/.wpscan/db\n\n## Optional: WordPress Vulnerability Database API\n\nThe WPScan CLI tool uses the [WordPress Vulnerability Database API](https://wpscan.com/api) to retrieve WordPress vulnerability data in real time. For WPScan to retrieve the vulnerability data an API token must be supplied via the `--api-token` option, or via a configuration file, as discussed below. An API token can be obtained by registering an account on [WPScan.com](https://wpscan.com/register).\n\nUp to **25** API requests per day are given free of charge, that should be suitable to scan most WordPress websites at least once per day. When the daily 25 API requests are exhausted, WPScan will continue to work as normal but without any vulnerability data.\n\n### How many API requests do you need?\n\n- Our WordPress scanner makes one API request for the WordPress version, one request per installed plugin and one request per installed theme.\n- On average, a WordPress website has 22 installed plugins.\n\n## Load CLI options from file/s\n\nWPScan can load all options (including the --url) from configuration files, the following locations are checked (order: first to last):\n\n- ~/.wpscan/scan.json\n- ~/.wpscan/scan.yml\n- pwd/.wpscan/scan.json\n- pwd/.wpscan/scan.yml\n\nIf those files exist, options from the `cli_options` key will be loaded and overridden if found twice.\n\ne.g:\n\n~/.wpscan/scan.yml:\n\n```yml\ncli_options:\n  proxy: 'http://127.0.0.1:8080'\n  verbose: true\n```\n\npwd/.wpscan/scan.yml:\n\n```yml\ncli_options:\n  proxy: 'socks5://127.0.0.1:9090'\n  url: 'http://target.tld'\n```\n\nRunning ```wpscan``` in the current directory (pwd), is the same as ```wpscan -v --proxy socks5://127.0.0.1:9090 --url http://target.tld```\n\n## Save API Token in a file\n\nThe feature mentioned above is useful to keep the API Token in a config file and not have to supply it via the CLI each time. To do so, create the ~/.wpscan/scan.yml file containing the below:\n\n```yml\ncli_options:\n  api_token: 'YOUR_API_TOKEN'\n```\n\n## Load API Token From ENV (since v3.7.10)\n\nThe API Token will be automatically loaded from the ENV variable `WPSCAN_API_TOKEN` if present. If the `--api-token` CLI option is also provided, the value from the CLI will be used.\n\n\n## Enumerating usernames\n\n```shell\nwpscan --url https://target.tld/ --enumerate u\n```\n\nEnumerating a range of usernames\n\n```shell\nwpscan --url https://target.tld/ --enumerate u1-100\n```\n\n** replace u1-100 with a range of your choice.\n\n# LICENSE\n\n## WPScan Public Source License\n\nThe WPScan software (henceforth referred to simply as \"WPScan\") is dual-licensed - Copyright 2011-2019 WPScan Team.\n\nCases that include commercialization of WPScan require a commercial, non-free license. Otherwise, WPScan can be used without charge under the terms set out below.\n\n### 1. Definitions\n\n1.1 \"License\" means this document.\n\n1.2 \"Contributor\" means each individual or legal entity that creates, contributes to the creation of, or owns WPScan.\n\n1.3 \"WPScan Team\" means WPScan\u2019s core developers.\n\n### 2. Commercialization\n\nA commercial use is one intended for commercial advantage or monetary compensation.\n\nExample cases of commercialization are:\n\n- Using WPScan to provide commercial managed/Software-as-a-Service services.\n- Distributing WPScan as a commercial product or as part of one.\n- Using WPScan as a value added service/product.\n\nExample cases which do not require a commercial license, and thus fall under the terms set out below, include (but are not limited to):\n\n- Penetration testers (or penetration testing organizations) using WPScan as part of their assessment toolkit.\n- Penetration Testing Linux Distributions including but not limited to Kali Linux, SamuraiWTF, BackBox Linux.\n- Using WPScan to test your own systems.\n- Any non-commercial use of WPScan.\n\nIf you need to purchase a commercial license or are unsure whether you need to purchase a commercial license contact us - contact@wpscan.com.\n\nFree-use Terms and Conditions;\n\n### 3. Redistribution\n\nRedistribution is permitted under the following conditions:\n\n- Unmodified License is provided with WPScan.\n- Unmodified Copyright notices are provided with WPScan.\n- Does not conflict with the commercialization clause.\n\n### 4. Copying\n\nCopying is permitted so long as it does not conflict with the Redistribution clause.\n\n### 5. Modification\n\nModification is permitted so long as it does not conflict with the Redistribution clause.\n\n### 6. Contributions\n\nAny Contributions assume the Contributor grants the WPScan Team the unlimited, non-exclusive right to reuse, modify and relicense the Contributor's content.\n\n### 7. Support\n\nWPScan is provided under an AS-IS basis and without any support, updates or maintenance. Support, updates and maintenance may be given according to the sole discretion of the WPScan Team.\n\n### 8. Disclaimer of Warranty\n\nWPScan is provided under this License on an \u201cas is\u201d basis, without warranty of any kind, either expressed, implied, or statutory, including, without limitation, warranties that the WPScan is free of defects, merchantable, fit for a particular purpose or non-infringing.\n\n### 9. Limitation of Liability\n\nTo the extent permitted under Law, WPScan is provided under an AS-IS basis. The WPScan Team shall never, and without any limit, be liable for any damage, cost, expense or any other payment incurred as a result of WPScan's actions, failure, bugs and/or any other interaction between WPScan and end-equipment, computers, other software or any 3rd party, end-equipment, computer or services.\n\n### 10. Disclaimer\n\nRunning WPScan against websites without prior mutual consent may be illegal in your country. The WPScan Team accept no liability and are not responsible for any misuse or damage caused by WPScan.\n\n### 11. Trademark\n\nThe \"wpscan\" term is a registered trademark. This License does not grant the use of the \"wpscan\" trademark or the use of the WPScan logo.\n",
+        "releases": [
+            {
+                "name": "v3.8.27",
+                "date": "2024-09-05T15:06:32Z"
+            },
+            {
+                "name": "v3.8.26",
+                "date": "2024-09-05T11:39:04Z"
+            },
+            {
+                "name": "v3.8.25",
+                "date": "2023-09-29T12:22:42Z"
+            },
+            {
+                "name": "v3.8.24",
+                "date": "2023-06-09T12:43:46Z"
+            },
+            {
+                "name": "v3.8.23",
+                "date": "2023-06-08T15:17:15Z"
+            },
+            {
+                "name": "",
+                "date": "2022-04-04T14:04:28Z"
+            },
+            {
+                "name": "",
+                "date": "2022-02-22T16:22:23Z"
+            },
+            {
+                "name": "",
+                "date": "2021-11-08T09:40:42Z"
+            },
+            {
+                "name": "",
+                "date": "2021-09-22T16:45:21Z"
+            },
+            {
+                "name": "",
+                "date": "2021-06-08T15:26:15Z"
+            },
+            {
+                "name": "",
+                "date": "2021-03-22T16:33:44Z"
+            },
+            {
+                "name": "",
+                "date": "2021-03-22T12:31:01Z"
+            },
+            {
+                "name": "",
+                "date": "2021-02-15T09:45:36Z"
+            },
+            {
+                "name": "",
+                "date": "2021-02-01T13:10:07Z"
+            },
+            {
+                "name": "",
+                "date": "2021-01-12T14:23:26Z"
+            },
+            {
+                "name": "",
+                "date": "2021-01-04T07:37:28Z"
+            },
+            {
+                "name": "",
+                "date": "2020-12-16T15:52:23Z"
+            },
+            {
+                "name": "",
+                "date": "2020-10-28T12:39:24Z"
+            },
+            {
+                "name": "",
+                "date": "2020-10-16T12:01:14Z"
+            },
+            {
+                "name": "",
+                "date": "2020-10-09T10:32:36Z"
+            },
+            {
+                "name": "",
+                "date": "2020-09-10T12:35:56Z"
+            },
+            {
+                "name": "",
+                "date": "2020-08-08T12:36:52Z"
+            },
+            {
+                "name": "",
+                "date": "2020-07-25T15:14:47Z"
+            },
+            {
+                "name": "",
+                "date": "2020-07-20T13:12:20Z"
+            },
+            {
+                "name": "",
+                "date": "2020-07-17T08:51:50Z"
+            },
+            {
+                "name": "",
+                "date": "2020-06-08T19:12:52Z"
+            },
+            {
+                "name": "",
+                "date": "2020-04-16T09:03:19Z"
+            },
+            {
+                "name": "",
+                "date": "2020-04-12T17:04:13Z"
+            },
+            {
+                "name": "",
+                "date": "2020-03-13T16:00:24Z"
+            },
+            {
+                "name": "",
+                "date": "2020-03-09T19:04:11Z"
+            },
+            {
+                "name": "",
+                "date": "2020-02-29T13:29:27Z"
+            },
+            {
+                "name": "",
+                "date": "2020-02-09T13:33:37Z"
+            },
+            {
+                "name": "",
+                "date": "2020-01-21T16:17:45Z"
+            },
+            {
+                "name": "",
+                "date": "2020-01-02T15:32:50Z"
+            },
+            {
+                "name": "",
+                "date": "2019-11-11T12:45:01Z"
+            },
+            {
+                "name": "",
+                "date": "2019-11-05T20:11:41Z"
+            },
+            {
+                "name": "",
+                "date": "2019-10-11T14:26:22Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-25T15:24:11Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-16T12:44:34Z"
+            },
+            {
+                "name": "",
+                "date": "2019-09-13T08:35:59Z"
+            },
+            {
+                "name": "",
+                "date": "2019-08-06T15:41:00Z"
+            },
+            {
+                "name": "",
+                "date": "2019-07-31T16:11:59Z"
+            },
+            {
+                "name": "",
+                "date": "2019-07-23T17:42:44Z"
+            },
+            {
+                "name": "",
+                "date": "2019-07-11T17:12:30Z"
+            },
+            {
+                "name": "",
+                "date": "2019-07-04T17:57:29Z"
+            },
+            {
+                "name": "",
+                "date": "2019-06-17T18:09:32Z"
+            },
+            {
+                "name": "",
+                "date": "2019-04-26T11:31:09Z"
+            },
+            {
+                "name": "",
+                "date": "2019-04-08T16:39:52Z"
+            },
+            {
+                "name": "",
+                "date": "2019-04-07T16:59:04Z"
+            },
+            {
+                "name": "",
+                "date": "2019-04-03T11:51:56Z"
+            },
+            {
+                "name": "",
+                "date": "2019-03-10T11:03:43Z"
+            },
+            {
+                "name": "",
+                "date": "2019-02-11T12:11:33Z"
+            },
+            {
+                "name": "",
+                "date": "2019-01-11T13:18:32Z"
+            },
+            {
+                "name": "",
+                "date": "2018-12-13T22:42:55Z"
+            },
+            {
+                "name": "",
+                "date": "2018-11-12T16:40:52Z"
+            },
+            {
+                "name": "",
+                "date": "2018-11-02T21:30:45Z"
+            },
+            {
+                "name": "",
+                "date": "2018-10-20T14:01:03Z"
+            },
+            {
+                "name": "",
+                "date": "2018-09-28T10:46:31Z"
+            },
+            {
+                "name": "3.3.0",
+                "date": "2018-09-26T19:44:17Z"
+            },
+            {
+                "name": "2.9.4",
+                "date": "2018-06-15T08:37:08Z"
+            },
+            {
+                "name": "2.9.3",
+                "date": "2017-07-19T13:25:46Z"
+            },
+            {
+                "name": "2.9.2",
+                "date": "2016-11-15T19:53:14Z"
+            },
+            {
+                "name": "",
+                "date": "2016-05-06T12:00:14Z"
+            },
+            {
+                "name": "Release - 2.9",
+                "date": "2015-10-15T11:08:01Z"
+            },
+            {
+                "name": "Maintenance Release - 2.8",
+                "date": "2015-06-22T17:02:12Z"
+            }
+        ]
+    }
+}

@@ -1,0 +1,190 @@
+{
+    "https://api.github.com/repos/mail-in-a-box/mailinabox": {
+        "forks": 1455,
+        "watchers": 14178,
+        "stars": 14178,
+        "languages": {
+            "Python": 319146,
+            "Shell": 158258,
+            "HTML": 115946,
+            "PHP": 6196,
+            "Handlebars": 885
+        },
+        "commits": [
+            "2025-01-06T12:07:53Z",
+            "2025-01-06T12:06:01Z",
+            "2025-01-04T19:38:45Z",
+            "2024-12-23T16:26:09Z",
+            "2024-12-22T13:07:04Z",
+            "2024-12-22T13:02:49Z",
+            "2024-12-22T13:01:02Z",
+            "2024-12-22T12:59:58Z",
+            "2024-12-22T12:57:59Z",
+            "2024-12-22T12:48:36Z",
+            "2024-12-22T12:45:45Z",
+            "2024-12-22T12:42:56Z",
+            "2024-12-22T12:28:39Z",
+            "2024-12-22T12:28:04Z",
+            "2024-12-22T12:27:36Z",
+            "2024-12-22T12:26:59Z",
+            "2024-12-13T14:28:45Z",
+            "2024-11-27T13:22:45Z",
+            "2024-09-17T18:51:26Z",
+            "2024-09-03T01:30:01Z",
+            "2024-08-30T18:27:44Z",
+            "2024-08-30T18:26:05Z",
+            "2024-08-15T12:52:48Z",
+            "2024-08-15T12:49:52Z",
+            "2024-07-23T10:20:34Z",
+            "2024-07-23T10:15:18Z",
+            "2024-07-21T12:02:38Z",
+            "2024-07-21T12:00:20Z",
+            "2024-07-21T11:01:25Z",
+            "2024-07-20T20:44:24Z"
+        ],
+        "creation_date": "2013-08-21T13:56:50Z",
+        "contributors": 30,
+        "topics": [
+            "email",
+            "mail",
+            "server",
+            "smtp"
+        ],
+        "subscribers": 286,
+        "readme": "Mail-in-a-Box\n=============\n\nBy [@JoshData](https://github.com/JoshData) and [contributors](https://github.com/mail-in-a-box/mailinabox/graphs/contributors).\n\nMail-in-a-Box helps individuals take back control of their email by defining a one-click, easy-to-deploy SMTP+everything else server: a mail server in a box.\n\n**Please see [https://mailinabox.email](https://mailinabox.email) for the project's website and setup guide!**\n\n* * *\n\nOur goals are to:\n\n* Make deploying a good mail server easy.\n* Promote [decentralization](http://redecentralize.org/), innovation, and privacy on the web.\n* Have automated, auditable, and [idempotent](https://web.archive.org/web/20190518072631/https://sharknet.us/2014/02/01/automated-configuration-management-challenges-with-idempotency/) configuration.\n* **Not** make a totally unhackable, NSA-proof server.\n* **Not** make something customizable by power users.\n\nAdditionally, this project has a [Code of Conduct](CODE_OF_CONDUCT.md), which supersedes the goals above. Please review it when joining our community.\n\n\nIn The Box\n----------\n\nMail-in-a-Box turns a fresh Ubuntu 22.04 LTS 64-bit machine into a working mail server by installing and configuring various components.\n\nIt is a one-click email appliance. There are no user-configurable setup options. It \"just works.\"\n\nThe components installed are:\n\n* SMTP ([postfix](http://www.postfix.org/)), IMAP ([Dovecot](http://dovecot.org/)), CardDAV/CalDAV ([Nextcloud](https://nextcloud.com/)), and Exchange ActiveSync ([z-push](http://z-push.org/)) servers\n* Webmail ([Roundcube](http://roundcube.net/)), mail filter rules (thanks to Roundcube and Dovecot), and email client autoconfig settings (served by [nginx](http://nginx.org/))\n* Spam filtering ([spamassassin](https://spamassassin.apache.org/)) and greylisting ([postgrey](http://postgrey.schweikert.ch/))\n* DNS ([nsd4](https://www.nlnetlabs.nl/projects/nsd/)) with [SPF](https://en.wikipedia.org/wiki/Sender_Policy_Framework), DKIM ([OpenDKIM](http://www.opendkim.org/)), [DMARC](https://en.wikipedia.org/wiki/DMARC), [DNSSEC](https://en.wikipedia.org/wiki/DNSSEC), [DANE TLSA](https://en.wikipedia.org/wiki/DNS-based_Authentication_of_Named_Entities), [MTA-STS](https://tools.ietf.org/html/rfc8461), and [SSHFP](https://tools.ietf.org/html/rfc4255) policy records automatically set\n* TLS certificates are automatically provisioned using [Let's Encrypt](https://letsencrypt.org/) for protecting https and all of the other services on the box\n* Backups ([duplicity](http://duplicity.nongnu.org/)), firewall ([ufw](https://launchpad.net/ufw)), intrusion protection ([fail2ban](http://www.fail2ban.org/wiki/index.php/Main_Page)), and basic system monitoring ([munin](http://munin-monitoring.org/))\n\nIt also includes system management tools:\n\n* Comprehensive health monitoring that checks each day that services are running, ports are open, TLS certificates are valid, and DNS records are correct\n* A control panel for adding/removing mail users, aliases, custom DNS records, configuring backups, etc.\n* An API for all of the actions on the control panel\n\nInternationalized domain names are supported and configured easily (but SMTPUTF8 is not supported, unfortunately).\n\nIt also supports static website hosting since the box is serving HTTPS anyway. (To serve a website for your domains elsewhere, just add a custom DNS \"A\" record in you Mail-in-a-Box's control panel to point domains to another server.)\n\nFor more information on how Mail-in-a-Box handles your privacy, see the [security details page](security.md).\n\n\nInstallation\n------------\n\nSee the [setup guide](https://mailinabox.email/guide.html) for detailed, user-friendly instructions.\n\nFor experts, start with a completely fresh (really, I mean it) Ubuntu 22.04 LTS 64-bit machine. On the machine...\n\nClone this repository and checkout the tag corresponding to the most recent release (which you can find in the tags or releases lists on GitHub):\n\n\t$ git clone https://github.com/mail-in-a-box/mailinabox\n\t$ cd mailinabox\n\t$ git checkout TAGNAME\n\nBegin the installation.\n\n\t$ sudo setup/start.sh\n\nThe installation will install, uninstall, and configure packages to turn the machine into a working, good mail server.\n\nFor help, DO NOT contact Josh directly --- I don't do tech support by email or tweet (no exceptions).\n\nPost your question on the [discussion forum](https://discourse.mailinabox.email/) instead, where maintainers and Mail-in-a-Box users may be able to help you.\n\nNote that while we want everything to \"just work,\" we can't control the rest of the Internet. Other mail services might block or spam-filter email sent from your Mail-in-a-Box.\nThis is a challenge faced by everyone who runs their own mail server, with or without Mail-in-a-Box. See our discussion forum for tips about that.\n\n\nContributing and Development\n----------------------------\n\nMail-in-a-Box is an open source project. Your contributions and pull requests are welcome. See [CONTRIBUTING](CONTRIBUTING.md) to get started. \n\n\nThe Acknowledgements\n--------------------\n\nThis project was inspired in part by the [\"NSA-proof your email in 2 hours\"](http://sealedabstract.com/code/nsa-proof-your-e-mail-in-2-hours/) blog post by Drew Crawford, [Sovereign](https://github.com/sovereign/sovereign) by Alex Payne, and conversations with <a href=\"https://twitter.com/shevski\" target=\"_blank\">@shevski</a>, <a href=\"https://github.com/konklone\" target=\"_blank\">@konklone</a>, and <a href=\"https://github.com/gregelin\" target=\"_blank\">@GregElin</a>.\n\nMail-in-a-Box is similar to [iRedMail](http://www.iredmail.org/) and [Modoboa](https://github.com/tonioo/modoboa).\n\n\nThe History\n-----------\n\n* In 2007 I wrote a relatively popular Mozilla Thunderbird extension that added client-side SPF and DKIM checks to mail to warn users about possible phishing: [add-on page](https://addons.mozilla.org/en-us/thunderbird/addon/sender-verification-anti-phish/), [source](https://github.com/JoshData/thunderbird-spf).\n* In August 2013 I began Mail-in-a-Box by combining my own mail server configuration with the setup in [\"NSA-proof your email in 2 hours\"](http://sealedabstract.com/code/nsa-proof-your-e-mail-in-2-hours/) and making the setup steps reproducible with bash scripts.\n* Mail-in-a-Box was a semifinalist in the 2014 [Knight News Challenge](https://www.newschallenge.org/challenge/2014/submissions/mail-in-a-box), but it was not selected as a winner.\n* Mail-in-a-Box hit the front page of Hacker News in [April](https://news.ycombinator.com/item?id=7634514) 2014, [September](https://news.ycombinator.com/item?id=8276171) 2014, [May](https://news.ycombinator.com/item?id=9624267) 2015, and [November](https://news.ycombinator.com/item?id=13050500) 2016.\n* FastCompany mentioned Mail-in-a-Box a [roundup of privacy projects](http://www.fastcompany.com/3047645/your-own-private-cloud) on June 26, 2015.\n",
+        "releases": [
+            {
+                "name": "",
+                "date": "2025-01-06T12:10:26Z"
+            },
+            {
+                "name": "",
+                "date": "2025-01-04T19:40:26Z"
+            },
+            {
+                "name": "",
+                "date": "2025-01-04T19:40:18Z"
+            },
+            {
+                "name": "",
+                "date": "2024-07-30T10:23:34Z"
+            },
+            {
+                "name": "",
+                "date": "2024-07-21T12:03:28Z"
+            },
+            {
+                "name": "",
+                "date": "2024-07-20T11:34:22Z"
+            },
+            {
+                "name": "",
+                "date": "2024-04-01T14:56:56Z"
+            },
+            {
+                "name": "",
+                "date": "2023-09-02T23:47:22Z"
+            },
+            {
+                "name": "",
+                "date": "2022-10-30T12:20:17Z"
+            },
+            {
+                "name": "",
+                "date": "2022-10-12T01:24:07Z"
+            },
+            {
+                "name": "",
+                "date": "2022-06-19T13:00:49Z"
+            },
+            {
+                "name": "",
+                "date": "2022-06-19T13:00:41Z"
+            },
+            {
+                "name": "",
+                "date": "2022-06-19T13:00:33Z"
+            },
+            {
+                "name": "",
+                "date": "2022-06-19T13:00:22Z"
+            },
+            {
+                "name": "",
+                "date": "2022-06-19T13:00:12Z"
+            },
+            {
+                "name": "",
+                "date": "2021-04-12T22:52:59Z"
+            },
+            {
+                "name": "",
+                "date": "2021-01-31T13:53:44Z"
+            },
+            {
+                "name": "",
+                "date": "2020-11-14T15:07:28Z"
+            },
+            {
+                "name": "",
+                "date": "2020-09-26T12:15:01Z"
+            },
+            {
+                "name": "",
+                "date": "2020-08-26T18:13:57Z"
+            },
+            {
+                "name": "",
+                "date": "2020-07-29T14:28:40Z"
+            },
+            {
+                "name": "",
+                "date": "2020-06-11T16:28:11Z"
+            },
+            {
+                "name": "",
+                "date": "2020-05-16T22:42:24Z"
+            },
+            {
+                "name": "",
+                "date": "2019-01-12T13:25:16Z"
+            },
+            {
+                "name": "",
+                "date": "2019-01-12T13:25:03Z"
+            },
+            {
+                "name": "",
+                "date": "2018-01-18T22:11:35Z"
+            },
+            {
+                "name": "",
+                "date": "2018-01-18T22:11:25Z"
+            },
+            {
+                "name": "v0.24",
+                "date": "2017-10-03T14:52:50Z"
+            },
+            {
+                "name": "",
+                "date": "2015-07-03T14:35:50Z"
+            },
+            {
+                "name": "",
+                "date": "2015-06-30T01:01:18Z"
+            },
+            {
+                "name": "v0.10",
+                "date": "2015-06-01T22:08:13Z"
+            },
+            {
+                "name": "v0.09",
+                "date": "2015-05-08T12:12:09Z"
+            },
+            {
+                "name": "Version v0.08",
+                "date": "2015-04-01T14:19:40Z"
+            }
+        ]
+    }
+}

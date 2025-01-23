@@ -1,0 +1,152 @@
+{
+    "https://api.github.com/repos/jbogard/MediatR": {
+        "forks": 1189,
+        "watchers": 11331,
+        "stars": 11331,
+        "languages": {
+            "C#": 288859,
+            "PowerShell": 2810
+        },
+        "commits": [
+            "2024-10-30T19:36:13Z",
+            "2024-09-22T18:14:41Z",
+            "2024-09-11T18:32:20Z",
+            "2024-09-11T18:31:05Z",
+            "2024-09-11T18:27:53Z",
+            "2024-09-11T18:26:52Z",
+            "2024-09-09T14:05:56Z",
+            "2024-08-28T19:51:19Z",
+            "2024-08-28T19:46:31Z",
+            "2024-08-05T18:08:28Z",
+            "2024-08-04T17:16:29Z",
+            "2024-08-03T08:25:16Z",
+            "2024-08-03T08:22:56Z",
+            "2024-08-03T08:20:50Z",
+            "2024-08-03T01:25:08Z",
+            "2024-07-16T04:47:11Z",
+            "2024-07-13T00:18:58Z",
+            "2024-07-08T19:05:50Z",
+            "2024-07-08T18:42:22Z",
+            "2024-07-08T18:26:18Z",
+            "2024-07-04T23:44:25Z",
+            "2024-07-04T23:42:37Z",
+            "2024-06-06T16:20:53Z",
+            "2024-04-27T18:26:39Z",
+            "2024-04-18T05:21:35Z",
+            "2024-04-18T05:12:28Z",
+            "2024-03-29T22:42:27Z",
+            "2024-03-23T03:43:55Z",
+            "2024-03-23T03:40:20Z",
+            "2024-01-17T14:26:29Z"
+        ],
+        "creation_date": "2014-03-03T15:01:22Z",
+        "contributors": 30,
+        "topics": [
+            "hacktoberfest"
+        ],
+        "subscribers": 292,
+        "readme": "MediatR\n=======\n\n![CI](https://github.com/jbogard/MediatR/workflows/CI/badge.svg)\n[![NuGet](https://img.shields.io/nuget/dt/mediatr.svg)](https://www.nuget.org/packages/mediatr) \n[![NuGet](https://img.shields.io/nuget/vpre/mediatr.svg)](https://www.nuget.org/packages/mediatr)\n[![MyGet (dev)](https://img.shields.io/myget/mediatr-ci/v/MediatR.svg)](https://myget.org/gallery/mediatr-ci)\n\nSimple mediator implementation in .NET\n\nIn-process messaging with no dependencies.\n\nSupports request/response, commands, queries, notifications and events, synchronous and async with intelligent dispatching via C# generic variance.\n\nExamples in the [wiki](https://github.com/jbogard/MediatR/wiki).\n\n### Installing MediatR\n\nYou should install [MediatR with NuGet](https://www.nuget.org/packages/MediatR):\n\n    Install-Package MediatR\n    \nOr via the .NET Core command line interface:\n\n    dotnet add package MediatR\n\nEither commands, from Package Manager Console or .NET Core CLI, will download and install MediatR and all required dependencies.\n\n### Using Contracts-Only Package\n\nTo reference only the contracts for MediatR, which includes:\n\n- `IRequest` (including generic variants)\n- `INotification`\n- `IStreamRequest`\n\nAdd a package reference to [MediatR.Contracts](https://www.nuget.org/packages/MediatR.Contracts)\n\nThis package is useful in scenarios where your MediatR contracts are in a separate assembly/project from handlers. Example scenarios include:\n- API contracts\n- GRPC contracts\n- Blazor\n\n### Registering with `IServiceCollection`\n\nMediatR supports `Microsoft.Extensions.DependencyInjection.Abstractions` directly. To register various MediatR services and handlers:\n\n```\nservices.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Startup>());\n```\n\nor with an assembly:\n\n```\nservices.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Startup).Assembly));\n```\n\nThis registers:\n\n- `IMediator` as transient\n- `ISender` as transient\n- `IPublisher` as transient\n- `IRequestHandler<,>` concrete implementations as transient\n- `IRequestHandler<>` concrete implementations as transient\n- `INotificationHandler<>` concrete implementations as transient\n- `IStreamRequestHandler<>` concrete implementations as transient\n- `IRequestExceptionHandler<,,>` concrete implementations as transient\n- `IRequestExceptionAction<,>)` concrete implementations as transient\n\nThis also registers open generic implementations for:\n\n- `INotificationHandler<>`\n- `IRequestExceptionHandler<,,>`\n- `IRequestExceptionAction<,>`\n\nTo register behaviors, stream behaviors, pre/post processors:\n\n```csharp\nservices.AddMediatR(cfg => {\n    cfg.RegisterServicesFromAssembly(typeof(Startup).Assembly);\n    cfg.AddBehavior<PingPongBehavior>();\n    cfg.AddStreamBehavior<PingPongStreamBehavior>();\n    cfg.AddRequestPreProcessor<PingPreProcessor>();\n    cfg.AddRequestPostProcessor<PingPongPostProcessor>();\n    cfg.AddOpenBehavior(typeof(GenericBehavior<,>));\n    });\n```\n\nWith additional methods for open generics and overloads for explicit service types.\n",
+        "releases": [
+            {
+                "name": "v12.4.1",
+                "date": "2024-09-09T14:07:35Z"
+            },
+            {
+                "name": "v12.4.0",
+                "date": "2024-07-23T19:24:23Z"
+            },
+            {
+                "name": "v12.3.0",
+                "date": "2024-06-06T20:02:16Z"
+            },
+            {
+                "name": "v12.2.0",
+                "date": "2023-11-17T16:22:33Z"
+            },
+            {
+                "name": "v12.1.1",
+                "date": "2023-07-10T15:59:03Z"
+            },
+            {
+                "name": "v12.1.0",
+                "date": "2023-07-07T19:46:49Z"
+            },
+            {
+                "name": "v12.0.1",
+                "date": "2023-02-23T21:50:45Z"
+            },
+            {
+                "name": "v12.0.0",
+                "date": "2023-02-14T20:58:39Z"
+            },
+            {
+                "name": "v11.1.0",
+                "date": "2022-11-20T00:32:11Z"
+            },
+            {
+                "name": "v11.0.0",
+                "date": "2022-09-30T09:12:10Z"
+            },
+            {
+                "name": "10.0.1",
+                "date": "2022-01-10T14:29:42Z"
+            },
+            {
+                "name": "10.0.0",
+                "date": "2022-01-06T17:51:28Z"
+            },
+            {
+                "name": "9.0.0",
+                "date": "2020-10-09T12:58:01Z"
+            },
+            {
+                "name": "8.0.2",
+                "date": "2020-06-30T15:39:10Z"
+            },
+            {
+                "name": "8.0.1",
+                "date": "2020-02-27T16:49:16Z"
+            },
+            {
+                "name": "8.0.0",
+                "date": "2020-02-27T16:49:51Z"
+            },
+            {
+                "name": "7.0.0",
+                "date": "2019-04-30T17:57:36Z"
+            },
+            {
+                "name": "6.0.0",
+                "date": "2018-12-10T19:58:55Z"
+            },
+            {
+                "name": "5.1.0",
+                "date": "2018-07-30T15:21:54Z"
+            },
+            {
+                "name": "5.0.1",
+                "date": "2018-06-05T14:00:35Z"
+            },
+            {
+                "name": "4.1.0",
+                "date": "2018-03-20T20:58:04Z"
+            },
+            {
+                "name": "4.0.1",
+                "date": "2017-12-12T17:21:27Z"
+            },
+            {
+                "name": "3.0.1",
+                "date": "2017-03-07T17:32:07Z"
+            },
+            {
+                "name": "3.0.0",
+                "date": "2017-01-04T22:04:08Z"
+            },
+            {
+                "name": "2.0",
+                "date": "2015-08-04T18:18:22Z"
+            }
+        ]
+    }
+}

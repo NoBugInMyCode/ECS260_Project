@@ -1,0 +1,67 @@
+{
+    "https://api.github.com/repos/google/dopamine": {
+        "forks": 1378,
+        "watchers": 10611,
+        "stars": 10611,
+        "languages": {
+            "Jupyter Notebook": 6671535,
+            "Python": 1402394,
+            "HTML": 10460,
+            "Dockerfile": 2666,
+            "Shell": 383
+        },
+        "commits": [
+            "2024-11-04T14:33:18Z",
+            "2024-10-31T00:54:12Z",
+            "2024-10-30T19:29:24Z",
+            "2024-10-29T14:27:31Z",
+            "2024-10-28T19:49:33Z",
+            "2024-10-25T18:56:55Z",
+            "2024-05-06T20:35:09Z",
+            "2024-05-06T20:07:41Z",
+            "2024-05-06T19:26:23Z",
+            "2024-05-06T15:33:00Z",
+            "2024-04-03T16:45:58Z",
+            "2024-02-06T18:46:40Z",
+            "2024-02-06T18:23:40Z",
+            "2024-01-25T19:19:52Z",
+            "2024-01-21T17:38:06Z",
+            "2023-11-20T17:49:27Z",
+            "2023-11-14T22:38:09Z",
+            "2023-10-19T18:15:18Z",
+            "2023-09-15T20:41:14Z",
+            "2023-08-25T10:08:08Z",
+            "2023-08-24T19:51:55Z",
+            "2023-08-15T11:18:45Z",
+            "2023-07-19T15:37:29Z",
+            "2023-06-29T14:09:12Z",
+            "2023-06-10T03:58:18Z",
+            "2023-04-11T14:15:41Z",
+            "2023-04-07T23:57:55Z",
+            "2023-03-24T17:01:39Z",
+            "2023-03-20T18:52:57Z",
+            "2023-02-27T19:32:32Z"
+        ],
+        "creation_date": "2018-07-26T09:58:36Z",
+        "contributors": 9,
+        "topics": [
+            "ai",
+            "google",
+            "ml",
+            "rl",
+            "tensorflow"
+        ],
+        "subscribers": 423,
+        "readme": "# Dopamine\n[Getting Started](#getting-started) |\n[Docs][docs] |\n[Baseline Results][baselines] |\n[Changelist](https://google.github.io/dopamine/docs/changelist)\n\n<div align=\"center\">\n  <img src=\"https://google.github.io/dopamine/images/dopamine_logo.png\"><br><br>\n</div>\n\nDopamine is a research framework for fast prototyping of reinforcement learning\nalgorithms. It aims to fill the need for a small, easily grokked codebase in\nwhich users can freely experiment with wild ideas (speculative research).\n\nOur design principles are:\n\n* _Easy experimentation_: Make it easy for new users to run benchmark\n                          experiments.\n* _Flexible development_: Make it easy for new users to try out research ideas.\n* _Compact and reliable_: Provide implementations for a few, battle-tested\n                          algorithms.\n* _Reproducible_: Facilitate reproducibility in results. In particular, our\n                  setup follows the recommendations given by\n                  [Machado et al. (2018)][machado].\n\nDopamine supports the following agents, implemented with jax:\n\n* DQN ([Mnih et al., 2015][dqn])\n* C51 ([Bellemare et al., 2017][c51])\n* Rainbow ([Hessel et al., 2018][rainbow])\n* IQN ([Dabney et al., 2018][iqn])\n* SAC ([Haarnoja et al., 2018][sac])\n* PPO ([Schulman et al., 2017][ppo])\n\nFor more information on the available agents, see the [docs](https://google.github.io/dopamine/docs).\n\nMany of these agents also have a tensorflow (legacy) implementation, though\nnewly added agents are likely to be jax-only.\n\nThis is not an official Google product.\n\n## Getting Started\n\n\nWe provide docker containers for using Dopamine.\nInstructions can be found [here](https://google.github.io/dopamine/docker/).\n\nAlternatively, Dopamine can be installed from source (preferred) or installed\nwith pip. For either of these methods, continue reading at prerequisites.\n\n### Prerequisites\n\nDopamine supports Atari environments and Mujoco environments. Install the\nenvironments you intend to use before you install Dopamine:\n\n**Atari**\n\n1. These should now come packaged with\n   [ale_py](https://github.com/Farama-Foundation/Arcade-Learning-Environment).\n1. You may need to manually run some steps to properly install `baselines`, see\n   [instructions](https://github.com/openai/baselines).\n\n**Mujoco**\n\n1. Install Mujoco and get a license\n[here](https://github.com/openai/mujoco-py#install-mujoco).\n2. Run `pip install mujoco-py` (we recommend using a\n[virtual environment](virtualenv)).\n\n### Installing from Source\n\n\nThe most common way to use Dopamine is to install it from source and modify\nthe source code directly:\n\n```\ngit clone https://github.com/google/dopamine\n```\n\nAfter cloning, install dependencies:\n\n```\npip install -r dopamine/requirements.txt\n```\n\nDopamine supports tensorflow (legacy) and jax (actively maintained) agents.\nView the [Tensorflow documentation](https://www.tensorflow.org/install) for\nmore information on installing tensorflow.\n\nNote: We recommend using a [virtual environment](virtualenv) when working with Dopamine.\n\n### Installing with Pip\n\nNote: We strongly recommend installing from source for most users.\n\nInstalling with pip is simple, but Dopamine is designed to be modified\ndirectly. We recommend installing from source for writing your own experiments.\n\n```\npip install dopamine-rl\n```\n\n### Running tests\n\nYou can test whether the installation was successful by running the following\nfrom the dopamine root directory.\n\n```\nexport PYTHONPATH=$PYTHONPATH:$PWD\npython -m tests.dopamine.atari_init_test\n```\n\n## Next Steps\n\nView the [docs][docs] for more information on training agents.\n\nWe supply [baselines][baselines] for each Dopamine agent.\n\nWe also provide a set of [Colaboratory notebooks](https://github.com/google/dopamine/tree/master/dopamine/colab)\nwhich demonstrate how to use Dopamine.\n\n## References\n\n[Bellemare et al., *The Arcade Learning Environment: An evaluation platform for\ngeneral agents*. Journal of Artificial Intelligence Research, 2013.][ale]\n\n[Machado et al., *Revisiting the Arcade Learning Environment: Evaluation\nProtocols and Open Problems for General Agents*, Journal of Artificial\nIntelligence Research, 2018.][machado]\n\n[Hessel et al., *Rainbow: Combining Improvements in Deep Reinforcement Learning*.\nProceedings of the AAAI Conference on Artificial Intelligence, 2018.][rainbow]\n\n[Mnih et al., *Human-level Control through Deep Reinforcement Learning*. Nature,\n2015.][dqn]\n\n[Schaul et al., *Prioritized Experience Replay*. Proceedings of the International\nConference on Learning Representations, 2016.][prioritized_replay]\n\n[Haarnoja et al., *Soft Actor-Critic Algorithms and Applications*,\narXiv preprint arXiv:1812.05905, 2018.][sac]\n\n[Schulman et al., *Proximal Policy Optimization Algorithms*.][ppo]\n\n## Giving credit\n\nIf you use Dopamine in your work, we ask that you cite our\n[white paper][dopamine_paper]. Here is an example BibTeX entry:\n\n```\n@article{castro18dopamine,\n  author    = {Pablo Samuel Castro and\n               Subhodeep Moitra and\n               Carles Gelada and\n               Saurabh Kumar and\n               Marc G. Bellemare},\n  title     = {Dopamine: {A} {R}esearch {F}ramework for {D}eep {R}einforcement {L}earning},\n  year      = {2018},\n  url       = {http://arxiv.org/abs/1812.06110},\n  archivePrefix = {arXiv}\n}\n```\n\n\n[docs]: https://google.github.io/dopamine/docs/\n[baselines]: https://google.github.io/dopamine/baselines\n[machado]: https://jair.org/index.php/jair/article/view/11182\n[ale]: https://jair.org/index.php/jair/article/view/10819\n[dqn]: https://storage.googleapis.com/deepmind-media/dqn/DQNNaturePaper.pdf\n[a3c]: http://proceedings.mlr.press/v48/mniha16.html\n[prioritized_replay]: https://arxiv.org/abs/1511.05952\n[c51]: http://proceedings.mlr.press/v70/bellemare17a.html\n[rainbow]: https://www.aaai.org/ocs/index.php/AAAI/AAAI18/paper/download/17204/16680\n[iqn]: https://arxiv.org/abs/1806.06923\n[sac]: https://arxiv.org/abs/1812.05905\n[ppo]: https://arxiv.org/abs/1707.06347\n[dopamine_paper]: https://arxiv.org/abs/1812.06110\n[vitualenv]: https://docs.python.org/3/library/venv.html#creating-virtual-environments\n",
+        "releases": [
+            {
+                "name": "Pre Keras release",
+                "date": "2019-09-26T14:58:33Z"
+            },
+            {
+                "name": "1st version of Dopamine (stable)",
+                "date": "2019-01-05T15:57:27Z"
+            }
+        ]
+    }
+}

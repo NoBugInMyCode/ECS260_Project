@@ -1,0 +1,331 @@
+{
+    "https://api.github.com/repos/MagicStack/uvloop": {
+        "forks": 553,
+        "watchers": 10594,
+        "stars": 10594,
+        "languages": {
+            "Cython": 377014,
+            "Python": 347885,
+            "C": 3154,
+            "Makefile": 1150
+        },
+        "commits": [
+            "2024-10-15T15:33:47Z",
+            "2024-10-14T21:58:34Z",
+            "2024-10-14T20:02:05Z",
+            "2024-09-02T21:01:46Z",
+            "2024-09-02T20:57:59Z",
+            "2024-08-28T18:02:42Z",
+            "2024-08-26T20:04:49Z",
+            "2024-08-16T00:14:19Z",
+            "2024-08-15T17:47:18Z",
+            "2024-08-15T17:31:00Z",
+            "2024-08-15T16:52:42Z",
+            "2024-08-15T16:39:16Z",
+            "2024-08-15T03:18:07Z",
+            "2024-08-13T14:18:25Z",
+            "2023-10-22T20:53:42Z",
+            "2023-10-22T18:04:03Z",
+            "2023-10-15T19:14:06Z",
+            "2023-10-15T17:28:17Z",
+            "2023-10-15T16:40:25Z",
+            "2023-10-12T13:42:19Z",
+            "2023-10-13T15:46:32Z",
+            "2023-10-13T00:39:46Z",
+            "2023-10-10T00:28:47Z",
+            "2023-10-07T21:53:16Z",
+            "2023-08-11T17:25:03Z",
+            "2023-01-15T16:27:26Z",
+            "2022-09-13T22:02:45Z",
+            "2022-09-14T05:56:51Z",
+            "2022-09-13T21:12:06Z",
+            "2022-09-13T20:50:27Z"
+        ],
+        "creation_date": "2015-11-08T04:14:54Z",
+        "contributors": 30,
+        "topics": [
+            "async",
+            "async-await",
+            "async-python",
+            "asyncio",
+            "event-loop",
+            "high-performance",
+            "libuv",
+            "networking",
+            "python",
+            "python-3"
+        ],
+        "subscribers": 224,
+        "readme": ".. image:: https://img.shields.io/github/actions/workflow/status/MagicStack/uvloop/tests.yml?branch=master\n    :target: https://github.com/MagicStack/uvloop/actions/workflows/tests.yml?query=branch%3Amaster\n\n.. image:: https://img.shields.io/pypi/v/uvloop.svg\n    :target: https://pypi.python.org/pypi/uvloop\n\n.. image:: https://pepy.tech/badge/uvloop\n    :target: https://pepy.tech/project/uvloop\n    :alt: PyPI - Downloads\n\n\nuvloop is a fast, drop-in replacement of the built-in asyncio\nevent loop.  uvloop is implemented in Cython and uses libuv\nunder the hood.\n\nThe project documentation can be found\n`here <http://uvloop.readthedocs.org/>`_.  Please also check out the\n`wiki <https://github.com/MagicStack/uvloop/wiki>`_.\n\n\nPerformance\n-----------\n\nuvloop makes asyncio 2-4x faster.\n\n.. image:: https://raw.githubusercontent.com/MagicStack/uvloop/master/performance.png\n    :target: http://magic.io/blog/uvloop-blazing-fast-python-networking/\n\nThe above chart shows the performance of an echo server with different\nmessage sizes.  The *sockets* benchmark uses ``loop.sock_recv()`` and\n``loop.sock_sendall()`` methods; the *streams* benchmark uses asyncio\nhigh-level streams, created by the ``asyncio.start_server()`` function;\nand the *protocol* benchmark uses ``loop.create_server()`` with a simple\necho protocol.  Read more about uvloop in a\n`blog post <http://magic.io/blog/uvloop-blazing-fast-python-networking/>`_\nabout it.\n\n\nInstallation\n------------\n\nuvloop requires Python 3.8 or greater and is available on PyPI.\nUse pip to install it::\n\n    $ pip install uvloop\n\nNote that it is highly recommended to **upgrade pip before** installing\nuvloop with::\n\n    $ pip install -U pip\n\n\nUsing uvloop\n------------\n\nAs of uvloop 0.18, the preferred way of using it is via the\n``uvloop.run()`` helper function:\n\n\n.. code:: python\n\n    import uvloop\n\n    async def main():\n        # Main entry-point.\n        ...\n\n    uvloop.run(main())\n\n``uvloop.run()`` works by simply configuring ``asyncio.run()``\nto use uvloop, passing all of the arguments to it, such as ``debug``,\ne.g. ``uvloop.run(main(), debug=True)``.\n\nWith Python 3.11 and earlier the following alternative\nsnippet can be used:\n\n.. code:: python\n\n    import asyncio\n    import sys\n\n    import uvloop\n\n    async def main():\n        # Main entry-point.\n        ...\n\n    if sys.version_info >= (3, 11):\n        with asyncio.Runner(loop_factory=uvloop.new_event_loop) as runner:\n            runner.run(main())\n    else:\n        uvloop.install()\n        asyncio.run(main())\n\n\nBuilding From Source\n--------------------\n\nTo build uvloop, you'll need Python 3.8 or greater:\n\n1. Clone the repository:\n\n   .. code::\n\n    $ git clone --recursive git@github.com:MagicStack/uvloop.git\n    $ cd uvloop\n\n2. Create a virtual environment and activate it:\n\n   .. code::\n\n    $ python3 -m venv uvloop-dev\n    $ source uvloop-dev/bin/activate\n\n3. Install development dependencies:\n\n   ..  code::\n\n    $ pip install -e .[dev]\n\n4. Build and run tests:\n\n   .. code::\n\n    $ make\n    $ make test\n\n\nLicense\n-------\n\nuvloop is dual-licensed under MIT and Apache 2.0 licenses.\n",
+        "releases": [
+            {
+                "name": "v0.21.0",
+                "date": "2024-10-14T23:37:15Z"
+            },
+            {
+                "name": "v0.21.0beta1",
+                "date": "2024-09-03T00:04:30Z"
+            },
+            {
+                "name": "v0.20.0",
+                "date": "2024-08-15T19:35:34Z"
+            },
+            {
+                "name": "v0.19.0",
+                "date": "2023-10-22T22:02:48Z"
+            },
+            {
+                "name": "v0.18.0",
+                "date": "2023-10-13T20:24:51Z"
+            },
+            {
+                "name": "v0.17.0",
+                "date": "2022-09-14T16:49:43Z"
+            },
+            {
+                "name": "v0.16.0",
+                "date": "2021-08-10T19:41:10Z"
+            },
+            {
+                "name": "v0.15.3",
+                "date": "2021-07-13T16:04:44Z"
+            },
+            {
+                "name": "v0.15.2",
+                "date": "2021-02-19T04:13:16Z"
+            },
+            {
+                "name": "v0.15.1",
+                "date": "2021-02-15T17:30:32Z"
+            },
+            {
+                "name": "v0.15.0",
+                "date": "2021-02-10T05:28:54Z"
+            },
+            {
+                "name": "",
+                "date": "2019-11-05T19:16:27Z"
+            },
+            {
+                "name": "v0.14.0rc2",
+                "date": "2019-10-29T15:26:10Z"
+            },
+            {
+                "name": " v0.14.0rc1",
+                "date": "2019-10-25T21:33:50Z"
+            },
+            {
+                "name": "",
+                "date": "2019-08-14T03:40:20Z"
+            },
+            {
+                "name": " v0.13.0rc1",
+                "date": "2019-04-25T16:10:23Z"
+            },
+            {
+                "name": "",
+                "date": "2019-03-20T20:46:22Z"
+            },
+            {
+                "name": "",
+                "date": "2019-02-12T16:51:16Z"
+            },
+            {
+                "name": "",
+                "date": "2019-01-21T20:11:36Z"
+            },
+            {
+                "name": "",
+                "date": "2018-11-01T00:09:12Z"
+            },
+            {
+                "name": "",
+                "date": "2018-10-31T05:37:13Z"
+            },
+            {
+                "name": "",
+                "date": "2018-08-07T21:00:40Z"
+            },
+            {
+                "name": "",
+                "date": "2018-08-07T18:53:33Z"
+            },
+            {
+                "name": "",
+                "date": "2018-08-02T15:30:12Z"
+            },
+            {
+                "name": "",
+                "date": "2018-07-05T00:52:23Z"
+            },
+            {
+                "name": "",
+                "date": "2018-06-25T18:03:04Z"
+            },
+            {
+                "name": "",
+                "date": "2018-06-01T23:12:34Z"
+            },
+            {
+                "name": "v0.10.0",
+                "date": "2018-05-30T20:54:17Z"
+            },
+            {
+                "name": "",
+                "date": "2017-11-29T03:18:08Z"
+            },
+            {
+                "name": "",
+                "date": "2017-11-27T00:02:10Z"
+            },
+            {
+                "name": "",
+                "date": "2017-09-12T20:41:05Z"
+            },
+            {
+                "name": "",
+                "date": "2017-02-10T01:01:01Z"
+            },
+            {
+                "name": "",
+                "date": "2016-12-24T01:29:08Z"
+            },
+            {
+                "name": "",
+                "date": "2016-11-29T00:21:15Z"
+            },
+            {
+                "name": "",
+                "date": "2016-11-11T00:59:48Z"
+            },
+            {
+                "name": "",
+                "date": "2016-11-10T19:33:46Z"
+            },
+            {
+                "name": "",
+                "date": "2016-10-05T18:45:37Z"
+            },
+            {
+                "name": "",
+                "date": "2016-08-24T16:26:03Z"
+            },
+            {
+                "name": "",
+                "date": "2016-07-19T06:17:12Z"
+            },
+            {
+                "name": null,
+                "date": "2016-07-12T19:49:35Z"
+            },
+            {
+                "name": null,
+                "date": "2016-07-05T21:34:47Z"
+            },
+            {
+                "name": null,
+                "date": "2016-07-04T23:32:56Z"
+            },
+            {
+                "name": null,
+                "date": "2016-06-28T22:20:48Z"
+            },
+            {
+                "name": null,
+                "date": "2016-06-09T15:28:29Z"
+            },
+            {
+                "name": null,
+                "date": "2016-05-29T08:26:06Z"
+            },
+            {
+                "name": null,
+                "date": "2016-05-23T22:56:59Z"
+            },
+            {
+                "name": null,
+                "date": "2016-05-23T02:38:44Z"
+            },
+            {
+                "name": null,
+                "date": "2016-05-21T21:13:43Z"
+            },
+            {
+                "name": null,
+                "date": "2016-05-19T00:32:13Z"
+            },
+            {
+                "name": null,
+                "date": "2016-05-16T00:48:26Z"
+            },
+            {
+                "name": null,
+                "date": "2016-05-14T23:38:25Z"
+            },
+            {
+                "name": null,
+                "date": "2016-05-14T20:55:39Z"
+            },
+            {
+                "name": null,
+                "date": "2016-05-13T15:42:46Z"
+            },
+            {
+                "name": null,
+                "date": "2016-05-11T17:05:24Z"
+            },
+            {
+                "name": null,
+                "date": "2016-05-11T16:25:28Z"
+            },
+            {
+                "name": null,
+                "date": "2016-05-11T15:59:07Z"
+            },
+            {
+                "name": null,
+                "date": "2016-05-09T22:26:36Z"
+            },
+            {
+                "name": null,
+                "date": "2016-05-09T03:03:00Z"
+            },
+            {
+                "name": null,
+                "date": "2016-05-07T01:11:30Z"
+            },
+            {
+                "name": "",
+                "date": "2016-05-05T22:47:41Z"
+            },
+            {
+                "name": "",
+                "date": "2016-05-05T17:10:33Z"
+            },
+            {
+                "name": "",
+                "date": "2016-05-04T15:39:31Z"
+            },
+            {
+                "name": "",
+                "date": "2016-05-04T00:36:47Z"
+            },
+            {
+                "name": "",
+                "date": "2016-04-28T04:24:58Z"
+            },
+            {
+                "name": "",
+                "date": "2016-04-28T01:13:12Z"
+            },
+            {
+                "name": "",
+                "date": "2016-04-19T21:03:43Z"
+            },
+            {
+                "name": "",
+                "date": "2016-04-15T01:17:11Z"
+            }
+        ]
+    }
+}

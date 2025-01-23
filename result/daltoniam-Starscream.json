@@ -1,0 +1,87 @@
+{
+    "https://api.github.com/repos/daltoniam/Starscream": {
+        "forks": 1221,
+        "watchers": 8404,
+        "stars": 8404,
+        "languages": {
+            "Swift": 116701,
+            "Ruby": 1602,
+            "Objective-C": 1268
+        },
+        "commits": [
+            "2024-03-07T18:57:12Z",
+            "2024-03-07T18:10:16Z",
+            "2024-03-07T18:05:33Z",
+            "2024-03-07T18:03:19Z",
+            "2024-02-20T18:47:38Z",
+            "2023-08-29T17:08:38Z",
+            "2023-08-22T21:32:08Z",
+            "2023-08-19T21:19:25Z",
+            "2023-08-19T21:12:23Z",
+            "2023-08-19T21:11:05Z",
+            "2023-08-19T21:09:52Z",
+            "2023-08-19T21:09:19Z",
+            "2023-08-19T20:30:29Z",
+            "2023-08-19T20:24:17Z",
+            "2023-08-19T18:16:38Z",
+            "2023-08-19T18:13:57Z",
+            "2023-08-19T18:09:12Z",
+            "2023-08-19T18:03:25Z",
+            "2023-08-16T22:29:37Z",
+            "2023-08-16T22:25:49Z",
+            "2023-08-16T22:24:08Z",
+            "2023-08-16T22:22:28Z",
+            "2023-08-16T22:21:37Z",
+            "2023-08-16T22:20:26Z",
+            "2023-08-16T22:19:45Z",
+            "2023-08-16T22:19:37Z",
+            "2023-08-16T22:19:18Z",
+            "2023-08-16T22:18:19Z",
+            "2021-09-30T19:28:57Z",
+            "2021-06-08T08:52:05Z"
+        ],
+        "creation_date": "2014-07-17T01:52:40Z",
+        "contributors": 30,
+        "topics": [
+            "osx",
+            "protocol",
+            "starscream",
+            "swift",
+            "websocket",
+            "websocket-client",
+            "websockets"
+        ],
+        "subscribers": 138,
+        "readme": "![starscream](https://raw.githubusercontent.com/daltoniam/starscream/assets/starscream.jpg)\n\nStarscream is a conforming WebSocket ([RFC 6455](https://datatracker.ietf.org/doc/html/rfc6455)) library in Swift.\n\n## Features\n\n- Conforms to all of the base [Autobahn test suite](https://crossbar.io/autobahn/).\n- Nonblocking. Everything happens in the background, thanks to GCD.\n- TLS/WSS support.\n- Compression Extensions support ([RFC 7692](https://tools.ietf.org/html/rfc7692))\n\n### Import the framework\n\nFirst thing is to import the framework. See the Installation instructions on how to add the framework to your project.\n\n```swift\nimport Starscream\n```\n\n### Connect to the WebSocket Server\n\nOnce imported, you can open a connection to your WebSocket server. Note that `socket` is probably best as a property, so it doesn't get deallocated right after being setup.\n\n```swift\nvar request = URLRequest(url: URL(string: \"http://localhost:8080\")!)\nrequest.timeoutInterval = 5\nsocket = WebSocket(request: request)\nsocket.delegate = self\nsocket.connect()\n```\n\nAfter you are connected, there is either a delegate or closure you can use for process WebSocket events.\n\n### Receiving data from a WebSocket\n\n`didReceive` receives all the WebSocket events in a single easy to handle enum.\n\n```swift\nfunc didReceive(event: WebSocketEvent, client: WebSocket) {\n\tswitch event {\n\tcase .connected(let headers):\n\t\tisConnected = true\n\t\tprint(\"websocket is connected: \\(headers)\")\n\tcase .disconnected(let reason, let code):\n\t\tisConnected = false\n\t\tprint(\"websocket is disconnected: \\(reason) with code: \\(code)\")\n\tcase .text(let string):\n\t\tprint(\"Received text: \\(string)\")\n\tcase .binary(let data):\n\t\tprint(\"Received data: \\(data.count)\")\n\tcase .ping(_):\n\t\tbreak\n\tcase .pong(_):\n\t\tbreak\n\tcase .viabilityChanged(_):\n\t\tbreak\n\tcase .reconnectSuggested(_):\n\t\tbreak\n\tcase .cancelled:\n\t\tisConnected = false\n\tcase .error(let error):\n\t\tisConnected = false\n\t\thandleError(error)\n        case .peerClosed:\n               break\n\t}\n}\n```\n\nThe closure of this would be:\n\n```swift\nsocket.onEvent = { event in\n\tswitch event {\n\t\t// handle events just like above...\n\t}\n}\n```\n\n### Writing to a WebSocket\n\n### write a binary frame\n\nThe writeData method gives you a simple way to send `Data` (binary) data to the server.\n\n```swift\nsocket.write(data: data) //write some Data over the socket!\n```\n\n### write a string frame\n\nThe writeString method is the same as writeData, but sends text/string.\n\n```swift\nsocket.write(string: \"Hi Server!\") //example on how to write text over the socket!\n```\n\n### write a ping frame\n\nThe writePing method is the same as write, but sends a ping control frame.\n\n```swift\nsocket.write(ping: Data()) //example on how to write a ping control frame over the socket!\n```\n\n### write a pong frame\n\nthe writePong method is the same as writePing, but sends a pong control frame.\n\n```swift\nsocket.write(pong: Data()) //example on how to write a pong control frame over the socket!\n```\n\nStarscream will automatically respond to incoming `ping` control frames so you do not need to manually send `pong`s.\n\nHowever if for some reason you need to control this process you can turn off the automatic `ping` response by disabling `respondToPingWithPong`.\n\n```swift\nsocket.respondToPingWithPong = false //Do not automaticaly respond to incoming pings with pongs.\n```\n\nIn most cases you will not need to do this.\n\n### disconnect\n\nThe disconnect method does what you would expect and closes the socket.\n\n```swift\nsocket.disconnect()\n```\n\nThe disconnect method can also send a custom close code if desired.\n\n```swift\nsocket.disconnect(closeCode: CloseCode.normal.rawValue)\n```\n\n### Custom Headers, Protocols and Timeout\n\nYou can override the default websocket headers, add your own custom ones and set a timeout:\n\n```swift\nvar request = URLRequest(url: URL(string: \"ws://localhost:8080/\")!)\nrequest.timeoutInterval = 5 // Sets the timeout for the connection\nrequest.setValue(\"someother protocols\", forHTTPHeaderField: \"Sec-WebSocket-Protocol\")\nrequest.setValue(\"14\", forHTTPHeaderField: \"Sec-WebSocket-Version\")\nrequest.setValue(\"chat,superchat\", forHTTPHeaderField: \"Sec-WebSocket-Protocol\")\nrequest.setValue(\"Everything is Awesome!\", forHTTPHeaderField: \"My-Awesome-Header\")\nlet socket = WebSocket(request: request)\n```\n\n### SSL Pinning\n\nSSL Pinning is also supported in Starscream.\n\n\nAllow Self-signed certificates:\n\n```swift\nvar request = URLRequest(url: URL(string: \"ws://localhost:8080/\")!)\nlet pinner = FoundationSecurity(allowSelfSigned: true) // don't validate SSL certificates\nlet socket = WebSocket(request: request, certPinner: pinner)\n```\n\nTODO: Update docs on how to load certificates and public keys into an app bundle, use the builtin pinner and TrustKit.\n\n### Compression Extensions\n\nCompression Extensions ([RFC 7692](https://tools.ietf.org/html/rfc7692)) is supported in Starscream.  Compression is enabled by default, however compression will only be used if it is supported by the server as well. You may enable compression by adding a `compressionHandler`:\n\n```swift\nvar request = URLRequest(url: URL(string: \"ws://localhost:8080/\")!)\nlet compression = WSCompression()\nlet socket = WebSocket(request: request, compressionHandler: compression)\n```\n\nCompression should be disabled if your application is transmitting already-compressed, random, or other uncompressable data.\n\n### Custom Queue\n\nA custom queue can be specified when delegate methods are called. By default `DispatchQueue.main` is used, thus making all delegate methods calls run on the main thread. It is important to note that all WebSocket processing is done on a background thread, only the delegate method calls are changed when modifying the queue. The actual processing is always on a background thread and will not pause your app.\n\n```swift\nsocket = WebSocket(url: URL(string: \"ws://localhost:8080/\")!, protocols: [\"chat\",\"superchat\"])\n//create a custom queue\nsocket.callbackQueue = DispatchQueue(label: \"com.vluxe.starscream.myapp\")\n```\n\n## Example Project\n\nCheck out the SimpleTest project in the examples directory to see how to setup a simple connection to a WebSocket server.\n\n## Requirements\n\nStarscream works with iOS 8/10.10 or above for CocoaPods/framework support. To use Starscream with a project targeting iOS 7, you must include all Swift files directly in your project.\n\n## Installation\n\n### Swift Package Manager\n\nThe [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler.\n\nOnce you have your Swift package set up, adding Starscream as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.\n\n```swift\ndependencies: [\n    .package(url: \"https://github.com/daltoniam/Starscream.git\", from: \"4.0.6\")\n]\n```\n\n### CocoaPods\n\nCheck out [Get Started](http://cocoapods.org/) tab on [cocoapods.org](http://cocoapods.org/).\n\nTo use Starscream in your project add the following 'Podfile' to your project\n\n\tsource 'https://github.com/CocoaPods/Specs.git'\n\tplatform :ios, '12.0'\n\tuse_frameworks!\n\n\tpod 'Starscream', '~> 4.0.6'\n\nThen run:\n\n    pod install\n\n### Carthage\n\nCheck out the [Carthage](https://github.com/Carthage/Carthage) docs on how to add a install. The `Starscream` framework is already setup with shared schemes.\n\n[Carthage Install](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application)\n\nYou can install Carthage with [Homebrew](http://brew.sh/) using the following command:\n\n```bash\n$ brew update\n$ brew install carthage\n```\n\nTo integrate Starscream into your Xcode project using Carthage, specify it in your `Cartfile`:\n\n```\ngithub \"daltoniam/Starscream\" >= 4.0.6\n```\n\n### Other\n\nSimply grab the framework (either via git submodule or another package manager).\n\nAdd the `Starscream.xcodeproj` to your Xcode project. Once that is complete, in your \"Build Phases\" add the `Starscream.framework` to your \"Link Binary with Libraries\" phase.\n\n### Add Copy Frameworks Phase\n\nIf you are running this in an OSX app or on a physical iOS device you will need to make sure you add the `Starscream.framework` to be included in your app bundle. To do this, in Xcode, navigate to the target configuration window by clicking on the blue project icon, and selecting the application target under the \"Targets\" heading in the sidebar. In the tab bar at the top of that window, open the \"Build Phases\" panel. Expand the \"Link Binary with Libraries\" group, and add `Starscream.framework`. Click on the + button at the top left of the panel and select \"New Copy Files Phase\". Rename this new phase to \"Copy Frameworks\", set the \"Destination\" to \"Frameworks\", and add `Starscream.framework` respectively.\n\n## TODOs\n\n- [ ] Proxy support\n- [ ] Thread safe implementation\n- [ ] Better testing/CI\n- [ ] SSL Pinning/client auth examples\n\n## License\n\nStarscream is licensed under the Apache v2 License.\n\n## Contact\n\n### Dalton Cherry\n* https://github.com/daltoniam\n* http://twitter.com/daltoniam\n* http://daltoniam.com\n\n### Austin Cherry ###\n* https://github.com/acmacalister\n* http://twitter.com/acmacalister\n* http://austincherry.me\n",
+        "releases": [
+            {
+                "name": "4.0.8",
+                "date": "2024-03-07T19:02:31Z"
+            },
+            {
+                "name": "4.0.7",
+                "date": "2024-03-07T18:17:51Z"
+            },
+            {
+                "name": "4.0.6",
+                "date": "2023-08-19T21:28:06Z"
+            },
+            {
+                "name": "4.0.5",
+                "date": "2023-08-19T21:07:20Z"
+            },
+            {
+                "name": "3.1.1",
+                "date": "2019-10-14T04:38:04Z"
+            },
+            {
+                "name": "3.1.0",
+                "date": "2019-03-26T04:13:53Z"
+            },
+            {
+                "name": "3.0.6",
+                "date": "2018-10-09T08:51:24Z"
+            }
+        ]
+    }
+}

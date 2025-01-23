@@ -1,0 +1,53 @@
+{
+    "https://api.github.com/repos/jwasham/computer-science-flash-cards": {
+        "forks": 2038,
+        "watchers": 8543,
+        "stars": 8543,
+        "languages": {
+            "HTML": 19413,
+            "Python": 12717,
+            "JavaScript": 1827,
+            "CSS": 1804,
+            "Dockerfile": 294,
+            "Shell": 171
+        },
+        "commits": [
+            "2024-09-04T01:55:06Z",
+            "2024-09-04T00:05:22Z",
+            "2024-05-25T22:49:07Z",
+            "2024-05-21T05:34:34Z",
+            "2024-05-07T04:47:01Z",
+            "2024-05-07T04:46:48Z",
+            "2024-05-06T20:43:02Z",
+            "2024-05-06T19:18:06Z",
+            "2024-02-22T01:41:11Z",
+            "2024-02-21T20:44:52Z",
+            "2024-02-17T21:02:16Z",
+            "2024-02-17T00:54:35Z",
+            "2024-02-06T03:03:45Z",
+            "2024-02-06T03:03:00Z",
+            "2024-01-12T03:15:13Z",
+            "2024-01-11T17:26:08Z",
+            "2023-11-29T01:53:16Z",
+            "2023-11-29T00:08:08Z",
+            "2023-10-26T00:26:42Z",
+            "2023-10-25T19:18:32Z",
+            "2023-10-09T15:14:36Z",
+            "2023-10-09T15:14:15Z",
+            "2023-09-22T13:30:11Z",
+            "2023-09-21T20:56:09Z",
+            "2023-08-02T03:36:45Z",
+            "2023-08-02T02:20:01Z",
+            "2023-07-15T17:00:38Z",
+            "2023-07-15T01:22:41Z",
+            "2023-06-05T15:56:20Z",
+            "2023-06-02T20:10:42Z"
+        ],
+        "creation_date": "2016-06-29T23:16:12Z",
+        "contributors": 22,
+        "topics": [],
+        "subscribers": 241,
+        "readme": "# Computer Science Flash Cards\n\nThis is a little website I've put together to allow me to easily make flash cards and quiz myself for memorization of:\n\n- General cs knowledge\n  - vocabulary\n  - definitions of processes\n  - powers of 2\n  - design patterns\n- Code\n  - data structures\n  - algorithms\n  - solving problems\n  - bitwise operations\n\nWill be able to use it on:\n\n- desktop\n- mobile (phone and tablet)\n\nIt uses:\n\n- Python 3\n- Flask\n- SQLite\n\n---\n\n## About the Site\n\nHere's a brief rundown: https://startupnextdoor.com/flash-cards-site-complete/\n\n## Screenshots\n\nUI for listing cards. From here you can add and edit cards.\n\n![Card UI](screenshots/cards_ui-1467754141259.png)\n\n---\n\nThe front of a General flash card.\n\n![Memorizing general knowledge](screenshots/memorize_ui-1467754306971.png)\n\n---\n\nThe reverse (answer side) of a Code flash card.\n\n![Code view](screenshots/memorize_code-1467754962142.png)\n\n## Important Note\n\nThe set included in this project (**cards-jwasham.db**) is not my full set, and is way too big already.\n\nThanks for asking for my list of 1,792 cards. But **it\u2019s too much.** I even printed them out. It\u2019s 50 pages, front and back, in tiny text. It would take about 8 hours to just read them all.\n\nMy set includes a lot of obscure info from books I\u2019ve read, Python trivia, machine learning knowledge, assembly language, etc.\n\nI've added it to the project if you want it (**cards-jwasham-extreme.db**). You've been warned.\n\nPlease make your own set, and while you\u2019re making them, only make cards for what you need to know. Otherwise, it gets out of hand.\n\n## How to convert to Anki or CSV\n\nIf you don't want to run a server, you can simply use Anki or a similar service/app. Use this script to convert from my sets (SQLite .db file), or yours, to CSV:\n\nhttps://github.com/eyedol/tools/blob/master/anki_data_builder.py\n\nThanks [@eyedol](https://github.com/eyedol)\n\n## Anki Flashcards:\n\n* [computer science flash cards - (basic)](https://ankiweb.net/shared/info/1782040640)\n* [computer science flash cards - (extreme)](https://ankiweb.net/shared/info/1691396127)\n\nThanks [@JackKuo-tw](https://github.com/JackKuo-tw)\n\n## How to run it on a server\n\n1. Clone project to a directory on your web server.\n1. Edit the config.txt file. Change the secret key, username and password. The username and password will be the login\n    for your site. There is only one user - you.\n1. Follow this long tutorial to get Flask running. It was way more work than it should be:\n    https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uwsgi-and-nginx-on-ubuntu-16-04\n    - `wsgi.py` is the entry point. It calls `flash_cards.py`\n    - This is my systemd file `/etc/systemd/system/flash_cards.service`: [view](flash_cards.service)\n        - you can see the paths where I installed it, and the name of my virtualenv directory\n    - when done with tutorial:\n    ```shell\n    sudo systemctl restart flash_cards\n    sudo systemctl daemon-reload\n    ```\n1. When you see a login page, you're good to go.\n1. Log in.\n1. Click the \"General\" or \"Code\" button and make a card!\n1. When you're ready to start memorizing, click either \"General\" or \"Code\"\n    in the top menu.\n\n## How to run it on local host (Quick Guide)\n\n*Provided by [@devyash](https://github.com/devyash) - devyashsanghai@gmail.com - Reach out to this contributor if you have trouble.*\n\n1. Install dependencies:\n   1. Install [Python](https://www.python.org/download/releases)\n   1. Add python as environment variable [windows](http://stackoverflow.com/questions/3701646/how-to-add-to-the-pythonpath-in-windows-7)\n   1. To install pip, securely download [get-pip.py](https://bootstrap.pypa.io/get-pip.py)\n   1. Run `python get-pip.py` in terminal\n   1. Add pip to your PATH system variable [windows](https://stackoverflow.com/questions/23708898/pip-is-not-recognized-as-an-internal-or-external-command)\n   1. Run `pip install -r requirements.txt` in terminal after going to correct folder\n1. Type `python flash_cards.py` - if you get error for flask then use `python -m pip install Flask` first then run `flash_card.py` file\n1. Open localhost:5000/\n1. Login using 'admin' and 'default' for the username and password, respectively.\n\n**NOTE:** If you wish to use John's flash cards then also do following steps:\n\n1. Copy db files such as `cards-jwasham-extreme` OR `cards-jwasham` and paste them in db folder\n1. Edit file `flash_cards.py` line 8 and replace 'cards.db' with any of the other database files e.g.('cards-jwasham.db') \n1. Repeat the above steps from step 3\n\nEvery time you wish to run your db just open folder in terminal and run  `python flash_cards.py`\n\n## How to run with Docker\n\n*Provided by [@Tinpee](https://github.com/tinpee) - tinpee.dev@gmail.com - Reach out to this contributor if you have trouble.*\n\n__Make sure you already installed [docker](https://www.docker.com) and optionally [docker-compose](https://docs.docker.com/compose/install/)__\n\n1. Clone project to any where you want and go to source folder.\n1. Edit the `config.txt` file. Change the secret key, username and password. The username and password will be the login for your site. There is only one user - you.\n1. Build image:\n   - Docker: `docker build . -t cs-flash-cards`\n   - Compose: `docker-compose build`\n1. Run container:\n   - Docker: `docker run -d -p 8000:8000 --name cs-flash-cards cs-flash-cards`\n   - Compose: `docker-compose up`\n1. Go your browser and type `http://localhost:8000`\n\n__If you already had a backup file `cards.db`. Run following command:__\n\n*Note: We don't need to rebuild image, just delete old container if you already built.*\n\n```shell\ndocker run -d -p 8000:8000 --name cs-flash-cards -v <path_to_folder_contains_cards_db>:/src/db cs-flash-cards\n```\n\n- `<path_to_folder_contains_cards_db>`: is the full path contains `cards.db`.\n- Example: `/home/tinpee/cs-flash-cards/db`, and `cards.db` is inside this folder.\n\nFor convenience, if you don't have `cards.db`, this container will auto copy a new one from `cards-empty.db`.\n\n---\n\n### How to backup data ?\nWe just need store `cards.db` file, and don't need any sql command.\n- If you run container with `-v <folder_db>:/src/db` just go to `folder_db` and store `cards.db` anywhere you want.\n- Without `-v flag`. Type: `docker cp <name_of_container>:/src/db/cards.db /path/to/save`\n\n### How to restore data ?\n- Delete old container (not image): `docker rm cs-flash-cards`\n- Build a new one with `-v flag`:\n`docker run -d -p 8000:8000 --name cs-flash-cards -v <path_to_folder_contains_cards_db>:/src/db cs-flash-cards`\n- Voila :)\n\n### How to deploy docker file on heroku\n\n- first install [heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)\n- change `entrypoint.sh`\n\n```shell\n- export CARDS_SETTINGS=/src/config.txt\ngunicorn --bind  0.0.0.0:$8000 flash_cards:app\n+ export CARDS_SETTINGS=/src/config.txt\ngunicorn --bind  0.0.0.0:$PORT flash_cards:app\n```\n- deploy docker file with following commands\n\n```shell\nheroku login\nheroku container:login\nheroku create\n# Creating app... done, \u2b22 your-app-name\nheroku container:push web --app your-app-name\nheroku container:release web --app your-app-name\nheroku open --app your-app-name\n```\n\n## Alternative for Node fans\n\n[@ashwanikumar04](https://github.com/ashwanikumar04) put together an alternative flash cards site running Node: https://github.com/ashwanikumar04/flash-cards\n\nCheck out the demo!\n\n*Happy learning!*\n",
+        "releases": []
+    }
+}

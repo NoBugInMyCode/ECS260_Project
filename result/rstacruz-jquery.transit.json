@@ -1,0 +1,50 @@
+{
+    "https://api.github.com/repos/rstacruz/jquery.transit": {
+        "forks": 861,
+        "watchers": 7288,
+        "stars": 7288,
+        "languages": {
+            "JavaScript": 24105,
+            "HTML": 4388,
+            "CSS": 2159
+        },
+        "commits": [
+            "2015-05-28T14:13:34Z",
+            "2015-05-27T22:12:59Z",
+            "2015-04-06T06:50:24Z",
+            "2015-04-05T10:57:57Z",
+            "2014-07-16T23:39:51Z",
+            "2014-07-16T23:34:15Z",
+            "2014-07-16T21:36:56Z",
+            "2014-07-04T10:07:18Z",
+            "2014-07-04T10:06:30Z",
+            "2014-06-25T04:00:06Z",
+            "2014-06-23T05:16:50Z",
+            "2014-06-23T04:41:16Z",
+            "2014-06-23T04:40:05Z",
+            "2014-06-23T04:36:39Z",
+            "2014-06-23T04:30:14Z",
+            "2014-06-23T04:16:08Z",
+            "2014-06-23T04:12:16Z",
+            "2014-06-23T04:04:37Z",
+            "2014-06-22T17:32:33Z",
+            "2014-06-22T17:21:27Z",
+            "2014-06-22T17:19:24Z",
+            "2014-06-22T17:13:32Z",
+            "2014-06-22T17:09:18Z",
+            "2014-06-22T17:08:50Z",
+            "2014-06-22T17:07:26Z",
+            "2014-06-22T17:04:09Z",
+            "2014-06-14T22:31:45Z",
+            "2014-05-02T09:17:32Z",
+            "2014-04-26T04:32:00Z",
+            "2014-04-24T08:46:33Z"
+        ],
+        "creation_date": "2011-11-12T15:56:45Z",
+        "contributors": 23,
+        "topics": [],
+        "subscribers": 251,
+        "readme": "# [jQuery Transit](http://ricostacruz.com/jquery.transit)\n#### Super-smooth CSS3 transformations and transitions for jQuery\n\njQuery Transit is a plugin for to help you do CSS transformations and \ntransitions in jQuery.\n\nRefer to the [jQuery Transit website](http://ricostacruz.com/jquery.transit) for \nexamples.\n\nUsage\n-----\n\nJust include [jquery.transit.js] after jQuery. Requires jQuery 1.4+.\n\n``` html\n<script src='jquery.js'></script>\n<script src='jquery.transit.js'></script>\n```\n\nIt is also available via [bower] and [npm].\n\n    $ bower install --save jquery.transit\n    $ npm install --save jquery.transit\n\n[bower]: http://bower.io/search/?q=jquery.transit\n[npm]: http://npmjs.org/package/jquery.transit\n[jquery.transit.js]: https://github.com/rstacruz/jquery.transit/blob/master/jquery.transit.js\n\nTransformations\n---------------\n\nYou can set transformations as you would any CSS property in jQuery.\n(Note that you cannot `$.fn.animate()` them, only set them.)\n\n``` javascript\n$(\"#box\").css({ x: '30px' });               // Move right\n$(\"#box\").css({ y: '60px' });               // Move down\n$(\"#box\").css({ translate: [60,30] });      // Move right and down\n$(\"#box\").css({ rotate: '30deg' });         // Rotate clockwise\n$(\"#box\").css({ scale: 2 });                // Scale up 2x (200%)\n$(\"#box\").css({ scale: [2, 1.5] });         // Scale horiz and vertical\n$(\"#box\").css({ skewX: '30deg' });          // Skew horizontally\n$(\"#box\").css({ skewY: '30deg' });          // Skew vertical\n$(\"#box\").css({ perspective: 100, rotateX: 30 }); // Webkit 3d rotation\n$(\"#box\").css({ rotateY: 30 });\n$(\"#box\").css({ rotate3d: [1, 1, 0, 45] });\n```\n\nRelative values are supported.\n\n``` javascript\n$(\"#box\").css({ rotate: '+=30' });          // 30 degrees more\n$(\"#box\").css({ rotate: '-=30' });          // 30 degrees less\n```\n\nAll units are optional.\n\n``` javascript\n$(\"#box\").css({ x: '30px' });\n$(\"#box\").css({ x: 30 });\n```\n\nMultiple arguments can be commas or an array.\n\n``` javascript\n$(\"#box\").css({ translate: [60,30] });\n$(\"#box\").css({ translate: ['60px','30px'] });\n$(\"#box\").css({ translate: '60px,30px' });\n```\n\nGetters are supported. (Getting properties with multiple arguments returns\narrays.)\n\n``` javascript\n$(\"#box\").css('rotate');     //=> \"30deg\"\n$(\"#box\").css('translate');  //=> ['60px', '30px']\n```\n\nAnimating - `$.fn.transition`\n-----------------------------\n\n    $('...').transition(options, [duration], [easing], [complete])\n\nYou can animate with CSS3 transitions using `$.fn.transition()`. It works \nexactly like `$.fn.animate()`, except it uses CSS3 transitions.\n\n``` javascript\n$(\"#box\").transition({ opacity: 0.1, scale: 0.3 });\n$(\"#box\").transition({ opacity: 0.1, scale: 0.3 }, 500);                         // duration\n$(\"#box\").transition({ opacity: 0.1, scale: 0.3 }, 'fast');                      // easing\n$(\"#box\").transition({ opacity: 0.1, scale: 0.3 }, 500, 'in');                   // duration+easing\n$(\"#box\").transition({ opacity: 0.1, scale: 0.3 }, function() {..});             // callback\n$(\"#box\").transition({ opacity: 0.1, scale: 0.3 }, 500, 'in', function() {..});  // everything\n```\n\nYou can also pass *duration* and *easing* and *complete* as values in `options`, just like in `$.fn.animate()`.\n\n``` javascript\n$(\"#box\").transition({\n  opacity: 0.1, scale: 0.3,\n  duration: 500,\n  easing: 'in',\n  complete: function() { /* ... */ }\n});\n```\n\nTests\n-----\n\nTransit has a unique test suite. Open `test/index.html` to see it. When \ncontibuting fixes, be sure to test this out with different jQuery versions and \ndifferent browsers.\n\nAlternatives\n------------\n\n__[Velocity.js](https://velocityjs.org)__ (recommended!)\n\n * Pros: optimized for situations with hundreds of simultaneous transitions. Lots of extra features.\n\n__[Move.js](https://github.com/visionmedia/move.js)__\n\n * Pros: no jQuery dependency, great syntax.\n * Cons (at time of writing): no iOS support (doesn't use `translate3d`), some\n   IE bugs, no 3D transforms, no animation queue.\n\n__[jQuery animate \nenhanced](https://github.com/benbarnett/jQuery-Animate-Enhanced)__\n\n* Pros: transparently overrides `$.fn.animate()` to provide CSS transitions \n  support.\n* Cons: transparently overrides `$.fn.animate()`. No transformations support.\n\n__[jQuery 2D transformations](https://github.com/heygrady/transform/)__\n\n* Pros: Tons of transformations.\n* Cons: No CSS transition support; animates via `fx.step`.\n\n__[jQuery CSS3 rotate](http://plugins.jquery.com/project/Rotate)__\n\n* Pros: simply provides rotation.\n* Cons: simply provides rotation. No transitions support.\n\nSupport\n-------\n\n__Bugs and requests__: submit them through the project's issues tracker.<br>\n[![Issues](http://img.shields.io/github/issues/rstacruz/jquery.transit.svg)]( https://github.com/rstacruz/jquery.transit/issues )\n\n__Questions__: ask them at StackOverflow with the tag *jquery-transit*.<br>\n[![StackOverflow](http://img.shields.io/badge/stackoverflow-jquery--transit-brightgreen.svg)]( http://stackoverflow.com/questions/tagged/jquery-transit )\n\n__Chat__: join us at gitter.im.<br>\n[![Chat](http://img.shields.io/badge/gitter-rstacruz / jquery.transit-brightgreen.svg)]( https://gitter.im/rstacruz/jquery.transit )\n\nThanks\n------\n\n**jQuery Transit** \u00a9 2011-2014+, Rico Sta. Cruz. Released under the [MIT License].<br>\nAuthored and maintained by Rico Sta. Cruz with help from [contributors].\n\n> [ricostacruz.com](http://ricostacruz.com) &nbsp;&middot;&nbsp;\n> GitHub [@rstacruz](https://github.com/rstacruz) &nbsp;&middot;&nbsp;\n> Twitter [@rstacruz](https://twitter.com/rstacruz)\n\n[MIT License]: http://mit-license.org/\n[contributors]: http://github.com/rstacruz/jquery.transit/contributors\n\n[![npm version](https://img.shields.io/npm/v/jquery.transit.png)](https://npmjs.org/package/jquery.transit \"View this project on npm\")\n",
+        "releases": []
+    }
+}

@@ -1,0 +1,106 @@
+{
+    "https://api.github.com/repos/developit/mitt": {
+        "forks": 446,
+        "watchers": 11033,
+        "stars": 11033,
+        "languages": {
+            "TypeScript": 10724
+        },
+        "commits": [
+            "2023-07-04T17:35:44Z",
+            "2023-07-04T17:31:06Z",
+            "2023-07-04T17:28:29Z",
+            "2023-07-04T17:27:50Z",
+            "2023-07-04T17:27:38Z",
+            "2023-07-04T14:35:03Z",
+            "2022-10-25T02:43:50Z",
+            "2022-01-31T14:28:26Z",
+            "2021-06-23T20:46:36Z",
+            "2021-06-23T20:40:45Z",
+            "2021-06-23T16:47:46Z",
+            "2021-06-23T14:45:19Z",
+            "2021-06-23T14:44:55Z",
+            "2021-06-22T22:24:42Z",
+            "2021-06-22T22:21:48Z",
+            "2021-06-22T21:56:54Z",
+            "2021-06-22T21:52:38Z",
+            "2021-06-22T21:37:46Z",
+            "2021-06-22T21:34:36Z",
+            "2021-06-22T21:22:49Z",
+            "2021-01-11T12:41:12Z",
+            "2021-01-11T12:20:51Z",
+            "2021-01-04T02:02:11Z",
+            "2020-07-15T15:00:13Z",
+            "2020-07-15T14:40:59Z",
+            "2020-07-15T14:31:43Z",
+            "2020-07-13T21:03:14Z",
+            "2020-07-09T19:17:50Z",
+            "2020-07-09T18:51:56Z",
+            "2020-06-25T14:18:18Z"
+        ],
+        "creation_date": "2017-01-15T01:10:50Z",
+        "contributors": 30,
+        "topics": [
+            "event",
+            "event-bus",
+            "event-handlers",
+            "event-listener",
+            "eventemitter",
+            "mitt",
+            "pubsub",
+            "tiny"
+        ],
+        "subscribers": 70,
+        "readme": "<p align=\"center\">\n  <img src=\"https://i.imgur.com/BqsX9NT.png\" width=\"300\" height=\"300\" alt=\"mitt\">\n  <br>\n  <a href=\"https://www.npmjs.org/package/mitt\"><img src=\"https://img.shields.io/npm/v/mitt.svg\" alt=\"npm\"></a>\n  <img src=\"https://github.com/developit/mitt/workflows/CI/badge.svg\" alt=\"build status\">\n  <a href=\"https://unpkg.com/mitt/dist/mitt.js\"><img src=\"https://img.badgesize.io/https://unpkg.com/mitt/dist/mitt.js?compression=gzip\" alt=\"gzip size\"></a>\n</p>\n\n# Mitt\n\n> Tiny 200b functional event emitter / pubsub.\n\n-   **Microscopic:** weighs less than 200 bytes gzipped\n-   **Useful:** a wildcard `\"*\"` event type listens to all events\n-   **Familiar:** same names & ideas as [Node's EventEmitter](https://nodejs.org/api/events.html#events_class_eventemitter)\n-   **Functional:** methods don't rely on `this`\n-   **Great Name:** somehow [mitt](https://npm.im/mitt) wasn't taken\n\nMitt was made for the browser, but works in any JavaScript runtime. It has no dependencies and supports IE9+.\n\n## Table of Contents\n\n-   [Install](#install)\n-   [Usage](#usage)\n-   [Examples & Demos](#examples--demos)\n-   [API](#api)\n-   [Contribute](#contribute)\n-   [License](#license)\n\n## Install\n\nThis project uses [node](http://nodejs.org) and [npm](https://npmjs.com). Go check them out if you don't have them locally installed.\n\n```sh\n$ npm install --save mitt\n```\n\nThen with a module bundler like [rollup](http://rollupjs.org/) or [webpack](https://webpack.js.org/), use as you would anything else:\n\n```javascript\n// using ES6 modules\nimport mitt from 'mitt'\n\n// using CommonJS modules\nvar mitt = require('mitt')\n```\n\nThe [UMD](https://github.com/umdjs/umd) build is also available on [unpkg](https://unpkg.com):\n\n```html\n<script src=\"https://unpkg.com/mitt/dist/mitt.umd.js\"></script>\n```\n\nYou can find the library on `window.mitt`.\n\n## Usage\n\n```js\nimport mitt from 'mitt'\n\nconst emitter = mitt()\n\n// listen to an event\nemitter.on('foo', e => console.log('foo', e) )\n\n// listen to all events\nemitter.on('*', (type, e) => console.log(type, e) )\n\n// fire an event\nemitter.emit('foo', { a: 'b' })\n\n// clearing all events\nemitter.all.clear()\n\n// working with handler references:\nfunction onFoo() {}\nemitter.on('foo', onFoo)   // listen\nemitter.off('foo', onFoo)  // unlisten\n```\n\n### Typescript\n\nSet `\"strict\": true` in your tsconfig.json to get improved type inference for `mitt` instance methods.\n\n```ts\nimport mitt from 'mitt';\n\ntype Events = {\n  foo: string;\n  bar?: number;\n};\n\nconst emitter = mitt<Events>(); // inferred as Emitter<Events>\n\nemitter.on('foo', (e) => {}); // 'e' has inferred type 'string'\n\nemitter.emit('foo', 42); // Error: Argument of type 'number' is not assignable to parameter of type 'string'. (2345)\n```\n\nAlternatively, you can use the provided `Emitter` type:\n\n```ts\nimport mitt, { Emitter } from 'mitt';\n\ntype Events = {\n  foo: string;\n  bar?: number;\n};\n\nconst emitter: Emitter<Events> = mitt<Events>();\n```\n\n## Examples & Demos\n\n<a href=\"http://codepen.io/developit/pen/rjMEwW?editors=0110\">\n  <b>Preact + Mitt Codepen Demo</b>\n  <br>\n  <img src=\"https://i.imgur.com/CjBgOfJ.png\" width=\"278\" alt=\"preact + mitt preview\">\n</a>\n\n* * *\n\n## API\n\n<!-- Generated by documentation.js. Update this documentation by updating the source code. -->\n\n#### Table of Contents\n\n-   [mitt](#mitt)\n-   [all](#all)\n-   [on](#on)\n    -   [Parameters](#parameters)\n-   [off](#off)\n    -   [Parameters](#parameters-1)\n-   [emit](#emit)\n    -   [Parameters](#parameters-2)\n\n### mitt\n\nMitt: Tiny (~200b) functional event emitter / pubsub.\n\nReturns **Mitt** \n\n### all\n\nA Map of event names to registered handler functions.\n\n### on\n\nRegister an event handler for the given type.\n\n#### Parameters\n\n-   `type` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \\| [symbol](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Symbol))** Type of event to listen for, or `'*'` for all events\n-   `handler` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Function to call in response to given event\n\n### off\n\nRemove an event handler for the given type.\nIf `handler` is omitted, all handlers of the given type are removed.\n\n#### Parameters\n\n-   `type` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \\| [symbol](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Symbol))** Type of event to unregister `handler` from, or `'*'`\n-   `handler` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)?** Handler function to remove\n\n### emit\n\nInvoke all handlers for the given type.\nIf present, `'*'` handlers are invoked after type-matched handlers.\n\nNote: Manually firing '\\*' handlers is not supported.\n\n#### Parameters\n\n-   `type` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \\| [symbol](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Symbol))** The event type to invoke\n-   `evt` **Any?** Any value (object is recommended and powerful), passed to each handler\n\n## Contribute\n\nFirst off, thanks for taking the time to contribute!\nNow, take a moment to be sure your contributions make sense to everyone else.\n\n### Reporting Issues\n\nFound a problem? Want a new feature? First of all see if your issue or idea has [already been reported](../../issues).\nIf don't, just open a [new clear and descriptive issue](../../issues/new).\n\n### Submitting pull requests\n\nPull requests are the greatest contributions, so be sure they are focused in scope, and do avoid unrelated commits.\n\n-   Fork it!\n-   Clone your fork: `git clone https://github.com/<your-username>/mitt`\n-   Navigate to the newly cloned directory: `cd mitt`\n-   Create a new branch for the new feature: `git checkout -b my-new-feature`\n-   Install the tools necessary for development: `npm install`\n-   Make your changes.\n-   Commit your changes: `git commit -am 'Add some feature'`\n-   Push to the branch: `git push origin my-new-feature`\n-   Submit a pull request with full remarks documenting your changes.\n\n## License\n\n[MIT License](https://opensource.org/licenses/MIT) \u00a9 [Jason Miller](https://jasonformat.com/)\n",
+        "releases": [
+            {
+                "name": "3.0.1",
+                "date": "2023-07-04T17:32:15Z"
+            },
+            {
+                "name": "",
+                "date": "2021-06-23T20:58:28Z"
+            },
+            {
+                "name": "",
+                "date": "2020-07-15T15:04:38Z"
+            },
+            {
+                "name": "",
+                "date": "2020-05-27T17:46:37Z"
+            },
+            {
+                "name": "",
+                "date": "2020-05-26T22:44:58Z"
+            },
+            {
+                "name": "",
+                "date": "2019-10-21T17:09:20Z"
+            },
+            {
+                "name": "",
+                "date": "2017-12-07T03:26:06Z"
+            },
+            {
+                "name": "",
+                "date": "2017-04-17T17:30:26Z"
+            },
+            {
+                "name": "",
+                "date": "2017-04-17T17:29:42Z"
+            },
+            {
+                "name": "",
+                "date": "2017-04-17T17:28:20Z"
+            },
+            {
+                "name": "",
+                "date": "2017-01-22T18:39:38Z"
+            },
+            {
+                "name": "",
+                "date": "2017-01-22T18:39:23Z"
+            }
+        ]
+    }
+}
