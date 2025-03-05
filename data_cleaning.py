@@ -171,6 +171,9 @@ if __name__ == "__main__":
 
     df_original = pd.read_csv("data_original.csv")
 
+    df_original.drop(columns=['watchers'], inplace=True)
+    df_original.rename(columns={'subscribers': 'watchers'}, inplace=True)
+
 
     df_cleaned, df = detect_and_remove_outliers(df_original, feature_columns=["forks", "watchers", "stars", "commits_freq",  "releases_freq",  "pull_requests",  "readme_size", "lines_of_codes"], ratio=1.5)
     df_cleaned.to_csv('data_cleaned.csv', index=False)
