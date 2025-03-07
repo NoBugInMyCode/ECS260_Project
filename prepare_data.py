@@ -8,8 +8,9 @@ def convert_columns_to_float32(df, columns):
     return df
 
 
-def prepare_data():
-    df_cleaned = pd.read_csv("data_cleaned.csv")
+def prepare_data(df_cleaned = None):
+    if df_cleaned is None:
+        df_cleaned = pd.read_csv("data_original.csv")
 
     # Specify the input and target columns
     input_columns = ["forks", "watchers", "releases_freq", "pull_requests", "readme_size", "lines_of_codes"]
