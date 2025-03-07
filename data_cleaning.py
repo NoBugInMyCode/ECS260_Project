@@ -116,56 +116,56 @@ def plot_distribution(data, title, filename):
 
 
 if __name__ == "__main__":
-    # file_paths = []
+    file_paths = []
 
-    # for f_name in os.listdir('data'):
-    #     if f_name.endswith('json'):
-    #         file_paths.append("data/" + f_name)
+    for f_name in os.listdir('data'):
+        if f_name.endswith('json'):
+            file_paths.append("data/" + f_name)
 
-    # print(f"Total files detected: {len(file_paths)}\n")
-
-
-    # error_count = 0
-    # rows = []
-
-    # for file_path in file_paths:
-    #     try:
-    #         with open(file_path, 'r', encoding='utf-8') as file:
-    #             data = json.load(file)
-    #             pull_requests = data.get("pull_requests", 0)  # 提取 pull_requests
-
-    #             for url, details in data.items():
-    #                 if url != "pull_requests":  # 排除 pull_requests 键
-    #                     row = {"url": url, "name": url.split('/')[-1], "owner": url.split('/')[-2]}
-    #                     row.update(details)
-    #                     row["pull_requests"] = pull_requests  # 添加 pull_requests 到每行数据中
-    #                     rows.append(row)
-    #     except Exception as e:
-    #         error_count += 1
-
-    # df = pd.DataFrame(rows)
-    # print(f"Total errors: {error_count}")
-    # print(f"Raw data size {len(df)}\n")
+    print(f"Total files detected: {len(file_paths)}\n")
 
 
-    # df["readme_size"] = df["readme"].apply(calculate_readme_size)
-    # df["commits_freq"] = df["commits"].apply(calculate_commits_freq)
-    # df["releases_freq"] = df["releases"].apply(calculate_releases_freq)
-    # df["lines_of_codes"] = df["languages"].apply(calculate_lines_of_codes)
-    # df["popularity_score_1"] = df.apply(lambda row: calculate_popularity_score_1(row["stars"], row["forks"], row["pull_requests"]), axis=1)
-    # df["popularity_score_2"] = df.apply(lambda row: calculate_popularity_score_2(row["watchers"], row["pull_requests"]), axis=1)
-    # df["popularity_score_3"] = df.apply(lambda row: calculate_popularity_score_3(row["stars"], row["forks"]), axis=1)
+    error_count = 0
+    rows = []
+
+    for file_path in file_paths:
+        try:
+            with open(file_path, 'r', encoding='utf-8') as file:
+                data = json.load(file)
+                pull_requests = data.get("pull_requests", 0)  # 提取 pull_requests
+
+                for url, details in data.items():
+                    if url != "pull_requests":  # 排除 pull_requests 键
+                        row = {"url": url, "name": url.split('/')[-1], "owner": url.split('/')[-2]}
+                        row.update(details)
+                        row["pull_requests"] = pull_requests  # 添加 pull_requests 到每行数据中
+                        rows.append(row)
+        except Exception as e:
+            error_count += 1
+
+    df = pd.DataFrame(rows)
+    print(f"Total errors: {error_count}")
+    print(f"Raw data size {len(df)}\n")
 
 
-    # languages = []
-    # for repo_languages in df["languages"]:
-    #     if isinstance(repo_languages, dict):  # 确保 repo_languages 是字典类型
-    #         for repo_language in repo_languages:
-    #             if repo_language not in languages:
-    #                 languages.append(repo_language)
-    # print(f"There are total {len(languages)} languages \n")
+    df["readme_size"] = df["readme"].apply(calculate_readme_size)
+    df["commits_freq"] = df["commits"].apply(calculate_commits_freq)
+    df["releases_freq"] = df["releases"].apply(calculate_releases_freq)
+    df["lines_of_codes"] = df["languages"].apply(calculate_lines_of_codes)
+    df["popularity_score_1"] = df.apply(lambda row: calculate_popularity_score_1(row["stars"], row["forks"], row["pull_requests"]), axis=1)
+    df["popularity_score_2"] = df.apply(lambda row: calculate_popularity_score_2(row["watchers"], row["pull_requests"]), axis=1)
+    df["popularity_score_3"] = df.apply(lambda row: calculate_popularity_score_3(row["stars"], row["forks"]), axis=1)
 
-    # df.to_csv('data_original.csv', index=False)
+
+    languages = []
+    for repo_languages in df["languages"]:
+        if isinstance(repo_languages, dict):  # 确保 repo_languages 是字典类型
+            for repo_language in repo_languages:
+                if repo_language not in languages:
+                    languages.append(repo_language)
+    print(f"There are total {len(languages)} languages \n")
+
+    df.to_csv('data_original.csv', index=False)
 
 
 
@@ -174,8 +174,9 @@ if __name__ == "__main__":
     df_original.drop(columns=['watchers'], inplace=True)
     df_original.rename(columns={'subscribers': 'watchers'}, inplace=True)
 
+    df_original.to_csv('data_original_v2.csv', index=False)
 
-    df_cleaned, df = detect_and_remove_outliers(df_original, feature_columns=["forks", "watchers", "stars", "commits_freq",  "releases_freq",  "pull_requests",  "readme_size", "lines_of_codes"], ratio=1.5)
+    df_cleaned, df = detect_and_remove_outliers(df_original, feature_columns=["forks", "watchers", "stars",  "releases_freq",  "pull_requests",  "readme_size", "lines_of_codes"], ratio=1.5)
     df_cleaned.to_csv('data_cleaned.csv', index=False)
 
 
@@ -183,7 +184,7 @@ if __name__ == "__main__":
 
 
     # List of feature columns
-    feature_columns = ["forks", "watchers", "stars", "commits_freq", "releases_freq", "pull_requests", "readme_size", "lines_of_codes"]
+    feature_columns = ["forks", "watchers", "stars", "releases_freq", "pull_requests", "readme_size", "lines_of_codes"]
 
     # Compute statistics for original and cleaned dataframes
     stats_original = df_original[feature_columns].describe().loc[["min", "mean", "max"]]
