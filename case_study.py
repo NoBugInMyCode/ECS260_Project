@@ -21,19 +21,19 @@ ai_avg_stars = df['stars'].mean()
 
 ai_top = ai_top_5_percent[ai_top_5_percent['lines_of_codes'] <= ai_avg_line_of_codes]
 ai_top = ai_top[ai_top['readme_size'] >= ai_avg_readme_size]
-ai_top = ai_top[ai_top['pull_requests'] >= ai_avg_pull_requests]
+ai_top = ai_top[ai_top['releases_freq'] >= ai_avg_releases_freq]
 
 ai_bottom = ai_bottom_5_percent[ai_bottom_5_percent['lines_of_codes'] >= ai_avg_line_of_codes]
 ai_bottom = ai_bottom[ai_bottom['readme_size'] <= ai_avg_readme_size]
-ai_bottom = ai_bottom[ai_bottom['pull_requests'] <= ai_avg_pull_requests]
+ai_bottom = ai_bottom[ai_bottom['releases_freq'] <= ai_avg_releases_freq]
 
 
-print(ai_top.size / ai_top_5_percent.size)
-print(ai_bottom.size / ai_bottom_5_percent.size)
+# print(ai_top.size / ai_top_5_percent.size)
+# print(ai_bottom.size / ai_bottom_5_percent.size)
 # print(ai_top.size)
 # print(ai_top.loc[df['stars'].idxmax()])
-# print(ai_top.iloc[1])
-# print(ai_bottom.iloc[1])
+print(ai_top.iloc[2])
+print(ai_bottom.iloc[2])
 # print(ai_avg_stars)
 # print(ai_avg_line_of_codes)
 # print(ai_avg_readme_size)
@@ -58,12 +58,12 @@ non_ai_bottom = non_ai_bottom_5_percent[non_ai_bottom_5_percent['lines_of_codes'
 non_ai_bottom = non_ai_bottom[non_ai_bottom['readme_size'] <= non_ai_avg_readme_size]
 non_ai_bottom = non_ai_bottom[non_ai_bottom['releases_freq'] <= non_ai_avg_releases_freq]
 
-print(non_ai_top.size / non_ai_top_5_percent.size)
-print(non_ai_bottom.size / non_ai_bottom_5_percent.size)
+# print(non_ai_top.size / non_ai_top_5_percent.size)
+# print(non_ai_bottom.size / non_ai_bottom_5_percent.size)
 # print(non_ai_top.size)
 # print(non_ai_top.loc[df2['stars'].idxmax()])
-# print(non_ai_top.iloc[0])
-# print(non_ai_bottom.iloc[0])
+print(non_ai_top.iloc[1])
+print(non_ai_bottom.iloc[0])
 # print(non_ai_avg_stars)
 # print(non_ai_avg_line_of_codes)
 # print(non_ai_avg_readme_size)
@@ -71,5 +71,5 @@ print(non_ai_bottom.size / non_ai_bottom_5_percent.size)
 # print(non_ai_avg_releases_freq)
 
 
-# print(ai_mid_50_55.iloc[0])
-# print(non_ai_mid_50_55.iloc[0])
+print(ai_mid_50_55.iloc[0])
+print(non_ai_mid_50_55.iloc[0])
