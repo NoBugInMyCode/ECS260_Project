@@ -4,8 +4,8 @@ import numpy as np
 from scipy import stats
 import matplotlib.pyplot as plt
 
-df = pd.read_csv('ai.csv')
-df2 = pd.read_csv('non_ai.csv')
+df = pd.read_csv('AI_repos.csv')
+df2 = pd.read_csv('nonAI_repos.csv')
 
 
 df['creation_date'] = pd.to_datetime(df['creation_date'])
@@ -44,11 +44,11 @@ for data in group_nonai:
         year2.append(temp)
     repo_num_nonai.append(len(data))
 
-repo_num_ai.append(0)
+
 ai_repo_propotion =[x/(x+y) for x,y in zip(repo_num_ai,repo_num_nonai)]
 print(ai_repo_propotion)
 # plot
-x = np.arange(len(year2)) 
+x = np.arange(len(year)) 
 #x = np.arange(len(year)) 
 x2 = np.arange(len(year2)) 
 fig, ax1 = plt.subplots()
