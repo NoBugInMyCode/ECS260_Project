@@ -1,30 +1,19 @@
 import pandas as pd
-import json
-import os
-import torch
-import torch.nn as nn
-import torch.optim as optim
-from sentence_transformers import SentenceTransformer, util
 import numpy as np
-from sympy.physics.units import length
-from tqdm.auto import tqdm
-from scipy.stats import gaussian_kde
-from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
-from torch.utils.data import DataLoader, TensorDataset
-from sklearn.preprocessing import MinMaxScaler
-from prepare_data import prepare_data
 
+#0.01049
 
-df = pd.read_csv('nonAI_repos.csv')
-df = df.drop(columns=['watchers'])
-df = df.rename(columns={'subscribers': 'watchers'})
-features = ['forks', 'watchers', 'releases_count', 'pull_requests', 'readme_size', 'lines_of_codes']
-X_train, X_test, y_train, y_test, _ = prepare_data(df)
-
+df = pd.read_csv('../data/github_repos.csv')
+target = 'popularity_score_2'
+features = ['forks', 'releases_freq', 'pull_requests', 'readme_size', 'lines_of_codes', 'number_of_languages']
+# X_train, X_test, y_train, y_test, _ = prepare_data(df)
+X = df[features]
+y = df[target]
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 rf = RandomForestRegressor(n_estimators=200, random_state=42)
 rf.fit(X_train, y_train)
 
@@ -42,11 +31,11 @@ feature_importance = rf.feature_importances_
 feature_importance_df = pd.DataFrame({'Feature': features, 'Importance': feature_importance})
 feature_importance_df = feature_importance_df.sort_values(by='Importance', ascending=False)
 
-plt.figure(figsize=(12, 6))
+plt.figure(figsize=(15, 6))
 plt.barh(feature_importance_df['Feature'], feature_importance_df['Importance'], color='skyblue')
 plt.xlabel("Feature Importance")
 plt.ylabel("Features")
-plt.title("Feature Importance in Predicting GitHub Stars Non AI Category (Random Forest)")
+plt.title("Random Forest Feature Importance in Predicting GitHub Popularity (y = Popularity Score 2)")
 plt.gca().invert_yaxis()
 plt.show()
 
