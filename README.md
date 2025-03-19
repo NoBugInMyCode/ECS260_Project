@@ -1,10 +1,16 @@
 ## Prepare dataset
 ### Download the collected raw data from [Here]([https://pages.github.com/](https://drive.google.com/file/d/153bKA1P7AaAtN6ituYQetku5FPed-g-5/view?usp=drive_link)) and decompress it and rename the folder to "data".
 
-### Preprocess the raw data by
+### Preprocess the raw data
 
 ```
 python3 data_cleaning.py
+```
+
+### Classify repositories into AI and non-AI classes. The code will also output the class size & the corresponding average popularity scores.
+
+```
+python3 hypothesis_test.py
 ```
 
 
