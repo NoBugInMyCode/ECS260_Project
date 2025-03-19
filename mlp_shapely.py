@@ -18,6 +18,7 @@ import shap
 
 analysis_csv = "AI_repos.csv"
 checkpoint_name = "checkpoint_AI_top3000.h5"
+top_repos = True
 
 
 def calculate_correlation(analysis_csv):
@@ -52,7 +53,9 @@ def prepare_data(analysis_csv):
 
     # Convert int64 to float32
     df_cleaned = convert_columns_to_float32(df_cleaned, input_columns+[target_column])
-    df_cleaned = df_cleaned.sort_values(by="stars", ascending=False).head(3000)
+    
+    if top_repos:
+        df_cleaned = df_cleaned.sort_values(by="stars", ascending=False).head(3000)
 
 
     # Extract the input and target data
