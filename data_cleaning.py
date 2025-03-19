@@ -2,9 +2,6 @@ import json
 import os
 import numpy as np
 import pandas as pd
-# from sentence_transformers import SentenceTransformer, util
-
-import seaborn as sns
 from scipy.stats import gaussian_kde
 import matplotlib.pyplot as plt
 
@@ -36,16 +33,22 @@ def calculate_lines_of_codes(languages):
     return 0
 
 
-def calculate_popularity_score_1(stars, forks, pull_requests):
-    return stars + forks + pull_requests * pull_requests
+def calculate_num_of_languages(languages):
+    if isinstance(languages, dict):
+        return len(languages.keys())
+    return 0
 
 
-def calculate_popularity_score_2(watchers, pull_requests):
-    return watchers + pull_requests * pull_requests
+def calculate_popularity_score_1(stars, watchers, forks):
+    return stars + watchers + forks
 
 
-def calculate_popularity_score_3(stars, forks):
-    return stars + forks
+def calculate_popularity_score_2(stars, watchers):
+    return stars + watchers
+
+
+# def calculate_popularity_score_3(stars, forks):
+#     return stars + forks
 
 
 
@@ -148,52 +151,53 @@ if __name__ == "__main__":
     print(f"Raw data size {len(df)}\n")
 
 
+
+    df.drop(columns=['watchers'], inplace=True)
+    df.rename(columns={'subscribers': 'watchers'}, inplace=True)
+
+
     df["readme_size"] = df["readme"].apply(calculate_readme_size)
     df["commits_freq"] = df["commits"].apply(calculate_commits_freq)
     df["releases_freq"] = df["releases"].apply(calculate_releases_freq)
     df["lines_of_codes"] = df["languages"].apply(calculate_lines_of_codes)
-    df["popularity_score_1"] = df.apply(lambda row: calculate_popularity_score_1(row["stars"], row["forks"], row["pull_requests"]), axis=1)
-    df["popularity_score_2"] = df.apply(lambda row: calculate_popularity_score_2(row["watchers"], row["pull_requests"]), axis=1)
-    df["popularity_score_3"] = df.apply(lambda row: calculate_popularity_score_3(row["stars"], row["forks"]), axis=1)
+    df["number_of_languages"] = df["languages"].apply(calculate_num_of_languages)
+    df["popularity_score_1"] = df.apply(lambda row: calculate_popularity_score_1(row["stars"], row["watchers"], row["forks"]), axis=1)
+    df["popularity_score_2"] = df.apply(lambda row: calculate_popularity_score_2(row["stars"], row["watchers"]), axis=1)
 
 
-    languages = []
-    for repo_languages in df["languages"]:
-        if isinstance(repo_languages, dict):  # 确保 repo_languages 是字典类型
-            for repo_language in repo_languages:
-                if repo_language not in languages:
-                    languages.append(repo_language)
-    print(f"There are total {len(languages)} languages \n")
+    # languages = []
+    # for repo_languages in df["languages"]:
+    #     print(repo_languages)
+    #     print("\n")
+    #     if isinstance(repo_languages, dict):  # 确保 repo_languages 是字典类型
+    #         for repo_language in repo_languages:
+    #             if repo_language not in languages:
+    #                 languages.append(repo_language)
+    # print(f"There are total {len(languages)} languages \n")
 
-    df.to_csv('data_original.csv', index=False)
-
-
-
-    df_original = pd.read_csv("data_original.csv")
-
-    df_original.drop(columns=['watchers'], inplace=True)
-    df_original.rename(columns={'subscribers': 'watchers'}, inplace=True)
-
-    df_original.to_csv('data_original_v2.csv', index=False)
-
-    df_cleaned, df = detect_and_remove_outliers(df_original, feature_columns=["forks", "watchers", "stars",  "releases_freq",  "pull_requests",  "readme_size", "lines_of_codes"], ratio=1.5)
-    df_cleaned.to_csv('data_cleaned.csv', index=False)
+    # df.to_csv('data_original.csv', index=False)
 
 
-    df_cleaned = pd.read_csv("data_cleaned.csv")
+    df.to_csv('github_repos.csv', index=False)
+
+    # df_cleaned, df = detect_and_remove_outliers(df_original, feature_columns=["forks", "watchers", "stars",  "releases_freq",  "pull_requests",  "readme_size", "lines_of_codes"], ratio=1.5)
+    # df_cleaned.to_csv('data_cleaned.csv', index=False)
 
 
-    # List of feature columns
-    feature_columns = ["forks", "watchers", "stars", "releases_freq", "pull_requests", "readme_size", "lines_of_codes"]
+    # df_cleaned = pd.read_csv("data_cleaned.csv")
 
-    # Compute statistics for original and cleaned dataframes
-    stats_original = df_original[feature_columns].describe().loc[["min", "mean", "max"]]
-    stats_cleaned = df_cleaned[feature_columns].describe().loc[["min", "mean", "max"]]
 
-    # Combine results for comparison
-    print("Original size: {}".format(len(df_original)))
-    print(stats_original)
-    print("\n")
-    print("Cleaned size: {}".format(len(df_cleaned)))
-    print(stats_cleaned)
-    print("\n")
+    # # List of feature columns
+    # feature_columns = ["forks", "watchers", "stars", "releases_freq", "pull_requests", "readme_size", "lines_of_codes"]
+
+    # # Compute statistics for original and cleaned dataframes
+    # stats_original = df_original[feature_columns].describe().loc[["min", "mean", "max"]]
+    # stats_cleaned = df_cleaned[feature_columns].describe().loc[["min", "mean", "max"]]
+
+    # # Combine results for comparison
+    # print("Original size: {}".format(len(df_original)))
+    # print(stats_original)
+    # print("\n")
+    # print("Cleaned size: {}".format(len(df_cleaned)))
+    # print(stats_cleaned)
+    # print("\n")
