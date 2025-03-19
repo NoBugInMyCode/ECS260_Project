@@ -15,6 +15,9 @@ python3 hypothesis_test.py
 
 
 #### Run MLP training, testing, and Shapley Values analysis
+- Line 19: Determine which dataset (All GitHub repos, AI-class repos, or non-AI class repos) to analyze.
+- Line 20: Determine the model checkpoint name
+- Line 21: Set to True if analyze only the top-3000 repos.
 
 ```
 python3 mlp_shapley.py
